@@ -171,6 +171,22 @@
     background:var(--bg); border:1px solid var(--line); border-radius:8px; padding:6px 10px;
   }
   .newbar{ margin-bottom:14px; }
+  .trash{ margin-top:26px; border-top:1px solid var(--line); padding-top:14px; }
+  .trow{ display:flex; align-items:center; justify-content:space-between; gap:10px;
+         padding:6px 0; border-bottom:1px solid var(--line); }
+  .trow:last-child{ border-bottom:0; }
+  .disk{ margin-top:18px; }
+  .disk[data-warn="true"]{
+    border:1px solid var(--wood); border-radius:12px; padding:12px 14px; background:var(--wood-soft);
+  }
+  .dtitle{ margin:0 0 6px; font-size:13px; font-weight:500; color:var(--wood); }
+  .dlist{ margin:0 0 10px; padding-left:18px; font-size:12.5px; line-height:1.9; }
+  .powner{ display:flex; align-items:center; gap:8px; }
+  .powner select{
+    font:inherit; font-size:12px; color:var(--ink);
+    background:var(--bg); border:1px solid var(--line); border-radius:8px; padding:4px 8px;
+  }
+  .powner select:focus{ outline:none; border-color:var(--wood); }
   .editbar{ margin-top:10px; }
   .donebtn.strong{ color:var(--surface); background:var(--wood); border-color:var(--wood); }
   .editor{
@@ -265,7 +281,6 @@
   }
   .pcount[data-full="true"]{ color:var(--surface); background:var(--sage); border-color:var(--sage); }
   .powner{ margin:0 0 12px; font-size:12px; color:var(--muted); letter-spacing:.04em; }
-  .powner b{ color:var(--ink); font-weight:500; }
   .passet{ font-size:12.5px; color:var(--muted); margin:10px 0 0; }
   .done-bar{ border-top:1px solid var(--line); padding-top:12px; margin-top:14px; }
   .prow{ display:flex; gap:10px; align-items:flex-start; }
@@ -618,6 +633,11 @@
           addPart:"Add a part", rmPart:"Remove", saving:"Saving\u2026",
           savedTo:"Saved to the repository", savedHere:"Saved on this device only",
           saveFail:"Could not save",
+          restore:"Restore", trash:"Recently deleted", emptyTrash:"Nothing deleted",
+          diskTitle:"Storage on this device", diskFull:"Almost full",
+          diskAct1:"Connect the media store, then clear what is already shared",
+          diskAct2:"Delete images you no longer need",
+          clearShared:"Clear shared files from this device", cleared:"Cleared", used:"used",
           all:"All", loading:"Loading…", none:"Nothing here yet.",
           fail:"Could not load the source.", back:"← All posts",
           draft:"Draft", live:"Posted", open:"Open channel",
@@ -658,6 +678,11 @@
           addPart:"파트 추가", rmPart:"제거", saving:"저장 중\u2026",
           savedTo:"저장소에 저장됨", savedHere:"이 기기에만 저장됨",
           saveFail:"저장하지 못했어",
+          restore:"복원", trash:"최근 삭제", emptyTrash:"삭제한 것 없음",
+          diskTitle:"이 기기의 저장 공간", diskFull:"거의 찼어",
+          diskAct1:"저장소를 연결하고, 이미 공유된 파일을 지우기",
+          diskAct2:"필요 없는 이미지 삭제",
+          clearShared:"공유된 파일을 이 기기에서 지우기", cleared:"지웠어", used:"사용",
           all:"전체", loading:"불러오는 중…", none:"아직 없습니다.",
           fail:"원본을 불러오지 못했습니다.", back:"← 목록으로",
           draft:"초안", live:"게시함", open:"채널 열기",
@@ -698,6 +723,11 @@
           addPart:"連投を足す", rmPart:"外す", saving:"保存しています\u2026",
           savedTo:"元のファイルに保存した", savedHere:"この端末にだけ保存した",
           saveFail:"保存できなかった",
+          restore:"戻す", trash:"最近消したもの", emptyTrash:"消したものはない",
+          diskTitle:"この端末の空き", diskFull:"もう少しで一杯",
+          diskAct1:"置き場をつなぎ、共有ずみのものを端末から消す",
+          diskAct2:"要らない画像を消す",
+          clearShared:"共有ずみのものを端末から消す", cleared:"消した", used:"使用",
           all:"すべて", loading:"読み込んでいます…", none:"まだ何もありません。",
           fail:"原本を読み込めませんでした。", back:"← 一覧へ",
           draft:"下書き", live:"公開ずみ", open:"チャンネルを開く",
@@ -1189,11 +1219,8 @@
     return chanOf(chId) || { name: chId, color: "var(--wood)" };
   }
 
+  // 「今日」「明日」は使わない。見た人が数えなくて済むよう、日付そのものを出す
   function whenLabel(dt) {
-    var today = ymd(new Date());
-    var tm = new Date(); tm.setDate(tm.getDate() + 1);
-    if (dt === today) return t("today");
-    if (dt === ymd(tm)) return t("tomorrow");
     var d = new Date(dt + "T00:00:00");
     return (d.getMonth() + 1) + "/" + d.getDate() + " " + (DOW[lang] || DOW.en)[d.getDay()];
   }
@@ -1234,6 +1261,48 @@
   }
 
 
+
+  // 端末の空きを見る。7割を超えたら、何をすればよいかを出す
+  function diskNote() {
+    if (!navigator.storage || !navigator.storage.estimate) return Promise.resolve(null);
+    return navigator.storage.estimate().then(function (e) {
+      if (!e || !e.quota) return null;
+      return { used: e.usage || 0, quota: e.quota, ratio: (e.usage || 0) / e.quota };
+    }).catch(function () { return null; });
+  }
+  function mb(n) { return Math.round(n / 1048576) + " MB"; }
+
+  function renderDisk() {
+    var box = document.getElementById("diskBox");
+    if (!box) return;
+    diskNote().then(function (d) {
+      if (!d) { box.hidden = true; return; }
+      var pct = Math.round(d.ratio * 100);
+      box.hidden = false;
+      if (d.ratio < 0.7) {
+        box.setAttribute("data-warn", "false");
+        box.innerHTML = '<span class="tiny">' + esc(t("diskTitle")) + " · " +
+          pct + "% " + esc(t("used")) + " (" + mb(d.used) + " / " + mb(d.quota) + ')</span>';
+        return;
+      }
+      box.setAttribute("data-warn", "true");
+      box.innerHTML = '<p class="dtitle">' + esc(t("diskFull")) + " · " + pct + "%" +
+        ' <span class="tiny">(' + mb(d.used) + " / " + mb(d.quota) + ')</span></p>' +
+        '<ol class="dlist"><li>' + esc(t("diskAct1")) + '</li><li>' + esc(t("diskAct2")) + '</li></ol>' +
+        '<div class="bar"><button id="clrShared" class="donebtn">' + esc(t("clearShared")) + '</button>' +
+        '<span class="tiny" id="clrOut"></span></div>';
+    });
+  }
+
+  // 置き場に上がっているものは、端末から消してよい
+  function clearShared() {
+    var shared = {};
+    try { shared = JSON.parse(localStorage.getItem("remitech-media-url") || "{}"); } catch (e) {}
+    var keys = Object.keys(shared);
+    return keys.reduce(function (chain, k) {
+      return chain.then(function () { return dbDel(k); });
+    }, Promise.resolve()).then(function () { return keys.length; });
+  }
 
   var OWNERS = ["", "SuHa", "EunYeong", "JiSeong", "HyeJeong", "SeoHyeon",
                 "GyeonJae", "Masato", "SungJin"];
@@ -1453,7 +1522,8 @@
   function saveSchedule(note) {
     var body = {
       channel: schedule.channel, months: schedule.months,
-      timezone: schedule.timezone, note: schedule.note, slots: schedule.slots,
+      timezone: schedule.timezone, note: schedule.note,
+      slots: schedule.slots, trash: schedule.trash || [],
     };
     body.months = [];
     schedule.slots.forEach(function (x) {
@@ -1553,7 +1623,7 @@
 
     // チャンネルごとの定型文（押すと写せる）
     channels.forEach(function (c) {
-      if (filter && filter !== c.id) return;
+      if (filter !== c.id) return;        // 全体では出さない。選んだときだけ
       (c.snippets || []).forEach(function (sn, si) {
         html += '<div class="snip" style="--chc:' + esc(c.color || "var(--wood)") + '">' +
           '<div class="phead snhead"><span class="who">' + esc(c.name) + '</span>' +
@@ -1614,8 +1684,12 @@
           '<span class="chev">›</span>' +
         '</div>' +
         '<div class="pbody">' +
-        '<p class="powner">' + esc(t("fOwner")) + " · " +
-          '<b>' + esc(sl.owner || t("noOwner")) + '</b></p>' +
+        '<p class="powner"><span>' + esc(t("fOwner")) + '</span>' +
+          '<select class="ownerSel" data-k="' + esc(slotKey(sl)) + '">' +
+          OWNERS.map(function (v) {
+            return '<option value="' + esc(v) + '"' + (v === (sl.owner || "") ? " selected" : "") + '>' +
+                   esc(v || t("noOwner")) + '</option>';
+          }).join("") + '</select></p>' +
         '<div class="ptexts">' +
         (parts
           ? parts.map(function (pt, k) {
@@ -1672,7 +1746,21 @@
         '</div>';
       html += '</div></div>';
     });
+    var tr = (schedule.trash || []).slice().reverse();
+    html += '<div class="trash"><p class="plabel">' + esc(t("trash")) + '</p>' +
+      (tr.length
+        ? tr.map(function (x) {
+            return '<div class="trow"><span class="tiny">' + esc(x.date) + " · " +
+              esc(x.platform || "X") + " · " + esc(x.time) +
+              (x.label ? " · " + esc(x.label) : "") + '</span>' +
+              '<button class="donebtn restore" data-k="' + esc(slotKey(x)) + '">' +
+              esc(t("restore")) + '</button></div>';
+          }).join("")
+        : '<p class="tiny">' + esc(t("emptyTrash")) + '</p>') +
+      '</div><div class="disk" id="diskBox" hidden></div>';
+
     view.innerHTML = html + '</div>';
+    renderDisk();
     fillMedia();
   }
 
@@ -1896,6 +1984,24 @@
 
   view.addEventListener("click", function (e) {
     if (e.target.id === "newSlot") { editing = {}; renderPrep(); return; }
+    if (e.target.id === "clrShared") {
+      var co = document.getElementById("clrOut");
+      clearShared().then(function (n) { co.textContent = t("cleared") + " · " + n; renderDisk(); });
+      return;
+    }
+    var rs = e.target.closest(".restore");
+    if (rs) {
+      var rk = rs.getAttribute("data-k");
+      var back = (schedule.trash || []).filter(function (x) { return slotKey(x) === rk; })[0];
+      if (!back) return;
+      schedule.trash = (schedule.trash || []).filter(function (x) { return slotKey(x) !== rk; });
+      schedule.slots = (schedule.slots || []).concat([back]).sort(function (a, b) {
+        return (a.date + a.time + (a.platform || "")) < (b.date + b.time + (b.platform || "")) ? -1 : 1;
+      });
+      saveSchedule("schedule: restore " + rk).then(function () { renderPrep(); },
+                   function () { renderPrep(); });
+      return;
+    }
     if (e.target.id === "eCancel") { editing = null; renderPrep(); return; }
     if (e.target.id === "eAddPart") {
       var wrap = document.getElementById("ePartWrap");
@@ -1925,6 +2031,8 @@
         return;
       }
       var kk = dl.getAttribute("data-k");
+      var gone = (schedule.slots || []).filter(function (x) { return slotKey(x) === kk; })[0];
+      if (gone) schedule.trash = (schedule.trash || []).concat([gone]).slice(-30);
       schedule.slots = (schedule.slots || []).filter(function (x) { return slotKey(x) !== kk; });
       saveSchedule("schedule: remove " + kk).then(function () { renderPrep(); },
                    function () { renderPrep(); });
@@ -2054,6 +2162,12 @@
   });
 
   view.addEventListener("change", function (e) {
+    if (e.target.classList && e.target.classList.contains("ownerSel")) {
+      var ok = e.target.getAttribute("data-k");
+      var sl4 = (schedule.slots || []).filter(function (x) { return slotKey(x) === ok; })[0];
+      if (sl4) { sl4.owner = e.target.value; saveSchedule("schedule: owner " + ok); }
+      return;
+    }
     if (e.target.classList && e.target.classList.contains("mfile")) {
       takeFile(e.target.getAttribute("data-mk"), e.target.files && e.target.files[0]);
       return;
