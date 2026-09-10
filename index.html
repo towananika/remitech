@@ -2797,7 +2797,19 @@
             schedule = sc;
             try {
               var mine = JSON.parse(localStorage.getItem("remitech-schedule") || "null");
-              if (mine && mine.slots && mine.slots.length) schedule = mine;   // 取り込んだものが優先
+              if (mine && mine.slots && mine.slots.length) {
+                if (!schedule || !schedule.slots || !schedule.slots.length) {
+                  schedule = mine;   // 置き場が読めないときだけ、端末のものを使う
+                } else {
+                  // 置き場のほうを正とする。端末にしかない枠（まだ同期できていない分）だけ足す
+                  var haveKey = {};
+                  schedule.slots.forEach(function (x) { haveKey[slotKey(x)] = 1; });
+                  mine.slots.forEach(function (x) {
+                    if (!haveKey[slotKey(x)]) { schedule.slots.push(x); haveKey[slotKey(x)] = 1; }
+                  });
+                  try { localStorage.setItem("remitech-schedule", JSON.stringify(schedule)); } catch (e2) {}
+                }
+              }
             } catch (e) {}
             renderChans(); route();
           });
