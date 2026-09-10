@@ -11,17 +11,17 @@
 <style>
   :root{
     --bg:#f5f1e9; --surface:#fbf9f4; --line:#e2dac8;
-    --ink:#231f1a; --muted:#645c4e; --wood:#93704b; --wood-soft:#ece1d0; --sage:#7d8c6a;
+    --ink:#231f1a; --muted:#645c4e; --wood:#93704b; --wood-soft:#ece1d0; --sage:#7d8c6a; --todaybg:#f3ebdd; --wkndbg:#f2efe7;
     --mincho:"Shippori Mincho","Hiragino Mincho ProN",serif;
     --gothic:"Zen Kaku Gothic New","Hiragino Sans","Yu Gothic",system-ui,sans-serif;
   }
   @media (prefers-color-scheme:dark){ :root:not([data-theme="light"]){
     --bg:#1c1a16; --surface:#242119; --line:#38332a;
-    --ink:#f2eee5; --muted:#b6ad99; --wood:#c99f74; --wood-soft:#382d20; --sage:#9aab84;
+    --ink:#f2eee5; --muted:#b6ad99; --wood:#c99f74; --wood-soft:#382d20; --sage:#9aab84; --todaybg:#2b2318; --wkndbg:#221f19;
   }}
   :root[data-theme="dark"]{
     --bg:#1c1a16; --surface:#242119; --line:#38332a;
-    --ink:#f2eee5; --muted:#b6ad99; --wood:#c99f74; --wood-soft:#382d20; --sage:#9aab84;
+    --ink:#f2eee5; --muted:#b6ad99; --wood:#c99f74; --wood-soft:#382d20; --sage:#9aab84; --todaybg:#2b2318; --wkndbg:#221f19;
   }
   *{box-sizing:border-box}
   body{
@@ -86,21 +86,29 @@
   .nav button[aria-pressed="true"]{ color:var(--ink); border-bottom-color:var(--wood); }
 
   /* ---- KPI ---- */
-  .kpi{ max-width:620px; }
+  .kpi{ max-width:640px; }
   .kcard{
     border:1px solid var(--line); border-left:3px solid var(--chc, var(--wood));
     border-radius:14px; background:var(--surface); padding:14px 16px; margin-bottom:10px;
   }
-  .khead{ display:flex; align-items:center; gap:8px; margin-bottom:10px; }
-  .khead .who{ font-weight:500; font-size:14px; color:var(--chc, var(--ink)); }
-  .knums{ display:flex; gap:20px; flex-wrap:wrap; }
-  .knum{ min-width:92px; }
-  .knum .lbl{ display:block; font-size:11.5px; color:var(--muted); letter-spacing:.04em; }
-  .knum .val{ font-size:20px; font-weight:500; font-variant-numeric:tabular-nums; }
-  .knum .dif{ font-size:11.5px; margin-left:6px; font-variant-numeric:tabular-nums; }
-  .knum .dif[data-up="true"]{ color:var(--sage); }
-  .knum .dif[data-up="false"]{ color:#b4553f; }
-  .kwhen{ font-size:11.5px; color:var(--muted); margin:10px 0 0; }
+  .khead{ display:flex; align-items:center; gap:8px; margin-bottom:6px; }
+  .khead .who{ font-weight:500; font-size:13.5px; color:var(--chc, var(--ink)); }
+  .khead .kdate{ margin-left:auto; font-size:11px; color:var(--muted);
+                 font-variant-numeric:tabular-nums; }
+  .kbody{ display:flex; align-items:flex-end; justify-content:space-between; gap:16px; }
+  .kmain{ flex:0 0 auto; }
+  .kmain .lbl{ display:block; font-size:11.5px; color:var(--muted); letter-spacing:.04em; }
+  .kmain .val{ font-size:26px; font-weight:500; font-variant-numeric:tabular-nums; line-height:1.2; }
+  .kmain .dif{ font-size:12px; margin-left:7px; font-variant-numeric:tabular-nums; }
+  .kmain .dif[data-up="true"]{ color:var(--sage); }
+  .kmain .dif[data-up="false"]{ color:#b4553f; }
+  .kchart{ flex:1 1 120px; max-width:180px; height:40px; }
+  .spark{ width:100%; height:40px; display:block; overflow:visible; }
+  .spark .sl{ fill:none; stroke:var(--chc, var(--wood)); stroke-width:1.5;
+              stroke-linecap:round; stroke-linejoin:round; }
+  .spark .sa{ fill:var(--chc, var(--wood)); opacity:.10; stroke:none; }
+  .spark .sd{ fill:var(--chc, var(--wood)); }
+  .ksub{ margin:10px 0 0; font-size:12px; color:var(--muted); }
 
   /* ---- booking board ---- */
   .book{ max-width:560px; }
@@ -171,63 +179,75 @@
   /* ---- week grid ---- */
   .gridwrap{ overflow-x:auto; border:1px solid var(--line); border-radius:14px;
              background:var(--surface); }
-  .grid{ border-collapse:collapse; width:100%; min-width:620px; table-layout:fixed; }
-  .grid th, .grid td{ border-bottom:1px solid var(--line); padding:8px 10px; text-align:center; }
-  .grid th.rowhead{ width:150px; border-left:3px solid var(--chc, var(--wood)); }
-  .grid tbody tr th.rowhead b{ color:var(--chc, var(--ink)); }
-  .grid tbody tr.chstart th.rowhead{ border-top:2px solid var(--line); }
-  /* 広い画面では7日ぶんを必ず収める。横スクロールは出さない */
-  @media (min-width:820px){
-    .grid{ min-width:0; }
-    .grid th, .grid td{ padding:10px 6px; }
-    .grid thead th .dnum{ font-size:16px; }
-    .cell{ min-width:0; width:100%; }
-    .cell .lb2{ max-width:100%; font-size:11.5px; }
-    .matbtn{ font-size:11px; padding:3px 8px; }
-    .mk{ font-size:11.5px; padding:3px 6px; }
-    .gridwrap{ overflow-x:hidden; }
-    .grid th.rowhead{ width:140px; }
+  .grid{ border-collapse:collapse; width:100%; min-width:660px; table-layout:fixed; }
+  .grid th, .grid td{ padding:0; text-align:center; vertical-align:top; }
+  .grid td{ border-left:1px solid var(--line); border-bottom:1px solid var(--line); }
+  .grid tbody tr:last-child td{ border-bottom:0; }
+
+  .grid thead th{
+    padding:11px 6px 9px; font-weight:400;
+    border-bottom:1px solid var(--line); border-left:1px solid var(--line);
   }
-  .grid tr:last-child td{ border-bottom:0; }
-  .grid thead th{ font-weight:500; font-size:12.5px; color:var(--muted); letter-spacing:.02em; }
-  .grid thead th .dnum{ display:block; color:var(--ink); font-size:15px; font-variant-numeric:tabular-nums; }
-  .grid thead th.today .dnum{ color:var(--wood); }
+  .grid thead th:first-child{ border-left:0; }
+  .grid thead th .dow{ display:block; font-size:11px; color:var(--muted); letter-spacing:.08em; }
+  .grid thead th .dnum{ display:block; margin-top:2px; color:var(--ink);
+                        font-size:15px; font-weight:500; font-variant-numeric:tabular-nums; }
   .grid thead th.today{ background:var(--wood-soft); }
+  .grid thead th.today .dnum{ color:var(--wood); }
+  .grid thead th.wknd .dnum{ color:var(--muted); }
+  .grid td.todayc{ background:var(--todaybg); }
+  .grid td.wknd{ background:var(--wkndbg); }
+  .grid td.todayc.wknd{ background:var(--todaybg); }
+
   .grid th.rowhead{
     position:sticky; left:0; z-index:2; background:var(--surface);
-    text-align:left; white-space:nowrap; border-right:1px solid var(--line);
+    width:132px; text-align:left; padding:10px 10px 10px 11px;
+    border-left:3px solid var(--chc, var(--wood));
+    border-right:1px solid var(--line); border-bottom:1px solid var(--line);
   }
-  .grid th.rowhead b{ display:block; font-size:13px; font-weight:500; color:var(--ink); }
-  .grid th.rowhead span{ font-size:12px; color:var(--muted); font-variant-numeric:tabular-nums; }
-  .cell{ display:inline-flex; flex-direction:column; align-items:center; gap:4px; min-width:56px; }
-  .cell .lb2{ font-size:11px; color:var(--muted); max-width:96px;
-              overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
-  .mk{ width:100%; font-size:11px; font-weight:500; border-radius:999px;
-       border:1px solid var(--line); padding:2px 6px; color:var(--muted); }
+  .grid tbody tr:last-child th.rowhead{ border-bottom:0; }
+  .grid tbody tr.chstart th.rowhead,
+  .grid tbody tr.chstart td{ border-top:2px solid var(--line); }
+  .grid th.rowhead b{ display:flex; align-items:center; gap:5px; font-weight:500; }
+  .grid th.rowhead .chn{ font-size:12.5px; color:var(--chc, var(--ink)); }
+  .grid th.rowhead .rt{ display:block; margin-top:3px; font-size:13px;
+                        color:var(--ink); font-variant-numeric:tabular-nums; }
+  .grid th.rowhead .rl{ display:block; font-size:11px; color:var(--muted); }
+
+  .cell{ display:block; padding:8px 6px; }
+  .mk{
+    display:block; font-size:11px; font-weight:500; line-height:1.5;
+    border-radius:7px; border:1px solid var(--line); padding:3px 4px; color:var(--muted);
+    white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+  }
+  .mk .ok{ font-style:normal; margin-left:4px; }
   .mk[data-s="text"]{ color:var(--wood); border-color:var(--wood); }
   .mk[data-s="ready"]{ color:var(--surface); background:var(--wood); border-color:var(--wood); }
   .mk[data-s="sched"]{ color:var(--ink); border-color:var(--ink); }
   .mk[data-s="done"]{ color:var(--surface); background:var(--sage); border-color:var(--sage); }
   .mk[data-s="late"]{ color:var(--surface); background:#b4553f; border-color:#b4553f; }
-  .cellmats{ display:flex; gap:4px; justify-content:center; flex-wrap:wrap; }
-  .matbtn{
-    background:none; border:1px solid var(--line); border-radius:999px;
-    color:var(--muted); font:inherit; font-size:10.5px; padding:2px 8px; cursor:pointer;
-    white-space:nowrap;
+
+  .cellfoot{ display:flex; align-items:center; gap:5px; margin-top:5px; }
+  .lb2{ flex:1 1 auto; min-width:0; font-size:10.5px; color:var(--muted); text-align:left;
+        overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .cellmats{ display:flex; gap:3px; flex:0 0 auto; }
+  .mt{
+    width:17px; height:17px; padding:0; line-height:15px; cursor:pointer;
+    background:none; border:1px solid var(--line); border-radius:5px;
+    color:var(--muted); font:inherit; font-size:9.5px; font-weight:500;
   }
-  .matbtn:hover{ border-color:var(--wood); color:var(--ink); }
-  .matbtn[data-on="true"]{ color:var(--surface); background:var(--sage); border-color:var(--sage); }
-  .pf{
-    display:inline-block; font-style:normal; font-size:9.5px; letter-spacing:.08em;
-    border:1px solid var(--line); border-radius:4px; padding:0 4px; margin-right:6px;
-    color:var(--muted); vertical-align:1px;
+  .mt:hover{ border-color:var(--wood); color:var(--ink); }
+  .mt[data-on="true"]{ color:var(--surface); background:var(--sage); border-color:var(--sage); }
+  .none{ display:block; padding:14px 0; color:var(--line); font-size:14px; }
+
+  @media (min-width:820px){
+    .grid{ min-width:0; }
+    .gridwrap{ overflow-x:hidden; }
+    .cell{ padding:9px 8px; }
+    .mk{ font-size:11.5px; padding:4px 6px; }
+    .lb2{ font-size:11px; }
+    .grid thead th .dnum{ font-size:16px; }
   }
-  .pf[data-p="IG"]{ color:var(--wood); border-color:var(--wood); }
-  .pf[data-p="FB"]{ color:#5b7bb4; border-color:#5b7bb4; }
-  .pf[data-p="TT"]{ color:#9a7fb8; border-color:#9a7fb8; }
-  .pf[data-p="YT"]{ color:#b4553f; border-color:#b4553f; }
-  /* チャンネルが変わる行に区切りを入れる */
-  .grid tbody tr.chstart td, .grid tbody tr.chstart th{ border-top:2px solid var(--line); }
 
   /* ---- dashboard ---- */
   .sum{ background:var(--surface); border:1px solid var(--line); border-radius:14px;
@@ -671,8 +691,9 @@
     var head = '<tr><th class="rowhead"></th>';
     days.forEach(function (d) {
       var isToday = d.toDateString() === now.toDateString();
-      head += '<th class="' + (isToday ? "today" : "") + '">' +
-        (DOW[lang] || DOW.en)[d.getDay()] +
+      var wk = (d.getDay() === 0 || d.getDay() === 6) ? " wknd" : "";
+      head += '<th class="' + (isToday ? "today" : "") + wk + '">' +
+        '<span class="dow">' + (DOW[lang] || DOW.en)[d.getDay()] + '</span>' +
         '<span class="dnum">' + (d.getMonth() + 1) + "/" + d.getDate() + '</span></th>';
     });
     head += "</tr>";
@@ -684,15 +705,22 @@
       var col = row.ch.color || "var(--wood)";
       body += '<tr class="' + (first ? "chstart" : "") + '" data-ch="' + esc(row.ch.id) +
               '" style="--chc:' + esc(col) + '"><th class="rowhead">' +
-              '<b>' + pf + esc(row.ch.name) + '</b>' +
-              '<span>' + esc(row.time) + (row.label ? " \u00b7 " + esc(row.label) : "") + '</span></th>';
+              '<b>' + pf + '<span class="chn">' + esc(row.ch.name) + '</span></b>' +
+              '<span class="rt">' + esc(row.time) + '</span>' +
+              (row.label ? '<span class="rl">' + esc(row.label) + '</span>' : "") + '</th>';
       days.forEach(function (d) {
+        var isToday = ymd(d) === ymd(now);
+        var isWknd = (d.getDay() === 0 || d.getDay() === 6);
         var mine = row.ch.id === (schedule.channel || "hiyoko");
         var sl = mine ? (schedule.slots || []).filter(function (x) {
           return x.date === ymd(d) && x.time === row.time &&
                  (x.platform || "X") === (row.platform || "X");
         })[0] : null;
-        if (!sl) { body += "<td></td>"; return; }
+        if (!sl) {
+          body += '<td class="' + (isToday ? "todayc " : "") + (isWknd ? "wknd" : "") +
+                  '"><span class="none">·</span></td>';
+          return;
+        }
 
         var hh = row.time.split(":");
         var when = new Date(d.getFullYear(), d.getMonth(), d.getDate(), +hh[0], +hh[1]);
@@ -700,20 +728,25 @@
         counts[st]++;
         var label = sl.label || ((sl.text && (sl.text[lang] || sl.text.en || sl.text.ja)) || "").split(NLC)[0];
         var mm = matGet(sl);
+        // 材料は小さな四角にする。文字のボタンだと1行に14個並んで画面が埋まった
         var mats = (sl.need || ["text"]).map(function (k) {
           var on = !!mm[k];
-          return '<button class="matbtn" data-on="' + on + '"' +
+          return '<button class="mt" data-on="' + on + '"' +
                  ' data-date="' + esc(sl.date) + '" data-pf="' + esc(sl.platform || "X") +
                  '" data-time="' + esc(sl.time) + '" data-kind="' + k + '"' +
                  ' title="' + esc(t(k === "text" ? "matText" : "matImage")) + '">' +
-                 (on ? "\u2713 " : "") + esc(t(k === "text" ? "matText" : "matImage")) + '</button>';
+                 (k === "text" ? "T" : "I") + '</button>';
         }).join("");
-        var ck = isChecked(sl) ? ' ✓' : "";
-        body += '<td><span class="cell">' +
-                '<span class="mk" data-s="' + st + '">' + ck +
-                esc(t("st" + st.charAt(0).toUpperCase() + st.slice(1))) + '</span>' +
-                '<span class="lb2">' + esc(label || "\u2014") + '</span>' +
-                '<span class="cellmats">' + mats + '</span></span></td>';
+        var ck = isChecked(sl) ? '<i class="ok">✓</i>' : "";
+        body += '<td class="' + (isToday ? "todayc " : "") + (isWknd ? "wknd" : "") + '">' +
+                '<div class="cell">' +
+                  '<div class="mk" data-s="' + st + '">' +
+                    esc(t("st" + st.charAt(0).toUpperCase() + st.slice(1))) + ck + '</div>' +
+                  '<div class="cellfoot">' +
+                    '<span class="lb2">' + esc(label || "—") + '</span>' +
+                    '<span class="cellmats">' + mats + '</span>' +
+                  '</div>' +
+                '</div></td>';
       });
       body += "</tr>";
     });
@@ -1042,6 +1075,26 @@
   // 各チャンネルのフォロワーとフォロー。前回計測との差を出す
   var kpi = null;
 
+  // 折れ線。点が1つしかない間は横線と点だけを出す
+  function spark(vals, w, h) {
+    if (!vals.length) return "";
+    var min = Math.min.apply(null, vals), max = Math.max.apply(null, vals);
+    var pad = 4, span = (max - min) || 1;
+    function x(k) { return vals.length < 2 ? w / 2 : pad + k * (w - pad * 2) / (vals.length - 1); }
+    function y(v) { return h - pad - (v - min) / span * (h - pad * 2); }
+    var pts = vals.map(function (v, k) { return x(k).toFixed(1) + "," + y(v).toFixed(1); });
+    var line = vals.length < 2
+      ? '<line x1="' + pad + '" y1="' + y(vals[0]).toFixed(1) + '" x2="' + (w - pad) +
+        '" y2="' + y(vals[0]).toFixed(1) + '" class="sl"></line>'
+      : '<polyline points="' + pts.join(" ") + '" class="sl"></polyline>' +
+        '<polygon points="' + pts.join(" ") + " " + x(vals.length - 1).toFixed(1) + "," + (h - pad) +
+        " " + x(0).toFixed(1) + "," + (h - pad) + '" class="sa"></polygon>';
+    var last = vals[vals.length - 1];
+    return '<svg class="spark" viewBox="0 0 ' + w + " " + h + '" preserveAspectRatio="none">' +
+      line + '<circle cx="' + x(vals.length - 1).toFixed(1) + '" cy="' + y(last).toFixed(1) +
+      '" r="2.6" class="sd"></circle></svg>';
+  }
+
   function renderKpi() {
     chansEl.hidden = false;
     if (!kpi || !kpi.rows || !kpi.rows.length) {
@@ -1049,16 +1102,10 @@
       return;
     }
     var rows = kpi.rows.slice().sort(function (a, b) { return a.date < b.date ? -1 : 1; });
-
-    // チャンネル×媒体ごとに、最新と1つ前を取る
     var byKey = {};
-    rows.forEach(function (r) {
-      var k = r.channel + "|" + r.platform;
-      (byKey[k] = byKey[k] || []).push(r);
-    });
+    rows.forEach(function (r) { (byKey[r.channel + "|" + r.platform] = byKey[r.channel + "|" + r.platform] || []).push(r); });
 
-    var html = '<div class="kpi">';
-    var shown = 0;
+    var html = '<div class="kpi">', shown = 0;
     channels.forEach(function (c) {
       if (filter && filter !== c.id) return;
       ["X", "IG", "FB", "TT", "YT"].forEach(function (pf) {
@@ -1066,20 +1113,28 @@
         if (!arr || !arr.length) return;
         shown++;
         var cur = arr[arr.length - 1], prev = arr.length > 1 ? arr[arr.length - 2] : null;
-        function num(lbl, key) {
-          var v = cur[key];
-          if (v === undefined) return "";
-          var dif = prev && prev[key] !== undefined ? v - prev[key] : null;
-          var d = dif === null || dif === 0 ? "" :
-            '<span class="dif" data-up="' + (dif > 0) + '">' + (dif > 0 ? "+" : "") + dif + '</span>';
-          return '<span class="knum"><span class="lbl">' + esc(lbl) + '</span>' +
-                 '<span class="val">' + v.toLocaleString() + '</span>' + d + '</span>';
-        }
+        var fs = arr.map(function (r) { return r.followers; }).filter(function (v) { return typeof v === "number"; });
+        var dif = prev && typeof prev.followers === "number" ? cur.followers - prev.followers : null;
+        var difHtml = (dif === null || dif === 0) ? "" :
+          '<span class="dif" data-up="' + (dif > 0) + '">' + (dif > 0 ? "+" : "") + dif + '</span>';
+
         html += '<div class="kcard" style="--chc:' + esc(c.color || "var(--wood)") + '">' +
-          '<div class="khead"><i class="pf" data-p="' + pf + '">' + pf + '</i>' +
-          '<span class="who">' + esc(c.name) + '</span></div>' +
-          '<div class="knums">' + num(t("followers"), "followers") + num(t("following"), "following") + '</div>' +
-          '<p class="kwhen">' + esc(t("measuredOn")) + " " + esc(cur.date) + '</p></div>';
+          '<div class="khead">' +
+            '<i class="pf" data-p="' + pf + '">' + pf + '</i>' +
+            '<span class="who">' + esc(c.name) + '</span>' +
+            '<span class="kdate">' + esc(cur.date) + '</span>' +
+          '</div>' +
+          '<div class="kbody">' +
+            '<div class="kmain">' +
+              '<span class="lbl">' + esc(t("followers")) + '</span>' +
+              '<span class="val">' + (cur.followers || 0).toLocaleString() + '</span>' + difHtml +
+            '</div>' +
+            '<div class="kchart">' + spark(fs, 120, 40) + '</div>' +
+          '</div>' +
+          (typeof cur.following === "number"
+            ? '<p class="ksub">' + esc(t("following")) + " " + cur.following.toLocaleString() + '</p>'
+            : "") +
+        '</div>';
       });
     });
     view.innerHTML = (shown ? html + '</div>' : '<p class="empty">' + esc(t("noKpi")) + '</p>');
