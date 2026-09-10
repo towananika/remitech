@@ -977,33 +977,6 @@
       "owner": ""
     },
     {
-      "time": "17:00",
-      "type": "text",
-      "label": "",
-      "text": {
-        "ja": "",
-        "en": "",
-        "ko": ""
-      },
-      "asset": "",
-      "note": "",
-      "scheduled": false,
-      "posted": false,
-      "url": "",
-      "need": [
-        "text"
-      ],
-      "check": {
-        "done": false,
-        "at": "",
-        "match": null,
-        "note": ""
-      },
-      "date": "2026-09-10",
-      "platform": "X",
-      "owner": ""
-    },
-    {
       "time": "09:30",
       "type": "text",
       "label": "",
