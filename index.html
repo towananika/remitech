@@ -250,6 +250,11 @@
   }
   .grid th.rowhead b{ flex-wrap:wrap; }
   .grid th.rowhead{ width:150px; }
+  .pverif{
+    display:inline-flex; align-items:center; gap:3px; flex:0 0 auto;
+    font-size:10.5px; font-weight:500; letter-spacing:.02em;
+    color:var(--surface); background:var(--sage); border-radius:999px; padding:2px 8px;
+  }
   .pflag{ font-style:normal; font-size:11px; color:var(--ink); margin-left:2px; }
   @media (prefers-reduced-motion:reduce){ .chev{ transition:none } }
   .phead .who{ font-weight:500; font-size:14px; color:var(--chc, var(--ink)); }
@@ -665,7 +670,7 @@
           navDash:"This week", navBook:"Booking", navPrep:"Prep", navKpi:"KPI", navPosts:"Posts",
           followers:"Followers", following:"Following", measuredOn:"Measured", noKpi:"No numbers yet.",
           allBooked:"All booked", leftToDo:"left", nothingToday:"Nothing scheduled",
-          markSched:"Booked ahead", markPosted:"Posted", markVerified:"Verified", needUrl:"Paste the link first", addFile:"Add image / video", localOnly:"On this device only", onServer:"Shared",
+          markSched:"Booked ahead", markPosted:"Posted", markVerified:"Verified", verifiedTag:"Verified", needUrl:"Paste the link first", addFile:"Add image / video", localOnly:"On this device only", onServer:"Shared",
           storeTitle:"Media store (GitHub)", storeUrl:"owner/repo", storeTok:"Access token", storeSave:"Save",
           storeOk:"Connected", storeNo:"Could not connect", sure:"Delete?", noImg:"No image needed", pickOne:"Random", linkPh:"Paste the link of the post", open:"Open",
           copy:"Copy", copied:"Copied", copyEn:"EN", noText:"No text yet", comment:"Comment",
@@ -710,7 +715,7 @@
           navDash:"이번 주", navBook:"예약", navPrep:"준비", navKpi:"KPI", navPosts:"글",
           followers:"팔로워", following:"팔로잉", measuredOn:"측정일", noKpi:"아직 숫자가 없어.",
           allBooked:"모두 예약됨", leftToDo:"남음", nothingToday:"예정 없음",
-          markSched:"예약 완료", markPosted:"게시 완료", markVerified:"확인 완료", needUrl:"먼저 링크를 붙여넣어", addFile:"이미지 / 영상 추가", localOnly:"이 기기에만", onServer:"공유됨",
+          markSched:"예약 완료", markPosted:"게시 완료", markVerified:"확인 완료", verifiedTag:"확인 완료", needUrl:"먼저 링크를 붙여넣어", addFile:"이미지 / 영상 추가", localOnly:"이 기기에만", onServer:"공유됨",
           storeTitle:"미디어 저장소 (GitHub)", storeUrl:"owner/repo", storeTok:"액세스 토큰", storeSave:"저장",
           storeOk:"연결됨", storeNo:"연결 실패", sure:"삭제?", noImg:"이미지 불필요", pickOne:"랜덤", linkPh:"게시물 링크 붙여넣기", open:"열기",
           copy:"복사", copied:"복사됨", copyEn:"EN", noText:"원고 없음", comment:"댓글",
@@ -755,7 +760,7 @@
           navDash:"今週", navBook:"予約", navPrep:"準備", navKpi:"KPI", navPosts:"投稿",
           followers:"フォロワー", following:"フォロー", measuredOn:"計測日", noKpi:"まだ数字がない。",
           allBooked:"すべて予約ずみ", leftToDo:"残り", nothingToday:"予定なし",
-          markSched:"予約完了", markPosted:"投稿完了", markVerified:"投稿確認完了", needUrl:"先にリンクを貼る", addFile:"画像・動画を入れる", localOnly:"この端末だけ", onServer:"共有ずみ",
+          markSched:"予約完了", markPosted:"投稿完了", markVerified:"投稿確認完了", verifiedTag:"確認完了", needUrl:"先にリンクを貼る", addFile:"画像・動画を入れる", localOnly:"この端末だけ", onServer:"共有ずみ",
           storeTitle:"画像の置き場（GitHub）", storeUrl:"owner/repo", storeTok:"アクセストークン", storeSave:"保存",
           storeOk:"つながった", storeNo:"つながらない", sure:"消す？", noImg:"画像は要らない", pickOne:"どれか1つ", linkPh:"投稿したリンクを貼る", open:"開く",
           copy:"写す", copied:"写した", copyEn:"EN", noText:"原稿なし", comment:"コメント",
@@ -1763,6 +1768,9 @@
           '<span class="pmini">' + ((sl.need || ["text"]).map(function (kk) {
             return '<i class="pdot" data-on="' + (!!mm[kk]) + '">' + (kk === "text" ? "T" : "I") + '</i>';
           }).join("")) + (st.scheduled ? '<i class="pflag">✓</i>' : "") + '</span>' +
+          (isChecked(sl)
+            ? '<span class="pverif">✓ ' + esc(t("verifiedTag")) + '</span>'
+            : "") +
           '<span class="chev">›</span>' +
         '</div>' +
         '<div class="pbody">' +
