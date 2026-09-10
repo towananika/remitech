@@ -894,35 +894,6 @@
       "owner": ""
     },
     {
-      "date": "2026-09-10",
-      "channel": "hiyoko",
-      "platform": "TT",
-      "time": "09:30",
-      "label": "",
-      "owner": "",
-      "type": "text",
-      "text": {
-        "ja": "",
-        "en": "",
-        "ko": ""
-      },
-      "comment": "",
-      "asset": "",
-      "note": "",
-      "need": [
-        "text"
-      ],
-      "scheduled": false,
-      "posted": false,
-      "url": "",
-      "check": {
-        "done": false,
-        "at": "",
-        "match": null,
-        "note": ""
-      }
-    },
-    {
       "time": "09:30",
       "type": "thread",
       "label": "スレッド HIYOKOはなぜ価値があるの？",
@@ -975,6 +946,36 @@
       ],
       "comment": "want to join us?\neverything's here 👇\nhttps://linktr.ee/HIYOKO_global",
       "owner": ""
+    },
+    {
+      "date": "2026-09-10",
+      "channel": "hiyoko",
+      "platform": "TT",
+      "time": "14:00",
+      "label": "",
+      "owner": "",
+      "type": "video",
+      "text": {
+        "ja": "",
+        "en": "besties… where did you go 🥺🐣 \nfollow @hiyoko_global #hiyoko #HYK #fyp\n\nJoin the Aftersale 💛\nhttps://sale.hiyoko.io/\n\n💛🐣 Join the community\nhttps://linktr.ee/HIYOKO_global",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
     },
     {
       "date": "2026-09-10",
