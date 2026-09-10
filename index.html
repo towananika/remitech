@@ -604,13 +604,18 @@
   <button class="totop" id="toTop" hidden aria-label="top">↑</button>
 
   <div class="page">
-    <div class="top">
+    <div class="top" style="align-items: center; border-bottom: 1px solid var(--line); padding-bottom: 16px; margin-bottom: 24px;">
       <div>
-        <p class="brand" id="brand"></p>
-        <h1>HUB</h1>
-        <p class="tagline" id="tagline"></p>
+        <h1 id="brand" style="font-family: var(--gothic); font-size: 20px; font-weight: 600; letter-spacing: 0.1em; text-indent: 0; margin: 0; color: var(--ink);"></h1>
+        <!-- Hidden elements to preserve JS compatibility -->
+        <h1 style="display:none;">HUB</h1>
+        <p id="tagline" style="display:none;"></p>
       </div>
-      <div class="lang" id="langPick"></div>
+      <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap; justify-content: flex-end;">
+        <button class="pill" onclick="navigator.clipboard.writeText('https://x.com/REEL_Experience'); const o=this.innerText; this.innerText='Copied!'; setTimeout(()=>this.innerText=o, 2000);">🔗 Copy URL</button>
+        <button class="pill" onclick="navigator.clipboard.writeText('More on X'); const o=this.innerText; this.innerText='Copied!'; setTimeout(()=>this.innerText=o, 2000);">📋 Copy Text</button>
+        <div class="lang" id="langPick"></div>
+      </div>
     </div>
 
     <div class="nav" id="nav"></div>
