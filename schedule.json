@@ -8,63 +8,6 @@
   "note": "投稿計画。date は年月日、platform は媒体。実際に投稿する文面は Nobo Check を通したものを en に入れている。",
   "slots": [
     {
-      "date": "2026-09-01",
-      "channel": "reel",
-      "platform": "X",
-      "time": "09:00",
-      "label": "",
-      "owner": "JiSeong",
-      "type": "thread",
-      "text": {
-        "ja": "",
-        "en": "",
-        "ko": ""
-      },
-      "comment": "",
-      "asset": "",
-      "note": "確定ドラフト",
-      "need": [
-        "text"
-      ],
-      "parts": [
-        {
-          "no": "Thread1",
-          "time": "",
-          "ja": "チュートリアルを最後まで読んだユーザーはわずか11%。\n\n89%のユーザーは、触覚を通して学びたいと考えている。\n\n入り口はスクリーンではない。\n\nそれは、あなたの手の中にあるものだ。",
-          "en": "Only 11% of users\nread the full tutorial.\n\n89% want to learn by touching.\n\nThe entrance isn't a screen.\nIt's what's in your hands."
-        },
-        {
-          "no": "Thread2",
-          "time": "",
-          "ja": "ゲームにおいて、コントローラーは\n最初の接点です。\n\n最初の感触が違和感があれば、\nその後のことは何も意味をなしません。\n\nREELはコントローラーから始まります。",
-          "en": "In gaming, the controller\nis the first contact.\n\nIf the first touch feels wrong,\nnothing after it matters.\n\nREEL starts at the controller.",
-          "nobo": "In gaming, the controller is the first point of contact.\n\nIf the first touch feels wrong, nothing after it matters.\n\nREEL starts with the controller.",
-          "reviewed": true
-        },
-        {
-          "no": "Thread3",
-          "time": "",
-          "ja": "入り口はデジタル化の前に物理的なものだ。\n\nプレイ → レビュー → 報酬",
-          "en": "The entrance is physical\nbefore it's digital.\n\nPLAY → REVIEW → REWARD"
-        },
-        {
-          "no": "Reply",
-          "time": "",
-          "ja": "チュートリアルは説明する。\n\nコントローラーは教える。",
-          "en": "Tutorials explain.\nControllers teach."
-        }
-      ],
-      "scheduled": false,
-      "posted": false,
-      "url": "",
-      "check": {
-        "done": false,
-        "at": "",
-        "match": null,
-        "note": ""
-      }
-    },
-    {
       "time": "09:30",
       "type": "text",
       "label": "9月がきた",
@@ -175,61 +118,6 @@
       "owner": ""
     },
     {
-      "date": "2026-09-02",
-      "channel": "reel",
-      "platform": "X",
-      "time": "09:00",
-      "label": "",
-      "owner": "JiSeong",
-      "type": "thread",
-      "text": {
-        "ja": "",
-        "en": "",
-        "ko": ""
-      },
-      "comment": "",
-      "asset": "",
-      "note": "確定ドラフト",
-      "need": [
-        "text"
-      ],
-      "parts": [
-        {
-          "no": "Thread1",
-          "time": "",
-          "ja": "iPhone：マニュアルなし。\n\nボタンは一つ。\n\n史上最も売れたデバイス。\n\n機能を追加するのは簡単。\n\n機能を削除するのはデザイン。",
-          "en": "iPhone: no manual.\nOne button.\n\nBest-selling device in history.\n\nAdding features is easy.\nRemoving them is design."
-        },
-        {
-          "no": "Thread2",
-          "time": "",
-          "ja": "最初のプロトタイプから入力項目の40%を削除しました。\n\n削除するたびに苦労しました。\n\n苦労するたびに、開発の入り口は軽くなりました。",
-          "en": "We removed 40% of the inputs\nfrom our first prototype.\n\nEvery removal was a fight.\nEvery fight made\nthe entrance lighter."
-        },
-        {
-          "no": "Thread3",
-          "time": "",
-          "ja": "最高の製品とは、\n説明書が最も少ない製品である。",
-          "en": "The best products\nhave the fewest instructions."
-        },
-        {
-          "no": "Reply",
-          "time": "",
-          "ja": "追加するのは簡単だ。\n\n削除するには強い意志が必要だ。",
-          "en": "Adding is easy.\nRemoving takes conviction."
-        }
-      ],
-      "scheduled": false,
-      "posted": false,
-      "url": "",
-      "check": {
-        "done": false,
-        "at": "",
-        "match": null,
-        "note": ""
-      }
-    },
-    {
       "time": "09:30",
       "type": "text",
       "label": "Happy Chick知ってる？",
@@ -338,61 +226,6 @@
       "date": "2026-09-02",
       "platform": "X",
       "owner": ""
-    },
-    {
-      "date": "2026-09-03",
-      "channel": "reel",
-      "platform": "X",
-      "time": "09:00",
-      "label": "",
-      "owner": "JiSeong",
-      "type": "thread",
-      "text": {
-        "ja": "",
-        "en": "",
-        "ko": ""
-      },
-      "comment": "",
-      "asset": "",
-      "note": "確定ドラフト",
-      "need": [
-        "text"
-      ],
-      "parts": [
-        {
-          "no": "Thread1",
-          "time": "",
-          "ja": "Roblox：毎日7000万人がログインしています。\n\n他人が作ったゲームをプレイするためではありません。\n\n自分自身のゲームを作るためです。",
-          "en": "Roblox: 70 million people\nlog in every day.\n\nNot to play games\nsomeone else made.\n\nTo build their own."
-        },
-        {
-          "no": "Thread2",
-          "time": "",
-          "ja": "プラットフォームはコンテンツを追加することで成長したのではありません。\n\nツールを提供することで成長したのです。\n\nユーザーが体験を創造することで、\n再び利用する理由が生まれます。\n\nREELは、同じ論理を\nレビューにも適用しています。",
-          "en": "The platform didn't grow\nby adding content.\n\nIt grew by giving tools.\n\nWhen users create the experience,\nthey have a reason to return.\n\nREEL applies the same logic\nto reviews."
-        },
-        {
-          "no": "Thread3",
-          "time": "",
-          "ja": "ユーザーがシステムを構築すれば、システムは自ら構築される。",
-          "en": "When users build the system,\nthe system builds itself."
-        },
-        {
-          "no": "Reply",
-          "time": "",
-          "ja": "毎日7000万人のクリエイターが活動している。\n\n消費者ではなく、クリエイターだ。",
-          "en": "70 million daily creators.\nNot consumers. Creators."
-        }
-      ],
-      "scheduled": false,
-      "posted": false,
-      "url": "",
-      "check": {
-        "done": false,
-        "at": "",
-        "match": null,
-        "note": ""
-      }
     },
     {
       "time": "09:30",
@@ -506,61 +339,6 @@
       "owner": ""
     },
     {
-      "date": "2026-09-04",
-      "channel": "reel",
-      "platform": "X",
-      "time": "09:00",
-      "label": "",
-      "owner": "JiSeong",
-      "type": "thread",
-      "text": {
-        "ja": "",
-        "en": "",
-        "ko": ""
-      },
-      "comment": "",
-      "asset": "",
-      "note": "確定ドラフト",
-      "need": [
-        "text"
-      ],
-      "parts": [
-        {
-          "no": "Thread1",
-          "time": "",
-          "ja": "フォートナイトのロビー：\n読み込み時間が0.1秒遅くなると\n\nプレイヤーの離脱率が2%上昇する。\n\n重要なのはコンテンツではなく、\n\nスピードだ。",
-          "en": "Fortnite lobby:\n0.1 second slower to load\n= 2% more players leave.\n\nThe entrance isn't content.\nIt's speed."
-        },
-        {
-          "no": "Thread2",
-          "time": "",
-          "ja": "P2Eでは、プレイする前に退出したプレイヤーは、\nレビューも獲得もできず、\n二度と戻ってきません。\n\n一度でもゆっくりとゲームに参加すれば、\nこのサイクル全体が途切れてしまいます。",
-          "en": "In P2E, a player who leaves\nbefore playing\nnever reviews, never earns,\nnever returns.\n\nOne slow entrance\nbreaks the entire loop."
-        },
-        {
-          "no": "Thread3",
-          "time": "",
-          "ja": "REELは入口優先設計です。\n\n素早い装填。瞬時の反応。",
-          "en": "REEL is built entrance-first.\nFast load. Instant response."
-        },
-        {
-          "no": "Reply",
-          "time": "",
-          "ja": "0.1秒。\n留まるか去るかの境界線。",
-          "en": "0.1 seconds.\nThe line between\nstaying and leaving."
-        }
-      ],
-      "scheduled": false,
-      "posted": false,
-      "url": "",
-      "check": {
-        "done": false,
-        "at": "",
-        "match": null,
-        "note": ""
-      }
-    },
-    {
       "time": "09:30",
       "type": "image",
       "label": "空約束はしない",
@@ -670,63 +448,6 @@
       "date": "2026-09-04",
       "platform": "X",
       "owner": ""
-    },
-    {
-      "date": "2026-09-05",
-      "channel": "reel",
-      "platform": "X",
-      "time": "09:00",
-      "label": "",
-      "owner": "JiSeong",
-      "type": "thread",
-      "text": {
-        "ja": "",
-        "en": "",
-        "ko": ""
-      },
-      "comment": "",
-      "asset": "",
-      "note": "確定ドラフト",
-      "need": [
-        "text"
-      ],
-      "parts": [
-        {
-          "no": "Thread1",
-          "time": "",
-          "ja": "ゲームの音声をミュートするプレイヤーは、\n環境音の40%を聞き逃します。\n\n音は、\n体験を構成する目に見えない要素です。\n\n普段は意識しませんが、\n\nなくなると、その存在の大きさを痛感します。",
-          "en": "Players who mute game audio\nmiss 40% of environmental cues.\n\nSound is an invisible layer\nof the experience.\n\nYou don't notice it's there.\nBut you feel it when it's gone."
-        },
-        {
-          "no": "Thread2",
-          "time": "",
-          "ja": "ゲームオーディオは単なる装飾ではありません。\n\nそれはナビゲーションです。\n\n足音、UIクリック音、環境音――\nあらゆる音が、\n視覚的に判断しなければならないことを\n軽減します。\n\nREELでは、オーディオは\nゲーム体験の一部です。",
-          "en": "Game audio isn't decoration.\nIt's navigation.\n\nFootsteps, UI clicks, ambient tone —\neach sound reduces\na decision you'd otherwise\nhave to make it visually.\n\nREEL treats audio\nas part of the entrance.",
-          "nobo": "Game audio isn't decoration. It's navigation.\n\nFootsteps, UI clicks, ambient sounds — each sound reduces a decision you'd otherwise have to make visually.\n\nREEL treats audio as part of the entrance.",
-          "reviewed": true
-        },
-        {
-          "no": "Thread3",
-          "time": "",
-          "ja": "視覚だけでなく、聴覚にも配慮したデザインを。\n\nプレイ → レビュー → 報酬",
-          "en": "Design for the ears,\nnot just the eyes.\n\nPLAY → REVIEW → REWARD"
-        },
-        {
-          "no": "Reply",
-          "time": "",
-          "ja": "ゲームの音声を5分間ミュートしてみてください。\n\n何が欠けているのかが分かるはずです。",
-          "en": "Mute a game for 5 minutes.\nYou'll feel what's missing."
-        }
-      ],
-      "scheduled": false,
-      "posted": false,
-      "url": "",
-      "check": {
-        "done": false,
-        "at": "",
-        "match": null,
-        "note": ""
-      }
     },
     {
       "time": "09:30",
@@ -839,43 +560,6 @@
       "owner": ""
     },
     {
-      "date": "2026-09-06",
-      "channel": "reel",
-      "platform": "X",
-      "time": "09:00",
-      "label": "",
-      "owner": "JiSeong",
-      "type": "thread",
-      "text": {
-        "ja": "",
-        "en": "",
-        "ko": ""
-      },
-      "comment": "",
-      "asset": "",
-      "note": "確定ドラフト",
-      "need": [
-        "text"
-      ],
-      "parts": [
-        {
-          "no": "Thread1",
-          "time": "",
-          "ja": "日本のタクシーのドアは\n自動で開きます。\n\nボタンも方向指示もありません。\n\n最高の乗り降りは\nあらゆる判断を不要にします。",
-          "en": "Taxi doors in Japan\nopen automatically.\n\nNo button. No direction.\n\nThe best entrances\nremove every decision."
-        }
-      ],
-      "scheduled": false,
-      "posted": false,
-      "url": "",
-      "check": {
-        "done": false,
-        "at": "",
-        "match": null,
-        "note": ""
-      }
-    },
-    {
       "time": "09:30",
       "type": "text",
       "label": "【Week 1】今週のHIYOKO",
@@ -960,55 +644,6 @@
       "owner": ""
     },
     {
-      "date": "2026-09-07",
-      "channel": "reel",
-      "platform": "X",
-      "time": "09:00",
-      "label": "",
-      "owner": "JiSeong",
-      "type": "thread",
-      "text": {
-        "ja": "",
-        "en": "",
-        "ko": ""
-      },
-      "comment": "",
-      "asset": "",
-      "note": "確定ドラフト",
-      "need": [
-        "text"
-      ],
-      "parts": [
-        {
-          "no": "Thread1",
-          "time": "",
-          "ja": "ゲーマーの平均年齢：31歳。\n\nティーンエイジャーではない。\n\n子供でもない。\n\nコントローラーを手に育った大人たち。\n\nゲーマー層は成熟した。\nゲーム体験もそれに合わせて進化すべきだ。",
-          "en": "Average gamer age: 31.\n\nNot teenagers.\nNot kids.\n\nAdults who grew up\nwith a controller in hand.\n\nThe audience matured.\nThe experiences should too."
-        },
-        {
-          "no": "Thread2",
-          "time": "",
-          "ja": "31歳のプレイヤーは、時間を無駄にしない。\n\n彼らが求めるのは派手な演出ではなく、意味のある体験だ。\n\nREELは、その世代に向けて設計されている。",
-          "en": "A 31-year-old player doesn't waste time.\n\nWhat they want isn't spectacle — it's meaning.\n\nREEL is designed for that generation."
-        },
-        {
-          "no": "Thread3",
-          "time": "",
-          "ja": "成熟した観客には、成熟した設計を。\n\nプレイ → レビュー → 報酬",
-          "en": "Mature audiences deserve mature design.\n\nPLAY → REVIEW → REWARD"
-        }
-      ],
-      "scheduled": false,
-      "posted": false,
-      "url": "",
-      "check": {
-        "done": false,
-        "at": "",
-        "match": null,
-        "note": ""
-      }
-    },
-    {
       "time": "09:30",
       "type": "text",
       "label": "なんでトークンをゆっくり出すの？",
@@ -1090,63 +725,6 @@
       "date": "2026-09-07",
       "platform": "X",
       "owner": ""
-    },
-    {
-      "date": "2026-09-08",
-      "channel": "reel",
-      "platform": "X",
-      "time": "09:00",
-      "label": "",
-      "owner": "JiSeong",
-      "type": "thread",
-      "text": {
-        "ja": "",
-        "en": "",
-        "ko": ""
-      },
-      "comment": "",
-      "asset": "",
-      "note": "確定ドラフト",
-      "need": [
-        "text"
-      ],
-      "parts": [
-        {
-          "no": "Thread1",
-          "time": "",
-          "ja": "VRの世界では、ロビーが\n第一印象を左右する。\n\nゲームプレイではない。\n\nグラフィックでもない。\n\nあなたが降り立つ部屋こそが。",
-          "en": "In VR, the lobby\nis the first impression.\n\nNot the gameplay.\nNot the graphics.\n\nThe room you land in."
-        },
-        {
-          "no": "Thread2",
-          "time": "",
-          "ja": "REELの空間は、メニューから始まるのではない。\n\nまず、人が集まるようにデザインされた部屋から始まる。\n\n選択肢のリストではない。\nただ、場所がある。",
-          "en": "REEL's space doesn't start\nwith a menu.\n\nIt starts with a room\ndesigned to feel occupied.\n\nNot a list of options.\nA place.",
-          "nobo": "REEL's space doesn't start with a menu.\n\nIt starts with a room designed for people to gather.\n\nNot a list of options. A place.",
-          "reviewed": true
-        },
-        {
-          "no": "Thread3",
-          "time": "",
-          "ja": "ロビーは最初の握手。\n\nその握手を大切に。\n\nプレイ → レビュー → 報酬",
-          "en": "The lobby is the handshake.\nMake it count.\n\nPLAY → REVIEW → REWARD"
-        },
-        {
-          "no": "Reply",
-          "time": "",
-          "ja": "第一空間＝第一印象。",
-          "en": "First space = first impression."
-        }
-      ],
-      "scheduled": false,
-      "posted": false,
-      "url": "",
-      "check": {
-        "done": false,
-        "at": "",
-        "match": null,
-        "note": ""
-      }
     },
     {
       "time": "09:30",
@@ -1233,61 +811,6 @@
       "owner": ""
     },
     {
-      "date": "2026-09-09",
-      "channel": "reel",
-      "platform": "X",
-      "time": "09:00",
-      "label": "",
-      "owner": "JiSeong",
-      "type": "thread",
-      "text": {
-        "ja": "",
-        "en": "",
-        "ko": ""
-      },
-      "comment": "",
-      "asset": "",
-      "note": "確定ドラフト",
-      "need": [
-        "text"
-      ],
-      "parts": [
-        {
-          "no": "Thread1",
-          "time": "",
-          "ja": "1日に3万5000もの意思決定が行われている。\n\nそのほとんどは無意識のうちに行われている。\n\n優れたデザインは、\nその無意識の領域にこそ存在する。",
-          "en": "35,000 decisions per day.\n\nMost of them are unconscious.\n\nGood design lives\nin that unconscious space."
-        },
-        {
-          "no": "Thread2",
-          "time": "",
-          "ja": "「何も考えずに使い続けました。」\n\nこれこそ、製品にとって最高の褒め言葉です。\n\n最高のUXは、意識させないものです。",
-          "en": "\"I didn't even think about it.\nI just kept using it.\"\n\nThat's the highest compliment\na product can receive.\n\nThe best UX is invisible."
-        },
-        {
-          "no": "Thread3",
-          "time": "",
-          "ja": "最も難しいのは、\n誰も気づかないものを作ることだ。",
-          "en": "The hardest thing to build\nis something no one notices."
-        },
-        {
-          "no": "Reply",
-          "time": "",
-          "ja": "目に見えないデザインこそが、最も強力なデザインである。",
-          "en": "Invisible design\nis the strongest design."
-        }
-      ],
-      "scheduled": false,
-      "posted": false,
-      "url": "",
-      "check": {
-        "done": false,
-        "at": "",
-        "match": null,
-        "note": ""
-      }
-    },
-    {
       "time": "09:30",
       "type": "text",
       "label": "",
@@ -1369,61 +892,6 @@
       "date": "2026-09-09",
       "platform": "X",
       "owner": ""
-    },
-    {
-      "date": "2026-09-10",
-      "channel": "reel",
-      "platform": "X",
-      "time": "09:00",
-      "label": "",
-      "owner": "JiSeong",
-      "type": "thread",
-      "text": {
-        "ja": "",
-        "en": "",
-        "ko": ""
-      },
-      "comment": "",
-      "asset": "",
-      "note": "確定ドラフト",
-      "need": [
-        "text"
-      ],
-      "parts": [
-        {
-          "no": "Thread1",
-          "time": "",
-          "ja": "YouTube Gaming：\n年間視聴時間1000億時間。\n\n人々はゲームをプレイするよりも、\nゲームを視聴する時間の方が長い。\n\nプレイする時間よりも。",
-          "en": "YouTube Gaming:\n100 billion watch hours per year.\n\nPeople spend more time\nwatching games\nthan playing them."
-        },
-        {
-          "no": "Thread2",
-          "time": "",
-          "ja": "ほとんどのプレイヤーにとって、観戦は入り口です。\n\n誰かがプレイしているのを見て、\n何かを感じ、\nそして自分も始めるのです。\n\nREELでは、レビューが\n同じ役割を果たします。\n\nレビューは、\n誰かが入り口を示してくれるのです。",
-          "en": "Watching is the entrance\nfor most players.\n\nThey see someone play.\nThey feel something.\nThen they start.\n\nIn REEL, the review\nserves the same function.\n\nA review is someone\nshowing the way in."
-        },
-        {
-          "no": "Thread3",
-          "time": "",
-          "ja": "レビューは、プレイヤーによって、プレイヤーのために作られた入り口です。\n\nプレイヤーが作り出すものです。",
-          "en": "Reviews are entrances\nbuilt by players,\nfor players."
-        },
-        {
-          "no": "Reply",
-          "time": "",
-          "ja": "1000億時間もの視聴時間。\n\nそれが、人々がゲームを楽しむ方法を決めるのだ。",
-          "en": "100 billion hours of watching.\nThat's how people decide to play."
-        }
-      ],
-      "scheduled": false,
-      "posted": false,
-      "url": "",
-      "check": {
-        "done": false,
-        "at": "",
-        "match": null,
-        "note": ""
-      }
     },
     {
       "time": "09:30",
@@ -1569,6 +1037,36 @@
     },
     {
       "date": "2026-09-10",
+      "channel": "hiyoko",
+      "platform": "IG",
+      "time": "17:00",
+      "label": "",
+      "owner": "SuHa",
+      "type": "video",
+      "text": {
+        "ja": "",
+        "en": "besties… where did you go 🥺🐣\n\nfollow @HiyokoGlobal so i can be happier~\nbe my friend 🐣💛\n\n#HIYOKO #HYK #fyp",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "https://www.instagram.com/reel/DdGEnrvBuoJ/?stkn=MzRlODBiNWFlZA==",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-10",
       "platform": "X",
       "time": "17:00",
       "label": "",
@@ -1584,63 +1082,6 @@
       "note": "",
       "need": [
         "text"
-      ],
-      "scheduled": false,
-      "posted": false,
-      "url": "",
-      "check": {
-        "done": false,
-        "at": "",
-        "match": null,
-        "note": ""
-      }
-    },
-    {
-      "date": "2026-09-11",
-      "channel": "reel",
-      "platform": "X",
-      "time": "09:00",
-      "label": "",
-      "owner": "JiSeong",
-      "type": "thread",
-      "text": {
-        "ja": "",
-        "en": "",
-        "ko": ""
-      },
-      "comment": "",
-      "asset": "",
-      "note": "確定ドラフト",
-      "need": [
-        "text"
-      ],
-      "parts": [
-        {
-          "no": "Thread1",
-          "time": "",
-          "ja": "棚に24種類のジャムが並んでいる。\n\nみんな試食する。\n\nしかし、誰も買わない。\nそこで、6種類に減らす。\n売上：10倍。",
-          "en": "24 types of jam on a shelf.\nEveryone tastes.\nNobody buys.\n\nCut to 6.\nSales: 10x."
-        },
-        {
-          "no": "Thread2",
-          "time": "",
-          "ja": "ゲームでも同じことが起こります。\n\nグラフィック、オーディオ、感度、\n操作方法、通知…\n\nすべてを事前に表示してしまうと、\nプレイする前に諦めてしまうのです。",
-          "en": "The same thing happens in games.\n\nGraphics, audio, sensitivity,\ncontrols, notifications…\n\nShow everything upfront —\nthey quit before playing."
-        },
-        {
-          "no": "Thread3",
-          "time": "",
-          "ja": "選択肢が少ない。\n\n参加度が高い。\n\n選択肢が少ないほど、参入障壁は低くなる。",
-          "en": "Fewer choices.\nMore participation.\n\nThe entrance is lighter\nwhen the options are fewer.",
-          "nobo": "Fewer choices. More participation.\n\nFewer options lower the barrier to entry.",
-          "reviewed": true
-        },
-        {
-          "no": "Reply",
-          "time": "",
-          "ja": "選択肢が多いからといって、必ずしもより良い体験が得られるとは限らない。",
-          "en": "More options ≠ better experience."
-        }
       ],
       "scheduled": false,
       "posted": false,
@@ -1736,43 +1177,6 @@
       "owner": ""
     },
     {
-      "date": "2026-09-12",
-      "channel": "reel",
-      "platform": "X",
-      "time": "09:00",
-      "label": "",
-      "owner": "JiSeong",
-      "type": "thread",
-      "text": {
-        "ja": "",
-        "en": "",
-        "ko": ""
-      },
-      "comment": "",
-      "asset": "",
-      "note": "確定ドラフト",
-      "need": [
-        "text"
-      ],
-      "parts": [
-        {
-          "no": "Thread1",
-          "time": "",
-          "ja": "Axie Infinityはかつて、フィリピン経済の相当な部分を動かしていた。\n\nプレイヤーたちはただ遊んでいたわけではない。\n\n彼らは稼いでいたのだ。",
-          "en": "Axie Infinity once moved\na measurable part\nof the Philippines' economy.\n\nPlayers weren't just playing.\nThey were earning."
-        }
-      ],
-      "scheduled": false,
-      "posted": false,
-      "url": "",
-      "check": {
-        "done": false,
-        "at": "",
-        "match": null,
-        "note": ""
-      }
-    },
-    {
       "time": "09:30",
       "type": "image",
       "label": "Coinstoreとは",
@@ -1855,43 +1259,6 @@
       "date": "2026-09-12",
       "platform": "X",
       "owner": ""
-    },
-    {
-      "date": "2026-09-13",
-      "channel": "reel",
-      "platform": "X",
-      "time": "09:00",
-      "label": "",
-      "owner": "JiSeong",
-      "type": "thread",
-      "text": {
-        "ja": "",
-        "en": "",
-        "ko": ""
-      },
-      "comment": "",
-      "asset": "",
-      "note": "確定ドラフト",
-      "need": [
-        "text"
-      ],
-      "parts": [
-        {
-          "no": "Thread1",
-          "time": "",
-          "ja": "通知オフ。\n\nコントローラーを手に。\n\n土曜日の朝。",
-          "en": "Notifications off.\nController in hand.\nSaturday morning."
-        }
-      ],
-      "scheduled": false,
-      "posted": false,
-      "url": "",
-      "check": {
-        "done": false,
-        "at": "",
-        "match": null,
-        "note": ""
-      }
     },
     {
       "time": "09:30",
@@ -1977,57 +1344,6 @@
       "owner": ""
     },
     {
-      "date": "2026-09-14",
-      "channel": "reel",
-      "platform": "X",
-      "time": "09:00",
-      "label": "",
-      "owner": "JiSeong",
-      "type": "thread",
-      "text": {
-        "ja": "",
-        "en": "",
-        "ko": ""
-      },
-      "comment": "",
-      "asset": "",
-      "note": "確定ドラフト",
-      "need": [
-        "text"
-      ],
-      "parts": [
-        {
-          "no": "Thread1",
-          "time": "",
-          "ja": "YouTube初の動画：\n18秒。\n\n象の前に立つ男。\n\nすべてのシステムは、小さなことから始まる。",
-          "en": "YouTube's first video:\n18 seconds.\n\nA guy standing\nin front of elephants.\n\nEvery system starts\nwith something small."
-        },
-        {
-          "no": "Thread2",
-          "time": "",
-          "ja": "REELも、最初は一件のレビューから始まった。\n\n壮大なビジョンではなく、\n小さな行動の積み重ねがシステムを形づくる。",
-          "en": "REEL also started\nwith a single review.\n\nNot a grand vision —\nsmall actions, stacked,\nshape the system."
-        },
-        {
-          "no": "Thread3",
-          "time": "",
-          "ja": "始まりは小さくていい。\n\n育てるのは、続けることだ。\n\nプレイ → レビュー → 報酬",
-          "en": "It's fine to start small.\nWhat grows it is continuing.\n\nPLAY → REVIEW → REWARD",
-          "nobo": "It's fine to start small. What makes it grow is consistency.\n\nPLAY → REVIEW → REWARD",
-          "reviewed": true
-        }
-      ],
-      "scheduled": false,
-      "posted": false,
-      "url": "",
-      "check": {
-        "done": false,
-        "at": "",
-        "match": null,
-        "note": ""
-      }
-    },
-    {
       "time": "09:30",
       "type": "text",
       "label": "",
@@ -2111,61 +1427,6 @@
       "owner": ""
     },
     {
-      "date": "2026-09-15",
-      "channel": "reel",
-      "platform": "X",
-      "time": "09:00",
-      "label": "",
-      "owner": "JiSeong",
-      "type": "thread",
-      "text": {
-        "ja": "",
-        "en": "",
-        "ko": ""
-      },
-      "comment": "",
-      "asset": "",
-      "note": "確定ドラフト",
-      "need": [
-        "text"
-      ],
-      "parts": [
-        {
-          "no": "Thread1",
-          "time": "",
-          "ja": "1日1% → 1年で37倍。\n\n1日-1% → 1年で0.03。\n\n同じ1%。\n\n1,200倍の差。\n\n少額投資でも複利効果は大きい。",
-          "en": "1% per day → 37x in a year.\n\n-1% per day → 0.03 in a year.\n\nSame 1%.\n1,200x difference.\n\nSmall inputs compound."
-        },
-        {
-          "no": "Thread2",
-          "time": "",
-          "ja": "REELでは、すべてのレビューがシステムに貢献します。\n\n1日1件のレビュー。\n\n365日間。\n\n信頼の基盤が構築されます。",
-          "en": "In REEL, every review\nadds to the system.\n\n1 review per day.\n365 days.\nA trust layer is built."
-        },
-        {
-          "no": "Thread3",
-          "time": "",
-          "ja": "最初のレビューは小さく見えます。\n\n365回目のレビューでシステムが変わります。\n\nプレイ → レビュー → 報酬",
-          "en": "The first review looks small.\nThe 365th changes the system.\n\nPLAY → REVIEW → REWARD"
-        },
-        {
-          "no": "Reply",
-          "time": "",
-          "ja": "小さなことが積み重なっていく。\n\nそれが建築というものだ。",
-          "en": "Small things compound.\nThat's the architecture."
-        }
-      ],
-      "scheduled": false,
-      "posted": false,
-      "url": "",
-      "check": {
-        "done": false,
-        "at": "",
-        "match": null,
-        "note": ""
-      }
-    },
-    {
       "time": "09:30",
       "type": "text",
       "label": "",
@@ -2220,61 +1481,6 @@
       "owner": ""
     },
     {
-      "date": "2026-09-16",
-      "channel": "reel",
-      "platform": "X",
-      "time": "09:00",
-      "label": "",
-      "owner": "JiSeong",
-      "type": "thread",
-      "text": {
-        "ja": "",
-        "en": "",
-        "ko": ""
-      },
-      "comment": "",
-      "asset": "",
-      "note": "確定ドラフト",
-      "need": [
-        "text"
-      ],
-      "parts": [
-        {
-          "no": "Thread1",
-          "time": "",
-          "ja": "セーブデータが失われても、\n時間そのものは消えない。\n\n消えるのは、意味だ。\n\n記録は、\n私たちが思っている以上に大切なものだ。",
-          "en": "A lost save file\ndoesn't erase hours.\n\nIt erases meaning.\n\nRecords matter more\nthan we think."
-        },
-        {
-          "no": "Thread2",
-          "time": "",
-          "ja": "REELでは、記録はオンチェーンでリアルタイムに更新されます。\n\nプレイ時間、レビュー、評判。\n\nデータ改ざんなし。リセットなし。\n\nあなたの体験は、あなただけのものです。",
-          "en": "In REEL, records\nlive on-chain.\n\nPlaytime. Reviews. Reputation.\n\nNo corruption. No reset.\nYour experience is yours."
-        },
-        {
-          "no": "Thread3",
-          "time": "",
-          "ja": "記録を削除すれば、\nその体験は消え去る。\n\n記録を所有すれば、\nその体験は生き続ける。",
-          "en": "Delete the record —\nthe experience dies.\n\nOwn the record —\nthe experience lives."
-        },
-        {
-          "no": "Reply",
-          "time": "",
-          "ja": "あなたの記録。\n\nあなたの所有権。",
-          "en": "Your record.\nYour ownership."
-        }
-      ],
-      "scheduled": false,
-      "posted": false,
-      "url": "",
-      "check": {
-        "done": false,
-        "at": "",
-        "match": null,
-        "note": ""
-      }
-    },
-    {
       "time": "09:30",
       "type": "text",
       "label": "",
@@ -2327,61 +1533,6 @@
       "date": "2026-09-16",
       "platform": "X",
       "owner": ""
-    },
-    {
-      "date": "2026-09-17",
-      "channel": "reel",
-      "platform": "X",
-      "time": "09:00",
-      "label": "",
-      "owner": "JiSeong",
-      "type": "thread",
-      "text": {
-        "ja": "",
-        "en": "",
-        "ko": ""
-      },
-      "comment": "",
-      "asset": "",
-      "note": "確定ドラフト",
-      "need": [
-        "text"
-      ],
-      "parts": [
-        {
-          "no": "Thread1",
-          "time": "",
-          "ja": "クロスプラットフォームプレイに対応したゲームは、\nプレイヤーの定着率が30%向上する。\n\nプラットフォーム間の壁がなくなると、\nより多くの人がゲームを続けるようになる。",
-          "en": "Games with cross-play\nhave 30% higher player retention.\n\nWhen the wall between platforms\ndisappears,\nmore people stay."
-        },
-        {
-          "no": "Thread2",
-          "time": "",
-          "ja": "プラットフォームの制限は、機能ではなく、むしろ退出手段です。\n\n「友達とは別のデバイスを使っているから一緒に遊べない」\n\nこの一文は、劣悪なゲームプレイよりも多くのコミュニティを崩壊させてきました。\n\nREELは、プラットフォームに依存しない設計になっています。",
-          "en": "Platform locks are exits.\nNot features.\n\n\"You can't play with your friend\nbecause they're on a different device.\"\n\nThat sentence has killed\nmore communities than bad gameplay.\n\nREEL is platform-agnostic by design."
-        },
-        {
-          "no": "Thread3",
-          "time": "",
-          "ja": "壁を取り除く。\n\nプレイヤーはそのまま残す。",
-          "en": "Remove the wall.\nKeep the player."
-        },
-        {
-          "no": "Reply",
-          "time": "",
-          "ja": "クロスプレイは単なる機能ではない。\n\nそれは障壁の不在そのものだ。",
-          "en": "Cross-play isn't a feature.\nIt's the absence of a barrier."
-        }
-      ],
-      "scheduled": false,
-      "posted": false,
-      "url": "",
-      "check": {
-        "done": false,
-        "at": "",
-        "match": null,
-        "note": ""
-      }
     },
     {
       "time": "09:30",
@@ -2467,61 +1618,6 @@
       "owner": ""
     },
     {
-      "date": "2026-09-18",
-      "channel": "reel",
-      "platform": "X",
-      "time": "09:00",
-      "label": "",
-      "owner": "JiSeong",
-      "type": "thread",
-      "text": {
-        "ja": "",
-        "en": "",
-        "ko": ""
-      },
-      "comment": "",
-      "asset": "",
-      "note": "確定ドラフト",
-      "need": [
-        "text"
-      ],
-      "parts": [
-        {
-          "no": "Thread1",
-          "time": "",
-          "ja": "REELのダッシュボードには以下が表示されます。\n\n— プレイ時間\n— レビュー数\n— 信頼度スコア\n— 報酬ティア\n\n表示されているすべての情報。\n所有しているすべての情報。",
-          "en": "REEL's dashboard shows:\n\n— Hours played\n— Reviews written\n— Trust score\n— Reward tier\n\nEverything visible.\nEverything owned."
-        },
-        {
-          "no": "Thread2",
-          "time": "",
-          "ja": "記録がない＝戻る理由がない。\n\n記録がある＝障壁がなくなる。\n\n「どこまでやったっけ？」\n\nその問いは\n目に見えない入り口だ。",
-          "en": "No record = no reason to return.\nRecord exists = barrier drops.\n\n\"Where did I leave off?\"\n\nThat question\nis an invisible entrance."
-        },
-        {
-          "no": "Thread3",
-          "time": "",
-          "ja": "最も静かな特徴こそが、最も重要な特徴である。\n\nレコードは入り口を作る。",
-          "en": "The quietest feature\nis the most important one.\n\nRecords create entrances."
-        },
-        {
-          "no": "Reply",
-          "time": "",
-          "ja": "ダッシュボードこそが、あなたが戻ってくる理由です。",
-          "en": "Your dashboard\nis your reason to return."
-        }
-      ],
-      "scheduled": false,
-      "posted": false,
-      "url": "",
-      "check": {
-        "done": false,
-        "at": "",
-        "match": null,
-        "note": ""
-      }
-    },
-    {
       "time": "09:30",
       "type": "text",
       "label": "",
@@ -2574,43 +1670,6 @@
       "date": "2026-09-18",
       "platform": "X",
       "owner": ""
-    },
-    {
-      "date": "2026-09-19",
-      "channel": "reel",
-      "platform": "X",
-      "time": "09:00",
-      "label": "",
-      "owner": "JiSeong",
-      "type": "thread",
-      "text": {
-        "ja": "",
-        "en": "",
-        "ko": ""
-      },
-      "comment": "",
-      "asset": "",
-      "note": "確定ドラフト",
-      "need": [
-        "text"
-      ],
-      "parts": [
-        {
-          "no": "Thread1",
-          "time": "",
-          "ja": "Steamのプレイ時間を確認してみてください。\n\n847時間。\n\nそして、メモリ以外に何も残っていません。",
-          "en": "Check your Steam playtime.\n\n847 hours.\nAnd nothing to show for it\nexcept the memory."
-        }
-      ],
-      "scheduled": false,
-      "posted": false,
-      "url": "",
-      "check": {
-        "done": false,
-        "at": "",
-        "match": null,
-        "note": ""
-      }
     },
     {
       "time": "09:30",
@@ -2667,43 +1726,6 @@
       "owner": ""
     },
     {
-      "date": "2026-09-20",
-      "channel": "reel",
-      "platform": "X",
-      "time": "09:00",
-      "label": "",
-      "owner": "JiSeong",
-      "type": "thread",
-      "text": {
-        "ja": "",
-        "en": "",
-        "ko": ""
-      },
-      "comment": "",
-      "asset": "",
-      "note": "確定ドラフト",
-      "need": [
-        "text"
-      ],
-      "parts": [
-        {
-          "no": "Thread1",
-          "time": "",
-          "ja": "Epic Games Storeは\n2018年以降、2,400ドル以上の無料ゲームを配布しました。\n\n6,000万人のユニークユーザーが\n無料アクセスを目当てに訪れました。\n\n無料は参入障壁を下げます。\n価値はユーザーを留めます。",
-          "en": "Epic Games Store\ngave away $2,400+ in free games\nsince 2018.\n\n60 million unique users\ncame for the free entrance.\n\nFree lowers the barrier.\nValue keeps them inside."
-        }
-      ],
-      "scheduled": false,
-      "posted": false,
-      "url": "",
-      "check": {
-        "done": false,
-        "at": "",
-        "match": null,
-        "note": ""
-      }
-    },
-    {
       "time": "09:30",
       "type": "text",
       "label": "",
@@ -2756,55 +1778,6 @@
       "date": "2026-09-20",
       "platform": "X",
       "owner": ""
-    },
-    {
-      "date": "2026-09-21",
-      "channel": "reel",
-      "platform": "X",
-      "time": "09:00",
-      "label": "",
-      "owner": "JiSeong",
-      "type": "thread",
-      "text": {
-        "ja": "",
-        "en": "",
-        "ko": ""
-      },
-      "comment": "",
-      "asset": "",
-      "note": "確定ドラフト",
-      "need": [
-        "text"
-      ],
-      "parts": [
-        {
-          "no": "Thread1",
-          "time": "",
-          "ja": "モバイルゲームは\nゲーム業界全体の収益の50%以上を占めている。\n\n最大のゲーム機は\nすでにあなたのポケットの中にある。\n\nアクセス性は勝利した。\nスペックは敗北した。",
-          "en": "Mobile gaming generates\nover 50% of all gaming revenue.\n\nThe biggest console\nis already in your pocket.\n\nAccess won.\nSpecs lost."
-        },
-        {
-          "no": "Thread2",
-          "time": "",
-          "ja": "アクセス性が勝つなら、参入障壁の低さが次の勝者を決める。\n\nREELはポケットの中から始まる設計だ。",
-          "en": "If access wins,\nthe next winner is decided\nby how low the barrier is.\n\nREEL is designed to start\nfrom your pocket."
-        },
-        {
-          "no": "Thread3",
-          "time": "",
-          "ja": "手の中にあるものが、入り口になる。\n\nプレイ → レビュー → 報酬",
-          "en": "What's in your hand\nbecomes the entrance.\n\nPLAY → REVIEW → REWARD"
-        }
-      ],
-      "scheduled": false,
-      "posted": false,
-      "url": "",
-      "check": {
-        "done": false,
-        "at": "",
-        "match": null,
-        "note": ""
-      }
     },
     {
       "time": "09:30",
@@ -2890,61 +1863,6 @@
       "owner": ""
     },
     {
-      "date": "2026-09-22",
-      "channel": "reel",
-      "platform": "X",
-      "time": "09:00",
-      "label": "",
-      "owner": "JiSeong",
-      "type": "thread",
-      "text": {
-        "ja": "",
-        "en": "",
-        "ko": ""
-      },
-      "comment": "",
-      "asset": "",
-      "note": "確定ドラフト",
-      "need": [
-        "text"
-      ],
-      "parts": [
-        {
-          "no": "Thread1",
-          "time": "",
-          "ja": "ダンバー数：150。\n\n安定した人間関係の限界\n\n1,000人をフォローする —\n真に繋がっているのは\n150人未満。",
-          "en": "Dunbar's number: 150.\n\nThe limit of stable\nhuman relationships.\n\nFollow 1,000 people —\ntruly connected to\nless than 150."
-        },
-        {
-          "no": "Thread2",
-          "time": "",
-          "ja": "REELは、規模ではなく密度を重視して設計されています。\n\n150人のアクティブな参加者は、\n10万人の受動的なフォロワーよりも多くの情報発信を生み出します。",
-          "en": "REEL is designed\nfor density, not scale.\n\n150 active participants\ngenerate more circulation\nthan 100,000 passive followers."
-        },
-        {
-          "no": "Thread3",
-          "time": "",
-          "ja": "数よりも密度。\n常に。\n\nプレイ → レビュー → 報酬",
-          "en": "Density over numbers.\nAlways.\n\nPLAY → REVIEW → REWARD"
-        },
-        {
-          "no": "Reply",
-          "time": "",
-          "ja": "150件のリアルなつながり\n\n10万インプレッションを超える。",
-          "en": "150 real connections\nbeat 100K impressions."
-        }
-      ],
-      "scheduled": false,
-      "posted": false,
-      "url": "",
-      "check": {
-        "done": false,
-        "at": "",
-        "match": null,
-        "note": ""
-      }
-    },
-    {
       "time": "09:30",
       "type": "text",
       "label": "",
@@ -2999,61 +1917,6 @@
       "owner": ""
     },
     {
-      "date": "2026-09-23",
-      "channel": "reel",
-      "platform": "X",
-      "time": "09:00",
-      "label": "",
-      "owner": "JiSeong",
-      "type": "thread",
-      "text": {
-        "ja": "",
-        "en": "",
-        "ko": ""
-      },
-      "comment": "",
-      "asset": "",
-      "note": "確定ドラフト",
-      "need": [
-        "text"
-      ],
-      "parts": [
-        {
-          "no": "Thread1",
-          "time": "",
-          "ja": "Discord：1900万のサーバー。\n\n最もアクティブなサーバーは\n30～100人規模。\n\n大規模なルームは視聴者を集め、\n小規模なルームは参加者を集める。",
-          "en": "Discord: 19 million servers.\n\nThe most active ones\nare 30–100 people.\n\nBig rooms create audiences.\nSmall rooms create participants."
-        },
-        {
-          "no": "Thread2",
-          "time": "",
-          "ja": "情報発信には、\n人々の声が届くことが不可欠です。\n\nREELのコミュニティは、\n発言しやすい規模でありながら、\n情報発信が円滑に進む規模となるよう設計されています。",
-          "en": "Circulation requires\nvoices that are heard.\n\nREEL's community is designed\nto be small enough to speak,\nlarge enough to circulate."
-        },
-        {
-          "no": "Thread3",
-          "time": "",
-          "ja": "観客は見守る。\n参加者は発言する。\n\n交流は、声が届く場所でのみ起こる。",
-          "en": "Audiences watch.\nParticipants speak.\n\nCirculation only happens\nwhere voices are heard."
-        },
-        {
-          "no": "Reply",
-          "time": "",
-          "ja": "スタジアムではなく、部屋だ。",
-          "en": "A room, not a stadium."
-        }
-      ],
-      "scheduled": false,
-      "posted": false,
-      "url": "",
-      "check": {
-        "done": false,
-        "at": "",
-        "match": null,
-        "note": ""
-      }
-    },
-    {
       "time": "09:30",
       "type": "text",
       "label": "",
@@ -3106,61 +1969,6 @@
       "date": "2026-09-23",
       "platform": "X",
       "owner": ""
-    },
-    {
-      "date": "2026-09-24",
-      "channel": "reel",
-      "platform": "X",
-      "time": "09:00",
-      "label": "",
-      "owner": "JiSeong",
-      "type": "thread",
-      "text": {
-        "ja": "",
-        "en": "",
-        "ko": ""
-      },
-      "comment": "",
-      "asset": "",
-      "note": "確定ドラフト",
-      "need": [
-        "text"
-      ],
-      "parts": [
-        {
-          "no": "Thread1",
-          "time": "",
-          "ja": "フォートナイトは基本プレイ無料です。\n\nコスメティックアイテムだけで年間50億ドルの収益を上げています。\n\nプレイ開始に費用はかかりません。\nゲーム体験そのものが価値を生み出します。",
-          "en": "Fortnite is free to play.\nIt earns $5 billion a year\nfrom cosmetics alone.\n\nThe entrance costs nothing.\nThe experience creates value."
-        },
-        {
-          "no": "Thread2",
-          "time": "",
-          "ja": "無料プレイが成功するのは、\n障壁がなくなるからです。\n\n一度ゲームに入り込むと、\nプレイヤーは時間を費やします。\n時間が経つにつれて愛着が生まれます。\n\n愛着が消費につながります。\n\nREELも同じ原理に基づいています。\n\n入場は無料です。\nループが価値を生み出します。",
-          "en": "Free-to-play works because\nthe barrier disappears.\n\nOnce inside,\nplayers invest time.\nTime creates attachment.\nAttachment creates spending.\n\nREEL follows the same principle.\n\nThe entrance is free.\nThe loop creates value."
-        },
-        {
-          "no": "Thread3",
-          "time": "",
-          "ja": "入場料無料。\n\n価値重視の循環型システム。",
-          "en": "Zero-cost entrance.\nValue-driven circulation."
-        },
-        {
-          "no": "Reply",
-          "time": "",
-          "ja": "50億ドル。\n\nすべて無料ゲームから。",
-          "en": "$5 billion.\nAll from a free game."
-        }
-      ],
-      "scheduled": false,
-      "posted": false,
-      "url": "",
-      "check": {
-        "done": false,
-        "at": "",
-        "match": null,
-        "note": ""
-      }
     },
     {
       "time": "09:30",
@@ -3246,61 +2054,6 @@
       "owner": ""
     },
     {
-      "date": "2026-09-25",
-      "channel": "reel",
-      "platform": "X",
-      "time": "09:00",
-      "label": "",
-      "owner": "JiSeong",
-      "type": "thread",
-      "text": {
-        "ja": "",
-        "en": "",
-        "ko": ""
-      },
-      "comment": "",
-      "asset": "",
-      "note": "確定ドラフト",
-      "need": [
-        "text"
-      ],
-      "parts": [
-        {
-          "no": "Thread1",
-          "time": "",
-          "ja": "REELでは、レビューがマーケティングそのものです。\n\n再生 → レビュー → レビューが誰かの目に触れる → 再生 → レビュー。",
-          "en": "In REEL, the review\nis the marketing.\n\nPlay → Review →\nReview reaches someone →\nThey play → They review."
-        },
-        {
-          "no": "Thread2",
-          "time": "",
-          "ja": "広告は一切ありません。\n\n売り込みのない声こそ、最も信頼できる声です。\n\n正直なレビューは、評価システムを構築します。",
-          "en": "No ads in the loop.\n\nThe voice with nothing to sell\nis the most trusted voice.\n\nHonest reviews\nscale systems."
-        },
-        {
-          "no": "Thread3",
-          "time": "",
-          "ja": "広告はプッシュする。\n\n流通はプルする。\n\nREELはプルを基盤に構築されている。",
-          "en": "Advertising pushes.\nCirculation pulls.\n\nREEL is built on pull."
-        },
-        {
-          "no": "Reply",
-          "time": "",
-          "ja": "正直な声であれば、広告は不要です。",
-          "en": "No ads needed\nwhen the voice is honest."
-        }
-      ],
-      "scheduled": false,
-      "posted": false,
-      "url": "",
-      "check": {
-        "done": false,
-        "at": "",
-        "match": null,
-        "note": ""
-      }
-    },
-    {
       "time": "09:30",
       "type": "text",
       "label": "",
@@ -3355,43 +2108,6 @@
       "owner": ""
     },
     {
-      "date": "2026-09-26",
-      "channel": "reel",
-      "platform": "X",
-      "time": "09:00",
-      "label": "",
-      "owner": "JiSeong",
-      "type": "thread",
-      "text": {
-        "ja": "",
-        "en": "",
-        "ko": ""
-      },
-      "comment": "",
-      "asset": "",
-      "note": "確定ドラフト",
-      "need": [
-        "text"
-      ],
-      "parts": [
-        {
-          "no": "Thread1",
-          "time": "",
-          "ja": "プレイすることで経験が得られる。\n\nレビューすることで信頼が得られる。\n\n信頼することで価値が得られる。\n\nこれはスローガンではない。\n\nこれがアーキテクチャだ。",
-          "en": "Play earns experience.\nReview earns trust.\nTrust earns value.\n\nThat's not a slogan.\n\nThat's the architecture."
-        }
-      ],
-      "scheduled": false,
-      "posted": false,
-      "url": "",
-      "check": {
-        "done": false,
-        "at": "",
-        "match": null,
-        "note": ""
-      }
-    },
-    {
       "time": "09:30",
       "type": "text",
       "label": "",
@@ -3444,43 +2160,6 @@
       "date": "2026-09-26",
       "platform": "X",
       "owner": ""
-    },
-    {
-      "date": "2026-09-27",
-      "channel": "reel",
-      "platform": "X",
-      "time": "09:00",
-      "label": "",
-      "owner": "JiSeong",
-      "type": "thread",
-      "text": {
-        "ja": "",
-        "en": "",
-        "ko": ""
-      },
-      "comment": "",
-      "asset": "",
-      "note": "確定ドラフト",
-      "need": [
-        "text"
-      ],
-      "parts": [
-        {
-          "no": "Thread1",
-          "time": "",
-          "ja": "ロイヤルティプログラム会員は、\n年間12～18%多く支出します。\n\n彼らを動かしているのは、\n割引ではありません。\n\nそれは、\n継続する関係性です。",
-          "en": "Loyalty program members\nspend 12–18% more per year.\n\nWhat moves them\nisn't the discount.\n\nIt's the relationship\nthat continues."
-        }
-      ],
-      "scheduled": false,
-      "posted": false,
-      "url": "",
-      "check": {
-        "done": false,
-        "at": "",
-        "match": null,
-        "note": ""
-      }
     },
     {
       "time": "09:30",
@@ -3566,55 +2245,6 @@
       "owner": ""
     },
     {
-      "date": "2026-09-28",
-      "channel": "reel",
-      "platform": "X",
-      "time": "09:00",
-      "label": "",
-      "owner": "JiSeong",
-      "type": "thread",
-      "text": {
-        "ja": "",
-        "en": "",
-        "ko": ""
-      },
-      "comment": "",
-      "asset": "",
-      "note": "確定ドラフト",
-      "need": [
-        "text"
-      ],
-      "parts": [
-        {
-          "no": "Thread1",
-          "time": "",
-          "ja": "お気に入りのカフェ。\n\nコーヒー目当てで行くのではない。\nそこが自分の場所だから行くのだ。\n\nバーチャル世界でも同じことが起こる。\n\nまるで家に帰ってきたような場所に、\n戻っていくのだ。",
-          "en": "Your favorite café.\n\nYou don't go for the coffee.\nYou go because it's yours.\n\nIn virtual worlds,\nthe same thing happens.\n\nYou return to places\nthat feel like home."
-        },
-        {
-          "no": "Thread2",
-          "time": "",
-          "ja": "REELの空間も同じように設計されている。\n\n機能で戻ってもらうのではない。\nそこがあなたの場所になることで、戻ってきてもらう。",
-          "en": "REEL's space is designed the same way.\n\nYou don't return for a feature.\nYou return because it became your place."
-        },
-        {
-          "no": "Thread3",
-          "time": "",
-          "ja": "機能は真似できる。\n\n居場所は真似できない。\n\nプレイ → レビュー → 報酬",
-          "en": "Features can be copied.\nA sense of place cannot.\n\nPLAY → REVIEW → REWARD"
-        }
-      ],
-      "scheduled": false,
-      "posted": false,
-      "url": "",
-      "check": {
-        "done": false,
-        "at": "",
-        "match": null,
-        "note": ""
-      }
-    },
-    {
       "time": "09:30",
       "type": "text",
       "label": "",
@@ -3669,61 +2299,6 @@
       "owner": ""
     },
     {
-      "date": "2026-09-29",
-      "channel": "reel",
-      "platform": "X",
-      "time": "09:00",
-      "label": "",
-      "owner": "JiSeong",
-      "type": "thread",
-      "text": {
-        "ja": "",
-        "en": "",
-        "ko": ""
-      },
-      "comment": "",
-      "asset": "",
-      "note": "確定ドラフト",
-      "need": [
-        "text"
-      ],
-      "parts": [
-        {
-          "no": "Thread1",
-          "time": "",
-          "ja": "開始は簡単。\n\n継続も簡単。\n\n復帰も簡単。\n\n3つの条件。\n\nそれらが揃うと、\nループは自動的に回転します。",
-          "en": "Easy to start.\nEasy to continue.\nEasy to return.\n\nThree conditions.\n\nWhen they align,\nthe loop turns on its own."
-        },
-        {
-          "no": "Thread2",
-          "time": "",
-          "ja": "REELのデザイン：\n\n— コントローラーが入口\n— レビューが記録\n— トークンが報酬\n\nそれぞれの要素が次の要素へと繋がっていく。",
-          "en": "REEL's design:\n\n— Controller as entrance\n— Review as record\n— Token as reward\n\nEach part feeds the next."
-        },
-        {
-          "no": "Thread3",
-          "time": "",
-          "ja": "ルールは3つ。ループは1つ。\n\nプレイ → レビュー → 報酬",
-          "en": "Three rules. One loop.\n\nPLAY → REVIEW → REWARD"
-        },
-        {
-          "no": "Reply",
-          "time": "",
-          "ja": "開始。継続。終了。\n\n必要なのはそれだけです。",
-          "en": "Start. Continue. Return.\nThat's all it takes."
-        }
-      ],
-      "scheduled": false,
-      "posted": false,
-      "url": "",
-      "check": {
-        "done": false,
-        "at": "",
-        "match": null,
-        "note": ""
-      }
-    },
-    {
       "time": "09:30",
       "type": "text",
       "label": "",
@@ -3776,61 +2351,6 @@
       "date": "2026-09-29",
       "platform": "X",
       "owner": ""
-    },
-    {
-      "date": "2026-09-30",
-      "channel": "reel",
-      "platform": "X",
-      "time": "09:00",
-      "label": "",
-      "owner": "JiSeong",
-      "type": "thread",
-      "text": {
-        "ja": "",
-        "en": "",
-        "ko": ""
-      },
-      "comment": "",
-      "asset": "",
-      "note": "確定ドラフト",
-      "need": [
-        "text"
-      ],
-      "parts": [
-        {
-          "no": "Thread1",
-          "time": "",
-          "ja": "NetflixはA/Bテストを実施しています。\n1作品につき数十種類のサムネイルをテストしています。\n\nすべてはユーザーの0.2秒の注意を狙うためです。\n\nユーザーの反応は瞬きよりも速く判断されます。",
-          "en": "Netflix A/B tests\ndozens of thumbnails per title.\n\nAll for 0.2 seconds\nof user attention.\n\nThe entrance is judged\nfaster than a blink."
-        },
-        {
-          "no": "Thread2",
-          "time": "",
-          "ja": "ユーザーが目にするあらゆる表面は、\n入り口です。\n\nサムネイル。ロビー。コントローラー。\n最初の画面。最初のタッチ。\n\nREELは、あらゆる最初の接触を\nデザイン上の課題として捉えます。",
-          "en": "Every surface that faces\nthe user is an entrance.\n\nThumbnail. Lobby. Controller.\nFirst screen. First touch.\n\nREEL treats every first contact\nas a design problem."
-        },
-        {
-          "no": "Thread3",
-          "time": "",
-          "ja": "入り口はいつだって重要だ。\n\n訪れる人すべてが、誰かにとって初めての訪問なのだ。",
-          "en": "The entrance never stops\nbeing important.\n\nEvery visit is a first visit\nfor someone."
-        },
-        {
-          "no": "Reply",
-          "time": "",
-          "ja": "0.2秒。\n\nそれだけだ。",
-          "en": "0.2 seconds.\nThat's all you get."
-        }
-      ],
-      "scheduled": false,
-      "posted": false,
-      "url": "",
-      "check": {
-        "done": false,
-        "at": "",
-        "match": null,
-        "note": ""
-      }
     },
     {
       "time": "09:30",
