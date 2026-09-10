@@ -949,64 +949,6 @@
     },
     {
       "date": "2026-09-10",
-      "platform": "TT",
-      "time": "14:00",
-      "label": "besties… where did you go 🥺🐣  follow @Hiyoko_Global",
-      "owner": "SuHa",
-      "type": "video",
-      "text": {
-        "ja": "",
-        "en": "Join the Aftersale 💛\nhttps://sale.hiyoko.io/\n\n💛🐣 Join the community\nhttps://linktr.ee/HIYOKO_global ",
-        "ko": ""
-      },
-      "comment": "",
-      "asset": "",
-      "note": "",
-      "need": [
-        "text",
-        "image"
-      ],
-      "scheduled": false,
-      "posted": false,
-      "url": "",
-      "check": {
-        "done": false,
-        "at": "",
-        "match": null,
-        "note": ""
-      }
-    },
-    {
-      "date": "2026-09-10",
-      "platform": "TT",
-      "time": "14:00",
-      "label": "",
-      "owner": "SuHa",
-      "type": "video",
-      "text": {
-        "ja": "",
-        "en": "besties… where did you go 🥺🐣 \n\nfollow @Hiyoko_Global so i can be happier~\nbe my friend 🐣💛\n\n#HIYOKO #HYK #fyp",
-        "ko": ""
-      },
-      "comment": "",
-      "asset": "",
-      "note": "",
-      "need": [
-        "text",
-        "image"
-      ],
-      "scheduled": false,
-      "posted": false,
-      "url": "",
-      "check": {
-        "done": false,
-        "at": "",
-        "match": null,
-        "note": ""
-      }
-    },
-    {
-      "date": "2026-09-10",
       "platform": "YT",
       "time": "14:00",
       "label": "",
@@ -4162,6 +4104,35 @@
         "note": ""
       },
       "owner": "SuHa"
+    },
+    {
+      "date": "2026-09-10",
+      "platform": "TT",
+      "time": "14:00",
+      "label": "besties… where did you go 🥺🐣  follow @Hiyoko_Global",
+      "owner": "SuHa",
+      "type": "video",
+      "text": {
+        "ja": "",
+        "en": "Join the Aftersale 💛\nhttps://sale.hiyoko.io/\n\n💛🐣 Join the community\nhttps://linktr.ee/HIYOKO_global ",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
     }
   ]
 }
