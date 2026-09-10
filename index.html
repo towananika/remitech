@@ -1385,6 +1385,9 @@
     return pfn(p);
   }
 
+  // 表示・並びの基準。X→Instagram→Facebook→TikTok→YouTubeの順に固定する
+  var PF_ORDER = { X: 0, IG: 1, FB: 2, TT: 3, YT: 4 };
+
   // 準備タブと同じ場所（schedule.slots）から、その日・投稿ずみでリンクが貼られている枠を拾う
   function telegramItems(dateStr) {
     var byCh = {};
@@ -1394,7 +1397,8 @@
       var u = (stGet(x).url || x.url || "").trim();
       if (!u) return;
       var cid = slotCh(x);
-      (byCh[cid] = byCh[cid] || []).push({ name: tgName(x), url: u, time: x.time });
+      var pf = x.platform || "X";
+      (byCh[cid] = byCh[cid] || []).push({ name: tgName(x), url: u, time: x.time, pf: pf });
     });
     return byCh;
   }
@@ -1407,15 +1411,22 @@
     channels.forEach(function (c) {
       var items = byCh[c.id];
       if (!items || !items.length) return;
-      items.sort(function (a, b) { return a.time < b.time ? -1 : 1; });
+      items.sort(function (a, b) {
+        var oa = PF_ORDER[a.pf], ob = PF_ORDER[b.pf];
+        oa = oa === undefined ? 99 : oa; ob = ob === undefined ? 99 : ob;
+        if (oa !== ob) return oa - ob;
+        return a.time < b.time ? -1 : 1;
+      });
       blocks.push({ ch: c, md: md, items: items });
     });
     return blocks;
   }
 
+  // Telegramへそのまま貼る全体テキスト。リンクは書かない
+  // （各テキストの投稿にTelegram側で個別にリンクを付けるため）
   function telegramTextRaw(dateStr) {
     return telegramBlocks(dateStr).map(function (b) {
-      var lines = b.items.map(function (it) { return it.name + " (" + it.url + ")"; });
+      var lines = b.items.map(function (it) { return it.name; });
       return b.ch.name + " Uploaded " + b.md + "\n\n" + lines.join("\n");
     }).join("\n\n\n");
   }
@@ -1453,9 +1464,9 @@
     var raw = telegramTextRaw(tgDate);
     copyBank.tgAll = { en: raw, cur: raw };
 
-    // 全体テキスト（そのままTelegramへ貼れる形）
+    // 全体テキスト（そのままTelegramへ貼れる形。リンクは書かない）
     var shownText = blocks.map(function (b) {
-      var lines = b.items.map(function (it) { return esc(it.name) + " (" + esc(it.url) + ")"; });
+      var lines = b.items.map(function (it) { return esc(it.name); });
       return esc(b.ch.name) + " Uploaded " + b.md + "\n\n" + lines.join("\n");
     }).join("\n\n\n");
 

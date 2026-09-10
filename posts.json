@@ -155,11 +155,9 @@
       "color": "#4a72a8",
       "snippets": [
         {
-          "title": "X アカウントへのリンク",
-          "note": "押すと写せます",
-          "url": "https://x.com/REEL_Experience",
+          "title": "REELの公式Xアカウントだと伝える",
           "items": [
-            "More on X"
+            "This is REEL's official X account."
           ]
         }
       ]
