@@ -640,7 +640,7 @@
           footRepo:"Source",
           newSlot:"New post", edit:"Edit", del:"Delete", save:"Save", cancel:"Cancel",
           fChannel:"Channel", fDate:"Date", fPlatform:"Where", fTime:"Time", fLabel:"Title", fType:"Kind",
-          fAsset:"Visual note", fComment:"Comment", fPart:"Part", fOwner:"In charge", noOwner:"unassigned",
+          fAsset:"Visual note", fUrl:"Link to the post", fComment:"Comment", fPart:"Part", fOwner:"In charge", noOwner:"unassigned",
           addPart:"Add a part", rmPart:"Remove", saving:"Saving\u2026",
           savedTo:"Saved to the repository", savedHere:"Saved on this device only",
           saveFail:"Could not save",
@@ -685,7 +685,7 @@
           footRepo:"소스",
           newSlot:"새 게시물", edit:"수정", del:"삭제", save:"저장", cancel:"취소",
           fChannel:"채널", fDate:"날짜", fPlatform:"어디에", fTime:"시각", fLabel:"제목", fType:"종류",
-          fAsset:"비주얼 메모", fComment:"댓글", fPart:"파트", fOwner:"담당자", noOwner:"미정",
+          fAsset:"비주얼 메모", fUrl:"게시물 링크", fComment:"댓글", fPart:"파트", fOwner:"담당자", noOwner:"미정",
           addPart:"파트 추가", rmPart:"제거", saving:"저장 중\u2026",
           savedTo:"저장소에 저장됨", savedHere:"이 기기에만 저장됨",
           saveFail:"저장하지 못했어",
@@ -730,7 +730,7 @@
           footRepo:"元のファイル",
           newSlot:"新しい投稿", edit:"直す", del:"消す", save:"保存", cancel:"やめる",
           fChannel:"チャンネル", fDate:"日付", fPlatform:"どこに", fTime:"時刻", fLabel:"見出し", fType:"種類",
-          fAsset:"ビジュアルの指示", fComment:"コメント", fPart:"連投", fOwner:"担当者", noOwner:"未定",
+          fAsset:"ビジュアルの指示", fUrl:"投稿のリンク", fComment:"コメント", fPart:"連投", fOwner:"担当者", noOwner:"未定",
           addPart:"連投を足す", rmPart:"外す", saving:"保存しています\u2026",
           savedTo:"元のファイルに保存した", savedHere:"この端末にだけ保存した",
           saveFail:"保存できなかった",
@@ -887,6 +887,25 @@
     var o = stGet(sl); o[k] = v;
     try { localStorage.setItem(stKey(sl), JSON.stringify(o)); } catch (e) {}
   }
+  // 予約・投稿・確認・リンクは、他の人にも見えないと意味がない。
+  // 端末に控えつつ、置き場にも書き戻す
+  var saveWait = null;
+  function markSave(sl, k, v) {
+    stSet(sl, k, v);
+    if (k === "scheduled") sl.scheduled = v;
+    else if (k === "posted") sl.posted = v;
+    else if (k === "url") sl.url = v;
+    else if (k === "checked") {
+      sl.check = sl.check || { done:false, at:"", match:null, note:"" };
+      sl.check.done = v;
+      sl.check.at = v ? new Date().toISOString() : "";
+    }
+    clearTimeout(saveWait);
+    saveWait = setTimeout(function () {
+      saveSchedule("schedule: " + k + " " + slotKey(sl));
+    }, 700);
+  }
+
   function isPosted(sl) { return !!(sl.posted || stGet(sl).posted); }
   function isSched(sl) { return !!(sl.scheduled || stGet(sl).scheduled); }
   function isChecked(sl) { return !!((sl.check && sl.check.done) || stGet(sl).checked); }
@@ -1386,6 +1405,7 @@
       '<div class="bar"><button id="eAddPart" class="donebtn">' + esc(t("addPart")) + '</button></div>' +
       '<label class="frow tall"><span>' + esc(t("fComment")) + '</span><textarea id="eComment">' + esc(e.comment || "") + '</textarea></label>' +
       row(t("fAsset"), '<input type="text" id="eAsset" value="' + esc(e.asset || "") + '">') +
+      row(t("fUrl"), '<input type="url" id="eUrl" placeholder="https://" value="' + esc(e.url || "") + '">') +
       '<div class="bar"><button id="eSave" class="donebtn strong">' + esc(t("save")) + '</button>' +
       '<button id="eCancel" class="donebtn">' + esc(t("cancel")) + '</button>' +
       '<span class="tiny" id="eOut"></span></div></div>';
@@ -1427,7 +1447,7 @@
       need: (type === "image" || type === "video" || asset) ? ["text", "image"] : ["text"],
       scheduled: (editing && editing.scheduled) || false,
       posted: (editing && editing.posted) || false,
-      url: (editing && editing.url) || "",
+      url: v("eUrl") || (editing && editing.url) || "",
       check: (editing && editing.check) || { done: false, at: "", match: null, note: "" },
     };
     if (parts.length) o.parts = parts;
@@ -2201,7 +2221,7 @@
         setTimeout(function () { renderPrep(); }, 1600);
         return;
       }
-      stSet(slx, mark, turnOn);
+      markSave(slx, mark, turnOn);
       renderPrep();
       return;
     }
@@ -2261,9 +2281,9 @@
       })[0];
       if (sl2) {
         var v = e.target.value.trim();
-        stSet(sl2, "url", v);
+        markSave(sl2, "url", v);
         // リンクが入った時点で「投稿完了」とみなす。貼る＝出したということなので
-        if (v && !stGet(sl2).posted) { stSet(sl2, "posted", true); renderPrep(); }
+        if (v && !isPosted(sl2)) { markSave(sl2, "posted", true); renderPrep(); }
       }
       return;
     }
