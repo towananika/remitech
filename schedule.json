@@ -1056,7 +1056,7 @@
         "image"
       ],
       "scheduled": false,
-      "posted": false,
+      "posted": true,
       "url": "https://www.instagram.com/reel/DdGEnrvBuoJ/?stkn=MzRlODBiNWFlZA==",
       "check": {
         "done": false,
