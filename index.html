@@ -180,6 +180,17 @@
     white-space:pre-wrap; word-break:break-word; font-family:inherit; font-size:13px; line-height:1.7;
     background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:16px;
   }
+  .tglinks{ margin-top:22px; }
+  .tglinks .plabel{ border-left:2px solid var(--chc, var(--wood)); padding-left:8px; margin-top:16px; }
+  .tglink{
+    display:flex; align-items:center; gap:8px; padding:6px 0; border-bottom:1px solid var(--line);
+  }
+  .tglink:last-child{ border-bottom:0; }
+  .tglname{ flex:0 0 auto; font-size:11.5px; color:var(--muted); width:76px; }
+  .tglurl{
+    flex:1 1 auto; min-width:0; font-size:11.5px; color:var(--ink); white-space:nowrap;
+    overflow:hidden; text-overflow:ellipsis; font-family:inherit;
+  }
   .ptitle{ display:flex; align-items:center; gap:8px; margin:0 0 10px;
            border:1px solid var(--line); border-radius:10px; padding:8px 10px; }
   .ptitle .tlab{ font-size:11px; color:var(--muted); letter-spacing:.06em; flex:0 0 auto; }
@@ -689,7 +700,7 @@
           matText:"Text", matImage:"Image", remind:"Remind before posting", remindOff:"Off",
           notMatched:"Not checked", matched:"Matches the plan", mismatched:"Differs from the plan",
           navImport:"Import", impHelp:"Paste the plan from your spreadsheet (tab-separated, header row first).",
-          navTg:"Telegram", copyAll:"Copy all", tgEmpty:"Nothing posted with a link on this day yet",
+          navTg:"Telegram", copyAll:"Copy all", tgEmpty:"Nothing posted with a link on this day yet", tgLinks:"Links",
           impCols:"Columns: date (or day), time, platform, type, label, ja, en, ko, asset",
           impApply:"Apply on this device", impDownload:"Download schedule.json",
           impMonth:"Month", impMerge:"Keep what is already there",
@@ -735,7 +746,7 @@
           matText:"텍스트", matImage:"이미지", remind:"게시 전 알림", remindOff:"끄기",
           notMatched:"미확인", matched:"기획과 일치", mismatched:"기획과 다름",
           navImport:"불러오기", impHelp:"기획표를 붙여넣어. 탭으로 구분된 표(첫 줄은 제목).",
-          navTg:"텔레그램", copyAll:"전체 복사", tgEmpty:"이 날짜엔 링크가 있는 게시물이 아직 없어",
+          navTg:"텔레그램", copyAll:"전체 복사", tgEmpty:"이 날짜엔 링크가 있는 게시물이 아직 없어", tgLinks:"링크",
           impCols:"열: date (또는 day), time, platform, type, label, ja, en, ko, asset",
           impApply:"이 기기에 적용", impDownload:"schedule.json 내려받기",
           impMonth:"월", impMerge:"기존 것 유지",
@@ -781,7 +792,7 @@
           matText:"テキスト", matImage:"画像", remind:"投稿前にリマインド", remindOff:"切",
           notMatched:"未確認", matched:"企画どおり", mismatched:"企画と違う",
           navImport:"取り込み", impHelp:"表計算からコピーして貼る（タブ区切り・1行目は見出し）。",
-          navTg:"Telegram通知", copyAll:"全部コピー", tgEmpty:"この日はまだリンク付きの投稿がない",
+          navTg:"Telegram通知", copyAll:"全部コピー", tgEmpty:"この日はまだリンク付きの投稿がない", tgLinks:"リンク",
           impCols:"列: date（または day）, time, platform, type, label, ja, en, ko, asset",
           impApply:"この端末に反映", impDownload:"schedule.json を保存",
           impMonth:"月", impMerge:"いまの内容を残す",
@@ -1350,14 +1361,14 @@
   // IGでも「フィード」と「ストーリー」は別物として出す
   function tgName(sl) {
     var p = sl.platform || "X";
-    if (p === "IG" && /(ストーリー|스゠리|story)/i.test(sl.label || "")) {
+    if (p === "IG" && /(ストーリー|스토리|story)/i.test(sl.label || "")) {
       return "IG Stories";
     }
     return pfn(p);
   }
 
-  // その日、投稿ずみでリンクが貼られている枠を、チャンネルごとにまとめる
-  function telegramText(dateStr) {
+  // 準備タブと同じ場所（schedule.slots）から、その日・投稿ずみでリンクが貼られている枠を拾う
+  function telegramItems(dateStr) {
     var byCh = {};
     (schedule.slots || []).forEach(function (x) {
       if (x.date !== dateStr) return;
@@ -1367,6 +1378,11 @@
       var cid = slotCh(x);
       (byCh[cid] = byCh[cid] || []).push({ name: tgName(x), url: u, time: x.time });
     });
+    return byCh;
+  }
+
+  function telegramBlocks(dateStr) {
+    var byCh = telegramItems(dateStr);
     var d = new Date(dateStr + "T00:00:00");
     var md = (d.getMonth() + 1) + "/" + d.getDate();
     var blocks = [];
@@ -1374,51 +1390,58 @@
       var items = byCh[c.id];
       if (!items || !items.length) return;
       items.sort(function (a, b) { return a.time < b.time ? -1 : 1; });
-      var lines = items.map(function (it) { return it.name + " (" + it.url + ")"; });
-      blocks.push(esc(c.name) + " Uploaded " + md + "\n\n" + lines.map(esc).join("\n"));
+      blocks.push({ ch: c, md: md, items: items });
     });
-    return blocks.join("\n\n\n");
+    return blocks;
+  }
+
+  function telegramTextRaw(dateStr) {
+    return telegramBlocks(dateStr).map(function (b) {
+      var lines = b.items.map(function (it) { return it.name + " (" + it.url + ")"; });
+      return b.ch.name + " Uploaded " + b.md + "\n\n" + lines.join("\n");
+    }).join("\n\n\n");
   }
 
   function renderTelegram() {
     chansEl.hidden = true;
     if (!schedule) { view.innerHTML = '<p class="empty">' + esc(t("none")) + '</p>'; return; }
     if (!tgDate) tgDate = ymd(new Date());
+    var blocks = telegramBlocks(tgDate);
     var raw = telegramTextRaw(tgDate);
     copyBank.tgAll = { en: raw, cur: raw };
-    var shown = telegramText(tgDate);
+
+    // 全体テキスト（そのままTelegramへ貼れる形）
+    var shownText = blocks.map(function (b) {
+      var lines = b.items.map(function (it) { return esc(it.name) + " (" + esc(it.url) + ")"; });
+      return esc(b.ch.name) + " Uploaded " + b.md + "\n\n" + lines.join("\n");
+    }).join("\n\n\n");
+
+    // リンクだけを別に並べる。1本ずつ写せる
+    var linkRows = "";
+    blocks.forEach(function (b, bi) {
+      linkRows += '<p class="plabel" style="--chc:' + esc(b.ch.color || "var(--wood)") + '">' +
+        esc(b.ch.name) + '</p>';
+      b.items.forEach(function (it, ii) {
+        var ck = "tgl" + bi + "_" + ii;
+        copyBank[ck] = { en: it.url, cur: it.url };
+        linkRows += '<div class="tglink">' +
+          '<span class="tglname">' + esc(it.name) + '</span>' +
+          '<code class="tglurl">' + esc(it.url) + '</code>' +
+          '<button class="cpy" data-ck="' + ck + '" data-lg="en">' + esc(t("copy")) + '</button>' +
+          '</div>';
+      });
+    });
+
     var html = '<div class="tg">' +
       '<div class="bar"><input type="date" id="tgDate" value="' + esc(tgDate) + '">' +
-      (raw ? '<button class="cpy strong" data-ck="tgAll" data-lg="en">' + esc(t("copyAll")) + '</button>' : "") +
+      (blocks.length ? '<button class="cpy strong" data-ck="tgAll" data-lg="en">' + esc(t("copyAll")) + '</button>' : "") +
       '</div>' +
-      (raw ? '<pre class="tgtext">' + shown + '</pre>'
-           : '<p class="empty">' + esc(t("tgEmpty")) + '</p>') +
+      (blocks.length
+        ? '<pre class="tgtext">' + shownText + '</pre>' +
+          '<div class="tglinks"><p class="plabel">' + esc(t("tgLinks")) + '</p>' + linkRows + '</div>'
+        : '<p class="empty">' + esc(t("tgEmpty")) + '</p>') +
       '</div>';
     view.innerHTML = html;
-  }
-
-  // コピーに使う、飾りのないテキスト（telegramTextは画面表示用にescしている）
-  function telegramTextRaw(dateStr) {
-    var byCh = {};
-    (schedule.slots || []).forEach(function (x) {
-      if (x.date !== dateStr) return;
-      if (!isPosted(x)) return;
-      var u = (stGet(x).url || x.url || "").trim();
-      if (!u) return;
-      var cid = slotCh(x);
-      (byCh[cid] = byCh[cid] || []).push({ name: tgName(x), url: u, time: x.time });
-    });
-    var d = new Date(dateStr + "T00:00:00");
-    var md = (d.getMonth() + 1) + "/" + d.getDate();
-    var blocks = [];
-    channels.forEach(function (c) {
-      var items = byCh[c.id];
-      if (!items || !items.length) return;
-      items.sort(function (a, b) { return a.time < b.time ? -1 : 1; });
-      var lines = items.map(function (it) { return it.name + " (" + it.url + ")"; });
-      blocks.push(c.name + " Uploaded " + md + "\n\n" + lines.join("\n"));
-    });
-    return blocks.join("\n\n\n");
   }
 
   // 端末の空きを見る。7割を超えたら、何をすればよいかを出す
