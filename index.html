@@ -80,6 +80,49 @@
   }
   .nav button[aria-pressed="true"]{ color:var(--ink); border-bottom-color:var(--wood); }
 
+  /* ---- week grid ---- */
+  .gridwrap{ overflow-x:auto; border:1px solid var(--line); border-radius:14px;
+             background:var(--surface); }
+  .grid{ border-collapse:collapse; width:100%; min-width:620px; }
+  .grid th, .grid td{ border-bottom:1px solid var(--line); padding:8px 10px; text-align:center; }
+  .grid tr:last-child td{ border-bottom:0; }
+  .grid thead th{ font-weight:500; font-size:12.5px; color:var(--muted); letter-spacing:.02em; }
+  .grid thead th .dnum{ display:block; color:var(--ink); font-size:15px; font-variant-numeric:tabular-nums; }
+  .grid thead th.today .dnum{ color:var(--wood); }
+  .grid thead th.today{ background:var(--wood-soft); }
+  .grid th.rowhead{
+    position:sticky; left:0; z-index:2; background:var(--surface);
+    text-align:left; white-space:nowrap; border-right:1px solid var(--line);
+  }
+  .grid th.rowhead b{ display:block; font-size:13px; font-weight:500; color:var(--ink); }
+  .grid th.rowhead span{ font-size:12px; color:var(--muted); font-variant-numeric:tabular-nums; }
+  .cell{ display:inline-flex; flex-direction:column; align-items:center; gap:4px; min-width:56px; }
+  .cell .lb2{ font-size:11px; color:var(--muted); max-width:96px;
+              overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .mk{ width:100%; font-size:11px; font-weight:500; border-radius:999px;
+       border:1px solid var(--line); padding:2px 6px; color:var(--muted); }
+  .mk[data-s="text"]{ color:var(--wood); border-color:var(--wood); }
+  .mk[data-s="ready"]{ color:var(--surface); background:var(--wood); border-color:var(--wood); }
+  .mk[data-s="sched"]{ color:var(--ink); border-color:var(--ink); }
+  .mk[data-s="done"]{ color:var(--surface); background:var(--sage); border-color:var(--sage); }
+  .mk[data-s="late"]{ color:var(--surface); background:#b4553f; border-color:#b4553f; }
+  .cellmats{ display:flex; gap:4px; justify-content:center; flex-wrap:wrap; }
+  .matbtn{
+    background:none; border:1px solid var(--line); border-radius:999px;
+    color:var(--muted); font:inherit; font-size:10.5px; padding:2px 8px; cursor:pointer;
+    white-space:nowrap;
+  }
+  .matbtn:hover{ border-color:var(--wood); color:var(--ink); }
+  .matbtn[data-on="true"]{ color:var(--surface); background:var(--sage); border-color:var(--sage); }
+  .pf{
+    display:inline-block; font-style:normal; font-size:9.5px; letter-spacing:.08em;
+    border:1px solid var(--line); border-radius:4px; padding:0 4px; margin-right:6px;
+    color:var(--muted); vertical-align:1px;
+  }
+  .pf[data-p="IG"]{ color:var(--wood); border-color:var(--wood); }
+  /* チャンネルが変わる行に区切りを入れる */
+  .grid tbody tr.chstart td, .grid tbody tr.chstart th{ border-top:2px solid var(--line); }
+
   /* ---- dashboard ---- */
   .sum{ background:var(--surface); border:1px solid var(--line); border-radius:14px;
         padding:16px 18px; margin:18px 0 14px; }
@@ -247,7 +290,8 @@
           impCols:"Columns: day, time, type, label, ja, en, ko, asset",
           impApply:"Apply on this device", impDownload:"Download schedule.json",
           impRead:"Read", impResult:"slots read", impBad:"Could not read it. Check the header row.",
-          updated:"New content", reload:"Reload", close:"Close" },
+          updated:"New content", reload:"Reload", close:"Close",
+          weekStart:"Week starts on", noSlots:"No regular slots yet." },
     ko: { tagline:"올리는 모든 글의 원본.",
           all:"전체", loading:"불러오는 중…", none:"아직 없습니다.",
           fail:"원본을 불러오지 못했습니다.", back:"← 목록으로",
@@ -261,7 +305,8 @@
           impCols:"열: day, time, type, label, ja, en, ko, asset",
           impApply:"이 기기에 적용", impDownload:"schedule.json 내려받기",
           impRead:"읽기", impResult:"개 읽음", impBad:"읽지 못했어. 첫 줄의 제목을 확인해줘.",
-          updated:"새 내용", reload:"새로고침", close:"닫기" },
+          updated:"새 내용", reload:"새로고침", close:"닫기",
+          weekStart:"주 시작", noSlots:"정기 업로드 시간이 없어." },
     ja: { tagline:"投稿するものの原本。",
           all:"すべて", loading:"読み込んでいます…", none:"まだ何もありません。",
           fail:"原本を読み込めませんでした。", back:"← 一覧へ",
@@ -275,7 +320,8 @@
           impCols:"列: day, time, type, label, ja, en, ko, asset",
           impApply:"この端末に反映", impDownload:"schedule.json を保存",
           impRead:"読む", impResult:"件 読めた", impBad:"読めなかった。1行目の見出しを確かめて。",
-          updated:"新しい内容", reload:"読み直す", close:"閉じる" }
+          updated:"新しい内容", reload:"読み直す", close:"閉じる",
+          weekStart:"週の始まり", noSlots:"定期の枠がまだない。" }
   };
   var LANGS = [["en","EN"], ["ko","한국어"], ["ja","日本語"]];
 
@@ -367,9 +413,13 @@
   // 今日を含む月曜〜日曜。予約できているかを1枚で見る
   function two(n) { return n < 10 ? "0" + n : "" + n; }
 
+  function weekStart() {
+    try { var v = localStorage.getItem("remitech-weekstart"); if (v !== null) return +v; } catch (e) {}
+    return 1;                                   // 既定は月曜
+  }
   function weekRange(now) {
     var d = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-    var back = (d.getDay() + 6) % 7;            // 月曜を週の頭にする
+    var back = (d.getDay() - weekStart() + 7) % 7;
     var mon = new Date(d); mon.setDate(d.getDate() - back);
     var days = [];
     for (var i = 0; i < 7; i++) { var x = new Date(mon); x.setDate(mon.getDate() + i); days.push(x); }
@@ -428,6 +478,10 @@
     return hasText ? "text" : "none";
   }
 
+  var DOW = { en:["Sun","Mon","Tue","Wed","Thu","Fri","Sat"],
+              ko:["일","월","화","수","목","금","토"],
+              ja:["日","月","火","水","木","金","土"] };
+
   function renderDash() {
     chansEl.hidden = true;
     if (!schedule) { view.innerHTML = '<p class="empty">' + esc(t("none")) + '</p>'; return; }
@@ -437,42 +491,60 @@
     var ym = schedule.month.split("-");
     var y = +ym[0], m = +ym[1] - 1;
     var counts = { none:0, text:0, ready:0, sched:0, done:0, late:0 };
-    var html = "";
 
+    // 行 = チャンネル × 定期の時刻
+    var rows = [];
+    channels.forEach(function (c) {
+      (c.postTimes || []).forEach(function (pt) {
+        rows.push({ ch:c, time: pt.time || pt, platform: pt.platform || "", label: pt.label || "" });
+      });
+    });
+    if (!rows.length) { view.innerHTML = '<p class="empty">' + esc(t("noSlots")) + '</p>'; return; }
+
+    var head = '<tr><th class="rowhead"></th>';
     days.forEach(function (d) {
-      var inMonth = (d.getFullYear() === y && d.getMonth() === m);
-      var slots = inMonth ? schedule.slots.filter(function (x) {
-        return x.day === d.getDate() && x.time.indexOf(":") > 0;
-      }) : [];
       var isToday = d.toDateString() === now.toDateString();
-      var rows = slots.map(function (sl) {
-        var hh = sl.time.split(":");
+      head += '<th class="' + (isToday ? "today" : "") + '">' +
+        (DOW[lang] || DOW.en)[d.getDay()] +
+        '<span class="dnum">' + (d.getMonth() + 1) + "/" + d.getDate() + '</span></th>';
+    });
+    head += "</tr>";
+
+    var body = "";
+    rows.forEach(function (row, ri) {
+      var pf = row.platform ? '<i class="pf" data-p="' + esc(row.platform) + '">' + esc(row.platform) + '</i>' : "";
+      var first = (ri === 0) || (rows[ri - 1].ch.id !== row.ch.id);
+      body += '<tr class="' + (first ? "chstart" : "") + '" data-ch="' + esc(row.ch.id) + '"><th class="rowhead">' +
+              '<b>' + pf + esc(row.ch.name) + '</b>' +
+              '<span>' + esc(row.time) + (row.label ? " \u00b7 " + esc(row.label) : "") + '</span></th>';
+      days.forEach(function (d) {
+        var inMonth = (d.getFullYear() === y && d.getMonth() === m &&
+                       row.ch.id === (schedule.channel || "hiyoko"));
+        var sl = inMonth ? (schedule.slots || []).filter(function (x) {
+          return x.day === d.getDate() && x.time === row.time;
+        })[0] : null;
+        if (!sl) { body += "<td></td>"; return; }
+
+        var hh = row.time.split(":");
         var when = new Date(d.getFullYear(), d.getMonth(), d.getDate(), +hh[0], +hh[1]);
         var st = slotState(sl, when, now);
         counts[st]++;
-        var label = sl.label || (sl.text && (sl.text[lang] || sl.text.en || sl.text.ja) || "").split(String.fromCharCode(10))[0];
-        var m = matGet(sl);
+        var label = sl.label || ((sl.text && (sl.text[lang] || sl.text.en || sl.text.ja)) || "").split(NLC)[0];
+        var mm = matGet(sl);
         var mats = (sl.need || ["text"]).map(function (k) {
-          return '<label class="mat" data-on="' + (!!m[k]) + '">' +
-                 '<input type="checkbox" data-day="' + sl.day + '" data-time="' + esc(sl.time) +
-                 '" data-kind="' + k + '"' + (m[k] ? " checked" : "") + '>' +
-                 esc(t(k === "text" ? "matText" : "matImage")) + '</label>';
+          var on = !!mm[k];
+          return '<button class="matbtn" data-on="' + on + '"' +
+                 ' data-day="' + sl.day + '" data-time="' + esc(sl.time) + '" data-kind="' + k + '"' +
+                 ' title="' + esc(t(k === "text" ? "matText" : "matImage")) + '">' +
+                 (on ? "\u2713 " : "") + esc(t(k === "text" ? "matText" : "matImage")) + '</button>';
         }).join("");
-        var chk = sl.check && sl.check.done
-          ? '<span class="chk" data-m="' + (sl.check.match === true) + '">' +
-            esc(sl.check.match === true ? t("matched") : t("mismatched")) + '</span>'
-          : (sl.posted ? '<span class="chk">' + esc(t("notMatched")) + '</span>' : "");
-        return '<div class="row"><span class="t">' + esc(sl.time) + '</span>' +
-               '<span class="lb">' + esc(label || "—") + '</span>' +
-               '<span class="mats">' + mats + '</span>' +
-               '<span class="st" data-s="' + st + '">' + esc(t("st" + st.charAt(0).toUpperCase() + st.slice(1))) + '</span>' +
-               chk + '</div>';
-      }).join("");
-
-      html += '<div class="day' + (isToday ? " today" : "") + '">' +
-        '<div class="dhead"><span class="n">' + (d.getMonth() + 1) + "/" + d.getDate() +
-        '</span><span>' + ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"][(d.getDay() + 6) % 7] + '</span></div>' +
-        (rows || '<div class="row"><span class="lb">—</span></div>') + '</div>';
+        body += '<td><span class="cell">' +
+                '<span class="mk" data-s="' + st + '">' +
+                esc(t("st" + st.charAt(0).toUpperCase() + st.slice(1))) + '</span>' +
+                '<span class="lb2">' + esc(label || "\u2014") + '</span>' +
+                '<span class="cellmats">' + mats + '</span></span></td>';
+      });
+      body += "</tr>";
     });
 
     var need = counts.late + counts.none + counts.text;
@@ -480,29 +552,43 @@
     var opts = [15, 30, 60, 120].map(function (v) {
       return '<option value="' + v + '"' + (rp.min === v ? " selected" : "") + '>' + v + "m</option>";
     }).join("");
-    var remRow = '<div class="rem"><label class="mat" data-on="' + rp.on + '">' +
-      '<input type="checkbox" id="remOn"' + (rp.on ? " checked" : "") + '>' + esc(t("remind")) + '</label>' +
-      '<select id="remMin">' + opts + '</select></div>';
-    var head = '<div class="sum"><p class="big">' +
-      (need === 0 ? esc(t("ok")) : esc(t("todo")) + " · " + need) + '</p>' +
-      '<p class="rng">' + (days[0].getMonth()+1) + "/" + days[0].getDate() + " – " +
-      (days[6].getMonth()+1) + "/" + days[6].getDate() +
-      '　' + esc(t("stLate")) + " " + counts.late +
-      '　' + esc(t("stNone")) + " " + counts.none +
-      '　' + esc(t("stText")) + " " + counts.text +
-      '　' + esc(t("stReady")) + " " + counts.ready +
-      '　' + esc(t("stSched")) + " " + counts.sched +
-      '　' + esc(t("stDone")) + " " + counts.done + '</p></div>';
+    var ws = weekStart();
+    var wsOpts = [1, 0, 6].map(function (v) {
+      return '<option value="' + v + '"' + (ws === v ? " selected" : "") + '>' +
+             (DOW[lang] || DOW.en)[v] + "</option>";
+    }).join("");
 
-    view.innerHTML = head + remRow + html;
+    var sum = '<div class="sum"><p class="big">' +
+      (need === 0 ? esc(t("ok")) : esc(t("todo")) + " \u00b7 " + need) + '</p>' +
+      '<p class="rng">' + (days[0].getMonth()+1) + "/" + days[0].getDate() + " \u2013 " +
+      (days[6].getMonth()+1) + "/" + days[6].getDate() +
+      '\u3000' + esc(t("stLate")) + " " + counts.late +
+      '\u3000' + esc(t("stNone")) + " " + counts.none +
+      '\u3000' + esc(t("stText")) + " " + counts.text +
+      '\u3000' + esc(t("stReady")) + " " + counts.ready +
+      '\u3000' + esc(t("stSched")) + " " + counts.sched +
+      '\u3000' + esc(t("stDone")) + " " + counts.done + '</p></div>';
+
+    var bar = '<div class="rem">' +
+      '<label class="mat" data-on="' + rp.on + '"><input type="checkbox" id="remOn"' +
+      (rp.on ? " checked" : "") + '>' + esc(t("remind")) + '</label>' +
+      '<select id="remMin">' + opts + '</select>' +
+      '<span>' + esc(t("weekStart")) + '</span><select id="wsPick">' + wsOpts + '</select></div>';
+
+    view.innerHTML = sum + bar +
+      '<div class="gridwrap"><table class="grid"><thead>' + head + '</thead><tbody>' + body + '</tbody></table></div>';
     armReminders(days);
   }
 
   // ---- 企画表の取り込み ----
   // サイトはファイルを書けないので、読み取って(1)この端末に反映し
-  // (2)schedule.json として保存できるようにする。保存したものを置けば全員に反映される
+  // (2)schedule.json として保存できるようにする
+  var NLC = String.fromCharCode(10), TABC = String.fromCharCode(9);
+  var CRC = String.fromCharCode(13), BSN = "\\" + "n";
+  var imported = null;
+
   function parseTSV(txt) {
-    var lines = txt.split(RE_CR).join("").split(NLC).filter(function (l) { return l.trim(); });
+    var lines = txt.split(CRC).join("").split(NLC).filter(function (l) { return l.trim(); });
     if (lines.length < 2) return null;
     var head = lines[0].split(TABC).map(function (h) { return h.trim().toLowerCase(); });
     if (head.indexOf("day") < 0 || head.indexOf("time") < 0) return null;
@@ -512,12 +598,12 @@
     for (var i = 1; i < lines.length; i++) {
       var r = lines[i].split(TABC);
       var day = parseInt(col(r, "day"), 10);
-      var time = col(r, "time");
-      if (!day || !time) continue;
+      var tm = col(r, "time");
+      if (!day || !tm) continue;
       var type = col(r, "type") || "text";
       var asset = col(r, "asset");
       out.push({
-        day: day, time: time, type: type, label: col(r, "label"),
+        day: day, time: tm, type: type, label: col(r, "label"),
         text: { ja: un(col(r, "ja")), en: un(col(r, "en")), ko: un(col(r, "ko")) },
         asset: asset, note: "",
         need: (type === "image" || type === "video" || asset) ? ["text", "image"] : ["text"],
@@ -527,11 +613,6 @@
     }
     return out.length ? out : null;
   }
-
-  var NLC = String.fromCharCode(10), TABC = String.fromCharCode(9);
-  var RE_CR = String.fromCharCode(13), BSN = "\\" + "n";
-
-  var imported = null;
 
   function renderImport() {
     chansEl.hidden = true;
@@ -639,6 +720,16 @@
     renderChans(); renderList();
   });
 
+  view.addEventListener("click", function (e) {
+    var mb = e.target.closest(".matbtn");
+    if (!mb) return;
+    var day = +mb.getAttribute("data-day"), tm = mb.getAttribute("data-time");
+    var sl = (schedule.slots || []).filter(function (x) { return x.day === day && x.time === tm; })[0];
+    if (!sl) return;
+    matSet(sl, mb.getAttribute("data-kind"), mb.getAttribute("data-on") !== "true");
+    renderDash();
+  });
+
   view.addEventListener("change", function (e) {
     var cb = e.target.closest("input[type=checkbox]");
     if (!cb) return;
@@ -650,17 +741,17 @@
       }
       renderDash(); return;
     }
-    var day = +cb.getAttribute("data-day"), time = cb.getAttribute("data-time");
-    var sl = (schedule.slots || []).filter(function (x) { return x.day === day && x.time === time; })[0];
-    if (!sl) return;
-    matSet(sl, cb.getAttribute("data-kind"), cb.checked);
-    renderDash();
   });
 
   view.addEventListener("input", function (e) {
-    if (e.target.id !== "remMin") return;
-    var p = remindPrefs(); p.min = +e.target.value; saveRemind(p);
-    renderDash();
+    if (e.target.id === "remMin") {
+      var p = remindPrefs(); p.min = +e.target.value; saveRemind(p);
+      renderDash(); return;
+    }
+    if (e.target.id === "wsPick") {
+      try { localStorage.setItem("remitech-weekstart", e.target.value); } catch (err) {}
+      renderDash();
+    }
   });
 
   view.addEventListener("click", function (e) {

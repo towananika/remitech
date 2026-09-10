@@ -16,6 +16,23 @@
           "handle": "@hiyoko_global",
           "url": "https://www.instagram.com/hiyoko_global/"
         }
+      ],
+      "postTimes": [
+        {
+          "time": "09:30",
+          "platform": "X",
+          "label": "朝"
+        },
+        {
+          "time": "17:00",
+          "platform": "X",
+          "label": "夕"
+        },
+        {
+          "time": "17:00",
+          "platform": "IG",
+          "label": "フィード"
+        }
       ]
     },
     {
@@ -33,6 +50,38 @@
           "handle": "@nacha_project",
           "url": "https://www.instagram.com/nacha_project/"
         }
+      ],
+      "postTimes": [
+        {
+          "time": "10:30",
+          "platform": "X",
+          "label": "ことば"
+        },
+        {
+          "time": "14:00",
+          "platform": "X",
+          "label": "長文"
+        },
+        {
+          "time": "20:00",
+          "platform": "X",
+          "label": "本フィード"
+        },
+        {
+          "time": "20:00",
+          "platform": "IG",
+          "label": "フィード"
+        },
+        {
+          "time": "20:05",
+          "platform": "IG",
+          "label": "ストーリー"
+        },
+        {
+          "time": "20:10",
+          "platform": "IG",
+          "label": "動画"
+        }
       ]
     },
     {
@@ -45,7 +94,8 @@
           "handle": "@yuyukannondo",
           "url": "https://x.com/yuyukannondo"
         }
-      ]
+      ],
+      "postTimes": []
     },
     {
       "id": "reel",
@@ -57,7 +107,8 @@
           "handle": "@REEL_Experience",
           "url": "https://x.com/REEL_Experience"
         }
-      ]
+      ],
+      "postTimes": []
     }
   ],
   "posts": [
