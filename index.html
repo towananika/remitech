@@ -260,6 +260,11 @@
     padding:12px 14px; margin:0;
   }
   .ptext.empty2{ color:var(--muted); font-style:normal; }
+  .revtag{
+    display:inline-flex; align-items:center; gap:3px; margin-right:6px;
+    font-size:10.5px; color:var(--sage); border:1px solid var(--sage); border-radius:6px;
+    padding:2px 6px;
+  }
   .plabel{ font-size:11.5px; color:var(--muted); margin:12px 0 5px; letter-spacing:.06em; }
   .pbar{ display:flex; gap:8px; align-items:center; flex-wrap:wrap; margin-top:10px; }
   .pwrap{ position:relative; }
@@ -648,7 +653,7 @@
           fAsset:"Visual note", fUrl:"Link to the post", fComment:"Comment", fPart:"Part", fOwner:"In charge", noOwner:"unassigned",
           addPart:"Add a part", rmPart:"Remove", saving:"Saving\u2026",
           savedTo:"Saved to the repository", savedHere:"Saved on this device only",
-          saveFail:"Could not save",
+          saveFail:"Could not save", reviewed:"Reviewed",
           restore:"Restore", trash:"Recently deleted", emptyTrash:"Nothing deleted",
           diskTitle:"Storage on this device", diskFull:"Almost full",
           diskAct1:"Connect the media store, then clear what is already shared",
@@ -693,7 +698,7 @@
           fAsset:"비주얼 메모", fUrl:"게시물 링크", fComment:"댓글", fPart:"파트", fOwner:"담당자", noOwner:"미정",
           addPart:"파트 추가", rmPart:"제거", saving:"저장 중\u2026",
           savedTo:"저장소에 저장됨", savedHere:"이 기기에만 저장됨",
-          saveFail:"저장하지 못했어",
+          saveFail:"저장하지 못했어", reviewed:"검토 완료",
           restore:"복원", trash:"최근 삭제", emptyTrash:"삭제한 것 없음",
           diskTitle:"이 기기의 저장 공간", diskFull:"거의 찼어",
           diskAct1:"저장소를 연결하고, 이미 공유된 파일을 지우기",
@@ -738,7 +743,7 @@
           fAsset:"ビジュアルの指示", fUrl:"投稿のリンク", fComment:"コメント", fPart:"連投", fOwner:"担当者", noOwner:"未定",
           addPart:"連投を足す", rmPart:"外す", saving:"保存しています\u2026",
           savedTo:"元のファイルに保存した", savedHere:"この端末にだけ保存した",
-          saveFail:"保存できなかった",
+          saveFail:"保存できなかった", reviewed:"検討済み",
           restore:"戻す", trash:"最近消したもの", emptyTrash:"消したものはない",
           diskTitle:"この端末の空き", diskFull:"もう少しで一杯",
           diskAct1:"置き場をつなぎ、共有ずみのものを端末から消す",
@@ -1285,13 +1290,19 @@
   // 文面の箱。コピーは箱の中の右上に置く（下に並べると場所を食う）
   var copyBank = {};
 
-  function textBox(id, cur, en, mk, pid) {
-    var shown = cur || en || "";
-    copyBank[id] = { en: en || "", cur: cur || en || "" };
+  // Nobo Check の文があれば、それを実投稿用の文にする。無ければ普段どおり
+  function textBox(id, cur, en, mk, pid, nobo, reviewed) {
+    var useNobo = !!(nobo && nobo.trim());
+    var shown = useNobo ? nobo : (cur || en || "");
+    var enOut = useNobo ? nobo : (en || "");
+    copyBank[id] = { en: enOut, cur: useNobo ? nobo : (cur || en || "") };
     var btns = '<button class="cpy" data-ck="' + id + '" data-lg="en">' + esc(t("copyEn")) + '</button>';
-    if (lang !== "en" && cur && cur !== en) {
+    if (!useNobo && lang !== "en" && cur && cur !== en) {
       btns += '<button class="cpy" data-ck="' + id + '" data-lg="cur">' +
               esc((lang === "ja" ? "JA" : "KO")) + '</button>';
+    }
+    if (useNobo && reviewed) {
+      btns = '<span class="revtag">✓ ' + esc(t("reviewed")) + '</span>' + btns;
     }
     var chk = "", media = "";
     if (mk && pid) {
@@ -1775,7 +1786,7 @@
         (parts
           ? parts.map(function (pt, k) {
               return '<p class="plabel">' + esc(pt.no || "") + " · " + esc(pt.time) + '</p>' +
-                     textBox("pp" + i + "_" + k, pt[lang] || "", pt.en || "", mk, "p" + k);
+                     textBox("pp" + i + "_" + k, pt[lang] || "", pt.en || "", mk, "p" + k, pt.nobo, pt.reviewed);
             }).join("") + '<div class="pbar">' + mats + '</div>'
           : (body
             ? textBox("pt" + i, (sl.text && sl.text[lang]) || "", (sl.text && sl.text.en) || "", mk, "body") +
@@ -2125,15 +2136,40 @@
       if (!o.date || !o.time) { out.textContent = t("saveFail"); return; }
       out.textContent = t("saving");
       var was = editing && editing.date ? slotKey(editing) : null;
+
+      // HIYOKOの新規動画は、同じ映像を3か所（IGリール・YouTubeショート・TikTok）へ出す。
+      // 出し先ごとに投稿は別なので、枠も確認チェックも別々に作る
+      var toAdd = [o];
+      if (!was && o.channel === "hiyoko" && o.type === "video") {
+        var VIDEO_OUT = [
+          { platform: "IG", tag: "Reel" },
+          { platform: "YT", tag: "Shorts" },
+          { platform: "TT", tag: "TikTok" },
+        ];
+        toAdd = VIDEO_OUT.map(function (v) {
+          var c = JSON.parse(JSON.stringify(o));
+          c.platform = v.platform;
+          c.label = (o.label ? o.label + " · " : "") + v.tag;
+          c.scheduled = false; c.posted = false; c.url = "";
+          c.check = { done: false, at: "", match: null, note: "" };
+          return c;
+        });
+      }
+
+      var keepKeys = {};
+      toAdd.forEach(function (x) { keepKeys[slotKey(x)] = 1; });
       schedule.slots = (schedule.slots || []).filter(function (x) {
-        return slotKey(x) !== (was || slotKey(o));
+        if (was && slotKey(x) === was) return false;
+        return !keepKeys[slotKey(x)];
       });
-      schedule.slots.push(o);
+      toAdd.forEach(function (x) { schedule.slots.push(x); });
       schedule.slots.sort(function (a, b) {
         return (a.date + a.time + (a.platform || "")) < (b.date + b.time + (b.platform || "")) ? -1 : 1;
       });
-      saveSchedule("schedule: " + o.date + " " + o.time + " " + o.platform).then(function (r) {
-        out.textContent = r.where === "repo" ? t("savedTo") : t("savedHere");
+      saveSchedule("schedule: " + o.date + " " + o.time + " " +
+        (toAdd.length > 1 ? "video x3" : o.platform)).then(function (r) {
+        out.textContent = (r.where === "repo" ? t("savedTo") : t("savedHere")) +
+          (toAdd.length > 1 ? " · IG/YT/TT" : "");
         setTimeout(function () { editing = null; renderPrep(); }, 900);
       }, function () { out.textContent = t("saveFail"); });
       return;
