@@ -1029,8 +1029,8 @@
       "posted": false,
       "url": "",
       "check": {
-        "done": false,
-        "at": "",
+        "done": true,
+        "at": "2026-09-10T08:22:56.785Z",
         "match": null,
         "note": ""
       }
