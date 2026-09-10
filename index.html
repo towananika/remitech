@@ -183,7 +183,26 @@
     font-size:12.5px; color:var(--ink);
     background:var(--bg); border:1px solid var(--line); border-radius:8px; padding:6px 10px;
   }
-  .newbar{ margin-bottom:14px; }
+  .newbar{ display:flex; gap:8px; flex-wrap:wrap; margin-bottom:14px; align-items:center; }
+  .newbar input[type="search"]{
+    flex:1 1 auto; min-width:0; font:inherit; font-size:13px; color:var(--ink);
+    background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:8px 12px;
+  }
+  .newbar input[type="search"]:focus{ outline:none; border-color:var(--wood); }
+  .pager{
+    display:flex; align-items:center; justify-content:center; gap:4px; flex-wrap:wrap;
+    margin:18px 0 6px;
+  }
+  .pgnums{ display:flex; gap:4px; flex-wrap:wrap; }
+  .pgbtn{
+    font:inherit; font-size:12.5px; color:var(--ink); background:var(--surface);
+    border:1px solid var(--line); border-radius:8px; padding:6px 11px; cursor:pointer;
+    font-variant-numeric:tabular-nums;
+  }
+  .pgbtn:hover:not(:disabled){ border-color:var(--wood); }
+  .pgbtn:disabled{ color:var(--muted); cursor:default; opacity:.45; }
+  .pgbtn.pgcur{ background:var(--wood); border-color:var(--wood); color:var(--surface); }
+  .pgdots{ padding:6px 3px; color:var(--muted); font-size:12.5px; }
   .tg .bar{ align-items:center; margin-bottom:14px; }
   .tg input[type="date"]{
     font:inherit; font-size:13px; color:var(--ink);
@@ -732,6 +751,7 @@
           storeOk:"Connected", storeNo:"Could not connect", sure:"Delete?", noImg:"No image needed", pickOne:"Random", linkPh:"Paste the link of the post", open:"Open",
           copy:"Copy", copied:"Copied", copyEn:"EN", noText:"No text yet", comment:"Comment",
           visual:"Visual", today:"Today", tomorrow:"Tomorrow", prepEmpty:"Nothing coming up.",
+          searchPh:"Search text, title, date…", noMatch:"No matches.", pgPrev:"Prev", pgNext:"Next",
           stNone:"No text", stText:"Text ready", stSched:"Scheduled", stDone:"Posted",
           stLate:"Missed", stReady:"Ready", weekOf:"Week of", ok:"All set", todo:"Needs action",
           matText:"Text", matImage:"Image", remind:"Remind before posting", remindOff:"Off",
@@ -781,6 +801,7 @@
           storeOk:"연결됨", storeNo:"연결 실패", sure:"삭제?", noImg:"이미지 불필요", pickOne:"랜덤", linkPh:"게시물 링크 붙여넣기", open:"열기",
           copy:"복사", copied:"복사됨", copyEn:"EN", noText:"원고 없음", comment:"댓글",
           visual:"비주얼", today:"오늘", tomorrow:"내일", prepEmpty:"예정된 게 없어.",
+          searchPh:"본문, 제목, 날짜로 검색…", noMatch:"일치하는 게 없어.", pgPrev:"이전", pgNext:"다음",
           stNone:"원고 없음", stText:"원고 있음", stSched:"예약됨", stDone:"게시됨",
           stLate:"놓침", stReady:"준비 완료", weekOf:"주간", ok:"모두 준비됨", todo:"조치 필요",
           matText:"텍스트", matImage:"이미지", remind:"게시 전 알림", remindOff:"끄기",
@@ -830,6 +851,7 @@
           storeOk:"つながった", storeNo:"つながらない", sure:"消す？", noImg:"画像は要らない", pickOne:"どれか1つ", linkPh:"投稿したリンクを貼る", open:"開く",
           copy:"写す", copied:"写した", copyEn:"EN", noText:"原稿なし", comment:"コメント",
           visual:"ビジュアル", today:"今日", tomorrow:"明日", prepEmpty:"先の予定がない。",
+          searchPh:"本文・見出し・日付で探す…", noMatch:"一致するものがない。", pgPrev:"前へ", pgNext:"次へ",
           stNone:"原稿なし", stText:"原稿あり", stSched:"予約ずみ", stDone:"投稿ずみ",
           stLate:"抜け", stReady:"投稿準備完了", weekOf:"の週", ok:"すべて整っている", todo:"手が要る",
           matText:"テキスト", matImage:"画像", remind:"投稿前にリマインド", remindOff:"切",
@@ -1570,6 +1592,9 @@
                 "GyeonJae", "Masato", "SungJin"];
 
   var tgDate = null;   // Telegram通知タブで選んでいる日付
+  var prepSearch = "";  // 準備タブの検索語
+  var prepPage = 1;     // 準備タブの今のページ
+  var PREP_PAGE_SIZE = 10;
   var editing = null;          // 編集中の枠。{} なら新規
 
   // 縮めた記号ではなく、そのまま呼ぶ
@@ -2030,6 +2055,16 @@
       '<div class="pcard pcard-page">' + prepHeadHTML(sl, 0) + prepBodyHTML(sl, 0) + '</div>';
   }
 
+  // よくある「1 … 4 5 [6] 7 8 … 20」の並びを作る
+  function pageNums(cur, total) {
+    var out = [], span = 1;
+    for (var n = 1; n <= total; n++) {
+      if (n === 1 || n === total || Math.abs(n - cur) <= span) out.push(n);
+      else if (out[out.length - 1] !== "…") out.push("…");
+    }
+    return out;
+  }
+
   function renderPrep() {
     chansEl.hidden = false;
     if (!schedule) { view.innerHTML = '<p class="empty">' + esc(t("none")) + '</p>'; return; }
@@ -2040,10 +2075,22 @@
     var to = ymd(till);
 
     var chId = schedule.channel || "hiyoko";
+    var q = prepSearch.trim().toLowerCase();
+    // 検索しているときは、今週に絞らず全部から探す。そうでなければ今週だけ
     var list = (schedule.slots || []).filter(function (x) {
       if (filter && slotCh(x) !== filter) return false;
+      if (q) return true;
       // 終わったものも残す。あとから見返せるように
       return x.date >= from && x.date <= to;
+    }).filter(function (x) {
+      if (!q) return true;
+      var hay = [
+        x.date, x.time, x.label, x.comment, pfn(x.platform),
+        (chanOfSlot(x) || {}).name,
+        x.text && x.text.en, x.text && x.text.ja, x.text && x.text.ko,
+        (x.parts || []).map(function (p) { return p.en + " " + p.ja + " " + (p.no || ""); }).join(" "),
+      ].filter(Boolean).join(" ").toLowerCase();
+      return hay.indexOf(q) >= 0;
     }).sort(function (a, b) {
       return (a.date + a.time) < (b.date + b.time) ? -1 : 1;
     });
@@ -2056,8 +2103,9 @@
     }
 
     var html = '<div class="prep">' +
-      '<div class="bar newbar"><button id="newSlot" class="donebtn strong">' +
-      esc(t("newSlot")) + '</button></div>';
+      '<div class="bar newbar">' +
+      '<input type="search" id="prepSearch" placeholder="' + esc(t("searchPh")) + '" value="' + esc(prepSearch) + '">' +
+      '<button id="newSlot" class="donebtn strong">' + esc(t("newSlot")) + '</button></div>';
 
     // チャンネルごとの定型文（押すと写せる）
     channels.forEach(function (c) {
@@ -2083,14 +2131,35 @@
       });
     });
     if (!list.length) {
-      view.innerHTML = html + '<p class="empty">' + esc(t("prepEmpty")) + '</p></div>';
+      view.innerHTML = html + '<p class="empty">' + esc(q ? t("noMatch") : t("prepEmpty")) + '</p></div>';
       return;
     }
 
+    // ページ数で行き来できるようにする。多いと読みにくいので、1ページぶんだけ出す
+    var totalPages = Math.max(1, Math.ceil(list.length / PREP_PAGE_SIZE));
+    if (prepPage > totalPages) prepPage = totalPages;
+    if (prepPage < 1) prepPage = 1;
+    var pageList = list.slice((prepPage - 1) * PREP_PAGE_SIZE, prepPage * PREP_PAGE_SIZE);
+
     // 一覧では見出し行だけ。タップすると専用ページへ
-    list.forEach(function (sl, i) {
+    pageList.forEach(function (sl, i) {
       html += '<div class="pcard">' + prepHeadHTML(sl, i) + '</div>';
     });
+
+    if (totalPages > 1) {
+      html += '<div class="pager">' +
+        '<button class="pgbtn pgnav" data-pg="' + (prepPage - 1) + '"' +
+          (prepPage <= 1 ? ' disabled' : '') + '>‹ ' + esc(t("pgPrev")) + '</button>' +
+        '<span class="pgnums">' + pageNums(prepPage, totalPages).map(function (n) {
+          return n === "…"
+            ? '<span class="pgdots">…</span>'
+            : '<button class="pgbtn' + (n === prepPage ? ' pgcur' : '') + '" data-pg="' + n + '">' + n + '</button>';
+        }).join("") + '</span>' +
+        '<button class="pgbtn pgnav" data-pg="' + (prepPage + 1) + '"' +
+          (prepPage >= totalPages ? ' disabled' : '') + '>' + esc(t("pgNext")) + ' ›</button>' +
+      '</div>';
+    }
+
     var tr = (schedule.trash || []).slice().reverse();
     html += '<div class="trash"><p class="plabel">' + esc(t("trash")) + '</p>' +
       (tr.length
@@ -2369,6 +2438,13 @@
 
   view.addEventListener("click", function (e) {
     if (e.target.id === "newSlot") { editing = {}; renderPrep(); return; }
+    var pg = e.target.closest(".pgbtn");
+    if (pg && !pg.disabled) {
+      prepPage = +pg.getAttribute("data-pg");
+      renderPrep();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      return;
+    }
     if (e.target.id === "clrShared") {
       var co = document.getElementById("clrOut");
       clearShared().then(function (n) { co.textContent = t("cleared") + " · " + n; renderDisk(); });
@@ -2621,6 +2697,14 @@
       return;
     }
     if (e.target.id === "tgDate") { tgDate = e.target.value; renderTelegram(); return; }
+    if (e.target.id === "prepSearch") {
+      prepSearch = e.target.value; prepPage = 1;
+      var sel = e.target.selectionStart;
+      renderPrep();
+      var el = document.getElementById("prepSearch");
+      if (el) { el.focus(); el.setSelectionRange(sel, sel); }
+      return;
+    }
     if (e.target.id === "impText") { importRead(e.target.value); return; }
     if (e.target.id === "impUrl") { return; }
     if (e.target.id === "remMin") {
