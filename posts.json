@@ -152,7 +152,17 @@
         }
       ],
       "postTimes": [],
-      "color": "#4a72a8"
+      "color": "#4a72a8",
+      "snippets": [
+        {
+          "title": "X アカウントへのリンク",
+          "note": "押すと写せます",
+          "url": "https://x.com/REEL_Experience",
+          "items": [
+            "More on X"
+          ]
+        }
+      ]
     }
   ],
   "posts": [
