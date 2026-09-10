@@ -1,0 +1,1080 @@
+{
+  "channel": "hiyoko",
+  "month": "2026-09",
+  "timezone": "Asia/Seoul",
+  "note": "HIYOKO 9月の投稿計画。原稿・予約・投稿を1枚で見る。予約と投稿の印は手で更新する（Xの投稿状態は自動で読めないため）。",
+  "slots": [
+    {
+      "day": 1,
+      "time": "09:00",
+      "type": "text",
+      "label": "9月がきた",
+      "text": {
+        "ja": "9月がきた。🐣\n\n新しい月、新しいHIYOKO。\n今月も一緒にいてね。😎\n\n#HYK #HIYOKO",
+        "en": "september is here. 🐣\n\nnew month. new HIYOKO.\nstick around this month. 😎\n\n#HYK #HIYOKO",
+        "ko": "9월이 왔다. 🐣\n\n새로운 달. 새로운 히요코.\n이번 달도 함께해줘. 😎\n\n#HYK #HIYOKO"
+      },
+      "asset": "",
+      "note": "",
+      "scheduled": false,
+      "posted": false,
+      "url": ""
+    },
+    {
+      "day": 1,
+      "time": "17:00",
+      "type": "text",
+      "label": "HYKって何者？",
+      "text": {
+        "ja": "HYKって何者？🪄\n\nHIYOKOのエコシステムを\n全部つなぐ核心トークン。\n\n🎮 ゲーム → CheePoint → HYK\n❤️ 健康チェック → CheePoint → HYK\n🖼️ NFTマーケット → HYK\n📈 取引所（Coinstore）→ HYK\n\nただのトークンじゃない。\nエコシステム全体が\nHYKを中心に回ってる。😎",
+        "en": "what even is HYK? 🪄\n\nthe core token connecting\nthe entire HIYOKO ecosystem.\n\n🎮 games → CheePoints → HYK\n❤️ health checks → CheePoints → HYK\n🖼️ NFT marketplace → HYK\n📈 Coinstore → HYK\n\nnot just a token.\nthe entire ecosystem\nrevolves around HYK. 😎",
+        "ko": "HYK가 뭐냐면? 🪄\n\nHIYOKO 에코시스템 전체를\n연결하는 핵심 토큰이야.\n\n🎮 게임 → CheePoint → HYK\n❤️ 건강체크 → CheePoint → HYK\n🖼️ NFT 마켓 → HYK\n📈 거래소 (Coinstore) → HYK\n\n그냥 토큰이 아니야.\n에코시스템 전체가\nHYK를 중심으로 돌아가. 😎"
+      },
+      "asset": "",
+      "note": "",
+      "scheduled": false,
+      "posted": false,
+      "url": ""
+    },
+    {
+      "day": 1,
+      "time": "reply",
+      "type": "reply",
+      "label": "Linktree案内",
+      "text": {
+        "ja": "HIYOKOが気になったら\nここに全部あるよ 👇\nhttps://linktr.ee/HIYOKO_global",
+        "en": "curious about HIYOKO?\neverything's here 👇\nhttps://linktr.ee/HIYOKO_global",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "scheduled": false,
+      "posted": false,
+      "url": ""
+    },
+    {
+      "day": 2,
+      "time": "09:00",
+      "type": "text",
+      "label": "Happy Chick知ってる？",
+      "text": {
+        "ja": "Happy Chick知ってる？🪄\n\n累計1億4800万ダウンロードの\nゲームプラットフォームだよ。\n\nゲームして\n→ CheePoint貯まる\n→ HYKに交換できる\n\n遊んでたら\n価値が生まれてた。\nそれがHIYOKOのP2Eだよ。😎\n\n#HYK #HIYOKO",
+        "en": "heard of Happy Chick? 🪄\n\n148M+ downloads.\na gaming platform that's already here.\n\nplay games\n→ earn CheePoints\n→ swap them for HYK\n\nyou play.\nyou earn CheePoints.\nthat's HIYOKO's P2E. 😎\n\n#HYK #HIYOKO",
+        "ko": "Happy Chick 알아? 🪄\n\n누적 1억 4800만 다운로드.\n이미 여기 있는 게임 플랫폼이야.\n\n게임하면\n→ CheePoint 쌓이고\n→ HYK로 교환 가능\n\n그냥 놀고 있었는데\n가치가 생겨버렸어.\n그게 HIYOKO의 P2E야. 😎\n\n#HYK #HIYOKO"
+      },
+      "asset": "",
+      "note": "",
+      "scheduled": false,
+      "posted": false,
+      "url": ""
+    },
+    {
+      "day": 2,
+      "time": "17:00",
+      "type": "text",
+      "label": "ゲームでポイント貯めたことある？",
+      "text": {
+        "ja": "ゲームでポイント貯めたことある？🪄\n\nHIYOKOも同じだよ。\n\nHappy Chickでゲームする\n→ CheePointが貯まる\n→ そのポイント、実際の価値に変えられる\n\nゲームしてたら\n知らないうちにポイントが。\n\nそのポイントが\nHYKというトークンになる。\n\n難しく考えなくていい。\n遊んでたら貯まる。\nそれだけだよ。😎\n\n#HYK #HIYOKO",
+        "en": "ever collected points\nwhile playing a game? 🪄\n\nHIYOKO works the same way.\n\nplay on Happy Chick\n→ earn CheePoints\n→ swap them for HYK\n\nyou just play.\nCheePoints stack up.\nthen you can swap them for HYK.\n\nno complicated stuff.\njust play and earn.\nthat's it. 😎\n\n#HYK #HIYOKO",
+        "ko": "게임하면서 포인트 모아본 적 있지? 🪄\n\n히요코도 똑같아.\n\nHappy Chick에서 게임하면\n→ CheePoint 쌓이고\n→ 그 포인트가 진짜 가치로 바뀌어\n\n그냥 게임하면 돼.\n포인트 쌓여.\n포인트가 HYK가 돼.\n\n어렵게 생각 안 해도 돼.\n그냥 하면 쌓이는 거야. 😎\n\n#HYK #HIYOKO"
+      },
+      "asset": "",
+      "note": "",
+      "scheduled": false,
+      "posted": false,
+      "url": ""
+    },
+    {
+      "day": 2,
+      "time": "reply",
+      "type": "reply",
+      "label": "Linktree案内",
+      "text": {
+        "ja": "",
+        "en": "want to know more?\neverything's here 👇\nhttps://linktr.ee/HIYOKO_global",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "scheduled": false,
+      "posted": false,
+      "url": ""
+    },
+    {
+      "day": 3,
+      "time": "09:00",
+      "type": "image",
+      "label": "健康チェックでHYK（H2E）",
+      "text": {
+        "ja": "健康チェックしたら\nHYKが貯まるって知ってた？🐣\n\nそれがHIYOKOのH2Eだよ。\n\n#HYK #HIYOKO #H2E",
+        "en": "health check → earn HYK. 🐣\n\nthat's HIYOKO's H2E.\n\n#HYK #HIYOKO #H2E",
+        "ko": "건강체크하면 HYK 쌓여. 🐣\n\n그게 HIYOKO의 H2E야.\n\n#HYK #HIYOKO #H2E"
+      },
+      "asset": "히요코가 Vitalis 기기 들고 홍채 체크하는 장면. CheePoint 팡팡 터지는 효과. 루프 GIF.",
+      "note": "",
+      "scheduled": false,
+      "posted": false,
+      "url": ""
+    },
+    {
+      "day": 3,
+      "time": "17:00",
+      "type": "text",
+      "label": "Vitalisって知ってる？",
+      "text": {
+        "ja": "Vitalisって知ってる？🪄\n\nHIYOKOのHealthFiプラットフォーム。\nすでに55,000人以上が登録済み。\n\n健康チェックするだけで\nCheePointが貯まる。\n\nそのCheePointが\nHYKに交換できる。\n\n健康になりながら\n価値も生まれる。\nそれがH2Eだよ。😎\n\n#HYK #HIYOKO #Vitalis",
+        "en": "heard of Vitalis? 🪄\n\nHIYOKO's HealthFi platform.\n55,000+ people already registered.\n\ncheck your health\n→ earn CheePoints\n→ swap them for HYK\n\ntake care of your health\nwhile earning CheePoints.\nthat's H2E. 😎\n\n#HYK #HIYOKO #Vitalis",
+        "ko": "Vitalis 알아? 🪄\n\nHIYOKO의 HealthFi 플랫폼이야.\n이미 55,000명 이상 등록했어.\n\n건강체크만 하면\n→ CheePoint 쌓이고\n→ HYK로 교환 가능\n\n건강해지면서\n가치도 생겨.\n그게 H2E야. 😎\n\n#HYK #HIYOKO #Vitalis"
+      },
+      "asset": "",
+      "note": "",
+      "scheduled": false,
+      "posted": false,
+      "url": ""
+    },
+    {
+      "day": 3,
+      "time": "reply",
+      "type": "reply",
+      "label": "フック返信",
+      "text": {
+        "ja": "",
+        "en": "health checks come with rewards 👀🐣",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "scheduled": false,
+      "posted": false,
+      "url": ""
+    },
+    {
+      "day": 4,
+      "time": "09:00",
+      "type": "image",
+      "label": "空約束はしない",
+      "text": {
+        "ja": "空約束はしない。\nもう作ってる。🐣⛏️",
+        "en": "no empty promises.\nalready building. 🐣⛏️",
+        "ko": "약속만 하는 프로젝트 아니야.\n이미 만들고 있어. 🐣⛏️"
+      },
+      "asset": "",
+      "note": "",
+      "scheduled": false,
+      "posted": false,
+      "url": ""
+    },
+    {
+      "day": 4,
+      "time": "17:00",
+      "type": "text",
+      "label": "アフターセール進行中",
+      "text": {
+        "ja": "アフターセール、進行中。🐣\n\n$0.025で参加できるのは今。\n10月には$0.040になる。\n\n早く知った人が有利なのは\nそういうことだよ。😎\n\n👇 https://sale.hiyoko.io/",
+        "en": "after-sale is live. 🐣\n\n$0.025 right now.\nfrom October: $0.040.\n\nbeing early means\ngetting the lower after-sale price. 😎\n\n👇 https://sale.hiyoko.io/",
+        "ko": "애프터세일 진행 중. 🐣\n\n지금 $0.025.\n10월엔 $0.040.\n\n일찍 알수록 유리한 건\n바로 그런 이유야. 😎\n\n👇 https://sale.hiyoko.io/"
+      },
+      "asset": "",
+      "note": "",
+      "scheduled": false,
+      "posted": false,
+      "url": ""
+    },
+    {
+      "day": 4,
+      "time": "reply",
+      "type": "reply",
+      "label": "フック返信",
+      "text": {
+        "ja": "",
+        "en": "there's still time in September 👀🐣",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "scheduled": false,
+      "posted": false,
+      "url": ""
+    },
+    {
+      "day": 5,
+      "time": "09:00",
+      "type": "text",
+      "label": "インドネシアに行く",
+      "text": {
+        "ja": "HIYOKOはもうすぐ\nインドネシアに行くよ。🇮🇩🐣\n\n9月、現地でオフラインイベントがある。\n楽しみにしててね。😎\n\n#HYK #HIYOKO #Indonesia",
+        "en": "HIYOKO is heading to Indonesia. 🇮🇩🐣\n\nbig offline event coming this September.\nstay tuned. 😎\n\n#HYK #HIYOKO #Indonesia",
+        "ko": "히요코 곧 인도네시아 간다. 🇮🇩🐣\n\n9월 오프라인 행사 있어.\n재미있게 준비하고 있으니까\n기대해줘. 😎\n\n#HYK #HIYOKO #Indonesia"
+      },
+      "asset": "",
+      "note": "",
+      "scheduled": false,
+      "posted": false,
+      "url": ""
+    },
+    {
+      "day": 5,
+      "time": "17:00",
+      "type": "text",
+      "label": "ゼロから始めない",
+      "text": {
+        "ja": "HIYOKOはゼロから始めない。🪄\n\n🎮 Happy Chick — 1億4800万ダウンロード済み\n❤️ Vitalis — 55,000人以上が登録済み\n🌍 非中国ターゲット市場 — 約5,400万人\n\nユーザーはすでにそこにいる。\n\n集めるんじゃなく\n繋げるんだよ。\n\nそれがHIYOKOの\n本当の強さだよ。😎\n\n#HYK #HIYOKO #Web3",
+        "en": "HIYOKO isn't starting from zero. 🪄\n\n🎮 Happy Chick — 148M+ downloads\n❤️ Vitalis — 55,000+ registered\n🌍 non-China target market — 54M people\n\nthe users are already there.\n\nnot starting from zero.\nconnecting what's already there.\n\nthat's HIYOKO's\nreal strength. 😎\n\n#HYK #HIYOKO #Web3",
+        "ko": "HIYOKO는 제로에서 시작하지 않아. 🪄\n\n🎮 Happy Chick — 1억 4800만 다운로드\n❤️ Vitalis — 55,000명+ 등록 완료\n🌍 비중국 타겟 시장 — 약 5,400만 명\n\n유저들은 이미 거기 있어.\n\n제로에서 모으는 게 아니라\n이미 있는 걸 연결하는 거야.\n\n그게 HIYOKO의\n진짜 강점이야. 😎\n\n#HYK #HIYOKO #Web3"
+      },
+      "asset": "",
+      "note": "",
+      "scheduled": false,
+      "posted": false,
+      "url": ""
+    },
+    {
+      "day": 5,
+      "time": "reply",
+      "type": "reply",
+      "label": "フック返信",
+      "text": {
+        "ja": "",
+        "en": "already there.\nalready connected.\nthat's the difference. 👀🐣",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "scheduled": false,
+      "posted": false,
+      "url": ""
+    },
+    {
+      "day": 6,
+      "time": "09:00",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "scheduled": false,
+      "posted": false,
+      "url": ""
+    },
+    {
+      "day": 6,
+      "time": "17:00",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "scheduled": false,
+      "posted": false,
+      "url": ""
+    },
+    {
+      "day": 7,
+      "time": "09:00",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "scheduled": false,
+      "posted": false,
+      "url": ""
+    },
+    {
+      "day": 7,
+      "time": "17:00",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "scheduled": false,
+      "posted": false,
+      "url": ""
+    },
+    {
+      "day": 8,
+      "time": "09:00",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "scheduled": false,
+      "posted": false,
+      "url": ""
+    },
+    {
+      "day": 8,
+      "time": "17:00",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "scheduled": false,
+      "posted": false,
+      "url": ""
+    },
+    {
+      "day": 9,
+      "time": "09:00",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "scheduled": false,
+      "posted": false,
+      "url": ""
+    },
+    {
+      "day": 9,
+      "time": "17:00",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "scheduled": false,
+      "posted": false,
+      "url": ""
+    },
+    {
+      "day": 10,
+      "time": "09:00",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "scheduled": false,
+      "posted": false,
+      "url": ""
+    },
+    {
+      "day": 10,
+      "time": "17:00",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "scheduled": false,
+      "posted": false,
+      "url": ""
+    },
+    {
+      "day": 11,
+      "time": "09:00",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "scheduled": false,
+      "posted": false,
+      "url": ""
+    },
+    {
+      "day": 11,
+      "time": "17:00",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "scheduled": false,
+      "posted": false,
+      "url": ""
+    },
+    {
+      "day": 12,
+      "time": "09:00",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "scheduled": false,
+      "posted": false,
+      "url": ""
+    },
+    {
+      "day": 12,
+      "time": "17:00",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "scheduled": false,
+      "posted": false,
+      "url": ""
+    },
+    {
+      "day": 13,
+      "time": "09:00",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "scheduled": false,
+      "posted": false,
+      "url": ""
+    },
+    {
+      "day": 13,
+      "time": "17:00",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "scheduled": false,
+      "posted": false,
+      "url": ""
+    },
+    {
+      "day": 14,
+      "time": "09:00",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "scheduled": false,
+      "posted": false,
+      "url": ""
+    },
+    {
+      "day": 14,
+      "time": "17:00",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "scheduled": false,
+      "posted": false,
+      "url": ""
+    },
+    {
+      "day": 15,
+      "time": "09:00",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "scheduled": false,
+      "posted": false,
+      "url": ""
+    },
+    {
+      "day": 15,
+      "time": "17:00",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "scheduled": false,
+      "posted": false,
+      "url": ""
+    },
+    {
+      "day": 16,
+      "time": "09:00",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "scheduled": false,
+      "posted": false,
+      "url": ""
+    },
+    {
+      "day": 16,
+      "time": "17:00",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "scheduled": false,
+      "posted": false,
+      "url": ""
+    },
+    {
+      "day": 17,
+      "time": "09:00",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "scheduled": false,
+      "posted": false,
+      "url": ""
+    },
+    {
+      "day": 17,
+      "time": "17:00",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "scheduled": false,
+      "posted": false,
+      "url": ""
+    },
+    {
+      "day": 18,
+      "time": "09:00",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "scheduled": false,
+      "posted": false,
+      "url": ""
+    },
+    {
+      "day": 18,
+      "time": "17:00",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "scheduled": false,
+      "posted": false,
+      "url": ""
+    },
+    {
+      "day": 19,
+      "time": "09:00",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "scheduled": false,
+      "posted": false,
+      "url": ""
+    },
+    {
+      "day": 19,
+      "time": "17:00",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "scheduled": false,
+      "posted": false,
+      "url": ""
+    },
+    {
+      "day": 20,
+      "time": "09:00",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "scheduled": false,
+      "posted": false,
+      "url": ""
+    },
+    {
+      "day": 20,
+      "time": "17:00",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "scheduled": false,
+      "posted": false,
+      "url": ""
+    },
+    {
+      "day": 21,
+      "time": "09:00",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "scheduled": false,
+      "posted": false,
+      "url": ""
+    },
+    {
+      "day": 21,
+      "time": "17:00",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "scheduled": false,
+      "posted": false,
+      "url": ""
+    },
+    {
+      "day": 22,
+      "time": "09:00",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "scheduled": false,
+      "posted": false,
+      "url": ""
+    },
+    {
+      "day": 22,
+      "time": "17:00",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "scheduled": false,
+      "posted": false,
+      "url": ""
+    },
+    {
+      "day": 23,
+      "time": "09:00",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "scheduled": false,
+      "posted": false,
+      "url": ""
+    },
+    {
+      "day": 23,
+      "time": "17:00",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "scheduled": false,
+      "posted": false,
+      "url": ""
+    },
+    {
+      "day": 24,
+      "time": "09:00",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "scheduled": false,
+      "posted": false,
+      "url": ""
+    },
+    {
+      "day": 24,
+      "time": "17:00",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "scheduled": false,
+      "posted": false,
+      "url": ""
+    },
+    {
+      "day": 25,
+      "time": "09:00",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "scheduled": false,
+      "posted": false,
+      "url": ""
+    },
+    {
+      "day": 25,
+      "time": "17:00",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "scheduled": false,
+      "posted": false,
+      "url": ""
+    },
+    {
+      "day": 26,
+      "time": "09:00",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "scheduled": false,
+      "posted": false,
+      "url": ""
+    },
+    {
+      "day": 26,
+      "time": "17:00",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "scheduled": false,
+      "posted": false,
+      "url": ""
+    },
+    {
+      "day": 27,
+      "time": "09:00",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "scheduled": false,
+      "posted": false,
+      "url": ""
+    },
+    {
+      "day": 27,
+      "time": "17:00",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "scheduled": false,
+      "posted": false,
+      "url": ""
+    },
+    {
+      "day": 28,
+      "time": "09:00",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "scheduled": false,
+      "posted": false,
+      "url": ""
+    },
+    {
+      "day": 28,
+      "time": "17:00",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "scheduled": false,
+      "posted": false,
+      "url": ""
+    },
+    {
+      "day": 29,
+      "time": "09:00",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "scheduled": false,
+      "posted": false,
+      "url": ""
+    },
+    {
+      "day": 29,
+      "time": "17:00",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "scheduled": false,
+      "posted": false,
+      "url": ""
+    },
+    {
+      "day": 30,
+      "time": "09:00",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "scheduled": false,
+      "posted": false,
+      "url": ""
+    },
+    {
+      "day": 30,
+      "time": "17:00",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "scheduled": false,
+      "posted": false,
+      "url": ""
+    },
+    {
+      "day": 31,
+      "time": "09:00",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "scheduled": false,
+      "posted": false,
+      "url": ""
+    },
+    {
+      "day": 31,
+      "time": "17:00",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "scheduled": false,
+      "posted": false,
+      "url": ""
+    }
+  ]
+}

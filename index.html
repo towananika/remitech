@@ -37,13 +37,13 @@
       font-size:20px; letter-spacing:.4em; text-indent:.4em; }
   .tagline{ margin:6px 0 0; font-size:12px; color:var(--muted); letter-spacing:.04em; }
   .lang{ display:flex; gap:4px; flex:0 0 auto; }
-  .lang button{
-    background:none; border:1px solid transparent; border-radius:999px;
-    color:var(--muted); font:inherit; font-size:11px; letter-spacing:.06em;
-    padding:3px 9px; cursor:pointer;
+  .lang{ align-items:center; }
+  .pill{
+    background:var(--surface); border:1px solid var(--line); border-radius:999px;
+    color:var(--ink); font:inherit; font-size:12px; letter-spacing:.06em;
+    padding:5px 12px; cursor:pointer; min-width:52px;
   }
-  .lang button[aria-pressed="true"]{ color:var(--ink); border-color:var(--line); background:var(--surface); }
-  .lang button:hover{ color:var(--ink); }
+  .pill:hover{ border-color:var(--wood); }
   .theme{
     background:var(--surface); border:1px solid var(--line); border-radius:999px;
     color:var(--ink); font:inherit; font-size:13px; line-height:1;
@@ -56,8 +56,40 @@
   .dot[data-status="draft"]{ background:var(--wood); }
   .dot[data-status="live"]{ background:var(--sage, #7d8c6a); }
 
+  /* ---- nav ---- */
+  .nav{ display:flex; gap:4px; margin:24px 0 4px; }
+  .nav button{
+    background:none; border:0; border-bottom:2px solid transparent;
+    color:var(--muted); font:inherit; font-size:13px; padding:6px 2px; margin-right:16px;
+    cursor:pointer;
+  }
+  .nav button[aria-pressed="true"]{ color:var(--ink); border-bottom-color:var(--wood); }
+
+  /* ---- dashboard ---- */
+  .sum{ background:var(--surface); border:1px solid var(--line); border-radius:14px;
+        padding:16px 18px; margin:18px 0 14px; }
+  .sum .big{ font-size:15px; font-weight:500; }
+  .sum .rng{ font-size:11.5px; color:var(--muted); letter-spacing:.06em; }
+  .day{ border:1px solid var(--line); border-radius:14px; background:var(--surface);
+        padding:12px 14px; margin-bottom:8px; }
+  .day.today{ border-color:var(--wood); }
+  .dhead{ display:flex; justify-content:space-between; align-items:baseline;
+          font-size:12px; color:var(--muted); letter-spacing:.06em; margin-bottom:6px; }
+  .dhead .n{ color:var(--ink); font-size:14px; }
+  .row{ display:flex; align-items:center; gap:10px; padding:6px 0; font-size:13px; }
+  .row + .row{ border-top:1px solid var(--line); }
+  .row .t{ color:var(--muted); font-size:12px; flex:0 0 46px; }
+  .row .lb{ flex:1 1 auto; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .st{ flex:0 0 auto; font-size:11px; border-radius:999px; padding:2px 9px; border:1px solid var(--line); }
+  .st[data-s="none"]{ color:var(--muted); }
+  .st[data-s="text"]{ color:var(--wood); border-color:var(--wood); }
+  .st[data-s="sched"]{ color:var(--ink); border-color:var(--ink); }
+  .st[data-s="done"]{ color:var(--surface); background:var(--sage); border-color:var(--sage); }
+  .st[data-s="late"]{ color:var(--surface); background:#b4553f; border-color:#b4553f; }
+
   /* ---- channels ---- */
   .chans{ display:flex; flex-wrap:wrap; gap:6px; margin:26px 0 22px; }
+  .chans[hidden]{ display:none; }
   .chan{
     background:var(--surface); border:1px solid var(--line); border-radius:999px;
     color:var(--muted); font:inherit; font-size:12px; padding:5px 13px; cursor:pointer;
@@ -96,7 +128,17 @@
   .sheet .no{ font-family:var(--mincho); font-size:12px; color:var(--wood); }
   .sheet h3{ margin:4px 0 8px; font-size:15px; font-weight:500; line-height:1.7; }
   .sheet p{ margin:0; font-size:14px; }
-  .goto{ display:inline-block; margin-top:6px; font-size:12px; color:var(--wood); }
+  .links{ display:flex; flex-wrap:wrap; gap:8px; margin-top:12px; }
+  .goto{
+    display:inline-block; font-size:12px; color:var(--wood); text-decoration:none;
+    border:1px solid var(--line); border-radius:999px; padding:5px 12px;
+  }
+  .goto:hover{ border-color:var(--wood); }
+  .chanbox{
+    background:var(--wood-soft); border-radius:14px; padding:16px 18px; margin-bottom:16px;
+  }
+  .chanbox b{ display:block; font-weight:500; font-size:15px; letter-spacing:.06em; }
+  .chanbox p{ margin:4px 0 0; font-size:13px; color:var(--muted); }
 
   .empty{ text-align:center; color:var(--muted); font-size:13px; padding:44px 0; }
   footer{ margin-top:52px; text-align:center; font-size:11px;
@@ -105,8 +147,8 @@
   @media (max-width:520px){
     .page{ padding:24px 16px 56px; }
     .top{ flex-direction:column; align-items:stretch; gap:14px; }
-    .lang{ justify-content:space-between; }
-    .lang button{ font-size:12px; padding:7px 12px; }
+    .lang{ justify-content:flex-end; }
+    .pill{ font-size:13px; padding:8px 14px; }
     .theme{ width:38px; height:32px; }
     .chans{ gap:7px; margin:18px 0; }
     .chan{ padding:8px 15px; font-size:13px; }
@@ -130,6 +172,7 @@
       <div class="lang" id="langPick"></div>
     </div>
 
+    <div class="nav" id="nav"></div>
     <div class="chans" id="chans"></div>
     <div id="view"><p class="empty" id="loading"></p></div>
     <footer>REMITECH</footer>
@@ -142,15 +185,24 @@
     en: { tagline:"Source of truth for everything we post.",
           all:"All", loading:"Loading…", none:"Nothing here yet.",
           fail:"Could not load the source.", back:"← All posts",
-          draft:"Draft", live:"Posted", open:"Open channel" },
+          draft:"Draft", live:"Posted", open:"Open channel",
+          navDash:"This week", navPosts:"Posts",
+          stNone:"No text", stText:"Text ready", stSched:"Scheduled", stDone:"Posted",
+          stLate:"Missed", weekOf:"Week of", ok:"All set", todo:"Needs action" },
     ko: { tagline:"올리는 모든 글의 원본.",
           all:"전체", loading:"불러오는 중…", none:"아직 없습니다.",
           fail:"원본을 불러오지 못했습니다.", back:"← 목록으로",
-          draft:"초안", live:"게시함", open:"채널 열기" },
+          draft:"초안", live:"게시함", open:"채널 열기",
+          navDash:"이번 주", navPosts:"글",
+          stNone:"원고 없음", stText:"원고 있음", stSched:"예약됨", stDone:"게시됨",
+          stLate:"놓침", weekOf:"주간", ok:"모두 준비됨", todo:"조치 필요" },
     ja: { tagline:"投稿するものの原本。",
           all:"すべて", loading:"読み込んでいます…", none:"まだ何もありません。",
           fail:"原本を読み込めませんでした。", back:"← 一覧へ",
-          draft:"下書き", live:"公開ずみ", open:"チャンネルを開く" }
+          draft:"下書き", live:"公開ずみ", open:"チャンネルを開く",
+          navDash:"今週", navPosts:"投稿",
+          stNone:"原稿なし", stText:"原稿あり", stSched:"予約ずみ", stDone:"投稿ずみ",
+          stLate:"抜け", weekOf:"の週", ok:"すべて整っている", todo:"手が要る" }
   };
   var LANGS = [["en","EN"], ["ko","한국어"], ["ja","日本語"]];
 
@@ -174,6 +226,8 @@
   try { var sv = localStorage.getItem("remitech-lang"); if (T[sv]) lang = sv; } catch (e) {}
 
   var view = document.getElementById("view");
+  var navEl = document.getElementById("nav");
+  var schedule = null, tab = "dash";
   var chansEl = document.getElementById("chans");
   var langEl = document.getElementById("langPick");
   var posts = [], channels = [], filter = "";
@@ -182,13 +236,14 @@
   function esc(s) { var d = document.createElement("div"); d.textContent = s == null ? "" : s; return d.innerHTML; }
   function chanOf(id) { return channels.filter(function (c) { return c.id === id; })[0]; }
   function chanNames(ids) {
-    return (ids || []).map(function (id) { var c = chanOf(id); return c ? c.handle : id; }).join(" · ");
+    return (ids || []).map(function (id) { var c = chanOf(id); return c ? c.name : id; }).join(" · ");
   }
 
   function renderLang() {
-    langEl.innerHTML = LANGS.map(function (l) {
-      return '<button data-lang="' + l[0] + '" aria-pressed="' + (l[0] === lang) + '">' + l[1] + '</button>';
-    }).join("") + '<button class="theme" id="themeBtn"></button>';
+    var cur = LANGS.filter(function (l) { return l[0] === lang; })[0] || LANGS[0];
+    langEl.innerHTML =
+      '<button class="pill" id="langBtn" title="language">' + cur[1] + '</button>' +
+      '<button class="theme" id="themeBtn"></button>';
     applyTheme();
     document.documentElement.lang = lang;
     document.getElementById("tagline").textContent = t("tagline");
@@ -198,7 +253,7 @@
     if (!channels.length) { chansEl.innerHTML = ""; return; }
     var html = '<button class="chan" data-chan="" aria-pressed="' + (filter === "") + '">' + esc(t("all")) + '</button>';
     channels.forEach(function (c) {
-      html += '<button class="chan" data-chan="' + esc(c.id) + '" aria-pressed="' + (filter === c.id) + '">' + esc(c.handle) + '</button>';
+      html += '<button class="chan" data-chan="' + esc(c.id) + '" aria-pressed="' + (filter === c.id) + '">' + esc(c.name) + '</button>';
     });
     chansEl.innerHTML = html;
   }
@@ -207,11 +262,22 @@
     return filter ? posts.filter(function (p) { return (p.channels || []).indexOf(filter) >= 0; }) : posts;
   }
 
+  function chanCard(c) {
+    var links = (c.links || []).map(function (l) {
+      return '<a class="goto" href="' + esc(l.url) + '" target="_blank" rel="noopener">' +
+             esc(l.kind) + ' ' + esc(l.handle) + ' ↗</a>';
+    }).join("");
+    return '<div class="chanbox"><b>' + esc(c.name) + '</b>' +
+           (c.tagline ? '<p>' + esc(c.tagline) + '</p>' : "") +
+           '<div class="links">' + links + '</div></div>';
+  }
+
   function renderList() {
     chansEl.hidden = false;
+    var head = filter ? chanCard(chanOf(filter) || {}) : "";
     var rows = visible();
-    if (!rows.length) { view.innerHTML = '<p class="empty">' + esc(t("none")) + '</p>'; return; }
-    view.innerHTML = '<ul class="list">' + rows.map(function (p) {
+    if (!rows.length) { view.innerHTML = head + '<p class="empty">' + esc(t("none")) + '</p>'; return; }
+    view.innerHTML = head + '<ul class="list">' + rows.map(function (p) {
       return '<li><button class="card" data-id="' + esc(p.id) + '">' +
         '<span class="meta"><span>' + esc(p.date) + '</span>' +
         '<span class="dot" data-status="' + (p.status === "draft" ? "draft" : "live") + '"></span>' +
@@ -224,15 +290,101 @@
     }).join("") + '</ul>';
   }
 
+  // ---- ダッシュボード ----
+  // 今日を含む月曜〜日曜。予約できているかを1枚で見る
+  function two(n) { return n < 10 ? "0" + n : "" + n; }
+
+  function weekRange(now) {
+    var d = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    var back = (d.getDay() + 6) % 7;            // 月曜を週の頭にする
+    var mon = new Date(d); mon.setDate(d.getDate() - back);
+    var days = [];
+    for (var i = 0; i < 7; i++) { var x = new Date(mon); x.setDate(mon.getDate() + i); days.push(x); }
+    return days;
+  }
+
+  function slotState(sl, when, now) {
+    if (sl.posted) return "done";
+    var hasText = sl.text && (sl.text.ja || sl.text.en || sl.text.ko);
+    if (when < now) return "late";              // 時刻を過ぎたのに投稿されていない
+    if (sl.scheduled) return "sched";
+    return hasText ? "text" : "none";
+  }
+
+  function renderDash() {
+    chansEl.hidden = true;
+    if (!schedule) { view.innerHTML = '<p class="empty">' + esc(t("none")) + '</p>'; return; }
+
+    var now = new Date();
+    var days = weekRange(now);
+    var ym = schedule.month.split("-");
+    var y = +ym[0], m = +ym[1] - 1;
+    var counts = { none:0, text:0, sched:0, done:0, late:0 };
+    var html = "";
+
+    days.forEach(function (d) {
+      var inMonth = (d.getFullYear() === y && d.getMonth() === m);
+      var slots = inMonth ? schedule.slots.filter(function (x) {
+        return x.day === d.getDate() && x.time.indexOf(":") > 0;
+      }) : [];
+      var isToday = d.toDateString() === now.toDateString();
+      var rows = slots.map(function (sl) {
+        var hh = sl.time.split(":");
+        var when = new Date(d.getFullYear(), d.getMonth(), d.getDate(), +hh[0], +hh[1]);
+        var st = slotState(sl, when, now);
+        counts[st]++;
+        var label = sl.label || (sl.text && (sl.text[lang] || sl.text.en || sl.text.ja) || "").split(String.fromCharCode(10))[0];
+        return '<div class="row"><span class="t">' + esc(sl.time) + '</span>' +
+               '<span class="lb">' + esc(label || "—") + '</span>' +
+               '<span class="st" data-s="' + st + '">' + esc(t("st" + st.charAt(0).toUpperCase() + st.slice(1))) + '</span></div>';
+      }).join("");
+
+      html += '<div class="day' + (isToday ? " today" : "") + '">' +
+        '<div class="dhead"><span class="n">' + (d.getMonth() + 1) + "/" + d.getDate() +
+        '</span><span>' + ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"][(d.getDay() + 6) % 7] + '</span></div>' +
+        (rows || '<div class="row"><span class="lb">—</span></div>') + '</div>';
+    });
+
+    var need = counts.late + counts.none + counts.text;
+    var head = '<div class="sum"><p class="big">' +
+      (need === 0 ? esc(t("ok")) : esc(t("todo")) + " · " + need) + '</p>' +
+      '<p class="rng">' + (days[0].getMonth()+1) + "/" + days[0].getDate() + " – " +
+      (days[6].getMonth()+1) + "/" + days[6].getDate() +
+      '　' + esc(t("stLate")) + " " + counts.late +
+      '　' + esc(t("stNone")) + " " + counts.none +
+      '　' + esc(t("stText")) + " " + counts.text +
+      '　' + esc(t("stSched")) + " " + counts.sched +
+      '　' + esc(t("stDone")) + " " + counts.done + '</p></div>';
+
+    view.innerHTML = head + html;
+  }
+
+  function renderNav() {
+    navEl.innerHTML =
+      '<button data-tab="dash" aria-pressed="' + (tab === "dash") + '">' + esc(t("navDash")) + '</button>' +
+      '<button data-tab="posts" aria-pressed="' + (tab === "posts") + '">' + esc(t("navPosts")) + '</button>';
+  }
+
+  navEl.addEventListener("click", function (e) {
+    var b = e.target.closest("button[data-tab]");
+    if (!b) return;
+    tab = b.getAttribute("data-tab");
+    location.hash = "";
+    renderNav(); route();
+  });
+
   var NO = ["一","二","三","四","五","六","七","八","九","十"];
 
   function renderPost(p) {
     chansEl.hidden = true;
     var links = (p.channels || []).map(function (id) {
       var c = chanOf(id);
-      return c ? '<a class="goto" href="' + esc(c.url) + '" target="_blank" rel="noopener">' +
-                 esc(c.handle) + ' ↗</a>' : "";
-    }).join(" ");
+      if (!c) return "";
+      return (c.links || []).map(function (l) {
+        return '<a class="goto" href="' + esc(l.url) + '" target="_blank" rel="noopener">' +
+               esc(l.kind) + ' ' + esc(l.handle) + ' ↗</a>';
+      }).join("");
+    }).join("");
     view.innerHTML = '<button class="back" id="backBtn">' + esc(t("back")) + '</button><div class="post">' +
       '<span class="meta"><span>' + esc(p.date) + '</span>' +
       '<span class="flag" data-status="' + esc(p.status) + '">' +
@@ -241,13 +393,15 @@
       (p.pages || []).map(function (pg, i) {
         return '<section class="sheet"><span class="no">' + (NO[i] || (i + 1)) + '</span>' +
                '<h3>' + esc(pg.head) + '</h3><p>' + esc(pg.body) + '</p></section>';
-      }).join("") + (links ? '<p>' + links + '</p>' : '') + '</div>';
+      }).join("") + (links ? '<div class="links">' + links + '</div>' : '') + '</div>';
   }
 
   function route() {
     var id = location.hash.replace(/^#\/?/, "");
     var p = id && posts.filter(function (x) { return x.id === id; })[0];
-    if (p) { renderPost(p); window.scrollTo(0, 0); } else { renderList(); }
+    if (p) { renderPost(p); window.scrollTo(0, 0); return; }
+    if (tab === "dash") { renderDash(); return; }
+    renderList();
   }
 
   langEl.addEventListener("click", function (e) {
@@ -258,11 +412,11 @@
       applyTheme();
       return;
     }
-    var b = e.target.closest("button[data-lang]");
-    if (!b) return;
-    lang = b.getAttribute("data-lang");
+    if (!e.target.closest("#langBtn")) return;
+    var i = LANGS.map(function (x) { return x[0]; }).indexOf(lang);
+    lang = LANGS[(i + 1) % LANGS.length][0];
     try { localStorage.setItem("remitech-lang", lang); } catch (err) {}
-    renderLang(); renderChans(); route();
+    renderLang(); renderNav(); renderChans(); route();
   });
 
   chansEl.addEventListener("click", function (e) {
@@ -280,6 +434,7 @@
   window.addEventListener("hashchange", route);
 
   renderLang();
+  renderNav();
   document.getElementById("loading").textContent = t("loading");
 
   fetch("./posts.json", { cache: "no-cache" })
@@ -287,7 +442,10 @@
     .then(function (j) {
       channels = j.channels || [];
       posts = j.posts || [];
-      renderChans(); route();
+      return fetch("./schedule.json", { cache: "no-cache" })
+        .then(function (r) { return r.ok ? r.json() : null; })
+        .catch(function () { return null; })
+        .then(function (sc) { schedule = sc; renderChans(); route(); });
     })
     .catch(function () { view.innerHTML = '<p class="empty">' + esc(t("fail")) + '</p>'; });
 })();
