@@ -1,10 +1,17 @@
 {
-  "note": "投稿の原本。ここに書いてから各SNSへ写す。新しいものを上に足す。",
+  "note": "Source of truth. Write here first, then post to each channel.",
+  "channels": [
+    { "id": "hiyoko",  "name": "Hiyoko Global", "handle": "@HiyokoGlobal",     "url": "https://x.com/HiyokoGlobal" },
+    { "id": "nacha",   "name": "Nacha Project", "handle": "@nacha_project",    "url": "https://x.com/nacha_project" },
+    { "id": "yuyu",    "name": "Yuyu Kannondo", "handle": "@yuyukannondo",     "url": "https://x.com/yuyukannondo" },
+    { "id": "reel",    "name": "REEL",          "handle": "@REEL_Experience",  "url": "https://x.com/REEL_Experience" }
+  ],
   "posts": [
     {
       "id": "2026-09-08-license",
       "date": "2026-09-08",
       "status": "draft",
+      "channels": ["reel"],
       "title": "MITのコードは売っていい。音は加工しても使えない",
       "lead": "同じ「他人が作ったもの」でも、扱いが正反対になる。読めば分かるが、読まないと逆に見える。",
       "tags": ["ライセンス", "著作権", "間合い"],

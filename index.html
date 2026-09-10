@@ -1,42 +1,72 @@
 <!doctype html>
-<html lang="ja">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>REMITECH</title>
-<meta name="description" content="投稿の原本を読む場所。">
+<meta name="description" content="Source of truth for everything we post.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@300;400;500&family=Shippori+Mincho:wght@500&display=swap">
 <style>
   :root{
     --bg:#f5f1e9; --surface:#fbf9f4; --line:#e2dac8;
-    --ink:#2b2924; --muted:#8a8271; --wood:#93704b; --wood-soft:#ece1d0;
+    --ink:#2b2924; --muted:#8a8271; --wood:#93704b; --wood-soft:#ece1d0; --sage:#7d8c6a;
     --mincho:"Shippori Mincho","Hiragino Mincho ProN",serif;
     --gothic:"Zen Kaku Gothic New","Hiragino Sans","Yu Gothic",system-ui,sans-serif;
   }
   @media (prefers-color-scheme:dark){ :root:not([data-theme="light"]){
     --bg:#1c1a16; --surface:#242119; --line:#38332a;
-    --ink:#ede8dd; --muted:#a89e8a; --wood:#c99f74; --wood-soft:#382d20;
+    --ink:#ede8dd; --muted:#a89e8a; --wood:#c99f74; --wood-soft:#382d20; --sage:#9aab84;
   }}
   :root[data-theme="dark"]{
     --bg:#1c1a16; --surface:#242119; --line:#38332a;
-    --ink:#ede8dd; --muted:#a89e8a; --wood:#c99f74; --wood-soft:#382d20;
+    --ink:#ede8dd; --muted:#a89e8a; --wood:#c99f74; --wood-soft:#382d20; --sage:#9aab84;
   }
   *{box-sizing:border-box}
   body{
     margin:0; background:var(--bg); color:var(--ink);
-    font-family:var(--gothic); font-weight:300; line-height:1.9;
+    font-family:var(--gothic); font-weight:300; line-height:1.85;
     -webkit-font-smoothing:antialiased;
   }
-  .page{ width:100%; max-width:640px; margin:0 auto; padding:48px 20px 72px; }
+  .page{ width:100%; max-width:660px; margin:0 auto; padding:40px 20px 72px; }
 
-  header{ text-align:center; margin-bottom:36px; }
+  /* ---- header ---- */
+  .top{ display:flex; align-items:flex-start; justify-content:space-between; gap:12px; }
   h1{ margin:0; font-family:var(--mincho); font-weight:500;
-      font-size:22px; letter-spacing:.42em; text-indent:.42em; }
-  .tagline{ margin:8px 0 0; font-size:12px; color:var(--muted); letter-spacing:.06em; }
+      font-size:20px; letter-spacing:.4em; text-indent:.4em; }
+  .tagline{ margin:6px 0 0; font-size:12px; color:var(--muted); letter-spacing:.04em; }
+  .lang{ display:flex; gap:4px; flex:0 0 auto; }
+  .lang button{
+    background:none; border:1px solid transparent; border-radius:999px;
+    color:var(--muted); font:inherit; font-size:11px; letter-spacing:.06em;
+    padding:3px 9px; cursor:pointer;
+  }
+  .lang button[aria-pressed="true"]{ color:var(--ink); border-color:var(--line); background:var(--surface); }
+  .lang button:hover{ color:var(--ink); }
+  .theme{
+    background:var(--surface); border:1px solid var(--line); border-radius:999px;
+    color:var(--ink); font:inherit; font-size:13px; line-height:1;
+    width:32px; height:28px; cursor:pointer; padding:0;
+  }
+  .theme:hover{ border-color:var(--wood); }
 
-  /* ---- 一覧 ---- */
+  /* 状態は色と形の両方で示す。英語が読めなくても区別がつくように */
+  .dot{ width:6px; height:6px; border-radius:50%; flex:0 0 auto; }
+  .dot[data-status="draft"]{ background:var(--wood); }
+  .dot[data-status="live"]{ background:var(--sage, #7d8c6a); }
+
+  /* ---- channels ---- */
+  .chans{ display:flex; flex-wrap:wrap; gap:6px; margin:26px 0 22px; }
+  .chan{
+    background:var(--surface); border:1px solid var(--line); border-radius:999px;
+    color:var(--muted); font:inherit; font-size:12px; padding:5px 13px; cursor:pointer;
+    transition:border-color .16s ease, color .16s ease;
+  }
+  .chan[aria-pressed="true"]{ color:var(--surface); background:var(--wood); border-color:var(--wood); }
+  .chan:hover{ border-color:var(--wood); }
+
+  /* ---- list ---- */
   .list{ list-style:none; margin:0; padding:0; }
   .list li + li{ margin-top:12px; }
   .card{
@@ -47,81 +77,171 @@
   }
   .card:hover,.card:focus-visible{ border-color:var(--wood); transform:translateY(-1px); }
   .card:focus-visible{ outline:2px solid var(--wood); outline-offset:3px; }
-  .meta{ display:flex; align-items:center; gap:8px; font-size:11px; color:var(--muted); letter-spacing:.08em; }
+  .meta{ display:flex; align-items:center; flex-wrap:wrap; gap:8px;
+         font-size:11px; color:var(--muted); letter-spacing:.06em; }
   .flag{ border:1px solid var(--line); border-radius:999px; padding:1px 8px; }
   .flag[data-status="draft"]{ color:var(--wood); border-color:var(--wood); }
   .card b{ display:block; margin:6px 0 4px; font-weight:500; font-size:16px; line-height:1.6; }
   .card p{ margin:0; font-size:13px; color:var(--muted); }
-  .tags{ margin-top:10px; font-size:11px; color:var(--muted); letter-spacing:.06em; }
+  .tags{ margin-top:10px; font-size:11px; color:var(--muted); }
 
-  /* ---- 本文 ---- */
-  .back{
-    background:none; border:0; color:var(--muted); font:inherit; font-size:13px;
-    cursor:pointer; padding:6px 0; margin-bottom:12px;
-  }
+  /* ---- post ---- */
+  .back{ background:none; border:0; color:var(--muted); font:inherit; font-size:13px;
+         cursor:pointer; padding:6px 0; margin-bottom:10px; }
   .back:hover{ color:var(--ink); }
-  .post h2{ margin:0 0 6px; font-size:20px; font-weight:500; line-height:1.6; }
-  .post .lead{ margin:0 0 28px; font-size:14px; color:var(--muted); }
-  .sheet{
-    background:var(--surface); border:1px solid var(--line); border-radius:14px;
-    padding:20px 22px; margin-bottom:12px;
-  }
+  .post h2{ margin:6px 0; font-size:20px; font-weight:500; line-height:1.6; }
+  .post .lead{ margin:0 0 26px; font-size:14px; color:var(--muted); }
+  .sheet{ background:var(--surface); border:1px solid var(--line); border-radius:14px;
+          padding:20px 22px; margin-bottom:12px; }
   .sheet .no{ font-family:var(--mincho); font-size:12px; color:var(--wood); }
   .sheet h3{ margin:4px 0 8px; font-size:15px; font-weight:500; line-height:1.7; }
   .sheet p{ margin:0; font-size:14px; }
+  .goto{ display:inline-block; margin-top:6px; font-size:12px; color:var(--wood); }
 
-  .empty{ text-align:center; color:var(--muted); font-size:13px; padding:40px 0; }
-  footer{ margin-top:56px; text-align:center; font-size:11px;
-          letter-spacing:.24em; color:var(--muted); opacity:.7; }
+  .empty{ text-align:center; color:var(--muted); font-size:13px; padding:44px 0; }
+  footer{ margin-top:52px; text-align:center; font-size:11px;
+          letter-spacing:.22em; color:var(--muted); opacity:.7; }
+  /* スマホ: 指で押せる大きさに。折り返して全部見せる */
+  @media (max-width:520px){
+    .page{ padding:24px 16px 56px; }
+    .top{ flex-direction:column; align-items:stretch; gap:14px; }
+    .lang{ justify-content:space-between; }
+    .lang button{ font-size:12px; padding:7px 12px; }
+    .theme{ width:38px; height:32px; }
+    .chans{ gap:7px; margin:18px 0; }
+    .chan{ padding:8px 15px; font-size:13px; }
+    .card{ padding:16px 17px; }
+    .card b{ font-size:15.5px; }
+    .sheet{ padding:17px 18px; }
+    .post h2{ font-size:18.5px; }
+    .back{ padding:10px 0; font-size:14px; }
+  }
+
   @media (prefers-reduced-motion:reduce){ .card{ transition:none } }
 </style>
 </head>
 <body>
   <div class="page">
-    <header>
-      <h1>REMITECH</h1>
-      <p class="tagline">投稿の原本</p>
-    </header>
-    <div id="view"><p class="empty">読み込んでいます…</p></div>
+    <div class="top">
+      <div>
+        <h1>REMITECH</h1>
+        <p class="tagline" id="tagline"></p>
+      </div>
+      <div class="lang" id="langPick"></div>
+    </div>
+
+    <div class="chans" id="chans"></div>
+    <div id="view"><p class="empty" id="loading"></p></div>
     <footer>REMITECH</footer>
   </div>
 
 <script>
 (function () {
-  var view = document.getElementById("view");
-  var posts = [];
+  // 表示の言葉。既定は英語。投稿の本文は書かれたままの言語で出す
+  var T = {
+    en: { tagline:"Source of truth for everything we post.",
+          all:"All", loading:"Loading…", none:"Nothing here yet.",
+          fail:"Could not load the source.", back:"← All posts",
+          draft:"Draft", live:"Posted", open:"Open channel" },
+    ko: { tagline:"올리는 모든 글의 원본.",
+          all:"전체", loading:"불러오는 중…", none:"아직 없습니다.",
+          fail:"원본을 불러오지 못했습니다.", back:"← 목록으로",
+          draft:"초안", live:"게시함", open:"채널 열기" },
+    ja: { tagline:"投稿するものの原本。",
+          all:"すべて", loading:"読み込んでいます…", none:"まだ何もありません。",
+          fail:"原本を読み込めませんでした。", back:"← 一覧へ",
+          draft:"下書き", live:"公開ずみ", open:"チャンネルを開く" }
+  };
+  var LANGS = [["en","EN"], ["ko","한국어"], ["ja","日本語"]];
 
-  function esc(s) { var d = document.createElement("div"); d.textContent = s == null ? "" : s; return d.innerHTML; }
-  function statusLabel(s) { return s === "draft" ? "下書き" : "公開ずみ"; }
-
-  function renderList() {
-    if (!posts.length) { view.innerHTML = '<p class="empty">まだ何もありません。</p>'; return; }
-    var html = '<ul class="list">';
-    posts.forEach(function (p) {
-      html += '<li><button class="card" data-id="' + esc(p.id) + '">' +
-                '<span class="meta"><span>' + esc(p.date) + '</span>' +
-                '<span class="flag" data-status="' + esc(p.status) + '">' + statusLabel(p.status) + '</span></span>' +
-                '<b>' + esc(p.title) + '</b>' +
-                '<p>' + esc(p.lead) + '</p>' +
-                ((p.tags && p.tags.length) ? '<p class="tags">' + esc(p.tags.join(" · ")) + '</p>' : '') +
-              '</button></li>';
-    });
-    view.innerHTML = html + '</ul>';
+  // 明るさ。既定は端末に合わせる。押すたびに 端末 → 明るい → 暗い と回る
+  var THEMES = [["auto","◐"], ["light","☀"], ["dark","☾"]];
+  var theme = "auto";
+  try { var tv = localStorage.getItem("remitech-theme"); if (tv) theme = tv; } catch (e) {}
+  function applyTheme() {
+    if (theme === "auto") document.documentElement.removeAttribute("data-theme");
+    else document.documentElement.setAttribute("data-theme", theme);
+    var b = document.getElementById("themeBtn");
+    if (b) {
+      var cur = THEMES.filter(function (x) { return x[0] === theme; })[0];
+      b.textContent = cur[1];
+      b.setAttribute("aria-label", "theme: " + theme);
+      b.title = "theme: " + theme;
+    }
   }
 
-  var KANSUJI = ["一","二","三","四","五","六","七","八","九","十"];
+  var lang = "en";
+  try { var sv = localStorage.getItem("remitech-lang"); if (T[sv]) lang = sv; } catch (e) {}
+
+  var view = document.getElementById("view");
+  var chansEl = document.getElementById("chans");
+  var langEl = document.getElementById("langPick");
+  var posts = [], channels = [], filter = "";
+
+  function t(k) { return T[lang][k]; }
+  function esc(s) { var d = document.createElement("div"); d.textContent = s == null ? "" : s; return d.innerHTML; }
+  function chanOf(id) { return channels.filter(function (c) { return c.id === id; })[0]; }
+  function chanNames(ids) {
+    return (ids || []).map(function (id) { var c = chanOf(id); return c ? c.handle : id; }).join(" · ");
+  }
+
+  function renderLang() {
+    langEl.innerHTML = LANGS.map(function (l) {
+      return '<button data-lang="' + l[0] + '" aria-pressed="' + (l[0] === lang) + '">' + l[1] + '</button>';
+    }).join("") + '<button class="theme" id="themeBtn"></button>';
+    applyTheme();
+    document.documentElement.lang = lang;
+    document.getElementById("tagline").textContent = t("tagline");
+  }
+
+  function renderChans() {
+    if (!channels.length) { chansEl.innerHTML = ""; return; }
+    var html = '<button class="chan" data-chan="" aria-pressed="' + (filter === "") + '">' + esc(t("all")) + '</button>';
+    channels.forEach(function (c) {
+      html += '<button class="chan" data-chan="' + esc(c.id) + '" aria-pressed="' + (filter === c.id) + '">' + esc(c.handle) + '</button>';
+    });
+    chansEl.innerHTML = html;
+  }
+
+  function visible() {
+    return filter ? posts.filter(function (p) { return (p.channels || []).indexOf(filter) >= 0; }) : posts;
+  }
+
+  function renderList() {
+    chansEl.hidden = false;
+    var rows = visible();
+    if (!rows.length) { view.innerHTML = '<p class="empty">' + esc(t("none")) + '</p>'; return; }
+    view.innerHTML = '<ul class="list">' + rows.map(function (p) {
+      return '<li><button class="card" data-id="' + esc(p.id) + '">' +
+        '<span class="meta"><span>' + esc(p.date) + '</span>' +
+        '<span class="dot" data-status="' + (p.status === "draft" ? "draft" : "live") + '"></span>' +
+        '<span class="flag" data-status="' + esc(p.status) + '">' +
+          esc(p.status === "draft" ? t("draft") : t("live")) + '</span>' +
+        '<span>' + esc(chanNames(p.channels)) + '</span></span>' +
+        '<b>' + esc(p.title) + '</b><p>' + esc(p.lead) + '</p>' +
+        ((p.tags && p.tags.length) ? '<p class="tags">' + esc(p.tags.join(" · ")) + '</p>' : '') +
+      '</button></li>';
+    }).join("") + '</ul>';
+  }
+
+  var NO = ["一","二","三","四","五","六","七","八","九","十"];
 
   function renderPost(p) {
-    var html = '<button class="back" id="backBtn">← 一覧へ</button><div class="post">' +
-               '<span class="meta"><span>' + esc(p.date) + '</span>' +
-               '<span class="flag" data-status="' + esc(p.status) + '">' + statusLabel(p.status) + '</span></span>' +
-               '<h2>' + esc(p.title) + '</h2>' +
-               '<p class="lead">' + esc(p.lead) + '</p>';
-    (p.pages || []).forEach(function (pg, i) {
-      html += '<section class="sheet"><span class="no">' + (KANSUJI[i] || (i + 1)) + '</span>' +
-              '<h3>' + esc(pg.head) + '</h3><p>' + esc(pg.body) + '</p></section>';
-    });
-    view.innerHTML = html + '</div>';
+    chansEl.hidden = true;
+    var links = (p.channels || []).map(function (id) {
+      var c = chanOf(id);
+      return c ? '<a class="goto" href="' + esc(c.url) + '" target="_blank" rel="noopener">' +
+                 esc(c.handle) + ' ↗</a>' : "";
+    }).join(" ");
+    view.innerHTML = '<button class="back" id="backBtn">' + esc(t("back")) + '</button><div class="post">' +
+      '<span class="meta"><span>' + esc(p.date) + '</span>' +
+      '<span class="flag" data-status="' + esc(p.status) + '">' +
+        esc(p.status === "draft" ? t("draft") : t("live")) + '</span></span>' +
+      '<h2>' + esc(p.title) + '</h2><p class="lead">' + esc(p.lead) + '</p>' +
+      (p.pages || []).map(function (pg, i) {
+        return '<section class="sheet"><span class="no">' + (NO[i] || (i + 1)) + '</span>' +
+               '<h3>' + esc(pg.head) + '</h3><p>' + esc(pg.body) + '</p></section>';
+      }).join("") + (links ? '<p>' + links + '</p>' : '') + '</div>';
   }
 
   function route() {
@@ -130,6 +250,28 @@
     if (p) { renderPost(p); window.scrollTo(0, 0); } else { renderList(); }
   }
 
+  langEl.addEventListener("click", function (e) {
+    if (e.target.closest("#themeBtn")) {
+      var i = THEMES.map(function (x) { return x[0]; }).indexOf(theme);
+      theme = THEMES[(i + 1) % THEMES.length][0];
+      try { localStorage.setItem("remitech-theme", theme); } catch (err) {}
+      applyTheme();
+      return;
+    }
+    var b = e.target.closest("button[data-lang]");
+    if (!b) return;
+    lang = b.getAttribute("data-lang");
+    try { localStorage.setItem("remitech-lang", lang); } catch (err) {}
+    renderLang(); renderChans(); route();
+  });
+
+  chansEl.addEventListener("click", function (e) {
+    var b = e.target.closest("button[data-chan]");
+    if (!b) return;
+    filter = b.getAttribute("data-chan");
+    renderChans(); renderList();
+  });
+
   view.addEventListener("click", function (e) {
     var card = e.target.closest(".card");
     if (card) { location.hash = "/" + card.getAttribute("data-id"); return; }
@@ -137,10 +279,17 @@
   });
   window.addEventListener("hashchange", route);
 
+  renderLang();
+  document.getElementById("loading").textContent = t("loading");
+
   fetch("./posts.json", { cache: "no-cache" })
     .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
-    .then(function (j) { posts = j.posts || []; route(); })
-    .catch(function () { view.innerHTML = '<p class="empty">原本を読み込めませんでした。</p>'; });
+    .then(function (j) {
+      channels = j.channels || [];
+      posts = j.posts || [];
+      renderChans(); route();
+    })
+    .catch(function () { view.innerHTML = '<p class="empty">' + esc(t("fail")) + '</p>'; });
 })();
 </script>
 </body>
