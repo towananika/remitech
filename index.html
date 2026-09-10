@@ -170,6 +170,14 @@
   .pwrap .ptext{ padding-right:74px; }
   .passet{ font-size:12.5px; color:var(--muted); margin:10px 0 0; }
   .done-bar{ border-top:1px solid var(--line); padding-top:12px; margin-top:14px; }
+  .linkrow{ display:flex; align-items:center; gap:8px; margin-top:8px; }
+  .plink{
+    flex:1 1 auto; min-width:0; font:inherit; font-size:12px;
+    background:var(--bg); color:var(--ink);
+    border:1px solid var(--line); border-radius:8px; padding:6px 10px;
+  }
+  .plink:focus{ outline:none; border-color:var(--wood); }
+  .linkrow .goto{ flex:0 0 auto; margin-top:0; }
   .donebtn{
     background:none; border:1px solid var(--line); border-radius:999px;
     color:var(--muted); font:inherit; font-size:12px; padding:6px 14px; cursor:pointer;
@@ -177,7 +185,7 @@
   .donebtn:hover{ border-color:var(--wood); color:var(--ink); }
   .donebtn[data-mark="posted"][data-on="true"]{
     color:var(--surface); background:var(--sage); border-color:var(--sage); }
-  .donebtn[data-mark="checked"][data-on="true"]{
+  .donebtn[data-mark="scheduled"][data-on="true"]{
     color:var(--surface); background:var(--wood); border-color:var(--wood); }
 
   /* ---- week grid ---- */
@@ -431,7 +439,7 @@
           navDash:"This week", navBook:"Booking", navPrep:"Prep", navKpi:"KPI", navPosts:"Posts",
           followers:"Followers", following:"Following", measuredOn:"Measured", noKpi:"No numbers yet.",
           allBooked:"All booked", leftToDo:"left", nothingToday:"Nothing scheduled",
-          markPosted:"Posted", markChecked:"Checked", undo:"Undo",
+          markSched:"Booked", markPosted:"Posted", linkPh:"Paste the link of the post", open:"Open",
           copy:"Copy", copied:"Copied", copyEn:"EN", noText:"No text yet", comment:"Comment",
           visual:"Visual", today:"Today", tomorrow:"Tomorrow", prepEmpty:"Nothing coming up.",
           stNone:"No text", stText:"Text ready", stSched:"Scheduled", stDone:"Posted",
@@ -454,7 +462,7 @@
           navDash:"이번 주", navBook:"예약", navPrep:"준비", navKpi:"KPI", navPosts:"글",
           followers:"팔로워", following:"팔로잉", measuredOn:"측정일", noKpi:"아직 숫자가 없어.",
           allBooked:"모두 예약됨", leftToDo:"남음", nothingToday:"예정 없음",
-          markPosted:"게시 완료", markChecked:"확인 완료", undo:"취소",
+          markSched:"예약함", markPosted:"게시 확인", linkPh:"게시물 링크 붙여넣기", open:"열기",
           copy:"복사", copied:"복사됨", copyEn:"EN", noText:"원고 없음", comment:"댓글",
           visual:"비주얼", today:"오늘", tomorrow:"내일", prepEmpty:"예정된 게 없어.",
           stNone:"원고 없음", stText:"원고 있음", stSched:"예약됨", stDone:"게시됨",
@@ -477,7 +485,7 @@
           navDash:"今週", navBook:"予約", navPrep:"準備", navKpi:"KPI", navPosts:"投稿",
           followers:"フォロワー", following:"フォロー", measuredOn:"計測日", noKpi:"まだ数字がない。",
           allBooked:"すべて予約ずみ", leftToDo:"残り", nothingToday:"予定なし",
-          markPosted:"投稿完了", markChecked:"確認完了", undo:"戻す",
+          markSched:"予約した", markPosted:"投稿確認", linkPh:"投稿したリンクを貼る", open:"開く",
           copy:"写す", copied:"写した", copyEn:"EN", noText:"原稿なし", comment:"コメント",
           visual:"ビジュアル", today:"今日", tomorrow:"明日", prepEmpty:"先の予定がない。",
           stNone:"原稿なし", stText:"原稿あり", stSched:"予約ずみ", stDone:"投稿ずみ",
@@ -612,6 +620,7 @@
     try { localStorage.setItem(stKey(sl), JSON.stringify(o)); } catch (e) {}
   }
   function isPosted(sl) { return !!(sl.posted || stGet(sl).posted); }
+  function isSched(sl) { return !!(sl.scheduled || stGet(sl).scheduled); }
   function isChecked(sl) { return !!((sl.check && sl.check.done) || stGet(sl).checked); }
 
   function matKey(sl) { return "remitech-mat-" + sl.date + "-" + (sl.platform || "X") + "-" + sl.time; }
@@ -665,7 +674,7 @@
     var hasText = sl.text && (sl.text.ja || sl.text.en || sl.text.ko);
     // 予約してあれば、時刻を過ぎても抜けではない（自動で出ているはず）。
     // 実際に出たかは照らしてから posted にする
-    if (sl.scheduled) return "sched";
+    if (isSched(sl)) return "sched";
     if (when < now) return "late";              // 予約もされないまま時刻が過ぎた
     if (hasText && matReady(sl)) return "ready";  // 材料が揃った
     return hasText ? "text" : "none";
@@ -1007,15 +1016,25 @@
         html += '<p class="passet">' + esc(t("visual")) + " \u00b7 " + esc(sl.asset) + '</p>';
       }
       var st = stGet(sl);
+      var link = st.url || sl.url || "";
       html += '<div class="pbar done-bar">' +
+        '<button class="donebtn" data-mark="scheduled" data-on="' + (!!st.scheduled) + '"' +
+        ' data-date="' + esc(sl.date) + '" data-pf="' + esc(sl.platform || "X") +
+        '" data-time="' + esc(sl.time) + '">' +
+        (st.scheduled ? "✓ " : "") + esc(t("markSched")) + '</button>' +
         '<button class="donebtn" data-mark="posted" data-on="' + (!!st.posted) + '"' +
         ' data-date="' + esc(sl.date) + '" data-pf="' + esc(sl.platform || "X") +
         '" data-time="' + esc(sl.time) + '">' +
-        (st.posted ? "\u2713 " : "") + esc(t("markPosted")) + '</button>' +
-        '<button class="donebtn" data-mark="checked" data-on="' + (!!st.checked) + '"' +
-        ' data-date="' + esc(sl.date) + '" data-pf="' + esc(sl.platform || "X") +
-        '" data-time="' + esc(sl.time) + '">' +
-        (st.checked ? "\u2713 " : "") + esc(t("markChecked")) + '</button></div>';
+        (st.posted ? "✓ " : "") + esc(t("markPosted")) + '</button>' +
+        '</div>' +
+        '<div class="linkrow">' +
+          '<input type="url" class="plink" value="' + esc(link) + '"' +
+          ' placeholder="' + esc(t("linkPh")) + '"' +
+          ' data-date="' + esc(sl.date) + '" data-pf="' + esc(sl.platform || "X") +
+          '" data-time="' + esc(sl.time) + '">' +
+          (link ? '<a class="goto" href="' + esc(link) + '" target="_blank" rel="noopener">' +
+                  esc(t("open")) + ' ↗</a>' : "") +
+        '</div>';
       html += '</div>';
     });
     view.innerHTML = html + '</div>';
@@ -1302,6 +1321,15 @@
   });
 
   view.addEventListener("input", function (e) {
+    if (e.target.classList && e.target.classList.contains("plink")) {
+      var sl2 = (schedule.slots || []).filter(function (x) {
+        return x.date === e.target.getAttribute("data-date") &&
+               x.time === e.target.getAttribute("data-time") &&
+               (x.platform || "X") === (e.target.getAttribute("data-pf") || "X");
+      })[0];
+      if (sl2) stSet(sl2, "url", e.target.value.trim());
+      return;
+    }
     if (e.target.id === "impText") { importRead(e.target.value); return; }
     if (e.target.id === "impUrl") { return; }
     if (e.target.id === "remMin") {
