@@ -38,8 +38,10 @@
 
   /* ---- header ---- */
   .top{ display:flex; align-items:flex-start; justify-content:space-between; gap:12px; }
+  .brand{ margin:0 0 2px; font-size:10px; letter-spacing:.34em; text-indent:.34em;
+          color:var(--muted); }
   h1{ margin:0; font-family:var(--mincho); font-weight:500;
-      font-size:20px; letter-spacing:.4em; text-indent:.4em; }
+      font-size:22px; letter-spacing:.4em; text-indent:.4em; }
   .tagline{ margin:6px 0 0; font-size:13px; color:var(--muted); letter-spacing:.04em; }
   .lang{ display:flex; gap:4px; flex:0 0 auto; }
   .lang{ align-items:center; }
@@ -510,8 +512,14 @@
   .chanbox p{ margin:4px 0 0; font-size:13px; color:var(--muted); }
 
   .empty{ text-align:center; color:var(--muted); font-size:13px; padding:44px 0; }
-  footer{ margin-top:52px; text-align:center; font-size:11px;
-          letter-spacing:.22em; color:var(--muted); opacity:.7; }
+  .navtip{ margin:10px 0 0; font-size:12.5px; color:var(--muted); }
+  footer{ margin-top:56px; padding-top:18px; border-top:1px solid var(--line);
+          text-align:left; color:var(--muted); }
+  .fnote{ margin:0; font-size:12px; line-height:1.8; }
+  .fline{ margin:6px 0 0; display:flex; gap:14px; align-items:baseline;
+          font-size:11.5px; font-variant-numeric:tabular-nums; }
+  .fline a{ color:var(--muted); text-decoration:none; border-bottom:1px solid var(--line); }
+  .fline a:hover{ color:var(--ink); border-color:var(--wood); }
   /* スマホ: 指で押せる大きさに。折り返して全部見せる */
   @media (max-width:520px){
     .page{ padding:24px 16px 56px; }
@@ -543,6 +551,7 @@
   <div class="page">
     <div class="top">
       <div>
+        <p class="brand" id="brand"></p>
         <h1>HUB</h1>
         <p class="tagline" id="tagline"></p>
       </div>
@@ -550,16 +559,30 @@
     </div>
 
     <div class="nav" id="nav"></div>
+    <p class="navtip" id="navtip"></p>
     <div class="chans" id="chans"></div>
     <div id="view"><p class="empty" id="loading"></p></div>
-    <footer>REMITECH HUB</footer>
+    <footer>
+      <p class="fnote" id="fnote"></p>
+      <p class="fline"><span id="ftoday"></span>
+        <a id="frepo" href="https://github.com/towananika/remitech" target="_blank" rel="noopener"></a></p>
+    </footer>
   </div>
 
 <script>
 (function () {
   // 表示の言葉。既定は英語。投稿の本文は書かれたままの言語で出す
   var T = {
-    en: { tagline:"Source of truth for everything we post.",
+    en: { tagline:"Where every post is written, checked and recorded.",
+          brand:"REMITECH",
+          tipDash:"The week at a glance — what is booked and what is missing.",
+          tipBook:"Day by day: is every channel ready?",
+          tipPrep:"The text and images for the next seven days. Copy from here.",
+          tipKpi:"Followers and following, and how they move.",
+          tipPosts:"Long-form pieces written for the channels.",
+          tipImport:"Bring a plan in, and set where images are kept.",
+          footNote:"Plans and records live in this site's files. Marks you tap stay on this device.",
+          footRepo:"Source",
           all:"All", loading:"Loading…", none:"Nothing here yet.",
           fail:"Could not load the source.", back:"← All posts",
           draft:"Draft", live:"Posted", open:"Open channel",
@@ -584,7 +607,16 @@
           impRead:"Read", impResult:"slots read", impBad:"Could not read it. Check the header row.",
           updated:"New content", reload:"Reload", close:"Close",
           weekStart:"Week starts on", noSlots:"No regular slots yet." },
-    ko: { tagline:"올리는 모든 글의 원본.",
+    ko: { tagline:"올리는 글을 쓰고, 확인하고, 남기는 곳.",
+          brand:"REMITECH",
+          tipDash:"이번 주 한눈에 — 예약된 것과 빠진 것.",
+          tipBook:"날짜별로: 모든 채널이 준비됐는지.",
+          tipPrep:"앞으로 7일의 문안과 이미지. 여기서 복사한다.",
+          tipKpi:"팔로워와 팔로잉, 그리고 그 변화.",
+          tipPosts:"채널을 위해 쓴 긴 글.",
+          tipImport:"기획을 가져오고, 이미지 저장소를 설정한다.",
+          footNote:"기획과 기록은 이 사이트의 파일에 있다. 눌러서 남긴 표시는 이 기기에만 남는다.",
+          footRepo:"소스",
           all:"전체", loading:"불러오는 중…", none:"아직 없습니다.",
           fail:"원본을 불러오지 못했습니다.", back:"← 목록으로",
           draft:"초안", live:"게시함", open:"채널 열기",
@@ -609,7 +641,16 @@
           impRead:"읽기", impResult:"개 읽음", impBad:"읽지 못했어. 첫 줄의 제목을 확인해줘.",
           updated:"새 내용", reload:"새로고침", close:"닫기",
           weekStart:"주 시작", noSlots:"정기 업로드 시간이 없어." },
-    ja: { tagline:"投稿するものの原本。",
+    ja: { tagline:"投稿するものを、書いて・確かめて・残す場所。",
+          brand:"REMITECH",
+          tipDash:"今週を1枚で — 予約できているもの、抜けているもの。",
+          tipBook:"日ごとに、全チャンネルが整っているか。",
+          tipPrep:"これから7日ぶんの文面と画像。ここから写す。",
+          tipKpi:"フォロワーとフォロー、その動き。",
+          tipPosts:"チャンネルのために書いた長い文章。",
+          tipImport:"企画を取り込み、画像の置き場を決める。",
+          footNote:"企画と記録はこのサイトのファイルにある。押して付けた印はこの端末にだけ残る。",
+          footRepo:"元のファイル",
           all:"すべて", loading:"読み込んでいます…", none:"まだ何もありません。",
           fail:"原本を読み込めませんでした。", back:"← 一覧へ",
           draft:"下書き", live:"公開ずみ", open:"チャンネルを開く",
@@ -677,7 +718,13 @@
       '<button class="theme" id="themeBtn"></button>';
     applyTheme();
     document.documentElement.lang = lang;
+    document.getElementById("brand").textContent = t("brand");
     document.getElementById("tagline").textContent = t("tagline");
+    document.getElementById("fnote").textContent = t("footNote");
+    document.getElementById("frepo").textContent = t("footRepo") + " ↗";
+    var n = new Date();
+    document.getElementById("ftoday").textContent =
+      n.getFullYear() + "-" + two(n.getMonth() + 1) + "-" + two(n.getDate());
   }
 
   function renderChans() {
@@ -1575,6 +1622,9 @@
     view.innerHTML = (shown ? html + '</div>' : '<p class="empty">' + esc(t("noKpi")) + '</p>');
   }
 
+  var TIPS = { dash:"tipDash", book:"tipBook", prep:"tipPrep",
+               kpi:"tipKpi", posts:"tipPosts", "import":"tipImport" };
+
   function renderNav() {
     navEl.innerHTML =
       '<button data-tab="dash" aria-pressed="' + (tab === "dash") + '">' + esc(t("navDash")) + '</button>' +
@@ -1583,6 +1633,8 @@
       '<button data-tab="kpi" aria-pressed="' + (tab === "kpi") + '">' + esc(t("navKpi")) + '</button>' +
       '<button data-tab="posts" aria-pressed="' + (tab === "posts") + '">' + esc(t("navPosts")) + '</button>' +
       '<button data-tab="import" aria-pressed="' + (tab === "import") + '">' + esc(t("navImport")) + '</button>';
+    var tip = document.getElementById("navtip");
+    if (tip) tip.textContent = t(TIPS[tab] || "tipDash");
   }
 
   navEl.addEventListener("click", function (e) {
