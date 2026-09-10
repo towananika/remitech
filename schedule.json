@@ -894,6 +894,35 @@
       "owner": ""
     },
     {
+      "date": "2026-09-10",
+      "channel": "hiyoko",
+      "platform": "TT",
+      "time": "09:30",
+      "label": "",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
       "time": "09:30",
       "type": "thread",
       "label": "スレッド HIYOKOはなぜ価値があるの？",
