@@ -639,7 +639,7 @@
           footNote:"Plans and records live in this site's files. Marks you tap stay on this device.",
           footRepo:"Source",
           newSlot:"New post", edit:"Edit", del:"Delete", save:"Save", cancel:"Cancel",
-          fDate:"Date", fPlatform:"Where", fTime:"Time", fLabel:"Title", fType:"Kind",
+          fChannel:"Channel", fDate:"Date", fPlatform:"Where", fTime:"Time", fLabel:"Title", fType:"Kind",
           fAsset:"Visual note", fComment:"Comment", fPart:"Part", fOwner:"In charge", noOwner:"unassigned",
           addPart:"Add a part", rmPart:"Remove", saving:"Saving\u2026",
           savedTo:"Saved to the repository", savedHere:"Saved on this device only",
@@ -684,7 +684,7 @@
           footNote:"기획과 기록은 이 사이트의 파일에 있다. 눌러서 남긴 표시는 이 기기에만 남는다.",
           footRepo:"소스",
           newSlot:"새 게시물", edit:"수정", del:"삭제", save:"저장", cancel:"취소",
-          fDate:"날짜", fPlatform:"채널", fTime:"시각", fLabel:"제목", fType:"종류",
+          fChannel:"채널", fDate:"날짜", fPlatform:"어디에", fTime:"시각", fLabel:"제목", fType:"종류",
           fAsset:"비주얼 메모", fComment:"댓글", fPart:"파트", fOwner:"담당자", noOwner:"미정",
           addPart:"파트 추가", rmPart:"제거", saving:"저장 중\u2026",
           savedTo:"저장소에 저장됨", savedHere:"이 기기에만 저장됨",
@@ -729,7 +729,7 @@
           footNote:"企画と記録はこのサイトのファイルにある。押して付けた印はこの端末にだけ残る。",
           footRepo:"元のファイル",
           newSlot:"新しい投稿", edit:"直す", del:"消す", save:"保存", cancel:"やめる",
-          fDate:"日付", fPlatform:"どこに", fTime:"時刻", fLabel:"見出し", fType:"種類",
+          fChannel:"チャンネル", fDate:"日付", fPlatform:"どこに", fTime:"時刻", fLabel:"見出し", fType:"種類",
           fAsset:"ビジュアルの指示", fComment:"コメント", fPart:"連投", fOwner:"担当者", noOwner:"未定",
           addPart:"連投を足す", rmPart:"外す", saving:"保存しています\u2026",
           savedTo:"元のファイルに保存した", savedHere:"この端末にだけ保存した",
@@ -962,10 +962,30 @@
 
     // 行 = チャンネル × 定期の時刻
     var rows = [];
+    var seen = {};
+    function addRow(c, time, platform, label) {
+      var k = c.id + "|" + platform + "|" + time;
+      if (seen[k]) return;
+      seen[k] = 1;
+      rows.push({ ch:c, time:time, platform:platform, label:label || "" });
+    }
     channels.forEach(function (c) {
       (c.postTimes || []).forEach(function (pt) {
-        rows.push({ ch:c, time: pt.time || pt, platform: pt.platform || "", label: pt.label || "" });
+        addRow(c, pt.time || pt, pt.platform || "", pt.label || "");
       });
+    });
+    // 定期でない枠も行を作る。作ったのに出てこない、を防ぐ
+    var wk = {};
+    days.forEach(function (d) { wk[ymd(d)] = 1; });
+    (schedule.slots || []).forEach(function (x) {
+      if (!wk[x.date]) return;
+      var c = chanOf(slotCh(x));
+      if (c) addRow(c, x.time, x.platform || "X", x.label || "");
+    });
+    rows.sort(function (a, b) {
+      var ai = channels.indexOf(a.ch), bi = channels.indexOf(b.ch);
+      if (ai !== bi) return ai - bi;
+      return (a.time + a.platform) < (b.time + b.platform) ? -1 : 1;
     });
     if (!rows.length) { view.innerHTML = '<p class="empty">' + esc(t("noSlots")) + '</p>'; return; }
 
@@ -992,11 +1012,11 @@
       days.forEach(function (d) {
         var isToday = ymd(d) === ymd(now);
         var isWknd = (d.getDay() === 0 || d.getDay() === 6);
-        var mine = row.ch.id === (schedule.channel || "hiyoko");
-        var sl = mine ? (schedule.slots || []).filter(function (x) {
+        var sl = (schedule.slots || []).filter(function (x) {
           return x.date === ymd(d) && x.time === row.time &&
-                 (x.platform || "X") === (row.platform || "X");
-        })[0] : null;
+                 (x.platform || "X") === (row.platform || "X") &&
+                 slotCh(x) === row.ch.id;
+        })[0];
         if (!sl) {
           body += '<td class="' + (isToday ? "todayc " : "") + (isWknd ? "wknd" : "") +
                   '"><span class="none">·</span></td>';
@@ -1225,8 +1245,10 @@
 
   // ---- 準備ボード ----
   // 投稿に使うものを1枚にまとめる。文面はそのまま写せる
+  // 枠は自分の持ち主を持つ。無ければ既定のチャンネル
+  function slotCh(sl) { return (sl && sl.channel) || schedule.channel || "hiyoko"; }
   function chanOfSlot(sl) {
-    var chId = schedule.channel || "hiyoko";
+    var chId = slotCh(sl);
     return chanOf(chId) || { name: chId, color: "var(--wood)" };
   }
 
@@ -1324,7 +1346,7 @@
   // 縮めた記号ではなく、そのまま呼ぶ
   var PFN = { X:"X", IG:"Instagram", FB:"Facebook", TT:"TikTok", YT:"YouTube" };
   function pfn(p) { return PFN[p || "X"] || (p || "X"); }
-  function slotKey(x) { return x.date + "|" + (x.platform || "X") + "|" + x.time; }
+  function slotKey(x) { return slotCh(x) + "|" + x.date + "|" + (x.platform || "X") + "|" + x.time; }
 
   function editForm() {
     var e = editing || {};
@@ -1339,6 +1361,11 @@
       }).join("");
     }
     var html = '<div class="editor">' +
+      row(t("fChannel"), '<select id="eCh">' + channels.map(function (c) {
+        return '<option value="' + esc(c.id) + '"' +
+               (c.id === (e.channel || schedule.channel || "hiyoko") ? " selected" : "") + '>' +
+               esc(c.name) + '</option>';
+      }).join("") + '</select>') +
       row(t("fDate"), '<input type="date" id="eDate" value="' + esc(e.date || ymd(new Date())) + '">') +
       row(t("fPlatform"), '<select id="ePf">' +
         ["X", "IG", "FB", "TT", "YT"].map(function (v) {
@@ -1390,7 +1417,7 @@
     var type = v("eType");
     var asset = v("eAsset");
     var o = {
-      date: v("eDate"), platform: v("ePf"), time: v("eTime"),
+      date: v("eDate"), channel: v("eCh"), platform: v("ePf"), time: v("eTime"),
       label: v("eLabel"), owner: v("eOwner"), type: type,
       text: { ja: document.getElementById("eJa").value,
               en: document.getElementById("eEn").value,
@@ -1621,7 +1648,8 @@
     var to = ymd(till);
 
     var chId = schedule.channel || "hiyoko";
-    var list = (filter && filter !== chId) ? [] : (schedule.slots || []).filter(function (x) {
+    var list = (schedule.slots || []).filter(function (x) {
+      if (filter && slotCh(x) !== filter) return false;
       // 終わったものも残す。あとから見返せるように
       return x.date >= from && x.date <= to;
     }).sort(function (a, b) {
