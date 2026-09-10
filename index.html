@@ -76,6 +76,20 @@
   }
   .toast .x{ background:none; color:var(--muted); padding:5px 8px; }
 
+  /* 上へ戻る。長い週表や準備ボードで下まで行くと出る */
+  .totop{
+    position:fixed; right:16px; bottom:16px; z-index:40;
+    width:40px; height:40px; border-radius:50%;
+    background:var(--surface); border:1px solid var(--line); color:var(--ink);
+    font:inherit; font-size:16px; line-height:1; cursor:pointer;
+    box-shadow:0 2px 10px rgba(0,0,0,.10);
+    opacity:0; transform:translateY(6px); transition:opacity .18s ease, transform .18s ease;
+  }
+  .totop[hidden]{ display:none; }
+  .totop[data-in="true"]{ opacity:.95; transform:translateY(0); }
+  .totop:hover{ border-color:var(--wood); color:var(--wood); }
+  @media (prefers-reduced-motion:reduce){ .totop{ transition:none } }
+
   /* ---- nav ---- */
   .nav{ display:flex; gap:4px; margin:24px 0 4px; }
   .nav button{
@@ -147,7 +161,21 @@
     border:1px solid var(--line); border-left:3px solid var(--chc, var(--wood));
     border-radius:14px; background:var(--surface); padding:16px 18px; margin-bottom:12px;
   }
-  .phead{ display:flex; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:10px; }
+  .phead{ display:flex; align-items:center; flex-wrap:wrap; gap:8px; cursor:pointer; }
+  .pcard[data-open="false"] .pbody{ display:none; }
+  .pcard[data-open="true"] .phead{ margin-bottom:12px; }
+  .chev{ margin-left:auto; color:var(--muted); font-size:16px; line-height:1;
+         transition:transform .16s ease; }
+  .pcard[data-open="true"] .chev{ transform:rotate(90deg); }
+  .pmini{ display:flex; gap:4px; align-items:center; }
+  .pdot{
+    font-style:normal; font-size:9.5px; font-weight:500; line-height:14px;
+    width:16px; height:16px; text-align:center; border-radius:5px;
+    border:1px solid var(--line); color:var(--muted);
+  }
+  .pdot[data-on="true"]{ color:var(--surface); background:var(--sage); border-color:var(--sage); }
+  .pflag{ font-style:normal; font-size:11px; color:var(--ink); margin-left:2px; }
+  @media (prefers-reduced-motion:reduce){ .chev{ transition:none } }
   .phead .who{ font-weight:500; font-size:14px; color:var(--chc, var(--ink)); }
   .phead .when{ font-size:12.5px; color:var(--muted); font-variant-numeric:tabular-nums; }
   .ptext{
@@ -170,6 +198,20 @@
   .pwrap .ptext{ padding-right:74px; }
   .passet{ font-size:12.5px; color:var(--muted); margin:10px 0 0; }
   .done-bar{ border-top:1px solid var(--line); padding-top:12px; margin-top:14px; }
+  .mediabox{ position:relative; margin-top:12px; }
+  .mediabox:empty{ display:none; }
+  .mediabox img, .mediabox video{
+    display:block; width:100%; max-height:320px; object-fit:contain;
+    background:var(--bg); border:1px solid var(--line); border-radius:10px;
+  }
+  .mdel{
+    position:absolute; top:6px; right:6px; width:24px; height:24px; line-height:22px;
+    background:var(--surface); border:1px solid var(--line); border-radius:50%;
+    color:var(--muted); font:inherit; font-size:14px; cursor:pointer; padding:0;
+  }
+  .mdel:hover{ color:#b4553f; border-color:#b4553f; }
+  .filebtn.sm{ font-size:12px; padding:6px 14px; }
+  .tiny{ font-size:11px; color:var(--muted); }
   .linkrow{ display:flex; align-items:center; gap:8px; margin-top:8px; }
   .plink{
     flex:1 1 auto; min-width:0; font:inherit; font-size:12px;
@@ -413,6 +455,8 @@
     <button class="x" id="toastX" aria-label="close">×</button>
   </div>
 
+  <button class="totop" id="toTop" hidden aria-label="top">↑</button>
+
   <div class="page">
     <div class="top">
       <div>
@@ -439,7 +483,7 @@
           navDash:"This week", navBook:"Booking", navPrep:"Prep", navKpi:"KPI", navPosts:"Posts",
           followers:"Followers", following:"Following", measuredOn:"Measured", noKpi:"No numbers yet.",
           allBooked:"All booked", leftToDo:"left", nothingToday:"Nothing scheduled",
-          markSched:"Booked", markPosted:"Posted", linkPh:"Paste the link of the post", open:"Open",
+          markSched:"Booked ahead", markPosted:"Posted now", addFile:"Add image / video", localOnly:"Kept on this device", linkPh:"Paste the link of the post", open:"Open",
           copy:"Copy", copied:"Copied", copyEn:"EN", noText:"No text yet", comment:"Comment",
           visual:"Visual", today:"Today", tomorrow:"Tomorrow", prepEmpty:"Nothing coming up.",
           stNone:"No text", stText:"Text ready", stSched:"Scheduled", stDone:"Posted",
@@ -462,7 +506,7 @@
           navDash:"이번 주", navBook:"예약", navPrep:"준비", navKpi:"KPI", navPosts:"글",
           followers:"팔로워", following:"팔로잉", measuredOn:"측정일", noKpi:"아직 숫자가 없어.",
           allBooked:"모두 예약됨", leftToDo:"남음", nothingToday:"예정 없음",
-          markSched:"예약함", markPosted:"게시 확인", linkPh:"게시물 링크 붙여넣기", open:"열기",
+          markSched:"예약 완료", markPosted:"게시 완료", addFile:"이미지 / 영상 추가", localOnly:"이 기기에만 저장됨", linkPh:"게시물 링크 붙여넣기", open:"열기",
           copy:"복사", copied:"복사됨", copyEn:"EN", noText:"원고 없음", comment:"댓글",
           visual:"비주얼", today:"오늘", tomorrow:"내일", prepEmpty:"예정된 게 없어.",
           stNone:"원고 없음", stText:"원고 있음", stSched:"예약됨", stDone:"게시됨",
@@ -485,7 +529,7 @@
           navDash:"今週", navBook:"予約", navPrep:"準備", navKpi:"KPI", navPosts:"投稿",
           followers:"フォロワー", following:"フォロー", measuredOn:"計測日", noKpi:"まだ数字がない。",
           allBooked:"すべて予約ずみ", leftToDo:"残り", nothingToday:"予定なし",
-          markSched:"予約した", markPosted:"投稿確認", linkPh:"投稿したリンクを貼る", open:"開く",
+          markSched:"予約完了", markPosted:"投稿完了", addFile:"画像・動画を入れる", localOnly:"この端末にだけ残る", linkPh:"投稿したリンクを貼る", open:"開く",
           copy:"写す", copied:"写した", copyEn:"EN", noText:"原稿なし", comment:"コメント",
           visual:"ビジュアル", today:"今日", tomorrow:"明日", prepEmpty:"先の予定がない。",
           stNone:"原稿なし", stText:"原稿あり", stSched:"予約ずみ", stDone:"投稿ずみ",
@@ -957,6 +1001,64 @@
            '<pre class="ptext">' + esc(shown) + '</pre></div>';
   }
 
+  var prepOpen = {};
+
+  // 画像・動画は端末の保管庫に置く。置いてあるファイルは書き換えられないので、
+  // みんなで共有するには Claude に渡してリポジトリに入れる必要がある
+  var mediaDB = null;
+  function openDB() {
+    return new Promise(function (res, rej) {
+      if (mediaDB) return res(mediaDB);
+      var rq = indexedDB.open("remitech-media", 1);
+      rq.onupgradeneeded = function () { rq.result.createObjectStore("files"); };
+      rq.onsuccess = function () { mediaDB = rq.result; res(mediaDB); };
+      rq.onerror = function () { rej(rq.error); };
+    });
+  }
+  function dbPut(k, v) {
+    return openDB().then(function (db) {
+      return new Promise(function (res, rej) {
+        var tx = db.transaction("files", "readwrite");
+        tx.objectStore("files").put(v, k);
+        tx.oncomplete = res; tx.onerror = function () { rej(tx.error); };
+      });
+    });
+  }
+  function dbGet(k) {
+    return openDB().then(function (db) {
+      return new Promise(function (res) {
+        var rq = db.transaction("files", "readonly").objectStore("files").get(k);
+        rq.onsuccess = function () { res(rq.result || null); };
+        rq.onerror = function () { res(null); };
+      });
+    });
+  }
+  function dbDel(k) {
+    return openDB().then(function (db) {
+      return new Promise(function (res) {
+        var tx = db.transaction("files", "readwrite");
+        tx.objectStore("files").delete(k);
+        tx.oncomplete = res; tx.onerror = res;
+      });
+    });
+  }
+  function mediaKey(sl) { return sl.date + "|" + (sl.platform || "X") + "|" + sl.time; }
+
+  // 貼り終わったあとに、保管庫にあるものを差し込む
+  function fillMedia() {
+    [].forEach.call(document.querySelectorAll(".mediabox"), function (box) {
+      var k = box.getAttribute("data-mk");
+      dbGet(k).then(function (rec) {
+        if (!rec) return;
+        var url = URL.createObjectURL(rec.blob);
+        var el = /^video/.test(rec.type)
+          ? '<video src="' + url + '" controls playsinline></video>'
+          : '<img src="' + url + '" alt="">';
+        box.innerHTML = el + '<button class="mdel" data-mk="' + k + '">×</button>';
+      });
+    });
+  }
+
   function renderPrep() {
     chansEl.hidden = false;
     if (!schedule) { view.innerHTML = '<p class="empty">' + esc(t("none")) + '</p>'; return; }
@@ -981,6 +1083,7 @@
       var ch = chanOfSlot(sl);
       var body = (sl.text && (sl.text[lang] || sl.text.en || sl.text.ja || sl.text.ko)) || "";
       var mm = matGet(sl);
+      var st = stGet(sl);
       var mats = (sl.need || ["text"]).map(function (k) {
         var on = !!mm[k];
         return '<button class="matbtn" data-on="' + on + '"' +
@@ -990,13 +1093,20 @@
       }).join("");
 
       var parts = sl.parts && sl.parts.length ? sl.parts : null;
-      html += '<div class="pcard" style="--chc:' + esc(ch.color || "var(--wood)") + '">' +
-        '<div class="phead">' +
+      var cid = sl.date + "|" + (sl.platform || "X") + "|" + sl.time;
+      var isOpen = !!prepOpen[cid];
+      html += '<div class="pcard" data-open="' + isOpen + '" style="--chc:' + esc(ch.color || "var(--wood)") + '">' +
+        '<div class="phead" data-cid="' + esc(cid) + '">' +
           '<i class="pf" data-p="' + esc(sl.platform || "X") + '">' + esc(sl.platform || "X") + '</i>' +
           '<span class="who">' + esc(ch.name) + '</span>' +
           '<span class="when">' + esc(whenLabel(sl.date)) + " \u00b7 " + esc(sl.time) + '</span>' +
-          (sl.label ? '<span class="when">\u00b7 ' + esc(sl.label) + '</span>' : "") +
+          (sl.label ? '<span class="when">· ' + esc(sl.label) + '</span>' : "") +
+          '<span class="pmini">' + ((sl.need || ["text"]).map(function (kk) {
+            return '<i class="pdot" data-on="' + (!!mm[kk]) + '">' + (kk === "text" ? "T" : "I") + '</i>';
+          }).join("")) + (st.scheduled ? '<i class="pflag">✓</i>' : "") + '</span>' +
+          '<span class="chev">›</span>' +
         '</div>' +
+        '<div class="pbody">' +
         (parts
           ? parts.map(function (pt, k) {
               return '<p class="plabel">' + esc(pt.no || "") + " · " + esc(pt.time) + '</p>' +
@@ -1015,8 +1125,8 @@
       if (sl.asset) {
         html += '<p class="passet">' + esc(t("visual")) + " \u00b7 " + esc(sl.asset) + '</p>';
       }
-      var st = stGet(sl);
       var link = st.url || sl.url || "";
+      var mk = mediaKey(sl);
       html += '<div class="pbar done-bar">' +
         '<button class="donebtn" data-mark="scheduled" data-on="' + (!!st.scheduled) + '"' +
         ' data-date="' + esc(sl.date) + '" data-pf="' + esc(sl.platform || "X") +
@@ -1027,6 +1137,13 @@
         '" data-time="' + esc(sl.time) + '">' +
         (st.posted ? "✓ " : "") + esc(t("markPosted")) + '</button>' +
         '</div>' +
+        '<div class="mediabox" data-mk="' + esc(mk) + '"></div>' +
+        '<div class="pbar">' +
+          '<label class="filebtn sm">' + esc(t("addFile")) +
+          '<input type="file" class="mfile" accept="image/*,video/*" data-mk="' + esc(mk) + '">' +
+          '</label>' +
+          '<span class="tiny">' + esc(t("localOnly")) + '</span>' +
+        '</div>' +
         '<div class="linkrow">' +
           '<input type="url" class="plink" value="' + esc(link) + '"' +
           ' placeholder="' + esc(t("linkPh")) + '"' +
@@ -1035,9 +1152,10 @@
           (link ? '<a class="goto" href="' + esc(link) + '" target="_blank" rel="noopener">' +
                   esc(t("open")) + ' ↗</a>' : "") +
         '</div>';
-      html += '</div>';
+      html += '</div></div>';
     });
     view.innerHTML = html + '</div>';
+    fillMedia();
   }
 
   // ---- 予約状況 ----
@@ -1254,6 +1372,19 @@
   });
 
   view.addEventListener("click", function (e) {
+    var md = e.target.closest(".mdel");
+    if (md) {
+      e.stopPropagation();
+      dbDel(md.getAttribute("data-mk")).then(function () { renderPrep(); });
+      return;
+    }
+    var ph = e.target.closest(".phead");
+    if (ph) {
+      var cid2 = ph.getAttribute("data-cid");
+      prepOpen[cid2] = !prepOpen[cid2];
+      ph.parentNode.setAttribute("data-open", prepOpen[cid2] ? "true" : "false");
+      return;
+    }
     var cp = e.target.closest(".cpy");
     if (cp) {
       var bank = copyBank[cp.getAttribute("data-ck")];
@@ -1296,6 +1427,20 @@
   });
 
   view.addEventListener("change", function (e) {
+    if (e.target.classList && e.target.classList.contains("mfile")) {
+      var f2 = e.target.files && e.target.files[0];
+      if (!f2) return;
+      var mk2 = e.target.getAttribute("data-mk");
+      dbPut(mk2, { blob: f2, type: f2.type, name: f2.name }).then(function () {
+        var parts2 = mk2.split("|");
+        var sl3 = (schedule.slots || []).filter(function (x) {
+          return x.date === parts2[0] && (x.platform || "X") === parts2[1] && x.time === parts2[2];
+        })[0];
+        if (sl3) matSet(sl3, "image", true);      // 入れたら材料は揃ったものとする
+        renderPrep();
+      });
+      return;
+    }
     if (e.target.id === "impFile") {
       var f = e.target.files && e.target.files[0];
       if (!f) return;
@@ -1384,6 +1529,33 @@
       if (v && v.value.trim()) importUrl(v.value.trim());
     }, 0);
   });
+
+  // 上へ戻る。scroll だけに頼ると取りこぼすので、短い間隔でも見る
+  (function () {
+    var btn = document.getElementById("toTop");
+    var on = null;
+    function top() {
+      return window.scrollY || document.documentElement.scrollTop || document.body.scrollTop || 0;
+    }
+    function sync() {
+      var v = top() > 320;
+      if (v === on) return;
+      on = v;
+      if (v) { btn.hidden = false; btn.setAttribute("data-in", "true"); }
+      else { btn.setAttribute("data-in", "false"); setTimeout(function () {
+        if (btn.getAttribute("data-in") !== "true") btn.hidden = true;
+      }, 220); }
+    }
+    window.addEventListener("scroll", sync, { passive: true });
+    document.addEventListener("scroll", sync, { passive: true });
+    setInterval(sync, 250);
+    btn.addEventListener("click", function () {
+      var smooth = !matchMedia("(prefers-reduced-motion: reduce)").matches;
+      window.scrollTo({ top: 0, behavior: smooth ? "smooth" : "auto" });
+      document.documentElement.scrollTop = 0;
+    });
+    sync();
+  })();
 
   window.addEventListener("hashchange", route);
 
