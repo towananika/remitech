@@ -103,6 +103,19 @@
 
   /* ---- KPI ---- */
   .kpi{ max-width:640px; }
+  .ksumbar{ display:flex; flex-wrap:wrap; gap:8px; margin-bottom:20px; }
+  .ksum{
+    display:flex; flex-direction:column; gap:2px; border:1px solid var(--line);
+    border-top:3px solid var(--chc, var(--wood)); border-radius:10px; padding:8px 14px;
+  }
+  .ksumall{ border-top-color:var(--ink); }
+  .ksumname{ font-size:10.5px; color:var(--muted); letter-spacing:.05em; }
+  .ksumval{ font-size:18px; font-weight:500; font-variant-numeric:tabular-nums; color:var(--ink); }
+  .kgroup{ margin-bottom:18px; }
+  .kgtitle{
+    margin:0 0 8px; font-size:11.5px; color:var(--chc, var(--wood)); letter-spacing:.06em;
+    font-weight:500; border-left:3px solid var(--chc, var(--wood)); padding-left:8px;
+  }
   .kcard{
     border:1px solid var(--line); border-left:3px solid var(--chc, var(--wood));
     border-radius:14px; background:var(--surface); padding:14px 16px; margin-bottom:10px;
@@ -712,6 +725,7 @@
           draft:"Draft", live:"Posted", open:"Open channel",
           navDash:"This week", navBook:"Booking", navPrep:"Prep", navKpi:"KPI", navPosts:"Posts",
           followers:"Followers", following:"Following", measuredOn:"Measured", noKpi:"No numbers yet.",
+          kpiTotal:"All channels",
           allBooked:"All booked", leftToDo:"left", nothingToday:"Nothing scheduled",
           markSched:"Booked ahead", markPosted:"Posted", markVerified:"Verified", verifiedTag:"Verified", needUrl:"Paste the link first", addFile:"Add image / video", localOnly:"On this device only", onServer:"Shared",
           storeTitle:"Media store (GitHub)", storeUrl:"owner/repo", storeTok:"Access token", storeSave:"Save",
@@ -760,6 +774,7 @@
           draft:"초안", live:"게시함", open:"채널 열기",
           navDash:"이번 주", navBook:"예약", navPrep:"준비", navKpi:"KPI", navPosts:"글",
           followers:"팔로워", following:"팔로잉", measuredOn:"측정일", noKpi:"아직 숫자가 없어.",
+          kpiTotal:"전체 채널",
           allBooked:"모두 예약됨", leftToDo:"남음", nothingToday:"예정 없음",
           markSched:"예약 완료", markPosted:"게시 완료", markVerified:"확인 완료", verifiedTag:"확인 완료", needUrl:"먼저 링크를 붙여넣어", addFile:"이미지 / 영상 추가", localOnly:"이 기기에만", onServer:"공유됨",
           storeTitle:"미디어 저장소 (GitHub)", storeUrl:"owner/repo", storeTok:"액세스 토큰", storeSave:"저장",
@@ -808,6 +823,7 @@
           draft:"下書き", live:"公開ずみ", open:"チャンネルを開く",
           navDash:"今週", navBook:"予約", navPrep:"準備", navKpi:"KPI", navPosts:"投稿",
           followers:"フォロワー", following:"フォロー", measuredOn:"計測日", noKpi:"まだ数字がない。",
+          kpiTotal:"全チャンネル合計",
           allBooked:"すべて予約ずみ", leftToDo:"残り", nothingToday:"予定なし",
           markSched:"予約完了", markPosted:"投稿完了", markVerified:"投稿確認完了", verifiedTag:"確認完了", needUrl:"先にリンクを貼る", addFile:"画像・動画を入れる", localOnly:"この端末だけ", onServer:"共有ずみ",
           storeTitle:"画像の置き場（GitHub）", storeUrl:"owner/repo", storeTok:"アクセストークン", storeSave:"保存",
@@ -2192,20 +2208,50 @@
     var byKey = {};
     rows.forEach(function (r) { (byKey[r.channel + "|" + r.platform] = byKey[r.channel + "|" + r.platform] || []).push(r); });
 
-    var html = '<div class="kpi">', shown = 0;
+    // 上に、チャンネルごとの合計だけを一目で見せる帯を置く
+    var sumHtml = "", grandTotal = 0, anyChan = false;
     channels.forEach(function (c) {
       if (filter && filter !== c.id) return;
+      var total = 0, has = false;
       ["X", "IG", "FB", "TT", "YT"].forEach(function (pf) {
         var arr = byKey[c.id + "|" + pf];
         if (!arr || !arr.length) return;
-        shown++;
+        has = true;
+        total += arr[arr.length - 1].followers || 0;
+      });
+      if (!has) return;
+      anyChan = true;
+      grandTotal += total;
+      sumHtml += '<div class="ksum" style="--chc:' + esc(c.color || "var(--wood)") + '">' +
+        '<span class="ksumname">' + esc(c.name) + '</span>' +
+        '<span class="ksumval">' + total.toLocaleString() + '</span></div>';
+    });
+
+    var html = '<div class="kpi">';
+    if (anyChan) {
+      html += '<div class="ksumbar">' +
+        (!filter
+          ? '<div class="ksum ksumall"><span class="ksumname">' + esc(t("kpiTotal")) +
+            '</span><span class="ksumval">' + grandTotal.toLocaleString() + '</span></div>'
+          : "") +
+        sumHtml + '</div>';
+    }
+
+    var shown = 0;
+    channels.forEach(function (c) {
+      if (filter && filter !== c.id) return;
+      var chHtml = "", chHas = false;
+      ["X", "IG", "FB", "TT", "YT"].forEach(function (pf) {
+        var arr = byKey[c.id + "|" + pf];
+        if (!arr || !arr.length) return;
+        shown++; chHas = true;
         var cur = arr[arr.length - 1], prev = arr.length > 1 ? arr[arr.length - 2] : null;
         var fs = arr.map(function (r) { return r.followers; }).filter(function (v) { return typeof v === "number"; });
         var dif = prev && typeof prev.followers === "number" ? cur.followers - prev.followers : null;
         var difHtml = (dif === null || dif === 0) ? "" :
           '<span class="dif" data-up="' + (dif > 0) + '">' + (dif > 0 ? "+" : "") + dif + '</span>';
 
-        html += '<div class="kcard" style="--chc:' + esc(c.color || "var(--wood)") + '">' +
+        chHtml += '<div class="kcard" style="--chc:' + esc(c.color || "var(--wood)") + '">' +
           '<div class="khead">' +
             '<i class="pf" data-p="' + pf + '">' + pf + '</i>' +
             '<span class="who">' + esc(c.name) + '</span>' +
@@ -2223,6 +2269,10 @@
             : "") +
         '</div>';
       });
+      if (chHas) {
+        html += '<div class="kgroup" style="--chc:' + esc(c.color || "var(--wood)") + '">' +
+          '<p class="kgtitle">' + esc(c.name) + '</p>' + chHtml + '</div>';
+      }
     });
     view.innerHTML = (shown ? html + '</div>' : '<p class="empty">' + esc(t("noKpi")) + '</p>');
   }
