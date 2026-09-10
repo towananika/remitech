@@ -430,7 +430,12 @@
   // 「投稿ずみ」「一致確認」は schedule.json 側に残す（みんなで見る記録）
   function matKey(sl) { return "remitech-mat-" + schedule.month + "-" + sl.day + "-" + sl.time; }
   function matGet(sl) {
-    try { return JSON.parse(localStorage.getItem(matKey(sl)) || "{}") || {}; } catch (e) { return {}; }
+    var m = {};
+    try { m = JSON.parse(localStorage.getItem(matKey(sl)) || "{}") || {}; } catch (e) {}
+    // 原稿が入っていれば、テキストは用意できたものとして扱う。
+    // 取り込んだ直後に押し直す手間をなくすため。外したいときは押せば消える
+    if (m.text === undefined && sl.text && (sl.text.ja || sl.text.en || sl.text.ko)) m.text = true;
+    return m;
   }
   function matSet(sl, kind, on) {
     var m = matGet(sl); m[kind] = on;
