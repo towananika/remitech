@@ -158,12 +158,16 @@
   .ptext.empty2{ color:var(--muted); font-style:normal; }
   .plabel{ font-size:11.5px; color:var(--muted); margin:12px 0 5px; letter-spacing:.06em; }
   .pbar{ display:flex; gap:8px; align-items:center; flex-wrap:wrap; margin-top:10px; }
-  .copybtn{
-    background:var(--surface); border:1px solid var(--line); border-radius:999px;
-    color:var(--ink); font:inherit; font-size:12px; padding:5px 14px; cursor:pointer;
+  .pwrap{ position:relative; }
+  .cpys{ position:absolute; top:7px; right:8px; display:flex; gap:4px; z-index:1; }
+  .cpy{
+    background:var(--surface); border:1px solid var(--line); border-radius:6px;
+    color:var(--muted); font:inherit; font-size:10.5px; font-weight:500;
+    padding:2px 7px; cursor:pointer; line-height:1.5;
   }
-  .copybtn:hover{ border-color:var(--wood); }
-  .copybtn[data-done="true"]{ color:var(--surface); background:var(--sage); border-color:var(--sage); }
+  .cpy:hover{ border-color:var(--wood); color:var(--ink); }
+  .cpy[data-done="true"]{ color:var(--surface); background:var(--sage); border-color:var(--sage); }
+  .pwrap .ptext{ padding-right:74px; }
   .passet{ font-size:12.5px; color:var(--muted); margin:10px 0 0; }
   .done-bar{ border-top:1px solid var(--line); padding-top:12px; margin-top:14px; }
   .donebtn{
@@ -428,7 +432,7 @@
           followers:"Followers", following:"Following", measuredOn:"Measured", noKpi:"No numbers yet.",
           allBooked:"All booked", leftToDo:"left", nothingToday:"Nothing scheduled",
           markPosted:"Posted", markChecked:"Checked", undo:"Undo",
-          copy:"Copy", copied:"Copied", noText:"No text yet", comment:"Comment",
+          copy:"Copy", copied:"Copied", copyEn:"EN", noText:"No text yet", comment:"Comment",
           visual:"Visual", today:"Today", tomorrow:"Tomorrow", prepEmpty:"Nothing coming up.",
           stNone:"No text", stText:"Text ready", stSched:"Scheduled", stDone:"Posted",
           stLate:"Missed", stReady:"Ready", weekOf:"Week of", ok:"All set", todo:"Needs action",
@@ -451,7 +455,7 @@
           followers:"팔로워", following:"팔로잉", measuredOn:"측정일", noKpi:"아직 숫자가 없어.",
           allBooked:"모두 예약됨", leftToDo:"남음", nothingToday:"예정 없음",
           markPosted:"게시 완료", markChecked:"확인 완료", undo:"취소",
-          copy:"복사", copied:"복사됨", noText:"원고 없음", comment:"댓글",
+          copy:"복사", copied:"복사됨", copyEn:"EN", noText:"원고 없음", comment:"댓글",
           visual:"비주얼", today:"오늘", tomorrow:"내일", prepEmpty:"예정된 게 없어.",
           stNone:"원고 없음", stText:"원고 있음", stSched:"예약됨", stDone:"게시됨",
           stLate:"놓침", stReady:"준비 완료", weekOf:"주간", ok:"모두 준비됨", todo:"조치 필요",
@@ -474,7 +478,7 @@
           followers:"フォロワー", following:"フォロー", measuredOn:"計測日", noKpi:"まだ数字がない。",
           allBooked:"すべて予約ずみ", leftToDo:"残り", nothingToday:"予定なし",
           markPosted:"投稿完了", markChecked:"確認完了", undo:"戻す",
-          copy:"写す", copied:"写した", noText:"原稿なし", comment:"コメント",
+          copy:"写す", copied:"写した", copyEn:"EN", noText:"原稿なし", comment:"コメント",
           visual:"ビジュアル", today:"今日", tomorrow:"明日", prepEmpty:"先の予定がない。",
           stNone:"原稿なし", stText:"原稿あり", stSched:"予約ずみ", stDone:"投稿ずみ",
           stLate:"抜け", stReady:"投稿準備完了", weekOf:"の週", ok:"すべて整っている", todo:"手が要る",
@@ -929,6 +933,21 @@
     return (d.getMonth() + 1) + "/" + d.getDate() + " " + (DOW[lang] || DOW.en)[d.getDay()];
   }
 
+  // 文面の箱。コピーは箱の中の右上に置く（下に並べると場所を食う）
+  var copyBank = {};
+
+  function textBox(id, cur, en) {
+    var shown = cur || en || "";
+    copyBank[id] = { en: en || "", cur: cur || en || "" };
+    var btns = '<button class="cpy" data-ck="' + id + '" data-lg="en">' + esc(t("copyEn")) + '</button>';
+    if (lang !== "en" && cur && cur !== en) {
+      btns += '<button class="cpy" data-ck="' + id + '" data-lg="cur">' +
+              esc((lang === "ja" ? "JA" : "KO")) + '</button>';
+    }
+    return '<div class="pwrap"><span class="cpys">' + btns + '</span>' +
+           '<pre class="ptext">' + esc(shown) + '</pre></div>';
+  }
+
   function renderPrep() {
     chansEl.hidden = false;
     if (!schedule) { view.innerHTML = '<p class="empty">' + esc(t("none")) + '</p>'; return; }
@@ -947,6 +966,7 @@
 
     if (!list.length) { view.innerHTML = '<p class="empty">' + esc(t("prepEmpty")) + '</p>'; return; }
 
+    copyBank = {};
     var html = '<div class="prep">';
     list.forEach(function (sl, i) {
       var ch = chanOfSlot(sl);
@@ -970,22 +990,18 @@
         '</div>' +
         (parts
           ? parts.map(function (pt, k) {
-              var b2 = pt[lang] || pt.en || pt.ja || "";
-              return '<p class="plabel">' + esc(pt.no || "") + " \u00b7 " + esc(pt.time) + '</p>' +
-                     '<pre class="ptext" id="pp' + i + "_" + k + '">' + esc(b2) + '</pre>' +
-                     '<div class="pbar"><button class="copybtn" data-copy="pp' + i + "_" + k + '">' +
-                     esc(t("copy")) + '</button></div>';
+              return '<p class="plabel">' + esc(pt.no || "") + " · " + esc(pt.time) + '</p>' +
+                     textBox("pp" + i + "_" + k, pt[lang] || "", pt.en || "");
             }).join("") + '<div class="pbar">' + mats + '</div>'
           : (body
-            ? '<pre class="ptext" id="pt' + i + '">' + esc(body) + '</pre>' +
-              '<div class="pbar"><button class="copybtn" data-copy="pt' + i + '">' + esc(t("copy")) + '</button>' + mats + '</div>'
+            ? textBox("pt" + i, (sl.text && sl.text[lang]) || "", (sl.text && sl.text.en) || "") +
+              '<div class="pbar">' + mats + '</div>'
             : '<p class="ptext empty2">' + esc(t("noText")) + '</p>' +
               '<div class="pbar">' + mats + '</div>'));
 
       if (sl.comment) {
         html += '<p class="plabel">' + esc(t("comment")) + '</p>' +
-                '<pre class="ptext" id="pc' + i + '">' + esc(sl.comment) + '</pre>' +
-                '<div class="pbar"><button class="copybtn" data-copy="pc' + i + '">' + esc(t("copy")) + '</button></div>';
+                textBox("pc" + i, "", sl.comment);
       }
       if (sl.asset) {
         html += '<p class="passet">' + esc(t("visual")) + " \u00b7 " + esc(sl.asset) + '</p>';
@@ -1219,16 +1235,18 @@
   });
 
   view.addEventListener("click", function (e) {
-    var cp = e.target.closest(".copybtn");
+    var cp = e.target.closest(".cpy");
     if (cp) {
-      var src = document.getElementById(cp.getAttribute("data-copy"));
-      if (src && navigator.clipboard) {
-        navigator.clipboard.writeText(src.textContent).then(function () {
+      var bank = copyBank[cp.getAttribute("data-ck")];
+      var txt = bank ? (cp.getAttribute("data-lg") === "en" ? bank.en : bank.cur) : "";
+      var was = cp.textContent;
+      if (txt && navigator.clipboard) {
+        navigator.clipboard.writeText(txt).then(function () {
           cp.setAttribute("data-done", "true");
-          cp.textContent = t("copied");
+          cp.textContent = "✓";
           setTimeout(function () {
             cp.removeAttribute("data-done");
-            cp.textContent = t("copy");
+            cp.textContent = was;
           }, 1600);
         });
       }
