@@ -180,25 +180,6 @@
     white-space:pre-wrap; word-break:break-word; font-family:inherit; font-size:13px; line-height:1.7;
     background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:16px;
   }
-  .ov{ display:flex; flex-direction:column; gap:14px; }
-  .ovcard{
-    background:var(--surface); border:1px solid var(--line); border-left:4px solid var(--chc, var(--wood));
-    border-radius:14px; padding:16px 18px;
-  }
-  .ovhead{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
-  .ovhead b{ font-size:16px; font-weight:500; letter-spacing:.03em; color:var(--chc, var(--ink)); }
-  .ovtag{
-    font-size:10.5px; color:var(--muted); border:1px solid var(--line); border-radius:999px; padding:2px 8px;
-  }
-  .ovline{ margin:6px 0 0; font-size:12.5px; color:var(--muted); line-height:1.6; }
-  .ovlinks{ display:flex; flex-wrap:wrap; gap:8px; margin-top:6px; }
-  .ovlink{
-    display:flex; align-items:center; gap:6px; text-decoration:none;
-    border:1px solid var(--line); border-radius:10px; padding:6px 10px;
-    font-size:12.5px; color:var(--ink);
-  }
-  .ovlink:hover{ border-color:var(--chc, var(--wood)); }
-  .ovkind{ color:var(--muted); font-size:11px; }
   .tglinks{ margin-top:22px; }
   .tglinks .plabel{ border-left:2px solid var(--chc, var(--wood)); padding-left:8px; margin-top:16px; }
   .tglink{
@@ -718,7 +699,6 @@
           notMatched:"Not checked", matched:"Matches the plan", mismatched:"Differs from the plan",
           navImport:"Import", impHelp:"Paste the plan from your spreadsheet (tab-separated, header row first).",
           navTg:"Telegram", copyAll:"Copy all", tgEmpty:"Nothing posted with a link on this day yet", tgLinks:"Links",
-          navOv:"Overview", ovMeasureOnly:"Followers only, no posting", ovAccounts:"Accounts",
           impCols:"Columns: date (or day), time, platform, type, label, ja, en, ko, asset",
           impApply:"Apply on this device", impDownload:"Download schedule.json",
           impMonth:"Month", impMerge:"Keep what is already there",
@@ -765,7 +745,6 @@
           notMatched:"미확인", matched:"기획과 일치", mismatched:"기획과 다름",
           navImport:"불러오기", impHelp:"기획표를 붙여넣어. 탭으로 구분된 표(첫 줄은 제목).",
           navTg:"텔레그램", copyAll:"전체 복사", tgEmpty:"이 날짜엔 링크가 있는 게시물이 아직 없어", tgLinks:"링크",
-          navOv:"개요", ovMeasureOnly:"팔로워만 추적, 게시는 안 함", ovAccounts:"계정",
           impCols:"열: date (또는 day), time, platform, type, label, ja, en, ko, asset",
           impApply:"이 기기에 적용", impDownload:"schedule.json 내려받기",
           impMonth:"월", impMerge:"기존 것 유지",
@@ -812,7 +791,6 @@
           notMatched:"未確認", matched:"企画どおり", mismatched:"企画と違う",
           navImport:"取り込み", impHelp:"表計算からコピーして貼る（タブ区切り・1行目は見出し）。",
           navTg:"Telegram通知", copyAll:"全部コピー", tgEmpty:"この日はまだリンク付きの投稿がない", tgLinks:"リンク",
-          navOv:"概要", ovMeasureOnly:"フォロワーだけ追う。投稿はしない", ovAccounts:"運用アカウント",
           impCols:"列: date（または day）, time, platform, type, label, ja, en, ko, asset",
           impApply:"この端末に反映", impDownload:"schedule.json を保存",
           impMonth:"月", impMerge:"いまの内容を残す",
@@ -1420,31 +1398,6 @@
       var lines = b.items.map(function (it) { return it.name + " (" + it.url + ")"; });
       return b.ch.name + " Uploaded " + b.md + "\n\n" + lines.join("\n");
     }).join("\n\n\n");
-  }
-
-  // プロジェクト区分と、運用しているSNSアカウントの一覧
-  function renderOverview() {
-    chansEl.hidden = true;
-    var html = '<div class="ov">';
-    channels.forEach(function (c) {
-      var links = c.links || [];
-      html += '<div class="ovcard" style="--chc:' + esc(c.color || "var(--wood)") + '">' +
-        '<div class="ovhead"><b>' + esc(c.name) + '</b>' +
-        (c.role === "measure" ? '<span class="ovtag">' + esc(t("ovMeasureOnly")) + '</span>' : "") +
-        '</div>' +
-        (c.tagline ? '<p class="ovline">' + esc(c.tagline) + '</p>' : "") +
-        (links.length
-          ? '<p class="plabel">' + esc(t("ovAccounts")) + '</p>' +
-            '<div class="ovlinks">' + links.map(function (l) {
-              return '<a class="ovlink" href="' + esc(l.url) + '" target="_blank" rel="noopener">' +
-                '<span class="ovkind">' + esc(l.kind) + '</span>' +
-                '<span class="ovhandle">' + esc(l.handle || "") + '</span></a>';
-            }).join("") + '</div>'
-          : "") +
-        '</div>';
-    });
-    html += '</div>';
-    view.innerHTML = html;
   }
 
   function renderTelegram() {
@@ -2159,7 +2112,6 @@
 
   function renderNav() {
     navEl.innerHTML =
-      '<button data-tab="ov" aria-pressed="' + (tab === "ov") + '">' + esc(t("navOv")) + '</button>' +
       '<button data-tab="dash" aria-pressed="' + (tab === "dash") + '">' + esc(t("navDash")) + '</button>' +
       '<button data-tab="book" aria-pressed="' + (tab === "book") + '">' + esc(t("navBook")) + '</button>' +
       '<button data-tab="prep" aria-pressed="' + (tab === "prep") + '">' + esc(t("navPrep")) + '</button>' +
@@ -2212,7 +2164,6 @@
     if (tab === "prep") { renderPrep(); return; }
     if (tab === "import") { renderImport(); return; }
     if (tab === "tg") { renderTelegram(); return; }
-    if (tab === "ov") { renderOverview(); return; }
     renderList();
   }
 
