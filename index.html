@@ -85,6 +85,37 @@
   }
   .nav button[aria-pressed="true"]{ color:var(--ink); border-bottom-color:var(--wood); }
 
+  /* ---- booking board ---- */
+  .book{ max-width:560px; }
+  .bday{
+    border:1px solid var(--line); border-radius:14px; background:var(--surface);
+    padding:14px 16px; margin-bottom:10px;
+  }
+  .bday.today{ border-color:var(--wood); }
+  .bday.past{ opacity:.62; }
+  .bhead{ display:flex; align-items:baseline; justify-content:space-between; gap:10px; }
+  .bhead .d{ font-size:15px; font-weight:500; font-variant-numeric:tabular-nums; }
+  .bhead .w{ font-size:12px; color:var(--muted); }
+  .bhead .v{ font-size:12px; }
+  .bhead .v[data-ok="true"]{ color:var(--sage); }
+  .bhead .v[data-ok="false"]{ color:var(--wood); }
+  .bhead .v[data-ok="late"]{ color:#b4553f; }
+  .brow{ display:flex; align-items:center; gap:8px; margin-top:9px; }
+  .brow .nm{ font-size:12.5px; color:var(--chc, var(--ink)); flex:0 0 84px;
+             overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .pips{ display:flex; gap:4px; flex-wrap:wrap; }
+  .pip{
+    display:inline-flex; align-items:center; gap:3px;
+    font-size:10.5px; border:1px solid var(--line); border-radius:999px;
+    padding:2px 7px; color:var(--muted); white-space:nowrap;
+  }
+  .pip b{ font-weight:500; font-variant-numeric:tabular-nums; }
+  .pip[data-s="sched"]{ color:var(--ink); border-color:var(--ink); }
+  .pip[data-s="done"]{ color:var(--surface); background:var(--sage); border-color:var(--sage); }
+  .pip[data-s="late"]{ color:var(--surface); background:#b4553f; border-color:#b4553f; }
+  .pip[data-s="ready"]{ color:var(--surface); background:var(--wood); border-color:var(--wood); }
+  .pip[data-s="text"]{ color:var(--wood); border-color:var(--wood); }
+
   /* ---- prep board ---- */
   .prep{ max-width:760px; }
   .pcard{
@@ -109,6 +140,16 @@
   .copybtn:hover{ border-color:var(--wood); }
   .copybtn[data-done="true"]{ color:var(--surface); background:var(--sage); border-color:var(--sage); }
   .passet{ font-size:12.5px; color:var(--muted); margin:10px 0 0; }
+  .done-bar{ border-top:1px solid var(--line); padding-top:12px; margin-top:14px; }
+  .donebtn{
+    background:none; border:1px solid var(--line); border-radius:999px;
+    color:var(--muted); font:inherit; font-size:12px; padding:6px 14px; cursor:pointer;
+  }
+  .donebtn:hover{ border-color:var(--wood); color:var(--ink); }
+  .donebtn[data-mark="posted"][data-on="true"]{
+    color:var(--surface); background:var(--sage); border-color:var(--sage); }
+  .donebtn[data-mark="checked"][data-on="true"]{
+    color:var(--surface); background:var(--wood); border-color:var(--wood); }
 
   /* ---- week grid ---- */
   .gridwrap{ overflow-x:auto; border:1px solid var(--line); border-radius:14px;
@@ -237,8 +278,9 @@
     color:var(--muted); font:inherit; font-size:12px; padding:5px 13px; cursor:pointer;
     transition:border-color .16s ease, color .16s ease;
   }
-  .chan[aria-pressed="true"]{ color:var(--surface); background:var(--wood); border-color:var(--wood); }
-  .chan:hover{ border-color:var(--wood); }
+  .chan[aria-pressed="true"]{ color:var(--surface); background:var(--chc, var(--wood));
+                              border-color:var(--chc, var(--wood)); }
+  .chan:hover{ border-color:var(--chc, var(--wood)); }
 
   /* ---- list ---- */
   .list{ list-style:none; margin:0; padding:0; }
@@ -334,7 +376,9 @@
           all:"All", loading:"Loading…", none:"Nothing here yet.",
           fail:"Could not load the source.", back:"← All posts",
           draft:"Draft", live:"Posted", open:"Open channel",
-          navDash:"This week", navPrep:"Prep", navPosts:"Posts",
+          navDash:"This week", navBook:"Booking", navPrep:"Prep", navPosts:"Posts",
+          allBooked:"All booked", leftToDo:"left", nothingToday:"Nothing scheduled",
+          markPosted:"Posted", markChecked:"Checked", undo:"Undo",
           copy:"Copy", copied:"Copied", noText:"No text yet", comment:"Comment",
           visual:"Visual", today:"Today", tomorrow:"Tomorrow", prepEmpty:"Nothing coming up.",
           stNone:"No text", stText:"Text ready", stSched:"Scheduled", stDone:"Posted",
@@ -353,7 +397,9 @@
           all:"전체", loading:"불러오는 중…", none:"아직 없습니다.",
           fail:"원본을 불러오지 못했습니다.", back:"← 목록으로",
           draft:"초안", live:"게시함", open:"채널 열기",
-          navDash:"이번 주", navPrep:"준비", navPosts:"글",
+          navDash:"이번 주", navBook:"예약", navPrep:"준비", navPosts:"글",
+          allBooked:"모두 예약됨", leftToDo:"남음", nothingToday:"예정 없음",
+          markPosted:"게시 완료", markChecked:"확인 완료", undo:"취소",
           copy:"복사", copied:"복사됨", noText:"원고 없음", comment:"댓글",
           visual:"비주얼", today:"오늘", tomorrow:"내일", prepEmpty:"예정된 게 없어.",
           stNone:"원고 없음", stText:"원고 있음", stSched:"예약됨", stDone:"게시됨",
@@ -372,7 +418,9 @@
           all:"すべて", loading:"読み込んでいます…", none:"まだ何もありません。",
           fail:"原本を読み込めませんでした。", back:"← 一覧へ",
           draft:"下書き", live:"公開ずみ", open:"チャンネルを開く",
-          navDash:"今週", navPrep:"準備", navPosts:"投稿",
+          navDash:"今週", navBook:"予約", navPrep:"準備", navPosts:"投稿",
+          allBooked:"すべて予約ずみ", leftToDo:"残り", nothingToday:"予定なし",
+          markPosted:"投稿完了", markChecked:"確認完了", undo:"戻す",
           copy:"写す", copied:"写した", noText:"原稿なし", comment:"コメント",
           visual:"ビジュアル", today:"今日", tomorrow:"明日", prepEmpty:"先の予定がない。",
           stNone:"原稿なし", stText:"原稿あり", stSched:"予約ずみ", stDone:"投稿ずみ",
@@ -437,7 +485,8 @@
     if (!channels.length) { chansEl.innerHTML = ""; return; }
     var html = '<button class="chan" data-chan="" aria-pressed="' + (filter === "") + '">' + esc(t("all")) + '</button>';
     channels.forEach(function (c) {
-      html += '<button class="chan" data-chan="' + esc(c.id) + '" aria-pressed="' + (filter === c.id) + '">' + esc(c.name) + '</button>';
+      html += '<button class="chan" data-chan="' + esc(c.id) + '" aria-pressed="' + (filter === c.id) +
+              '" style="--chc:' + esc(c.color || "var(--wood)") + '">' + esc(c.name) + '</button>';
     });
     chansEl.innerHTML = html;
   }
@@ -494,6 +543,19 @@
 
   // 材料の印は端末に残す。書き換えが頻繁で、記録として残すものではないため。
   // 「投稿ずみ」「一致確認」は schedule.json 側に残す（みんなで見る記録）
+  // 投稿したか、確認したか。schedule.json に書ければ一番よいが、
+  // 置いてあるファイルは書き換えられないので、まず端末に残す
+  function stKey(sl) { return "remitech-st-" + sl.date + "-" + (sl.platform || "X") + "-" + sl.time; }
+  function stGet(sl) {
+    try { return JSON.parse(localStorage.getItem(stKey(sl)) || "{}") || {}; } catch (e) { return {}; }
+  }
+  function stSet(sl, k, v) {
+    var o = stGet(sl); o[k] = v;
+    try { localStorage.setItem(stKey(sl), JSON.stringify(o)); } catch (e) {}
+  }
+  function isPosted(sl) { return !!(sl.posted || stGet(sl).posted); }
+  function isChecked(sl) { return !!((sl.check && sl.check.done) || stGet(sl).checked); }
+
   function matKey(sl) { return "remitech-mat-" + sl.date + "-" + (sl.platform || "X") + "-" + sl.time; }
   function matGet(sl) {
     var m = {};
@@ -527,7 +589,7 @@
     var now = Date.now();
     days.forEach(function (d) {
       (schedule.slots || []).forEach(function (sl) {
-        if (sl.date !== ymd(d) || sl.time.indexOf(":") < 0 || sl.posted) return;
+        if (sl.date !== ymd(d) || sl.time.indexOf(":") < 0 || isPosted(sl)) return;
         var hh = sl.time.split(":");
         var at = new Date(d.getFullYear(), d.getMonth(), d.getDate(), +hh[0], +hh[1]).getTime()
                  - p.min * 60000;
@@ -541,10 +603,12 @@
   }
 
   function slotState(sl, when, now) {
-    if (sl.posted) return "done";
+    if (isPosted(sl)) return "done";
     var hasText = sl.text && (sl.text.ja || sl.text.en || sl.text.ko);
-    if (when < now) return "late";              // 時刻を過ぎたのに投稿されていない
+    // 予約してあれば、時刻を過ぎても抜けではない（自動で出ているはず）。
+    // 実際に出たかは照らしてから posted にする
     if (sl.scheduled) return "sched";
+    if (when < now) return "late";              // 予約もされないまま時刻が過ぎた
     if (hasText && matReady(sl)) return "ready";  // 材料が揃った
     return hasText ? "text" : "none";
   }
@@ -610,8 +674,9 @@
                  ' title="' + esc(t(k === "text" ? "matText" : "matImage")) + '">' +
                  (on ? "\u2713 " : "") + esc(t(k === "text" ? "matText" : "matImage")) + '</button>';
         }).join("");
+        var ck = isChecked(sl) ? ' ✓' : "";
         body += '<td><span class="cell">' +
-                '<span class="mk" data-s="' + st + '">' +
+                '<span class="mk" data-s="' + st + '">' + ck +
                 esc(t("st" + st.charAt(0).toUpperCase() + st.slice(1))) + '</span>' +
                 '<span class="lb2">' + esc(label || "\u2014") + '</span>' +
                 '<span class="cellmats">' + mats + '</span></span></td>';
@@ -782,7 +847,7 @@
   }
 
   function renderPrep() {
-    chansEl.hidden = true;
+    chansEl.hidden = false;
     if (!schedule) { view.innerHTML = '<p class="empty">' + esc(t("none")) + '</p>'; return; }
 
     var now = new Date();
@@ -790,8 +855,9 @@
     var till = new Date(now); till.setDate(till.getDate() + 6);
     var to = ymd(till);
 
-    var list = (schedule.slots || []).filter(function (x) {
-      return x.date >= from && x.date <= to && !x.posted;
+    var chId = schedule.channel || "hiyoko";
+    var list = (filter && filter !== chId) ? [] : (schedule.slots || []).filter(function (x) {
+      return x.date >= from && x.date <= to && !isPosted(x);
     }).sort(function (a, b) {
       return (a.date + a.time) < (b.date + b.time) ? -1 : 1;
     });
@@ -832,6 +898,82 @@
       if (sl.asset) {
         html += '<p class="passet">' + esc(t("visual")) + " \u00b7 " + esc(sl.asset) + '</p>';
       }
+      var st = stGet(sl);
+      html += '<div class="pbar done-bar">' +
+        '<button class="donebtn" data-mark="posted" data-on="' + (!!st.posted) + '"' +
+        ' data-date="' + esc(sl.date) + '" data-pf="' + esc(sl.platform || "X") +
+        '" data-time="' + esc(sl.time) + '">' +
+        (st.posted ? "\u2713 " : "") + esc(t("markPosted")) + '</button>' +
+        '<button class="donebtn" data-mark="checked" data-on="' + (!!st.checked) + '"' +
+        ' data-date="' + esc(sl.date) + '" data-pf="' + esc(sl.platform || "X") +
+        '" data-time="' + esc(sl.time) + '">' +
+        (st.checked ? "\u2713 " : "") + esc(t("markChecked")) + '</button></div>';
+      html += '</div>';
+    });
+    view.innerHTML = html + '</div>';
+  }
+
+  // ---- 予約状況 ----
+  // その日、全部のチャンネルが用意できているかを1目で見る。
+  // 表にせず、日ごとの札にしてスマホでも縦に読めるようにする
+  function renderBook() {
+    chansEl.hidden = true;
+    if (!schedule) { view.innerHTML = '<p class="empty">' + esc(t("none")) + '</p>'; return; }
+
+    var now = new Date();
+    var days = weekRange(now);
+    var chId = schedule.channel || "hiyoko";
+
+    var html = '<div class="book">';
+    days.forEach(function (d) {
+      var dt = ymd(d);
+      var isToday = dt === ymd(now);
+      var isPast = dt < ymd(now);
+      var byCh = {};
+
+      channels.forEach(function (c) {
+        (c.postTimes || []).forEach(function (pt) {
+          if (c.id !== chId) return;
+          var sl = (schedule.slots || []).filter(function (x) {
+            return x.date === dt && x.time === pt.time &&
+                   (x.platform || "X") === (pt.platform || "X");
+          })[0];
+          if (!sl) return;
+          var hh = pt.time.split(":");
+          var when = new Date(d.getFullYear(), d.getMonth(), d.getDate(), +hh[0], +hh[1]);
+          var st = slotState(sl, when, now);
+          (byCh[c.id] = byCh[c.id] || { ch: c, items: [] }).items.push({
+            pt: pt, st: st
+          });
+        });
+      });
+
+      var all = [], late = 0;
+      Object.keys(byCh).forEach(function (k) {
+        byCh[k].items.forEach(function (it) {
+          all.push(it.st);
+          if (it.st === "late") late++;
+        });
+      });
+      var todo = all.filter(function (x) { return x !== "sched" && x !== "done"; }).length;
+      var verdict = !all.length ? esc(t("nothingToday"))
+        : (todo === 0 ? esc(t("allBooked")) : esc(t("leftToDo")) + " " + todo);
+      var ok = !all.length ? "" : (late ? "late" : (todo === 0 ? "true" : "false"));
+
+      html += '<div class="bday' + (isToday ? " today" : "") + (isPast ? " past" : "") + '">' +
+        '<div class="bhead"><span class="d">' + (d.getMonth() + 1) + "/" + d.getDate() +
+        ' <span class="w">' + (DOW[lang] || DOW.en)[d.getDay()] + '</span></span>' +
+        '<span class="v" data-ok="' + ok + '">' + verdict + '</span></div>';
+
+      Object.keys(byCh).forEach(function (k) {
+        var g = byCh[k];
+        html += '<div class="brow" style="--chc:' + esc(g.ch.color || "var(--wood)") + '">' +
+          '<span class="nm">' + esc(g.ch.name) + '</span><span class="pips">' +
+          g.items.map(function (it) {
+            return '<span class="pip" data-s="' + it.st + '">' +
+                   esc(it.pt.platform || "X") + ' <b>' + esc(it.pt.time) + '</b></span>';
+          }).join("") + '</span></div>';
+      });
       html += '</div>';
     });
     view.innerHTML = html + '</div>';
@@ -840,6 +982,7 @@
   function renderNav() {
     navEl.innerHTML =
       '<button data-tab="dash" aria-pressed="' + (tab === "dash") + '">' + esc(t("navDash")) + '</button>' +
+      '<button data-tab="book" aria-pressed="' + (tab === "book") + '">' + esc(t("navBook")) + '</button>' +
       '<button data-tab="prep" aria-pressed="' + (tab === "prep") + '">' + esc(t("navPrep")) + '</button>' +
       '<button data-tab="posts" aria-pressed="' + (tab === "posts") + '">' + esc(t("navPosts")) + '</button>' +
       '<button data-tab="import" aria-pressed="' + (tab === "import") + '">' + esc(t("navImport")) + '</button>';
@@ -881,6 +1024,7 @@
     var p = id && posts.filter(function (x) { return x.id === id; })[0];
     if (p) { renderPost(p); window.scrollTo(0, 0); return; }
     if (tab === "dash") { renderDash(); return; }
+    if (tab === "book") { renderBook(); return; }
     if (tab === "prep") { renderPrep(); return; }
     if (tab === "import") { renderImport(); return; }
     renderList();
@@ -905,7 +1049,8 @@
     var b = e.target.closest("button[data-chan]");
     if (!b) return;
     filter = b.getAttribute("data-chan");
-    renderChans(); renderList();
+    renderChans();
+    if (tab === "prep") { renderPrep(); } else { renderList(); }
   });
 
   view.addEventListener("click", function (e) {
@@ -922,6 +1067,18 @@
           }, 1600);
         });
       }
+      return;
+    }
+    var db = e.target.closest(".donebtn");
+    if (db) {
+      var dd = db.getAttribute("data-date"), dt2 = db.getAttribute("data-time");
+      var dp = db.getAttribute("data-pf") || "X";
+      var slx = (schedule.slots || []).filter(function (x) {
+        return x.date === dd && x.time === dt2 && (x.platform || "X") === dp;
+      })[0];
+      if (!slx) return;
+      stSet(slx, db.getAttribute("data-mark"), db.getAttribute("data-on") !== "true");
+      renderPrep();
       return;
     }
     var mb = e.target.closest(".matbtn");

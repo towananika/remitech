@@ -34,7 +34,7 @@
           "label": "フィード"
         }
       ],
-      "color": "#c9a227"
+      "color": "#d3a72a"
     },
     {
       "id": "nacha",
@@ -84,7 +84,7 @@
           "label": "動画"
         }
       ],
-      "color": "#7a8fb8"
+      "color": "#c0503f"
     },
     {
       "id": "yuyu",
@@ -98,7 +98,7 @@
         }
       ],
       "postTimes": [],
-      "color": "#8f9e7a"
+      "color": "#8a6a4a"
     },
     {
       "id": "reel",
@@ -112,7 +112,7 @@
         }
       ],
       "postTimes": [],
-      "color": "#b08968"
+      "color": "#4a72a8"
     }
   ],
   "posts": [

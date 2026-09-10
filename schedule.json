@@ -1129,6 +1129,34 @@
       "platform": "X"
     },
     {
+      "date": "2026-09-13",
+      "time": "17:00",
+      "platform": "IG",
+      "type": "video",
+      "label": "動画 혜정",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "動画 혜정",
+      "note": "",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
       "time": "17:00",
       "type": "text",
       "label": "流動性の管理",
