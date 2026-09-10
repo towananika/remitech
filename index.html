@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>REMITECH</title>
+<meta name="description" content="投稿の原本を読む場所。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@300;400;500&family=Shippori+Mincho:wght@500&display=swap">
+<style>
+  :root{
+    --bg:#f5f1e9; --surface:#fbf9f4; --line:#e2dac8;
+    --ink:#2b2924; --muted:#8a8271; --wood:#93704b; --wood-soft:#ece1d0;
+    --mincho:"Shippori Mincho","Hiragino Mincho ProN",serif;
+    --gothic:"Zen Kaku Gothic New","Hiragino Sans","Yu Gothic",system-ui,sans-serif;
+  }
+  @media (prefers-color-scheme:dark){ :root:not([data-theme="light"]){
+    --bg:#1c1a16; --surface:#242119; --line:#38332a;
+    --ink:#ede8dd; --muted:#a89e8a; --wood:#c99f74; --wood-soft:#382d20;
+  }}
+  :root[data-theme="dark"]{
+    --bg:#1c1a16; --surface:#242119; --line:#38332a;
+    --ink:#ede8dd; --muted:#a89e8a; --wood:#c99f74; --wood-soft:#382d20;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:var(--gothic); font-weight:300; line-height:1.9;
+    -webkit-font-smoothing:antialiased;
+  }
+  .page{ width:100%; max-width:640px; margin:0 auto; padding:48px 20px 72px; }
+
+  header{ text-align:center; margin-bottom:36px; }
+  h1{ margin:0; font-family:var(--mincho); font-weight:500;
+      font-size:22px; letter-spacing:.42em; text-indent:.42em; }
+  .tagline{ margin:8px 0 0; font-size:12px; color:var(--muted); letter-spacing:.06em; }
+
+  /* ---- 一覧 ---- */
+  .list{ list-style:none; margin:0; padding:0; }
+  .list li + li{ margin-top:12px; }
+  .card{
+    display:block; width:100%; text-align:left; cursor:pointer;
+    background:var(--surface); border:1px solid var(--line); border-radius:14px;
+    padding:18px 20px; color:inherit; font:inherit;
+    transition:border-color .18s ease, transform .18s ease;
+  }
+  .card:hover,.card:focus-visible{ border-color:var(--wood); transform:translateY(-1px); }
+  .card:focus-visible{ outline:2px solid var(--wood); outline-offset:3px; }
+  .meta{ display:flex; align-items:center; gap:8px; font-size:11px; color:var(--muted); letter-spacing:.08em; }
+  .flag{ border:1px solid var(--line); border-radius:999px; padding:1px 8px; }
+  .flag[data-status="draft"]{ color:var(--wood); border-color:var(--wood); }
+  .card b{ display:block; margin:6px 0 4px; font-weight:500; font-size:16px; line-height:1.6; }
+  .card p{ margin:0; font-size:13px; color:var(--muted); }
+  .tags{ margin-top:10px; font-size:11px; color:var(--muted); letter-spacing:.06em; }
+
+  /* ---- 本文 ---- */
+  .back{
+    background:none; border:0; color:var(--muted); font:inherit; font-size:13px;
+    cursor:pointer; padding:6px 0; margin-bottom:12px;
+  }
+  .back:hover{ color:var(--ink); }
+  .post h2{ margin:0 0 6px; font-size:20px; font-weight:500; line-height:1.6; }
+  .post .lead{ margin:0 0 28px; font-size:14px; color:var(--muted); }
+  .sheet{
+    background:var(--surface); border:1px solid var(--line); border-radius:14px;
+    padding:20px 22px; margin-bottom:12px;
+  }
+  .sheet .no{ font-family:var(--mincho); font-size:12px; color:var(--wood); }
+  .sheet h3{ margin:4px 0 8px; font-size:15px; font-weight:500; line-height:1.7; }
+  .sheet p{ margin:0; font-size:14px; }
+
+  .empty{ text-align:center; color:var(--muted); font-size:13px; padding:40px 0; }
+  footer{ margin-top:56px; text-align:center; font-size:11px;
+          letter-spacing:.24em; color:var(--muted); opacity:.7; }
+  @media (prefers-reduced-motion:reduce){ .card{ transition:none } }
+</style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <h1>REMITECH</h1>
+      <p class="tagline">投稿の原本</p>
+    </header>
+    <div id="view"><p class="empty">読み込んでいます…</p></div>
+    <footer>REMITECH</footer>
+  </div>
+
+<script>
+(function () {
+  var view = document.getElementById("view");
+  var posts = [];
+
+  function esc(s) { var d = document.createElement("div"); d.textContent = s == null ? "" : s; return d.innerHTML; }
+  function statusLabel(s) { return s === "draft" ? "下書き" : "公開ずみ"; }
+
+  function renderList() {
+    if (!posts.length) { view.innerHTML = '<p class="empty">まだ何もありません。</p>'; return; }
+    var html = '<ul class="list">';
+    posts.forEach(function (p) {
+      html += '<li><button class="card" data-id="' + esc(p.id) + '">' +
+                '<span class="meta"><span>' + esc(p.date) + '</span>' +
+                '<span class="flag" data-status="' + esc(p.status) + '">' + statusLabel(p.status) + '</span></span>' +
+                '<b>' + esc(p.title) + '</b>' +
+                '<p>' + esc(p.lead) + '</p>' +
+                ((p.tags && p.tags.length) ? '<p class="tags">' + esc(p.tags.join(" · ")) + '</p>' : '') +
+              '</button></li>';
+    });
+    view.innerHTML = html + '</ul>';
+  }
+
+  var KANSUJI = ["一","二","三","四","五","六","七","八","九","十"];
+
+  function renderPost(p) {
+    var html = '<button class="back" id="backBtn">← 一覧へ</button><div class="post">' +
+               '<span class="meta"><span>' + esc(p.date) + '</span>' +
+               '<span class="flag" data-status="' + esc(p.status) + '">' + statusLabel(p.status) + '</span></span>' +
+               '<h2>' + esc(p.title) + '</h2>' +
+               '<p class="lead">' + esc(p.lead) + '</p>';
+    (p.pages || []).forEach(function (pg, i) {
+      html += '<section class="sheet"><span class="no">' + (KANSUJI[i] || (i + 1)) + '</span>' +
+              '<h3>' + esc(pg.head) + '</h3><p>' + esc(pg.body) + '</p></section>';
+    });
+    view.innerHTML = html + '</div>';
+  }
+
+  function route() {
+    var id = location.hash.replace(/^#\/?/, "");
+    var p = id && posts.filter(function (x) { return x.id === id; })[0];
+    if (p) { renderPost(p); window.scrollTo(0, 0); } else { renderList(); }
+  }
+
+  view.addEventListener("click", function (e) {
+    var card = e.target.closest(".card");
+    if (card) { location.hash = "/" + card.getAttribute("data-id"); return; }
+    if (e.target.closest("#backBtn")) { location.hash = ""; }
+  });
+  window.addEventListener("hashchange", route);
+
+  fetch("./posts.json", { cache: "no-cache" })
+    .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+    .then(function (j) { posts = j.posts || []; route(); })
+    .catch(function () { view.innerHTML = '<p class="empty">原本を読み込めませんでした。</p>'; });
+})();
+</script>
+</body>
+</html>
