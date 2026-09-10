@@ -951,19 +951,20 @@
       "date": "2026-09-10",
       "platform": "TT",
       "time": "14:00",
-      "label": "",
+      "label": "besties… where did you go 🥺🐣  follow @Hiyoko_Global",
       "owner": "SuHa",
-      "type": "text",
+      "type": "video",
       "text": {
         "ja": "",
-        "en": "",
+        "en": "Join the Aftersale 💛\nhttps://sale.hiyoko.io/\n\n💛🐣 Join the community\nhttps://linktr.ee/HIYOKO_global ",
         "ko": ""
       },
       "comment": "",
       "asset": "",
       "note": "",
       "need": [
-        "text"
+        "text",
+        "image"
       ],
       "scheduled": false,
       "posted": false,
