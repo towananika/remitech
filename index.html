@@ -85,6 +85,23 @@
   }
   .nav button[aria-pressed="true"]{ color:var(--ink); border-bottom-color:var(--wood); }
 
+  /* ---- KPI ---- */
+  .kpi{ max-width:620px; }
+  .kcard{
+    border:1px solid var(--line); border-left:3px solid var(--chc, var(--wood));
+    border-radius:14px; background:var(--surface); padding:14px 16px; margin-bottom:10px;
+  }
+  .khead{ display:flex; align-items:center; gap:8px; margin-bottom:10px; }
+  .khead .who{ font-weight:500; font-size:14px; color:var(--chc, var(--ink)); }
+  .knums{ display:flex; gap:20px; flex-wrap:wrap; }
+  .knum{ min-width:92px; }
+  .knum .lbl{ display:block; font-size:11.5px; color:var(--muted); letter-spacing:.04em; }
+  .knum .val{ font-size:20px; font-weight:500; font-variant-numeric:tabular-nums; }
+  .knum .dif{ font-size:11.5px; margin-left:6px; font-variant-numeric:tabular-nums; }
+  .knum .dif[data-up="true"]{ color:var(--sage); }
+  .knum .dif[data-up="false"]{ color:#b4553f; }
+  .kwhen{ font-size:11.5px; color:var(--muted); margin:10px 0 0; }
+
   /* ---- booking board ---- */
   .book{ max-width:560px; }
   .bday{
@@ -262,7 +279,15 @@
   .imp .hint{ font-size:12.5px; color:var(--muted); margin:0 0 10px; }
   .imp .cols{ font-size:12px; color:var(--muted); margin:8px 0 0;
               font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
-  .imp .bar{ display:flex; gap:8px; flex-wrap:wrap; margin-top:12px; }
+  .imp .bar{ display:flex; gap:8px; flex-wrap:wrap; margin-top:12px; align-items:center; }
+  .imp input[type=url]{
+    flex:1 1 240px; min-width:0; font:inherit; font-size:13px;
+    background:var(--surface); color:var(--ink);
+    border:1px solid var(--line); border-radius:999px; padding:8px 16px;
+  }
+  .imp input[type=url]:focus{ outline:none; border-color:var(--wood); }
+  .imp .cols{ margin-top:20px; opacity:.75; }
+  .imp textarea{ min-height:260px; }
   .imp button{
     background:var(--surface); border:1px solid var(--line); border-radius:999px;
     color:var(--ink); font:inherit; font-size:13px; padding:8px 16px; cursor:pointer;
@@ -376,7 +401,8 @@
           all:"All", loading:"Loading…", none:"Nothing here yet.",
           fail:"Could not load the source.", back:"← All posts",
           draft:"Draft", live:"Posted", open:"Open channel",
-          navDash:"This week", navBook:"Booking", navPrep:"Prep", navPosts:"Posts",
+          navDash:"This week", navBook:"Booking", navPrep:"Prep", navKpi:"KPI", navPosts:"Posts",
+          followers:"Followers", following:"Following", measuredOn:"Measured", noKpi:"No numbers yet.",
           allBooked:"All booked", leftToDo:"left", nothingToday:"Nothing scheduled",
           markPosted:"Posted", markChecked:"Checked", undo:"Undo",
           copy:"Copy", copied:"Copied", noText:"No text yet", comment:"Comment",
@@ -389,7 +415,8 @@
           impCols:"Columns: date (or day), time, platform, type, label, ja, en, ko, asset",
           impApply:"Apply on this device", impDownload:"Download schedule.json",
           impMonth:"Month", impMerge:"Keep what is already there",
-          impPaste:"Paste here", impFile:"or choose a file", impDrop:"Drop a file here",
+          impPaste:"Paste the plan here", impFile:"Choose a file", impUrl:"Paste a link",
+          impUrlNo:"This address cannot be read from the browser. Give it to Claude instead.",
           impRead:"Read", impResult:"slots read", impBad:"Could not read it. Check the header row.",
           updated:"New content", reload:"Reload", close:"Close",
           weekStart:"Week starts on", noSlots:"No regular slots yet." },
@@ -397,7 +424,8 @@
           all:"전체", loading:"불러오는 중…", none:"아직 없습니다.",
           fail:"원본을 불러오지 못했습니다.", back:"← 목록으로",
           draft:"초안", live:"게시함", open:"채널 열기",
-          navDash:"이번 주", navBook:"예약", navPrep:"준비", navPosts:"글",
+          navDash:"이번 주", navBook:"예약", navPrep:"준비", navKpi:"KPI", navPosts:"글",
+          followers:"팔로워", following:"팔로잉", measuredOn:"측정일", noKpi:"아직 숫자가 없어.",
           allBooked:"모두 예약됨", leftToDo:"남음", nothingToday:"예정 없음",
           markPosted:"게시 완료", markChecked:"확인 완료", undo:"취소",
           copy:"복사", copied:"복사됨", noText:"원고 없음", comment:"댓글",
@@ -410,7 +438,8 @@
           impCols:"열: date (또는 day), time, platform, type, label, ja, en, ko, asset",
           impApply:"이 기기에 적용", impDownload:"schedule.json 내려받기",
           impMonth:"월", impMerge:"기존 것 유지",
-          impPaste:"여기에 붙여넣기", impFile:"또는 파일 선택", impDrop:"파일을 여기에 놓기",
+          impPaste:"기획 내용을 여기에 붙여넣기", impFile:"파일 선택", impUrl:"링크 붙여넣기",
+          impUrlNo:"이 주소는 브라우저에서 읽을 수 없어. Claude에게 주면 돼.",
           impRead:"읽기", impResult:"개 읽음", impBad:"읽지 못했어. 첫 줄의 제목을 확인해줘.",
           updated:"새 내용", reload:"새로고침", close:"닫기",
           weekStart:"주 시작", noSlots:"정기 업로드 시간이 없어." },
@@ -418,7 +447,8 @@
           all:"すべて", loading:"読み込んでいます…", none:"まだ何もありません。",
           fail:"原本を読み込めませんでした。", back:"← 一覧へ",
           draft:"下書き", live:"公開ずみ", open:"チャンネルを開く",
-          navDash:"今週", navBook:"予約", navPrep:"準備", navPosts:"投稿",
+          navDash:"今週", navBook:"予約", navPrep:"準備", navKpi:"KPI", navPosts:"投稿",
+          followers:"フォロワー", following:"フォロー", measuredOn:"計測日", noKpi:"まだ数字がない。",
           allBooked:"すべて予約ずみ", leftToDo:"残り", nothingToday:"予定なし",
           markPosted:"投稿完了", markChecked:"確認完了", undo:"戻す",
           copy:"写す", copied:"写した", noText:"原稿なし", comment:"コメント",
@@ -431,7 +461,8 @@
           impCols:"列: date（または day）, time, platform, type, label, ja, en, ko, asset",
           impApply:"この端末に反映", impDownload:"schedule.json を保存",
           impMonth:"月", impMerge:"いまの内容を残す",
-          impPaste:"ここに貼る", impFile:"またはファイルを選ぶ", impDrop:"ここにファイルを置く",
+          impPaste:"企画の内容をここに貼る", impFile:"ファイルを選ぶ", impUrl:"リンクを貼る",
+          impUrlNo:"この住所はブラウザからは読めない。Claudeに渡してください。",
           impRead:"読む", impResult:"件 読めた", impBad:"読めなかった。1行目の見出しを確かめて。",
           updated:"新しい内容", reload:"読み直す", close:"閉じる",
           weekStart:"週の始まり", noSlots:"定期の枠がまだない。" }
@@ -744,8 +775,7 @@
       var tm = col(r, "time");
       if (!dt) {
         var dnum = parseInt(col(r, "day"), 10);
-        var mo = document.getElementById("impMonth");
-        if (dnum && mo && mo.value) dt = mo.value + "-" + (dnum < 10 ? "0" + dnum : dnum);
+        if (dnum) dt = thisMonth() + "-" + (dnum < 10 ? "0" + dnum : dnum);
       }
       if (!dt || !tm) continue;
       var type = col(r, "type") || "text";
@@ -766,17 +796,18 @@
   function renderImport() {
     chansEl.hidden = true;
     view.innerHTML = '<div class="imp">' +
-      '<p class="hint">' + esc(t("impHelp")) + '</p>' +
       '<textarea id="impText" spellcheck="false" placeholder="' + esc(t("impPaste")) + '"></textarea>' +
-      '<p class="cols">' + esc(t("impCols")) + '</p>' +
-      '<p class="hint"><label class="mat">' + esc(t("impMonth")) +
-      ' <input type="month" id="impMonth" value="' + esc(thisMonth()) + '"></label>' +
-      ' <label class="mat"><input type="checkbox" id="impMerge" checked> ' + esc(t("impMerge")) + '</label></p>' +
-      '<div class="bar"><label class="filebtn">' + esc(t("impFile")) +
-      '<input type="file" id="impFile" accept=".tsv,.csv,.txt,.json,text/plain,application/json"></label>' +
-      '<button id="impApply">' + esc(t("impApply")) + '</button>' +
-      '<button id="impDl">' + esc(t("impDownload")) + '</button></div>' +
-      '<p class="out" id="impOut"></p></div>';
+      '<div class="bar">' +
+        '<input type="url" id="impUrl" placeholder="' + esc(t("impUrl")) + '">' +
+        '<label class="filebtn">' + esc(t("impFile")) +
+        '<input type="file" id="impFile" accept=".tsv,.csv,.txt,.json,text/plain,application/json"></label>' +
+      '</div>' +
+      '<p class="out" id="impOut"></p>' +
+      '<div class="bar" id="impActions" hidden>' +
+        '<button id="impApply">' + esc(t("impApply")) + '</button>' +
+        '<button id="impDl">' + esc(t("impDownload")) + '</button>' +
+      '</div>' +
+      '<p class="cols">' + esc(t("impCols")) + '</p></div>';
   }
 
   // 貼った時点で読む。押す手間をなくす
@@ -794,14 +825,30 @@
     out.textContent = imported && imported.length
       ? (imported.length + " " + t("impResult"))
       : t("impBad");
+    var acts = document.getElementById("impActions");
+    if (acts) acts.hidden = !(imported && imported.length);
+  }
+
+  // リンクから読む。ブラウザは他所のページを読めないことが多いので、
+  // 読めなかったときは Claude に渡すよう伝える
+  function importUrl(u) {
+    var out = document.getElementById("impOut");
+    out.textContent = t("loading");
+    fetch(u, { cache: "no-store" })
+      .then(function (r) { if (!r.ok) throw new Error(r.status); return r.text(); })
+      .then(function (txt) {
+        var ta = document.getElementById("impText");
+        if (ta) ta.value = txt;
+        importRead(txt);
+      })
+      .catch(function () { out.textContent = t("impUrlNo"); });
   }
 
   function importClick(e) {
     var out = document.getElementById("impOut");
     if (!imported || !imported.length) { out.textContent = t("impBad"); return; }
     var keep = [];
-    var merge = document.getElementById("impMerge");
-    if (merge && merge.checked && schedule && schedule.slots) {
+    if (schedule && schedule.slots) {          // いまの内容は必ず残す
       keep = schedule.slots.filter(function (x) {
         return !imported.some(function (y) {
           return y.date === x.date && y.time === x.time &&
@@ -877,6 +924,7 @@
                (on ? "\u2713 " : "") + esc(t(k === "text" ? "matText" : "matImage")) + '</button>';
       }).join("");
 
+      var parts = sl.parts && sl.parts.length ? sl.parts : null;
       html += '<div class="pcard" style="--chc:' + esc(ch.color || "var(--wood)") + '">' +
         '<div class="phead">' +
           '<i class="pf" data-p="' + esc(sl.platform || "X") + '">' + esc(sl.platform || "X") + '</i>' +
@@ -884,11 +932,19 @@
           '<span class="when">' + esc(whenLabel(sl.date)) + " \u00b7 " + esc(sl.time) + '</span>' +
           (sl.label ? '<span class="when">\u00b7 ' + esc(sl.label) + '</span>' : "") +
         '</div>' +
-        (body
-          ? '<pre class="ptext" id="pt' + i + '">' + esc(body) + '</pre>' +
-            '<div class="pbar"><button class="copybtn" data-copy="pt' + i + '">' + esc(t("copy")) + '</button>' + mats + '</div>'
-          : '<p class="ptext empty2">' + esc(t("noText")) + '</p>' +
-            '<div class="pbar">' + mats + '</div>');
+        (parts
+          ? parts.map(function (pt, k) {
+              var b2 = pt[lang] || pt.en || pt.ja || "";
+              return '<p class="plabel">' + esc(pt.no || "") + " \u00b7 " + esc(pt.time) + '</p>' +
+                     '<pre class="ptext" id="pp' + i + "_" + k + '">' + esc(b2) + '</pre>' +
+                     '<div class="pbar"><button class="copybtn" data-copy="pp' + i + "_" + k + '">' +
+                     esc(t("copy")) + '</button></div>';
+            }).join("") + '<div class="pbar">' + mats + '</div>'
+          : (body
+            ? '<pre class="ptext" id="pt' + i + '">' + esc(body) + '</pre>' +
+              '<div class="pbar"><button class="copybtn" data-copy="pt' + i + '">' + esc(t("copy")) + '</button>' + mats + '</div>'
+            : '<p class="ptext empty2">' + esc(t("noText")) + '</p>' +
+              '<div class="pbar">' + mats + '</div>'));
 
       if (sl.comment) {
         html += '<p class="plabel">' + esc(t("comment")) + '</p>' +
@@ -979,11 +1035,59 @@
     view.innerHTML = html + '</div>';
   }
 
+  // ---- KPI ----
+  // 各チャンネルのフォロワーとフォロー。前回計測との差を出す
+  var kpi = null;
+
+  function renderKpi() {
+    chansEl.hidden = false;
+    if (!kpi || !kpi.rows || !kpi.rows.length) {
+      view.innerHTML = '<p class="empty">' + esc(t("noKpi")) + '</p>';
+      return;
+    }
+    var rows = kpi.rows.slice().sort(function (a, b) { return a.date < b.date ? -1 : 1; });
+
+    // チャンネル×媒体ごとに、最新と1つ前を取る
+    var byKey = {};
+    rows.forEach(function (r) {
+      var k = r.channel + "|" + r.platform;
+      (byKey[k] = byKey[k] || []).push(r);
+    });
+
+    var html = '<div class="kpi">';
+    var shown = 0;
+    channels.forEach(function (c) {
+      if (filter && filter !== c.id) return;
+      ["X", "IG"].forEach(function (pf) {
+        var arr = byKey[c.id + "|" + pf];
+        if (!arr || !arr.length) return;
+        shown++;
+        var cur = arr[arr.length - 1], prev = arr.length > 1 ? arr[arr.length - 2] : null;
+        function num(lbl, key) {
+          var v = cur[key];
+          if (v === undefined) return "";
+          var dif = prev && prev[key] !== undefined ? v - prev[key] : null;
+          var d = dif === null || dif === 0 ? "" :
+            '<span class="dif" data-up="' + (dif > 0) + '">' + (dif > 0 ? "+" : "") + dif + '</span>';
+          return '<span class="knum"><span class="lbl">' + esc(lbl) + '</span>' +
+                 '<span class="val">' + v.toLocaleString() + '</span>' + d + '</span>';
+        }
+        html += '<div class="kcard" style="--chc:' + esc(c.color || "var(--wood)") + '">' +
+          '<div class="khead"><i class="pf" data-p="' + pf + '">' + pf + '</i>' +
+          '<span class="who">' + esc(c.name) + '</span></div>' +
+          '<div class="knums">' + num(t("followers"), "followers") + num(t("following"), "following") + '</div>' +
+          '<p class="kwhen">' + esc(t("measuredOn")) + " " + esc(cur.date) + '</p></div>';
+      });
+    });
+    view.innerHTML = (shown ? html + '</div>' : '<p class="empty">' + esc(t("noKpi")) + '</p>');
+  }
+
   function renderNav() {
     navEl.innerHTML =
       '<button data-tab="dash" aria-pressed="' + (tab === "dash") + '">' + esc(t("navDash")) + '</button>' +
       '<button data-tab="book" aria-pressed="' + (tab === "book") + '">' + esc(t("navBook")) + '</button>' +
       '<button data-tab="prep" aria-pressed="' + (tab === "prep") + '">' + esc(t("navPrep")) + '</button>' +
+      '<button data-tab="kpi" aria-pressed="' + (tab === "kpi") + '">' + esc(t("navKpi")) + '</button>' +
       '<button data-tab="posts" aria-pressed="' + (tab === "posts") + '">' + esc(t("navPosts")) + '</button>' +
       '<button data-tab="import" aria-pressed="' + (tab === "import") + '">' + esc(t("navImport")) + '</button>';
   }
@@ -1024,6 +1128,7 @@
     var p = id && posts.filter(function (x) { return x.id === id; })[0];
     if (p) { renderPost(p); window.scrollTo(0, 0); return; }
     if (tab === "dash") { renderDash(); return; }
+    if (tab === "kpi") { renderKpi(); return; }
     if (tab === "book") { renderBook(); return; }
     if (tab === "prep") { renderPrep(); return; }
     if (tab === "import") { renderImport(); return; }
@@ -1050,7 +1155,9 @@
     if (!b) return;
     filter = b.getAttribute("data-chan");
     renderChans();
-    if (tab === "prep") { renderPrep(); } else { renderList(); }
+    if (tab === "prep") { renderPrep(); }
+    else if (tab === "kpi") { renderKpi(); }
+    else { renderList(); }
   });
 
   view.addEventListener("click", function (e) {
@@ -1120,6 +1227,7 @@
 
   view.addEventListener("input", function (e) {
     if (e.target.id === "impText") { importRead(e.target.value); return; }
+    if (e.target.id === "impUrl") { return; }
     if (e.target.id === "remMin") {
       var p = remindPrefs(); p.min = +e.target.value; saveRemind(p);
       renderDash(); return;
@@ -1159,6 +1267,20 @@
     fr.readAsText(f);
   });
 
+  view.addEventListener("keydown", function (e) {
+    if (e.target.id === "impUrl" && e.key === "Enter") {
+      e.preventDefault();
+      if (e.target.value.trim()) importUrl(e.target.value.trim());
+    }
+  });
+  view.addEventListener("paste", function (e) {
+    if (e.target.id !== "impUrl") return;
+    setTimeout(function () {
+      var v = document.getElementById("impUrl");
+      if (v && v.value.trim()) importUrl(v.value.trim());
+    }, 0);
+  });
+
   window.addEventListener("hashchange", route);
 
   // 置かれているファイルが差し替わったかを、たまに見に行く。
@@ -1168,7 +1290,7 @@
     return (res.headers.get("etag") || "") + "|" + (res.headers.get("last-modified") || "");
   }
   function watchUpdates() {
-    ["./posts.json", "./schedule.json"].forEach(function (u) {
+    ["./posts.json", "./schedule.json", "./kpi.json"].forEach(function (u) {
       fetch(u, { method: "HEAD", cache: "no-store" }).then(function (r) {
         if (!r.ok) return;
         var st = stamp(r);
@@ -1208,6 +1330,10 @@
     .then(function (j) {
       channels = j.channels || [];
       posts = j.posts || [];
+      fetch("./kpi.json", { cache: "no-cache" })
+        .then(function (r) { return r.ok ? r.json() : null; })
+        .then(function (k) { kpi = k; if (tab === "kpi") renderKpi(); })
+        .catch(function () {});
       return fetch("./schedule.json", { cache: "no-cache" })
         .then(function (r) { return r.ok ? r.json() : null; })
         .catch(function () { return null; })

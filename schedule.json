@@ -863,15 +863,15 @@
     },
     {
       "time": "09:30",
-      "type": "text",
-      "label": "",
+      "type": "thread",
+      "label": "スレッド HIYOKOはなぜ価値があるの？",
       "text": {
-        "ja": "",
-        "en": "",
+        "ja": "HIYOKOはなぜ価値があるの？🪄\n\n今日は一日かけて\nその答えを話していくよ。",
+        "en": "why does HIYOKO have value? 🪄\n\ntoday we're going to answer that.\none thread at a time.",
         "ko": ""
       },
       "asset": "",
-      "note": "",
+      "note": "実際に使う文面は Nobo Check（2つ目の英語）",
       "scheduled": false,
       "posted": false,
       "url": "",
@@ -885,7 +885,34 @@
         "note": ""
       },
       "date": "2026-09-10",
-      "platform": "X"
+      "platform": "X",
+      "parts": [
+        {
+          "time": "09:00",
+          "no": "1/4",
+          "ja": "HIYOKOはなぜ価値があるの？🪄\n\n今日は一日かけて\nその答えを話していくよ。",
+          "en": "why does HIYOKO have value? 🪄\n\ntoday we're going to answer that.\none thread at a time."
+        },
+        {
+          "time": "11:50",
+          "no": "2/4",
+          "ja": "まず、数字を見てみよう。🪄\n\n🎮 Happy Chick — 1億4800万ダウンロード\n❤️ Vitalis — 55,000人以上登録済み\n🌍 非中国ターゲット市場 — 約5,400万人\n\n多くのWeb3プロジェクトは\nゼロからユーザーを集める。\n\nHIYOKOは違う。\nユーザーはすでにそこにいる。",
+          "en": "first. the numbers. 🪄\n\n🎮 Happy Chick — 148M+ downloads\n❤️ Vitalis — 55,000+ registered\n🌍 non-China target market — 54M people\n\nmost Web3 projects\nbuild their user base from zero.\n\nHIYOKO is different.\nthe users are already there.\n\n2/4 🧵"
+        },
+        {
+          "time": "14:00",
+          "no": "3/4",
+          "ja": "次に、仕組みを見てみよう。🪄\n\n🎮 ゲームして → CheePoint貯まる\n❤️ 健康チェックして → CheePoint貯まる\n🪙 CheePoint → HYKに交換\n\n使う人が増えるほど\nHYKの実需が生まれる。\n\n価格投機じゃなく\n実際の需要が価値を作る。\nそれがHIYOKOの設計だよ。🐣\n\n3/4 🧵",
+          "en": "next. the structure. 🪄\n\n🎮 play games → earn CheePoints\n❤️ check your health → earn CheePoints\n🪙 CheePoints → swap them for HYK\n\nmore users\n→ more utility for HYK.\n\nnot just about price speculation.\nreal use supports the ecosystem.\n\nthat's HIYOKO's design. 🐣\n\n3/4 🧵"
+        },
+        {
+          "time": "17:00",
+          "no": "4/4",
+          "ja": "最後に、未来を見てみよう。🪄\n\nゲームして価値が生まれる。\n健康チェックして価値が生まれる。\nコミュニティが育つほど\nHIYOKOは大きくなる。\n\n日常のあらゆる行動が\n価値に繋がる世界。\n\nそれがHIYOKOのビジョン。\n今まさに作られてる最中だよ。😎\n\n4/4 🧵\n\n#HYK #HIYOKO #Web3 #GameFi #HealthFi",
+          "en": "finally. the future. 🪄\n\nplay games.\ncheck your health.\ntake part in the community.\n\neveryday actions\nconnect to the HIYOKO ecosystem.\n\nas the community grows,\nHIYOKO grows with it.\n\nthat's HIYOKO's vision.\nand it's being built right now. 😎\n\n4/4 🧵\n\n#HYK #HIYOKO #Web3 #GameFi #HealthFi"
+        }
+      ],
+      "comment": "want to join us?\neverything's here 👇\nhttps://linktr.ee/HIYOKO_global"
     },
     {
       "date": "2026-09-10",

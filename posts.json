@@ -98,7 +98,8 @@
         }
       ],
       "postTimes": [],
-      "color": "#8a6a4a"
+      "color": "#8a6a4a",
+      "role": "measure"
     },
     {
       "id": "reel",

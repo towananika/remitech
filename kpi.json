@@ -1,0 +1,49 @@
+{
+  "note": "各チャンネルのフォロワー・フォロー数。1日1件ずつ足す。数えた日を date に置く。",
+  "rows": [
+    {
+      "date": "2026-09-10",
+      "channel": "hiyoko",
+      "platform": "X",
+      "followers": 249,
+      "following": 257
+    },
+    {
+      "date": "2026-09-10",
+      "channel": "hiyoko",
+      "platform": "IG",
+      "followers": 2174,
+      "following": 236,
+      "posts": 398
+    },
+    {
+      "date": "2026-09-10",
+      "channel": "nacha",
+      "platform": "X",
+      "followers": 64,
+      "following": 63
+    },
+    {
+      "date": "2026-09-10",
+      "channel": "nacha",
+      "platform": "IG",
+      "followers": 139,
+      "following": 41,
+      "posts": 223
+    },
+    {
+      "date": "2026-09-10",
+      "channel": "yuyu",
+      "platform": "X",
+      "followers": 13,
+      "following": 13
+    },
+    {
+      "date": "2026-09-10",
+      "channel": "reel",
+      "platform": "X",
+      "followers": 878,
+      "following": 769
+    }
+  ]
+}
