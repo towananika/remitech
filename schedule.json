@@ -977,6 +977,35 @@
     },
     {
       "date": "2026-09-10",
+      "platform": "YT",
+      "time": "14:00",
+      "label": "",
+      "owner": "SuHa",
+      "type": "video",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-10",
       "platform": "X",
       "time": "17:00",
       "label": "",
