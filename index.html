@@ -30,6 +30,11 @@
     -webkit-font-smoothing:antialiased;
   }
   .page{ width:100%; max-width:660px; margin:0 auto; padding:40px 20px 72px; }
+  /* 週表は横に長いので、広い画面では枠を広げる。読みものは狭いままにする */
+  body[data-wide="true"] .page{ max-width:1180px; }
+  body[data-wide="true"] .sum,
+  body[data-wide="true"] .rem{ max-width:none; }
+  .list, .post, .imp{ max-width:660px; }
 
   /* ---- header ---- */
   .top{ display:flex; align-items:flex-start; justify-content:space-between; gap:12px; }
@@ -80,11 +85,51 @@
   }
   .nav button[aria-pressed="true"]{ color:var(--ink); border-bottom-color:var(--wood); }
 
+  /* ---- prep board ---- */
+  .prep{ max-width:760px; }
+  .pcard{
+    border:1px solid var(--line); border-left:3px solid var(--chc, var(--wood));
+    border-radius:14px; background:var(--surface); padding:16px 18px; margin-bottom:12px;
+  }
+  .phead{ display:flex; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:10px; }
+  .phead .who{ font-weight:500; font-size:14px; color:var(--chc, var(--ink)); }
+  .phead .when{ font-size:12.5px; color:var(--muted); font-variant-numeric:tabular-nums; }
+  .ptext{
+    white-space:pre-wrap; font-size:13.5px; line-height:1.85;
+    background:var(--bg); border:1px solid var(--line); border-radius:10px;
+    padding:12px 14px; margin:0;
+  }
+  .ptext.empty2{ color:var(--muted); font-style:normal; }
+  .plabel{ font-size:11.5px; color:var(--muted); margin:12px 0 5px; letter-spacing:.06em; }
+  .pbar{ display:flex; gap:8px; align-items:center; flex-wrap:wrap; margin-top:10px; }
+  .copybtn{
+    background:var(--surface); border:1px solid var(--line); border-radius:999px;
+    color:var(--ink); font:inherit; font-size:12px; padding:5px 14px; cursor:pointer;
+  }
+  .copybtn:hover{ border-color:var(--wood); }
+  .copybtn[data-done="true"]{ color:var(--surface); background:var(--sage); border-color:var(--sage); }
+  .passet{ font-size:12.5px; color:var(--muted); margin:10px 0 0; }
+
   /* ---- week grid ---- */
   .gridwrap{ overflow-x:auto; border:1px solid var(--line); border-radius:14px;
              background:var(--surface); }
-  .grid{ border-collapse:collapse; width:100%; min-width:620px; }
+  .grid{ border-collapse:collapse; width:100%; min-width:620px; table-layout:fixed; }
   .grid th, .grid td{ border-bottom:1px solid var(--line); padding:8px 10px; text-align:center; }
+  .grid th.rowhead{ width:150px; border-left:3px solid var(--chc, var(--wood)); }
+  .grid tbody tr th.rowhead b{ color:var(--chc, var(--ink)); }
+  .grid tbody tr.chstart th.rowhead{ border-top:2px solid var(--line); }
+  /* 広い画面では7日ぶんを必ず収める。横スクロールは出さない */
+  @media (min-width:820px){
+    .grid{ min-width:0; }
+    .grid th, .grid td{ padding:10px 6px; }
+    .grid thead th .dnum{ font-size:16px; }
+    .cell{ min-width:0; width:100%; }
+    .cell .lb2{ max-width:100%; font-size:11.5px; }
+    .matbtn{ font-size:11px; padding:3px 8px; }
+    .mk{ font-size:11.5px; padding:3px 6px; }
+    .gridwrap{ overflow-x:hidden; }
+    .grid th.rowhead{ width:140px; }
+  }
   .grid tr:last-child td{ border-bottom:0; }
   .grid thead th{ font-weight:500; font-size:12.5px; color:var(--muted); letter-spacing:.02em; }
   .grid thead th .dnum{ display:block; color:var(--ink); font-size:15px; font-variant-numeric:tabular-nums; }
@@ -165,6 +210,14 @@
     border:1px solid var(--line); border-radius:12px; padding:14px; resize:vertical;
   }
   .imp textarea:focus{ outline:none; border-color:var(--wood); }
+  .imp textarea[data-drop="true"]{ border-color:var(--wood); background:var(--wood-soft); }
+  .filebtn{
+    display:inline-block; background:none; border:1px dashed var(--line); border-radius:999px;
+    color:var(--muted); font-size:12.5px; padding:8px 16px; cursor:pointer;
+  }
+  .filebtn:hover{ border-color:var(--wood); color:var(--ink); }
+  .filebtn input{ display:none; }
+  .imp .out{ font-weight:500; }
   .imp .hint{ font-size:12.5px; color:var(--muted); margin:0 0 10px; }
   .imp .cols{ font-size:12px; color:var(--muted); margin:8px 0 0;
               font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
@@ -281,14 +334,18 @@
           all:"All", loading:"Loading…", none:"Nothing here yet.",
           fail:"Could not load the source.", back:"← All posts",
           draft:"Draft", live:"Posted", open:"Open channel",
-          navDash:"This week", navPosts:"Posts",
+          navDash:"This week", navPrep:"Prep", navPosts:"Posts",
+          copy:"Copy", copied:"Copied", noText:"No text yet", comment:"Comment",
+          visual:"Visual", today:"Today", tomorrow:"Tomorrow", prepEmpty:"Nothing coming up.",
           stNone:"No text", stText:"Text ready", stSched:"Scheduled", stDone:"Posted",
           stLate:"Missed", stReady:"Ready", weekOf:"Week of", ok:"All set", todo:"Needs action",
           matText:"Text", matImage:"Image", remind:"Remind before posting", remindOff:"Off",
           notMatched:"Not checked", matched:"Matches the plan", mismatched:"Differs from the plan",
           navImport:"Import", impHelp:"Paste the plan from your spreadsheet (tab-separated, header row first).",
-          impCols:"Columns: day, time, type, label, ja, en, ko, asset",
+          impCols:"Columns: date (or day), time, platform, type, label, ja, en, ko, asset",
           impApply:"Apply on this device", impDownload:"Download schedule.json",
+          impMonth:"Month", impMerge:"Keep what is already there",
+          impPaste:"Paste here", impFile:"or choose a file", impDrop:"Drop a file here",
           impRead:"Read", impResult:"slots read", impBad:"Could not read it. Check the header row.",
           updated:"New content", reload:"Reload", close:"Close",
           weekStart:"Week starts on", noSlots:"No regular slots yet." },
@@ -296,14 +353,18 @@
           all:"전체", loading:"불러오는 중…", none:"아직 없습니다.",
           fail:"원본을 불러오지 못했습니다.", back:"← 목록으로",
           draft:"초안", live:"게시함", open:"채널 열기",
-          navDash:"이번 주", navPosts:"글",
+          navDash:"이번 주", navPrep:"준비", navPosts:"글",
+          copy:"복사", copied:"복사됨", noText:"원고 없음", comment:"댓글",
+          visual:"비주얼", today:"오늘", tomorrow:"내일", prepEmpty:"예정된 게 없어.",
           stNone:"원고 없음", stText:"원고 있음", stSched:"예약됨", stDone:"게시됨",
           stLate:"놓침", stReady:"준비 완료", weekOf:"주간", ok:"모두 준비됨", todo:"조치 필요",
           matText:"텍스트", matImage:"이미지", remind:"게시 전 알림", remindOff:"끄기",
           notMatched:"미확인", matched:"기획과 일치", mismatched:"기획과 다름",
           navImport:"불러오기", impHelp:"기획표를 붙여넣어. 탭으로 구분된 표(첫 줄은 제목).",
-          impCols:"열: day, time, type, label, ja, en, ko, asset",
+          impCols:"열: date (또는 day), time, platform, type, label, ja, en, ko, asset",
           impApply:"이 기기에 적용", impDownload:"schedule.json 내려받기",
+          impMonth:"월", impMerge:"기존 것 유지",
+          impPaste:"여기에 붙여넣기", impFile:"또는 파일 선택", impDrop:"파일을 여기에 놓기",
           impRead:"읽기", impResult:"개 읽음", impBad:"읽지 못했어. 첫 줄의 제목을 확인해줘.",
           updated:"새 내용", reload:"새로고침", close:"닫기",
           weekStart:"주 시작", noSlots:"정기 업로드 시간이 없어." },
@@ -311,14 +372,18 @@
           all:"すべて", loading:"読み込んでいます…", none:"まだ何もありません。",
           fail:"原本を読み込めませんでした。", back:"← 一覧へ",
           draft:"下書き", live:"公開ずみ", open:"チャンネルを開く",
-          navDash:"今週", navPosts:"投稿",
+          navDash:"今週", navPrep:"準備", navPosts:"投稿",
+          copy:"写す", copied:"写した", noText:"原稿なし", comment:"コメント",
+          visual:"ビジュアル", today:"今日", tomorrow:"明日", prepEmpty:"先の予定がない。",
           stNone:"原稿なし", stText:"原稿あり", stSched:"予約ずみ", stDone:"投稿ずみ",
           stLate:"抜け", stReady:"投稿準備完了", weekOf:"の週", ok:"すべて整っている", todo:"手が要る",
           matText:"テキスト", matImage:"画像", remind:"投稿前にリマインド", remindOff:"切",
           notMatched:"未確認", matched:"企画どおり", mismatched:"企画と違う",
           navImport:"取り込み", impHelp:"表計算からコピーして貼る（タブ区切り・1行目は見出し）。",
-          impCols:"列: day, time, type, label, ja, en, ko, asset",
+          impCols:"列: date（または day）, time, platform, type, label, ja, en, ko, asset",
           impApply:"この端末に反映", impDownload:"schedule.json を保存",
+          impMonth:"月", impMerge:"いまの内容を残す",
+          impPaste:"ここに貼る", impFile:"またはファイルを選ぶ", impDrop:"ここにファイルを置く",
           impRead:"読む", impResult:"件 読めた", impBad:"読めなかった。1行目の見出しを確かめて。",
           updated:"新しい内容", reload:"読み直す", close:"閉じる",
           weekStart:"週の始まり", noSlots:"定期の枠がまだない。" }
@@ -412,6 +477,7 @@
   // ---- ダッシュボード ----
   // 今日を含む月曜〜日曜。予約できているかを1枚で見る
   function two(n) { return n < 10 ? "0" + n : "" + n; }
+  function ymd(d) { return d.getFullYear() + "-" + two(d.getMonth() + 1) + "-" + two(d.getDate()); }
 
   function weekStart() {
     try { var v = localStorage.getItem("remitech-weekstart"); if (v !== null) return +v; } catch (e) {}
@@ -428,7 +494,7 @@
 
   // 材料の印は端末に残す。書き換えが頻繁で、記録として残すものではないため。
   // 「投稿ずみ」「一致確認」は schedule.json 側に残す（みんなで見る記録）
-  function matKey(sl) { return "remitech-mat-" + schedule.month + "-" + sl.day + "-" + sl.time; }
+  function matKey(sl) { return "remitech-mat-" + sl.date + "-" + (sl.platform || "X") + "-" + sl.time; }
   function matGet(sl) {
     var m = {};
     try { m = JSON.parse(localStorage.getItem(matKey(sl)) || "{}") || {}; } catch (e) {}
@@ -461,7 +527,7 @@
     var now = Date.now();
     days.forEach(function (d) {
       (schedule.slots || []).forEach(function (sl) {
-        if (sl.day !== d.getDate() || sl.time.indexOf(":") < 0 || sl.posted) return;
+        if (sl.date !== ymd(d) || sl.time.indexOf(":") < 0 || sl.posted) return;
         var hh = sl.time.split(":");
         var at = new Date(d.getFullYear(), d.getMonth(), d.getDate(), +hh[0], +hh[1]).getTime()
                  - p.min * 60000;
@@ -493,8 +559,6 @@
 
     var now = new Date();
     var days = weekRange(now);
-    var ym = schedule.month.split("-");
-    var y = +ym[0], m = +ym[1] - 1;
     var counts = { none:0, text:0, ready:0, sched:0, done:0, late:0 };
 
     // 行 = チャンネル × 定期の時刻
@@ -519,14 +583,16 @@
     rows.forEach(function (row, ri) {
       var pf = row.platform ? '<i class="pf" data-p="' + esc(row.platform) + '">' + esc(row.platform) + '</i>' : "";
       var first = (ri === 0) || (rows[ri - 1].ch.id !== row.ch.id);
-      body += '<tr class="' + (first ? "chstart" : "") + '" data-ch="' + esc(row.ch.id) + '"><th class="rowhead">' +
+      var col = row.ch.color || "var(--wood)";
+      body += '<tr class="' + (first ? "chstart" : "") + '" data-ch="' + esc(row.ch.id) +
+              '" style="--chc:' + esc(col) + '"><th class="rowhead">' +
               '<b>' + pf + esc(row.ch.name) + '</b>' +
               '<span>' + esc(row.time) + (row.label ? " \u00b7 " + esc(row.label) : "") + '</span></th>';
       days.forEach(function (d) {
-        var inMonth = (d.getFullYear() === y && d.getMonth() === m &&
-                       row.ch.id === (schedule.channel || "hiyoko"));
-        var sl = inMonth ? (schedule.slots || []).filter(function (x) {
-          return x.day === d.getDate() && x.time === row.time;
+        var mine = row.ch.id === (schedule.channel || "hiyoko");
+        var sl = mine ? (schedule.slots || []).filter(function (x) {
+          return x.date === ymd(d) && x.time === row.time &&
+                 (x.platform || "X") === (row.platform || "X");
         })[0] : null;
         if (!sl) { body += "<td></td>"; return; }
 
@@ -539,7 +605,8 @@
         var mats = (sl.need || ["text"]).map(function (k) {
           var on = !!mm[k];
           return '<button class="matbtn" data-on="' + on + '"' +
-                 ' data-day="' + sl.day + '" data-time="' + esc(sl.time) + '" data-kind="' + k + '"' +
+                 ' data-date="' + esc(sl.date) + '" data-pf="' + esc(sl.platform || "X") +
+                 '" data-time="' + esc(sl.time) + '" data-kind="' + k + '"' +
                  ' title="' + esc(t(k === "text" ? "matText" : "matImage")) + '">' +
                  (on ? "\u2713 " : "") + esc(t(k === "text" ? "matText" : "matImage")) + '</button>';
         }).join("");
@@ -590,25 +657,37 @@
   // (2)schedule.json として保存できるようにする
   var NLC = String.fromCharCode(10), TABC = String.fromCharCode(9);
   var CRC = String.fromCharCode(13), BSN = "\\" + "n";
+  function thisMonth() {
+    var d = new Date();
+    return d.getFullYear() + "-" + two(d.getMonth() + 1);
+  }
+
   var imported = null;
 
   function parseTSV(txt) {
     var lines = txt.split(CRC).join("").split(NLC).filter(function (l) { return l.trim(); });
     if (lines.length < 2) return null;
-    var head = lines[0].split(TABC).map(function (h) { return h.trim().toLowerCase(); });
-    if (head.indexOf("day") < 0 || head.indexOf("time") < 0) return null;
+    var sep = (lines[0].indexOf(TABC) >= 0) ? TABC : ",";
+    var head = lines[0].split(sep).map(function (h) { return h.trim().toLowerCase().replace(/^"|"$/g, ""); });
+    if ((head.indexOf("day") < 0 && head.indexOf("date") < 0) || head.indexOf("time") < 0) return null;
     function col(r, name) { var i = head.indexOf(name); return i < 0 ? "" : (r[i] || "").trim(); }
     function un(v) { return v.split(BSN).join(NLC); }
     var out = [];
     for (var i = 1; i < lines.length; i++) {
-      var r = lines[i].split(TABC);
-      var day = parseInt(col(r, "day"), 10);
+      var r = lines[i].split(sep).map(function (v) { return v.replace(/^"|"$/g, ""); });
+      var dt = col(r, "date");
       var tm = col(r, "time");
-      if (!day || !tm) continue;
+      if (!dt) {
+        var dnum = parseInt(col(r, "day"), 10);
+        var mo = document.getElementById("impMonth");
+        if (dnum && mo && mo.value) dt = mo.value + "-" + (dnum < 10 ? "0" + dnum : dnum);
+      }
+      if (!dt || !tm) continue;
       var type = col(r, "type") || "text";
       var asset = col(r, "asset");
       out.push({
-        day: day, time: tm, type: type, label: col(r, "label"),
+        date: dt, time: tm, platform: (col(r, "platform") || "X").toUpperCase(),
+        type: type, label: col(r, "label"),
         text: { ja: un(col(r, "ja")), en: un(col(r, "en")), ko: un(col(r, "ko")) },
         asset: asset, note: "",
         need: (type === "image" || type === "video" || asset) ? ["text", "image"] : ["text"],
@@ -623,29 +702,59 @@
     chansEl.hidden = true;
     view.innerHTML = '<div class="imp">' +
       '<p class="hint">' + esc(t("impHelp")) + '</p>' +
-      '<textarea id="impText" spellcheck="false"></textarea>' +
+      '<textarea id="impText" spellcheck="false" placeholder="' + esc(t("impPaste")) + '"></textarea>' +
       '<p class="cols">' + esc(t("impCols")) + '</p>' +
-      '<div class="bar"><button id="impRead">' + esc(t("impRead")) + '</button>' +
+      '<p class="hint"><label class="mat">' + esc(t("impMonth")) +
+      ' <input type="month" id="impMonth" value="' + esc(thisMonth()) + '"></label>' +
+      ' <label class="mat"><input type="checkbox" id="impMerge" checked> ' + esc(t("impMerge")) + '</label></p>' +
+      '<div class="bar"><label class="filebtn">' + esc(t("impFile")) +
+      '<input type="file" id="impFile" accept=".tsv,.csv,.txt,.json,text/plain,application/json"></label>' +
       '<button id="impApply">' + esc(t("impApply")) + '</button>' +
       '<button id="impDl">' + esc(t("impDownload")) + '</button></div>' +
       '<p class="out" id="impOut"></p></div>';
   }
 
+  // 貼った時点で読む。押す手間をなくす
+  function importRead(txt) {
+    var out = document.getElementById("impOut");
+    if (!txt || !txt.trim()) { imported = null; out.textContent = ""; return; }
+    if (txt.trim().charAt(0) === "{") {           // schedule.json をそのまま受ける
+      try {
+        var j = JSON.parse(txt);
+        imported = (j.slots || []).filter(function (x) { return x.date && x.time; });
+      } catch (err) { imported = null; }
+    } else {
+      imported = parseTSV(txt);
+    }
+    out.textContent = imported && imported.length
+      ? (imported.length + " " + t("impResult"))
+      : t("impBad");
+  }
+
   function importClick(e) {
     var out = document.getElementById("impOut");
-    if (e.target.id === "impRead") {
-      imported = parseTSV(document.getElementById("impText").value);
-      out.textContent = imported ? (imported.length + " " + t("impResult")) : t("impBad");
-      return;
+    if (!imported || !imported.length) { out.textContent = t("impBad"); return; }
+    var keep = [];
+    var merge = document.getElementById("impMerge");
+    if (merge && merge.checked && schedule && schedule.slots) {
+      keep = schedule.slots.filter(function (x) {
+        return !imported.some(function (y) {
+          return y.date === x.date && y.time === x.time &&
+                 (y.platform || "X") === (x.platform || "X");
+        });
+      });
     }
-    if (!imported) { out.textContent = t("impBad"); return; }
+    var all = keep.concat(imported).sort(function (a, b) {
+      return (a.date + a.time) < (b.date + b.time) ? -1 : 1;
+    });
+    var months = [];
+    all.forEach(function (x) { var m = x.date.slice(0, 7); if (months.indexOf(m) < 0) months.push(m); });
     var body = { channel: schedule ? schedule.channel : "hiyoko",
-                 month: schedule ? schedule.month : "",
-                 timezone: "Asia/Seoul", note: "", slots: imported };
+                 months: months.sort(), timezone: "Asia/Seoul", note: "", slots: all };
     if (e.target.id === "impApply") {
       schedule = body;
       try { localStorage.setItem("remitech-schedule", JSON.stringify(body)); } catch (err) {}
-      tab = "dash"; renderNav(); route();
+      tab = "dash"; renderNav(); syncWide(); route();
       return;
     }
     if (e.target.id === "impDl") {
@@ -656,9 +765,82 @@
     }
   }
 
+  // ---- 準備ボード ----
+  // 投稿に使うものを1枚にまとめる。文面はそのまま写せる
+  function chanOfSlot(sl) {
+    var chId = schedule.channel || "hiyoko";
+    return chanOf(chId) || { name: chId, color: "var(--wood)" };
+  }
+
+  function whenLabel(dt) {
+    var today = ymd(new Date());
+    var tm = new Date(); tm.setDate(tm.getDate() + 1);
+    if (dt === today) return t("today");
+    if (dt === ymd(tm)) return t("tomorrow");
+    var d = new Date(dt + "T00:00:00");
+    return (d.getMonth() + 1) + "/" + d.getDate() + " " + (DOW[lang] || DOW.en)[d.getDay()];
+  }
+
+  function renderPrep() {
+    chansEl.hidden = true;
+    if (!schedule) { view.innerHTML = '<p class="empty">' + esc(t("none")) + '</p>'; return; }
+
+    var now = new Date();
+    var from = ymd(now);
+    var till = new Date(now); till.setDate(till.getDate() + 6);
+    var to = ymd(till);
+
+    var list = (schedule.slots || []).filter(function (x) {
+      return x.date >= from && x.date <= to && !x.posted;
+    }).sort(function (a, b) {
+      return (a.date + a.time) < (b.date + b.time) ? -1 : 1;
+    });
+
+    if (!list.length) { view.innerHTML = '<p class="empty">' + esc(t("prepEmpty")) + '</p>'; return; }
+
+    var html = '<div class="prep">';
+    list.forEach(function (sl, i) {
+      var ch = chanOfSlot(sl);
+      var body = (sl.text && (sl.text[lang] || sl.text.en || sl.text.ja || sl.text.ko)) || "";
+      var mm = matGet(sl);
+      var mats = (sl.need || ["text"]).map(function (k) {
+        var on = !!mm[k];
+        return '<button class="matbtn" data-on="' + on + '"' +
+               ' data-date="' + esc(sl.date) + '" data-pf="' + esc(sl.platform || "X") +
+               '" data-time="' + esc(sl.time) + '" data-kind="' + k + '">' +
+               (on ? "\u2713 " : "") + esc(t(k === "text" ? "matText" : "matImage")) + '</button>';
+      }).join("");
+
+      html += '<div class="pcard" style="--chc:' + esc(ch.color || "var(--wood)") + '">' +
+        '<div class="phead">' +
+          '<i class="pf" data-p="' + esc(sl.platform || "X") + '">' + esc(sl.platform || "X") + '</i>' +
+          '<span class="who">' + esc(ch.name) + '</span>' +
+          '<span class="when">' + esc(whenLabel(sl.date)) + " \u00b7 " + esc(sl.time) + '</span>' +
+          (sl.label ? '<span class="when">\u00b7 ' + esc(sl.label) + '</span>' : "") +
+        '</div>' +
+        (body
+          ? '<pre class="ptext" id="pt' + i + '">' + esc(body) + '</pre>' +
+            '<div class="pbar"><button class="copybtn" data-copy="pt' + i + '">' + esc(t("copy")) + '</button>' + mats + '</div>'
+          : '<p class="ptext empty2">' + esc(t("noText")) + '</p>' +
+            '<div class="pbar">' + mats + '</div>');
+
+      if (sl.comment) {
+        html += '<p class="plabel">' + esc(t("comment")) + '</p>' +
+                '<pre class="ptext" id="pc' + i + '">' + esc(sl.comment) + '</pre>' +
+                '<div class="pbar"><button class="copybtn" data-copy="pc' + i + '">' + esc(t("copy")) + '</button></div>';
+      }
+      if (sl.asset) {
+        html += '<p class="passet">' + esc(t("visual")) + " \u00b7 " + esc(sl.asset) + '</p>';
+      }
+      html += '</div>';
+    });
+    view.innerHTML = html + '</div>';
+  }
+
   function renderNav() {
     navEl.innerHTML =
       '<button data-tab="dash" aria-pressed="' + (tab === "dash") + '">' + esc(t("navDash")) + '</button>' +
+      '<button data-tab="prep" aria-pressed="' + (tab === "prep") + '">' + esc(t("navPrep")) + '</button>' +
       '<button data-tab="posts" aria-pressed="' + (tab === "posts") + '">' + esc(t("navPosts")) + '</button>' +
       '<button data-tab="import" aria-pressed="' + (tab === "import") + '">' + esc(t("navImport")) + '</button>';
   }
@@ -668,7 +850,7 @@
     if (!b) return;
     tab = b.getAttribute("data-tab");
     location.hash = "";
-    renderNav(); route();
+    renderNav(); syncWide(); route();
   });
 
   var NO = ["一","二","三","四","五","六","七","八","九","十"];
@@ -699,6 +881,7 @@
     var p = id && posts.filter(function (x) { return x.id === id; })[0];
     if (p) { renderPost(p); window.scrollTo(0, 0); return; }
     if (tab === "dash") { renderDash(); return; }
+    if (tab === "prep") { renderPrep(); return; }
     if (tab === "import") { renderImport(); return; }
     renderList();
   }
@@ -726,16 +909,46 @@
   });
 
   view.addEventListener("click", function (e) {
+    var cp = e.target.closest(".copybtn");
+    if (cp) {
+      var src = document.getElementById(cp.getAttribute("data-copy"));
+      if (src && navigator.clipboard) {
+        navigator.clipboard.writeText(src.textContent).then(function () {
+          cp.setAttribute("data-done", "true");
+          cp.textContent = t("copied");
+          setTimeout(function () {
+            cp.removeAttribute("data-done");
+            cp.textContent = t("copy");
+          }, 1600);
+        });
+      }
+      return;
+    }
     var mb = e.target.closest(".matbtn");
     if (!mb) return;
-    var day = +mb.getAttribute("data-day"), tm = mb.getAttribute("data-time");
-    var sl = (schedule.slots || []).filter(function (x) { return x.day === day && x.time === tm; })[0];
+    var dt = mb.getAttribute("data-date"), tm = mb.getAttribute("data-time");
+    var pf = mb.getAttribute("data-pf") || "X";
+    var sl = (schedule.slots || []).filter(function (x) {
+      return x.date === dt && x.time === tm && (x.platform || "X") === pf;
+    })[0];
     if (!sl) return;
     matSet(sl, mb.getAttribute("data-kind"), mb.getAttribute("data-on") !== "true");
-    renderDash();
+    if (tab === "prep") { renderPrep(); } else { renderDash(); }
   });
 
   view.addEventListener("change", function (e) {
+    if (e.target.id === "impFile") {
+      var f = e.target.files && e.target.files[0];
+      if (!f) return;
+      var fr = new FileReader();
+      fr.onload = function () {
+        var ta = document.getElementById("impText");
+        if (ta) ta.value = fr.result;
+        importRead(fr.result);
+      };
+      fr.readAsText(f);
+      return;
+    }
     var cb = e.target.closest("input[type=checkbox]");
     if (!cb) return;
     if (cb.id === "remOn") {
@@ -749,6 +962,7 @@
   });
 
   view.addEventListener("input", function (e) {
+    if (e.target.id === "impText") { importRead(e.target.value); return; }
     if (e.target.id === "remMin") {
       var p = remindPrefs(); p.min = +e.target.value; saveRemind(p);
       renderDash(); return;
@@ -765,6 +979,29 @@
     if (card) { location.hash = "/" + card.getAttribute("data-id"); return; }
     if (e.target.closest("#backBtn")) { location.hash = ""; }
   });
+  // 貼り付け欄にファイルを置いても読む
+  view.addEventListener("dragover", function (e) {
+    if (tab !== "import") return;
+    e.preventDefault();
+    var ta = document.getElementById("impText");
+    if (ta) ta.setAttribute("data-drop", "true");
+  });
+  view.addEventListener("dragleave", function () {
+    var ta = document.getElementById("impText");
+    if (ta) ta.removeAttribute("data-drop");
+  });
+  view.addEventListener("drop", function (e) {
+    if (tab !== "import") return;
+    e.preventDefault();
+    var ta = document.getElementById("impText");
+    if (ta) ta.removeAttribute("data-drop");
+    var f = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0];
+    if (!f) return;
+    var fr = new FileReader();
+    fr.onload = function () { if (ta) ta.value = fr.result; importRead(fr.result); };
+    fr.readAsText(f);
+  });
+
   window.addEventListener("hashchange", route);
 
   // 置かれているファイルが差し替わったかを、たまに見に行く。
@@ -799,8 +1036,14 @@
   watchUpdates();
   setInterval(watchUpdates, 300000);        // 5分ごと
 
+  // 週表のときだけ枠を広げる
+  function syncWide() {
+    document.body.setAttribute("data-wide", tab === "dash" ? "true" : "false");
+  }
+
   renderLang();
   renderNav();
+  syncWide();
   document.getElementById("loading").textContent = t("loading");
 
   fetch("./posts.json", { cache: "no-cache" })

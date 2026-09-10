@@ -1,11 +1,13 @@
 {
   "channel": "hiyoko",
-  "month": "2026-09",
+  "months": [
+    "2026-09",
+    "2026-10"
+  ],
   "timezone": "Asia/Seoul",
-  "note": "HIYOKO 9月の投稿計画。材料（テキスト・画像）が揃うと準備完了になる。予約・投稿・一致確認は schedule.json を手で更新する（Xの投稿状態はサイトからは読めないため）。",
+  "note": "投稿計画。date は年月日、platform は媒体。実際に投稿する文面は Nobo Check を通したものを en に入れている。",
   "slots": [
     {
-      "day": 1,
       "time": "09:30",
       "type": "text",
       "label": "9月がきた",
@@ -27,10 +29,39 @@
         "at": "",
         "match": null,
         "note": ""
+      },
+      "date": "2026-09-01",
+      "platform": "X"
+    },
+    {
+      "date": "2026-09-01",
+      "time": "17:00",
+      "platform": "IG",
+      "type": "image",
+      "label": "everyone watching charts",
+      "text": {
+        "ja": "",
+        "en": "everyone watching charts 📉📈\n\nHIYOKO building the ecosystem 🐣⛏️\n\nmarket moves.\nbuilders build.\n\n#HIYOKO #HYK #Web3",
+        "ko": ""
+      },
+      "comment": "HIYOKO never stops building 👀🐣",
+      "asset": "",
+      "note": "",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
       }
     },
     {
-      "day": 1,
       "time": "17:00",
       "type": "text",
       "label": "HYKって何者？",
@@ -52,10 +83,11 @@
         "at": "",
         "match": null,
         "note": ""
-      }
+      },
+      "date": "2026-09-01",
+      "platform": "X"
     },
     {
-      "day": 1,
       "time": "reply",
       "type": "reply",
       "label": "Linktree案内",
@@ -77,10 +109,11 @@
         "at": "",
         "match": null,
         "note": ""
-      }
+      },
+      "date": "2026-09-01",
+      "platform": "X"
     },
     {
-      "day": 2,
       "time": "09:30",
       "type": "text",
       "label": "Happy Chick知ってる？",
@@ -102,10 +135,39 @@
         "at": "",
         "match": null,
         "note": ""
+      },
+      "date": "2026-09-02",
+      "platform": "X"
+    },
+    {
+      "date": "2026-09-02",
+      "time": "17:00",
+      "platform": "IG",
+      "type": "image",
+      "label": "what even is HYK? 🐣✨",
+      "text": {
+        "ja": "",
+        "en": "what even is HYK? 🐣✨\n\nnot just a cute token.\nit's the core token\nconnecting the entire HIYOKO ecosystem!\n\ngames. rewards. NFTs.\nand way more utility to come.\n\nHYK ties it all together 🪄\n\nlooks like a tiny chick world,\nbut HYK is out here working hard 😎",
+        "ko": ""
+      },
+      "comment": "want to know more?\nlink in bio 👆🐣",
+      "asset": "",
+      "note": "",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
       }
     },
     {
-      "day": 2,
       "time": "17:00",
       "type": "text",
       "label": "ゲームでポイント貯めたことある？",
@@ -127,10 +189,11 @@
         "at": "",
         "match": null,
         "note": ""
-      }
+      },
+      "date": "2026-09-02",
+      "platform": "X"
     },
     {
-      "day": 2,
       "time": "reply",
       "type": "reply",
       "label": "Linktree案内",
@@ -152,10 +215,11 @@
         "at": "",
         "match": null,
         "note": ""
-      }
+      },
+      "date": "2026-09-02",
+      "platform": "X"
     },
     {
-      "day": 3,
       "time": "09:30",
       "type": "image",
       "label": "健康チェックでHYK（H2E）",
@@ -178,10 +242,39 @@
         "at": "",
         "match": null,
         "note": ""
+      },
+      "date": "2026-09-03",
+      "platform": "X"
+    },
+    {
+      "date": "2026-09-03",
+      "time": "17:00",
+      "platform": "IG",
+      "type": "video",
+      "label": "誕生日（動画）",
+      "text": {
+        "ja": "",
+        "en": "tag your birthday friend! 🎉\n\nhappy birthday!\ntoday's main character is you~\ndid you make a wish?\n\n#HIYOKO #HYK #Birthday",
+        "ko": ""
+      },
+      "comment": "if it's your birthday drop a comment below!\ni got a gift for you 🎁",
+      "asset": "",
+      "note": "",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
       }
     },
     {
-      "day": 3,
       "time": "17:00",
       "type": "text",
       "label": "Vitalisって知ってる？",
@@ -203,10 +296,11 @@
         "at": "",
         "match": null,
         "note": ""
-      }
+      },
+      "date": "2026-09-03",
+      "platform": "X"
     },
     {
-      "day": 3,
       "time": "reply",
       "type": "reply",
       "label": "フック返信",
@@ -228,10 +322,11 @@
         "at": "",
         "match": null,
         "note": ""
-      }
+      },
+      "date": "2026-09-03",
+      "platform": "X"
     },
     {
-      "day": 4,
       "time": "09:30",
       "type": "image",
       "label": "空約束はしない",
@@ -254,10 +349,39 @@
         "at": "",
         "match": null,
         "note": ""
+      },
+      "date": "2026-09-04",
+      "platform": "X"
+    },
+    {
+      "date": "2026-09-04",
+      "time": "17:00",
+      "platform": "IG",
+      "type": "image",
+      "label": "kinda chic to still be e",
+      "text": {
+        "ja": "",
+        "en": "kinda chic to still be early 🐣😎\nwhile everyone's waiting for the next thing,\nyou already know about HIYOKO.\nafter-sale is live.\nseptember is still in time.\nkinda chic to be early. 🪄",
+        "ko": ""
+      },
+      "comment": "september after-sale link\nis in my profile 👆🐣",
+      "asset": "",
+      "note": "",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
       }
     },
     {
-      "day": 4,
       "time": "17:00",
       "type": "text",
       "label": "アフターセール進行中",
@@ -279,10 +403,11 @@
         "at": "",
         "match": null,
         "note": ""
-      }
+      },
+      "date": "2026-09-04",
+      "platform": "X"
     },
     {
-      "day": 4,
       "time": "reply",
       "type": "reply",
       "label": "フック返信",
@@ -304,10 +429,11 @@
         "at": "",
         "match": null,
         "note": ""
-      }
+      },
+      "date": "2026-09-04",
+      "platform": "X"
     },
     {
-      "day": 5,
       "time": "09:30",
       "type": "text",
       "label": "インドネシアに行く",
@@ -329,10 +455,39 @@
         "at": "",
         "match": null,
         "note": ""
+      },
+      "date": "2026-09-05",
+      "platform": "X"
+    },
+    {
+      "date": "2026-09-05",
+      "time": "17:00",
+      "platform": "IG",
+      "type": "image",
+      "label": "passport photo. check. 🐣",
+      "text": {
+        "ja": "",
+        "en": "passport photo. check. 🐣📸\n\nbig offline event coming to Indonesia\nthis September 🇮🇩\n\nwe're preparing something fun~\nstay tuned\n\n#HIYOKO #HYK #Indonesia #SoutheastAsia",
+        "ko": ""
+      },
+      "comment": "Indonesia is ready for HIYOKO 🇮🇩🐣",
+      "asset": "여권사진을 찍는 히요코",
+      "note": "",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
       }
     },
     {
-      "day": 5,
       "time": "17:00",
       "type": "text",
       "label": "ゼロから始めない",
@@ -354,10 +509,11 @@
         "at": "",
         "match": null,
         "note": ""
-      }
+      },
+      "date": "2026-09-05",
+      "platform": "X"
     },
     {
-      "day": 5,
       "time": "reply",
       "type": "reply",
       "label": "フック返信",
@@ -379,10 +535,11 @@
         "at": "",
         "match": null,
         "note": ""
-      }
+      },
+      "date": "2026-09-05",
+      "platform": "X"
     },
     {
-      "day": 6,
       "time": "09:30",
       "type": "text",
       "label": "【Week 1】今週のHIYOKO",
@@ -404,10 +561,39 @@
         "at": "",
         "match": null,
         "note": ""
+      },
+      "date": "2026-09-06",
+      "platform": "X"
+    },
+    {
+      "date": "2026-09-06",
+      "time": "17:00",
+      "platform": "IG",
+      "type": "video",
+      "label": "動画 suha",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "世界観エピソード（動画・suha）",
+      "note": "",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
       }
     },
     {
-      "day": 6,
       "time": "17:00",
       "type": "image",
       "label": "Coinstoreで取引できる",
@@ -430,10 +616,11 @@
         "at": "",
         "match": null,
         "note": ""
-      }
+      },
+      "date": "2026-09-06",
+      "platform": "X"
     },
     {
-      "day": 7,
       "time": "09:30",
       "type": "text",
       "label": "なんでトークンをゆっくり出すの？",
@@ -444,7 +631,7 @@
       },
       "asset": "",
       "note": "",
-      "scheduled": false,
+      "scheduled": true,
       "posted": false,
       "url": "",
       "need": [
@@ -455,10 +642,39 @@
         "at": "",
         "match": null,
         "note": ""
+      },
+      "date": "2026-09-07",
+      "platform": "X"
+    },
+    {
+      "date": "2026-09-07",
+      "time": "17:00",
+      "platform": "IG",
+      "type": "image",
+      "label": "Is Hiyoko's popularity f",
+      "text": {
+        "ja": "",
+        "en": "Is Hiyoko's popularity for real? 🐥👀\nDon't leave it for your future self.\nLet's go. Let's do this. 🚀",
+        "ko": ""
+      },
+      "comment": "👉 HYK After-Sale — Link in bio! 🚀",
+      "asset": "히요코 게시물 색상에 맞춰서",
+      "note": "",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
       }
     },
     {
-      "day": 7,
       "time": "17:00",
       "type": "text",
       "label": "HIYOKOの成長ステップ",
@@ -469,7 +685,7 @@
       },
       "asset": "",
       "note": "",
-      "scheduled": false,
+      "scheduled": true,
       "posted": false,
       "url": "",
       "need": [
@@ -480,10 +696,11 @@
         "at": "",
         "match": null,
         "note": ""
-      }
+      },
+      "date": "2026-09-07",
+      "platform": "X"
     },
     {
-      "day": 8,
       "time": "09:30",
       "type": "text",
       "label": "Burnって知ってる？",
@@ -494,7 +711,7 @@
       },
       "asset": "",
       "note": "",
-      "scheduled": false,
+      "scheduled": true,
       "posted": false,
       "url": "",
       "need": [
@@ -505,10 +722,39 @@
         "at": "",
         "match": null,
         "note": ""
+      },
+      "date": "2026-09-08",
+      "platform": "X"
+    },
+    {
+      "date": "2026-09-08",
+      "time": "17:00",
+      "platform": "IG",
+      "type": "video",
+      "label": "動画 서현",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "Instagram リール参照",
+      "note": "",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
       }
     },
     {
-      "day": 8,
       "time": "17:00",
       "type": "image",
       "label": "HIYOKOは今、進行中",
@@ -519,7 +765,7 @@
       },
       "asset": "GIF",
       "note": "",
-      "scheduled": false,
+      "scheduled": true,
       "posted": false,
       "url": "",
       "need": [
@@ -531,10 +777,11 @@
         "at": "",
         "match": null,
         "note": ""
-      }
+      },
+      "date": "2026-09-08",
+      "platform": "X"
     },
     {
-      "day": 9,
       "time": "09:30",
       "type": "text",
       "label": "",
@@ -556,10 +803,39 @@
         "at": "",
         "match": null,
         "note": ""
+      },
+      "date": "2026-09-09",
+      "platform": "X"
+    },
+    {
+      "date": "2026-09-09",
+      "time": "17:00",
+      "platform": "IG",
+      "type": "image",
+      "label": "why do memes go viral? 🐣",
+      "text": {
+        "ja": "",
+        "en": "why do memes go viral? 🐣\n\neasy. fast. fun together.\n\na small joke becomes a community.\na community becomes a culture.\n\nbut HIYOKO doesn't stop at cute~\n\n🎮 Happy Chick\n❤️ Vitalis\n💎 NFTs\n🪙 HYK\n\nstarted like a meme.\ngrowing into an ecosystem. 🪄\n\n#HIYOKO #HYK #Web3 #Meme",
+        "ko": ""
+      },
+      "comment": "small chick, bigger plans 🐣✨",
+      "asset": "ポスター形式",
+      "note": "",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
       }
     },
     {
-      "day": 9,
       "time": "17:00",
       "type": "text",
       "label": "",
@@ -570,7 +846,7 @@
       },
       "asset": "",
       "note": "",
-      "scheduled": false,
+      "scheduled": true,
       "posted": false,
       "url": "",
       "need": [
@@ -581,10 +857,11 @@
         "at": "",
         "match": null,
         "note": ""
-      }
+      },
+      "date": "2026-09-09",
+      "platform": "X"
     },
     {
-      "day": 10,
       "time": "09:30",
       "type": "text",
       "label": "",
@@ -606,10 +883,39 @@
         "at": "",
         "match": null,
         "note": ""
+      },
+      "date": "2026-09-10",
+      "platform": "X"
+    },
+    {
+      "date": "2026-09-10",
+      "time": "17:00",
+      "platform": "IG",
+      "type": "image",
+      "label": "everyone sees it when it",
+      "text": {
+        "ja": "",
+        "en": "everyone sees it when it gets loud.\n\nreal ones see it\nbefore the crowd arrives~ 🐣👀\n\n#HIYOKO #HYK #Web3 #Meme",
+        "ko": ""
+      },
+      "comment": "check the link for the presale page and exchange details~ 🐣",
+      "asset": "上昇する株式チャートの画像",
+      "note": "",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
       }
     },
     {
-      "day": 10,
       "time": "17:00",
       "type": "text",
       "label": "",
@@ -631,10 +937,11 @@
         "at": "",
         "match": null,
         "note": ""
-      }
+      },
+      "date": "2026-09-10",
+      "platform": "X"
     },
     {
-      "day": 11,
       "time": "09:30",
       "type": "text",
       "label": "",
@@ -656,10 +963,39 @@
         "at": "",
         "match": null,
         "note": ""
+      },
+      "date": "2026-09-11",
+      "platform": "X"
+    },
+    {
+      "date": "2026-09-11",
+      "time": "17:00",
+      "platform": "IG",
+      "type": "image",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "코인스토어 거래소 이미지 참고",
+      "note": "",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
       }
     },
     {
-      "day": 11,
       "time": "17:00",
       "type": "text",
       "label": "",
@@ -681,10 +1017,11 @@
         "at": "",
         "match": null,
         "note": ""
-      }
+      },
+      "date": "2026-09-11",
+      "platform": "X"
     },
     {
-      "day": 12,
       "time": "09:30",
       "type": "image",
       "label": "Coinstoreとは",
@@ -707,10 +1044,39 @@
         "at": "",
         "match": null,
         "note": ""
+      },
+      "date": "2026-09-12",
+      "platform": "X"
+    },
+    {
+      "date": "2026-09-12",
+      "time": "17:00",
+      "platform": "IG",
+      "type": "image",
+      "label": "Monday… already sleepy 😴",
+      "text": {
+        "ja": "",
+        "en": "Monday… already sleepy 😴\nanother week. another grind.\nhang in there, hooman~\nand don't forget to take care of yourself 💛\nhealth check = Vitalis 👀🐣\n\n#HIYOKO #Vitalis #Monday #H2E",
+        "ko": ""
+      },
+      "comment": "monday hits different 😴🐣\nbut we keep going~",
+      "asset": "Vitalis機器を机に見せる",
+      "note": "",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
       }
     },
     {
-      "day": 12,
       "time": "17:00",
       "type": "text",
       "label": "",
@@ -732,10 +1098,11 @@
         "at": "",
         "match": null,
         "note": ""
-      }
+      },
+      "date": "2026-09-12",
+      "platform": "X"
     },
     {
-      "day": 13,
       "time": "09:30",
       "type": "text",
       "label": "インドネシアまであと12日",
@@ -757,10 +1124,11 @@
         "at": "",
         "match": null,
         "note": ""
-      }
+      },
+      "date": "2026-09-13",
+      "platform": "X"
     },
     {
-      "day": 13,
       "time": "17:00",
       "type": "text",
       "label": "流動性の管理",
@@ -782,10 +1150,11 @@
         "at": "",
         "match": null,
         "note": ""
-      }
+      },
+      "date": "2026-09-13",
+      "platform": "X"
     },
     {
-      "day": 14,
       "time": "09:30",
       "type": "text",
       "label": "",
@@ -807,10 +1176,39 @@
         "at": "",
         "match": null,
         "note": ""
+      },
+      "date": "2026-09-14",
+      "platform": "X"
+    },
+    {
+      "date": "2026-09-14",
+      "time": "17:00",
+      "platform": "IG",
+      "type": "video",
+      "label": "動画 서현",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "動画 서현",
+      "note": "",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
       }
     },
     {
-      "day": 14,
       "time": "17:00",
       "type": "text",
       "label": "",
@@ -832,10 +1230,11 @@
         "at": "",
         "match": null,
         "note": ""
-      }
+      },
+      "date": "2026-09-14",
+      "platform": "X"
     },
     {
-      "day": 15,
       "time": "09:30",
       "type": "text",
       "label": "",
@@ -857,10 +1256,11 @@
         "at": "",
         "match": null,
         "note": ""
-      }
+      },
+      "date": "2026-09-15",
+      "platform": "X"
     },
     {
-      "day": 15,
       "time": "17:00",
       "type": "text",
       "label": "",
@@ -882,10 +1282,11 @@
         "at": "",
         "match": null,
         "note": ""
-      }
+      },
+      "date": "2026-09-15",
+      "platform": "X"
     },
     {
-      "day": 16,
       "time": "09:30",
       "type": "text",
       "label": "",
@@ -907,10 +1308,11 @@
         "at": "",
         "match": null,
         "note": ""
-      }
+      },
+      "date": "2026-09-16",
+      "platform": "X"
     },
     {
-      "day": 16,
       "time": "17:00",
       "type": "text",
       "label": "",
@@ -932,10 +1334,11 @@
         "at": "",
         "match": null,
         "note": ""
-      }
+      },
+      "date": "2026-09-16",
+      "platform": "X"
     },
     {
-      "day": 17,
       "time": "09:30",
       "type": "text",
       "label": "",
@@ -957,10 +1360,39 @@
         "at": "",
         "match": null,
         "note": ""
+      },
+      "date": "2026-09-17",
+      "platform": "X"
+    },
+    {
+      "date": "2026-09-17",
+      "time": "17:00",
+      "platform": "IG",
+      "type": "video",
+      "label": "動画 hyejeong",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "動画 hyejeong",
+      "note": "",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
       }
     },
     {
-      "day": 17,
       "time": "17:00",
       "type": "text",
       "label": "",
@@ -982,10 +1414,11 @@
         "at": "",
         "match": null,
         "note": ""
-      }
+      },
+      "date": "2026-09-17",
+      "platform": "X"
     },
     {
-      "day": 18,
       "time": "09:30",
       "type": "text",
       "label": "",
@@ -1007,10 +1440,11 @@
         "at": "",
         "match": null,
         "note": ""
-      }
+      },
+      "date": "2026-09-18",
+      "platform": "X"
     },
     {
-      "day": 18,
       "time": "17:00",
       "type": "text",
       "label": "",
@@ -1032,10 +1466,11 @@
         "at": "",
         "match": null,
         "note": ""
-      }
+      },
+      "date": "2026-09-18",
+      "platform": "X"
     },
     {
-      "day": 19,
       "time": "09:30",
       "type": "text",
       "label": "",
@@ -1057,10 +1492,11 @@
         "at": "",
         "match": null,
         "note": ""
-      }
+      },
+      "date": "2026-09-19",
+      "platform": "X"
     },
     {
-      "day": 19,
       "time": "17:00",
       "type": "text",
       "label": "",
@@ -1082,10 +1518,11 @@
         "at": "",
         "match": null,
         "note": ""
-      }
+      },
+      "date": "2026-09-19",
+      "platform": "X"
     },
     {
-      "day": 20,
       "time": "09:30",
       "type": "text",
       "label": "",
@@ -1107,10 +1544,11 @@
         "at": "",
         "match": null,
         "note": ""
-      }
+      },
+      "date": "2026-09-20",
+      "platform": "X"
     },
     {
-      "day": 20,
       "time": "17:00",
       "type": "text",
       "label": "",
@@ -1132,10 +1570,11 @@
         "at": "",
         "match": null,
         "note": ""
-      }
+      },
+      "date": "2026-09-20",
+      "platform": "X"
     },
     {
-      "day": 21,
       "time": "09:30",
       "type": "text",
       "label": "",
@@ -1157,10 +1596,39 @@
         "at": "",
         "match": null,
         "note": ""
+      },
+      "date": "2026-09-21",
+      "platform": "X"
+    },
+    {
+      "date": "2026-09-21",
+      "time": "17:00",
+      "platform": "IG",
+      "type": "video",
+      "label": "動画 SUHA",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "動画 SUHA",
+      "note": "",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
       }
     },
     {
-      "day": 21,
       "time": "17:00",
       "type": "text",
       "label": "",
@@ -1182,10 +1650,11 @@
         "at": "",
         "match": null,
         "note": ""
-      }
+      },
+      "date": "2026-09-21",
+      "platform": "X"
     },
     {
-      "day": 22,
       "time": "09:30",
       "type": "text",
       "label": "",
@@ -1207,10 +1676,11 @@
         "at": "",
         "match": null,
         "note": ""
-      }
+      },
+      "date": "2026-09-22",
+      "platform": "X"
     },
     {
-      "day": 22,
       "time": "17:00",
       "type": "text",
       "label": "",
@@ -1232,10 +1702,11 @@
         "at": "",
         "match": null,
         "note": ""
-      }
+      },
+      "date": "2026-09-22",
+      "platform": "X"
     },
     {
-      "day": 23,
       "time": "09:30",
       "type": "text",
       "label": "",
@@ -1257,10 +1728,11 @@
         "at": "",
         "match": null,
         "note": ""
-      }
+      },
+      "date": "2026-09-23",
+      "platform": "X"
     },
     {
-      "day": 23,
       "time": "17:00",
       "type": "text",
       "label": "",
@@ -1282,10 +1754,11 @@
         "at": "",
         "match": null,
         "note": ""
-      }
+      },
+      "date": "2026-09-23",
+      "platform": "X"
     },
     {
-      "day": 24,
       "time": "09:30",
       "type": "text",
       "label": "",
@@ -1307,10 +1780,39 @@
         "at": "",
         "match": null,
         "note": ""
+      },
+      "date": "2026-09-24",
+      "platform": "X"
+    },
+    {
+      "date": "2026-09-24",
+      "time": "17:00",
+      "platform": "IG",
+      "type": "video",
+      "label": "動画 Seohyun",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "動画 Seohyun",
+      "note": "",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
       }
     },
     {
-      "day": 24,
       "time": "17:00",
       "type": "text",
       "label": "",
@@ -1332,10 +1834,11 @@
         "at": "",
         "match": null,
         "note": ""
-      }
+      },
+      "date": "2026-09-24",
+      "platform": "X"
     },
     {
-      "day": 25,
       "time": "09:30",
       "type": "text",
       "label": "",
@@ -1357,10 +1860,11 @@
         "at": "",
         "match": null,
         "note": ""
-      }
+      },
+      "date": "2026-09-25",
+      "platform": "X"
     },
     {
-      "day": 25,
       "time": "17:00",
       "type": "text",
       "label": "",
@@ -1382,10 +1886,11 @@
         "at": "",
         "match": null,
         "note": ""
-      }
+      },
+      "date": "2026-09-25",
+      "platform": "X"
     },
     {
-      "day": 26,
       "time": "09:30",
       "type": "text",
       "label": "",
@@ -1407,10 +1912,11 @@
         "at": "",
         "match": null,
         "note": ""
-      }
+      },
+      "date": "2026-09-26",
+      "platform": "X"
     },
     {
-      "day": 26,
       "time": "17:00",
       "type": "text",
       "label": "",
@@ -1432,10 +1938,11 @@
         "at": "",
         "match": null,
         "note": ""
-      }
+      },
+      "date": "2026-09-26",
+      "platform": "X"
     },
     {
-      "day": 27,
       "time": "09:30",
       "type": "text",
       "label": "",
@@ -1457,10 +1964,39 @@
         "at": "",
         "match": null,
         "note": ""
+      },
+      "date": "2026-09-27",
+      "platform": "X"
+    },
+    {
+      "date": "2026-09-27",
+      "time": "17:00",
+      "platform": "IG",
+      "type": "video",
+      "label": "動画 서현",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "動画 서현",
+      "note": "",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
       }
     },
     {
-      "day": 27,
       "time": "17:00",
       "type": "text",
       "label": "",
@@ -1482,10 +2018,11 @@
         "at": "",
         "match": null,
         "note": ""
-      }
+      },
+      "date": "2026-09-27",
+      "platform": "X"
     },
     {
-      "day": 28,
       "time": "09:30",
       "type": "text",
       "label": "",
@@ -1507,10 +2044,11 @@
         "at": "",
         "match": null,
         "note": ""
-      }
+      },
+      "date": "2026-09-28",
+      "platform": "X"
     },
     {
-      "day": 28,
       "time": "17:00",
       "type": "text",
       "label": "",
@@ -1532,10 +2070,11 @@
         "at": "",
         "match": null,
         "note": ""
-      }
+      },
+      "date": "2026-09-28",
+      "platform": "X"
     },
     {
-      "day": 29,
       "time": "09:30",
       "type": "text",
       "label": "",
@@ -1557,10 +2096,11 @@
         "at": "",
         "match": null,
         "note": ""
-      }
+      },
+      "date": "2026-09-29",
+      "platform": "X"
     },
     {
-      "day": 29,
       "time": "17:00",
       "type": "text",
       "label": "",
@@ -1582,10 +2122,11 @@
         "at": "",
         "match": null,
         "note": ""
-      }
+      },
+      "date": "2026-09-29",
+      "platform": "X"
     },
     {
-      "day": 30,
       "time": "09:30",
       "type": "text",
       "label": "",
@@ -1607,10 +2148,39 @@
         "at": "",
         "match": null,
         "note": ""
+      },
+      "date": "2026-09-30",
+      "platform": "X"
+    },
+    {
+      "date": "2026-09-30",
+      "time": "17:00",
+      "platform": "IG",
+      "type": "video",
+      "label": "動画 SUHA",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "動画 SUHA",
+      "note": "",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
       }
     },
     {
-      "day": 30,
       "time": "17:00",
       "type": "text",
       "label": "",
@@ -1632,10 +2202,11 @@
         "at": "",
         "match": null,
         "note": ""
-      }
+      },
+      "date": "2026-09-30",
+      "platform": "X"
     },
     {
-      "day": 31,
       "time": "09:30",
       "type": "text",
       "label": "",
@@ -1657,10 +2228,11 @@
         "at": "",
         "match": null,
         "note": ""
-      }
+      },
+      "date": "2026-09-31",
+      "platform": "X"
     },
     {
-      "day": 31,
       "time": "17:00",
       "type": "text",
       "label": "",
@@ -1682,7 +2254,1621 @@
         "at": "",
         "match": null,
         "note": ""
-      }
+      },
+      "date": "2026-09-31",
+      "platform": "X"
+    },
+    {
+      "date": "2026-10-01",
+      "time": "09:30",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "platform": "X"
+    },
+    {
+      "date": "2026-10-01",
+      "time": "17:00",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "platform": "X"
+    },
+    {
+      "date": "2026-10-02",
+      "time": "09:30",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "platform": "X"
+    },
+    {
+      "date": "2026-10-02",
+      "time": "17:00",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "platform": "X"
+    },
+    {
+      "date": "2026-10-03",
+      "time": "09:30",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "platform": "X"
+    },
+    {
+      "date": "2026-10-03",
+      "time": "17:00",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "platform": "X"
+    },
+    {
+      "date": "2026-10-04",
+      "time": "09:30",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "platform": "X"
+    },
+    {
+      "date": "2026-10-04",
+      "time": "17:00",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "platform": "X"
+    },
+    {
+      "date": "2026-10-05",
+      "time": "09:30",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "platform": "X"
+    },
+    {
+      "date": "2026-10-05",
+      "time": "17:00",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "platform": "X"
+    },
+    {
+      "date": "2026-10-06",
+      "time": "09:30",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "platform": "X"
+    },
+    {
+      "date": "2026-10-06",
+      "time": "17:00",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "platform": "X"
+    },
+    {
+      "date": "2026-10-07",
+      "time": "09:30",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "platform": "X"
+    },
+    {
+      "date": "2026-10-07",
+      "time": "17:00",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "platform": "X"
+    },
+    {
+      "date": "2026-10-08",
+      "time": "09:30",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "platform": "X"
+    },
+    {
+      "date": "2026-10-08",
+      "time": "17:00",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "platform": "X"
+    },
+    {
+      "date": "2026-10-09",
+      "time": "09:30",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "platform": "X"
+    },
+    {
+      "date": "2026-10-09",
+      "time": "17:00",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "platform": "X"
+    },
+    {
+      "date": "2026-10-10",
+      "time": "09:30",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "platform": "X"
+    },
+    {
+      "date": "2026-10-10",
+      "time": "17:00",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "platform": "X"
+    },
+    {
+      "date": "2026-10-11",
+      "time": "09:30",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "platform": "X"
+    },
+    {
+      "date": "2026-10-11",
+      "time": "17:00",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "platform": "X"
+    },
+    {
+      "date": "2026-10-12",
+      "time": "09:30",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "platform": "X"
+    },
+    {
+      "date": "2026-10-12",
+      "time": "17:00",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "platform": "X"
+    },
+    {
+      "date": "2026-10-13",
+      "time": "09:30",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "platform": "X"
+    },
+    {
+      "date": "2026-10-13",
+      "time": "17:00",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "platform": "X"
+    },
+    {
+      "date": "2026-10-14",
+      "time": "09:30",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "platform": "X"
+    },
+    {
+      "date": "2026-10-14",
+      "time": "17:00",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "platform": "X"
+    },
+    {
+      "date": "2026-10-15",
+      "time": "09:30",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "platform": "X"
+    },
+    {
+      "date": "2026-10-15",
+      "time": "17:00",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "platform": "X"
+    },
+    {
+      "date": "2026-10-16",
+      "time": "09:30",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "platform": "X"
+    },
+    {
+      "date": "2026-10-16",
+      "time": "17:00",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "platform": "X"
+    },
+    {
+      "date": "2026-10-17",
+      "time": "09:30",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "platform": "X"
+    },
+    {
+      "date": "2026-10-17",
+      "time": "17:00",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "platform": "X"
+    },
+    {
+      "date": "2026-10-18",
+      "time": "09:30",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "platform": "X"
+    },
+    {
+      "date": "2026-10-18",
+      "time": "17:00",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "platform": "X"
+    },
+    {
+      "date": "2026-10-19",
+      "time": "09:30",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "platform": "X"
+    },
+    {
+      "date": "2026-10-19",
+      "time": "17:00",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "platform": "X"
+    },
+    {
+      "date": "2026-10-20",
+      "time": "09:30",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "platform": "X"
+    },
+    {
+      "date": "2026-10-20",
+      "time": "17:00",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "platform": "X"
+    },
+    {
+      "date": "2026-10-21",
+      "time": "09:30",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "platform": "X"
+    },
+    {
+      "date": "2026-10-21",
+      "time": "17:00",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "platform": "X"
+    },
+    {
+      "date": "2026-10-22",
+      "time": "09:30",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "platform": "X"
+    },
+    {
+      "date": "2026-10-22",
+      "time": "17:00",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "platform": "X"
+    },
+    {
+      "date": "2026-10-23",
+      "time": "09:30",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "platform": "X"
+    },
+    {
+      "date": "2026-10-23",
+      "time": "17:00",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "platform": "X"
+    },
+    {
+      "date": "2026-10-24",
+      "time": "09:30",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "platform": "X"
+    },
+    {
+      "date": "2026-10-24",
+      "time": "17:00",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "platform": "X"
+    },
+    {
+      "date": "2026-10-25",
+      "time": "09:30",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "platform": "X"
+    },
+    {
+      "date": "2026-10-25",
+      "time": "17:00",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "platform": "X"
+    },
+    {
+      "date": "2026-10-26",
+      "time": "09:30",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "platform": "X"
+    },
+    {
+      "date": "2026-10-26",
+      "time": "17:00",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "platform": "X"
+    },
+    {
+      "date": "2026-10-27",
+      "time": "09:30",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "platform": "X"
+    },
+    {
+      "date": "2026-10-27",
+      "time": "17:00",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "platform": "X"
+    },
+    {
+      "date": "2026-10-28",
+      "time": "09:30",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "platform": "X"
+    },
+    {
+      "date": "2026-10-28",
+      "time": "17:00",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "platform": "X"
+    },
+    {
+      "date": "2026-10-29",
+      "time": "09:30",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "platform": "X"
+    },
+    {
+      "date": "2026-10-29",
+      "time": "17:00",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "platform": "X"
+    },
+    {
+      "date": "2026-10-30",
+      "time": "09:30",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "platform": "X"
+    },
+    {
+      "date": "2026-10-30",
+      "time": "17:00",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "platform": "X"
+    },
+    {
+      "date": "2026-10-31",
+      "time": "09:30",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "platform": "X"
+    },
+    {
+      "date": "2026-10-31",
+      "time": "17:00",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "platform": "X"
     }
   ]
 }

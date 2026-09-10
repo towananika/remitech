@@ -26,14 +26,15 @@
         {
           "time": "17:00",
           "platform": "X",
-          "label": "夕"
+          "label": "スレッド"
         },
         {
           "time": "17:00",
           "platform": "IG",
           "label": "フィード"
         }
-      ]
+      ],
+      "color": "#c9a227"
     },
     {
       "id": "nacha",
@@ -55,17 +56,17 @@
         {
           "time": "10:30",
           "platform": "X",
-          "label": "ことば"
+          "label": "長文"
         },
         {
           "time": "14:00",
           "platform": "X",
-          "label": "長文"
+          "label": "ことば"
         },
         {
           "time": "20:00",
           "platform": "X",
-          "label": "本フィード"
+          "label": "スレッド"
         },
         {
           "time": "20:00",
@@ -82,7 +83,8 @@
           "platform": "IG",
           "label": "動画"
         }
-      ]
+      ],
+      "color": "#7a8fb8"
     },
     {
       "id": "yuyu",
@@ -95,7 +97,8 @@
           "url": "https://x.com/yuyukannondo"
         }
       ],
-      "postTimes": []
+      "postTimes": [],
+      "color": "#8f9e7a"
     },
     {
       "id": "reel",
@@ -108,7 +111,8 @@
           "url": "https://x.com/REEL_Experience"
         }
       ],
-      "postTimes": []
+      "postTimes": [],
+      "color": "#b08968"
     }
   ],
   "posts": [
