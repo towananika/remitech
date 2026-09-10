@@ -37,6 +37,35 @@
     {
       "date": "2026-09-01",
       "time": "17:00",
+      "platform": "FB",
+      "type": "image",
+      "label": "everyone watching charts",
+      "text": {
+        "ja": "",
+        "en": "everyone watching charts 📉📈\n\nHIYOKO building the ecosystem 🐣⛏️\n\nmarket moves.\nbuilders build.\n\n#HIYOKO #HYK #Web3",
+        "ko": ""
+      },
+      "comment": "HIYOKO never stops building 👀🐣",
+      "asset": "",
+      "note": "",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "owner": ""
+    },
+    {
+      "date": "2026-09-01",
+      "time": "17:00",
       "platform": "IG",
       "type": "image",
       "label": "everyone watching charts",
@@ -142,6 +171,35 @@
       },
       "date": "2026-09-02",
       "platform": "X",
+      "owner": ""
+    },
+    {
+      "date": "2026-09-02",
+      "time": "17:00",
+      "platform": "FB",
+      "type": "image",
+      "label": "what even is HYK? 🐣✨",
+      "text": {
+        "ja": "",
+        "en": "what even is HYK? 🐣✨\n\nnot just a cute token.\nit's the core token\nconnecting the entire HIYOKO ecosystem!\n\ngames. rewards. NFTs.\nand way more utility to come.\n\nHYK ties it all together 🪄\n\nlooks like a tiny chick world,\nbut HYK is out here working hard 😎",
+        "ko": ""
+      },
+      "comment": "want to know more?\nlink in bio 👆🐣",
+      "asset": "",
+      "note": "",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
       "owner": ""
     },
     {
@@ -258,6 +316,35 @@
     {
       "date": "2026-09-03",
       "time": "17:00",
+      "platform": "FB",
+      "type": "video",
+      "label": "誕生日（動画）",
+      "text": {
+        "ja": "",
+        "en": "tag your birthday friend! 🎉\n\nhappy birthday!\ntoday's main character is you~\ndid you make a wish?\n\n#HIYOKO #HYK #Birthday",
+        "ko": ""
+      },
+      "comment": "if it's your birthday drop a comment below!\ni got a gift for you 🎁",
+      "asset": "",
+      "note": "",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "owner": ""
+    },
+    {
+      "date": "2026-09-03",
+      "time": "17:00",
       "platform": "IG",
       "type": "video",
       "label": "誕生日（動画）",
@@ -364,6 +451,35 @@
       },
       "date": "2026-09-04",
       "platform": "X",
+      "owner": ""
+    },
+    {
+      "date": "2026-09-04",
+      "time": "17:00",
+      "platform": "FB",
+      "type": "image",
+      "label": "kinda chic to still be e",
+      "text": {
+        "ja": "",
+        "en": "kinda chic to still be early 🐣😎\nwhile everyone's waiting for the next thing,\nyou already know about HIYOKO.\nafter-sale is live.\nseptember is still in time.\nkinda chic to be early. 🪄",
+        "ko": ""
+      },
+      "comment": "september after-sale link\nis in my profile 👆🐣",
+      "asset": "",
+      "note": "",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
       "owner": ""
     },
     {
@@ -479,6 +595,35 @@
     {
       "date": "2026-09-05",
       "time": "17:00",
+      "platform": "FB",
+      "type": "image",
+      "label": "passport photo. check. 🐣",
+      "text": {
+        "ja": "",
+        "en": "passport photo. check. 🐣📸\n\nbig offline event coming to Indonesia\nthis September 🇮🇩\n\nwe're preparing something fun~\nstay tuned\n\n#HIYOKO #HYK #Indonesia #SoutheastAsia",
+        "ko": ""
+      },
+      "comment": "Indonesia is ready for HIYOKO 🇮🇩🐣",
+      "asset": "여권사진을 찍는 히요코",
+      "note": "",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "owner": ""
+    },
+    {
+      "date": "2026-09-05",
+      "time": "17:00",
       "platform": "IG",
       "type": "image",
       "label": "passport photo. check. 🐣",
@@ -589,6 +734,35 @@
     {
       "date": "2026-09-06",
       "time": "17:00",
+      "platform": "FB",
+      "type": "video",
+      "label": "動画 suha",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "世界観エピソード（動画・suha）",
+      "note": "",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "owner": ""
+    },
+    {
+      "date": "2026-09-06",
+      "time": "17:00",
       "platform": "IG",
       "type": "video",
       "label": "動画 suha",
@@ -668,6 +842,35 @@
       },
       "date": "2026-09-07",
       "platform": "X",
+      "owner": ""
+    },
+    {
+      "date": "2026-09-07",
+      "time": "17:00",
+      "platform": "FB",
+      "type": "image",
+      "label": "Is Hiyoko's popularity f",
+      "text": {
+        "ja": "",
+        "en": "Is Hiyoko's popularity for real? 🐥👀\nDon't leave it for your future self.\nLet's go. Let's do this. 🚀",
+        "ko": ""
+      },
+      "comment": "👉 HYK After-Sale — Link in bio! 🚀",
+      "asset": "히요코 게시물 색상에 맞춰서",
+      "note": "",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
       "owner": ""
     },
     {
@@ -756,6 +959,35 @@
     {
       "date": "2026-09-08",
       "time": "17:00",
+      "platform": "FB",
+      "type": "video",
+      "label": "動画 서현",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "Instagram リール参照",
+      "note": "",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "owner": ""
+    },
+    {
+      "date": "2026-09-08",
+      "time": "17:00",
       "platform": "IG",
       "type": "video",
       "label": "動画 서현",
@@ -835,6 +1067,35 @@
       },
       "date": "2026-09-09",
       "platform": "X",
+      "owner": ""
+    },
+    {
+      "date": "2026-09-09",
+      "time": "17:00",
+      "platform": "FB",
+      "type": "image",
+      "label": "why do memes go viral? 🐣",
+      "text": {
+        "ja": "",
+        "en": "why do memes go viral? 🐣\n\neasy. fast. fun together.\n\na small joke becomes a community.\na community becomes a culture.\n\nbut HIYOKO doesn't stop at cute~\n\n🎮 Happy Chick\n❤️ Vitalis\n💎 NFTs\n🪙 HYK\n\nstarted like a meme.\ngrowing into an ecosystem. 🪄\n\n#HIYOKO #HYK #Web3 #Meme",
+        "ko": ""
+      },
+      "comment": "small chick, bigger plans 🐣✨",
+      "asset": "ポスター形式",
+      "note": "",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
       "owner": ""
     },
     {
@@ -1040,6 +1301,36 @@
     {
       "date": "2026-09-10",
       "channel": "hiyoko",
+      "platform": "FB",
+      "time": "17:00",
+      "label": "",
+      "owner": "SuHa",
+      "type": "video",
+      "text": {
+        "ja": "",
+        "en": "besties… where did you go 🥺🐣\n\nfollow @HiyokoGlobal so i can be happier~\nbe my friend 🐣💛\n\n#HIYOKO #HYK #fyp",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-10",
+      "channel": "hiyoko",
       "platform": "IG",
       "time": "17:00",
       "label": "",
@@ -1120,6 +1411,35 @@
       },
       "date": "2026-09-11",
       "platform": "X",
+      "owner": ""
+    },
+    {
+      "date": "2026-09-11",
+      "time": "17:00",
+      "platform": "FB",
+      "type": "image",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "코인스토어 거래소 이미지 참고",
+      "note": "",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
       "owner": ""
     },
     {
@@ -1209,6 +1529,35 @@
     {
       "date": "2026-09-12",
       "time": "17:00",
+      "platform": "FB",
+      "type": "image",
+      "label": "Monday… already sleepy 😴",
+      "text": {
+        "ja": "",
+        "en": "Monday… already sleepy 😴\nanother week. another grind.\nhang in there, hooman~\nand don't forget to take care of yourself 💛\nhealth check = Vitalis 👀🐣\n\n#HIYOKO #Vitalis #Monday #H2E",
+        "ko": ""
+      },
+      "comment": "monday hits different 😴🐣\nbut we keep going~",
+      "asset": "Vitalis機器を机に見せる",
+      "note": "",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "owner": ""
+    },
+    {
+      "date": "2026-09-12",
+      "time": "17:00",
       "platform": "IG",
       "type": "image",
       "label": "Monday… already sleepy 😴",
@@ -1292,6 +1641,35 @@
     {
       "date": "2026-09-13",
       "time": "17:00",
+      "platform": "FB",
+      "type": "video",
+      "label": "動画 혜정",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "動画 혜정",
+      "note": "",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "owner": ""
+    },
+    {
+      "date": "2026-09-13",
+      "time": "17:00",
       "platform": "IG",
       "type": "video",
       "label": "動画 혜정",
@@ -1370,6 +1748,35 @@
       },
       "date": "2026-09-14",
       "platform": "X",
+      "owner": ""
+    },
+    {
+      "date": "2026-09-14",
+      "time": "17:00",
+      "platform": "FB",
+      "type": "video",
+      "label": "動画 서현",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "動画 서현",
+      "note": "",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
       "owner": ""
     },
     {
@@ -1561,6 +1968,35 @@
       },
       "date": "2026-09-17",
       "platform": "X",
+      "owner": ""
+    },
+    {
+      "date": "2026-09-17",
+      "time": "17:00",
+      "platform": "FB",
+      "type": "video",
+      "label": "動画 hyejeong",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "動画 hyejeong",
+      "note": "",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
       "owner": ""
     },
     {
@@ -1811,6 +2247,35 @@
     {
       "date": "2026-09-21",
       "time": "17:00",
+      "platform": "FB",
+      "type": "video",
+      "label": "動画 SUHA",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "動画 SUHA",
+      "note": "",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "owner": ""
+    },
+    {
+      "date": "2026-09-21",
+      "time": "17:00",
       "platform": "IG",
       "type": "video",
       "label": "動画 SUHA",
@@ -1997,6 +2462,35 @@
       },
       "date": "2026-09-24",
       "platform": "X",
+      "owner": ""
+    },
+    {
+      "date": "2026-09-24",
+      "time": "17:00",
+      "platform": "FB",
+      "type": "video",
+      "label": "動画 Seohyun",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "動画 Seohyun",
+      "note": "",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
       "owner": ""
     },
     {
@@ -2193,6 +2687,35 @@
     {
       "date": "2026-09-27",
       "time": "17:00",
+      "platform": "FB",
+      "type": "video",
+      "label": "動画 서현",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "動画 서현",
+      "note": "",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "owner": ""
+    },
+    {
+      "date": "2026-09-27",
+      "time": "17:00",
       "platform": "IG",
       "type": "video",
       "label": "動画 서현",
@@ -2379,6 +2902,35 @@
       },
       "date": "2026-09-30",
       "platform": "X",
+      "owner": ""
+    },
+    {
+      "date": "2026-09-30",
+      "time": "17:00",
+      "platform": "FB",
+      "type": "video",
+      "label": "動画 SUHA",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "動画 SUHA",
+      "note": "",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
       "owner": ""
     },
     {
