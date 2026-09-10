@@ -1,8 +1,0 @@
-name = "remitech-media"
-main = "upload-worker.js"
-compatibility_date = "2026-09-01"
-
-# 画像・動画の置き場。R2 のバケットをここに結ぶ
-[[r2_buckets]]
-binding = "MEDIA"
-bucket_name = "remitech-media"

@@ -566,7 +566,7 @@
           followers:"Followers", following:"Following", measuredOn:"Measured", noKpi:"No numbers yet.",
           allBooked:"All booked", leftToDo:"left", nothingToday:"Nothing scheduled",
           markSched:"Booked ahead", markPosted:"Posted", markVerified:"Verified", needUrl:"Paste the link first", addFile:"Add image / video", localOnly:"On this device only", onServer:"Shared",
-          storeTitle:"Media store", storeUrl:"Worker address", storeTok:"Upload token", storeSave:"Save",
+          storeTitle:"Media store (GitHub)", storeUrl:"owner/repo", storeTok:"Access token", storeSave:"Save",
           storeOk:"Connected", storeNo:"Could not connect", sure:"Delete?", noImg:"No image needed", pickOne:"Random", linkPh:"Paste the link of the post", open:"Open",
           copy:"Copy", copied:"Copied", copyEn:"EN", noText:"No text yet", comment:"Comment",
           visual:"Visual", today:"Today", tomorrow:"Tomorrow", prepEmpty:"Nothing coming up.",
@@ -591,7 +591,7 @@
           followers:"팔로워", following:"팔로잉", measuredOn:"측정일", noKpi:"아직 숫자가 없어.",
           allBooked:"모두 예약됨", leftToDo:"남음", nothingToday:"예정 없음",
           markSched:"예약 완료", markPosted:"게시 완료", markVerified:"확인 완료", needUrl:"먼저 링크를 붙여넣어", addFile:"이미지 / 영상 추가", localOnly:"이 기기에만", onServer:"공유됨",
-          storeTitle:"미디어 저장소", storeUrl:"Worker 주소", storeTok:"업로드 토큰", storeSave:"저장",
+          storeTitle:"미디어 저장소 (GitHub)", storeUrl:"owner/repo", storeTok:"액세스 토큰", storeSave:"저장",
           storeOk:"연결됨", storeNo:"연결 실패", sure:"삭제?", noImg:"이미지 불필요", pickOne:"랜덤", linkPh:"게시물 링크 붙여넣기", open:"열기",
           copy:"복사", copied:"복사됨", copyEn:"EN", noText:"원고 없음", comment:"댓글",
           visual:"비주얼", today:"오늘", tomorrow:"내일", prepEmpty:"예정된 게 없어.",
@@ -616,7 +616,7 @@
           followers:"フォロワー", following:"フォロー", measuredOn:"計測日", noKpi:"まだ数字がない。",
           allBooked:"すべて予約ずみ", leftToDo:"残り", nothingToday:"予定なし",
           markSched:"予約完了", markPosted:"投稿完了", markVerified:"投稿確認完了", needUrl:"先にリンクを貼る", addFile:"画像・動画を入れる", localOnly:"この端末だけ", onServer:"共有ずみ",
-          storeTitle:"画像の置き場", storeUrl:"Workerの住所", storeTok:"合言葉", storeSave:"保存",
+          storeTitle:"画像の置き場（GitHub）", storeUrl:"owner/repo", storeTok:"アクセストークン", storeSave:"保存",
           storeOk:"つながった", storeNo:"つながらない", sure:"消す？", noImg:"画像は要らない", pickOne:"どれか1つ", linkPh:"投稿したリンクを貼る", open:"開く",
           copy:"写す", copied:"写した", copyEn:"EN", noText:"原稿なし", comment:"コメント",
           visual:"ビジュアル", today:"今日", tomorrow:"明日", prepEmpty:"先の予定がない。",
@@ -994,6 +994,7 @@
         '<input type="password" id="stTok" placeholder="' + esc(t("storeTok")) + '" value="' + esc(storeGet().token || "") + '">' +
         '<div class="bar"><button id="stSave">' + esc(t("storeSave")) + '</button>' +
         '<span class="tiny" id="stOut"></span></div>' +
+        '<p class="tiny">towananika/remitech · Fine-grained token · Contents: Read and write</p>' +
         '<p class="tiny">' + esc(t("localOnly")) + '</p></div></div>';
   }
 
@@ -1038,8 +1039,9 @@
       storeSet({ url: u, token: tk });
       var o = document.getElementById("stOut");
       o.textContent = "…";
-      fetch(u.replace(/\/$/, "") + "/list", { headers: { "Authorization": "Bearer " + tk } })
-        .then(function (r) { o.textContent = r.ok ? t("storeOk") : t("storeNo"); })
+      fetch("https://api.github.com/repos/" + u, {
+        headers: { "Authorization": "Bearer " + tk, "Accept": "application/vnd.github+json" },
+      }).then(function (r) { o.textContent = r.ok ? t("storeOk") : t("storeNo"); })
         .catch(function () { o.textContent = t("storeNo"); });
       return;
     }
@@ -1186,43 +1188,76 @@
   function storeSet(o) { try { localStorage.setItem("remitech-store", JSON.stringify(o)); } catch (e) {} }
   function storeOn() { var c = storeGet(); return !!(c.url && c.token); }
 
+  // 置き場は GitHub のリポジトリ。カードの登録が要らず、
+  // 入れたものはそのまま公開の住所で読めるので、投稿にも使える
+  function ghPath(key, type) {
+    var ext = (type || "").indexOf("video") === 0
+      ? ((type.indexOf("quicktime") > 0) ? "mov" : "mp4")
+      : ((type || "").split("/")[1] || "png").replace(/[^a-z0-9]/gi, "");
+    return "media/" + key.replace(/[|#]/g, "-") + "." + ext;
+  }
+  function ghUrl(repo, path) {
+    var o = repo.split("/");
+    return "https://" + o[0] + ".github.io/" + o[1] + "/" + path;
+  }
+  function toB64(file) {
+    return new Promise(function (res, rej) {
+      var fr = new FileReader();
+      fr.onload = function () { res(String(fr.result).split(",")[1]); };
+      fr.onerror = rej;
+      fr.readAsDataURL(file);
+    });
+  }
+  function ghApi(c, path, opt) {
+    return fetch("https://api.github.com/repos/" + c.url + "/contents/" + path, Object.assign({
+      headers: {
+        "Authorization": "Bearer " + c.token,
+        "Accept": "application/vnd.github+json",
+      },
+    }, opt || {}));
+  }
   function upload(key, file) {
-    var c = storeGet();
-    return fetch(c.url.replace(/\/$/, "") + "/f/" + encodeURIComponent(key), {
-      method: "PUT",
-      headers: { "Authorization": "Bearer " + c.token, "Content-Type": file.type },
-      body: file,
+    var c = storeGet(), path = ghPath(key, file.type);
+    return toB64(file).then(function (b64) {
+      // 同じ場所に既にあるなら、その印（sha）を添えて差し替える
+      return ghApi(c, path).then(function (r) { return r.ok ? r.json() : null; })
+        .then(function (prev) {
+          return ghApi(c, path, {
+            method: "PUT",
+            headers: {
+              "Authorization": "Bearer " + c.token,
+              "Accept": "application/vnd.github+json",
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              message: "media: " + key,
+              content: b64,
+              sha: prev ? prev.sha : undefined,
+            }),
+          });
+        });
     }).then(function (r) {
       if (!r.ok) throw new Error(r.status);
-      return r.json();
+      return { url: ghUrl(c.url, path) };
     });
   }
-  function remoteUrl(key) {
+  function removeRemote(key, type) {
     var c = storeGet();
-    return c.url ? c.url.replace(/\/$/, "") + "/f/" + encodeURIComponent(key) : "";
-  }
-
-  // ファイルを1つ受け取る。置き場があれば上げ、無ければ端末に置く
-  function takeFile(mk2, f2) {
-    if (!f2 || !/^(image|video)\//.test(f2.type)) return Promise.resolve();
-    var up = storeOn()
-      ? upload(mk2, f2).then(function (r) {
-          var m = JSON.parse(localStorage.getItem("remitech-media-url") || "{}");
-          m[mk2] = r.url;
-          localStorage.setItem("remitech-media-url", JSON.stringify(m));
-        }).catch(function () {})
-      : Promise.resolve();
-    return up.then(function () {
-      return dbPut(mk2, { blob: f2, type: f2.type, name: f2.name });
-    }).then(function () {
-      var base = mk2.split("#")[0];
-      var pp = base.split("|");
-      var sl3 = (schedule.slots || []).filter(function (x) {
-        return x.date === pp[0] && (x.platform || "X") === pp[1] && x.time === pp[2];
-      })[0];
-      if (sl3) matSet(sl3, "image", true);
-      renderPrep();
-    });
+    if (!storeOn()) return Promise.resolve();
+    var path = ghPath(key, type || "image/png");
+    return ghApi(c, path).then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (prev) {
+        if (!prev) return;
+        return ghApi(c, path, {
+          method: "DELETE",
+          headers: {
+            "Authorization": "Bearer " + c.token,
+            "Accept": "application/vnd.github+json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ message: "media: remove " + key, sha: prev.sha }),
+        });
+      }).catch(function () {});
   }
 
   function mediaKey(sl) { return sl.date + "|" + (sl.platform || "X") + "|" + sl.time; }
@@ -1640,13 +1675,7 @@
         return;
       }
       var dk = md.getAttribute("data-mk");
-      var rm = Promise.resolve();
-      if (storeOn()) {
-        var c2 = storeGet();
-        rm = fetch(c2.url.replace(/\/$/, "") + "/f/" + encodeURIComponent(dk),
-                   { method: "DELETE", headers: { "Authorization": "Bearer " + c2.token } })
-             .catch(function () {});
-      }
+      var rm = storeOn() ? removeRemote(dk) : Promise.resolve();
       rm.then(function () {
         try {
           var m2 = JSON.parse(localStorage.getItem("remitech-media-url") || "{}");
