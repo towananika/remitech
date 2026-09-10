@@ -270,11 +270,9 @@
     border-radius:14px; background:var(--surface); padding:16px 18px; margin-bottom:12px;
   }
   .phead{ display:flex; align-items:center; flex-wrap:wrap; gap:8px; cursor:pointer; }
-  .pcard[data-open="false"] .pbody{ display:none; }
-  .pcard[data-open="true"] .phead{ margin-bottom:12px; }
-  .chev{ margin-left:auto; color:var(--muted); font-size:16px; line-height:1;
-         transition:transform .16s ease; }
-  .pcard[data-open="true"] .chev{ transform:rotate(90deg); }
+  .pcard-page .phead{ margin-bottom:12px; cursor:default; }
+  .pcard-page .chev{ display:none; }
+  .chev{ margin-left:auto; color:var(--muted); font-size:16px; line-height:1; }
   .pmini{ display:flex; gap:4px; align-items:center; }
   .pdot{
     font-style:normal; font-size:9.5px; font-weight:500; line-height:14px;
@@ -1534,7 +1532,6 @@
   var OWNERS = ["", "SuHa", "EunYeong", "JiSeong", "HyeJeong", "SeoHyeon",
                 "GyeonJae", "Masato", "SungJin"];
 
-  var prepOpen = {};
   var tgDate = null;   // Telegram通知タブで選んでいる日付
   var editing = null;          // 編集中の枠。{} なら新規
 
@@ -1834,6 +1831,141 @@
     });
   }
 
+  function prepHeadHTML(sl, i) {
+    var ch = chanOfSlot(sl);
+      var body = (sl.text && (sl.text[lang] || sl.text.en || sl.text.ja || sl.text.ko)) || "";
+      var mm = matGet(sl);
+      var st = stGet(sl);
+      var mk = mediaKey(sl);
+      var parts = sl.parts && sl.parts.length ? sl.parts : null;
+      var mats = (sl.need || ["text"]).map(function (k) {
+        var on = !!mm[k];
+        return '<button class="matbtn" data-on="' + on + '"' +
+               ' data-date="' + esc(sl.date) + '" data-pf="' + esc(sl.platform || "X") +
+               '" data-time="' + esc(sl.time) + '" data-kind="' + k + '">' +
+               (on ? "\u2713 " : "") + esc(t(k === "text" ? "matText" : "matImage")) + '</button>';
+      }).join("");
+    return '<div class="phead" data-k="' + esc(slotKey(sl)) + '" style="--chc:' + esc(ch.color || "var(--wood)") + '">' +
+          '<i class="pf" data-p="' + esc(sl.platform || "X") + '">' + esc(pfn(sl.platform)) + '</i>' +
+          '<span class="who">' + esc(ch.name) + '</span>' +
+          '<span class="when">' + esc(whenLabel(sl.date)) + " \u00b7 " + esc(sl.time) + '</span>' +
+          (sl.label ? '<span class="when">· ' + esc(sl.label) + '</span>' : "") +
+          (parts ? (function () {
+            var done = 0, pg = partsGet(mk);
+            parts.forEach(function (_, k2) { if (pg["p" + k2]) done++; });
+            return '<span class="pcount" data-full="' + (done === parts.length) + '">' +
+                   done + "/" + parts.length + '</span>';
+          })() : "") +
+          '<span class="pmini">' + ((sl.need || ["text"]).map(function (kk) {
+            return '<i class="pdot" data-on="' + (!!mm[kk]) + '">' + (kk === "text" ? "T" : "I") + '</i>';
+          }).join("")) + (st.scheduled ? '<i class="pflag">✓</i>' : "") + '</span>' +
+          (isChecked(sl)
+            ? '<span class="pverif">✓ ' + esc(t("verifiedTag")) + '</span>'
+            : "") +
+          '<span class="chev">›</span>';
+  }
+
+  function prepBodyHTML(sl, i) {
+    var ch = chanOfSlot(sl);
+      var body = (sl.text && (sl.text[lang] || sl.text.en || sl.text.ja || sl.text.ko)) || "";
+      var mm = matGet(sl);
+      var st = stGet(sl);
+      var mk = mediaKey(sl);
+      var parts = sl.parts && sl.parts.length ? sl.parts : null;
+      var mats = (sl.need || ["text"]).map(function (k) {
+        var on = !!mm[k];
+        return '<button class="matbtn" data-on="' + on + '"' +
+               ' data-date="' + esc(sl.date) + '" data-pf="' + esc(sl.platform || "X") +
+               '" data-time="' + esc(sl.time) + '" data-kind="' + k + '">' +
+               (on ? "\u2713 " : "") + esc(t(k === "text" ? "matText" : "matImage")) + '</button>';
+      }).join("");
+    var html = '<div class="pbody">' +
+        // YouTubeは題が要る。写せるようにしておく
+        ((sl.platform === "YT")
+          ? (function () {
+              copyBank["ti" + i] = { en: sl.label || "", cur: sl.label || "" };
+              return '<div class="ptitle"><span class="tlab">' + esc(t("fLabel")) + '</span>' +
+                '<span class="tval">' + esc(sl.label || "—") + '</span>' +
+                (sl.label ? '<button class="cpy" data-ck="ti' + i + '" data-lg="en">' +
+                  esc(t("copy")) + '</button>' : "") + '</div>';
+            })()
+          : "") +
+        '<p class="powner"><span>' + esc(t("fOwner")) + '</span>' +
+          '<select class="ownerSel" data-k="' + esc(slotKey(sl)) + '">' +
+          OWNERS.map(function (v) {
+            return '<option value="' + esc(v) + '"' + (v === (sl.owner || "") ? " selected" : "") + '>' +
+                   esc(v || t("noOwner")) + '</option>';
+          }).join("") + '</select></p>' +
+        '<div class="ptexts">' +
+        (parts
+          ? parts.map(function (pt, k) {
+              return '<p class="plabel">' + esc(pt.no || "") + " · " + esc(pt.time) + '</p>' +
+                     textBox("pp" + i + "_" + k, pt[lang] || "", pt.en || "", mk, "p" + k, pt.nobo, pt.reviewed);
+            }).join("") + '<div class="pbar">' + mats + '</div>'
+          : (body
+            ? textBox("pt" + i, (sl.text && sl.text[lang]) || "", (sl.text && sl.text.en) || "", mk, "body") +
+              '<div class="pbar">' + mats + '</div>'
+            : '<p class="ptext empty2">' + esc(t("noText")) + '</p>' +
+              '<div class="pbar">' + mats + '</div>'));
+    html += '</div>';
+
+    if (sl.comment) {
+        html += '<p class="plabel">' + esc(t("comment")) + '</p>' +
+                textBox("pc" + i, "", sl.comment, mk, "comment");
+      }
+      if (sl.asset) {
+        html += '<p class="passet">' + esc(t("visual")) + " \u00b7 " + esc(sl.asset) + '</p>';
+      }
+      var link = st.url || sl.url || "";
+      html += '<div class="pbar done-bar">' +
+        '<button class="donebtn" data-mark="scheduled" data-on="' + (!!st.scheduled) + '"' +
+        ' data-date="' + esc(sl.date) + '" data-pf="' + esc(sl.platform || "X") +
+        '" data-time="' + esc(sl.time) + '">' +
+        (st.scheduled ? "✓ " : "") + esc(t("markSched")) + '</button>' +
+        '<button class="donebtn" data-mark="posted" data-on="' + (!!st.posted) + '"' +
+        ' data-date="' + esc(sl.date) + '" data-pf="' + esc(sl.platform || "X") +
+        '" data-time="' + esc(sl.time) + '">' +
+        (st.posted ? "✓ " : "") + esc(t("markPosted")) + '</button>' +
+        '<button class="donebtn" data-mark="checked" data-on="' + isChecked(sl) + '"' +
+        ' data-date="' + esc(sl.date) + '" data-pf="' + esc(sl.platform || "X") +
+        '" data-time="' + esc(sl.time) + '">' +
+        (isChecked(sl) ? "✓ " : "") + esc(t("markVerified")) + '</button>' +
+        '</div>' +
+        '<div class="pbar">' +
+          '<label class="filebtn sm">' + esc(t("addFile")) +
+          '<input type="file" class="mfile" accept="image/*,video/*" data-mk="' + esc(mk) + '">' +
+          '</label>' +
+          '<span class="tiny">' + esc(t("localOnly")) + '</span>' +
+        '</div>' +
+        '<div class="bar editbar">' +
+        '<button class="donebtn eEdit" data-k="' + esc(slotKey(sl)) + '">' + esc(t("edit")) + '</button>' +
+        '<button class="donebtn eDel" data-k="' + esc(slotKey(sl)) + '">' + esc(t("del")) + '</button>' +
+        '</div>' +
+        '<div class="linkrow">' +
+          '<input type="url" class="plink" value="' + esc(link) + '"' +
+          ' placeholder="' + esc(t("linkPh")) + '"' +
+          ' data-date="' + esc(sl.date) + '" data-pf="' + esc(sl.platform || "X") +
+          '" data-time="' + esc(sl.time) + '">' +
+          (link ? '<a class="goto" href="' + esc(link) + '" target="_blank" rel="noopener">' +
+                  esc(t("open")) + ' ↗</a>' : "") +
+        '</div>';
+    return html;
+  }
+
+  // 準備の1件を、専用ページとして表示する
+  function renderPrepDetail(key) {
+    chansEl.hidden = true;
+    copyBank = {};
+    var sl = (schedule.slots || []).filter(function (x) { return slotKey(x) === key; })[0];
+    if (!sl) {
+      view.innerHTML = '<button class="back" id="backBtn">' + esc(t("back")) + '</button>' +
+        '<p class="empty">' + esc(t("none")) + '</p>';
+      return;
+    }
+    view.innerHTML = '<button class="back" id="backBtn">' + esc(t("back")) + '</button>' +
+      '<div class="pcard pcard-page">' + prepHeadHTML(sl, 0) + prepBodyHTML(sl, 0) + '</div>';
+  }
+
   function renderPrep() {
     chansEl.hidden = false;
     if (!schedule) { view.innerHTML = '<p class="empty">' + esc(t("none")) + '</p>'; return; }
@@ -1891,115 +2023,9 @@
       return;
     }
 
+    // 一覧では見出し行だけ。タップすると専用ページへ
     list.forEach(function (sl, i) {
-      var ch = chanOfSlot(sl);
-      var body = (sl.text && (sl.text[lang] || sl.text.en || sl.text.ja || sl.text.ko)) || "";
-      var mm = matGet(sl);
-      var st = stGet(sl);
-      var mk = mediaKey(sl);
-      var mats = (sl.need || ["text"]).map(function (k) {
-        var on = !!mm[k];
-        return '<button class="matbtn" data-on="' + on + '"' +
-               ' data-date="' + esc(sl.date) + '" data-pf="' + esc(sl.platform || "X") +
-               '" data-time="' + esc(sl.time) + '" data-kind="' + k + '">' +
-               (on ? "\u2713 " : "") + esc(t(k === "text" ? "matText" : "matImage")) + '</button>';
-      }).join("");
-
-      var parts = sl.parts && sl.parts.length ? sl.parts : null;
-      var cid = sl.date + "|" + (sl.platform || "X") + "|" + sl.time;
-      var isOpen = !!prepOpen[cid];
-      html += '<div class="pcard" data-open="' + isOpen + '" style="--chc:' + esc(ch.color || "var(--wood)") + '">' +
-        '<div class="phead" data-cid="' + esc(cid) + '">' +
-          '<i class="pf" data-p="' + esc(sl.platform || "X") + '">' + esc(pfn(sl.platform)) + '</i>' +
-          '<span class="who">' + esc(ch.name) + '</span>' +
-          '<span class="when">' + esc(whenLabel(sl.date)) + " \u00b7 " + esc(sl.time) + '</span>' +
-          (sl.label ? '<span class="when">· ' + esc(sl.label) + '</span>' : "") +
-          (parts ? (function () {
-            var done = 0, pg = partsGet(mk);
-            parts.forEach(function (_, k2) { if (pg["p" + k2]) done++; });
-            return '<span class="pcount" data-full="' + (done === parts.length) + '">' +
-                   done + "/" + parts.length + '</span>';
-          })() : "") +
-          '<span class="pmini">' + ((sl.need || ["text"]).map(function (kk) {
-            return '<i class="pdot" data-on="' + (!!mm[kk]) + '">' + (kk === "text" ? "T" : "I") + '</i>';
-          }).join("")) + (st.scheduled ? '<i class="pflag">✓</i>' : "") + '</span>' +
-          (isChecked(sl)
-            ? '<span class="pverif">✓ ' + esc(t("verifiedTag")) + '</span>'
-            : "") +
-          '<span class="chev">›</span>' +
-        '</div>' +
-        '<div class="pbody">' +
-        // YouTubeは題が要る。写せるようにしておく
-        ((sl.platform === "YT")
-          ? (function () {
-              copyBank["ti" + i] = { en: sl.label || "", cur: sl.label || "" };
-              return '<div class="ptitle"><span class="tlab">' + esc(t("fLabel")) + '</span>' +
-                '<span class="tval">' + esc(sl.label || "—") + '</span>' +
-                (sl.label ? '<button class="cpy" data-ck="ti' + i + '" data-lg="en">' +
-                  esc(t("copy")) + '</button>' : "") + '</div>';
-            })()
-          : "") +
-        '<p class="powner"><span>' + esc(t("fOwner")) + '</span>' +
-          '<select class="ownerSel" data-k="' + esc(slotKey(sl)) + '">' +
-          OWNERS.map(function (v) {
-            return '<option value="' + esc(v) + '"' + (v === (sl.owner || "") ? " selected" : "") + '>' +
-                   esc(v || t("noOwner")) + '</option>';
-          }).join("") + '</select></p>' +
-        '<div class="ptexts">' +
-        (parts
-          ? parts.map(function (pt, k) {
-              return '<p class="plabel">' + esc(pt.no || "") + " · " + esc(pt.time) + '</p>' +
-                     textBox("pp" + i + "_" + k, pt[lang] || "", pt.en || "", mk, "p" + k, pt.nobo, pt.reviewed);
-            }).join("") + '<div class="pbar">' + mats + '</div>'
-          : (body
-            ? textBox("pt" + i, (sl.text && sl.text[lang]) || "", (sl.text && sl.text.en) || "", mk, "body") +
-              '<div class="pbar">' + mats + '</div>'
-            : '<p class="ptext empty2">' + esc(t("noText")) + '</p>' +
-              '<div class="pbar">' + mats + '</div>'));
-
-      html += '</div>';
-
-      if (sl.comment) {
-        html += '<p class="plabel">' + esc(t("comment")) + '</p>' +
-                textBox("pc" + i, "", sl.comment, mk, "comment");
-      }
-      if (sl.asset) {
-        html += '<p class="passet">' + esc(t("visual")) + " \u00b7 " + esc(sl.asset) + '</p>';
-      }
-      var link = st.url || sl.url || "";
-      html += '<div class="pbar done-bar">' +
-        '<button class="donebtn" data-mark="scheduled" data-on="' + (!!st.scheduled) + '"' +
-        ' data-date="' + esc(sl.date) + '" data-pf="' + esc(sl.platform || "X") +
-        '" data-time="' + esc(sl.time) + '">' +
-        (st.scheduled ? "✓ " : "") + esc(t("markSched")) + '</button>' +
-        '<button class="donebtn" data-mark="posted" data-on="' + (!!st.posted) + '"' +
-        ' data-date="' + esc(sl.date) + '" data-pf="' + esc(sl.platform || "X") +
-        '" data-time="' + esc(sl.time) + '">' +
-        (st.posted ? "✓ " : "") + esc(t("markPosted")) + '</button>' +
-        '<button class="donebtn" data-mark="checked" data-on="' + isChecked(sl) + '"' +
-        ' data-date="' + esc(sl.date) + '" data-pf="' + esc(sl.platform || "X") +
-        '" data-time="' + esc(sl.time) + '">' +
-        (isChecked(sl) ? "✓ " : "") + esc(t("markVerified")) + '</button>' +
-        '</div>' +
-        '<div class="pbar">' +
-          '<label class="filebtn sm">' + esc(t("addFile")) +
-          '<input type="file" class="mfile" accept="image/*,video/*" data-mk="' + esc(mk) + '">' +
-          '</label>' +
-          '<span class="tiny">' + esc(t("localOnly")) + '</span>' +
-        '</div>' +
-        '<div class="bar editbar">' +
-        '<button class="donebtn eEdit" data-k="' + esc(slotKey(sl)) + '">' + esc(t("edit")) + '</button>' +
-        '<button class="donebtn eDel" data-k="' + esc(slotKey(sl)) + '">' + esc(t("del")) + '</button>' +
-        '</div>' +
-        '<div class="linkrow">' +
-          '<input type="url" class="plink" value="' + esc(link) + '"' +
-          ' placeholder="' + esc(t("linkPh")) + '"' +
-          ' data-date="' + esc(sl.date) + '" data-pf="' + esc(sl.platform || "X") +
-          '" data-time="' + esc(sl.time) + '">' +
-          (link ? '<a class="goto" href="' + esc(link) + '" target="_blank" rel="noopener">' +
-                  esc(t("open")) + ' ↗</a>' : "") +
-        '</div>';
-      html += '</div></div>';
+      html += '<div class="pcard">' + prepHeadHTML(sl, i) + '</div>';
     });
     var tr = (schedule.trash || []).slice().reverse();
     html += '<div class="trash"><p class="plabel">' + esc(t("trash")) + '</p>' +
@@ -2203,6 +2229,8 @@
   }
 
   function route() {
+    var pm = location.hash.match(/^#\/prep\/(.+)$/);
+    if (pm) { renderPrepDetail(decodeURIComponent(pm[1])); window.scrollTo(0, 0); return; }
     var id = location.hash.replace(/^#\/?/, "");
     var p = id && posts.filter(function (x) { return x.id === id; })[0];
     if (p) { renderPost(p); window.scrollTo(0, 0); return; }
@@ -2387,9 +2415,8 @@
     }
     var ph = e.target.closest(".phead");
     if (ph && !ph.classList.contains("snhead")) {
-      var cid2 = ph.getAttribute("data-cid");
-      prepOpen[cid2] = !prepOpen[cid2];
-      ph.parentNode.setAttribute("data-open", prepOpen[cid2] ? "true" : "false");
+      var k2 = ph.getAttribute("data-k");
+      if (k2) location.hash = "/prep/" + encodeURIComponent(k2);
       return;
     }
     var cp = e.target.closest(".cpy, .snitem");
