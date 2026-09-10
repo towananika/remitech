@@ -1789,6 +1789,32 @@
     var c = storeGet();
     return ghApi(c, "schedule.json").then(function (r) { return r.ok ? r.json() : null; })
       .then(function (prev) {
+        // この端末が読み込んだ後に、他の端末が足したものが置き場にあるかもしれない。
+        // SHAだけ見て中身を捨てると、それを消してしまう。中身も見て、無いものは足す
+        if (prev) {
+          try {
+            var bin0 = atob((prev.content || "").replace(/\n/g, ""));
+            var bytes0 = new Uint8Array(bin0.length);
+            for (var i0 = 0; i0 < bin0.length; i0++) bytes0[i0] = bin0.charCodeAt(i0);
+            var remote = JSON.parse(new TextDecoder("utf-8").decode(bytes0));
+            var haveKey = {};
+            body.slots.forEach(function (x) { haveKey[slotKey(x)] = 1; });
+            (remote.slots || []).forEach(function (x) {
+              if (!haveKey[slotKey(x)]) { body.slots.push(x); haveKey[slotKey(x)] = 1; }
+            });
+            var haveTrash = {};
+            body.trash.forEach(function (x) { haveTrash[slotKey(x)] = 1; });
+            (remote.trash || []).forEach(function (x) {
+              if (!haveTrash[slotKey(x)]) { body.trash.push(x); haveTrash[slotKey(x)] = 1; }
+            });
+            body.trash = body.trash.slice(-30);
+          } catch (e) {}
+        }
+        text = JSON.stringify(body, null, 2) + "\n";
+        schedule.slots = body.slots;      // 今のセッションも、足したぶんを覚えておく
+        schedule.trash = body.trash;
+        try { localStorage.setItem("remitech-schedule", JSON.stringify(body)); } catch (e) {}
+
         // 日本語をそのまま base64 にするため、いったんバイト列にする
         var bytes = new TextEncoder().encode(text);
         var bin = "";
