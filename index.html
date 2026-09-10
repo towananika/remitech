@@ -195,7 +195,20 @@
   }
   .cpy:hover{ border-color:var(--wood); color:var(--ink); }
   .cpy[data-done="true"]{ color:var(--surface); background:var(--sage); border-color:var(--sage); }
-  .pwrap .ptext{ padding-right:74px; }
+  .pwrap .ptext{ padding-right:74px; padding-bottom:26px; }
+  .pchk{
+    position:absolute; right:8px; bottom:7px;
+    width:24px; height:24px; padding:0; line-height:22px;
+    background:var(--surface); border:1px solid var(--line); border-radius:7px;
+    color:var(--line); font:inherit; font-size:13px; cursor:pointer;
+  }
+  .pchk:hover{ border-color:var(--wood); color:var(--wood); }
+  .pchk[data-on="true"]{ color:var(--surface); background:var(--sage); border-color:var(--sage); }
+  .pcount{
+    font-size:11px; font-variant-numeric:tabular-nums; color:var(--muted);
+    border:1px solid var(--line); border-radius:999px; padding:1px 8px;
+  }
+  .pcount[data-full="true"]{ color:var(--surface); background:var(--sage); border-color:var(--sage); }
   .passet{ font-size:12.5px; color:var(--muted); margin:10px 0 0; }
   .done-bar{ border-top:1px solid var(--line); padding-top:12px; margin-top:14px; }
   .pmain{ display:flex; gap:12px; align-items:flex-start; }
@@ -994,7 +1007,7 @@
   // 文面の箱。コピーは箱の中の右上に置く（下に並べると場所を食う）
   var copyBank = {};
 
-  function textBox(id, cur, en) {
+  function textBox(id, cur, en, mk, pid) {
     var shown = cur || en || "";
     copyBank[id] = { en: en || "", cur: cur || en || "" };
     var btns = '<button class="cpy" data-ck="' + id + '" data-lg="en">' + esc(t("copyEn")) + '</button>';
@@ -1002,9 +1015,16 @@
       btns += '<button class="cpy" data-ck="' + id + '" data-lg="cur">' +
               esc((lang === "ja" ? "JA" : "KO")) + '</button>';
     }
+    var chk = "";
+    if (mk && pid) {
+      var on = !!partsGet(mk)[pid];
+      chk = '<button class="pchk" data-on="' + on + '" data-mk="' + esc(mk) + '" data-pid="' + esc(pid) + '"' +
+            ' title="' + esc(t("markPosted")) + '">✓</button>';
+    }
     return '<div class="pwrap"><span class="cpys">' + btns + '</span>' +
-           '<pre class="ptext">' + esc(shown) + '</pre></div>';
+           '<pre class="ptext">' + esc(shown) + '</pre>' + chk + '</div>';
   }
+
 
   var prepOpen = {};
 
@@ -1047,6 +1067,16 @@
       });
     });
   }
+  // 連投は1つずつ時間を空けて出す。抜けることもあるので、箱ごとに印を持つ
+  function partsKey(mk) { return "remitech-part-" + mk; }
+  function partsGet(mk) {
+    try { return JSON.parse(localStorage.getItem(partsKey(mk)) || "{}") || {}; } catch (e) { return {}; }
+  }
+  function partsSet(mk, id, on) {
+    var o = partsGet(mk); o[id] = on;
+    try { localStorage.setItem(partsKey(mk), JSON.stringify(o)); } catch (e) {}
+  }
+
   function mediaKey(sl) { return sl.date + "|" + (sl.platform || "X") + "|" + sl.time; }
 
   // 貼り終わったあとに、保管庫にあるものを差し込む
@@ -1108,6 +1138,12 @@
           '<span class="who">' + esc(ch.name) + '</span>' +
           '<span class="when">' + esc(whenLabel(sl.date)) + " \u00b7 " + esc(sl.time) + '</span>' +
           (sl.label ? '<span class="when">· ' + esc(sl.label) + '</span>' : "") +
+          (parts ? (function () {
+            var done = 0, pg = partsGet(mk);
+            parts.forEach(function (_, k2) { if (pg["p" + k2]) done++; });
+            return '<span class="pcount" data-full="' + (done === parts.length) + '">' +
+                   done + "/" + parts.length + '</span>';
+          })() : "") +
           '<span class="pmini">' + ((sl.need || ["text"]).map(function (kk) {
             return '<i class="pdot" data-on="' + (!!mm[kk]) + '">' + (kk === "text" ? "T" : "I") + '</i>';
           }).join("")) + (st.scheduled ? '<i class="pflag">✓</i>' : "") + '</span>' +
@@ -1118,10 +1154,10 @@
         (parts
           ? parts.map(function (pt, k) {
               return '<p class="plabel">' + esc(pt.no || "") + " · " + esc(pt.time) + '</p>' +
-                     textBox("pp" + i + "_" + k, pt[lang] || "", pt.en || "");
+                     textBox("pp" + i + "_" + k, pt[lang] || "", pt.en || "", mk, "p" + k);
             }).join("") + '<div class="pbar">' + mats + '</div>'
           : (body
-            ? textBox("pt" + i, (sl.text && sl.text[lang]) || "", (sl.text && sl.text.en) || "") +
+            ? textBox("pt" + i, (sl.text && sl.text[lang]) || "", (sl.text && sl.text.en) || "", mk, "body") +
               '<div class="pbar">' + mats + '</div>'
             : '<p class="ptext empty2">' + esc(t("noText")) + '</p>' +
               '<div class="pbar">' + mats + '</div>'));
@@ -1130,7 +1166,7 @@
 
       if (sl.comment) {
         html += '<p class="plabel">' + esc(t("comment")) + '</p>' +
-                textBox("pc" + i, "", sl.comment);
+                textBox("pc" + i, "", sl.comment, mk, "comment");
       }
       if (sl.asset) {
         html += '<p class="passet">' + esc(t("visual")) + " \u00b7 " + esc(sl.asset) + '</p>';
@@ -1380,6 +1416,13 @@
   });
 
   view.addEventListener("click", function (e) {
+    var pc = e.target.closest(".pchk");
+    if (pc) {
+      partsSet(pc.getAttribute("data-mk"), pc.getAttribute("data-pid"),
+               pc.getAttribute("data-on") !== "true");
+      renderPrep();
+      return;
+    }
     var md = e.target.closest(".mdel");
     if (md) {
       e.stopPropagation();
