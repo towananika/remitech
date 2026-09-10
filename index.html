@@ -170,6 +170,33 @@
     font-size:12.5px; color:var(--ink);
     background:var(--bg); border:1px solid var(--line); border-radius:8px; padding:6px 10px;
   }
+  .newbar{ margin-bottom:14px; }
+  .editbar{ margin-top:10px; }
+  .donebtn.strong{ color:var(--surface); background:var(--wood); border-color:var(--wood); }
+  .editor{
+    border:1px solid var(--line); border-radius:14px; background:var(--surface);
+    padding:16px 18px; max-width:760px;
+  }
+  .frow{ display:block; margin-bottom:12px; }
+  .frow > span{ display:block; font-size:11.5px; color:var(--muted); margin-bottom:4px; letter-spacing:.04em; }
+  .frow input, .frow select, .frow textarea{
+    width:100%; font:inherit; font-size:13px; color:var(--ink);
+    background:var(--bg); border:1px solid var(--line); border-radius:8px; padding:8px 10px;
+  }
+  .frow textarea{ min-height:96px; line-height:1.8; resize:vertical; }
+  .frow input:focus, .frow select:focus, .frow textarea:focus{ outline:none; border-color:var(--wood); }
+  .partrow{ border:1px solid var(--line); border-radius:10px; padding:10px 12px; margin-bottom:10px; }
+  .partrow textarea{
+    width:100%; font:inherit; font-size:13px; color:var(--ink); margin-top:6px;
+    background:var(--bg); border:1px solid var(--line); border-radius:8px; padding:8px 10px;
+    min-height:70px; line-height:1.8; resize:vertical;
+  }
+  .partrow input{
+    font:inherit; font-size:12px; color:var(--ink); width:auto;
+    background:var(--bg); border:1px solid var(--line); border-radius:8px; padding:4px 8px;
+  }
+  .partrow .pNo{ width:64px; }
+
   .snpick{ margin-bottom:8px; }
   .snpick .cpy{ font-size:12.5px; padding:5px 14px; }
   .snlist{ display:flex; flex-wrap:wrap; gap:6px; }
@@ -237,6 +264,8 @@
     border:1px solid var(--line); border-radius:999px; padding:1px 8px;
   }
   .pcount[data-full="true"]{ color:var(--surface); background:var(--sage); border-color:var(--sage); }
+  .powner{ margin:0 0 12px; font-size:12px; color:var(--muted); letter-spacing:.04em; }
+  .powner b{ color:var(--ink); font-weight:500; }
   .passet{ font-size:12.5px; color:var(--muted); margin:10px 0 0; }
   .done-bar{ border-top:1px solid var(--line); padding-top:12px; margin-top:14px; }
   .prow{ display:flex; gap:10px; align-items:flex-start; }
@@ -583,6 +612,12 @@
           tipImport:"Bring a plan in, and set where images are kept.",
           footNote:"Plans and records live in this site's files. Marks you tap stay on this device.",
           footRepo:"Source",
+          newSlot:"New post", edit:"Edit", del:"Delete", save:"Save", cancel:"Cancel",
+          fDate:"Date", fPlatform:"Where", fTime:"Time", fLabel:"Title", fType:"Kind",
+          fAsset:"Visual note", fComment:"Comment", fPart:"Part", fOwner:"In charge", noOwner:"unassigned",
+          addPart:"Add a part", rmPart:"Remove", saving:"Saving\u2026",
+          savedTo:"Saved to the repository", savedHere:"Saved on this device only",
+          saveFail:"Could not save",
           all:"All", loading:"Loading…", none:"Nothing here yet.",
           fail:"Could not load the source.", back:"← All posts",
           draft:"Draft", live:"Posted", open:"Open channel",
@@ -617,6 +652,12 @@
           tipImport:"기획을 가져오고, 이미지 저장소를 설정한다.",
           footNote:"기획과 기록은 이 사이트의 파일에 있다. 눌러서 남긴 표시는 이 기기에만 남는다.",
           footRepo:"소스",
+          newSlot:"새 게시물", edit:"수정", del:"삭제", save:"저장", cancel:"취소",
+          fDate:"날짜", fPlatform:"채널", fTime:"시각", fLabel:"제목", fType:"종류",
+          fAsset:"비주얼 메모", fComment:"댓글", fPart:"파트", fOwner:"담당자", noOwner:"미정",
+          addPart:"파트 추가", rmPart:"제거", saving:"저장 중\u2026",
+          savedTo:"저장소에 저장됨", savedHere:"이 기기에만 저장됨",
+          saveFail:"저장하지 못했어",
           all:"전체", loading:"불러오는 중…", none:"아직 없습니다.",
           fail:"원본을 불러오지 못했습니다.", back:"← 목록으로",
           draft:"초안", live:"게시함", open:"채널 열기",
@@ -651,6 +692,12 @@
           tipImport:"企画を取り込み、画像の置き場を決める。",
           footNote:"企画と記録はこのサイトのファイルにある。押して付けた印はこの端末にだけ残る。",
           footRepo:"元のファイル",
+          newSlot:"新しい投稿", edit:"直す", del:"消す", save:"保存", cancel:"やめる",
+          fDate:"日付", fPlatform:"どこに", fTime:"時刻", fLabel:"見出し", fType:"種類",
+          fAsset:"ビジュアルの指示", fComment:"コメント", fPart:"連投", fOwner:"担当者", noOwner:"未定",
+          addPart:"連投を足す", rmPart:"外す", saving:"保存しています\u2026",
+          savedTo:"元のファイルに保存した", savedHere:"この端末にだけ保存した",
+          saveFail:"保存できなかった",
           all:"すべて", loading:"読み込んでいます…", none:"まだ何もありません。",
           fail:"原本を読み込めませんでした。", back:"← 一覧へ",
           draft:"下書き", live:"公開ずみ", open:"チャンネルを開く",
@@ -1188,7 +1235,91 @@
 
 
 
+  var OWNERS = ["", "SuHa", "EunYeong", "JiSeong", "HyeJeong", "SeoHyeon",
+                "GyeonJae", "Masato", "SungJin"];
+
   var prepOpen = {};
+  var editing = null;          // 編集中の枠。{} なら新規
+
+  function slotKey(x) { return x.date + "|" + (x.platform || "X") + "|" + x.time; }
+
+  function editForm() {
+    var e = editing || {};
+    var tx = e.text || {};
+    var parts = e.parts || [];
+    function row(lbl, inner) {
+      return '<label class="frow"><span>' + esc(lbl) + '</span>' + inner + '</label>';
+    }
+    function opt(list, cur) {
+      return list.map(function (v) {
+        return '<option value="' + esc(v) + '"' + (v === cur ? " selected" : "") + '>' + esc(v) + '</option>';
+      }).join("");
+    }
+    var html = '<div class="editor">' +
+      row(t("fDate"), '<input type="date" id="eDate" value="' + esc(e.date || ymd(new Date())) + '">') +
+      row(t("fPlatform"), '<select id="ePf">' + opt(["X", "IG", "FB", "TT", "YT"], e.platform || "X") + '</select>') +
+      row(t("fTime"), '<input type="time" id="eTime" value="' + esc(e.time || "09:30") + '">') +
+      row(t("fLabel"), '<input type="text" id="eLabel" value="' + esc(e.label || "") + '">') +
+      row(t("fOwner"), '<select id="eOwner">' + OWNERS.map(function (v) {
+        return '<option value="' + esc(v) + '"' + (v === (e.owner || "") ? " selected" : "") + '>' +
+               esc(v || t("noOwner")) + '</option>';
+      }).join("") + '</select>') +
+      row(t("fType"), '<select id="eType">' + opt(["text", "image", "video", "thread"], e.type || "text") + '</select>') +
+      '<label class="frow tall"><span>EN</span><textarea id="eEn">' + esc(tx.en || "") + '</textarea></label>' +
+      '<label class="frow tall"><span>JA</span><textarea id="eJa">' + esc(tx.ja || "") + '</textarea></label>' +
+      '<label class="frow tall"><span>KO</span><textarea id="eKo">' + esc(tx.ko || "") + '</textarea></label>' +
+      '<div id="ePartWrap">' + parts.map(function (pt, k) { return partRow(pt, k); }).join("") + '</div>' +
+      '<div class="bar"><button id="eAddPart" class="donebtn">' + esc(t("addPart")) + '</button></div>' +
+      '<label class="frow tall"><span>' + esc(t("fComment")) + '</span><textarea id="eComment">' + esc(e.comment || "") + '</textarea></label>' +
+      row(t("fAsset"), '<input type="text" id="eAsset" value="' + esc(e.asset || "") + '">') +
+      '<div class="bar"><button id="eSave" class="donebtn strong">' + esc(t("save")) + '</button>' +
+      '<button id="eCancel" class="donebtn">' + esc(t("cancel")) + '</button>' +
+      '<span class="tiny" id="eOut"></span></div></div>';
+    return html;
+  }
+
+  function partRow(pt, k) {
+    pt = pt || {};
+    return '<div class="partrow" data-k="' + k + '">' +
+      '<div class="bar"><b class="tiny">' + esc(t("fPart")) + " " + (k + 1) + '</b>' +
+      '<input type="time" class="pTime" value="' + esc(pt.time || "") + '">' +
+      '<input type="text" class="pNo" placeholder="1/4" value="' + esc(pt.no || "") + '">' +
+      '<button class="donebtn rmPart">' + esc(t("rmPart")) + '</button></div>' +
+      '<textarea class="pEn" placeholder="EN">' + esc(pt.en || "") + '</textarea>' +
+      '<textarea class="pJa" placeholder="JA">' + esc(pt.ja || "") + '</textarea></div>';
+  }
+
+  function readForm() {
+    function v(id) { var el = document.getElementById(id); return el ? el.value.trim() : ""; }
+    var parts = [].map.call(document.querySelectorAll(".partrow"), function (r) {
+      return {
+        time: r.querySelector(".pTime").value,
+        no: r.querySelector(".pNo").value.trim(),
+        en: r.querySelector(".pEn").value,
+        ja: r.querySelector(".pJa").value,
+      };
+    }).filter(function (x) { return x.en || x.ja; });
+
+    var type = v("eType");
+    var asset = v("eAsset");
+    var o = {
+      date: v("eDate"), platform: v("ePf"), time: v("eTime"),
+      label: v("eLabel"), owner: v("eOwner"), type: type,
+      text: { ja: document.getElementById("eJa").value,
+              en: document.getElementById("eEn").value,
+              ko: document.getElementById("eKo").value },
+      comment: document.getElementById("eComment").value,
+      asset: asset, note: "",
+      need: (type === "image" || type === "video" || asset) ? ["text", "image"] : ["text"],
+      scheduled: (editing && editing.scheduled) || false,
+      posted: (editing && editing.posted) || false,
+      url: (editing && editing.url) || "",
+      check: (editing && editing.check) || { done: false, at: "", match: null, note: "" },
+    };
+    if (parts.length) o.parts = parts;
+    return o;
+  }
+
 
   // 画像・動画は端末の保管庫に置く。置いてあるファイルは書き換えられないので、
   // みんなで共有するには Claude に渡してリポジトリに入れる必要がある
@@ -1318,6 +1449,50 @@
       }).catch(function () {});
   }
 
+  // 企画そのものを書き戻す。鍵が入っていれば元のファイルへ、無ければ端末へ
+  function saveSchedule(note) {
+    var body = {
+      channel: schedule.channel, months: schedule.months,
+      timezone: schedule.timezone, note: schedule.note, slots: schedule.slots,
+    };
+    body.months = [];
+    schedule.slots.forEach(function (x) {
+      var m = x.date.slice(0, 7);
+      if (body.months.indexOf(m) < 0) body.months.push(m);
+    });
+    body.months.sort();
+
+    var text = JSON.stringify(body, null, 2) + "\n";
+    try { localStorage.setItem("remitech-schedule", text ? JSON.stringify(body) : "{}"); } catch (e) {}
+
+    if (!storeOn()) return Promise.resolve({ where: "local" });
+
+    var c = storeGet();
+    return ghApi(c, "schedule.json").then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (prev) {
+        // 日本語をそのまま base64 にするため、いったんバイト列にする
+        var bytes = new TextEncoder().encode(text);
+        var bin = "";
+        for (var i = 0; i < bytes.length; i++) bin += String.fromCharCode(bytes[i]);
+        return ghApi(c, "schedule.json", {
+          method: "PUT",
+          headers: {
+            "Authorization": "Bearer " + c.token,
+            "Accept": "application/vnd.github+json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            message: note || "schedule: update",
+            content: btoa(bin),
+            sha: prev ? prev.sha : undefined,
+          }),
+        });
+      }).then(function (r) {
+        if (!r.ok) throw new Error(r.status);
+        return { where: "repo" };
+      });
+  }
+
   function mediaKey(sl) { return sl.date + "|" + (sl.platform || "X") + "|" + sl.time; }
 
   // 貼り終わったあとに、保管庫にあるものを差し込む
@@ -1366,7 +1541,15 @@
     });
 
     copyBank = {};
-    var html = '<div class="prep">';
+
+    if (editing) {
+      view.innerHTML = editForm();
+      return;
+    }
+
+    var html = '<div class="prep">' +
+      '<div class="bar newbar"><button id="newSlot" class="donebtn strong">' +
+      esc(t("newSlot")) + '</button></div>';
 
     // チャンネルごとの定型文（押すと写せる）
     channels.forEach(function (c) {
@@ -1431,6 +1614,8 @@
           '<span class="chev">›</span>' +
         '</div>' +
         '<div class="pbody">' +
+        '<p class="powner">' + esc(t("fOwner")) + " · " +
+          '<b>' + esc(sl.owner || t("noOwner")) + '</b></p>' +
         '<div class="ptexts">' +
         (parts
           ? parts.map(function (pt, k) {
@@ -1472,6 +1657,10 @@
           '<input type="file" class="mfile" accept="image/*,video/*" data-mk="' + esc(mk) + '">' +
           '</label>' +
           '<span class="tiny">' + esc(t("localOnly")) + '</span>' +
+        '</div>' +
+        '<div class="bar editbar">' +
+        '<button class="donebtn eEdit" data-k="' + esc(slotKey(sl)) + '">' + esc(t("edit")) + '</button>' +
+        '<button class="donebtn eDel" data-k="' + esc(slotKey(sl)) + '">' + esc(t("del")) + '</button>' +
         '</div>' +
         '<div class="linkrow">' +
           '<input type="url" class="plink" value="' + esc(link) + '"' +
@@ -1706,6 +1895,61 @@
   });
 
   view.addEventListener("click", function (e) {
+    if (e.target.id === "newSlot") { editing = {}; renderPrep(); return; }
+    if (e.target.id === "eCancel") { editing = null; renderPrep(); return; }
+    if (e.target.id === "eAddPart") {
+      var wrap = document.getElementById("ePartWrap");
+      var n = wrap.querySelectorAll(".partrow").length;
+      wrap.insertAdjacentHTML("beforeend", partRow({}, n));
+      return;
+    }
+    var rp = e.target.closest(".rmPart");
+    if (rp) { rp.closest(".partrow").remove(); return; }
+
+    var ed = e.target.closest(".eEdit");
+    if (ed) {
+      editing = (schedule.slots || []).filter(function (x) {
+        return slotKey(x) === ed.getAttribute("data-k");
+      })[0] || {};
+      renderPrep();
+      return;
+    }
+    var dl = e.target.closest(".eDel");
+    if (dl) {
+      if (dl.getAttribute("data-ask") !== "yes") {
+        dl.setAttribute("data-ask", "yes");
+        dl.textContent = t("sure");
+        setTimeout(function () {
+          if (dl.getAttribute("data-ask") === "yes") { dl.removeAttribute("data-ask"); dl.textContent = t("del"); }
+        }, 4000);
+        return;
+      }
+      var kk = dl.getAttribute("data-k");
+      schedule.slots = (schedule.slots || []).filter(function (x) { return slotKey(x) !== kk; });
+      saveSchedule("schedule: remove " + kk).then(function () { renderPrep(); },
+                   function () { renderPrep(); });
+      return;
+    }
+    if (e.target.id === "eSave") {
+      var o = readForm();
+      var out = document.getElementById("eOut");
+      if (!o.date || !o.time) { out.textContent = t("saveFail"); return; }
+      out.textContent = t("saving");
+      var was = editing && editing.date ? slotKey(editing) : null;
+      schedule.slots = (schedule.slots || []).filter(function (x) {
+        return slotKey(x) !== (was || slotKey(o));
+      });
+      schedule.slots.push(o);
+      schedule.slots.sort(function (a, b) {
+        return (a.date + a.time + (a.platform || "")) < (b.date + b.time + (b.platform || "")) ? -1 : 1;
+      });
+      saveSchedule("schedule: " + o.date + " " + o.time + " " + o.platform).then(function (r) {
+        out.textContent = r.where === "repo" ? t("savedTo") : t("savedHere");
+        setTimeout(function () { editing = null; renderPrep(); }, 900);
+      }, function () { out.textContent = t("saveFail"); });
+      return;
+    }
+
     var ni = e.target.closest(".noimg");
     if (ni) {
       partsSet(ni.getAttribute("data-mk"), "ni_" + ni.getAttribute("data-pid"),

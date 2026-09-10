@@ -31,7 +31,8 @@
         "note": ""
       },
       "date": "2026-09-01",
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "date": "2026-09-01",
@@ -59,7 +60,8 @@
         "at": "",
         "match": null,
         "note": ""
-      }
+      },
+      "owner": ""
     },
     {
       "time": "17:00",
@@ -85,7 +87,8 @@
         "note": ""
       },
       "date": "2026-09-01",
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "time": "reply",
@@ -111,7 +114,8 @@
         "note": ""
       },
       "date": "2026-09-01",
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "time": "09:30",
@@ -137,7 +141,8 @@
         "note": ""
       },
       "date": "2026-09-02",
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "date": "2026-09-02",
@@ -165,7 +170,8 @@
         "at": "",
         "match": null,
         "note": ""
-      }
+      },
+      "owner": ""
     },
     {
       "time": "17:00",
@@ -191,7 +197,8 @@
         "note": ""
       },
       "date": "2026-09-02",
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "time": "reply",
@@ -217,7 +224,8 @@
         "note": ""
       },
       "date": "2026-09-02",
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "time": "09:30",
@@ -244,7 +252,8 @@
         "note": ""
       },
       "date": "2026-09-03",
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "date": "2026-09-03",
@@ -272,7 +281,8 @@
         "at": "",
         "match": null,
         "note": ""
-      }
+      },
+      "owner": ""
     },
     {
       "time": "17:00",
@@ -298,7 +308,8 @@
         "note": ""
       },
       "date": "2026-09-03",
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "time": "reply",
@@ -324,7 +335,8 @@
         "note": ""
       },
       "date": "2026-09-03",
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "time": "09:30",
@@ -351,7 +363,8 @@
         "note": ""
       },
       "date": "2026-09-04",
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "date": "2026-09-04",
@@ -379,7 +392,8 @@
         "at": "",
         "match": null,
         "note": ""
-      }
+      },
+      "owner": ""
     },
     {
       "time": "17:00",
@@ -405,7 +419,8 @@
         "note": ""
       },
       "date": "2026-09-04",
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "time": "reply",
@@ -431,7 +446,8 @@
         "note": ""
       },
       "date": "2026-09-04",
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "time": "09:30",
@@ -457,7 +473,8 @@
         "note": ""
       },
       "date": "2026-09-05",
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "date": "2026-09-05",
@@ -485,7 +502,8 @@
         "at": "",
         "match": null,
         "note": ""
-      }
+      },
+      "owner": ""
     },
     {
       "time": "17:00",
@@ -511,7 +529,8 @@
         "note": ""
       },
       "date": "2026-09-05",
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "time": "reply",
@@ -537,7 +556,8 @@
         "note": ""
       },
       "date": "2026-09-05",
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "time": "09:30",
@@ -563,7 +583,8 @@
         "note": ""
       },
       "date": "2026-09-06",
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "date": "2026-09-06",
@@ -591,7 +612,8 @@
         "at": "",
         "match": null,
         "note": ""
-      }
+      },
+      "owner": ""
     },
     {
       "time": "17:00",
@@ -618,7 +640,8 @@
         "note": ""
       },
       "date": "2026-09-06",
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "time": "09:30",
@@ -644,7 +667,8 @@
         "note": ""
       },
       "date": "2026-09-07",
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "date": "2026-09-07",
@@ -672,7 +696,8 @@
         "at": "",
         "match": null,
         "note": ""
-      }
+      },
+      "owner": ""
     },
     {
       "time": "17:00",
@@ -698,7 +723,8 @@
         "note": ""
       },
       "date": "2026-09-07",
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "time": "09:30",
@@ -724,7 +750,8 @@
         "note": ""
       },
       "date": "2026-09-08",
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "date": "2026-09-08",
@@ -752,7 +779,8 @@
         "at": "",
         "match": null,
         "note": ""
-      }
+      },
+      "owner": ""
     },
     {
       "time": "17:00",
@@ -779,7 +807,8 @@
         "note": ""
       },
       "date": "2026-09-08",
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "time": "09:30",
@@ -805,7 +834,8 @@
         "note": ""
       },
       "date": "2026-09-09",
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "date": "2026-09-09",
@@ -833,7 +863,8 @@
         "at": "",
         "match": null,
         "note": ""
-      }
+      },
+      "owner": ""
     },
     {
       "time": "17:00",
@@ -859,7 +890,8 @@
         "note": ""
       },
       "date": "2026-09-09",
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "time": "09:30",
@@ -912,7 +944,8 @@
           "en": "finally. the future. 🪄\n\nplay games.\ncheck your health.\ntake part in the community.\n\neveryday actions\nconnect to the HIYOKO ecosystem.\n\nas the community grows,\nHIYOKO grows with it.\n\nthat's HIYOKO's vision.\nand it's being built right now. 😎\n\n4/4 🧵\n\n#HYK #HIYOKO #Web3 #GameFi #HealthFi"
         }
       ],
-      "comment": "want to join us?\neverything's here 👇\nhttps://linktr.ee/HIYOKO_global"
+      "comment": "want to join us?\neverything's here 👇\nhttps://linktr.ee/HIYOKO_global",
+      "owner": ""
     },
     {
       "date": "2026-09-10",
@@ -940,7 +973,8 @@
         "at": "",
         "match": null,
         "note": ""
-      }
+      },
+      "owner": ""
     },
     {
       "time": "17:00",
@@ -966,7 +1000,8 @@
         "note": ""
       },
       "date": "2026-09-10",
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "time": "09:30",
@@ -992,7 +1027,8 @@
         "note": ""
       },
       "date": "2026-09-11",
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "date": "2026-09-11",
@@ -1020,7 +1056,8 @@
         "at": "",
         "match": null,
         "note": ""
-      }
+      },
+      "owner": ""
     },
     {
       "time": "17:00",
@@ -1046,7 +1083,8 @@
         "note": ""
       },
       "date": "2026-09-11",
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "time": "09:30",
@@ -1073,7 +1111,8 @@
         "note": ""
       },
       "date": "2026-09-12",
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "date": "2026-09-12",
@@ -1101,7 +1140,8 @@
         "at": "",
         "match": null,
         "note": ""
-      }
+      },
+      "owner": ""
     },
     {
       "time": "17:00",
@@ -1127,7 +1167,8 @@
         "note": ""
       },
       "date": "2026-09-12",
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "time": "09:30",
@@ -1153,7 +1194,8 @@
         "note": ""
       },
       "date": "2026-09-13",
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "date": "2026-09-13",
@@ -1181,7 +1223,8 @@
         "at": "",
         "match": null,
         "note": ""
-      }
+      },
+      "owner": ""
     },
     {
       "time": "17:00",
@@ -1207,7 +1250,8 @@
         "note": ""
       },
       "date": "2026-09-13",
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "time": "09:30",
@@ -1233,7 +1277,8 @@
         "note": ""
       },
       "date": "2026-09-14",
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "date": "2026-09-14",
@@ -1261,7 +1306,8 @@
         "at": "",
         "match": null,
         "note": ""
-      }
+      },
+      "owner": ""
     },
     {
       "time": "17:00",
@@ -1287,7 +1333,8 @@
         "note": ""
       },
       "date": "2026-09-14",
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "time": "09:30",
@@ -1313,7 +1360,8 @@
         "note": ""
       },
       "date": "2026-09-15",
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "time": "17:00",
@@ -1339,7 +1387,8 @@
         "note": ""
       },
       "date": "2026-09-15",
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "time": "09:30",
@@ -1365,7 +1414,8 @@
         "note": ""
       },
       "date": "2026-09-16",
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "time": "17:00",
@@ -1391,7 +1441,8 @@
         "note": ""
       },
       "date": "2026-09-16",
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "time": "09:30",
@@ -1417,7 +1468,8 @@
         "note": ""
       },
       "date": "2026-09-17",
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "date": "2026-09-17",
@@ -1445,7 +1497,8 @@
         "at": "",
         "match": null,
         "note": ""
-      }
+      },
+      "owner": ""
     },
     {
       "time": "17:00",
@@ -1471,7 +1524,8 @@
         "note": ""
       },
       "date": "2026-09-17",
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "time": "09:30",
@@ -1497,7 +1551,8 @@
         "note": ""
       },
       "date": "2026-09-18",
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "time": "17:00",
@@ -1523,7 +1578,8 @@
         "note": ""
       },
       "date": "2026-09-18",
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "time": "09:30",
@@ -1549,7 +1605,8 @@
         "note": ""
       },
       "date": "2026-09-19",
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "time": "17:00",
@@ -1575,7 +1632,8 @@
         "note": ""
       },
       "date": "2026-09-19",
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "time": "09:30",
@@ -1601,7 +1659,8 @@
         "note": ""
       },
       "date": "2026-09-20",
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "time": "17:00",
@@ -1627,7 +1686,8 @@
         "note": ""
       },
       "date": "2026-09-20",
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "time": "09:30",
@@ -1653,7 +1713,8 @@
         "note": ""
       },
       "date": "2026-09-21",
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "date": "2026-09-21",
@@ -1681,7 +1742,8 @@
         "at": "",
         "match": null,
         "note": ""
-      }
+      },
+      "owner": ""
     },
     {
       "time": "17:00",
@@ -1707,7 +1769,8 @@
         "note": ""
       },
       "date": "2026-09-21",
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "time": "09:30",
@@ -1733,7 +1796,8 @@
         "note": ""
       },
       "date": "2026-09-22",
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "time": "17:00",
@@ -1759,7 +1823,8 @@
         "note": ""
       },
       "date": "2026-09-22",
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "time": "09:30",
@@ -1785,7 +1850,8 @@
         "note": ""
       },
       "date": "2026-09-23",
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "time": "17:00",
@@ -1811,7 +1877,8 @@
         "note": ""
       },
       "date": "2026-09-23",
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "time": "09:30",
@@ -1837,7 +1904,8 @@
         "note": ""
       },
       "date": "2026-09-24",
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "date": "2026-09-24",
@@ -1865,7 +1933,8 @@
         "at": "",
         "match": null,
         "note": ""
-      }
+      },
+      "owner": ""
     },
     {
       "time": "17:00",
@@ -1891,7 +1960,8 @@
         "note": ""
       },
       "date": "2026-09-24",
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "time": "09:30",
@@ -1917,7 +1987,8 @@
         "note": ""
       },
       "date": "2026-09-25",
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "time": "17:00",
@@ -1943,7 +2014,8 @@
         "note": ""
       },
       "date": "2026-09-25",
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "time": "09:30",
@@ -1969,7 +2041,8 @@
         "note": ""
       },
       "date": "2026-09-26",
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "time": "17:00",
@@ -1995,7 +2068,8 @@
         "note": ""
       },
       "date": "2026-09-26",
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "time": "09:30",
@@ -2021,7 +2095,8 @@
         "note": ""
       },
       "date": "2026-09-27",
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "date": "2026-09-27",
@@ -2049,7 +2124,8 @@
         "at": "",
         "match": null,
         "note": ""
-      }
+      },
+      "owner": ""
     },
     {
       "time": "17:00",
@@ -2075,7 +2151,8 @@
         "note": ""
       },
       "date": "2026-09-27",
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "time": "09:30",
@@ -2101,7 +2178,8 @@
         "note": ""
       },
       "date": "2026-09-28",
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "time": "17:00",
@@ -2127,7 +2205,8 @@
         "note": ""
       },
       "date": "2026-09-28",
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "time": "09:30",
@@ -2153,7 +2232,8 @@
         "note": ""
       },
       "date": "2026-09-29",
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "time": "17:00",
@@ -2179,7 +2259,8 @@
         "note": ""
       },
       "date": "2026-09-29",
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "time": "09:30",
@@ -2205,7 +2286,8 @@
         "note": ""
       },
       "date": "2026-09-30",
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "date": "2026-09-30",
@@ -2233,7 +2315,8 @@
         "at": "",
         "match": null,
         "note": ""
-      }
+      },
+      "owner": ""
     },
     {
       "time": "17:00",
@@ -2259,7 +2342,8 @@
         "note": ""
       },
       "date": "2026-09-30",
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "time": "09:30",
@@ -2285,7 +2369,8 @@
         "note": ""
       },
       "date": "2026-09-31",
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "time": "17:00",
@@ -2311,7 +2396,8 @@
         "note": ""
       },
       "date": "2026-09-31",
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "date": "2026-10-01",
@@ -2337,7 +2423,8 @@
         "match": null,
         "note": ""
       },
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "date": "2026-10-01",
@@ -2363,7 +2450,8 @@
         "match": null,
         "note": ""
       },
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "date": "2026-10-02",
@@ -2389,7 +2477,8 @@
         "match": null,
         "note": ""
       },
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "date": "2026-10-02",
@@ -2415,7 +2504,8 @@
         "match": null,
         "note": ""
       },
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "date": "2026-10-03",
@@ -2441,7 +2531,8 @@
         "match": null,
         "note": ""
       },
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "date": "2026-10-03",
@@ -2467,7 +2558,8 @@
         "match": null,
         "note": ""
       },
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "date": "2026-10-04",
@@ -2493,7 +2585,8 @@
         "match": null,
         "note": ""
       },
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "date": "2026-10-04",
@@ -2519,7 +2612,8 @@
         "match": null,
         "note": ""
       },
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "date": "2026-10-05",
@@ -2545,7 +2639,8 @@
         "match": null,
         "note": ""
       },
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "date": "2026-10-05",
@@ -2571,7 +2666,8 @@
         "match": null,
         "note": ""
       },
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "date": "2026-10-06",
@@ -2597,7 +2693,8 @@
         "match": null,
         "note": ""
       },
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "date": "2026-10-06",
@@ -2623,7 +2720,8 @@
         "match": null,
         "note": ""
       },
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "date": "2026-10-07",
@@ -2649,7 +2747,8 @@
         "match": null,
         "note": ""
       },
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "date": "2026-10-07",
@@ -2675,7 +2774,8 @@
         "match": null,
         "note": ""
       },
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "date": "2026-10-08",
@@ -2701,7 +2801,8 @@
         "match": null,
         "note": ""
       },
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "date": "2026-10-08",
@@ -2727,7 +2828,8 @@
         "match": null,
         "note": ""
       },
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "date": "2026-10-09",
@@ -2753,7 +2855,8 @@
         "match": null,
         "note": ""
       },
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "date": "2026-10-09",
@@ -2779,7 +2882,8 @@
         "match": null,
         "note": ""
       },
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "date": "2026-10-10",
@@ -2805,7 +2909,8 @@
         "match": null,
         "note": ""
       },
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "date": "2026-10-10",
@@ -2831,7 +2936,8 @@
         "match": null,
         "note": ""
       },
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "date": "2026-10-11",
@@ -2857,7 +2963,8 @@
         "match": null,
         "note": ""
       },
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "date": "2026-10-11",
@@ -2883,7 +2990,8 @@
         "match": null,
         "note": ""
       },
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "date": "2026-10-12",
@@ -2909,7 +3017,8 @@
         "match": null,
         "note": ""
       },
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "date": "2026-10-12",
@@ -2935,7 +3044,8 @@
         "match": null,
         "note": ""
       },
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "date": "2026-10-13",
@@ -2961,7 +3071,8 @@
         "match": null,
         "note": ""
       },
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "date": "2026-10-13",
@@ -2987,7 +3098,8 @@
         "match": null,
         "note": ""
       },
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "date": "2026-10-14",
@@ -3013,7 +3125,8 @@
         "match": null,
         "note": ""
       },
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "date": "2026-10-14",
@@ -3039,7 +3152,8 @@
         "match": null,
         "note": ""
       },
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "date": "2026-10-15",
@@ -3065,7 +3179,8 @@
         "match": null,
         "note": ""
       },
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "date": "2026-10-15",
@@ -3091,7 +3206,8 @@
         "match": null,
         "note": ""
       },
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "date": "2026-10-16",
@@ -3117,7 +3233,8 @@
         "match": null,
         "note": ""
       },
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "date": "2026-10-16",
@@ -3143,7 +3260,8 @@
         "match": null,
         "note": ""
       },
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "date": "2026-10-17",
@@ -3169,7 +3287,8 @@
         "match": null,
         "note": ""
       },
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "date": "2026-10-17",
@@ -3195,7 +3314,8 @@
         "match": null,
         "note": ""
       },
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "date": "2026-10-18",
@@ -3221,7 +3341,8 @@
         "match": null,
         "note": ""
       },
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "date": "2026-10-18",
@@ -3247,7 +3368,8 @@
         "match": null,
         "note": ""
       },
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "date": "2026-10-19",
@@ -3273,7 +3395,8 @@
         "match": null,
         "note": ""
       },
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "date": "2026-10-19",
@@ -3299,7 +3422,8 @@
         "match": null,
         "note": ""
       },
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "date": "2026-10-20",
@@ -3325,7 +3449,8 @@
         "match": null,
         "note": ""
       },
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "date": "2026-10-20",
@@ -3351,7 +3476,8 @@
         "match": null,
         "note": ""
       },
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "date": "2026-10-21",
@@ -3377,7 +3503,8 @@
         "match": null,
         "note": ""
       },
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "date": "2026-10-21",
@@ -3403,7 +3530,8 @@
         "match": null,
         "note": ""
       },
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "date": "2026-10-22",
@@ -3429,7 +3557,8 @@
         "match": null,
         "note": ""
       },
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "date": "2026-10-22",
@@ -3455,7 +3584,8 @@
         "match": null,
         "note": ""
       },
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "date": "2026-10-23",
@@ -3481,7 +3611,8 @@
         "match": null,
         "note": ""
       },
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "date": "2026-10-23",
@@ -3507,7 +3638,8 @@
         "match": null,
         "note": ""
       },
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "date": "2026-10-24",
@@ -3533,7 +3665,8 @@
         "match": null,
         "note": ""
       },
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "date": "2026-10-24",
@@ -3559,7 +3692,8 @@
         "match": null,
         "note": ""
       },
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "date": "2026-10-25",
@@ -3585,7 +3719,8 @@
         "match": null,
         "note": ""
       },
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "date": "2026-10-25",
@@ -3611,7 +3746,8 @@
         "match": null,
         "note": ""
       },
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "date": "2026-10-26",
@@ -3637,7 +3773,8 @@
         "match": null,
         "note": ""
       },
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "date": "2026-10-26",
@@ -3663,7 +3800,8 @@
         "match": null,
         "note": ""
       },
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "date": "2026-10-27",
@@ -3689,7 +3827,8 @@
         "match": null,
         "note": ""
       },
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "date": "2026-10-27",
@@ -3715,7 +3854,8 @@
         "match": null,
         "note": ""
       },
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "date": "2026-10-28",
@@ -3741,7 +3881,8 @@
         "match": null,
         "note": ""
       },
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "date": "2026-10-28",
@@ -3767,7 +3908,8 @@
         "match": null,
         "note": ""
       },
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "date": "2026-10-29",
@@ -3793,7 +3935,8 @@
         "match": null,
         "note": ""
       },
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "date": "2026-10-29",
@@ -3819,7 +3962,8 @@
         "match": null,
         "note": ""
       },
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "date": "2026-10-30",
@@ -3845,7 +3989,8 @@
         "match": null,
         "note": ""
       },
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "date": "2026-10-30",
@@ -3871,7 +4016,8 @@
         "match": null,
         "note": ""
       },
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "date": "2026-10-31",
@@ -3897,7 +4043,8 @@
         "match": null,
         "note": ""
       },
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     },
     {
       "date": "2026-10-31",
@@ -3923,7 +4070,8 @@
         "match": null,
         "note": ""
       },
-      "platform": "X"
+      "platform": "X",
+      "owner": ""
     }
   ]
 }
