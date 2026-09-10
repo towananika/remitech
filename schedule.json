@@ -948,35 +948,6 @@
       "owner": ""
     },
     {
-      "date": "2026-09-10",
-      "time": "17:00",
-      "platform": "IG",
-      "type": "image",
-      "label": "everyone sees it when it",
-      "text": {
-        "ja": "",
-        "en": "everyone sees it when it gets loud.\n\nreal ones see it\nbefore the crowd arrives~ 🐣👀\n\n#HIYOKO #HYK #Web3 #Meme",
-        "ko": ""
-      },
-      "comment": "check the link for the presale page and exchange details~ 🐣",
-      "asset": "上昇する株式チャートの画像",
-      "note": "",
-      "need": [
-        "text",
-        "image"
-      ],
-      "scheduled": false,
-      "posted": false,
-      "url": "",
-      "check": {
-        "done": false,
-        "at": "",
-        "match": null,
-        "note": ""
-      },
-      "owner": "SuHa"
-    },
-    {
       "time": "09:30",
       "type": "text",
       "label": "",
@@ -4047,5 +4018,35 @@
       "owner": ""
     }
   ],
-  "trash": []
+  "trash": [
+    {
+      "date": "2026-09-10",
+      "time": "17:00",
+      "platform": "IG",
+      "type": "image",
+      "label": "everyone sees it when it",
+      "text": {
+        "ja": "",
+        "en": "everyone sees it when it gets loud.\n\nreal ones see it\nbefore the crowd arrives~ 🐣👀\n\n#HIYOKO #HYK #Web3 #Meme",
+        "ko": ""
+      },
+      "comment": "check the link for the presale page and exchange details~ 🐣",
+      "asset": "上昇する株式チャートの画像",
+      "note": "",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "owner": "SuHa"
+    }
+  ]
 }
