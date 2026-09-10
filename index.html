@@ -157,6 +157,26 @@
 
   /* ---- prep board ---- */
   .prep{ max-width:760px; }
+  .snip{
+    border:1px solid var(--line); border-left:3px solid var(--chc, var(--wood));
+    border-radius:14px; background:var(--surface); padding:14px 16px; margin-bottom:12px;
+  }
+  .snhead{ cursor:default; margin-bottom:10px; }
+  .snurl{ display:flex; align-items:center; gap:8px; margin-bottom:10px; }
+  .snurl code{
+    flex:1 1 auto; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
+    font-size:12.5px; color:var(--ink);
+    background:var(--bg); border:1px solid var(--line); border-radius:8px; padding:6px 10px;
+  }
+  .snpick{ margin-bottom:8px; }
+  .snpick .cpy{ font-size:12.5px; padding:5px 14px; }
+  .snlist{ display:flex; flex-wrap:wrap; gap:6px; }
+  .snitem{
+    background:var(--bg); border:1px solid var(--line); border-radius:999px;
+    color:var(--ink); font:inherit; font-size:12px; padding:5px 12px; cursor:pointer;
+  }
+  .snitem:hover{ border-color:var(--wood); }
+  .snitem[data-done="true"]{ color:var(--surface); background:var(--sage); border-color:var(--sage); }
   .pcard{
     border:1px solid var(--line); border-left:3px solid var(--chc, var(--wood));
     border-radius:14px; background:var(--surface); padding:16px 18px; margin-bottom:12px;
@@ -187,15 +207,21 @@
   .plabel{ font-size:11.5px; color:var(--muted); margin:12px 0 5px; letter-spacing:.06em; }
   .pbar{ display:flex; gap:8px; align-items:center; flex-wrap:wrap; margin-top:10px; }
   .pwrap{ position:relative; }
-  .cpys{ position:absolute; top:7px; right:8px; display:flex; gap:4px; z-index:1; }
+  .cpys{ position:absolute; top:7px; right:8px; display:flex; gap:5px; align-items:center; z-index:1; }
   .cpy{
-    background:var(--surface); border:1px solid var(--line); border-radius:6px;
+    background:var(--surface); border:1px solid var(--line); border-radius:7px;
     color:var(--muted); font:inherit; font-size:10.5px; font-weight:500;
     padding:2px 7px; cursor:pointer; line-height:1.5;
   }
+  /* 投稿に使うのは英語なので、こちらを主役にする */
+  .cpy[data-lg="en"]{
+    font-size:12.5px; padding:5px 14px;
+    color:var(--surface); background:var(--wood); border-color:var(--wood);
+  }
+  .cpy[data-lg="en"]:hover{ opacity:.88; color:var(--surface); }
   .cpy:hover{ border-color:var(--wood); color:var(--ink); }
   .cpy[data-done="true"]{ color:var(--surface); background:var(--sage); border-color:var(--sage); }
-  .pwrap .ptext{ padding-right:74px; padding-bottom:26px; }
+  .pwrap .ptext{ padding-right:96px; padding-bottom:26px; }
   .pchk{
     position:absolute; right:8px; bottom:7px;
     width:24px; height:24px; padding:0; line-height:22px;
@@ -211,9 +237,29 @@
   .pcount[data-full="true"]{ color:var(--surface); background:var(--sage); border-color:var(--sage); }
   .passet{ font-size:12.5px; color:var(--muted); margin:10px 0 0; }
   .done-bar{ border-top:1px solid var(--line); padding-top:12px; margin-top:14px; }
-  .pmain{ display:flex; gap:12px; align-items:flex-start; }
-  .ptexts{ flex:1 1 auto; min-width:0; }
-  .mediabox{ position:relative; flex:0 0 96px; width:96px; }
+  .prow{ display:flex; gap:10px; align-items:flex-start; }
+  .prow .pwrap{ flex:1 1 auto; min-width:0; }
+  .mcol{ flex:0 0 96px; width:96px; }
+  .madd{
+    display:block; width:96px; height:34px; line-height:32px; text-align:center;
+    border:1px dashed var(--line); border-radius:10px; color:var(--muted);
+    font-size:16px; cursor:pointer; margin-top:6px;
+  }
+  .madd:hover{ border-color:var(--wood); color:var(--wood); }
+  .mcol[data-drop="true"] .madd,
+  .mcol[data-drop="true"] .mediabox img,
+  .mcol[data-drop="true"] .mediabox video{
+    border-color:var(--wood); background:var(--wood-soft);
+  }
+  .madd input{ display:none; }
+  .noimg{
+    display:block; width:100%; margin-top:6px; padding:4px 6px; cursor:pointer;
+    background:none; border:1px solid var(--line); border-radius:8px;
+    color:var(--muted); font:inherit; font-size:10px; line-height:1.4;
+  }
+  .noimg:hover{ border-color:var(--wood); color:var(--ink); }
+  .noimg[data-on="true"]{ color:var(--ink); border-color:var(--ink); }
+  .mediabox{ position:relative; width:96px; }
   .mediabox:empty{ display:none; }
   .mediabox img, .mediabox video{
     display:block; width:100%; max-height:150px; object-fit:cover;
@@ -221,15 +267,31 @@
   }
   .mopen{ display:block; }
   .mopen:hover img, .mopen:hover video{ border-color:var(--wood); }
-  @media (max-width:520px){ .mediabox{ flex-basis:76px; width:76px; } }
+  @media (max-width:520px){ .mcol, .mediabox, .madd{ flex-basis:74px; width:74px; } }
   .mdel{
     position:absolute; top:4px; right:4px; width:22px; height:22px; line-height:20px;
     background:var(--surface); border:1px solid var(--line); border-radius:50%;
     color:var(--muted); font:inherit; font-size:14px; cursor:pointer; padding:0;
   }
   .mdel:hover{ color:#b4553f; border-color:#b4553f; }
+  .mdel[data-ask]{
+    width:auto; padding:0 8px; font-size:10.5px;
+    color:var(--surface); background:#b4553f; border-color:#b4553f;
+  }
+  .mdel[data-ask="wait"]{ opacity:.6; }
   .filebtn.sm{ font-size:12px; padding:6px 14px; }
   .tiny{ font-size:11px; color:var(--muted); }
+  .mtag{
+    position:absolute; left:4px; bottom:4px; font-size:9px; letter-spacing:.04em;
+    background:var(--sage); color:var(--surface); border-radius:5px; padding:1px 5px;
+  }
+  .store{ margin-top:26px; border-top:1px solid var(--line); padding-top:16px; }
+  .store input{
+    display:block; width:100%; margin-top:8px; font:inherit; font-size:13px;
+    background:var(--surface); color:var(--ink);
+    border:1px solid var(--line); border-radius:999px; padding:8px 16px;
+  }
+  .store input:focus{ outline:none; border-color:var(--wood); }
   .linkrow{ display:flex; align-items:center; gap:8px; margin-top:8px; }
   .plink{
     flex:1 1 auto; min-width:0; font:inherit; font-size:12px;
@@ -501,7 +563,9 @@
           navDash:"This week", navBook:"Booking", navPrep:"Prep", navKpi:"KPI", navPosts:"Posts",
           followers:"Followers", following:"Following", measuredOn:"Measured", noKpi:"No numbers yet.",
           allBooked:"All booked", leftToDo:"left", nothingToday:"Nothing scheduled",
-          markSched:"Booked ahead", markPosted:"Posted now", addFile:"Add image / video", localOnly:"Kept on this device", linkPh:"Paste the link of the post", open:"Open",
+          markSched:"Booked ahead", markPosted:"Posted now", addFile:"Add image / video", localOnly:"On this device only", onServer:"Shared",
+          storeTitle:"Media store", storeUrl:"Worker address", storeTok:"Upload token", storeSave:"Save",
+          storeOk:"Connected", storeNo:"Could not connect", sure:"Delete?", noImg:"No image needed", pickOne:"Random", linkPh:"Paste the link of the post", open:"Open",
           copy:"Copy", copied:"Copied", copyEn:"EN", noText:"No text yet", comment:"Comment",
           visual:"Visual", today:"Today", tomorrow:"Tomorrow", prepEmpty:"Nothing coming up.",
           stNone:"No text", stText:"Text ready", stSched:"Scheduled", stDone:"Posted",
@@ -524,7 +588,9 @@
           navDash:"이번 주", navBook:"예약", navPrep:"준비", navKpi:"KPI", navPosts:"글",
           followers:"팔로워", following:"팔로잉", measuredOn:"측정일", noKpi:"아직 숫자가 없어.",
           allBooked:"모두 예약됨", leftToDo:"남음", nothingToday:"예정 없음",
-          markSched:"예약 완료", markPosted:"게시 완료", addFile:"이미지 / 영상 추가", localOnly:"이 기기에만 저장됨", linkPh:"게시물 링크 붙여넣기", open:"열기",
+          markSched:"예약 완료", markPosted:"게시 완료", addFile:"이미지 / 영상 추가", localOnly:"이 기기에만", onServer:"공유됨",
+          storeTitle:"미디어 저장소", storeUrl:"Worker 주소", storeTok:"업로드 토큰", storeSave:"저장",
+          storeOk:"연결됨", storeNo:"연결 실패", sure:"삭제?", noImg:"이미지 불필요", pickOne:"랜덤", linkPh:"게시물 링크 붙여넣기", open:"열기",
           copy:"복사", copied:"복사됨", copyEn:"EN", noText:"원고 없음", comment:"댓글",
           visual:"비주얼", today:"오늘", tomorrow:"내일", prepEmpty:"예정된 게 없어.",
           stNone:"원고 없음", stText:"원고 있음", stSched:"예약됨", stDone:"게시됨",
@@ -547,7 +613,9 @@
           navDash:"今週", navBook:"予約", navPrep:"準備", navKpi:"KPI", navPosts:"投稿",
           followers:"フォロワー", following:"フォロー", measuredOn:"計測日", noKpi:"まだ数字がない。",
           allBooked:"すべて予約ずみ", leftToDo:"残り", nothingToday:"予定なし",
-          markSched:"予約完了", markPosted:"投稿完了", addFile:"画像・動画を入れる", localOnly:"この端末にだけ残る", linkPh:"投稿したリンクを貼る", open:"開く",
+          markSched:"予約完了", markPosted:"投稿完了", addFile:"画像・動画を入れる", localOnly:"この端末だけ", onServer:"共有ずみ",
+          storeTitle:"画像の置き場", storeUrl:"Workerの住所", storeTok:"合言葉", storeSave:"保存",
+          storeOk:"つながった", storeNo:"つながらない", sure:"消す？", noImg:"画像は要らない", pickOne:"どれか1つ", linkPh:"投稿したリンクを貼る", open:"開く",
           copy:"写す", copied:"写した", copyEn:"EN", noText:"原稿なし", comment:"コメント",
           visual:"ビジュアル", today:"今日", tomorrow:"明日", prepEmpty:"先の予定がない。",
           stNone:"原稿なし", stText:"原稿あり", stSched:"予約ずみ", stDone:"投稿ずみ",
@@ -918,7 +986,13 @@
         '<button id="impApply">' + esc(t("impApply")) + '</button>' +
         '<button id="impDl">' + esc(t("impDownload")) + '</button>' +
       '</div>' +
-      '<p class="cols">' + esc(t("impCols")) + '</p></div>';
+      '<p class="cols">' + esc(t("impCols")) + '</p>' +
+      '<div class="store"><p class="hint">' + esc(t("storeTitle")) + '</p>' +
+        '<input type="url" id="stUrl" placeholder="' + esc(t("storeUrl")) + '" value="' + esc(storeGet().url || "") + '">' +
+        '<input type="password" id="stTok" placeholder="' + esc(t("storeTok")) + '" value="' + esc(storeGet().token || "") + '">' +
+        '<div class="bar"><button id="stSave">' + esc(t("storeSave")) + '</button>' +
+        '<span class="tiny" id="stOut"></span></div>' +
+        '<p class="tiny">' + esc(t("localOnly")) + '</p></div></div>';
   }
 
   // 貼った時点で読む。押す手間をなくす
@@ -956,6 +1030,17 @@
   }
 
   function importClick(e) {
+    if (e.target.id === "stSave") {
+      var u = document.getElementById("stUrl").value.trim();
+      var tk = document.getElementById("stTok").value.trim();
+      storeSet({ url: u, token: tk });
+      var o = document.getElementById("stOut");
+      o.textContent = "…";
+      fetch(u.replace(/\/$/, "") + "/list", { headers: { "Authorization": "Bearer " + tk } })
+        .then(function (r) { o.textContent = r.ok ? t("storeOk") : t("storeNo"); })
+        .catch(function () { o.textContent = t("storeNo"); });
+      return;
+    }
     var out = document.getElementById("impOut");
     if (!imported || !imported.length) { out.textContent = t("impBad"); return; }
     var keep = [];
@@ -1015,15 +1100,30 @@
       btns += '<button class="cpy" data-ck="' + id + '" data-lg="cur">' +
               esc((lang === "ja" ? "JA" : "KO")) + '</button>';
     }
-    var chk = "";
+    var chk = "", media = "";
     if (mk && pid) {
       var on = !!partsGet(mk)[pid];
       chk = '<button class="pchk" data-on="' + on + '" data-mk="' + esc(mk) + '" data-pid="' + esc(pid) + '"' +
             ' title="' + esc(t("markPosted")) + '">✓</button>';
+      // ブロックごとに画像を持つ。連投は1枚ずつ絵が違うため
+      var bk = mk + "#" + pid;
+      var noimg = !!partsGet(mk)["ni_" + pid];
+      media = '<div class="mcol">' +
+                (noimg ? "" : '<div class="mediabox" data-mk="' + esc(bk) + '"></div>' +
+                  '<label class="madd" title="' + esc(t("addFile")) + '">+' +
+                    '<input type="file" class="mfile" accept="image/*,video/*" data-mk="' + esc(bk) + '">' +
+                  '</label>') +
+                '<button class="noimg" data-on="' + noimg + '" data-mk="' + esc(mk) + '" data-pid="' + esc(pid) + '">' +
+                  (noimg ? "– " : "") + esc(t("noImg")) + '</button>' +
+              '</div>';
     }
-    return '<div class="pwrap"><span class="cpys">' + btns + '</span>' +
-           '<pre class="ptext">' + esc(shown) + '</pre>' + chk + '</div>';
+    return '<div class="prow">' +
+             '<div class="pwrap"><span class="cpys">' + btns + '</span>' +
+             '<pre class="ptext">' + esc(shown) + '</pre>' + chk + '</div>' +
+             media +
+           '</div>';
   }
+
 
 
   var prepOpen = {};
@@ -1077,12 +1177,70 @@
     try { localStorage.setItem(partsKey(mk), JSON.stringify(o)); } catch (e) {}
   }
 
+  // 置き場（Cloudflare R2 + Worker）。住所と合言葉は端末にだけ残す
+  function storeGet() {
+    try { return JSON.parse(localStorage.getItem("remitech-store") || "{}") || {}; } catch (e) { return {}; }
+  }
+  function storeSet(o) { try { localStorage.setItem("remitech-store", JSON.stringify(o)); } catch (e) {} }
+  function storeOn() { var c = storeGet(); return !!(c.url && c.token); }
+
+  function upload(key, file) {
+    var c = storeGet();
+    return fetch(c.url.replace(/\/$/, "") + "/f/" + encodeURIComponent(key), {
+      method: "PUT",
+      headers: { "Authorization": "Bearer " + c.token, "Content-Type": file.type },
+      body: file,
+    }).then(function (r) {
+      if (!r.ok) throw new Error(r.status);
+      return r.json();
+    });
+  }
+  function remoteUrl(key) {
+    var c = storeGet();
+    return c.url ? c.url.replace(/\/$/, "") + "/f/" + encodeURIComponent(key) : "";
+  }
+
+  // ファイルを1つ受け取る。置き場があれば上げ、無ければ端末に置く
+  function takeFile(mk2, f2) {
+    if (!f2 || !/^(image|video)\//.test(f2.type)) return Promise.resolve();
+    var up = storeOn()
+      ? upload(mk2, f2).then(function (r) {
+          var m = JSON.parse(localStorage.getItem("remitech-media-url") || "{}");
+          m[mk2] = r.url;
+          localStorage.setItem("remitech-media-url", JSON.stringify(m));
+        }).catch(function () {})
+      : Promise.resolve();
+    return up.then(function () {
+      return dbPut(mk2, { blob: f2, type: f2.type, name: f2.name });
+    }).then(function () {
+      var base = mk2.split("#")[0];
+      var pp = base.split("|");
+      var sl3 = (schedule.slots || []).filter(function (x) {
+        return x.date === pp[0] && (x.platform || "X") === pp[1] && x.time === pp[2];
+      })[0];
+      if (sl3) matSet(sl3, "image", true);
+      renderPrep();
+    });
+  }
+
   function mediaKey(sl) { return sl.date + "|" + (sl.platform || "X") + "|" + sl.time; }
 
   // 貼り終わったあとに、保管庫にあるものを差し込む
   function fillMedia() {
+    var shared = {};
+    try { shared = JSON.parse(localStorage.getItem("remitech-media-url") || "{}"); } catch (e) {}
     [].forEach.call(document.querySelectorAll(".mediabox"), function (box) {
       var k = box.getAttribute("data-mk");
+      if (shared[k]) {                       // 置き場にあるものは、どの端末からも見える
+        var u = shared[k];
+        var isV = /\.(mp4|mov|webm)$/i.test(u) || box.getAttribute("data-v") === "1";
+        box.innerHTML = '<a class="mopen" href="' + u + '" target="_blank" rel="noopener">' +
+          (isV ? '<video src="' + u + '" muted playsinline preload="metadata"></video>'
+               : '<img src="' + u + '" alt="">') + '</a>' +
+          '<button class="mdel" data-mk="' + k + '">×</button>' +
+          '<span class="mtag">' + esc(t("onServer")) + '</span>';
+        return;
+      }
       dbGet(k).then(function (rec) {
         if (!rec) return;
         var url = URL.createObjectURL(rec.blob);
@@ -1111,10 +1269,37 @@
       return (a.date + a.time) < (b.date + b.time) ? -1 : 1;
     });
 
-    if (!list.length) { view.innerHTML = '<p class="empty">' + esc(t("prepEmpty")) + '</p>'; return; }
-
     copyBank = {};
     var html = '<div class="prep">';
+
+    // チャンネルごとの定型文（押すと写せる）
+    channels.forEach(function (c) {
+      if (filter && filter !== c.id) return;
+      (c.snippets || []).forEach(function (sn, si) {
+        html += '<div class="snip" style="--chc:' + esc(c.color || "var(--wood)") + '">' +
+          '<div class="phead snhead"><span class="who">' + esc(c.name) + '</span>' +
+          '<span class="when">' + esc(sn.title || "") + '</span></div>' +
+          (sn.url ? '<div class="snurl"><code>' + esc(sn.url) + '</code>' +
+            '<button class="cpy" data-ck="sn' + si + 'u" data-lg="en">' + esc(t("copy")) + '</button></div>' : "") +
+          ((sn.items && sn.items.length > 1)
+            ? '<div class="snpick"><button class="cpy" data-ck="sn' + si + 'r" data-lg="en">' +
+              esc(t("pickOne")) + ' ↻</button></div>' : "") +
+          '<div class="snlist">' + (sn.items || []).map(function (it, k) {
+            copyBank["sn" + si + "_" + k] = { en: it, cur: it };
+            return '<button class="snitem" data-ck="sn' + si + "_" + k + '" data-lg="en">' + esc(it) + '</button>';
+          }).join("") + '</div></div>';
+        if (sn.url) copyBank["sn" + si + "u"] = { en: sn.url, cur: sn.url };
+        // 「どれか1つ」は押すたびに選び直す
+        if (sn.items && sn.items.length) {
+          copyBank["sn" + si + "r"] = { pick: sn.items.slice() };
+        }
+      });
+    });
+    if (!list.length) {
+      view.innerHTML = html + '<p class="empty">' + esc(t("prepEmpty")) + '</p></div>';
+      return;
+    }
+
     list.forEach(function (sl, i) {
       var ch = chanOfSlot(sl);
       var body = (sl.text && (sl.text[lang] || sl.text.en || sl.text.ja || sl.text.ko)) || "";
@@ -1150,7 +1335,7 @@
           '<span class="chev">›</span>' +
         '</div>' +
         '<div class="pbody">' +
-        '<div class="pmain"><div class="ptexts">' +
+        '<div class="ptexts">' +
         (parts
           ? parts.map(function (pt, k) {
               return '<p class="plabel">' + esc(pt.no || "") + " · " + esc(pt.time) + '</p>' +
@@ -1162,7 +1347,7 @@
             : '<p class="ptext empty2">' + esc(t("noText")) + '</p>' +
               '<div class="pbar">' + mats + '</div>'));
 
-      html += '</div><div class="mediabox" data-mk="' + esc(mk) + '"></div></div>';
+      html += '</div>';
 
       if (sl.comment) {
         html += '<p class="plabel">' + esc(t("comment")) + '</p>' +
@@ -1416,6 +1601,13 @@
   });
 
   view.addEventListener("click", function (e) {
+    var ni = e.target.closest(".noimg");
+    if (ni) {
+      partsSet(ni.getAttribute("data-mk"), "ni_" + ni.getAttribute("data-pid"),
+               ni.getAttribute("data-on") !== "true");
+      renderPrep();
+      return;
+    }
     var pc = e.target.closest(".pchk");
     if (pc) {
       partsSet(pc.getAttribute("data-mk"), pc.getAttribute("data-pid"),
@@ -1426,20 +1618,54 @@
     var md = e.target.closest(".mdel");
     if (md) {
       e.stopPropagation();
-      dbDel(md.getAttribute("data-mk")).then(function () { renderPrep(); });
+      // 1回目は聞き返すだけ。連打で消えないよう、少し待ってから受け付ける
+      if (md.getAttribute("data-ask") !== "yes") {
+        md.setAttribute("data-ask", "wait");
+        md.textContent = t("sure");
+        setTimeout(function () {
+          if (md.getAttribute("data-ask") === "wait") md.setAttribute("data-ask", "yes");
+        }, 400);
+        clearTimeout(md.__t);
+        md.__t = setTimeout(function () {
+          md.removeAttribute("data-ask");
+          md.textContent = "×";
+        }, 4000);
+        return;
+      }
+      var dk = md.getAttribute("data-mk");
+      var rm = Promise.resolve();
+      if (storeOn()) {
+        var c2 = storeGet();
+        rm = fetch(c2.url.replace(/\/$/, "") + "/f/" + encodeURIComponent(dk),
+                   { method: "DELETE", headers: { "Authorization": "Bearer " + c2.token } })
+             .catch(function () {});
+      }
+      rm.then(function () {
+        try {
+          var m2 = JSON.parse(localStorage.getItem("remitech-media-url") || "{}");
+          delete m2[dk];
+          localStorage.setItem("remitech-media-url", JSON.stringify(m2));
+        } catch (e) {}
+        return dbDel(dk);
+      }).then(function () { renderPrep(); });
       return;
     }
     var ph = e.target.closest(".phead");
-    if (ph) {
+    if (ph && !ph.classList.contains("snhead")) {
       var cid2 = ph.getAttribute("data-cid");
       prepOpen[cid2] = !prepOpen[cid2];
       ph.parentNode.setAttribute("data-open", prepOpen[cid2] ? "true" : "false");
       return;
     }
-    var cp = e.target.closest(".cpy");
+    var cp = e.target.closest(".cpy, .snitem");
     if (cp) {
       var bank = copyBank[cp.getAttribute("data-ck")];
-      var txt = bank ? (cp.getAttribute("data-lg") === "en" ? bank.en : bank.cur) : "";
+      var txt = "";
+      if (bank && bank.pick) {
+        txt = bank.pick[Math.floor(Math.random() * bank.pick.length)];
+      } else if (bank) {
+        txt = cp.getAttribute("data-lg") === "en" ? bank.en : bank.cur;
+      }
       var was = cp.textContent;
       if (txt && navigator.clipboard) {
         navigator.clipboard.writeText(txt).then(function () {
@@ -1479,17 +1705,7 @@
 
   view.addEventListener("change", function (e) {
     if (e.target.classList && e.target.classList.contains("mfile")) {
-      var f2 = e.target.files && e.target.files[0];
-      if (!f2) return;
-      var mk2 = e.target.getAttribute("data-mk");
-      dbPut(mk2, { blob: f2, type: f2.type, name: f2.name }).then(function () {
-        var parts2 = mk2.split("|");
-        var sl3 = (schedule.slots || []).filter(function (x) {
-          return x.date === parts2[0] && (x.platform || "X") === parts2[1] && x.time === parts2[2];
-        })[0];
-        if (sl3) matSet(sl3, "image", true);      // 入れたら材料は揃ったものとする
-        renderPrep();
-      });
+      takeFile(e.target.getAttribute("data-mk"), e.target.files && e.target.files[0]);
       return;
     }
     if (e.target.id === "impFile") {
@@ -1555,7 +1771,28 @@
     var ta = document.getElementById("impText");
     if (ta) ta.removeAttribute("data-drop");
   });
+  // 画像の置き入れ（ブロックごと）
+  view.addEventListener("dragover", function (e) {
+    var col = e.target.closest && e.target.closest(".mcol");
+    if (!col) return;
+    e.preventDefault();
+    col.setAttribute("data-drop", "true");
+  });
+  ["dragleave", "drop"].forEach(function (ev) {
+    view.addEventListener(ev, function (e) {
+      var col = e.target.closest && e.target.closest(".mcol");
+      if (col) col.removeAttribute("data-drop");
+    });
+  });
   view.addEventListener("drop", function (e) {
+    var col = e.target.closest && e.target.closest(".mcol");
+    if (col) {
+      e.preventDefault();
+      var holder = col.querySelector(".mediabox[data-mk], .mfile[data-mk]");
+      var f = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0];
+      if (holder && f) takeFile(holder.getAttribute("data-mk"), f);
+      return;
+    }
     if (tab !== "import") return;
     e.preventDefault();
     var ta = document.getElementById("impText");

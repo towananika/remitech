@@ -104,7 +104,26 @@
           "label": "動画"
         }
       ],
-      "color": "#c0503f"
+      "color": "#c0503f",
+      "snippets": [
+        {
+          "title": "IG ストーリー リンクボタン（アフターセール）",
+          "note": "押すと写せます",
+          "url": "https://sale.nacha.vip/",
+          "items": [
+            "Aftersale is live!",
+            "Aftersale is now live!",
+            "The aftersale is open!",
+            "Aftersale is ongoing!",
+            "Aftersale is now underway!",
+            "Join the aftersale now!",
+            "Our aftersale has started!",
+            "Aftersale happening now!",
+            "Aftersale officially open!",
+            "Don't miss the aftersale!"
+          ]
+        }
+      ]
     },
     {
       "id": "yuyu",
