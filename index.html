@@ -223,6 +223,9 @@
     color:var(--muted); vertical-align:1px;
   }
   .pf[data-p="IG"]{ color:var(--wood); border-color:var(--wood); }
+  .pf[data-p="FB"]{ color:#5b7bb4; border-color:#5b7bb4; }
+  .pf[data-p="TT"]{ color:#9a7fb8; border-color:#9a7fb8; }
+  .pf[data-p="YT"]{ color:#b4553f; border-color:#b4553f; }
   /* チャンネルが変わる行に区切りを入れる */
   .grid tbody tr.chstart td, .grid tbody tr.chstart th{ border-top:2px solid var(--line); }
 
@@ -1058,7 +1061,7 @@
     var shown = 0;
     channels.forEach(function (c) {
       if (filter && filter !== c.id) return;
-      ["X", "IG"].forEach(function (pf) {
+      ["X", "IG", "FB", "TT", "YT"].forEach(function (pf) {
         var arr = byKey[c.id + "|" + pf];
         if (!arr || !arr.length) return;
         shown++;

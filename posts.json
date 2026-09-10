@@ -15,6 +15,11 @@
           "kind": "Instagram",
           "handle": "@hiyoko_global",
           "url": "https://www.instagram.com/hiyoko_global/"
+        },
+        {
+          "kind": "Facebook",
+          "handle": "HIYOKO",
+          "url": "https://www.facebook.com/profile.php?id=100090532489960"
         }
       ],
       "postTimes": [
@@ -31,6 +36,11 @@
         {
           "time": "17:00",
           "platform": "IG",
+          "label": "フィード"
+        },
+        {
+          "time": "17:00",
+          "platform": "FB",
           "label": "フィード"
         }
       ],
@@ -50,6 +60,16 @@
           "kind": "Instagram",
           "handle": "@nacha_project",
           "url": "https://www.instagram.com/nacha_project/"
+        },
+        {
+          "kind": "TikTok",
+          "handle": "@nacha_project",
+          "url": "https://www.tiktok.com/@nacha_project"
+        },
+        {
+          "kind": "YouTube",
+          "handle": "NACHA",
+          "url": "https://www.youtube.com/channel/UCSL-AKI-8_qfWnOJYKSf26Q"
         }
       ],
       "postTimes": [
