@@ -307,6 +307,8 @@
   .donebtn:hover{ border-color:var(--wood); color:var(--ink); }
   .donebtn[data-mark="posted"][data-on="true"]{
     color:var(--surface); background:var(--sage); border-color:var(--sage); }
+  .donebtn[data-mark="checked"][data-on="true"]{
+    color:var(--surface); background:var(--ink); border-color:var(--ink); }
   .donebtn[data-mark="scheduled"][data-on="true"]{
     color:var(--surface); background:var(--wood); border-color:var(--wood); }
 
@@ -563,7 +565,7 @@
           navDash:"This week", navBook:"Booking", navPrep:"Prep", navKpi:"KPI", navPosts:"Posts",
           followers:"Followers", following:"Following", measuredOn:"Measured", noKpi:"No numbers yet.",
           allBooked:"All booked", leftToDo:"left", nothingToday:"Nothing scheduled",
-          markSched:"Booked ahead", markPosted:"Posted now", addFile:"Add image / video", localOnly:"On this device only", onServer:"Shared",
+          markSched:"Booked ahead", markPosted:"Posted", markVerified:"Verified", needUrl:"Paste the link first", addFile:"Add image / video", localOnly:"On this device only", onServer:"Shared",
           storeTitle:"Media store", storeUrl:"Worker address", storeTok:"Upload token", storeSave:"Save",
           storeOk:"Connected", storeNo:"Could not connect", sure:"Delete?", noImg:"No image needed", pickOne:"Random", linkPh:"Paste the link of the post", open:"Open",
           copy:"Copy", copied:"Copied", copyEn:"EN", noText:"No text yet", comment:"Comment",
@@ -588,7 +590,7 @@
           navDash:"이번 주", navBook:"예약", navPrep:"준비", navKpi:"KPI", navPosts:"글",
           followers:"팔로워", following:"팔로잉", measuredOn:"측정일", noKpi:"아직 숫자가 없어.",
           allBooked:"모두 예약됨", leftToDo:"남음", nothingToday:"예정 없음",
-          markSched:"예약 완료", markPosted:"게시 완료", addFile:"이미지 / 영상 추가", localOnly:"이 기기에만", onServer:"공유됨",
+          markSched:"예약 완료", markPosted:"게시 완료", markVerified:"확인 완료", needUrl:"먼저 링크를 붙여넣어", addFile:"이미지 / 영상 추가", localOnly:"이 기기에만", onServer:"공유됨",
           storeTitle:"미디어 저장소", storeUrl:"Worker 주소", storeTok:"업로드 토큰", storeSave:"저장",
           storeOk:"연결됨", storeNo:"연결 실패", sure:"삭제?", noImg:"이미지 불필요", pickOne:"랜덤", linkPh:"게시물 링크 붙여넣기", open:"열기",
           copy:"복사", copied:"복사됨", copyEn:"EN", noText:"원고 없음", comment:"댓글",
@@ -613,7 +615,7 @@
           navDash:"今週", navBook:"予約", navPrep:"準備", navKpi:"KPI", navPosts:"投稿",
           followers:"フォロワー", following:"フォロー", measuredOn:"計測日", noKpi:"まだ数字がない。",
           allBooked:"すべて予約ずみ", leftToDo:"残り", nothingToday:"予定なし",
-          markSched:"予約完了", markPosted:"投稿完了", addFile:"画像・動画を入れる", localOnly:"この端末だけ", onServer:"共有ずみ",
+          markSched:"予約完了", markPosted:"投稿完了", markVerified:"投稿確認完了", needUrl:"先にリンクを貼る", addFile:"画像・動画を入れる", localOnly:"この端末だけ", onServer:"共有ずみ",
           storeTitle:"画像の置き場", storeUrl:"Workerの住所", storeTok:"合言葉", storeSave:"保存",
           storeOk:"つながった", storeNo:"つながらない", sure:"消す？", noImg:"画像は要らない", pickOne:"どれか1つ", linkPh:"投稿したリンクを貼る", open:"開く",
           copy:"写す", copied:"写した", copyEn:"EN", noText:"原稿なし", comment:"コメント",
@@ -1264,7 +1266,8 @@
 
     var chId = schedule.channel || "hiyoko";
     var list = (filter && filter !== chId) ? [] : (schedule.slots || []).filter(function (x) {
-      return x.date >= from && x.date <= to && !isPosted(x);
+      // 投稿しただけでは消さない。確認まで終わって初めて片付ける
+      return x.date >= from && x.date <= to && !(isPosted(x) && isChecked(x));
     }).sort(function (a, b) {
       return (a.date + a.time) < (b.date + b.time) ? -1 : 1;
     });
@@ -1366,6 +1369,10 @@
         ' data-date="' + esc(sl.date) + '" data-pf="' + esc(sl.platform || "X") +
         '" data-time="' + esc(sl.time) + '">' +
         (st.posted ? "✓ " : "") + esc(t("markPosted")) + '</button>' +
+        '<button class="donebtn" data-mark="checked" data-on="' + isChecked(sl) + '"' +
+        ' data-date="' + esc(sl.date) + '" data-pf="' + esc(sl.platform || "X") +
+        '" data-time="' + esc(sl.time) + '">' +
+        (isChecked(sl) ? "✓ " : "") + esc(t("markVerified")) + '</button>' +
         '</div>' +
         '<div class="pbar">' +
           '<label class="filebtn sm">' + esc(t("addFile")) +
@@ -1687,7 +1694,14 @@
         return x.date === dd && x.time === dt2 && (x.platform || "X") === dp;
       })[0];
       if (!slx) return;
-      stSet(slx, db.getAttribute("data-mark"), db.getAttribute("data-on") !== "true");
+      var mark = db.getAttribute("data-mark");
+      var turnOn = db.getAttribute("data-on") !== "true";
+      if (mark === "checked" && turnOn && !(stGet(slx).url || slx.url)) {
+        db.textContent = t("needUrl");
+        setTimeout(function () { renderPrep(); }, 1600);
+        return;
+      }
+      stSet(slx, mark, turnOn);
       renderPrep();
       return;
     }
@@ -1739,7 +1753,12 @@
                x.time === e.target.getAttribute("data-time") &&
                (x.platform || "X") === (e.target.getAttribute("data-pf") || "X");
       })[0];
-      if (sl2) stSet(sl2, "url", e.target.value.trim());
+      if (sl2) {
+        var v = e.target.value.trim();
+        stSet(sl2, "url", v);
+        // リンクが入った時点で「投稿完了」とみなす。貼る＝出したということなので
+        if (v && !stGet(sl2).posted) { stSet(sl2, "posted", true); renderPrep(); }
+      }
       return;
     }
     if (e.target.id === "impText") { importRead(e.target.value); return; }
