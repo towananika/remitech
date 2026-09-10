@@ -614,6 +614,13 @@
   .chanbox p{ margin:4px 0 0; font-size:13px; color:var(--muted); }
 
   .empty{ text-align:center; color:var(--muted); font-size:13px; padding:44px 0; }
+  .mnt{
+    text-align:center; padding:64px 20px; max-width:420px; margin:0 auto;
+  }
+  .mnttitle{ font-size:18px; font-weight:500; letter-spacing:.04em; color:var(--ink); margin:0 0 12px; }
+  .mntnote{ font-size:13.5px; color:var(--muted); line-height:1.8; margin:0 0 14px; white-space:pre-wrap; }
+  .mntuntil{ font-size:12.5px; color:var(--wood); border:1px solid var(--line); border-radius:999px;
+             display:inline-block; padding:6px 14px; }
   .navtip{ margin:10px 0 0; font-size:12.5px; color:var(--muted); }
   footer{ margin-top:56px; padding-top:18px; border-top:1px solid var(--line);
           text-align:left; color:var(--muted); }
@@ -701,6 +708,7 @@
           clearShared:"Clear shared files from this device", cleared:"Cleared", used:"used",
           all:"All", loading:"Loading…", none:"Nothing here yet.",
           fail:"Could not load the source.", back:"← All posts",
+          mntTitle:"Under maintenance", mntUntil:"Expected back around",
           draft:"Draft", live:"Posted", open:"Open channel",
           navDash:"This week", navBook:"Booking", navPrep:"Prep", navKpi:"KPI", navPosts:"Posts",
           followers:"Followers", following:"Following", measuredOn:"Measured", noKpi:"No numbers yet.",
@@ -748,6 +756,7 @@
           clearShared:"공유된 파일을 이 기기에서 지우기", cleared:"지웠어", used:"사용",
           all:"전체", loading:"불러오는 중…", none:"아직 없습니다.",
           fail:"원본을 불러오지 못했습니다.", back:"← 목록으로",
+          mntTitle:"점검 중", mntUntil:"재개 예정",
           draft:"초안", live:"게시함", open:"채널 열기",
           navDash:"이번 주", navBook:"예약", navPrep:"준비", navKpi:"KPI", navPosts:"글",
           followers:"팔로워", following:"팔로잉", measuredOn:"측정일", noKpi:"아직 숫자가 없어.",
@@ -795,6 +804,7 @@
           clearShared:"共有ずみのものを端末から消す", cleared:"消した", used:"使用",
           all:"すべて", loading:"読み込んでいます…", none:"まだ何もありません。",
           fail:"原本を読み込めませんでした。", back:"← 一覧へ",
+          mntTitle:"メンテナンス中", mntUntil:"再開の目安",
           draft:"下書き", live:"公開ずみ", open:"チャンネルを開く",
           navDash:"今週", navBook:"予約", navPrep:"準備", navKpi:"KPI", navPosts:"投稿",
           followers:"フォロワー", following:"フォロー", measuredOn:"計測日", noKpi:"まだ数字がない。",
@@ -2707,28 +2717,51 @@
   syncWide();
   document.getElementById("loading").textContent = t("loading");
 
-  fetch("./posts.json", { cache: "no-cache" })
-    .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
-    .then(function (j) {
-      channels = j.channels || [];
-      posts = j.posts || [];
-      fetch("./kpi.json", { cache: "no-cache" })
-        .then(function (r) { return r.ok ? r.json() : null; })
-        .then(function (k) { kpi = k; if (tab === "kpi") renderKpi(); })
-        .catch(function () {});
-      return fetch("./schedule.json", { cache: "no-cache" })
-        .then(function (r) { return r.ok ? r.json() : null; })
-        .catch(function () { return null; })
-        .then(function (sc) {
-          schedule = sc;
-          try {
-            var mine = JSON.parse(localStorage.getItem("remitech-schedule") || "null");
-            if (mine && mine.slots && mine.slots.length) schedule = mine;   // 取り込んだものが優先
-          } catch (e) {}
-          renderChans(); route();
-        });
-    })
-    .catch(function () { view.innerHTML = '<p class="empty">' + esc(t("fail")) + '</p>'; });
+  // 開発・更新・メンテナンス中は、通常の画面の前にこれだけを出す
+  function renderMaintenance(mnt) {
+    navEl.hidden = true;
+    chansEl.hidden = true;
+    var note = mnt.note || "";
+    var until = mnt.until || "";
+    view.innerHTML = '<div class="mnt">' +
+      '<p class="mnttitle">' + esc(t("mntTitle")) + '</p>' +
+      (note ? '<p class="mntnote">' + esc(note) + '</p>' : "") +
+      (until ? '<p class="mntuntil">' + esc(t("mntUntil")) + " " + esc(until) + '</p>' : "") +
+      '</div>';
+  }
+
+  function bootApp() {
+    fetch("./posts.json", { cache: "no-cache" })
+      .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+      .then(function (j) {
+        channels = j.channels || [];
+        posts = j.posts || [];
+        fetch("./kpi.json", { cache: "no-cache" })
+          .then(function (r) { return r.ok ? r.json() : null; })
+          .then(function (k) { kpi = k; if (tab === "kpi") renderKpi(); })
+          .catch(function () {});
+        return fetch("./schedule.json", { cache: "no-cache" })
+          .then(function (r) { return r.ok ? r.json() : null; })
+          .catch(function () { return null; })
+          .then(function (sc) {
+            schedule = sc;
+            try {
+              var mine = JSON.parse(localStorage.getItem("remitech-schedule") || "null");
+              if (mine && mine.slots && mine.slots.length) schedule = mine;   // 取り込んだものが優先
+            } catch (e) {}
+            renderChans(); route();
+          });
+      })
+      .catch(function () { view.innerHTML = '<p class="empty">' + esc(t("fail")) + '</p>'; });
+  }
+
+  fetch("./maintenance.json", { cache: "no-cache" })
+    .then(function (r) { return r.ok ? r.json() : null; })
+    .catch(function () { return null; })
+    .then(function (mnt) {
+      if (mnt && mnt.on) { renderMaintenance(mnt); return; }
+      bootApp();
+    });
 })();
 </script>
 </body>
