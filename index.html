@@ -171,6 +171,10 @@
     background:var(--bg); border:1px solid var(--line); border-radius:8px; padding:6px 10px;
   }
   .newbar{ margin-bottom:14px; }
+  .ptitle{ display:flex; align-items:center; gap:8px; margin:0 0 10px;
+           border:1px solid var(--line); border-radius:10px; padding:8px 10px; }
+  .ptitle .tlab{ font-size:11px; color:var(--muted); letter-spacing:.06em; flex:0 0 auto; }
+  .ptitle .tval{ flex:1 1 auto; min-width:0; font-size:13.5px; color:var(--ink); }
   .trash{ margin-top:26px; border-top:1px solid var(--line); padding-top:14px; }
   .trow{ display:flex; align-items:center; justify-content:space-between; gap:10px;
          padding:6px 0; border-bottom:1px solid var(--line); }
@@ -239,6 +243,13 @@
     border:1px solid var(--line); color:var(--muted);
   }
   .pdot[data-on="true"]{ color:var(--surface); background:var(--sage); border-color:var(--sage); }
+  /* チャンネル名。縮めないので、幅は文字なりに */
+  .pf{
+    font-style:normal; font-size:10.5px; letter-spacing:.04em; white-space:nowrap;
+    color:var(--muted); border:1px solid var(--line); border-radius:6px; padding:1px 5px;
+  }
+  .grid th.rowhead b{ flex-wrap:wrap; }
+  .grid th.rowhead{ width:150px; }
   .pflag{ font-style:normal; font-size:11px; color:var(--ink); margin-left:2px; }
   @media (prefers-reduced-motion:reduce){ .chev{ transition:none } }
   .phead .who{ font-weight:500; font-size:14px; color:var(--chc, var(--ink)); }
@@ -970,7 +981,7 @@
 
     var body = "";
     rows.forEach(function (row, ri) {
-      var pf = row.platform ? '<i class="pf" data-p="' + esc(row.platform) + '">' + esc(row.platform) + '</i>' : "";
+      var pf = row.platform ? '<i class="pf" data-p="' + esc(row.platform) + '">' + esc(pfn(row.platform)) + '</i>' : "";
       var first = (ri === 0) || (rows[ri - 1].ch.id !== row.ch.id);
       var col = row.ch.color || "var(--wood)";
       body += '<tr class="' + (first ? "chstart" : "") + '" data-ch="' + esc(row.ch.id) +
@@ -1310,6 +1321,9 @@
   var prepOpen = {};
   var editing = null;          // 編集中の枠。{} なら新規
 
+  // 縮めた記号ではなく、そのまま呼ぶ
+  var PFN = { X:"X", IG:"Instagram", FB:"Facebook", TT:"TikTok", YT:"YouTube" };
+  function pfn(p) { return PFN[p || "X"] || (p || "X"); }
   function slotKey(x) { return x.date + "|" + (x.platform || "X") + "|" + x.time; }
 
   function editForm() {
@@ -1326,7 +1340,11 @@
     }
     var html = '<div class="editor">' +
       row(t("fDate"), '<input type="date" id="eDate" value="' + esc(e.date || ymd(new Date())) + '">') +
-      row(t("fPlatform"), '<select id="ePf">' + opt(["X", "IG", "FB", "TT", "YT"], e.platform || "X") + '</select>') +
+      row(t("fPlatform"), '<select id="ePf">' +
+        ["X", "IG", "FB", "TT", "YT"].map(function (v) {
+          return '<option value="' + v + '"' + (v === (e.platform || "X") ? " selected" : "") + '>' +
+                 esc(pfn(v)) + '</option>';
+        }).join("") + '</select>') +
       row(t("fTime"), '<input type="time" id="eTime" value="' + esc(e.time || "09:30") + '">') +
       row(t("fLabel"), '<input type="text" id="eLabel" value="' + esc(e.label || "") + '">') +
       row(t("fOwner"), '<select id="eOwner">' + OWNERS.map(function (v) {
@@ -1604,8 +1622,8 @@
 
     var chId = schedule.channel || "hiyoko";
     var list = (filter && filter !== chId) ? [] : (schedule.slots || []).filter(function (x) {
-      // 投稿しただけでは消さない。確認まで終わって初めて片付ける
-      return x.date >= from && x.date <= to && !(isPosted(x) && isChecked(x));
+      // 終わったものも残す。あとから見返せるように
+      return x.date >= from && x.date <= to;
     }).sort(function (a, b) {
       return (a.date + a.time) < (b.date + b.time) ? -1 : 1;
     });
@@ -1668,7 +1686,7 @@
       var isOpen = !!prepOpen[cid];
       html += '<div class="pcard" data-open="' + isOpen + '" style="--chc:' + esc(ch.color || "var(--wood)") + '">' +
         '<div class="phead" data-cid="' + esc(cid) + '">' +
-          '<i class="pf" data-p="' + esc(sl.platform || "X") + '">' + esc(sl.platform || "X") + '</i>' +
+          '<i class="pf" data-p="' + esc(sl.platform || "X") + '">' + esc(pfn(sl.platform)) + '</i>' +
           '<span class="who">' + esc(ch.name) + '</span>' +
           '<span class="when">' + esc(whenLabel(sl.date)) + " \u00b7 " + esc(sl.time) + '</span>' +
           (sl.label ? '<span class="when">· ' + esc(sl.label) + '</span>' : "") +
@@ -1684,6 +1702,16 @@
           '<span class="chev">›</span>' +
         '</div>' +
         '<div class="pbody">' +
+        // YouTubeは題が要る。写せるようにしておく
+        ((sl.platform === "YT")
+          ? (function () {
+              copyBank["ti" + i] = { en: sl.label || "", cur: sl.label || "" };
+              return '<div class="ptitle"><span class="tlab">' + esc(t("fLabel")) + '</span>' +
+                '<span class="tval">' + esc(sl.label || "—") + '</span>' +
+                (sl.label ? '<button class="cpy" data-ck="ti' + i + '" data-lg="en">' +
+                  esc(t("copy")) + '</button>' : "") + '</div>';
+            })()
+          : "") +
         '<p class="powner"><span>' + esc(t("fOwner")) + '</span>' +
           '<select class="ownerSel" data-k="' + esc(slotKey(sl)) + '">' +
           OWNERS.map(function (v) {
@@ -1751,7 +1779,7 @@
       (tr.length
         ? tr.map(function (x) {
             return '<div class="trow"><span class="tiny">' + esc(x.date) + " · " +
-              esc(x.platform || "X") + " · " + esc(x.time) +
+              esc(pfn(x.platform)) + " · " + esc(x.time) +
               (x.label ? " · " + esc(x.label) : "") + '</span>' +
               '<button class="donebtn restore" data-k="' + esc(slotKey(x)) + '">' +
               esc(t("restore")) + '</button></div>';
@@ -1822,7 +1850,7 @@
           '<span class="nm">' + esc(g.ch.name) + '</span><span class="pips">' +
           g.items.map(function (it) {
             return '<span class="pip" data-s="' + it.st + '">' +
-                   esc(it.pt.platform || "X") + ' <b>' + esc(it.pt.time) + '</b></span>';
+                   esc(pfn(it.pt.platform)) + ' <b>' + esc(it.pt.time) + '</b></span>';
           }).join("") + '</span></div>';
       });
       html += '</div>';
