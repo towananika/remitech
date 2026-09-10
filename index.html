@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>REMITECH</title>
+<title>REMITECH HUB</title>
 <meta name="description" content="Source of truth for everything we post.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -11,22 +11,22 @@
 <style>
   :root{
     --bg:#f5f1e9; --surface:#fbf9f4; --line:#e2dac8;
-    --ink:#2b2924; --muted:#8a8271; --wood:#93704b; --wood-soft:#ece1d0; --sage:#7d8c6a;
+    --ink:#231f1a; --muted:#645c4e; --wood:#93704b; --wood-soft:#ece1d0; --sage:#7d8c6a;
     --mincho:"Shippori Mincho","Hiragino Mincho ProN",serif;
     --gothic:"Zen Kaku Gothic New","Hiragino Sans","Yu Gothic",system-ui,sans-serif;
   }
   @media (prefers-color-scheme:dark){ :root:not([data-theme="light"]){
     --bg:#1c1a16; --surface:#242119; --line:#38332a;
-    --ink:#ede8dd; --muted:#a89e8a; --wood:#c99f74; --wood-soft:#382d20; --sage:#9aab84;
+    --ink:#f2eee5; --muted:#b6ad99; --wood:#c99f74; --wood-soft:#382d20; --sage:#9aab84;
   }}
   :root[data-theme="dark"]{
     --bg:#1c1a16; --surface:#242119; --line:#38332a;
-    --ink:#ede8dd; --muted:#a89e8a; --wood:#c99f74; --wood-soft:#382d20; --sage:#9aab84;
+    --ink:#f2eee5; --muted:#b6ad99; --wood:#c99f74; --wood-soft:#382d20; --sage:#9aab84;
   }
   *{box-sizing:border-box}
   body{
     margin:0; background:var(--bg); color:var(--ink);
-    font-family:var(--gothic); font-weight:300; line-height:1.85;
+    font-family:var(--gothic); font-weight:400; line-height:1.8;
     -webkit-font-smoothing:antialiased;
   }
   .page{ width:100%; max-width:660px; margin:0 auto; padding:40px 20px 72px; }
@@ -35,7 +35,7 @@
   .top{ display:flex; align-items:flex-start; justify-content:space-between; gap:12px; }
   h1{ margin:0; font-family:var(--mincho); font-weight:500;
       font-size:20px; letter-spacing:.4em; text-indent:.4em; }
-  .tagline{ margin:6px 0 0; font-size:12px; color:var(--muted); letter-spacing:.04em; }
+  .tagline{ margin:6px 0 0; font-size:13px; color:var(--muted); letter-spacing:.04em; }
   .lang{ display:flex; gap:4px; flex:0 0 auto; }
   .lang{ align-items:center; }
   .pill{
@@ -56,11 +56,26 @@
   .dot[data-status="draft"]{ background:var(--wood); }
   .dot[data-status="live"]{ background:var(--sage, #7d8c6a); }
 
+  /* 更新のお知らせ。作業中に邪魔しないよう、上に細く出すだけ */
+  .toast{
+    position:fixed; top:10px; right:12px;
+    display:flex; align-items:center; gap:12px; z-index:50;
+    background:var(--surface); border:1px solid var(--wood); border-radius:999px;
+    padding:6px 6px 6px 14px; font-size:12px; color:var(--ink); opacity:.96;
+    box-shadow:0 2px 12px rgba(0,0,0,.10); max-width:calc(100vw - 24px);
+  }
+  .toast[hidden]{ display:none; }
+  .toast button{
+    background:var(--wood); border:0; border-radius:999px; color:var(--surface);
+    font:inherit; font-size:12px; padding:5px 12px; cursor:pointer;
+  }
+  .toast .x{ background:none; color:var(--muted); padding:5px 8px; }
+
   /* ---- nav ---- */
   .nav{ display:flex; gap:4px; margin:24px 0 4px; }
   .nav button{
     background:none; border:0; border-bottom:2px solid transparent;
-    color:var(--muted); font:inherit; font-size:13px; padding:6px 2px; margin-right:16px;
+    color:var(--muted); font:inherit; font-size:14px; padding:6px 2px; margin-right:16px;
     cursor:pointer;
   }
   .nav button[aria-pressed="true"]{ color:var(--ink); border-bottom-color:var(--wood); }
@@ -68,24 +83,55 @@
   /* ---- dashboard ---- */
   .sum{ background:var(--surface); border:1px solid var(--line); border-radius:14px;
         padding:16px 18px; margin:18px 0 14px; }
-  .sum .big{ font-size:15px; font-weight:500; }
-  .sum .rng{ font-size:11.5px; color:var(--muted); letter-spacing:.06em; }
+  .sum .big{ font-size:16px; font-weight:500; margin:0 0 4px; }
+  .sum .rng{ font-size:12.5px; color:var(--muted); letter-spacing:.02em; line-height:2; }
   .day{ border:1px solid var(--line); border-radius:14px; background:var(--surface);
         padding:12px 14px; margin-bottom:8px; }
   .day.today{ border-color:var(--wood); }
   .dhead{ display:flex; justify-content:space-between; align-items:baseline;
-          font-size:12px; color:var(--muted); letter-spacing:.06em; margin-bottom:6px; }
-  .dhead .n{ color:var(--ink); font-size:14px; }
-  .row{ display:flex; align-items:center; gap:10px; padding:6px 0; font-size:13px; }
+          font-size:12.5px; color:var(--muted); letter-spacing:.04em; margin-bottom:6px; }
+  .dhead .n{ color:var(--ink); font-size:15px; font-weight:500; }
+  .row{ display:flex; align-items:center; gap:10px; padding:8px 0; font-size:13.5px; }
   .row + .row{ border-top:1px solid var(--line); }
-  .row .t{ color:var(--muted); font-size:12px; flex:0 0 46px; }
+  .row .t{ color:var(--ink); font-size:12.5px; font-variant-numeric:tabular-nums; flex:0 0 48px; }
   .row .lb{ flex:1 1 auto; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
-  .st{ flex:0 0 auto; font-size:11px; border-radius:999px; padding:2px 9px; border:1px solid var(--line); }
+  .st{ flex:0 0 auto; font-size:11.5px; font-weight:500; border-radius:999px; padding:2px 9px; border:1px solid var(--line); }
   .st[data-s="none"]{ color:var(--muted); }
   .st[data-s="text"]{ color:var(--wood); border-color:var(--wood); }
   .st[data-s="sched"]{ color:var(--ink); border-color:var(--ink); }
   .st[data-s="done"]{ color:var(--surface); background:var(--sage); border-color:var(--sage); }
   .st[data-s="late"]{ color:var(--surface); background:#b4553f; border-color:#b4553f; }
+
+  .mats{ display:flex; gap:10px; align-items:center; flex:0 0 auto; }
+  .mat{ display:inline-flex; align-items:center; gap:5px; font-size:12px; color:var(--muted);
+        cursor:pointer; user-select:none; }
+  .mat input{ accent-color:var(--wood); width:14px; height:14px; margin:0; }
+  .mat[data-on="true"]{ color:var(--ink); }
+  .st[data-s="ready"]{ color:var(--surface); background:var(--wood); border-color:var(--wood); }
+  .rem{ display:flex; align-items:center; gap:10px; flex-wrap:wrap;
+        font-size:12px; color:var(--muted); margin:0 0 14px; }
+  .rem select{ font:inherit; font-size:12px; background:var(--surface); color:var(--ink);
+               border:1px solid var(--line); border-radius:999px; padding:4px 10px; }
+  .chk{ font-size:11px; color:var(--muted); }
+  .chk[data-m="true"]{ color:var(--sage); }
+  .chk[data-m="false"]{ color:#b4553f; }
+
+  .imp textarea{
+    width:100%; min-height:220px; font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+    font-size:12.5px; line-height:1.7; color:var(--ink); background:var(--surface);
+    border:1px solid var(--line); border-radius:12px; padding:14px; resize:vertical;
+  }
+  .imp textarea:focus{ outline:none; border-color:var(--wood); }
+  .imp .hint{ font-size:12.5px; color:var(--muted); margin:0 0 10px; }
+  .imp .cols{ font-size:12px; color:var(--muted); margin:8px 0 0;
+              font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .imp .bar{ display:flex; gap:8px; flex-wrap:wrap; margin-top:12px; }
+  .imp button{
+    background:var(--surface); border:1px solid var(--line); border-radius:999px;
+    color:var(--ink); font:inherit; font-size:13px; padding:8px 16px; cursor:pointer;
+  }
+  .imp button:hover{ border-color:var(--wood); }
+  .imp .out{ margin-top:12px; font-size:13px; }
 
   /* ---- channels ---- */
   .chans{ display:flex; flex-wrap:wrap; gap:6px; margin:26px 0 22px; }
@@ -110,11 +156,11 @@
   .card:hover,.card:focus-visible{ border-color:var(--wood); transform:translateY(-1px); }
   .card:focus-visible{ outline:2px solid var(--wood); outline-offset:3px; }
   .meta{ display:flex; align-items:center; flex-wrap:wrap; gap:8px;
-         font-size:11px; color:var(--muted); letter-spacing:.06em; }
+         font-size:12px; color:var(--muted); letter-spacing:.06em; }
   .flag{ border:1px solid var(--line); border-radius:999px; padding:1px 8px; }
   .flag[data-status="draft"]{ color:var(--wood); border-color:var(--wood); }
   .card b{ display:block; margin:6px 0 4px; font-weight:500; font-size:16px; line-height:1.6; }
-  .card p{ margin:0; font-size:13px; color:var(--muted); }
+  .card p{ margin:0; font-size:13.5px; color:var(--muted); }
   .tags{ margin-top:10px; font-size:11px; color:var(--muted); }
 
   /* ---- post ---- */
@@ -163,10 +209,16 @@
 </style>
 </head>
 <body>
+  <div class="toast" id="toast" hidden>
+    <span id="toastText"></span>
+    <button id="toastGo"></button>
+    <button class="x" id="toastX" aria-label="close">×</button>
+  </div>
+
   <div class="page">
     <div class="top">
       <div>
-        <h1>REMITECH</h1>
+        <h1>HUB</h1>
         <p class="tagline" id="tagline"></p>
       </div>
       <div class="lang" id="langPick"></div>
@@ -175,7 +227,7 @@
     <div class="nav" id="nav"></div>
     <div class="chans" id="chans"></div>
     <div id="view"><p class="empty" id="loading"></p></div>
-    <footer>REMITECH</footer>
+    <footer>REMITECH HUB</footer>
   </div>
 
 <script>
@@ -188,21 +240,42 @@
           draft:"Draft", live:"Posted", open:"Open channel",
           navDash:"This week", navPosts:"Posts",
           stNone:"No text", stText:"Text ready", stSched:"Scheduled", stDone:"Posted",
-          stLate:"Missed", weekOf:"Week of", ok:"All set", todo:"Needs action" },
+          stLate:"Missed", stReady:"Ready", weekOf:"Week of", ok:"All set", todo:"Needs action",
+          matText:"Text", matImage:"Image", remind:"Remind before posting", remindOff:"Off",
+          notMatched:"Not checked", matched:"Matches the plan", mismatched:"Differs from the plan",
+          navImport:"Import", impHelp:"Paste the plan from your spreadsheet (tab-separated, header row first).",
+          impCols:"Columns: day, time, type, label, ja, en, ko, asset",
+          impApply:"Apply on this device", impDownload:"Download schedule.json",
+          impRead:"Read", impResult:"slots read", impBad:"Could not read it. Check the header row.",
+          updated:"New content", reload:"Reload", close:"Close" },
     ko: { tagline:"올리는 모든 글의 원본.",
           all:"전체", loading:"불러오는 중…", none:"아직 없습니다.",
           fail:"원본을 불러오지 못했습니다.", back:"← 목록으로",
           draft:"초안", live:"게시함", open:"채널 열기",
           navDash:"이번 주", navPosts:"글",
           stNone:"원고 없음", stText:"원고 있음", stSched:"예약됨", stDone:"게시됨",
-          stLate:"놓침", weekOf:"주간", ok:"모두 준비됨", todo:"조치 필요" },
+          stLate:"놓침", stReady:"준비 완료", weekOf:"주간", ok:"모두 준비됨", todo:"조치 필요",
+          matText:"텍스트", matImage:"이미지", remind:"게시 전 알림", remindOff:"끄기",
+          notMatched:"미확인", matched:"기획과 일치", mismatched:"기획과 다름",
+          navImport:"불러오기", impHelp:"기획표를 붙여넣어. 탭으로 구분된 표(첫 줄은 제목).",
+          impCols:"열: day, time, type, label, ja, en, ko, asset",
+          impApply:"이 기기에 적용", impDownload:"schedule.json 내려받기",
+          impRead:"읽기", impResult:"개 읽음", impBad:"읽지 못했어. 첫 줄의 제목을 확인해줘.",
+          updated:"새 내용", reload:"새로고침", close:"닫기" },
     ja: { tagline:"投稿するものの原本。",
           all:"すべて", loading:"読み込んでいます…", none:"まだ何もありません。",
           fail:"原本を読み込めませんでした。", back:"← 一覧へ",
           draft:"下書き", live:"公開ずみ", open:"チャンネルを開く",
           navDash:"今週", navPosts:"投稿",
           stNone:"原稿なし", stText:"原稿あり", stSched:"予約ずみ", stDone:"投稿ずみ",
-          stLate:"抜け", weekOf:"の週", ok:"すべて整っている", todo:"手が要る" }
+          stLate:"抜け", stReady:"投稿準備完了", weekOf:"の週", ok:"すべて整っている", todo:"手が要る",
+          matText:"テキスト", matImage:"画像", remind:"投稿前にリマインド", remindOff:"切",
+          notMatched:"未確認", matched:"企画どおり", mismatched:"企画と違う",
+          navImport:"取り込み", impHelp:"表計算からコピーして貼る（タブ区切り・1行目は見出し）。",
+          impCols:"列: day, time, type, label, ja, en, ko, asset",
+          impApply:"この端末に反映", impDownload:"schedule.json を保存",
+          impRead:"読む", impResult:"件 読めた", impBad:"読めなかった。1行目の見出しを確かめて。",
+          updated:"新しい内容", reload:"読み直す", close:"閉じる" }
   };
   var LANGS = [["en","EN"], ["ko","한국어"], ["ja","日本語"]];
 
@@ -303,11 +376,55 @@
     return days;
   }
 
+  // 材料の印は端末に残す。書き換えが頻繁で、記録として残すものではないため。
+  // 「投稿ずみ」「一致確認」は schedule.json 側に残す（みんなで見る記録）
+  function matKey(sl) { return "remitech-mat-" + schedule.month + "-" + sl.day + "-" + sl.time; }
+  function matGet(sl) {
+    try { return JSON.parse(localStorage.getItem(matKey(sl)) || "{}") || {}; } catch (e) { return {}; }
+  }
+  function matSet(sl, kind, on) {
+    var m = matGet(sl); m[kind] = on;
+    try { localStorage.setItem(matKey(sl), JSON.stringify(m)); } catch (e) {}
+  }
+  function matReady(sl) {
+    var m = matGet(sl), need = sl.need || ["text"];
+    for (var i = 0; i < need.length; i++) { if (!m[need[i]]) return false; }
+    return true;
+  }
+
+  function remindPrefs() {
+    try { return JSON.parse(localStorage.getItem("remitech-remind") || "null") || { on:false, min:30 }; }
+    catch (e) { return { on:false, min:30 }; }
+  }
+  function saveRemind(p) { try { localStorage.setItem("remitech-remind", JSON.stringify(p)); } catch (e) {} }
+
+  var remindTimers = [];
+  function armReminders(days) {
+    remindTimers.forEach(clearTimeout); remindTimers = [];
+    var p = remindPrefs();
+    if (!p.on || !("Notification" in window) || Notification.permission !== "granted") return;
+    var now = Date.now();
+    days.forEach(function (d) {
+      (schedule.slots || []).forEach(function (sl) {
+        if (sl.day !== d.getDate() || sl.time.indexOf(":") < 0 || sl.posted) return;
+        var hh = sl.time.split(":");
+        var at = new Date(d.getFullYear(), d.getMonth(), d.getDate(), +hh[0], +hh[1]).getTime()
+                 - p.min * 60000;
+        var wait = at - now;
+        if (wait <= 0 || wait > 86400000) return;      // 24時間より先は張らない
+        remindTimers.push(setTimeout(function () {
+          try { new Notification("REMITECH", { body: sl.time + "  " + (sl.label || "") }); } catch (e) {}
+        }, wait));
+      });
+    });
+  }
+
   function slotState(sl, when, now) {
     if (sl.posted) return "done";
     var hasText = sl.text && (sl.text.ja || sl.text.en || sl.text.ko);
     if (when < now) return "late";              // 時刻を過ぎたのに投稿されていない
     if (sl.scheduled) return "sched";
+    if (hasText && matReady(sl)) return "ready";  // 材料が揃った
     return hasText ? "text" : "none";
   }
 
@@ -319,7 +436,7 @@
     var days = weekRange(now);
     var ym = schedule.month.split("-");
     var y = +ym[0], m = +ym[1] - 1;
-    var counts = { none:0, text:0, sched:0, done:0, late:0 };
+    var counts = { none:0, text:0, ready:0, sched:0, done:0, late:0 };
     var html = "";
 
     days.forEach(function (d) {
@@ -334,9 +451,22 @@
         var st = slotState(sl, when, now);
         counts[st]++;
         var label = sl.label || (sl.text && (sl.text[lang] || sl.text.en || sl.text.ja) || "").split(String.fromCharCode(10))[0];
+        var m = matGet(sl);
+        var mats = (sl.need || ["text"]).map(function (k) {
+          return '<label class="mat" data-on="' + (!!m[k]) + '">' +
+                 '<input type="checkbox" data-day="' + sl.day + '" data-time="' + esc(sl.time) +
+                 '" data-kind="' + k + '"' + (m[k] ? " checked" : "") + '>' +
+                 esc(t(k === "text" ? "matText" : "matImage")) + '</label>';
+        }).join("");
+        var chk = sl.check && sl.check.done
+          ? '<span class="chk" data-m="' + (sl.check.match === true) + '">' +
+            esc(sl.check.match === true ? t("matched") : t("mismatched")) + '</span>'
+          : (sl.posted ? '<span class="chk">' + esc(t("notMatched")) + '</span>' : "");
         return '<div class="row"><span class="t">' + esc(sl.time) + '</span>' +
                '<span class="lb">' + esc(label || "—") + '</span>' +
-               '<span class="st" data-s="' + st + '">' + esc(t("st" + st.charAt(0).toUpperCase() + st.slice(1))) + '</span></div>';
+               '<span class="mats">' + mats + '</span>' +
+               '<span class="st" data-s="' + st + '">' + esc(t("st" + st.charAt(0).toUpperCase() + st.slice(1))) + '</span>' +
+               chk + '</div>';
       }).join("");
 
       html += '<div class="day' + (isToday ? " today" : "") + '">' +
@@ -346,6 +476,13 @@
     });
 
     var need = counts.late + counts.none + counts.text;
+    var rp = remindPrefs();
+    var opts = [15, 30, 60, 120].map(function (v) {
+      return '<option value="' + v + '"' + (rp.min === v ? " selected" : "") + '>' + v + "m</option>";
+    }).join("");
+    var remRow = '<div class="rem"><label class="mat" data-on="' + rp.on + '">' +
+      '<input type="checkbox" id="remOn"' + (rp.on ? " checked" : "") + '>' + esc(t("remind")) + '</label>' +
+      '<select id="remMin">' + opts + '</select></div>';
     var head = '<div class="sum"><p class="big">' +
       (need === 0 ? esc(t("ok")) : esc(t("todo")) + " · " + need) + '</p>' +
       '<p class="rng">' + (days[0].getMonth()+1) + "/" + days[0].getDate() + " – " +
@@ -353,16 +490,91 @@
       '　' + esc(t("stLate")) + " " + counts.late +
       '　' + esc(t("stNone")) + " " + counts.none +
       '　' + esc(t("stText")) + " " + counts.text +
+      '　' + esc(t("stReady")) + " " + counts.ready +
       '　' + esc(t("stSched")) + " " + counts.sched +
       '　' + esc(t("stDone")) + " " + counts.done + '</p></div>';
 
-    view.innerHTML = head + html;
+    view.innerHTML = head + remRow + html;
+    armReminders(days);
+  }
+
+  // ---- 企画表の取り込み ----
+  // サイトはファイルを書けないので、読み取って(1)この端末に反映し
+  // (2)schedule.json として保存できるようにする。保存したものを置けば全員に反映される
+  function parseTSV(txt) {
+    var lines = txt.split(RE_CR).join("").split(NLC).filter(function (l) { return l.trim(); });
+    if (lines.length < 2) return null;
+    var head = lines[0].split(TABC).map(function (h) { return h.trim().toLowerCase(); });
+    if (head.indexOf("day") < 0 || head.indexOf("time") < 0) return null;
+    function col(r, name) { var i = head.indexOf(name); return i < 0 ? "" : (r[i] || "").trim(); }
+    function un(v) { return v.split(BSN).join(NLC); }
+    var out = [];
+    for (var i = 1; i < lines.length; i++) {
+      var r = lines[i].split(TABC);
+      var day = parseInt(col(r, "day"), 10);
+      var time = col(r, "time");
+      if (!day || !time) continue;
+      var type = col(r, "type") || "text";
+      var asset = col(r, "asset");
+      out.push({
+        day: day, time: time, type: type, label: col(r, "label"),
+        text: { ja: un(col(r, "ja")), en: un(col(r, "en")), ko: un(col(r, "ko")) },
+        asset: asset, note: "",
+        need: (type === "image" || type === "video" || asset) ? ["text", "image"] : ["text"],
+        scheduled: false, posted: false, url: "",
+        check: { done: false, at: "", match: null, note: "" }
+      });
+    }
+    return out.length ? out : null;
+  }
+
+  var NLC = String.fromCharCode(10), TABC = String.fromCharCode(9);
+  var RE_CR = String.fromCharCode(13), BSN = "\\" + "n";
+
+  var imported = null;
+
+  function renderImport() {
+    chansEl.hidden = true;
+    view.innerHTML = '<div class="imp">' +
+      '<p class="hint">' + esc(t("impHelp")) + '</p>' +
+      '<textarea id="impText" spellcheck="false"></textarea>' +
+      '<p class="cols">' + esc(t("impCols")) + '</p>' +
+      '<div class="bar"><button id="impRead">' + esc(t("impRead")) + '</button>' +
+      '<button id="impApply">' + esc(t("impApply")) + '</button>' +
+      '<button id="impDl">' + esc(t("impDownload")) + '</button></div>' +
+      '<p class="out" id="impOut"></p></div>';
+  }
+
+  function importClick(e) {
+    var out = document.getElementById("impOut");
+    if (e.target.id === "impRead") {
+      imported = parseTSV(document.getElementById("impText").value);
+      out.textContent = imported ? (imported.length + " " + t("impResult")) : t("impBad");
+      return;
+    }
+    if (!imported) { out.textContent = t("impBad"); return; }
+    var body = { channel: schedule ? schedule.channel : "hiyoko",
+                 month: schedule ? schedule.month : "",
+                 timezone: "Asia/Seoul", note: "", slots: imported };
+    if (e.target.id === "impApply") {
+      schedule = body;
+      try { localStorage.setItem("remitech-schedule", JSON.stringify(body)); } catch (err) {}
+      tab = "dash"; renderNav(); route();
+      return;
+    }
+    if (e.target.id === "impDl") {
+      var a = document.createElement("a");
+      a.href = URL.createObjectURL(new Blob([JSON.stringify(body, null, 2)], { type: "application/json" }));
+      a.download = "schedule.json";
+      document.body.appendChild(a); a.click(); a.remove();
+    }
   }
 
   function renderNav() {
     navEl.innerHTML =
       '<button data-tab="dash" aria-pressed="' + (tab === "dash") + '">' + esc(t("navDash")) + '</button>' +
-      '<button data-tab="posts" aria-pressed="' + (tab === "posts") + '">' + esc(t("navPosts")) + '</button>';
+      '<button data-tab="posts" aria-pressed="' + (tab === "posts") + '">' + esc(t("navPosts")) + '</button>' +
+      '<button data-tab="import" aria-pressed="' + (tab === "import") + '">' + esc(t("navImport")) + '</button>';
   }
 
   navEl.addEventListener("click", function (e) {
@@ -401,6 +613,7 @@
     var p = id && posts.filter(function (x) { return x.id === id; })[0];
     if (p) { renderPost(p); window.scrollTo(0, 0); return; }
     if (tab === "dash") { renderDash(); return; }
+    if (tab === "import") { renderImport(); return; }
     renderList();
   }
 
@@ -426,12 +639,69 @@
     renderChans(); renderList();
   });
 
+  view.addEventListener("change", function (e) {
+    var cb = e.target.closest("input[type=checkbox]");
+    if (!cb) return;
+    if (cb.id === "remOn") {
+      var p = remindPrefs(); p.on = cb.checked; saveRemind(p);
+      if (p.on && "Notification" in window && Notification.permission === "default") {
+        Notification.requestPermission().then(function () { renderDash(); });
+        return;
+      }
+      renderDash(); return;
+    }
+    var day = +cb.getAttribute("data-day"), time = cb.getAttribute("data-time");
+    var sl = (schedule.slots || []).filter(function (x) { return x.day === day && x.time === time; })[0];
+    if (!sl) return;
+    matSet(sl, cb.getAttribute("data-kind"), cb.checked);
+    renderDash();
+  });
+
+  view.addEventListener("input", function (e) {
+    if (e.target.id !== "remMin") return;
+    var p = remindPrefs(); p.min = +e.target.value; saveRemind(p);
+    renderDash();
+  });
+
   view.addEventListener("click", function (e) {
+    if (tab === "import" && e.target.tagName === "BUTTON") { importClick(e); return; }
     var card = e.target.closest(".card");
     if (card) { location.hash = "/" + card.getAttribute("data-id"); return; }
     if (e.target.closest("#backBtn")) { location.hash = ""; }
   });
   window.addEventListener("hashchange", route);
+
+  // 置かれているファイルが差し替わったかを、たまに見に行く。
+  // 作業中に画面を作り直すと入力が消えるので、帯を出すだけにする
+  var seen = {};
+  function stamp(res) {
+    return (res.headers.get("etag") || "") + "|" + (res.headers.get("last-modified") || "");
+  }
+  function watchUpdates() {
+    ["./posts.json", "./schedule.json"].forEach(function (u) {
+      fetch(u, { method: "HEAD", cache: "no-store" }).then(function (r) {
+        if (!r.ok) return;
+        var st = stamp(r);
+        if (!st) return;
+        if (seen[u] === undefined) { seen[u] = st; return; }
+        if (seen[u] !== st) {
+          seen[u] = st;
+          var el = document.getElementById("toast");
+          document.getElementById("toastText").textContent = t("updated");
+          document.getElementById("toastGo").textContent = t("reload");
+          el.hidden = false;
+          clearTimeout(window.__toastT);
+          window.__toastT = setTimeout(function () { el.hidden = true; }, 20000);  // 放っておけば消える
+        }
+      }).catch(function () {});
+    });
+  }
+  document.getElementById("toastGo").addEventListener("click", function () { location.reload(); });
+  document.getElementById("toastX").addEventListener("click", function () {
+    document.getElementById("toast").hidden = true;
+  });
+  watchUpdates();
+  setInterval(watchUpdates, 300000);        // 5分ごと
 
   renderLang();
   renderNav();
@@ -445,7 +715,14 @@
       return fetch("./schedule.json", { cache: "no-cache" })
         .then(function (r) { return r.ok ? r.json() : null; })
         .catch(function () { return null; })
-        .then(function (sc) { schedule = sc; renderChans(); route(); });
+        .then(function (sc) {
+          schedule = sc;
+          try {
+            var mine = JSON.parse(localStorage.getItem("remitech-schedule") || "null");
+            if (mine && mine.slots && mine.slots.length) schedule = mine;   // 取り込んだものが優先
+          } catch (e) {}
+          renderChans(); route();
+        });
     })
     .catch(function () { view.innerHTML = '<p class="empty">' + esc(t("fail")) + '</p>'; });
 })();

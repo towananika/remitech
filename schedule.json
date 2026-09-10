@@ -2,7 +2,7 @@
   "channel": "hiyoko",
   "month": "2026-09",
   "timezone": "Asia/Seoul",
-  "note": "HIYOKO 9月の投稿計画。原稿・予約・投稿を1枚で見る。予約と投稿の印は手で更新する（Xの投稿状態は自動で読めないため）。",
+  "note": "HIYOKO 9月の投稿計画。材料（テキスト・画像）が揃うと準備完了になる。予約・投稿・一致確認は schedule.json を手で更新する（Xの投稿状態はサイトからは読めないため）。",
   "slots": [
     {
       "day": 1,
@@ -18,7 +18,16 @@
       "note": "",
       "scheduled": false,
       "posted": false,
-      "url": ""
+      "url": "",
+      "need": [
+        "text"
+      ],
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
     },
     {
       "day": 1,
@@ -34,7 +43,16 @@
       "note": "",
       "scheduled": false,
       "posted": false,
-      "url": ""
+      "url": "",
+      "need": [
+        "text"
+      ],
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
     },
     {
       "day": 1,
@@ -50,7 +68,16 @@
       "note": "",
       "scheduled": false,
       "posted": false,
-      "url": ""
+      "url": "",
+      "need": [
+        "text"
+      ],
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
     },
     {
       "day": 2,
@@ -66,7 +93,16 @@
       "note": "",
       "scheduled": false,
       "posted": false,
-      "url": ""
+      "url": "",
+      "need": [
+        "text"
+      ],
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
     },
     {
       "day": 2,
@@ -82,7 +118,16 @@
       "note": "",
       "scheduled": false,
       "posted": false,
-      "url": ""
+      "url": "",
+      "need": [
+        "text"
+      ],
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
     },
     {
       "day": 2,
@@ -98,7 +143,16 @@
       "note": "",
       "scheduled": false,
       "posted": false,
-      "url": ""
+      "url": "",
+      "need": [
+        "text"
+      ],
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
     },
     {
       "day": 3,
@@ -114,7 +168,17 @@
       "note": "",
       "scheduled": false,
       "posted": false,
-      "url": ""
+      "url": "",
+      "need": [
+        "text",
+        "image"
+      ],
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
     },
     {
       "day": 3,
@@ -130,7 +194,16 @@
       "note": "",
       "scheduled": false,
       "posted": false,
-      "url": ""
+      "url": "",
+      "need": [
+        "text"
+      ],
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
     },
     {
       "day": 3,
@@ -146,7 +219,16 @@
       "note": "",
       "scheduled": false,
       "posted": false,
-      "url": ""
+      "url": "",
+      "need": [
+        "text"
+      ],
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
     },
     {
       "day": 4,
@@ -162,7 +244,17 @@
       "note": "",
       "scheduled": false,
       "posted": false,
-      "url": ""
+      "url": "",
+      "need": [
+        "text",
+        "image"
+      ],
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
     },
     {
       "day": 4,
@@ -178,7 +270,16 @@
       "note": "",
       "scheduled": false,
       "posted": false,
-      "url": ""
+      "url": "",
+      "need": [
+        "text"
+      ],
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
     },
     {
       "day": 4,
@@ -194,7 +295,16 @@
       "note": "",
       "scheduled": false,
       "posted": false,
-      "url": ""
+      "url": "",
+      "need": [
+        "text"
+      ],
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
     },
     {
       "day": 5,
@@ -210,7 +320,16 @@
       "note": "",
       "scheduled": false,
       "posted": false,
-      "url": ""
+      "url": "",
+      "need": [
+        "text"
+      ],
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
     },
     {
       "day": 5,
@@ -226,7 +345,16 @@
       "note": "",
       "scheduled": false,
       "posted": false,
-      "url": ""
+      "url": "",
+      "need": [
+        "text"
+      ],
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
     },
     {
       "day": 5,
@@ -242,103 +370,168 @@
       "note": "",
       "scheduled": false,
       "posted": false,
-      "url": ""
+      "url": "",
+      "need": [
+        "text"
+      ],
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
     },
     {
       "day": 6,
       "time": "09:00",
       "type": "text",
-      "label": "",
+      "label": "【Week 1】今週のHIYOKO",
       "text": {
-        "ja": "",
-        "en": "",
-        "ko": ""
+        "ja": "【Week 1】今週のHIYOKO🪄\n\n🐣 HYK — エコシステムの中心\n🎮 P2E — ゲームしてCheePoint→HYK\n❤️ H2E — 健康チェックしてCheePoint→HYK\n🌍 148M × 55K × 54M — すでにそこにいる\n🇮🇩 9月インドネシアでイベント開催！\n\n今週もありがとう。来週も楽しみに🐣",
+        "en": "【Week 1】HIYOKO this week 🪄\n\n🐣 HYK — center of the ecosystem\n🎮 P2E — play → CheePoints → HYK\n❤️ H2E — health check → CheePoints → HYK\n🌍 148M × 55K × 54M — already there\n🇮🇩 offline event in Indonesia this September!\n\nthanks, hooman.\nsee you next week 🐣",
+        "ko": "【1주차】이번 주 HIYOKO 🪄\n\n🐣 HYK — 에코시스템의 중심\n🎮 P2E — 게임 → CheePoint → HYK\n❤️ H2E — 건강체크 → CheePoint → HYK\n🌍 148M × 55K × 54M — 이미 거기 있어\n🇮🇩 9월 인도네시아 오프라인 행사!\n\n이번 주도 고마워. 다음 주도 기대해줘 🐣"
       },
       "asset": "",
       "note": "",
       "scheduled": false,
       "posted": false,
-      "url": ""
+      "url": "",
+      "need": [
+        "text"
+      ],
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
     },
     {
       "day": 6,
       "time": "17:00",
-      "type": "text",
-      "label": "",
+      "type": "image",
+      "label": "Coinstoreで取引できる",
       "text": {
-        "ja": "",
-        "en": "",
-        "ko": ""
+        "ja": "HYKはCoinstoreで取引できるよ。🪄\n\nCoinstoreを開いて\n「HYK」を検索してみて。\n\nHYK/USDTが出てくるよ。😎\n\n#HYK #HIYOKO #Coinstore",
+        "en": "HYK is available on Coinstore. 🪄\n\nopen Coinstore.\nsearch for \"HYK\".\n\nyou'll find HYK/USDT. 😎\n\n#HYK #HIYOKO #Coinstore",
+        "ko": "HYK Coinstore에서 거래 가능해. 🪄\n\nCoinstore 열고\n\"HYK\" 검색해봐.\n\nHYK/USDT 나와. 😎\n\n#HYK #HIYOKO #Coinstore"
       },
-      "asset": "",
+      "asset": "코인스토어 X 게시물 끌어와서 재업로드",
       "note": "",
       "scheduled": false,
       "posted": false,
-      "url": ""
+      "url": "",
+      "need": [
+        "text",
+        "image"
+      ],
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
     },
     {
       "day": 7,
       "time": "09:00",
       "type": "text",
-      "label": "",
+      "label": "なんでトークンをゆっくり出すの？",
       "text": {
-        "ja": "",
-        "en": "",
-        "ko": ""
+        "ja": "なんでトークンをゆっくり出すの？🪄\n\n一度に全部出したら\n市場が崩れるから。\n\nHIYOKOは\nプリセール・チーム・財団トークンに\nLock & Vestingを適用してる。\n\n段階的に解放することで\n急激な売り圧力を防いで\n長期的な安定を守る。\n\n早く全部欲しい気持ちはわかる。\nでもゆっくりの方が\nみんなのためになるんだよ。😎\n\n#HYK #HIYOKO #Tokenomics",
+        "en": "why release tokens slowly? 🪄\n\nrelease everything at once,\nand it can create heavy selling pressure.\n\nHIYOKO applies\nLock & Vesting to\npresale, team, and foundation tokens.\n\ngradual release helps limit\nsudden selling pressure\nand support long-term stability.\n\nwant it all now? understandable.\nbut a gradual release\nhelps support the ecosystem long-term. 😎\n\n#HYK #HIYOKO #Tokenomics",
+        "ko": "왜 토큰을 천천히 풀어? 🪄\n\n한꺼번에 다 풀면\n시장이 무너지니까.\n\nHIYOKO는\n프리세일·팀·파운데이션 토큰에\nLock & Vesting을 적용했어.\n\n단계적으로 풀어서\n급격한 매도 압력을 방지하고\n장기적인 안정을 지켜.\n\n지금 당장 다 원하는 마음 이해해.\n근데 천천히 가는 게\n모두를 위한 거야. 😎\n\n#HYK #HIYOKO #Tokenomics"
       },
       "asset": "",
       "note": "",
       "scheduled": false,
       "posted": false,
-      "url": ""
+      "url": "",
+      "need": [
+        "text"
+      ],
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
     },
     {
       "day": 7,
       "time": "17:00",
       "type": "text",
-      "label": "",
+      "label": "HIYOKOの成長ステップ",
       "text": {
-        "ja": "",
-        "en": "",
-        "ko": ""
+        "ja": "HIYOKOの成長ステップ。🪄\n\nプリセール\n→ 取引所上場（Coinstore）✅\n→ アフターセール ← 今ここ\n→ エコシステム拡大\n\nプリセールを逃した人も\nアフターセールで参加できるよ。\n\n今が参加できるタイミング。😎\n\n👇 https://sale.hiyoko.io/\n\n#HYK #HIYOKO #AfterSale",
+        "en": "HIYOKO's growth path. 🪄\n\npresale\n→ Coinstore listing ✅\n→ after-sale ← we are here\n→ ecosystem expansion\n\nmissed the presale?\nthe after-sale is open now.\n\nyou can still join. 😎\n\n👇 https://sale.hiyoko.io/\n\n#HYK #HIYOKO #AfterSale",
+        "ko": "HIYOKO 성장 단계. 🪄\n\n프리세일\n→ 거래소 상장 (Coinstore) ✅\n→ 애프터세일 ← 지금 여기\n→ 에코시스템 확장\n\n프리세일 놓쳤어?\n애프터세일 지금 열려있어.\n\n지금이 타이밍이야. 😎\n\n👇 https://sale.hiyoko.io/\n\n#HYK #HIYOKO #AfterSale"
       },
       "asset": "",
       "note": "",
       "scheduled": false,
       "posted": false,
-      "url": ""
+      "url": "",
+      "need": [
+        "text"
+      ],
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
     },
     {
       "day": 8,
       "time": "09:00",
       "type": "text",
-      "label": "",
+      "label": "Burnって知ってる？",
       "text": {
-        "ja": "",
-        "en": "",
-        "ko": ""
+        "ja": "Burnって知ってる？🔥🐣\n\nトークンを燃やすやつ。\n\nなんで燃やすの？\n\n流通量が減る\n→ 希少性が上がる\n→ 価値が守られる\n\nHIYOKOも\nエコシステムのバランスを見ながら\nBurnを設計に組み込んでるよ。\n\n燃やすことで守る。\nそういう設計。😎\n\n#HYK #HIYOKO #Tokenomics #Burn",
+        "en": "heard of token burning? 🔥🐣\n\nit's when tokens are permanently removed from circulation.\n\nwhy?\n\nless supply\n→ more scarcity\n\nHIYOKO has token burning\nbuilt into its design\nto help balance the ecosystem.\n\nreduce supply.\nincrease scarcity.\nthat's the idea. 😎\n\n#HYK #HIYOKO #Tokenomics #Burn",
+        "ko": "Burn 알아? 🔥🐣\n\n토큰 태우는 거야.\n\n왜 태워?\n\n유통량 줄어\n→ 희소성 올라가\n→ 가치 지켜져\n\n히요코도\n에코시스템 균형 보면서\nBurn을 설계에 넣었어.\n\n태워서 지키는 거야.\n그런 설계야. 😎\n\n#HYK #HIYOKO #Tokenomics #Burn"
       },
       "asset": "",
       "note": "",
       "scheduled": false,
       "posted": false,
-      "url": ""
+      "url": "",
+      "need": [
+        "text"
+      ],
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
     },
     {
       "day": 8,
       "time": "17:00",
-      "type": "text",
-      "label": "",
+      "type": "image",
+      "label": "HIYOKOは今、進行中",
       "text": {
-        "ja": "",
-        "en": "",
-        "ko": ""
+        "ja": "HIYOKOは今、進行中。🪄\n\n✅ Happy Chick — 稼働中\n✅ Vitalis — 55,000人以上登録済み\n✅ HYK — Coinstore上場済み\n✅ アフターセール — 進行中\n\nComing:\n🔜 Vitalis 正式リリース\n🔜 NFTマーケット拡大\n🔜 KOLマーケティング本格展開\n🔜 エコシステムさらなる拡大\n\nこれはまだ始まりにすぎない。🐣\n\n#HYK #HIYOKO #Roadmap",
+        "en": "HIYOKO is moving forward. 🪄\n\n✅ Happy Chick — live\n✅ Vitalis — 55,000+ registered\n✅ HYK — listed on Coinstore\n✅ after-sale — ongoing\n\ncoming:\n🔜 Vitalis official launch\n🔜 NFT marketplace expansion\n🔜 full KOL marketing rollout\n🔜 further ecosystem expansion\n\nand this is just the beginning. 🐣\n\n#HYK #HIYOKO #Roadmap",
+        "ko": "HIYOKO 지금 진행 중. 🪄\n\n✅ Happy Chick — 운영 중\n✅ Vitalis — 55,000명+ 등록 완료\n✅ HYK — Coinstore 상장 완료\n✅ 애프터세일 — 진행 중\n\nComing:\n🔜 Vitalis 정식 출시\n🔜 NFT 마켓 확장\n🔜 KOL 마케팅 본격 전개\n🔜 에코시스템 추가 확장\n\n이건 아직 시작일 뿐이야. 🐣\n\n#HYK #HIYOKO #Roadmap"
       },
-      "asset": "",
+      "asset": "GIF",
       "note": "",
       "scheduled": false,
       "posted": false,
-      "url": ""
+      "url": "",
+      "need": [
+        "text",
+        "image"
+      ],
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
     },
     {
       "day": 9,
@@ -354,7 +547,16 @@
       "note": "",
       "scheduled": false,
       "posted": false,
-      "url": ""
+      "url": "",
+      "need": [
+        "text"
+      ],
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
     },
     {
       "day": 9,
@@ -370,7 +572,16 @@
       "note": "",
       "scheduled": false,
       "posted": false,
-      "url": ""
+      "url": "",
+      "need": [
+        "text"
+      ],
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
     },
     {
       "day": 10,
@@ -386,7 +597,16 @@
       "note": "",
       "scheduled": false,
       "posted": false,
-      "url": ""
+      "url": "",
+      "need": [
+        "text"
+      ],
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
     },
     {
       "day": 10,
@@ -402,7 +622,16 @@
       "note": "",
       "scheduled": false,
       "posted": false,
-      "url": ""
+      "url": "",
+      "need": [
+        "text"
+      ],
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
     },
     {
       "day": 11,
@@ -418,7 +647,16 @@
       "note": "",
       "scheduled": false,
       "posted": false,
-      "url": ""
+      "url": "",
+      "need": [
+        "text"
+      ],
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
     },
     {
       "day": 11,
@@ -434,23 +672,42 @@
       "note": "",
       "scheduled": false,
       "posted": false,
-      "url": ""
+      "url": "",
+      "need": [
+        "text"
+      ],
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
     },
     {
       "day": 12,
       "time": "09:00",
-      "type": "text",
-      "label": "",
+      "type": "image",
+      "label": "Coinstoreとは",
       "text": {
-        "ja": "",
-        "en": "",
-        "ko": ""
+        "ja": "HYKはCoinstoreに上場してるよ。🪄\n\nCoinstoreって？\n世界1,500万人以上が使う\nグローバル取引所。\n\nそこでHYK/USDTが\n今すぐ取引できる。😎\n\n@CoinstoreExc\n\n#HYK #HIYOKO #Coinstore",
+        "en": "HYK is listed on Coinstore. 🪄\n\nwhat's Coinstore?\ntrusted by 15M+ users worldwide.\na global crypto exchange.\n\nHYK/USDT is live there.\nright now. 😎\n\n@CoinstoreExc\n\n#HYK #HIYOKO #Coinstore",
+        "ko": "HYK Coinstore에 상장되어 있어. 🪄\n\nCoinstore가 뭐냐고?\n전 세계 1,500만 명+ 유저가 사용하는\n글로벌 거래소야.\n\n거기서 HYK/USDT\n지금 바로 거래 가능해. 😎\n\n@CoinstoreExc\n\n#HYK #HIYOKO #Coinstore"
       },
-      "asset": "",
+      "asset": "코인스토어 X 인기게시물 끌어와서 재업로드",
       "note": "",
       "scheduled": false,
       "posted": false,
-      "url": ""
+      "url": "",
+      "need": [
+        "text",
+        "image"
+      ],
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
     },
     {
       "day": 12,
@@ -466,39 +723,66 @@
       "note": "",
       "scheduled": false,
       "posted": false,
-      "url": ""
+      "url": "",
+      "need": [
+        "text"
+      ],
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
     },
     {
       "day": 13,
       "time": "09:00",
       "type": "text",
-      "label": "",
+      "label": "インドネシアまであと12日",
       "text": {
-        "ja": "",
-        "en": "",
-        "ko": ""
+        "ja": "インドネシアイベントまで\nあと12日。🇮🇩🐣\n\n9月24日、現地で会おう。\n\n楽しみにしててね。😎\n\n#HYK #HIYOKO #Indonesia",
+        "en": "12 days until the\nIndonesia event. 🇮🇩🐣\n\nSeptember 24th.\nsee you there.\n\nstay tuned. 😎\n\n#HYK #HIYOKO #Indonesia",
+        "ko": "인도네시아 행사까지\n12일 남았어. 🇮🇩🐣\n\n9월 24일, 현지에서 만나자.\n\n기대해줘. 😎\n\n#HYK #HIYOKO #Indonesia"
       },
       "asset": "",
       "note": "",
       "scheduled": false,
       "posted": false,
-      "url": ""
+      "url": "",
+      "need": [
+        "text"
+      ],
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
     },
     {
       "day": 13,
       "time": "17:00",
       "type": "text",
-      "label": "",
+      "label": "流動性の管理",
       "text": {
-        "ja": "",
-        "en": "",
-        "ko": ""
+        "ja": "HIYOKOはどうやって\n流動性を管理してるの？🪄\n\n① HYKの初期流通量を約15%に抑える\n② Lock & Vestingで段階的にトークンを解放\n③ Burn・Buyback・Pool補充で需給バランスを保つ\n④ ゲーム・健康チェックでCheePointを循環させる\n\n一度に大量に出さない。\nゆっくり、でも確実に。\n\nそれがHIYOKOの\n流動性管理の答えだよ。😎\n\n#HYK #HIYOKO #Web3 #Tokenomics",
+        "en": "how does HIYOKO manage liquidity? 🪄\n\n① initial circulating supply kept at ~15%\n② Lock & Vesting releases tokens gradually\n③ Burn, Buyback & Pool replenishment help balance supply and demand\n④ games and health checks keep CheePoints circulating\n\nno large amounts released all at once.\ngradual. steady.\n\nthat's HIYOKO's approach\nto liquidity management. 😎\n\n#HYK #HIYOKO #Web3 #Tokenomics",
+        "ko": "HIYOKO는 유동성을\n어떻게 관리하고 있냐면. 🪄\n\n① HYK 초기 유통량 약 15%로 억제\n② Lock & Vesting으로 토큰 단계적 해제\n③ Burn. Buyback. 풀 보충. 수급 균형 유지\n④ 게임·건강체크로 CheePoint 순환\n\n한꺼번에 쏟아내지 않아.\n천천히. 하지만 확실하게.\n\n그게 HIYOKO의\n유동성 관리 방식이야. 😎\n\n#HYK #HIYOKO #Web3 #Tokenomics"
       },
       "asset": "",
       "note": "",
       "scheduled": false,
       "posted": false,
-      "url": ""
+      "url": "",
+      "need": [
+        "text"
+      ],
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
     },
     {
       "day": 14,
@@ -514,7 +798,16 @@
       "note": "",
       "scheduled": false,
       "posted": false,
-      "url": ""
+      "url": "",
+      "need": [
+        "text"
+      ],
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
     },
     {
       "day": 14,
@@ -530,7 +823,16 @@
       "note": "",
       "scheduled": false,
       "posted": false,
-      "url": ""
+      "url": "",
+      "need": [
+        "text"
+      ],
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
     },
     {
       "day": 15,
@@ -546,7 +848,16 @@
       "note": "",
       "scheduled": false,
       "posted": false,
-      "url": ""
+      "url": "",
+      "need": [
+        "text"
+      ],
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
     },
     {
       "day": 15,
@@ -562,7 +873,16 @@
       "note": "",
       "scheduled": false,
       "posted": false,
-      "url": ""
+      "url": "",
+      "need": [
+        "text"
+      ],
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
     },
     {
       "day": 16,
@@ -578,7 +898,16 @@
       "note": "",
       "scheduled": false,
       "posted": false,
-      "url": ""
+      "url": "",
+      "need": [
+        "text"
+      ],
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
     },
     {
       "day": 16,
@@ -594,7 +923,16 @@
       "note": "",
       "scheduled": false,
       "posted": false,
-      "url": ""
+      "url": "",
+      "need": [
+        "text"
+      ],
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
     },
     {
       "day": 17,
@@ -610,7 +948,16 @@
       "note": "",
       "scheduled": false,
       "posted": false,
-      "url": ""
+      "url": "",
+      "need": [
+        "text"
+      ],
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
     },
     {
       "day": 17,
@@ -626,7 +973,16 @@
       "note": "",
       "scheduled": false,
       "posted": false,
-      "url": ""
+      "url": "",
+      "need": [
+        "text"
+      ],
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
     },
     {
       "day": 18,
@@ -642,7 +998,16 @@
       "note": "",
       "scheduled": false,
       "posted": false,
-      "url": ""
+      "url": "",
+      "need": [
+        "text"
+      ],
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
     },
     {
       "day": 18,
@@ -658,7 +1023,16 @@
       "note": "",
       "scheduled": false,
       "posted": false,
-      "url": ""
+      "url": "",
+      "need": [
+        "text"
+      ],
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
     },
     {
       "day": 19,
@@ -674,7 +1048,16 @@
       "note": "",
       "scheduled": false,
       "posted": false,
-      "url": ""
+      "url": "",
+      "need": [
+        "text"
+      ],
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
     },
     {
       "day": 19,
@@ -690,7 +1073,16 @@
       "note": "",
       "scheduled": false,
       "posted": false,
-      "url": ""
+      "url": "",
+      "need": [
+        "text"
+      ],
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
     },
     {
       "day": 20,
@@ -706,7 +1098,16 @@
       "note": "",
       "scheduled": false,
       "posted": false,
-      "url": ""
+      "url": "",
+      "need": [
+        "text"
+      ],
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
     },
     {
       "day": 20,
@@ -722,7 +1123,16 @@
       "note": "",
       "scheduled": false,
       "posted": false,
-      "url": ""
+      "url": "",
+      "need": [
+        "text"
+      ],
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
     },
     {
       "day": 21,
@@ -738,7 +1148,16 @@
       "note": "",
       "scheduled": false,
       "posted": false,
-      "url": ""
+      "url": "",
+      "need": [
+        "text"
+      ],
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
     },
     {
       "day": 21,
@@ -754,7 +1173,16 @@
       "note": "",
       "scheduled": false,
       "posted": false,
-      "url": ""
+      "url": "",
+      "need": [
+        "text"
+      ],
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
     },
     {
       "day": 22,
@@ -770,7 +1198,16 @@
       "note": "",
       "scheduled": false,
       "posted": false,
-      "url": ""
+      "url": "",
+      "need": [
+        "text"
+      ],
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
     },
     {
       "day": 22,
@@ -786,7 +1223,16 @@
       "note": "",
       "scheduled": false,
       "posted": false,
-      "url": ""
+      "url": "",
+      "need": [
+        "text"
+      ],
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
     },
     {
       "day": 23,
@@ -802,7 +1248,16 @@
       "note": "",
       "scheduled": false,
       "posted": false,
-      "url": ""
+      "url": "",
+      "need": [
+        "text"
+      ],
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
     },
     {
       "day": 23,
@@ -818,7 +1273,16 @@
       "note": "",
       "scheduled": false,
       "posted": false,
-      "url": ""
+      "url": "",
+      "need": [
+        "text"
+      ],
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
     },
     {
       "day": 24,
@@ -834,7 +1298,16 @@
       "note": "",
       "scheduled": false,
       "posted": false,
-      "url": ""
+      "url": "",
+      "need": [
+        "text"
+      ],
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
     },
     {
       "day": 24,
@@ -850,7 +1323,16 @@
       "note": "",
       "scheduled": false,
       "posted": false,
-      "url": ""
+      "url": "",
+      "need": [
+        "text"
+      ],
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
     },
     {
       "day": 25,
@@ -866,7 +1348,16 @@
       "note": "",
       "scheduled": false,
       "posted": false,
-      "url": ""
+      "url": "",
+      "need": [
+        "text"
+      ],
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
     },
     {
       "day": 25,
@@ -882,7 +1373,16 @@
       "note": "",
       "scheduled": false,
       "posted": false,
-      "url": ""
+      "url": "",
+      "need": [
+        "text"
+      ],
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
     },
     {
       "day": 26,
@@ -898,7 +1398,16 @@
       "note": "",
       "scheduled": false,
       "posted": false,
-      "url": ""
+      "url": "",
+      "need": [
+        "text"
+      ],
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
     },
     {
       "day": 26,
@@ -914,7 +1423,16 @@
       "note": "",
       "scheduled": false,
       "posted": false,
-      "url": ""
+      "url": "",
+      "need": [
+        "text"
+      ],
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
     },
     {
       "day": 27,
@@ -930,7 +1448,16 @@
       "note": "",
       "scheduled": false,
       "posted": false,
-      "url": ""
+      "url": "",
+      "need": [
+        "text"
+      ],
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
     },
     {
       "day": 27,
@@ -946,7 +1473,16 @@
       "note": "",
       "scheduled": false,
       "posted": false,
-      "url": ""
+      "url": "",
+      "need": [
+        "text"
+      ],
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
     },
     {
       "day": 28,
@@ -962,7 +1498,16 @@
       "note": "",
       "scheduled": false,
       "posted": false,
-      "url": ""
+      "url": "",
+      "need": [
+        "text"
+      ],
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
     },
     {
       "day": 28,
@@ -978,7 +1523,16 @@
       "note": "",
       "scheduled": false,
       "posted": false,
-      "url": ""
+      "url": "",
+      "need": [
+        "text"
+      ],
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
     },
     {
       "day": 29,
@@ -994,7 +1548,16 @@
       "note": "",
       "scheduled": false,
       "posted": false,
-      "url": ""
+      "url": "",
+      "need": [
+        "text"
+      ],
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
     },
     {
       "day": 29,
@@ -1010,7 +1573,16 @@
       "note": "",
       "scheduled": false,
       "posted": false,
-      "url": ""
+      "url": "",
+      "need": [
+        "text"
+      ],
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
     },
     {
       "day": 30,
@@ -1026,7 +1598,16 @@
       "note": "",
       "scheduled": false,
       "posted": false,
-      "url": ""
+      "url": "",
+      "need": [
+        "text"
+      ],
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
     },
     {
       "day": 30,
@@ -1042,7 +1623,16 @@
       "note": "",
       "scheduled": false,
       "posted": false,
-      "url": ""
+      "url": "",
+      "need": [
+        "text"
+      ],
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
     },
     {
       "day": 31,
@@ -1058,7 +1648,16 @@
       "note": "",
       "scheduled": false,
       "posted": false,
-      "url": ""
+      "url": "",
+      "need": [
+        "text"
+      ],
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
     },
     {
       "day": 31,
@@ -1074,7 +1673,16 @@
       "note": "",
       "scheduled": false,
       "posted": false,
-      "url": ""
+      "url": "",
+      "need": [
+        "text"
+      ],
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
     }
   ]
 }
