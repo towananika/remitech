@@ -281,6 +281,7 @@
   .mdel[data-ask="wait"]{ opacity:.6; }
   .filebtn.sm{ font-size:12px; padding:6px 14px; }
   .tiny{ font-size:11px; color:var(--muted); }
+  #stOut{ word-break:break-word; }
   .mtag{
     position:absolute; left:4px; bottom:4px; font-size:9px; letter-spacing:.04em;
     background:var(--sage); color:var(--surface); border-radius:5px; padding:1px 5px;
@@ -1034,15 +1035,25 @@
 
   function importClick(e) {
     if (e.target.id === "stSave") {
-      var u = document.getElementById("stUrl").value.trim();
+      var u = document.getElementById("stUrl").value.trim()
+        .replace(/^https?:\/\/github\.com\//i, "")
+        .replace(/\.git$/i, "")
+        .replace(/^\/+|\/+$/g, "");
       var tk = document.getElementById("stTok").value.trim();
-      storeSet({ url: u, token: tk });
       var o = document.getElementById("stOut");
       o.textContent = "…";
+      document.getElementById("stUrl").value = u;
+      storeSet({ url: u, token: tk });
       fetch("https://api.github.com/repos/" + u, {
         headers: { "Authorization": "Bearer " + tk, "Accept": "application/vnd.github+json" },
-      }).then(function (r) { o.textContent = r.ok ? t("storeOk") : t("storeNo"); })
-        .catch(function () { o.textContent = t("storeNo"); });
+      }).then(function (r) {
+        if (r.ok) { o.textContent = t("storeOk"); return; }
+        return r.json().then(function (j) {
+          o.textContent = t("storeNo") + " · " + r.status + " " + ((j && j.message) || "");
+        }, function () { o.textContent = t("storeNo") + " · " + r.status; });
+      }).catch(function (err) {
+        o.textContent = t("storeNo") + " · " + String(err && err.message ? err.message : err);
+      });
       return;
     }
     var out = document.getElementById("impOut");
