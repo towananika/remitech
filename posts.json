@@ -20,6 +20,16 @@
           "kind": "Facebook",
           "handle": "HIYOKO",
           "url": "https://www.facebook.com/profile.php?id=100090532489960"
+        },
+        {
+          "kind": "TikTok",
+          "handle": "@hiyoko_global",
+          "url": "https://www.tiktok.com/@hiyoko_global"
+        },
+        {
+          "kind": "YouTube",
+          "handle": "HIYOKO",
+          "url": "https://www.youtube.com/channel/UCMTymzTL7XkoBMIiEypc_1g/"
         }
       ],
       "postTimes": [
@@ -149,6 +159,11 @@
           "kind": "X",
           "handle": "@REEL_Experience",
           "url": "https://x.com/REEL_Experience"
+        },
+        {
+          "kind": "Instagram",
+          "handle": "@reelofficialch",
+          "url": "https://www.instagram.com/reelofficialch/"
         }
       ],
       "postTimes": [],
