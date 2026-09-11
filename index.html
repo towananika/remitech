@@ -10,6 +10,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@300;400;500&family=Shippori+Mincho:wght@500&display=swap">
 <style>
   :root{
+    --neon:#2bff88; --neon-ink:#07361b;
     --bg:#f5f1e9; --surface:#fbf9f4; --line:#e2dac8;
     --ink:#231f1a; --muted:#645c4e; --wood:#93704b; --wood-soft:#ece1d0; --sage:#7d8c6a; --todaybg:#f3ebdd; --wkndbg:#f2efe7;
     --mincho:"Shippori Mincho","Hiragino Mincho ProN",serif;
@@ -197,7 +198,7 @@
     padding:2px 7px; color:var(--muted); white-space:nowrap;
   }
   .pip b{ font-weight:500; font-variant-numeric:tabular-nums; }
-  .pip[data-s="sched"]{ color:var(--ink); border-color:var(--ink); }
+  .pip[data-s="sched"]{ color:var(--neon-ink); background:var(--neon); border-color:var(--neon); }
   .pip[data-s="done"]{ color:var(--surface); background:var(--sage); border-color:var(--sage); }
   .pip[data-s="late"]{ color:var(--surface); background:#b4553f; border-color:#b4553f; }
   .pip[data-s="ready"]{ color:var(--surface); background:var(--wood); border-color:var(--wood); }
@@ -299,6 +300,10 @@
     min-height:44px; font-size:13.5px !important; }
   .pstep i{ font-style:normal; width:24px; height:24px; border-radius:50%; border:1.5px solid var(--line);
     display:flex; align-items:center; justify-content:center; font-size:12px; color:var(--muted); flex:0 0 auto; }
+  .pstep[data-mark="scheduled"][data-on="true"]{ background:var(--neon) !important; border-color:var(--neon) !important; color:var(--neon-ink) !important; }
+  .pstep[data-mark="scheduled"][data-on="true"] i{ background:var(--neon-ink); border-color:var(--neon-ink); color:var(--neon); }
+  .gev[data-s="sched"]{ background:var(--neon); color:var(--neon-ink); }
+  .gev[data-s="sched"] b{ color:var(--neon-ink); }
   .pstep[data-on="true"]{ background:color-mix(in srgb, var(--sage) 16%, var(--surface)) !important; border-color:var(--sage) !important; color:var(--ink) !important; }
   .pstep[data-on="true"] i{ background:var(--sage); border-color:var(--sage); color:#fff; }
   .ppanel .ownerSel{ width:100%; font:inherit; font-size:13.5px; padding:8px 10px; border:1px solid var(--line);
@@ -793,7 +798,7 @@
   .mk .ok{ font-style:normal; margin-left:4px; }
   .mk[data-s="text"]{ color:var(--wood); border-color:var(--wood); }
   .mk[data-s="ready"]{ color:var(--surface); background:var(--wood); border-color:var(--wood); }
-  .mk[data-s="sched"]{ color:var(--ink); border-color:var(--ink); }
+  .mk[data-s="sched"]{ color:var(--neon-ink); background:var(--neon); border-color:var(--neon); }
   .mk[data-s="done"]{ color:var(--surface); background:var(--sage); border-color:var(--sage); }
   .mk[data-s="late"]{ color:var(--surface); background:#b4553f; border-color:#b4553f; }
 
@@ -837,7 +842,7 @@
   .st{ flex:0 0 auto; font-size:11.5px; font-weight:500; border-radius:999px; padding:2px 9px; border:1px solid var(--line); }
   .st[data-s="none"]{ color:var(--muted); }
   .st[data-s="text"]{ color:var(--wood); border-color:var(--wood); }
-  .st[data-s="sched"]{ color:var(--ink); border-color:var(--ink); }
+  .st[data-s="sched"]{ color:var(--neon-ink); background:var(--neon); border-color:var(--neon); }
   .st[data-s="done"]{ color:var(--surface); background:var(--sage); border-color:var(--sage); }
   .st[data-s="late"]{ color:var(--surface); background:#b4553f; border-color:#b4553f; }
 
@@ -1341,17 +1346,21 @@
   function isChecked(sl) { return !!((sl.check && sl.check.done) || stGet(sl).checked); }
 
   function matKey(sl) { return "remitech-mat-" + sl.date + "-" + (sl.platform || "X") + "-" + sl.time; }
+  // 材料の印は企画（schedule.json）の中に持つ。誰が押しても全員に見える。
+  // 以前この端末にだけ残した印も、読むときは拾う
   function matGet(sl) {
     var m = {};
     try { m = JSON.parse(localStorage.getItem(matKey(sl)) || "{}") || {}; } catch (e) {}
+    if (sl.mat) { for (var mk0 in sl.mat) m[mk0] = sl.mat[mk0]; }
     // 原稿が入っていれば、テキストは用意できたものとして扱う。
     // 取り込んだ直後に押し直す手間をなくすため。外したいときは押せば消える
     if (m.text === undefined && sl.text && (sl.text.ja || sl.text.en || sl.text.ko)) m.text = true;
     return m;
   }
   function matSet(sl, kind, on) {
-    var m = matGet(sl); m[kind] = on;
-    try { localStorage.setItem(matKey(sl), JSON.stringify(m)); } catch (e) {}
+    sl.mat = sl.mat || {};
+    sl.mat[kind] = on;
+    saveSoon(function () { return saveSchedule("schedule: mat " + slotKey(sl)); }, 700);
   }
   function matReady(sl) {
     var m = matGet(sl), need = sl.need || ["text"];
@@ -1942,10 +1951,25 @@
     });
   }
 
+  // 上げた画像の場所。上げた人の端末しか知らないと、他の人には見えない。
+  // 企画ファイル（schedule.media）に持たせる。消したものは "" で残し、合わせるときに消えたと分かるようにする
+  function mediaMap() {
+    var m = {};
+    try { m = JSON.parse(localStorage.getItem("remitech-media-url") || "{}") || {}; } catch (e) {}
+    var sm = (schedule && schedule.media) || {};
+    for (var k in sm) m[k] = sm[k];
+    for (var k2 in m) { if (!m[k2]) delete m[k2]; }
+    return m;
+  }
+  function mediaPut(k, url) {
+    schedule.media = schedule.media || {};
+    schedule.media[k] = url;
+    saveSoon(function () { return saveSchedule("schedule: media " + k); }, 300);
+  }
+
   // 置き場に上がっているものは、端末から消してよい
   function clearShared() {
-    var shared = {};
-    try { shared = JSON.parse(localStorage.getItem("remitech-media-url") || "{}"); } catch (e) {}
+    var shared = mediaMap();
     var keys = Object.keys(shared);
     return keys.reduce(function (chain, k) {
       return chain.then(function () { return dbDel(k); });
@@ -2095,12 +2119,20 @@
   }
   // 連投は1つずつ時間を空けて出す。抜けることもあるので、箱ごとに印を持つ
   function partsKey(mk) { return "remitech-part-" + mk; }
+  // 各投稿の「投稿した ✓」と「画像は要らない」も企画の中に持つ
+  function slotsByMedia(mk) {
+    return (schedule && schedule.slots || []).filter(function (x) { return mediaKey(x) === mk; });
+  }
   function partsGet(mk) {
-    try { return JSON.parse(localStorage.getItem(partsKey(mk)) || "{}") || {}; } catch (e) { return {}; }
+    var o = {};
+    try { o = JSON.parse(localStorage.getItem(partsKey(mk)) || "{}") || {}; } catch (e) {}
+    slotsByMedia(mk).forEach(function (x) { if (x.pdone) { for (var k in x.pdone) o[k] = x.pdone[k]; } });
+    return o;
   }
   function partsSet(mk, id, on) {
-    var o = partsGet(mk); o[id] = on;
-    try { localStorage.setItem(partsKey(mk), JSON.stringify(o)); } catch (e) {}
+    var list = slotsByMedia(mk);
+    list.forEach(function (x) { x.pdone = x.pdone || {}; x.pdone[id] = on; });
+    if (list.length) saveSoon(function () { return saveSchedule("schedule: part " + mk + " " + id); }, 700);
   }
 
   // 置き場（Cloudflare R2 + Worker）。住所と合言葉は端末にだけ残す
@@ -2202,7 +2234,7 @@
     var body = {
       channel: schedule.channel, months: schedule.months,
       timezone: schedule.timezone, note: schedule.note,
-      slots: schedule.slots, trash: schedule.trash || [],
+      slots: schedule.slots, trash: schedule.trash || [], media: schedule.media || {},
     };
     body.months = [];
     schedule.slots.forEach(function (x) {
@@ -2228,10 +2260,23 @@
             for (var i0 = 0; i0 < bin0.length; i0++) bytes0[i0] = bin0.charCodeAt(i0);
             var remote = JSON.parse(new TextDecoder("utf-8").decode(bytes0));
             var haveKey = {};
-            body.slots.forEach(function (x) { haveKey[slotKey(x)] = 1; });
+            body.slots.forEach(function (x) { haveKey[slotKey(x)] = x; });
             (remote.slots || []).forEach(function (x) {
-              if (!haveKey[slotKey(x)]) { body.slots.push(x); haveKey[slotKey(x)] = 1; }
+              var mine = haveKey[slotKey(x)];
+              if (!mine) { body.slots.push(x); haveKey[slotKey(x)] = x; return; }
+              // 同じ企画を別の人も触っていたら、印は1項目ずつ合わせる（こちらが押したものが優先）
+              ["pdone", "mat"].forEach(function (f) {
+                if (!x[f]) return;
+                var merged = {};
+                for (var a1 in x[f]) merged[a1] = x[f][a1];
+                if (mine[f]) { for (var a2 in mine[f]) merged[a2] = mine[f][a2]; }
+                mine[f] = merged;
+              });
             });
+            var rm = remote.media || {}, mm2 = {};
+            for (var r1 in rm) mm2[r1] = rm[r1];
+            for (var r2 in body.media) mm2[r2] = body.media[r2];
+            body.media = mm2;
             var haveTrash = {};
             body.trash.forEach(function (x) { haveTrash[slotKey(x)] = 1; });
             (remote.trash || []).forEach(function (x) {
@@ -2243,6 +2288,7 @@
         text = JSON.stringify(body, null, 2) + "\n";
         schedule.slots = body.slots;      // 今のセッションも、足したぶんを覚えておく
         schedule.trash = body.trash;
+        schedule.media = body.media;
         try { localStorage.setItem("remitech-schedule", JSON.stringify(body)); } catch (e) {}
 
         // 日本語をそのまま base64 にするため、いったんバイト列にする
@@ -2272,11 +2318,7 @@
   function takeFile(mk2, f2) {
     if (!f2 || !/^(image|video)\//.test(f2.type)) return Promise.resolve();
     var up = storeOn()
-      ? upload(mk2, f2).then(function (r) {
-          var m = JSON.parse(localStorage.getItem("remitech-media-url") || "{}");
-          m[mk2] = r.url;
-          localStorage.setItem("remitech-media-url", JSON.stringify(m));
-        }).catch(function () {})
+      ? upload(mk2, f2).then(function (r) { mediaPut(mk2, r.url); }).catch(function () {})
       : Promise.resolve();
     return up.then(function () {
       return dbPut(mk2, { blob: f2, type: f2.type, name: f2.name });
@@ -2295,8 +2337,7 @@
 
   // 貼り終わったあとに、保管庫にあるものを差し込む
   function fillMedia() {
-    var shared = {};
-    try { shared = JSON.parse(localStorage.getItem("remitech-media-url") || "{}"); } catch (e) {}
+    var shared = mediaMap();
     [].forEach.call(document.querySelectorAll(".mediabox"), function (box) {
       var k = box.getAttribute("data-mk");
       if (shared[k]) {                       // 置き場にあるものは、どの端末からも見える
@@ -3658,6 +3699,7 @@
           delete m2[dk];
           localStorage.setItem("remitech-media-url", JSON.stringify(m2));
         } catch (e) {}
+        if (schedule.media && schedule.media[dk]) mediaPut(dk, "");
         return dbDel(dk);
       }).then(function () { prepAgain(); });
       return;
@@ -3987,7 +4029,60 @@
     pullChores().then(function () { setTimeout(loop, storeOn() ? 10000 : 60000); });
   })();
   // 画面に戻ってきたら、すぐ読む
-  document.addEventListener("visibilitychange", function () { if (!document.hidden) pullChores(); });
+  document.addEventListener("visibilitychange", function () { if (!document.hidden) { pullChores(); pullSchedule(); } });
+
+  // 企画も同じように読み直す。入力中・保存待ち・保存中は触らない（書いている途中を上書きしない）
+  var schedEtag = null;
+  function typing() {
+    var a = document.activeElement;
+    return a && /^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName) && view.contains(a);
+  }
+  function applySchedule(remote) {
+    if (!remote || !remote.slots || !schedule) return;
+    if (savePending || saveBusy || typing() || editing) return;
+    var before = JSON.stringify({ s: schedule.slots, m: schedule.media || {}, t: schedule.trash || [] });
+    var after = JSON.stringify({ s: remote.slots, m: remote.media || {}, t: remote.trash || [] });
+    if (before === after) return;
+    schedule = remote;
+    try { localStorage.setItem("remitech-schedule", JSON.stringify(remote)); } catch (e) {}
+    var y3 = window.scrollY;
+    route();
+    window.scrollTo(0, y3);
+  }
+  function pullSchedule() {
+    if (document.hidden) return Promise.resolve();
+    if (storeOn()) {
+      var c = storeGet();
+      var h = { "Authorization": "Bearer " + c.token, "Accept": "application/vnd.github+json" };
+      if (schedEtag) h["If-None-Match"] = schedEtag;
+      return fetch("https://api.github.com/repos/" + c.url + "/contents/schedule.json", { headers: h, cache: "no-store" })
+        .then(function (r) {
+          if (r.status === 304 || !r.ok) return null;
+          schedEtag = r.headers.get("ETag");
+          return r.json();
+        })
+        .then(function (j) {
+          if (!j) return;
+          // 1MBを超えると content が空で返る。そのときは raw を読む
+          if (!j.content && j.download_url) {
+            return fetch(j.download_url, { headers: { "Authorization": "Bearer " + c.token }, cache: "no-store" })
+              .then(function (r2) { return r2.ok ? r2.json() : null; }).then(applySchedule);
+          }
+          var bin = atob((j.content || "").replace(/\n/g, ""));
+          var b0 = new Uint8Array(bin.length);
+          for (var i = 0; i < bin.length; i++) b0[i] = bin.charCodeAt(i);
+          applySchedule(JSON.parse(new TextDecoder("utf-8").decode(b0)));
+        }).catch(function () {});
+    }
+    return fetch("./schedule.json?t=" + Date.now(), { cache: "no-store" })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(applySchedule).catch(function () {});
+  }
+  (function loop2() {
+    setTimeout(function () {
+      pullSchedule().then(loop2, loop2);
+    }, storeOn() ? 10000 : 60000);
+  })();
 
   // 週表のときだけ枠を広げる
   function syncWide() {
