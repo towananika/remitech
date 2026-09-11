@@ -424,6 +424,8 @@
 
   .snpick{ margin-bottom:8px; }
   .snpick .cpy{ font-size:12.5px; padding:5px 14px; }
+  .snpick{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+  .snpicked{ font-size:13.5px; color:var(--ink); font-weight:500; }
   .snlist{ display:flex; flex-wrap:wrap; gap:6px; }
   .snitem{
     background:var(--bg); border:1px solid var(--line); border-radius:999px;
@@ -957,7 +959,7 @@
           brand:"REMITECH",
           tipDash:"今週を1枚で — 予約できているもの、抜けているもの。",
           tipBook:"日ごとに、全チャンネルが整っているか。",
-          tipPrep:"これから7日ぶんの文面と画像。ここから写す。",
+          tipPrep:"これから7日ぶんの文面と画像。ここからコピーする。",
           tipKpi:"フォロワーとフォロー、その動き。",
           tipPosts:"チャンネルのために書いた長い文章。",
           tipImport:"企画を取り込み、画像の置き場を決める。",
@@ -984,8 +986,8 @@
           allBooked:"すべて予約ずみ", leftToDo:"残り", nothingToday:"予定なし",
           markSched:"予約完了", markPosted:"投稿完了", markVerified:"投稿確認完了", verifiedTag:"確認完了", needUrl:"先にリンクを貼る", addFile:"画像・動画を入れる", localOnly:"この端末だけ", onServer:"共有ずみ",
           storeTitle:"画像の置き場（GitHub）", storeUrl:"owner/repo", storeTok:"アクセストークン", storeSave:"保存",
-          storeOk:"つながった", storeNo:"つながらない", sure:"消す？", noImg:"画像は要らない", pickOne:"どれか1つ", linkPh:"投稿したリンクを貼る", open:"開く",
-          copy:"写す", copied:"写した", copyEn:"EN", noText:"原稿なし", comment:"コメント",
+          storeOk:"つながった", storeNo:"つながらない", sure:"消す？", noImg:"画像は要らない", pickOne:"ランダムにコピー", linkPh:"投稿したリンクを貼る", open:"開く",
+          copy:"コピー", copied:"コピーした", copyEn:"EN", noText:"原稿なし", comment:"コメント",
           visual:"ビジュアル", today:"今日", tomorrow:"明日", prepEmpty:"先の予定がない。",
           searchPh:"本文・見出し・日付で探す…", noMatch:"一致するものがない。", pgPrev:"前へ", pgNext:"次へ",
           stNone:"原稿なし", stText:"原稿あり", stSched:"予約ずみ", stDone:"投稿ずみ",
@@ -2443,7 +2445,7 @@
             '<button class="cpy" data-ck="sn' + si + 'u" data-lg="en">' + esc(t("copy")) + '</button></div>' : "") +
           ((sn.items && sn.items.length > 1)
             ? '<div class="snpick"><button class="cpy" data-ck="sn' + si + 'r" data-lg="en">' +
-              esc(t("pickOne")) + ' ↻</button></div>' : "") +
+              esc(t("pickOne")) + ' ↻</button><span class="snpicked"></span></div>' : "") +
           '<div class="snlist">' + (sn.items || []).map(function (it, k) {
             copyBank["sn" + si + "_" + k] = { en: it, cur: it };
             return '<button class="snitem" data-ck="sn' + si + "_" + k + '" data-lg="en">' + esc(it) + '</button>';
@@ -3083,7 +3085,12 @@
       var bank = copyBank[cp.getAttribute("data-ck")];
       var txt = "";
       if (bank && bank.pick) {
-        txt = bank.pick[Math.floor(Math.random() * bank.pick.length)];
+        var tries = 0;
+        do { txt = bank.pick[Math.floor(Math.random() * bank.pick.length)]; }
+        while (bank.pick.length > 1 && txt === bank.last && ++tries < 10);
+        bank.last = txt;
+        var shown = cp.parentNode.querySelector(".snpicked");
+        if (shown) shown.textContent = txt + "\u3000(" + txt.length + ")";
       } else if (bank) {
         txt = cp.getAttribute("data-lg") === "en" ? bank.en : bank.cur;
       }
