@@ -84,7 +84,7 @@
           "en": "Tutorials explain.\nControllers teach."
         }
       ],
-      "scheduled": false,
+      "scheduled": true,
       "posted": false,
       "url": "",
       "check": {
@@ -125,6 +125,35 @@
     },
     {
       "date": "2026-09-01",
+      "channel": "nacha",
+      "platform": "X",
+      "time": "10:30",
+      "label": "長文",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
+      "need": [
+        "text"
+      ],
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-01",
       "channel": "reel",
       "platform": "IG",
       "time": "12:00",
@@ -143,7 +172,7 @@
         "text",
         "image"
       ],
-      "scheduled": false,
+      "scheduled": true,
       "posted": false,
       "url": "",
       "check": {
@@ -173,7 +202,7 @@
         "text",
         "image"
       ],
-      "scheduled": false,
+      "scheduled": true,
       "posted": false,
       "url": "",
       "check": {
@@ -202,7 +231,36 @@
       "need": [
         "text"
       ],
-      "scheduled": false,
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-01",
+      "channel": "nacha",
+      "platform": "X",
+      "time": "14:00",
+      "label": "ことば",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
+      "need": [
+        "text"
+      ],
+      "scheduled": true,
       "posted": false,
       "url": "",
       "check": {
@@ -329,6 +387,123 @@
       }
     },
     {
+      "date": "2026-09-01",
+      "channel": "nacha",
+      "platform": "IG",
+      "time": "20:00",
+      "label": "フィード",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
+      "need": [
+        "text"
+      ],
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-01",
+      "channel": "nacha",
+      "platform": "X",
+      "time": "20:00",
+      "label": "スレッド",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
+      "need": [
+        "text"
+      ],
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-01",
+      "channel": "nacha",
+      "platform": "IG",
+      "time": "20:05",
+      "label": "ストーリー",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
+      "need": [
+        "text"
+      ],
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-01",
+      "channel": "nacha",
+      "platform": "IG",
+      "time": "20:10",
+      "label": "動画",
+      "owner": "",
+      "type": "video",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
       "date": "2026-09-02",
       "channel": "hiyoko",
       "platform": "IG",
@@ -403,7 +578,7 @@
           "en": "Adding is easy.\nRemoving takes conviction."
         }
       ],
-      "scheduled": false,
+      "scheduled": true,
       "posted": false,
       "url": "",
       "check": {
@@ -444,6 +619,35 @@
     },
     {
       "date": "2026-09-02",
+      "channel": "nacha",
+      "platform": "X",
+      "time": "10:30",
+      "label": "長文",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
+      "need": [
+        "text"
+      ],
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-02",
       "channel": "reel",
       "platform": "IG",
       "time": "12:00",
@@ -462,7 +666,7 @@
         "text",
         "image"
       ],
-      "scheduled": false,
+      "scheduled": true,
       "posted": false,
       "url": "",
       "check": {
@@ -492,7 +696,7 @@
         "text",
         "image"
       ],
-      "scheduled": false,
+      "scheduled": true,
       "posted": false,
       "url": "",
       "check": {
@@ -521,7 +725,36 @@
       "need": [
         "text"
       ],
-      "scheduled": false,
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-02",
+      "channel": "nacha",
+      "platform": "X",
+      "time": "14:00",
+      "label": "ことば",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
+      "need": [
+        "text"
+      ],
+      "scheduled": true,
       "posted": false,
       "url": "",
       "check": {
@@ -648,6 +881,123 @@
       }
     },
     {
+      "date": "2026-09-02",
+      "channel": "nacha",
+      "platform": "IG",
+      "time": "20:00",
+      "label": "フィード",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
+      "need": [
+        "text"
+      ],
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-02",
+      "channel": "nacha",
+      "platform": "X",
+      "time": "20:00",
+      "label": "スレッド",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
+      "need": [
+        "text"
+      ],
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-02",
+      "channel": "nacha",
+      "platform": "IG",
+      "time": "20:05",
+      "label": "ストーリー",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
+      "need": [
+        "text"
+      ],
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-02",
+      "channel": "nacha",
+      "platform": "IG",
+      "time": "20:10",
+      "label": "動画",
+      "owner": "",
+      "type": "video",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
       "date": "2026-09-03",
       "channel": "hiyoko",
       "platform": "IG",
@@ -722,7 +1072,7 @@
           "en": "70 million daily creators.\nNot consumers. Creators."
         }
       ],
-      "scheduled": false,
+      "scheduled": true,
       "posted": false,
       "url": "",
       "check": {
@@ -763,6 +1113,35 @@
     },
     {
       "date": "2026-09-03",
+      "channel": "nacha",
+      "platform": "X",
+      "time": "10:30",
+      "label": "長文",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
+      "need": [
+        "text"
+      ],
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-03",
       "channel": "reel",
       "platform": "IG",
       "time": "12:00",
@@ -781,7 +1160,7 @@
         "text",
         "image"
       ],
-      "scheduled": false,
+      "scheduled": true,
       "posted": false,
       "url": "",
       "check": {
@@ -811,7 +1190,7 @@
         "text",
         "image"
       ],
-      "scheduled": false,
+      "scheduled": true,
       "posted": false,
       "url": "",
       "check": {
@@ -840,7 +1219,36 @@
       "need": [
         "text"
       ],
-      "scheduled": false,
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-03",
+      "channel": "nacha",
+      "platform": "X",
+      "time": "14:00",
+      "label": "ことば",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
+      "need": [
+        "text"
+      ],
+      "scheduled": true,
       "posted": false,
       "url": "",
       "check": {
@@ -967,6 +1375,123 @@
       }
     },
     {
+      "date": "2026-09-03",
+      "channel": "nacha",
+      "platform": "IG",
+      "time": "20:00",
+      "label": "フィード",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
+      "need": [
+        "text"
+      ],
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-03",
+      "channel": "nacha",
+      "platform": "X",
+      "time": "20:00",
+      "label": "スレッド",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
+      "need": [
+        "text"
+      ],
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-03",
+      "channel": "nacha",
+      "platform": "IG",
+      "time": "20:05",
+      "label": "ストーリー",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
+      "need": [
+        "text"
+      ],
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-03",
+      "channel": "nacha",
+      "platform": "IG",
+      "time": "20:10",
+      "label": "動画",
+      "owner": "",
+      "type": "video",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
       "date": "2026-09-04",
       "channel": "hiyoko",
       "platform": "IG",
@@ -1041,7 +1566,7 @@
           "en": "0.1 seconds.\nThe line between\nstaying and leaving."
         }
       ],
-      "scheduled": false,
+      "scheduled": true,
       "posted": false,
       "url": "",
       "check": {
@@ -1082,6 +1607,35 @@
     },
     {
       "date": "2026-09-04",
+      "channel": "nacha",
+      "platform": "X",
+      "time": "10:30",
+      "label": "長文",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
+      "need": [
+        "text"
+      ],
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-04",
       "channel": "reel",
       "platform": "IG",
       "time": "12:00",
@@ -1100,7 +1654,7 @@
         "text",
         "image"
       ],
-      "scheduled": false,
+      "scheduled": true,
       "posted": false,
       "url": "",
       "check": {
@@ -1130,7 +1684,7 @@
         "text",
         "image"
       ],
-      "scheduled": false,
+      "scheduled": true,
       "posted": false,
       "url": "",
       "check": {
@@ -1159,7 +1713,36 @@
       "need": [
         "text"
       ],
-      "scheduled": false,
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-04",
+      "channel": "nacha",
+      "platform": "X",
+      "time": "14:00",
+      "label": "ことば",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
+      "need": [
+        "text"
+      ],
+      "scheduled": true,
       "posted": false,
       "url": "",
       "check": {
@@ -1286,6 +1869,123 @@
       }
     },
     {
+      "date": "2026-09-04",
+      "channel": "nacha",
+      "platform": "IG",
+      "time": "20:00",
+      "label": "フィード",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
+      "need": [
+        "text"
+      ],
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-04",
+      "channel": "nacha",
+      "platform": "X",
+      "time": "20:00",
+      "label": "スレッド",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
+      "need": [
+        "text"
+      ],
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-04",
+      "channel": "nacha",
+      "platform": "IG",
+      "time": "20:05",
+      "label": "ストーリー",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
+      "need": [
+        "text"
+      ],
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-04",
+      "channel": "nacha",
+      "platform": "IG",
+      "time": "20:10",
+      "label": "動画",
+      "owner": "",
+      "type": "video",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
       "date": "2026-09-05",
       "channel": "hiyoko",
       "platform": "IG",
@@ -1362,7 +2062,7 @@
           "en": "Mute a game for 5 minutes.\nYou'll feel what's missing."
         }
       ],
-      "scheduled": false,
+      "scheduled": true,
       "posted": false,
       "url": "",
       "check": {
@@ -1403,6 +2103,35 @@
     },
     {
       "date": "2026-09-05",
+      "channel": "nacha",
+      "platform": "X",
+      "time": "10:30",
+      "label": "長文",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
+      "need": [
+        "text"
+      ],
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-05",
       "channel": "reel",
       "platform": "IG",
       "time": "12:00",
@@ -1421,7 +2150,7 @@
         "text",
         "image"
       ],
-      "scheduled": false,
+      "scheduled": true,
       "posted": false,
       "url": "",
       "check": {
@@ -1451,7 +2180,7 @@
         "text",
         "image"
       ],
-      "scheduled": false,
+      "scheduled": true,
       "posted": false,
       "url": "",
       "check": {
@@ -1480,7 +2209,36 @@
       "need": [
         "text"
       ],
-      "scheduled": false,
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-05",
+      "channel": "nacha",
+      "platform": "X",
+      "time": "14:00",
+      "label": "ことば",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
+      "need": [
+        "text"
+      ],
+      "scheduled": true,
       "posted": false,
       "url": "",
       "check": {
@@ -1607,6 +2365,123 @@
       }
     },
     {
+      "date": "2026-09-05",
+      "channel": "nacha",
+      "platform": "IG",
+      "time": "20:00",
+      "label": "フィード",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
+      "need": [
+        "text"
+      ],
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-05",
+      "channel": "nacha",
+      "platform": "X",
+      "time": "20:00",
+      "label": "スレッド",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
+      "need": [
+        "text"
+      ],
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-05",
+      "channel": "nacha",
+      "platform": "IG",
+      "time": "20:05",
+      "label": "ストーリー",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
+      "need": [
+        "text"
+      ],
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-05",
+      "channel": "nacha",
+      "platform": "IG",
+      "time": "20:10",
+      "label": "動画",
+      "owner": "",
+      "type": "video",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
       "date": "2026-09-06",
       "channel": "reel",
       "platform": "X",
@@ -1633,7 +2508,7 @@
           "en": "Taxi doors in Japan\nopen automatically.\n\nNo button. No direction.\n\nThe best entrances\nremove every decision."
         }
       ],
-      "scheduled": false,
+      "scheduled": true,
       "posted": false,
       "url": "",
       "check": {
@@ -1674,6 +2549,35 @@
     },
     {
       "date": "2026-09-06",
+      "channel": "nacha",
+      "platform": "X",
+      "time": "10:30",
+      "label": "長文",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
+      "need": [
+        "text"
+      ],
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-06",
       "channel": "reel",
       "platform": "IG",
       "time": "12:00",
@@ -1692,7 +2596,7 @@
         "text",
         "image"
       ],
-      "scheduled": false,
+      "scheduled": true,
       "posted": false,
       "url": "",
       "check": {
@@ -1722,7 +2626,36 @@
         "text",
         "image"
       ],
-      "scheduled": false,
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-06",
+      "channel": "nacha",
+      "platform": "X",
+      "time": "14:00",
+      "label": "ことば",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
+      "need": [
+        "text"
+      ],
+      "scheduled": true,
       "posted": false,
       "url": "",
       "check": {
@@ -1820,6 +2753,123 @@
       }
     },
     {
+      "date": "2026-09-06",
+      "channel": "nacha",
+      "platform": "IG",
+      "time": "20:00",
+      "label": "フィード",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
+      "need": [
+        "text"
+      ],
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-06",
+      "channel": "nacha",
+      "platform": "X",
+      "time": "20:00",
+      "label": "スレッド",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
+      "need": [
+        "text"
+      ],
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-06",
+      "channel": "nacha",
+      "platform": "IG",
+      "time": "20:05",
+      "label": "ストーリー",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
+      "need": [
+        "text"
+      ],
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-06",
+      "channel": "nacha",
+      "platform": "IG",
+      "time": "20:10",
+      "label": "動画",
+      "owner": "",
+      "type": "video",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
       "date": "2026-09-07",
       "channel": "hiyoko",
       "platform": "IG",
@@ -1888,7 +2938,7 @@
           "en": "Mature audiences deserve mature design.\n\nPLAY → REVIEW → REWARD"
         }
       ],
-      "scheduled": false,
+      "scheduled": true,
       "posted": false,
       "url": "",
       "check": {
@@ -1929,6 +2979,35 @@
     },
     {
       "date": "2026-09-07",
+      "channel": "nacha",
+      "platform": "X",
+      "time": "10:30",
+      "label": "長文",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
+      "need": [
+        "text"
+      ],
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-07",
       "channel": "reel",
       "platform": "IG",
       "time": "12:00",
@@ -1947,7 +3026,7 @@
         "text",
         "image"
       ],
-      "scheduled": false,
+      "scheduled": true,
       "posted": false,
       "url": "",
       "check": {
@@ -1977,7 +3056,36 @@
         "text",
         "image"
       ],
-      "scheduled": false,
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-07",
+      "channel": "nacha",
+      "platform": "X",
+      "time": "14:00",
+      "label": "ことば",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
+      "need": [
+        "text"
+      ],
+      "scheduled": true,
       "posted": false,
       "url": "",
       "check": {
@@ -2104,6 +3212,123 @@
       }
     },
     {
+      "date": "2026-09-07",
+      "channel": "nacha",
+      "platform": "IG",
+      "time": "20:00",
+      "label": "フィード",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
+      "need": [
+        "text"
+      ],
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-07",
+      "channel": "nacha",
+      "platform": "X",
+      "time": "20:00",
+      "label": "スレッド",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
+      "need": [
+        "text"
+      ],
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-07",
+      "channel": "nacha",
+      "platform": "IG",
+      "time": "20:05",
+      "label": "ストーリー",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
+      "need": [
+        "text"
+      ],
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-07",
+      "channel": "nacha",
+      "platform": "IG",
+      "time": "20:10",
+      "label": "動画",
+      "owner": "",
+      "type": "video",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
       "date": "2026-09-08",
       "channel": "reel",
       "platform": "X",
@@ -2150,7 +3375,7 @@
           "en": "First space = first impression."
         }
       ],
-      "scheduled": false,
+      "scheduled": true,
       "posted": false,
       "url": "",
       "check": {
@@ -2191,6 +3416,35 @@
     },
     {
       "date": "2026-09-08",
+      "channel": "nacha",
+      "platform": "X",
+      "time": "10:30",
+      "label": "長文",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
+      "need": [
+        "text"
+      ],
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-08",
       "channel": "reel",
       "platform": "IG",
       "time": "12:00",
@@ -2209,7 +3463,7 @@
         "text",
         "image"
       ],
-      "scheduled": false,
+      "scheduled": true,
       "posted": false,
       "url": "",
       "check": {
@@ -2239,7 +3493,7 @@
         "text",
         "image"
       ],
-      "scheduled": false,
+      "scheduled": true,
       "posted": false,
       "url": "",
       "check": {
@@ -2268,7 +3522,36 @@
       "need": [
         "text"
       ],
-      "scheduled": false,
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-08",
+      "channel": "nacha",
+      "platform": "X",
+      "time": "14:00",
+      "label": "ことば",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
+      "need": [
+        "text"
+      ],
+      "scheduled": true,
       "posted": false,
       "url": "",
       "check": {
@@ -2395,6 +3678,123 @@
       }
     },
     {
+      "date": "2026-09-08",
+      "channel": "nacha",
+      "platform": "IG",
+      "time": "20:00",
+      "label": "フィード",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
+      "need": [
+        "text"
+      ],
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-08",
+      "channel": "nacha",
+      "platform": "X",
+      "time": "20:00",
+      "label": "スレッド",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
+      "need": [
+        "text"
+      ],
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-08",
+      "channel": "nacha",
+      "platform": "IG",
+      "time": "20:05",
+      "label": "ストーリー",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
+      "need": [
+        "text"
+      ],
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-08",
+      "channel": "nacha",
+      "platform": "IG",
+      "time": "20:10",
+      "label": "動画",
+      "owner": "",
+      "type": "video",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
       "date": "2026-09-09",
       "channel": "hiyoko",
       "platform": "IG",
@@ -2469,7 +3869,7 @@
           "en": "Invisible design\nis the strongest design."
         }
       ],
-      "scheduled": false,
+      "scheduled": true,
       "posted": false,
       "url": "",
       "check": {
@@ -2536,6 +3936,35 @@
     },
     {
       "date": "2026-09-09",
+      "channel": "nacha",
+      "platform": "X",
+      "time": "10:30",
+      "label": "長文",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
+      "need": [
+        "text"
+      ],
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-09",
       "channel": "reel",
       "platform": "IG",
       "time": "12:00",
@@ -2554,7 +3983,7 @@
         "text",
         "image"
       ],
-      "scheduled": false,
+      "scheduled": true,
       "posted": false,
       "url": "",
       "check": {
@@ -2584,7 +4013,7 @@
         "text",
         "image"
       ],
-      "scheduled": false,
+      "scheduled": true,
       "posted": false,
       "url": "",
       "check": {
@@ -2613,7 +4042,36 @@
       "need": [
         "text"
       ],
-      "scheduled": false,
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-09",
+      "channel": "nacha",
+      "platform": "X",
+      "time": "14:00",
+      "label": "ことば",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
+      "need": [
+        "text"
+      ],
+      "scheduled": true,
       "posted": false,
       "url": "",
       "check": {
@@ -2680,6 +4138,123 @@
         "note": ""
       },
       "owner": ""
+    },
+    {
+      "date": "2026-09-09",
+      "channel": "nacha",
+      "platform": "IG",
+      "time": "20:00",
+      "label": "フィード",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
+      "need": [
+        "text"
+      ],
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-09",
+      "channel": "nacha",
+      "platform": "X",
+      "time": "20:00",
+      "label": "スレッド",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
+      "need": [
+        "text"
+      ],
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-09",
+      "channel": "nacha",
+      "platform": "IG",
+      "time": "20:05",
+      "label": "ストーリー",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
+      "need": [
+        "text"
+      ],
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-09",
+      "channel": "nacha",
+      "platform": "IG",
+      "time": "20:10",
+      "label": "動画",
+      "owner": "",
+      "type": "video",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
     },
     {
       "date": "2026-09-10",
@@ -2756,7 +4331,36 @@
           "en": "100 billion hours of watching.\nThat's how people decide to play."
         }
       ],
-      "scheduled": false,
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-10",
+      "channel": "nacha",
+      "platform": "X",
+      "time": "10:30",
+      "label": "長文",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
+      "need": [
+        "text"
+      ],
+      "scheduled": true,
       "posted": false,
       "url": "",
       "check": {
@@ -2786,7 +4390,7 @@
         "text",
         "image"
       ],
-      "scheduled": false,
+      "scheduled": true,
       "posted": false,
       "url": "",
       "check": {
@@ -2816,7 +4420,7 @@
         "text",
         "image"
       ],
-      "scheduled": false,
+      "scheduled": true,
       "posted": false,
       "url": "",
       "check": {
@@ -2845,7 +4449,7 @@
       "need": [
         "text"
       ],
-      "scheduled": false,
+      "scheduled": true,
       "posted": false,
       "url": "",
       "check": {
@@ -2935,6 +4539,35 @@
         "text"
       ],
       "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-10",
+      "channel": "nacha",
+      "platform": "X",
+      "time": "14:00",
+      "label": "ことば",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
+      "need": [
+        "text"
+      ],
+      "scheduled": true,
       "posted": false,
       "url": "",
       "check": {
@@ -3064,6 +4697,123 @@
       }
     },
     {
+      "date": "2026-09-10",
+      "channel": "nacha",
+      "platform": "IG",
+      "time": "20:00",
+      "label": "フィード",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
+      "need": [
+        "text"
+      ],
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-10",
+      "channel": "nacha",
+      "platform": "X",
+      "time": "20:00",
+      "label": "スレッド",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
+      "need": [
+        "text"
+      ],
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-10",
+      "channel": "nacha",
+      "platform": "IG",
+      "time": "20:05",
+      "label": "ストーリー",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
+      "need": [
+        "text"
+      ],
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-10",
+      "channel": "nacha",
+      "platform": "IG",
+      "time": "20:10",
+      "label": "動画",
+      "owner": "",
+      "type": "video",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
       "date": "2026-09-11",
       "channel": "hiyoko",
       "platform": "IG",
@@ -3140,7 +4890,7 @@
           "en": "More options ≠ better experience."
         }
       ],
-      "scheduled": false,
+      "scheduled": true,
       "posted": false,
       "url": "",
       "check": {
@@ -3179,6 +4929,35 @@
     },
     {
       "date": "2026-09-11",
+      "channel": "nacha",
+      "platform": "X",
+      "time": "10:30",
+      "label": "長文",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
+      "need": [
+        "text"
+      ],
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-11",
       "channel": "reel",
       "platform": "IG",
       "time": "12:00",
@@ -3197,7 +4976,7 @@
         "text",
         "image"
       ],
-      "scheduled": false,
+      "scheduled": true,
       "posted": false,
       "url": "",
       "check": {
@@ -3227,7 +5006,7 @@
         "text",
         "image"
       ],
-      "scheduled": false,
+      "scheduled": true,
       "posted": false,
       "url": "",
       "check": {
@@ -3256,7 +5035,36 @@
       "need": [
         "text"
       ],
-      "scheduled": false,
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-11",
+      "channel": "nacha",
+      "platform": "X",
+      "time": "14:00",
+      "label": "ことば",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
+      "need": [
+        "text"
+      ],
+      "scheduled": true,
       "posted": false,
       "url": "",
       "check": {
@@ -3350,6 +5158,123 @@
       "date": "2026-09-11",
       "platform": "X",
       "owner": ""
+    },
+    {
+      "date": "2026-09-11",
+      "channel": "nacha",
+      "platform": "IG",
+      "time": "20:00",
+      "label": "フィード",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
+      "need": [
+        "text"
+      ],
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-11",
+      "channel": "nacha",
+      "platform": "X",
+      "time": "20:00",
+      "label": "スレッド",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
+      "need": [
+        "text"
+      ],
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-11",
+      "channel": "nacha",
+      "platform": "IG",
+      "time": "20:05",
+      "label": "ストーリー",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
+      "need": [
+        "text"
+      ],
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-11",
+      "channel": "nacha",
+      "platform": "IG",
+      "time": "20:10",
+      "label": "動画",
+      "owner": "",
+      "type": "video",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
     },
     {
       "date": "2026-09-12",
@@ -3408,7 +5333,7 @@
           "en": "Axie Infinity once moved\na measurable part\nof the Philippines' economy.\n\nPlayers weren't just playing.\nThey were earning."
         }
       ],
-      "scheduled": false,
+      "scheduled": true,
       "posted": false,
       "url": "",
       "check": {
@@ -3437,7 +5362,36 @@
       "need": [
         "text"
       ],
-      "scheduled": false,
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-12",
+      "channel": "nacha",
+      "platform": "X",
+      "time": "10:30",
+      "label": "長文",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
+      "need": [
+        "text"
+      ],
+      "scheduled": true,
       "posted": false,
       "url": "",
       "check": {
@@ -3467,7 +5421,7 @@
         "text",
         "image"
       ],
-      "scheduled": false,
+      "scheduled": true,
       "posted": false,
       "url": "",
       "check": {
@@ -3497,7 +5451,7 @@
         "text",
         "image"
       ],
-      "scheduled": false,
+      "scheduled": true,
       "posted": false,
       "url": "",
       "check": {
@@ -3526,7 +5480,36 @@
       "need": [
         "text"
       ],
-      "scheduled": false,
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-12",
+      "channel": "nacha",
+      "platform": "X",
+      "time": "14:00",
+      "label": "ことば",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
+      "need": [
+        "text"
+      ],
+      "scheduled": true,
       "posted": false,
       "url": "",
       "check": {
@@ -3583,7 +5566,7 @@
         "text",
         "image"
       ],
-      "scheduled": false,
+      "scheduled": true,
       "posted": false,
       "url": "",
       "check": {
@@ -3653,6 +5636,123 @@
       }
     },
     {
+      "date": "2026-09-12",
+      "channel": "nacha",
+      "platform": "IG",
+      "time": "20:00",
+      "label": "フィード",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
+      "need": [
+        "text"
+      ],
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-12",
+      "channel": "nacha",
+      "platform": "X",
+      "time": "20:00",
+      "label": "スレッド",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
+      "need": [
+        "text"
+      ],
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-12",
+      "channel": "nacha",
+      "platform": "IG",
+      "time": "20:05",
+      "label": "ストーリー",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
+      "need": [
+        "text"
+      ],
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-12",
+      "channel": "nacha",
+      "platform": "IG",
+      "time": "20:10",
+      "label": "動画",
+      "owner": "",
+      "type": "video",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
       "date": "2026-09-13",
       "channel": "hiyoko",
       "platform": "IG",
@@ -3709,7 +5809,7 @@
           "en": "Notifications off.\nController in hand.\nSaturday morning."
         }
       ],
-      "scheduled": false,
+      "scheduled": true,
       "posted": false,
       "url": "",
       "check": {
@@ -3750,6 +5850,35 @@
     },
     {
       "date": "2026-09-13",
+      "channel": "nacha",
+      "platform": "X",
+      "time": "10:30",
+      "label": "長文",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
+      "need": [
+        "text"
+      ],
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-13",
       "channel": "reel",
       "platform": "IG",
       "time": "12:00",
@@ -3768,7 +5897,7 @@
         "text",
         "image"
       ],
-      "scheduled": false,
+      "scheduled": true,
       "posted": false,
       "url": "",
       "check": {
@@ -3798,7 +5927,7 @@
         "text",
         "image"
       ],
-      "scheduled": false,
+      "scheduled": true,
       "posted": false,
       "url": "",
       "check": {
@@ -3828,6 +5957,35 @@
         "text"
       ],
       "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-13",
+      "channel": "nacha",
+      "platform": "X",
+      "time": "14:00",
+      "label": "ことば",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
+      "need": [
+        "text"
+      ],
+      "scheduled": true,
       "posted": false,
       "url": "",
       "check": {
@@ -3893,7 +6051,7 @@
         "match": null,
         "note": ""
       },
-      "owner": ""
+      "owner": "HyeJeong"
     },
     {
       "date": "2026-09-13",
@@ -3944,6 +6102,93 @@
         "text"
       ],
       "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-13",
+      "channel": "nacha",
+      "platform": "IG",
+      "time": "20:00",
+      "label": "フィード",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
+      "need": [
+        "text"
+      ],
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-13",
+      "channel": "nacha",
+      "platform": "X",
+      "time": "20:00",
+      "label": "スレッド",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
+      "need": [
+        "text"
+      ],
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-13",
+      "channel": "nacha",
+      "platform": "IG",
+      "time": "20:05",
+      "label": "ストーリー",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
+      "need": [
+        "text"
+      ],
+      "scheduled": true,
       "posted": false,
       "url": "",
       "check": {
@@ -4024,7 +6269,7 @@
           "reviewed": true
         }
       ],
-      "scheduled": false,
+      "scheduled": true,
       "posted": false,
       "url": "",
       "check": {
@@ -4053,7 +6298,36 @@
       "need": [
         "text"
       ],
-      "scheduled": false,
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-14",
+      "channel": "nacha",
+      "platform": "X",
+      "time": "10:30",
+      "label": "長文",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
+      "need": [
+        "text"
+      ],
+      "scheduled": true,
       "posted": false,
       "url": "",
       "check": {
@@ -4083,7 +6357,7 @@
         "text",
         "image"
       ],
-      "scheduled": false,
+      "scheduled": true,
       "posted": false,
       "url": "",
       "check": {
@@ -4113,7 +6387,7 @@
         "text",
         "image"
       ],
-      "scheduled": false,
+      "scheduled": true,
       "posted": false,
       "url": "",
       "check": {
@@ -4142,7 +6416,36 @@
       "need": [
         "text"
       ],
-      "scheduled": false,
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-14",
+      "channel": "nacha",
+      "platform": "X",
+      "time": "14:00",
+      "label": "ことば",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
+      "need": [
+        "text"
+      ],
+      "scheduled": true,
       "posted": false,
       "url": "",
       "check": {
@@ -4229,7 +6532,7 @@
       "need": [
         "text"
       ],
-      "scheduled": false,
+      "scheduled": true,
       "posted": false,
       "url": "",
       "check": {
@@ -4258,7 +6561,94 @@
       "need": [
         "text"
       ],
-      "scheduled": false,
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-14",
+      "channel": "nacha",
+      "platform": "IG",
+      "time": "20:00",
+      "label": "フィード",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
+      "need": [
+        "text"
+      ],
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-14",
+      "channel": "nacha",
+      "platform": "X",
+      "time": "20:00",
+      "label": "スレッド",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
+      "need": [
+        "text"
+      ],
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-14",
+      "channel": "nacha",
+      "platform": "IG",
+      "time": "20:05",
+      "label": "ストーリー",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
+      "need": [
+        "text"
+      ],
+      "scheduled": true,
       "posted": false,
       "url": "",
       "check": {
@@ -4343,7 +6733,7 @@
           "en": "Small things compound.\nThat's the architecture."
         }
       ],
-      "scheduled": false,
+      "scheduled": true,
       "posted": false,
       "url": "",
       "check": {
@@ -4382,6 +6772,35 @@
     },
     {
       "date": "2026-09-15",
+      "channel": "nacha",
+      "platform": "X",
+      "time": "10:30",
+      "label": "長文",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
+      "need": [
+        "text"
+      ],
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-15",
       "channel": "reel",
       "platform": "IG",
       "time": "12:00",
@@ -4400,7 +6819,7 @@
         "text",
         "image"
       ],
-      "scheduled": false,
+      "scheduled": true,
       "posted": false,
       "url": "",
       "check": {
@@ -4430,7 +6849,7 @@
         "text",
         "image"
       ],
-      "scheduled": false,
+      "scheduled": true,
       "posted": false,
       "url": "",
       "check": {
@@ -4459,7 +6878,36 @@
       "need": [
         "text"
       ],
-      "scheduled": false,
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-15",
+      "channel": "nacha",
+      "platform": "X",
+      "time": "14:00",
+      "label": "ことば",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
+      "need": [
+        "text"
+      ],
+      "scheduled": true,
       "posted": false,
       "url": "",
       "check": {
@@ -4495,6 +6943,93 @@
       "date": "2026-09-15",
       "platform": "X",
       "owner": ""
+    },
+    {
+      "date": "2026-09-15",
+      "channel": "nacha",
+      "platform": "IG",
+      "time": "20:00",
+      "label": "フィード",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
+      "need": [
+        "text"
+      ],
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-15",
+      "channel": "nacha",
+      "platform": "X",
+      "time": "20:00",
+      "label": "スレッド",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
+      "need": [
+        "text"
+      ],
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-15",
+      "channel": "nacha",
+      "platform": "IG",
+      "time": "20:05",
+      "label": "ストーリー",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
+      "need": [
+        "text"
+      ],
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
     },
     {
       "date": "2026-09-16",
@@ -4571,7 +7106,7 @@
           "en": "Your record.\nYour ownership."
         }
       ],
-      "scheduled": false,
+      "scheduled": true,
       "posted": false,
       "url": "",
       "check": {
@@ -4612,6 +7147,35 @@
     },
     {
       "date": "2026-09-16",
+      "channel": "nacha",
+      "platform": "X",
+      "time": "10:30",
+      "label": "長文",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
+      "need": [
+        "text"
+      ],
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-16",
       "channel": "reel",
       "platform": "IG",
       "time": "12:00",
@@ -4630,7 +7194,7 @@
         "text",
         "image"
       ],
-      "scheduled": false,
+      "scheduled": true,
       "posted": false,
       "url": "",
       "check": {
@@ -4660,7 +7224,7 @@
         "text",
         "image"
       ],
-      "scheduled": false,
+      "scheduled": true,
       "posted": false,
       "url": "",
       "check": {
@@ -4689,7 +7253,7 @@
       "need": [
         "text"
       ],
-      "scheduled": false,
+      "scheduled": true,
       "posted": false,
       "url": "",
       "check": {
@@ -4719,6 +7283,35 @@
         "text"
       ],
       "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-16",
+      "channel": "nacha",
+      "platform": "X",
+      "time": "14:00",
+      "label": "ことば",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
+      "need": [
+        "text"
+      ],
+      "scheduled": true,
       "posted": false,
       "url": "",
       "check": {
@@ -4787,6 +7380,93 @@
       }
     },
     {
+      "date": "2026-09-16",
+      "channel": "nacha",
+      "platform": "IG",
+      "time": "20:00",
+      "label": "フィード",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
+      "need": [
+        "text"
+      ],
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-16",
+      "channel": "nacha",
+      "platform": "X",
+      "time": "20:00",
+      "label": "スレッド",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
+      "need": [
+        "text"
+      ],
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-16",
+      "channel": "nacha",
+      "platform": "IG",
+      "time": "20:05",
+      "label": "ストーリー",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
+      "need": [
+        "text"
+      ],
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
       "date": "2026-09-17",
       "channel": "reel",
       "platform": "X",
@@ -4831,7 +7511,7 @@
           "en": "Cross-play isn't a feature.\nIt's the absence of a barrier."
         }
       ],
-      "scheduled": false,
+      "scheduled": true,
       "posted": false,
       "url": "",
       "check": {
@@ -4870,6 +7550,35 @@
     },
     {
       "date": "2026-09-17",
+      "channel": "nacha",
+      "platform": "X",
+      "time": "10:30",
+      "label": "長文",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
+      "need": [
+        "text"
+      ],
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-17",
       "channel": "reel",
       "platform": "IG",
       "time": "12:00",
@@ -4888,7 +7597,7 @@
         "text",
         "image"
       ],
-      "scheduled": false,
+      "scheduled": true,
       "posted": false,
       "url": "",
       "check": {
@@ -4918,7 +7627,7 @@
         "text",
         "image"
       ],
-      "scheduled": false,
+      "scheduled": true,
       "posted": false,
       "url": "",
       "check": {
@@ -4947,7 +7656,36 @@
       "need": [
         "text"
       ],
-      "scheduled": false,
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-17",
+      "channel": "nacha",
+      "platform": "X",
+      "time": "14:00",
+      "label": "ことば",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
+      "need": [
+        "text"
+      ],
+      "scheduled": true,
       "posted": false,
       "url": "",
       "check": {
@@ -5043,6 +7781,93 @@
       "owner": ""
     },
     {
+      "date": "2026-09-17",
+      "channel": "nacha",
+      "platform": "IG",
+      "time": "20:00",
+      "label": "フィード",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
+      "need": [
+        "text"
+      ],
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-17",
+      "channel": "nacha",
+      "platform": "X",
+      "time": "20:00",
+      "label": "スレッド",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
+      "need": [
+        "text"
+      ],
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-17",
+      "channel": "nacha",
+      "platform": "IG",
+      "time": "20:05",
+      "label": "ストーリー",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
+      "need": [
+        "text"
+      ],
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
       "date": "2026-09-18",
       "channel": "reel",
       "platform": "X",
@@ -5087,7 +7912,7 @@
           "en": "Your dashboard\nis your reason to return."
         }
       ],
-      "scheduled": false,
+      "scheduled": true,
       "posted": false,
       "url": "",
       "check": {
@@ -5126,6 +7951,35 @@
     },
     {
       "date": "2026-09-18",
+      "channel": "nacha",
+      "platform": "X",
+      "time": "10:30",
+      "label": "長文",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
+      "need": [
+        "text"
+      ],
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-18",
       "channel": "reel",
       "platform": "IG",
       "time": "12:00",
@@ -5144,7 +7998,7 @@
         "text",
         "image"
       ],
-      "scheduled": false,
+      "scheduled": true,
       "posted": false,
       "url": "",
       "check": {
@@ -5174,7 +8028,7 @@
         "text",
         "image"
       ],
-      "scheduled": false,
+      "scheduled": true,
       "posted": false,
       "url": "",
       "check": {
@@ -5203,7 +8057,36 @@
       "need": [
         "text"
       ],
-      "scheduled": false,
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-18",
+      "channel": "nacha",
+      "platform": "X",
+      "time": "14:00",
+      "label": "ことば",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
+      "need": [
+        "text"
+      ],
+      "scheduled": true,
       "posted": false,
       "url": "",
       "check": {
@@ -5241,6 +8124,93 @@
       "owner": ""
     },
     {
+      "date": "2026-09-18",
+      "channel": "nacha",
+      "platform": "IG",
+      "time": "20:00",
+      "label": "フィード",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
+      "need": [
+        "text"
+      ],
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-18",
+      "channel": "nacha",
+      "platform": "X",
+      "time": "20:00",
+      "label": "スレッド",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
+      "need": [
+        "text"
+      ],
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-18",
+      "channel": "nacha",
+      "platform": "IG",
+      "time": "20:05",
+      "label": "ストーリー",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
+      "need": [
+        "text"
+      ],
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
       "date": "2026-09-19",
       "channel": "reel",
       "platform": "X",
@@ -5267,7 +8237,7 @@
           "en": "Check your Steam playtime.\n\n847 hours.\nAnd nothing to show for it\nexcept the memory."
         }
       ],
-      "scheduled": false,
+      "scheduled": true,
       "posted": false,
       "url": "",
       "check": {
@@ -5306,6 +8276,35 @@
     },
     {
       "date": "2026-09-19",
+      "channel": "nacha",
+      "platform": "X",
+      "time": "10:30",
+      "label": "長文",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
+      "need": [
+        "text"
+      ],
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-19",
       "channel": "reel",
       "platform": "IG",
       "time": "12:00",
@@ -5324,7 +8323,7 @@
         "text",
         "image"
       ],
-      "scheduled": false,
+      "scheduled": true,
       "posted": false,
       "url": "",
       "check": {
@@ -5354,7 +8353,7 @@
         "text",
         "image"
       ],
-      "scheduled": false,
+      "scheduled": true,
       "posted": false,
       "url": "",
       "check": {
@@ -5383,7 +8382,36 @@
       "need": [
         "text"
       ],
-      "scheduled": false,
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-19",
+      "channel": "nacha",
+      "platform": "X",
+      "time": "14:00",
+      "label": "ことば",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
+      "need": [
+        "text"
+      ],
+      "scheduled": true,
       "posted": false,
       "url": "",
       "check": {
@@ -5421,6 +8449,93 @@
       "owner": ""
     },
     {
+      "date": "2026-09-19",
+      "channel": "nacha",
+      "platform": "IG",
+      "time": "20:00",
+      "label": "フィード",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
+      "need": [
+        "text"
+      ],
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-19",
+      "channel": "nacha",
+      "platform": "X",
+      "time": "20:00",
+      "label": "スレッド",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
+      "need": [
+        "text"
+      ],
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-19",
+      "channel": "nacha",
+      "platform": "IG",
+      "time": "20:05",
+      "label": "ストーリー",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
+      "need": [
+        "text"
+      ],
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
       "date": "2026-09-20",
       "channel": "reel",
       "platform": "X",
@@ -5447,7 +8562,7 @@
           "en": "Epic Games Store\ngave away $2,400+ in free games\nsince 2018.\n\n60 million unique users\ncame for the free entrance.\n\nFree lowers the barrier.\nValue keeps them inside."
         }
       ],
-      "scheduled": false,
+      "scheduled": true,
       "posted": false,
       "url": "",
       "check": {
@@ -5486,6 +8601,35 @@
     },
     {
       "date": "2026-09-20",
+      "channel": "nacha",
+      "platform": "X",
+      "time": "10:30",
+      "label": "長文",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
+      "need": [
+        "text"
+      ],
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-20",
       "channel": "reel",
       "platform": "IG",
       "time": "12:00",
@@ -5504,7 +8648,7 @@
         "text",
         "image"
       ],
-      "scheduled": false,
+      "scheduled": true,
       "posted": false,
       "url": "",
       "check": {
@@ -5534,7 +8678,36 @@
         "text",
         "image"
       ],
-      "scheduled": false,
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-20",
+      "channel": "nacha",
+      "platform": "X",
+      "time": "14:00",
+      "label": "ことば",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
+      "need": [
+        "text"
+      ],
+      "scheduled": true,
       "posted": false,
       "url": "",
       "check": {
@@ -5570,6 +8743,93 @@
       "date": "2026-09-20",
       "platform": "X",
       "owner": ""
+    },
+    {
+      "date": "2026-09-20",
+      "channel": "nacha",
+      "platform": "IG",
+      "time": "20:00",
+      "label": "フィード",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
+      "need": [
+        "text"
+      ],
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-20",
+      "channel": "nacha",
+      "platform": "X",
+      "time": "20:00",
+      "label": "スレッド",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
+      "need": [
+        "text"
+      ],
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-20",
+      "channel": "nacha",
+      "platform": "IG",
+      "time": "20:05",
+      "label": "ストーリー",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
+      "need": [
+        "text"
+      ],
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
     },
     {
       "date": "2026-09-21",
