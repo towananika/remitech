@@ -250,6 +250,90 @@
     .agenda{ display:block; }
   }
 
+  /* ---- 今日 ---- */
+  .td{ max-width:680px; margin:0 auto; }
+  .tdhead{ display:flex; align-items:center; gap:12px; flex-wrap:wrap; margin:6px 0 14px; }
+  .tddate{ margin:0; font-size:22px; font-weight:700; }
+  .tdleft{ font-size:13px; font-weight:700; padding:3px 10px; border-radius:999px; color:var(--surface); background:var(--ink); }
+  .tdleft[data-zero="true"]{ background:var(--sage); }
+  .tdhead .savestat{ margin-left:auto; }
+  .tdsec{ margin:0 0 18px; }
+  .tdsech{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin:0 0 8px; }
+  .tdsech > p{ margin:0; font-size:13px; font-weight:700; color:var(--muted); letter-spacing:.04em; }
+  .tdsech > p b{ color:var(--ink); margin-left:2px; }
+  .tdblocks{ display:flex; gap:6px; margin-left:auto; }
+  .tdblk{ font:inherit; font-size:12.5px; padding:5px 10px; min-height:32px; border-radius:999px; border:1px solid var(--line);
+    background:var(--surface); color:var(--ink); cursor:pointer; }
+  .tdblk i{ font-style:normal; color:var(--muted); font-size:11.5px; }
+  .tdblk[aria-pressed="true"]{ background:var(--ink); color:var(--surface); border-color:var(--ink); }
+  .tdblk[aria-pressed="true"] i{ color:var(--surface); opacity:.8; }
+  .tdblk[data-full="true"] i{ color:var(--sage); }
+  .tdstories{ display:flex; gap:14px; overflow-x:auto; padding:4px 2px 6px; scrollbar-width:none; }
+  .tdstories::-webkit-scrollbar{ display:none; }
+  .tdst{ flex:0 0 auto; display:flex; flex-direction:column; align-items:center; gap:5px; background:none; border:0; padding:0;
+    cursor:pointer; font:inherit; color:var(--ink); min-width:62px; }
+  .tdring{ width:58px; height:58px; border-radius:50%; padding:3px; display:grid; place-items:center;
+    background:conic-gradient(var(--chc), color-mix(in srgb, var(--chc) 45%, #f2b33d), var(--chc)); }
+  .tdring b{ width:100%; height:100%; border-radius:50%; display:grid; place-items:center; font-size:15px;
+    background:var(--surface); border:2px solid var(--surface); color:var(--chc); }
+  .tdst[data-on="true"] .tdring{ background:var(--line); }
+  .tdst[data-on="true"] .tdring b{ color:var(--muted); }
+  .tdring{ position:relative; }
+  .tdring em{ position:absolute; right:-2px; bottom:-2px; width:22px; height:22px; border-radius:50%; display:grid; place-items:center;
+    font-style:normal; font-size:12px; font-weight:700; background:var(--sage); color:#fff; border:2px solid var(--bg); }
+  .tdst i{ font-style:normal; font-size:11.5px; color:var(--muted); }
+  .tdc{ display:flex; gap:12px; padding:14px 2px; border-bottom:1px solid var(--line); }
+  .tdav{ flex:0 0 auto; width:40px; height:40px; border-radius:50%; display:grid; place-items:center; text-decoration:none;
+    font-size:13px; font-weight:700; color:#fff; background:var(--chc); }
+  .tdbody{ flex:1; min-width:0; }
+  .tdl1{ display:flex; align-items:baseline; gap:6px; flex-wrap:wrap; }
+  .tdname{ font-weight:700; color:var(--ink); text-decoration:none; }
+  .tdmeta{ font-size:13px; color:var(--muted); }
+  .tdkind{ margin-left:auto; font-style:normal; font-size:11.5px; font-weight:700; color:var(--chc); }
+  .tdc[data-kind="late"] .tdkind{ color:#b4553f; }
+  .tdtext{ margin:3px 0 0; font-size:14px; line-height:1.5; overflow-wrap:anywhere; }
+  .tdlog{ margin:6px 0 0; padding-left:10px; border-left:2px solid var(--line); }
+  .tdlog p{ margin:0; font-size:12.5px; color:var(--muted); line-height:1.5; overflow-wrap:anywhere; }
+  .tdq{ display:flex; gap:6px; flex-wrap:wrap; margin:10px 0 0; }
+  .tdchip{ font:inherit; font-size:12.5px; padding:5px 11px; min-height:32px; border-radius:999px; border:1px solid var(--line);
+    background:var(--bg); color:var(--ink); cursor:pointer; }
+  .tdrow{ display:flex; gap:8px; margin:8px 0 0; }
+  .tdin{ flex:1; min-width:0; font:inherit; font-size:15px; padding:9px 14px; min-height:44px; border-radius:999px;
+    border:1px solid var(--line); background:var(--surface); color:var(--ink); }
+  .tdin:focus{ outline:none; border-color:var(--chc); }
+  .tdgo{ flex:0 0 auto; font:inherit; font-size:14px; font-weight:700; padding:0 18px; min-height:44px; border-radius:999px;
+    border:0; background:var(--ink); color:var(--surface); cursor:pointer; }
+  .tdgo:disabled{ opacity:.3; cursor:default; }
+  .tdsub{ font:inherit; font-size:12.5px; margin:8px 0 0; padding:4px 0; background:none; border:0; color:var(--muted);
+    text-decoration:underline; cursor:pointer; }
+  .tdlink{ display:inline-block; margin:6px 0 0; font-size:13px; color:var(--chc); }
+  .tdout{ margin:4px 0 0; font-size:12.5px; color:#b4553f; min-height:0; }
+  .tdout:empty{ display:none; }
+  .tdweek{ margin-left:auto; display:flex; align-items:center; gap:4px; font-size:13px; }
+  .tdweek button{ font:inherit; font-size:18px; width:36px; height:36px; border-radius:50%; border:1px solid var(--line);
+    background:var(--surface); color:var(--ink); cursor:pointer; }
+  .tdweek span{ min-width:84px; text-align:center; }
+  .tdempty{ margin:4px 0; font-size:13.5px; color:var(--muted); }
+  .tdmore{ display:block; width:100%; margin:6px 0; padding:10px; font:inherit; font-size:13px; color:var(--muted);
+    background:none; border:1px dashed var(--line); border-radius:10px; cursor:pointer; }
+  .tdall{ text-align:center; padding:28px 0; }
+  .tdall span{ display:inline-grid; place-items:center; width:56px; height:56px; border-radius:50%; font-size:26px;
+    border:2px solid var(--sage); color:var(--sage); }
+  .tdall p{ margin:8px 0 0; font-weight:700; }
+  .tddone a{ display:block; padding:8px 2px; font-size:13px; color:var(--muted); text-decoration:none; border-bottom:1px solid var(--line); }
+  .tddone b{ color:var(--sage); }
+  .tdundo{ position:fixed; left:50%; transform:translateX(-50%); bottom:24px; z-index:50; display:flex; align-items:center; gap:14px;
+    padding:10px 12px 10px 18px; border-radius:10px; background:var(--ink); color:var(--surface); font-size:14px;
+    box-shadow:0 6px 20px rgba(0,0,0,.2); max-width:calc(100% - 24px); }
+  .tdundo button{ font:inherit; font-weight:700; background:none; border:0; color:#f2b33d; cursor:pointer; padding:6px; }
+  /* スマホでは、タブを下に置く（Instagram・Xの形） */
+  @media (max-width:700px){
+    .nav{ position:fixed; left:0; right:0; bottom:0; z-index:40; margin:0; padding:0 4px env(safe-area-inset-bottom);
+      background:var(--surface); border-top:1px solid var(--line); }
+    .nav button{ padding-top:12px; padding-bottom:12px; }
+    body{ padding-bottom:64px; }
+    .tdundo{ bottom:76px; }
+  }
   /* ---- 投稿ページ ---- */
   .ppback{ display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
   .savestat{ font-size:12.5px; color:var(--muted); display:inline-flex; align-items:center; gap:6px; }
@@ -1070,7 +1154,7 @@
           navImport:"Import", impHelp:"Paste the plan from your spreadsheet (tab-separated, header row first).",
           navPrep2:"Prep (beta)", gProjects:"Projects", gRecur:"Recurring", gRecurTitle:"Recurring slots", gAddRule:"Add", gClose:"Close", gMake:"Create this post", gRecurTag:"recurring", gView3:"3 days", gViewWeek:"Week", gViewMonth:"Month", gNoRule:"No recurring slots yet.", calToday:"Today", calNone:"Nothing on this day", calMore:" more",
           navTg:"Telegram", copyAll:"Copy all", tgEmpty:"Nothing posted with a link on this day yet", tgLinks:"Links",
-          navOv:"Overview", ovMeasureOnly:"Followers only, no posting", ovAccounts:"Accounts",
+          navOv:"Overview", navToday:"Today", tipToday:"Only what you can finish now: likes, scheduling, URLs, checks", tdLeft:"left", tdLikes:"Likes", tdNext:"next", tdAllDone:"All done for today", tdBook:"To schedule", tdLate:"Missed", tdUrl:"Paste URL", tdCheck:"Check", tdBooked:"Scheduled", tdPaste:"Paste", tdChecked:"Checked", tdMemoPh:"Write a note (required)", tdQ1:"No text", tdQ2:"No image", tdQ3:"All good", tdOlder:"Earlier days", tdDoneToday:"Done today", tdUndo:"Undo", tdOpen:"Open", tdNone:"Nothing to schedule this week", tdBadUrl:"URL must start with https://", tdThisWeek:"This week", tdPosted:"Posted", ovMeasureOnly:"Followers only, no posting", ovAccounts:"Accounts",
           impCols:"Columns: date (or day), time, platform, type, label, ja, en, ko, asset",
           impApply:"Apply on this device", impDownload:"Download schedule.json",
           impMonth:"Month", impMerge:"Keep what is already there",
@@ -1121,7 +1205,7 @@
           navImport:"불러오기", impHelp:"기획표를 붙여넣어. 탭으로 구분된 표(첫 줄은 제목).",
           navPrep2:"준비(시안)", gProjects:"프로젝트", gRecur:"정기 설정", gRecurTitle:"정기 게시 시간", gAddRule:"추가", gClose:"닫기", gMake:"이 게시물 만들기", gRecurTag:"정기", gView3:"3일", gViewWeek:"주", gViewMonth:"월", gNoRule:"정기 설정이 아직 없어.", calToday:"오늘", calNone:"이 날은 비어 있어", calMore:"개 더",
           navTg:"텔레그램", copyAll:"전체 복사", tgEmpty:"이 날짜엔 링크가 있는 게시물이 아직 없어", tgLinks:"링크",
-          navOv:"개요", ovMeasureOnly:"팔로워만 추적, 게시는 안 함", ovAccounts:"계정",
+          navOv:"개요", navToday:"오늘", tipToday:"지금 끝낼 수 있는 것만: 좋아요, 예약, URL, 확인", tdLeft:"남음", tdLikes:"좋아요", tdNext:"다음", tdAllDone:"오늘은 끝", tdBook:"예약하기", tdLate:"놓침", tdUrl:"URL 붙이기", tdCheck:"확인하기", tdBooked:"예약함", tdPaste:"붙이기", tdChecked:"확인함", tdMemoPh:"메모를 써야 누를 수 있어", tdQ1:"텍스트 없음", tdQ2:"이미지 없음", tdQ3:"문제 없음", tdOlder:"이전 날", tdDoneToday:"오늘 끝낸 것", tdUndo:"되돌리기", tdOpen:"열기", tdNone:"이번 주 예약할 것 없음", tdBadUrl:"URL은 https:// 로 시작해야 해", tdThisWeek:"이번 주", tdPosted:"게시됨", ovMeasureOnly:"팔로워만 추적, 게시는 안 함", ovAccounts:"계정",
           impCols:"열: date (또는 day), time, platform, type, label, ja, en, ko, asset",
           impApply:"이 기기에 적용", impDownload:"schedule.json 내려받기",
           impMonth:"월", impMerge:"기존 것 유지",
@@ -1172,7 +1256,7 @@
           navImport:"取り込み", impHelp:"表計算からコピーして貼る（タブ区切り・1行目は見出し）。",
           navPrep2:"準備（仮）", gProjects:"プロジェクト", gRecur:"定期の設定", gRecurTitle:"定期の投稿枠", gAddRule:"追加", gClose:"閉じる", gMake:"この企画を作る", gRecurTag:"定期", gView3:"3日", gViewWeek:"週", gViewMonth:"月", gNoRule:"定期の枠はまだない。", calToday:"今日", calNone:"この日は空", calMore:"件",
           navTg:"Telegram通知", copyAll:"全部コピー", tgEmpty:"この日はまだリンク付きの投稿がない", tgLinks:"リンク",
-          navOv:"概要", ovMeasureOnly:"フォロワーだけ追う。投稿はしない", ovAccounts:"運用アカウント",
+          navOv:"概要", navToday:"今日", tipToday:"今終わらせられるものだけ：いいね・予約・URL・確認", tdLeft:"残り", tdLikes:"いいね", tdNext:"次", tdAllDone:"今日は済み", tdBook:"予約する", tdLate:"予約されずに過ぎた", tdUrl:"URLを貼る", tdCheck:"確認する", tdBooked:"予約した", tdPaste:"貼る", tdChecked:"確認した", tdMemoPh:"メモを書く（書くと押せます）", tdQ1:"テキストなし", tdQ2:"画像なし", tdQ3:"問題なし", tdOlder:"前の日の残り", tdDoneToday:"今日済んだもの", tdUndo:"元に戻す", tdOpen:"開く", tdNone:"今週、予約するものはありません", tdBadUrl:"URLは https:// で始めてください", tdThisWeek:"今週", tdPosted:"投稿", ovMeasureOnly:"フォロワーだけ追う。投稿はしない", ovAccounts:"運用アカウント",
           impCols:"列: date（または day）, time, platform, type, label, ja, en, ko, asset",
           impApply:"この端末に反映", impDownload:"schedule.json を保存",
           impMonth:"月", impMerge:"いまの内容を残す",
@@ -1205,7 +1289,7 @@
 
   var view = document.getElementById("view");
   var navEl = document.getElementById("nav");
-  var schedule = null, tab = "dash";
+  var schedule = null, tab = "today";
   var chansEl = document.getElementById("chans");
   var langEl = document.getElementById("langPick");
   var posts = [], channels = [], filter = "";
@@ -3278,6 +3362,281 @@
       });
   }
 
+  /* ================= 今日 =================
+     開いたときに「今、何をすればいいか」だけを見せる。新しく入力するものは増やさず、
+     chores.json（いいね）と schedule.json（予約・URL・確認）から作る。
+     確認は、メモを書いたときだけ付く。書かなければ未確認のまま残る */
+  var tdWeek = 0, tdBlock = null, tdOldOpen = false, tdDoneOpen = false, tdUndo = null, tdUndoTimer = null;
+
+  function tdWhen(sl) {
+    var d = sl.date.split("-"), h = (sl.time || "00:00").split(":");
+    return new Date(+d[0], +d[1] - 1, +d[2], +h[0] || 0, +h[1] || 0);
+  }
+  function tdMonday(d) {
+    var x = new Date(d.getFullYear(), d.getMonth(), d.getDate());
+    x.setDate(x.getDate() - (x.getDay() + 6) % 7);          // 月曜はじまり
+    return x;
+  }
+  function tdDay(sl) {
+    var w = tdWhen(sl);
+    return (w.getMonth() + 1) + "/" + w.getDate() + "(" + DOW[lang][w.getDay()] + ")";
+  }
+  function tdLocalDay(iso) { if (!iso) return ""; var d = new Date(iso); return isNaN(d) ? "" : ymd(d); }
+  function tdStamp() { var d = new Date(); return (d.getMonth() + 1) + "/" + d.getDate() + " " + two(d.getHours()) + ":" + two(d.getMinutes()); }
+
+  // いいねの時間帯。chores.json の時間をそのまま使う
+  function tdLikeBlocks(today) {
+    var done = (chores && chores.done && chores.done[today]) || {}, by = {};
+    ((chores && chores.lists) || []).forEach(function (li) {
+      li.tasks.forEach(function (tk) {
+        (by[tk.time] = by[tk.time] || []).push({ li: li, tk: tk, on: !!done[tk.id] });
+      });
+    });
+    return Object.keys(by).sort(function (a, b) { return toMin(a) - toMin(b); })
+      .map(function (tm) { return { time: tm, items: by[tm] }; });
+  }
+
+  function tdCard(kind, sl) {
+    var c = chanOfSlot(sl) || { name: slotCh(sl), color: "var(--wood)" };
+    var key = slotKey(sl);
+    var body = (sl.label || "") || ((sl.text && (sl.text[lang] || sl.text.ja || sl.text.en || sl.text.ko)) || "");
+    var memo = (sl.memo || "").split("\n").filter(Boolean).slice(-2);
+    var kl = { book: "tdBook", late: "tdLate", url: "tdUrl", check: "tdCheck" }[kind];
+    var h = '<div class="tdc" data-k="' + esc(key) + '" data-kind="' + kind + '" style="--chc:' + esc(c.color || "var(--wood)") + '">' +
+      '<a class="tdav" href="#/prep/' + encodeURIComponent(key) + '">' + esc(chShort(slotCh(sl))) + '</a>' +
+      '<div class="tdbody">' +
+        '<div class="tdl1"><a class="tdname" href="#/prep/' + encodeURIComponent(key) + '">' + esc(c.name) + '</a>' +
+          '<span class="tdmeta">' + esc(pfn(sl.platform)) + ' · ' + esc(tdDay(sl)) + ' ' + esc(sl.time) + '</span>' +
+          '<em class="tdkind">' + esc(t(kl)) + '</em></div>' +
+        (body ? '<p class="tdtext">' + esc(body.slice(0, 80)) + '</p>' : "") +
+        (memo.length ? '<div class="tdlog">' + memo.map(function (m) { return '<p>' + esc(m) + '</p>'; }).join("") + '</div>' : "");
+    if (kind === "url" || kind === "late") {
+      h += '<div class="tdrow"><input class="tdin tdurl" type="url" inputmode="url" placeholder="https://">' +
+        '<button class="tdgo" data-act="url" disabled>' + esc(t("tdPaste")) + '</button></div>';
+      if (kind === "late") h += '<button class="tdsub" data-act="skip">' + esc(t("markSkip")) + '</button>';
+    } else {
+      if (kind === "check" && sl.url) {
+        h += '<a class="tdlink" href="' + esc(sl.url) + '" target="_blank" rel="noopener">' + esc(t("tdOpen")) + ' \u2197</a>';
+      }
+      h += '<div class="tdq">' + ["tdQ1", "tdQ2", "tdQ3"].map(function (q) {
+          return '<button class="tdchip" data-q="' + esc(t(q)) + '">' + esc(t(q)) + '</button>';
+        }).join("") + '</div>' +
+        '<div class="tdrow"><input class="tdin tdmemo" placeholder="' + esc(t("tdMemoPh")) + '">' +
+        '<button class="tdgo" data-act="' + kind + '" disabled>' + esc(t(kind === "book" ? "tdBooked" : "tdChecked")) + '</button></div>';
+    }
+    return h + '<p class="tdout"></p></div></div>';
+  }
+
+  function renderToday() {
+    chansEl.hidden = true;
+    if (!schedule) { view.innerHTML = '<p class="empty">' + esc(t("loading")) + '</p>'; return; }
+    var now = new Date(), today = ymd(now), nm = now.getHours() * 60 + now.getMinutes();
+    var DAY = 86400000;
+
+    // ---- いいね ----
+    var blocks = tdLikeBlocks(today), cur = null;
+    blocks.forEach(function (b) { if (toMin(b.time) <= nm) cur = b.time; });
+    var nextB = blocks.filter(function (b) { return toMin(b.time) > nm; })[0];
+    var show = tdBlock || cur || (nextB && nextB.time) || (blocks[0] && blocks[0].time);
+    var likeLeft = 0;
+    blocks.forEach(function (b) {
+      if (toMin(b.time) <= nm) b.items.forEach(function (it) { if (!it.on) likeLeft++; });
+    });
+
+    // ---- 投稿 ----
+    var ws = tdMonday(now); ws.setDate(ws.getDate() + tdWeek * 7);
+    var we = new Date(ws.getTime()); we.setDate(we.getDate() + 7);
+    var from = tdWeek === 0 ? new Date(ws.getTime() - 7 * DAY) : ws;   // 今週は、先週の残りも出す
+    var book = [], late = [], url = [], check = [], doneT = [];
+    (schedule.slots || []).forEach(function (sl) {
+      var w = tdWhen(sl);
+      if ([sl.bookedAt, sl.urlAt, sl.check && sl.check.at].some(function (x) { return tdLocalDay(x) === today; })) doneT.push(sl);
+      if (sl.skip) return;
+      var sched = isSched(sl), posted = isPosted(sl);
+      if (!sched && !posted && w >= from && w < we) { if (w >= now) book.push(sl); else if (now - w < 2 * DAY) late.push(sl); return; }
+      if ((sched || posted) && !sl.url && w <= now && now - w < 2 * DAY) { url.push(sl); return; }
+      if (sl.url && !isChecked(sl) && now - w < 3 * DAY) check.push(sl);
+    });
+    var byW = function (a, b) { return tdWhen(a) - tdWhen(b); };
+    [book, late, url, check].forEach(function (a) { a.sort(byW); });
+    if (tdWeek !== 0) late = [];
+    var left = likeLeft + book.length + late.length + url.length + check.length;
+
+    // ---- 画面 ----
+    var h = '<div class="td">' +
+      '<div class="tdhead"><p class="tddate">' + esc((now.getMonth() + 1) + "/" + now.getDate() + "(" + DOW[lang][now.getDay()] + ")") + '</p>' +
+        '<span class="tdleft" data-zero="' + (left === 0) + '">' + esc(t("tdLeft")) + ' ' + left + '</span>' +
+        '<span class="savestat" id="saveStat"></span></div>';
+
+    // いいね：時間帯のタブ＋ストーリーズ風の丸
+    h += '<section class="tdsec"><div class="tdsech"><p>' + esc(t("tdLikes")) + '</p><div class="tdblocks">' +
+      blocks.map(function (b) {
+        var n = b.items.filter(function (i) { return i.on; }).length, all = b.items.length;
+        var sub = n === all ? "\u2713" : (toMin(b.time) > nm ? t("tdNext") : n + "/" + all);
+        return '<button class="tdblk" data-t="' + esc(b.time) + '" aria-pressed="' + (b.time === show) + '" data-full="' + (n === all) + '">' +
+          esc(b.time) + ' <i>' + esc(sub) + '</i></button>';
+      }).join("") + '</div></div><div class="tdstories">';
+    var sb = blocks.filter(function (b) { return b.time === show; })[0];
+    (sb ? sb.items : []).forEach(function (it) {
+      var c = chanOf(it.li.channel) || { name: it.li.channel, color: "var(--wood)" };
+      var csv = /3M|csv/i.test(it.tk.task);
+      var n = (/(\d+)/.exec(it.tk.task) || [])[1];
+      h += '<button class="tdst" data-id="' + esc(it.tk.id) + '" data-on="' + it.on + '" style="--chc:' + esc(c.color || "var(--wood)") + '" title="' + esc(it.tk.task) + '">' +
+        '<span class="tdring"><b>' + esc(csv ? "3M" : chShort(it.li.channel)) + '</b>' + (it.on ? '<em>\u2713</em>' : '') + '</span>' +
+        '<i>' + esc(csv ? "CSV" : pfn(it.li.platform) + (n ? " " + n : "")) + '</i></button>';
+    });
+    h += '</div></section>';
+
+    // URL・確認：今日の分を先に、前の日の分はたたむ
+    function listSec(titleKey, kind, arr) {
+      if (!arr.length) return "";
+      var tdy = arr.filter(function (x) { return x.date === today; }), old = arr.filter(function (x) { return x.date !== today; });
+      var o = '<section class="tdsec"><div class="tdsech"><p>' + esc(t(titleKey)) + ' <b>' + arr.length + '</b></p></div>' +
+        tdy.map(function (x) { return tdCard(kind, x); }).join("");
+      if (old.length) {
+        o += '<button class="tdmore" data-more="old">' + esc(t("tdOlder")) + ' ' + old.length + (tdOldOpen ? " \u25B4" : " \u25BE") + '</button>' +
+          (tdOldOpen ? old.map(function (x) { return tdCard(kind, x); }).join("") : "");
+      }
+      return o + '</section>';
+    }
+    h += listSec("tdUrl", "url", url);
+    h += listSec("tdCheck", "check", check);
+
+    // 予約：月〜日の1週間ずつ
+    var wl = tdMonday(now); wl.setDate(wl.getDate() + tdWeek * 7);
+    var wEnd = new Date(wl.getTime()); wEnd.setDate(wEnd.getDate() + 6);
+    h += '<section class="tdsec"><div class="tdsech"><p>' + esc(t("tdBook")) + ' <b>' + (book.length + late.length) + '</b></p>' +
+      '<div class="tdweek"><button id="tdPrev" aria-label="prev">\u2039</button>' +
+      '<span>' + esc(tdWeek === 0 ? t("tdThisWeek") : (wl.getMonth() + 1) + "/" + wl.getDate() + "\u2013" + (wEnd.getMonth() + 1) + "/" + wEnd.getDate()) + '</span>' +
+      '<button id="tdNext" aria-label="next">\u203A</button></div></div>' +
+      late.map(function (x) { return tdCard("late", x); }).join("") +
+      book.map(function (x) { return tdCard("book", x); }).join("") +
+      (book.length + late.length ? "" : '<p class="tdempty">' + esc(t("tdNone")) + '</p>') + '</section>';
+
+    if (left === 0) h += '<div class="tdall"><span>\u2713</span><p>' + esc(t("tdAllDone")) + '</p></div>';
+
+    // 今日済んだもの
+    if (doneT.length) {
+      h += '<button class="tdmore" data-more="done">' + esc(t("tdDoneToday")) + ' ' + doneT.length + (tdDoneOpen ? " \u25B4" : " \u25BE") + '</button>';
+      if (tdDoneOpen) {
+        h += '<div class="tddone">' + doneT.sort(byW).map(function (sl) {
+          var c = chanOfSlot(sl) || { name: slotCh(sl) };
+          var what = isChecked(sl) ? t("tdChecked") : sl.url ? t("tdPosted") : t("tdBooked");
+          return '<a href="#/prep/' + encodeURIComponent(slotKey(sl)) + '"><b>\u2713 ' + esc(what) + '</b> ' +
+            esc(c.name) + ' ' + esc(pfn(sl.platform)) + ' ' + esc(tdDay(sl)) + ' ' + esc(sl.time) + '</a>';
+        }).join("") + '</div>';
+      }
+    }
+    view.innerHTML = h + '</div>' + (tdUndo ? '<div class="tdundo"><span>' + esc(tdUndo.msg) + '</span><button id="tdUndoBtn">' + esc(t("tdUndo")) + '</button></div>' : "");
+    setSaveStat(savePending ? "pending" : (saveBusy ? "saving" : "idle"));
+  }
+
+  function tdSlot(el) {
+    var card = el.closest(".tdc");
+    if (!card) return null;
+    var k = card.getAttribute("data-k");
+    return { card: card, sl: (schedule.slots || []).filter(function (x) { return slotKey(x) === k; })[0] };
+  }
+  function tdRerender() { var y = window.scrollY; renderToday(); window.scrollTo(0, y); }
+
+  // 済ませたあと数秒だけ「元に戻す」を出す（Gmailの形）
+  function tdDid(sl, msg) {
+    clearTimeout(tdUndoTimer);
+    tdUndo.msg = msg;
+    tdUndoTimer = setTimeout(function () { tdUndo = null; tdRerender(); }, 6000);
+    tdRerender();
+  }
+  function tdSnap(sl) {
+    return { key: slotKey(sl), scheduled: isSched(sl), posted: isPosted(sl), url: sl.url || "", checked: isChecked(sl),
+             skip: !!sl.skip, memo: sl.memo || "", bookedAt: sl.bookedAt, urlAt: sl.urlAt };
+  }
+  function tdMemo(sl, kindKey, text) {
+    sl.memo = (sl.memo ? sl.memo + "\n" : "") + tdStamp() + " " + t(kindKey) + ": " + text;
+  }
+
+  view.addEventListener("input", function (e) {
+    if (!e.target.classList || !e.target.classList.contains("tdin")) return;
+    var go = e.target.parentNode.querySelector(".tdgo");
+    if (go) go.disabled = !e.target.value.trim();
+  });
+  view.addEventListener("keydown", function (e) {
+    if (e.key !== "Enter" || !e.target.classList || !e.target.classList.contains("tdin")) return;
+    var go = e.target.parentNode.querySelector(".tdgo");
+    if (go && !go.disabled) go.click();
+  });
+
+  view.addEventListener("click", function (e) {
+    if (tab !== "today" || /^#\//.test(location.hash)) return;
+    var el;
+    if ((el = e.target.closest(".tdblk"))) { tdBlock = el.getAttribute("data-t"); tdRerender(); return; }
+    if (e.target.closest("#tdPrev")) { tdWeek--; tdRerender(); return; }
+    if (e.target.closest("#tdNext")) { tdWeek++; tdRerender(); return; }
+    if ((el = e.target.closest(".tdmore"))) {
+      if (el.getAttribute("data-more") === "old") tdOldOpen = !tdOldOpen; else tdDoneOpen = !tdDoneOpen;
+      tdRerender(); return;
+    }
+    if (e.target.closest("#tdUndoBtn") && tdUndo) {
+      var u = tdUndo; tdUndo = null; clearTimeout(tdUndoTimer);
+      var sl0 = (schedule.slots || []).filter(function (x) { return slotKey(x) === u.key; })[0];
+      if (sl0) {
+        ["scheduled", "posted", "url", "checked", "skip"].forEach(function (k) { markSave(sl0, k, u[k]); });
+        sl0.memo = u.memo; sl0.bookedAt = u.bookedAt; sl0.urlAt = u.urlAt;
+      }
+      tdRerender(); return;
+    }
+    // いいね：押せば済み、もう一度押せば戻る
+    if ((el = e.target.closest(".tdst"))) {
+      var id = el.getAttribute("data-id"), on = el.getAttribute("data-on") !== "true";
+      el.setAttribute("data-on", on);
+      el.style.opacity = ".5";
+      choreBusy = true;
+      saveChore(ymd(new Date()), id, on).then(function () { choreBusy = false; choreEtag = null; tdRerender(); },
+        function () { choreBusy = false; setSaveStat("fail"); });
+      return;
+    }
+    // よく書く言葉：押すとメモに入る
+    if ((el = e.target.closest(".tdchip"))) {
+      var inp = el.closest(".tdbody").querySelector(".tdmemo");
+      if (inp) {
+        var q = el.getAttribute("data-q");
+        inp.value = inp.value.trim() ? inp.value.trim() + "、" + q : q;
+        inp.dispatchEvent(new Event("input", { bubbles: true }));
+        inp.focus();
+      }
+      return;
+    }
+    if ((el = e.target.closest(".tdgo, .tdsub"))) {
+      var ts = tdSlot(el);
+      if (!ts || !ts.sl) return;
+      var sl = ts.sl, act = el.getAttribute("data-act"), iso = new Date().toISOString();
+      var out = ts.card.querySelector(".tdout");
+      tdUndo = tdSnap(sl);
+      if (act === "url") {
+        var v = ts.card.querySelector(".tdurl").value.trim();
+        if (!/^https?:\/\/\S+$/.test(v)) { tdUndo = null; if (out) out.textContent = t("tdBadUrl"); return; }
+        markSave(sl, "url", v); markSave(sl, "posted", true); sl.urlAt = iso;
+        tdDid(sl, t("tdPosted") + " \u2713"); return;
+      }
+      if (act === "skip") { markSave(sl, "skip", true); tdDid(sl, t("markSkip")); return; }
+      var memo = ts.card.querySelector(".tdmemo").value.trim();
+      if (!memo) { tdUndo = null; return; }
+      if (act === "book") {
+        tdMemo(sl, "tdBooked", memo); sl.bookedAt = iso; markSave(sl, "scheduled", true);
+        tdDid(sl, t("tdBooked") + " \u2713"); return;
+      }
+      if (act === "check") {
+        tdMemo(sl, "tdChecked", memo); markSave(sl, "checked", true);
+        tdDid(sl, t("tdChecked") + " \u2713"); return;
+      }
+      tdUndo = null;
+    }
+  });
+
+  // 時間帯が変わったら並べ直す（入力中は触らない）
+  setInterval(function () {
+    if (tab === "today" && !/^#\//.test(location.hash) && !typing() && !tdUndo && !document.hidden) tdRerender();
+  }, 60000);
+
   function renderKpi() {
     chansEl.hidden = false;
     if (!kpi || !kpi.rows || !kpi.rows.length) {
@@ -3357,11 +3716,12 @@
     view.innerHTML = (shown ? html + '</div>' : '<p class="empty">' + esc(t("noKpi")) + '</p>') + choresHTML();
   }
 
-  var TIPS = { dash:"tipDash", book:"tipBook", prep:"tipPrep", prep2:"tipPrep2",
+  var TIPS = { today:"tipToday", dash:"tipDash", book:"tipBook", prep:"tipPrep", prep2:"tipPrep2",
                kpi:"tipKpi", posts:"tipPosts", "import":"tipImport" };
 
   function renderNav() {
     navEl.innerHTML =
+      '<button data-tab="today" aria-pressed="' + (tab === "today") + '">' + esc(t("navToday")) + '</button>' +
       '<button data-tab="ov" aria-pressed="' + (tab === "ov") + '">' + esc(t("navOv")) + '</button>' +
       '<button data-tab="dash" aria-pressed="' + (tab === "dash") + '">' + esc(t("navDash")) + '</button>' +
       '<button data-tab="book" aria-pressed="' + (tab === "book") + '">' + esc(t("navBook")) + '</button>' +
@@ -3413,6 +3773,7 @@
     var id = location.hash.replace(/^#\/?/, "");
     var p = id && posts.filter(function (x) { return x.id === id; })[0];
     if (p) { renderPost(p); window.scrollTo(0, 0); return; }
+    if (tab === "today") { renderToday(); return; }
     if (tab === "dash") { renderDash(); return; }
     if (tab === "kpi") { renderKpi(); return; }
     if (tab === "book") { renderBook(); return; }
@@ -4012,10 +4373,11 @@
     if (JSON.stringify(c.done || {}) === JSON.stringify(chores.done || {}) &&
         JSON.stringify(c.lists || []) === JSON.stringify(chores.lists || [])) return;
     chores = c;
-    var y2 = window.scrollY; renderKpi(); window.scrollTo(0, y2);
+    if (tab === "today" && (typing() || tdUndo)) return;
+    var y2 = window.scrollY; if (tab === "today") renderToday(); else renderKpi(); window.scrollTo(0, y2);
   }
   function pullChores() {
-    if (tab !== "kpi" || document.hidden || choreBusy || /^#\/prep\//.test(location.hash)) return Promise.resolve();
+    if ((tab !== "kpi" && tab !== "today") || document.hidden || choreBusy || /^#\/prep\//.test(location.hash)) return Promise.resolve();
     if (storeOn()) {
       var c = storeGet();
       var h = { "Authorization": "Bearer " + c.token, "Accept": "application/vnd.github+json" };
@@ -4136,7 +4498,7 @@
           }).catch(function () {});
         fetch("./chores.json", { cache: "no-cache" })
           .then(function (r) { return r.ok ? r.json() : null; })
-          .then(function (c) { chores = c; if (tab === "kpi") renderKpi(); })
+          .then(function (c) { chores = c; if (tab === "kpi") renderKpi(); if (tab === "today") renderToday(); })
           .catch(function () {});
         fetch("./kpi.json", { cache: "no-cache" })
           .then(function (r) { return r.ok ? r.json() : null; })

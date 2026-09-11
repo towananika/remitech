@@ -1,5 +1,5 @@
 {
-  "note": "いいね作業のチェック。元はスプレッドシート",
+  "note": "いいね作業のチェック。09:30・13:30・17:00。HIYOKO X 60、悠悠観音堂 X 20、ほかは40。3M・CSVは1つの作業",
   "lists": [
     {
       "channel": "hiyoko",
@@ -16,13 +16,8 @@
           "task": "LIKE60"
         },
         {
-          "id": "hiyoko|X|6",
-          "time": "17:30",
-          "task": "3M overview, content csv(16-20h)"
-        },
-        {
           "id": "hiyoko|X|7",
-          "time": "17:30",
+          "time": "17:00",
           "task": "LIKE60"
         }
       ]
@@ -42,13 +37,8 @@
           "task": "LIKE40"
         },
         {
-          "id": "nacha|X|6",
-          "time": "17:30",
-          "task": "3M overview, content csv(16-20h)"
-        },
-        {
           "id": "nacha|X|7",
-          "time": "17:30",
+          "time": "17:00",
           "task": "LIKE40"
         }
       ]
@@ -60,17 +50,17 @@
         {
           "id": "yuyu|X|2",
           "time": "09:30",
-          "task": "Like 20"
+          "task": "LIKE20"
         },
         {
           "id": "yuyu|X|4",
           "time": "13:30",
-          "task": "LIKE 20"
+          "task": "LIKE20"
         },
         {
           "id": "yuyu|X|6",
-          "time": "17:30",
-          "task": "Like 20"
+          "time": "17:00",
+          "task": "LIKE20"
         }
       ]
     },
@@ -78,11 +68,6 @@
       "channel": "hiyoko",
       "platform": "IG",
       "tasks": [
-        {
-          "id": "hiyoko|IG|0",
-          "time": "09:30",
-          "task": "LIKE30"
-        },
         {
           "id": "hiyoko|IG|4",
           "time": "09:30",
@@ -95,7 +80,7 @@
         },
         {
           "id": "hiyoko|IG|8",
-          "time": "17:30",
+          "time": "17:00",
           "task": "LIKE40"
         }
       ]
@@ -104,11 +89,6 @@
       "channel": "nacha",
       "platform": "IG",
       "tasks": [
-        {
-          "id": "nacha|IG|0",
-          "time": "09:30",
-          "task": "LIKE30"
-        },
         {
           "id": "nacha|IG|4",
           "time": "09:30",
@@ -121,8 +101,20 @@
         },
         {
           "id": "nacha|IG|8",
-          "time": "17:30",
+          "time": "17:00",
           "task": "LIKE40"
+        }
+      ]
+    },
+    {
+      "channel": "nacha",
+      "platform": "X",
+      "kind": "csv",
+      "tasks": [
+        {
+          "id": "csv|3M|0",
+          "time": "17:00",
+          "task": "3M overview, content csv（Xから取ってNACHAダッシュボードに登録）"
         }
       ]
     }
