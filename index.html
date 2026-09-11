@@ -268,6 +268,88 @@
     margin:0 0 12px; font-size:11.5px; color:var(--muted); font-variant-numeric:tabular-nums;
   }
   mark{ background:var(--wood-soft); color:var(--ink); border-radius:3px; padding:0 1px; }
+  /* ---- 準備（仮）: Googleカレンダー風 ---- */
+  .gcal{ display:grid; grid-template-columns:190px minmax(0, 1fr); gap:20px; align-items:start; }
+  .gside{ position:sticky; top:12px; display:flex; flex-direction:column; gap:4px; }
+  .gstitle{ margin:4px 0 6px; font-size:11.5px; color:var(--muted); letter-spacing:.06em; }
+  .gproj{ display:flex; align-items:center; gap:9px; padding:7px 8px; border-radius:9px; cursor:pointer;
+    font-size:13.5px; color:var(--ink); }
+  .gproj:hover{ background:var(--wood-soft); }
+  .gproj input{ position:absolute; opacity:0; pointer-events:none; }
+  .gproj i{ width:16px; height:16px; border-radius:4px; border:2px solid var(--chc); flex:0 0 auto; }
+  .gproj input:checked + i{ background:var(--chc); }
+  .gproj input:checked + i::after{ content:"\2713"; color:#fff; font-size:11px; display:block; text-align:center; line-height:12px; font-style:normal; }
+  .gproj input:focus-visible + i{ outline:2px solid var(--wood); outline-offset:2px; }
+  #gRecurBtn{ margin-top:14px; }
+  .gbar{ display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:12px; }
+  .gtitle{ font-size:16px; font-weight:500; color:var(--ink); font-variant-numeric:tabular-nums; margin:0 6px; }
+  .gviews{ margin-left:auto; display:inline-flex; border:1px solid var(--line); border-radius:10px; overflow:hidden; }
+  .gview{ font:inherit; font-size:13px; background:var(--surface); color:var(--muted); border:0;
+    border-left:1px solid var(--line); padding:8px 14px; cursor:pointer; min-height:38px; }
+  .gview:first-child{ border-left:0; }
+  .gview[aria-pressed="true"]{ background:var(--wood-soft); color:var(--ink); font-weight:500; }
+  .gwrap{ border:1px solid var(--line); border-radius:14px; background:var(--surface); overflow:hidden; }
+  .ghead, .gbody{ display:grid; }
+  .ghead{ border-bottom:1px solid var(--line); }
+  .ghday{ text-align:center; padding:8px 2px; border-left:1px solid var(--line); }
+  .ghday span{ display:block; font-size:11.5px; color:var(--muted); }
+  .ghday b{ display:inline-block; font-size:18px; font-weight:500; min-width:32px; height:32px; line-height:32px;
+    border-radius:999px; font-variant-numeric:tabular-nums; color:var(--ink); }
+  .ghday.today span{ color:var(--wood); }
+  .ghday.today b{ background:var(--wood); color:var(--surface); }
+  .ggut{ position:relative; }
+  .ggut span{ position:absolute; right:6px; transform:translateY(-50%); font-size:11px; color:var(--muted);
+    font-variant-numeric:tabular-nums; }
+  .ggut span:first-child{ transform:none; }
+  .gcol{ position:relative; border-left:1px solid var(--line);
+    background-image:linear-gradient(to bottom, var(--line) 1px, transparent 1px); }
+  .gcol.today{ background-color:color-mix(in srgb, var(--wood-soft) 40%, transparent); }
+  .gev{ position:absolute; overflow:hidden; text-align:left; font:inherit; cursor:pointer;
+    background:color-mix(in srgb, var(--chc) 18%, var(--surface)); color:var(--ink);
+    border:0; border-left:3px solid var(--chc); border-radius:6px; padding:2px 5px;
+    font-size:11.5px; line-height:1.35; display:flex; flex-wrap:wrap; align-content:flex-start; column-gap:4px; }
+  .gev:hover{ box-shadow:0 1px 6px rgba(0,0,0,.14); z-index:2; }
+  .gev.sel{ box-shadow:0 0 0 2px var(--chc); z-index:3; }
+  .gev b{ font-weight:500; font-variant-numeric:tabular-nums; }
+  .gev .gevn{ font-weight:500; color:var(--chc); }
+  .gev .gevp{ color:var(--muted); font-size:11px; width:100%; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .gev .gevl{ color:var(--ink); font-size:11px; width:100%; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .gev.recur{ background:var(--surface); border:1px dashed var(--chc); border-left:3px dashed var(--chc); color:var(--muted); }
+  .gev[data-s="done"]{ background:color-mix(in srgb, var(--sage) 28%, var(--surface)); }
+  .gev[data-s="late"]::after{ content:""; position:absolute; top:4px; right:4px; width:7px; height:7px;
+    border-radius:50%; background:#b4553f; }
+  .gnow{ position:absolute; left:0; right:0; height:2px; background:#d93025; z-index:4; pointer-events:none; }
+  .gnow::before{ content:""; position:absolute; left:-5px; top:-4px; width:10px; height:10px; border-radius:50%; background:#d93025; }
+  .grecur .phead{ cursor:default; }
+  .grecur .gmake{ margin-left:auto; }
+  .grecurbox{ border:1px solid var(--line); border-radius:14px; background:var(--surface); padding:14px 16px; }
+  .grule{ display:flex; flex-wrap:wrap; align-items:center; gap:8px; padding:10px 0;
+    border-bottom:1px solid var(--line); border-left:3px solid var(--chc); padding-left:10px; }
+  .grule select, .grule input{ font:inherit; font-size:13px; color:var(--ink); background:var(--bg);
+    border:1px solid var(--line); border-radius:8px; padding:6px 8px; min-height:36px; }
+  .grule .glabel{ flex:1 1 140px; min-width:0; }
+  .gdays{ display:inline-flex; gap:3px; }
+  .gday{ font:inherit; font-size:12px; width:34px; height:34px; border-radius:999px; border:1px solid var(--line);
+    background:var(--surface); color:var(--muted); cursor:pointer; }
+  .gday[aria-pressed="true"]{ background:var(--chc); border-color:var(--chc); color:#fff; }
+  .gdel{ font:inherit; font-size:18px; width:36px; height:36px; border-radius:999px; border:1px solid var(--line);
+    background:var(--surface); color:var(--muted); cursor:pointer; }
+  .gdel:hover{ color:#b4553f; border-color:#b4553f; }
+  @media (max-width:760px){
+    .gcal{ grid-template-columns:1fr; gap:10px; }
+    .gside{ position:static; flex-direction:row; flex-wrap:wrap; gap:4px 6px; }
+    .gstitle{ width:100%; margin:0; }
+    .gproj{ padding:6px 8px; font-size:13px; border:1px solid var(--line); }
+    #gRecurBtn{ margin-top:0; margin-left:auto; }
+    .gviews{ margin-left:0; }
+    .gtitle{ font-size:14px; width:100%; order:-1; margin:0 0 4px; }
+  }
+  @media (max-width:640px){
+    .gev{ font-size:10.5px; padding:2px 3px; }
+    .gev .gevp, .gev .gevl{ display:none; }
+    .ghday b{ font-size:15px; min-width:28px; height:28px; line-height:28px; }
+  }
+
   /* ---- 準備（仮）: 月のカレンダー ---- */
   .calbar{ display:flex; align-items:center; gap:8px; margin-bottom:14px; }
   .calname{ font-size:15px; font-weight:500; font-variant-numeric:tabular-nums; color:var(--ink);
@@ -893,7 +975,7 @@
           matText:"Text", matImage:"Image", remind:"Remind before posting", remindOff:"Off",
           notMatched:"Not checked", matched:"Matches the plan", mismatched:"Differs from the plan",
           navImport:"Import", impHelp:"Paste the plan from your spreadsheet (tab-separated, header row first).",
-          navPrep2:"Prep (beta)", calToday:"Today", calNone:"Nothing on this day", calMore:" more",
+          navPrep2:"Prep (beta)", gProjects:"Projects", gRecur:"Recurring", gRecurTitle:"Recurring slots", gAddRule:"Add", gClose:"Close", gMake:"Create this post", gRecurTag:"recurring", gView3:"3 days", gViewWeek:"Week", gViewMonth:"Month", gNoRule:"No recurring slots yet.", calToday:"Today", calNone:"Nothing on this day", calMore:" more",
           navTg:"Telegram", copyAll:"Copy all", tgEmpty:"Nothing posted with a link on this day yet", tgLinks:"Links",
           navOv:"Overview", ovMeasureOnly:"Followers only, no posting", ovAccounts:"Accounts",
           impCols:"Columns: date (or day), time, platform, type, label, ja, en, ko, asset",
@@ -944,7 +1026,7 @@
           matText:"텍스트", matImage:"이미지", remind:"게시 전 알림", remindOff:"끄기",
           notMatched:"미확인", matched:"기획과 일치", mismatched:"기획과 다름",
           navImport:"불러오기", impHelp:"기획표를 붙여넣어. 탭으로 구분된 표(첫 줄은 제목).",
-          navPrep2:"준비(시안)", calToday:"오늘", calNone:"이 날은 비어 있어", calMore:"개 더",
+          navPrep2:"준비(시안)", gProjects:"프로젝트", gRecur:"정기 설정", gRecurTitle:"정기 게시 시간", gAddRule:"추가", gClose:"닫기", gMake:"이 게시물 만들기", gRecurTag:"정기", gView3:"3일", gViewWeek:"주", gViewMonth:"월", gNoRule:"정기 설정이 아직 없어.", calToday:"오늘", calNone:"이 날은 비어 있어", calMore:"개 더",
           navTg:"텔레그램", copyAll:"전체 복사", tgEmpty:"이 날짜엔 링크가 있는 게시물이 아직 없어", tgLinks:"링크",
           navOv:"개요", ovMeasureOnly:"팔로워만 추적, 게시는 안 함", ovAccounts:"계정",
           impCols:"열: date (또는 day), time, platform, type, label, ja, en, ko, asset",
@@ -995,7 +1077,7 @@
           matText:"テキスト", matImage:"画像", remind:"投稿前にリマインド", remindOff:"切",
           notMatched:"未確認", matched:"企画どおり", mismatched:"企画と違う",
           navImport:"取り込み", impHelp:"表計算からコピーして貼る（タブ区切り・1行目は見出し）。",
-          navPrep2:"準備（仮）", calToday:"今日", calNone:"この日は空", calMore:"件",
+          navPrep2:"準備（仮）", gProjects:"プロジェクト", gRecur:"定期の設定", gRecurTitle:"定期の投稿枠", gAddRule:"追加", gClose:"閉じる", gMake:"この企画を作る", gRecurTag:"定期", gView3:"3日", gViewWeek:"週", gViewMonth:"月", gNoRule:"定期の枠はまだない。", calToday:"今日", calNone:"この日は空", calMore:"件",
           navTg:"Telegram通知", copyAll:"全部コピー", tgEmpty:"この日はまだリンク付きの投稿がない", tgLinks:"リンク",
           navOv:"概要", ovMeasureOnly:"フォロワーだけ追う。投稿はしない", ovAccounts:"運用アカウント",
           impCols:"列: date（または day）, time, platform, type, label, ja, en, ko, asset",
@@ -2287,106 +2369,341 @@
     return out;
   }
 
-  // ---- 準備（仮）: ひと月をカレンダーで見る ----
-  // 一覧を縦に読むより、いつ何が空いているかが先に分かるようにする。
-  // 札そのものは既存の見出し行を使い回すので、押せば同じ専用ページへ行く
-  var calMonth = null;    // "YYYY-MM"
-  var calDay = null;      // 選んでいる日 "YYYY-MM-DD"
+  // ---- 準備（仮）: Googleカレンダーのように、週を時刻の升目で見る ----
+  // 縦が時刻、横が日。投稿は色の箱。企画がまだ無い日も、定期の枠が点線で出る。
+  // 左のチェックでプロジェクトごとに隠せる（見る人ごとに記憶）
+  var calView = null;       // "3day" | "week" | "month"
+  var calAnchor = null;     // 見ている日 "YYYY-MM-DD"
+  var calMonth = null;      // 月表示の月
+  var calDay = null;        // 月表示で選んだ日
+  var calSel = null;        // 週表示で押した箱
+  var calGroups = {};
+  var recurring = null;     // recurring.json
+  var recurDraft = null;    // 定期の設定を編集中の写し
+  var calHide = {};
+  try { calHide = JSON.parse(localStorage.getItem("remitech-calhide") || "{}") || {}; } catch (e) {}
+
+  function calVisible(ch) { return !calHide[ch]; }
 
   function calSlots(date) {
     return (schedule.slots || []).filter(function (x) {
-      if (x.date !== date) return false;
-      if (filter && slotCh(x) !== filter) return false;
-      return true;
+      return x.date === date && calVisible(slotCh(x));
     }).sort(function (a, b) { return a.time < b.time ? -1 : 1; });
   }
 
-  function renderPrep2() {
-    chansEl.hidden = false;
-    if (!schedule) { view.innerHTML = '<p class="empty">' + esc(t("none")) + '</p>'; return; }
+  // その日に当てはまる定期の枠のうち、まだ企画が無いもの
+  function calRecur(date) {
+    if (!recurring || !recurring.rules) return [];
+    var wd = new Date(date + "T00:00:00").getDay();
+    var have = {};
+    (schedule.slots || []).forEach(function (x) {
+      if (x.date === date) have[slotCh(x) + "|" + (x.platform || "X") + "|" + x.time] = 1;
+    });
+    return recurring.rules.filter(function (r) {
+      return (r.days || []).indexOf(wd) >= 0 && calVisible(r.channel) &&
+             !have[r.channel + "|" + r.platform + "|" + r.time];
+    }).map(function (r) {
+      return { recur: true, date: date, channel: r.channel, platform: r.platform, time: r.time, label: r.label || "" };
+    });
+  }
 
+  function evCh(ev) { return ev.recur ? ev.channel : slotCh(ev); }
+
+  // 同じチャンネルで15分以内に続く投稿は、1つの箱にまとめる（17:00のX/IG/FBなど）
+  function calGroupsFor(date) {
+    var evs = calSlots(date).concat(calRecur(date)).sort(function (a, b) {
+      return toMin(a.time) - toMin(b.time) || (evCh(a) < evCh(b) ? -1 : 1);
+    });
+    var groups = [];
+    evs.forEach(function (ev) {
+      var g = null;
+      for (var i = groups.length - 1; i >= 0; i--) {
+        if (groups[i].ch === evCh(ev) && toMin(ev.time) - groups[i].start <= 15) { g = groups[i]; break; }
+      }
+      if (!g) { g = { ch: evCh(ev), start: toMin(ev.time), evs: [] }; groups.push(g); }
+      g.evs.push(ev);
+    });
+    groups.forEach(function (g) {
+      g.end = Math.max(toMin(g.evs[g.evs.length - 1].time) + 25, g.start + 30);
+    });
+    // 重なる箱は横に並べる
+    groups.sort(function (a, b) { return a.start - b.start; });
+    var cluster = [], clEnd = -1;
+    function flush() {
+      var lanes = [];
+      cluster.forEach(function (g) {
+        var li = 0;
+        while (lanes[li] !== undefined && lanes[li] > g.start) li++;
+        lanes[li] = g.end; g.lane = li;
+      });
+      cluster.forEach(function (g) { g.lanes = lanes.length; });
+      cluster = []; clEnd = -1;
+    }
+    groups.forEach(function (g) {
+      if (cluster.length && g.start >= clEnd) flush();
+      cluster.push(g); clEnd = Math.max(clEnd, g.end);
+    });
+    if (cluster.length) flush();
+    return groups;
+  }
+
+  function calRange() {
+    var an = new Date(calAnchor + "T00:00:00");
+    if (calView === "3day") {
+      return [0, 1, 2].map(function (i) { var d = new Date(an); d.setDate(an.getDate() + i); return d; });
+    }
+    return weekRange(an);
+  }
+
+  function calTitle(days) {
+    var a0 = days[0], a1 = days[days.length - 1];
+    var t0 = a0.getFullYear() + " / " + (a0.getMonth() + 1) + "/" + a0.getDate();
+    var t1 = (a1.getMonth() + 1) + "/" + a1.getDate();
+    return t0 + " \u2013 " + t1;
+  }
+
+  function calToolbar(title) {
+    var views = [["3day", "gView3"], ["week", "gViewWeek"], ["month", "gViewMonth"]];
+    return '<div class="gbar">' +
+      '<button class="pgbtn" id="gToday">' + esc(t("calToday")) + '</button>' +
+      '<button class="pgbtn" id="gPrev">\u2039</button>' +
+      '<button class="pgbtn" id="gNext">\u203a</button>' +
+      '<span class="gtitle">' + esc(title) + '</span>' +
+      '<span class="gviews">' + views.map(function (v) {
+        return '<button class="gview" data-cv="' + v[0] + '" aria-pressed="' + (calView === v[0]) + '">' +
+               esc(t(v[1])) + '</button>';
+      }).join("") + '</span></div>';
+  }
+
+  function calSide() {
+    return '<aside class="gside"><p class="gstitle">' + esc(t("gProjects")) + '</p>' +
+      channels.filter(function (c) { return c.role !== "measure"; }).map(function (c) {
+        return '<label class="gproj" style="--chc:' + esc(c.color || "var(--wood)") + '">' +
+          '<input type="checkbox" class="gpchk" data-ch="' + esc(c.id) + '"' + (calVisible(c.id) ? " checked" : "") + '>' +
+          '<i></i><span>' + esc(c.name) + '</span></label>';
+      }).join("") +
+      '<button class="donebtn" id="gRecurBtn">' + esc(t("gRecur")) + '</button></aside>';
+  }
+
+  function calWeekHTML(days) {
     var now = new Date();
-    if (!calMonth) calMonth = ymd(now).slice(0, 7);
-    if (!calDay) calDay = ymd(now);
+    var all = [];
+    calGroups = {};
+    var perDay = days.map(function (d) {
+      var gs = calGroupsFor(ymd(d));
+      gs.forEach(function (g) { all.push(g); });
+      return gs;
+    });
+    var minS = 6 * 60, maxE = 22 * 60;
+    all.forEach(function (g) { minS = Math.min(minS, Math.floor(g.start / 60) * 60); maxE = Math.max(maxE, Math.ceil(g.end / 60) * 60); });
+    var PX = 1.0;                                        // 1分 = 1px（1時間 60px）
+    var H = (maxE - minS) * PX;
+    var cols = "grid-template-columns:52px repeat(" + days.length + ", minmax(0, 1fr))";
 
+    var head = '<div class="ghead" style="' + cols + '"><div></div>' + days.map(function (d) {
+      var isT = ymd(d) === ymd(now);
+      return '<div class="ghday' + (isT ? " today" : "") + '"><span>' + (DOW[lang] || DOW.en)[d.getDay()] +
+             '</span><b>' + d.getDate() + '</b></div>';
+    }).join("") + '</div>';
+
+    var gut = '<div class="ggut" style="height:' + H + 'px">';
+    for (var m = minS; m < maxE; m += 60) {
+      gut += '<span style="top:' + ((m - minS) * PX) + 'px">' + two(m / 60) + ':00</span>';
+    }
+    gut += '</div>';
+
+    var body = '<div class="gbody" style="' + cols + '">' + gut;
+    days.forEach(function (d, di) {
+      var ds = ymd(d);
+      var isT = ds === ymd(now);
+      body += '<div class="gcol' + (isT ? " today" : "") + '" style="height:' + H + 'px;' +
+              'background-size:100% ' + (60 * PX) + 'px">';
+      perDay[di].forEach(function (g, gi) {
+        var key = ds + "#" + gi;
+        calGroups[key] = g;
+        var c = chanOf(g.ch) || { name: g.ch, color: "var(--wood)" };
+        var onlyRecur = g.evs.every(function (e) { return e.recur; });
+        var pfs = g.evs.map(function (e) { return pfn(e.platform); });
+        var pfu = pfs.filter(function (x, i) { return pfs.indexOf(x) === i; }).join(" \u00b7 ");
+        var label = "";
+        for (var q = 0; q < g.evs.length; q++) {
+          var e = g.evs[q];
+          label = e.label || (!e.recur && e.text && (e.text[lang] || e.text.en || e.text.ja || "").split(NLC)[0]) || "";
+          if (label) break;
+        }
+        var st = "";
+        if (!onlyRecur) {
+          var sl0 = g.evs.filter(function (e) { return !e.recur; })[0];
+          var hh = sl0.time.split(":");
+          st = slotState(sl0, new Date(d.getFullYear(), d.getMonth(), d.getDate(), +hh[0], +hh[1]), now);
+        }
+        var w = 100 / g.lanes;
+        body += '<button class="gev' + (onlyRecur ? " recur" : "") +
+          (calSel === key ? " sel" : "") + '" data-g="' + key + '" data-s="' + st + '" style="--chc:' +
+          esc(c.color || "var(--wood)") + ';top:' + ((g.start - minS) * PX) + 'px;height:' +
+          ((g.end - g.start) * PX - 2) + 'px;left:calc(' + (g.lane * w) + '% + 1px);width:calc(' + w + '% - 3px)">' +
+          '<b>' + esc(g.evs[0].time) + '</b> <span class="gevn">' + esc(c.name) + '</span>' +
+          '<span class="gevp">' + esc(pfu) + '</span>' +
+          (label ? '<span class="gevl">' + esc(label) + '</span>' : "") + '</button>';
+      });
+      if (isT) {
+        var nm = now.getHours() * 60 + now.getMinutes();
+        if (nm >= minS && nm <= maxE) body += '<i class="gnow" style="top:' + ((nm - minS) * PX) + 'px"></i>';
+      }
+      body += '</div>';
+    });
+    body += '</div>';
+
+    var html = '<div class="gwrap">' + head + body + '</div>';
+
+    // 押した箱の中身
+    if (calSel && calGroups[calSel]) {
+      var g2 = calGroups[calSel];
+      html += '<div class="calday"><p class="plabel">' + esc(whenLabel(calSel.split("#")[0])) + '</p>';
+      g2.evs.forEach(function (ev, i) {
+        if (!ev.recur) { html += '<div class="pcard">' + prepHeadHTML(ev, i) + '</div>'; return; }
+        var c = chanOf(ev.channel) || { name: ev.channel, color: "var(--wood)" };
+        html += '<div class="pcard grecur" style="--chc:' + esc(c.color || "var(--wood)") + '">' +
+          '<div class="phead snhead"><i class="pf">' + esc(pfn(ev.platform)) + '</i>' +
+          '<span class="who">' + esc(c.name) + '</span><span class="when">' + esc(ev.time) +
+          (ev.label ? " \u00b7 " + esc(ev.label) : "") + '</span>' +
+          '<span class="ovtag">' + esc(t("gRecurTag")) + '</span>' +
+          '<button class="donebtn gmake" data-date="' + esc(ev.date) + '" data-ch="' + esc(ev.channel) +
+          '" data-pf="' + esc(ev.platform) + '" data-time="' + esc(ev.time) + '" data-label="' + esc(ev.label) + '">' +
+          '\uff0b ' + esc(t("gMake")) + '</button></div></div>';
+      });
+      html += '</div>';
+    }
+    return html;
+  }
+
+  function calMonthHTML() {
+    var now = new Date();
+    if (!calMonth) calMonth = calAnchor.slice(0, 7);
+    if (!calDay) calDay = calAnchor;
     var y = +calMonth.slice(0, 4), mo = +calMonth.slice(5, 7) - 1;
     var first = new Date(y, mo, 1);
     var back = (first.getDay() - weekStart() + 7) % 7;
     var start = new Date(first); start.setDate(1 - back);
-
-    var dows = [];
-    for (var w = 0; w < 7; w++) dows.push((weekStart() + w) % 7);
-
-    var html = '<div class="cal">' +
-      '<div class="calbar">' +
-        '<button class="pgbtn" id="calPrev">‹</button>' +
-        '<span class="calname">' + y + " / " + (mo + 1) + '</span>' +
-        '<button class="pgbtn" id="calNext">›</button>' +
-        '<button class="pgbtn" id="calToday">' + esc(t("calToday")) + '</button>' +
-      '</div>' +
-      '<div class="calgrid">';
-
-    dows.forEach(function (d) {
-      html += '<div class="calhd' + ((d === 0 || d === 6) ? " wknd" : "") + '">' +
-        (DOW[lang] || DOW.en)[d] + '</div>';
-    });
-
+    var html = '<div class="calgrid">';
+    for (var w = 0; w < 7; w++) {
+      var dw = (weekStart() + w) % 7;
+      html += '<div class="calhd' + ((dw === 0 || dw === 6) ? " wknd" : "") + '">' + (DOW[lang] || DOW.en)[dw] + '</div>';
+    }
     for (var i = 0; i < 42; i++) {
       var d = new Date(start); d.setDate(start.getDate() + i);
       var ds = ymd(d);
       var outside = d.getMonth() !== mo;
-      if (outside && i >= 35) continue;               // 6週目が全部よそなら出さない
-      var list = calSlots(ds);
-      var isToday = ds === ymd(now);
-      // 時刻を並べるより、その日が「何の日か」と「どれだけ揃ったか」を先に出す。
-      // Nachaのダッシュボードが、そこを見せていたので倣う
+      if (outside && i >= 35) continue;
+      var list = calSlots(ds), rec = calRecur(ds);
       var ready = 0;
       list.forEach(function (sl) {
         var hh2 = sl.time.split(":");
-        var w2 = new Date(d.getFullYear(), d.getMonth(), d.getDate(), +hh2[0], +hh2[1]);
-        var s2 = slotState(sl, w2, now);
+        var s2 = slotState(sl, new Date(d.getFullYear(), d.getMonth(), d.getDate(), +hh2[0], +hh2[1]), now);
         if (s2 === "ready" || s2 === "sched" || s2 === "done") ready++;
       });
       var title = "";
       for (var q = 0; q < list.length; q++) {
-        var lb = list[q].label ||
-                 ((list[q].text && (list[q].text[lang] || list[q].text.en || list[q].text.ja)) || "").split(NLC)[0];
+        var lb = list[q].label || ((list[q].text && (list[q].text[lang] || list[q].text.en || list[q].text.ja)) || "").split(NLC)[0];
         if (lb) { title = lb; break; }
       }
       var chs = {};
       list.forEach(function (sl) { chs[slotCh(sl)] = chanOfSlot(sl).color || "var(--wood)"; });
-      var bars = Object.keys(chs).map(function (k) {
-        return '<i class="calbar1" style="background:' + esc(chs[k]) + '"></i>';
-      }).join("");
-
-      html += '<div class="calcell' + (outside ? " out" : "") + (isToday ? " today" : "") +
-              (ds === calDay ? " sel" : "") + '" data-d="' + ds + '">' +
-        '<span class="caltop">' +
-          '<span class="caldnum">' + d.getDate() + '</span>' +
-          (list.length
-            ? '<span class="calcount" data-full="' + (ready === list.length) + '">' +
-              ready + "/" + list.length + '</span>'
-            : "") +
-        '</span>' +
-        (bars ? '<span class="calbars">' + bars + '</span>' : "") +
-        (title ? '<span class="caltitle">' + esc(title) + '</span>' : "") +
-      '</div>';
+      rec.forEach(function (r) { if (!chs[r.channel]) chs[r.channel] = (chanOf(r.channel) || {}).color || "var(--wood)"; });
+      var bars = Object.keys(chs).map(function (k) { return '<i class="calbar1" style="background:' + esc(chs[k]) + '"></i>'; }).join("");
+      var n = list.length + rec.length;
+      html += '<div class="calcell' + (outside ? " out" : "") + (ds === ymd(now) ? " today" : "") +
+        (ds === calDay ? " sel" : "") + '" data-d="' + ds + '"><span class="caltop"><span class="caldnum">' + d.getDate() + '</span>' +
+        (n ? '<span class="calcount" data-full="' + (n > 0 && ready === n) + '">' + ready + "/" + n + '</span>' : "") +
+        '</span>' + (bars ? '<span class="calbars">' + bars + '</span>' : "") +
+        (title ? '<span class="caltitle">' + esc(title) + '</span>' : "") + '</div>';
     }
     html += '</div>';
-
-    // 選んだ日の中身。札は一覧と同じものを使う
-    var picked = calSlots(calDay);
+    var picked = calSlots(calDay), pr = calRecur(calDay);
     html += '<div class="calday"><p class="plabel">' + esc(whenLabel(calDay)) + '</p>';
-    if (!picked.length) {
-      html += '<p class="empty">' + esc(t("calNone")) + '</p>';
-    } else {
-      picked.forEach(function (sl, i) {
-        html += '<div class="pcard">' + prepHeadHTML(sl, i) + '</div>';
-      });
-    }
-    html += '</div></div>';
+    if (!picked.length && !pr.length) html += '<p class="empty">' + esc(t("calNone")) + '</p>';
+    picked.forEach(function (sl, i) { html += '<div class="pcard">' + prepHeadHTML(sl, i) + '</div>'; });
+    pr.forEach(function (ev) {
+      var c = chanOf(ev.channel) || { name: ev.channel, color: "var(--wood)" };
+      html += '<div class="pcard grecur" style="--chc:' + esc(c.color || "var(--wood)") + '">' +
+        '<div class="phead snhead"><i class="pf">' + esc(pfn(ev.platform)) + '</i><span class="who">' + esc(c.name) +
+        '</span><span class="when">' + esc(ev.time) + (ev.label ? " \u00b7 " + esc(ev.label) : "") + '</span>' +
+        '<span class="ovtag">' + esc(t("gRecurTag")) + '</span>' +
+        '<button class="donebtn gmake" data-date="' + esc(ev.date) + '" data-ch="' + esc(ev.channel) +
+        '" data-pf="' + esc(ev.platform) + '" data-time="' + esc(ev.time) + '" data-label="' + esc(ev.label) + '">' +
+        '\uff0b ' + esc(t("gMake")) + '</button></div></div>';
+    });
+    return html + '</div>';
+  }
 
-    view.innerHTML = html;
+  // 定期の設定。編集は写しに対して行い、「保存」で recurring.json へ書く
+  function calRecurHTML() {
+    var rules = recurDraft.rules;
+    var dows = []; for (var w = 0; w < 7; w++) dows.push((weekStart() + w) % 7);
+    var chOpts = function (cur) {
+      return channels.filter(function (c) { return c.role !== "measure"; }).map(function (c) {
+        return '<option value="' + esc(c.id) + '"' + (c.id === cur ? " selected" : "") + '>' + esc(c.name) + '</option>';
+      }).join("");
+    };
+    var pfOpts = function (cur) {
+      return ["X", "IG", "FB", "TT", "YT"].map(function (v) {
+        return '<option value="' + v + '"' + (v === cur ? " selected" : "") + '>' + esc(pfn(v)) + '</option>';
+      }).join("");
+    };
+    var html = '<div class="grecurbox"><p class="kgtitle">' + esc(t("gRecurTitle")) + '</p>';
+    if (!rules.length) html += '<p class="empty">' + esc(t("gNoRule")) + '</p>';
+    rules.forEach(function (r, i) {
+      var c = chanOf(r.channel) || { color: "var(--wood)" };
+      html += '<div class="grule" data-i="' + i + '" style="--chc:' + esc(c.color || "var(--wood)") + '">' +
+        '<select class="grf" data-f="channel">' + chOpts(r.channel) + '</select>' +
+        '<select class="grf" data-f="platform">' + pfOpts(r.platform) + '</select>' +
+        '<input class="grf" data-f="time" type="time" value="' + esc(r.time) + '">' +
+        '<span class="gdays">' + dows.map(function (dw) {
+          var on = (r.days || []).indexOf(dw) >= 0;
+          return '<button class="gday" data-dw="' + dw + '" aria-pressed="' + on + '">' + (DOW[lang] || DOW.en)[dw] + '</button>';
+        }).join("") + '</span>' +
+        '<input class="grf glabel" data-f="label" type="text" value="' + esc(r.label || "") + '" placeholder="' + esc(t("fLabel")) + '">' +
+        '<button class="gdel" aria-label="delete">\u00d7</button></div>';
+    });
+    html += '<div class="bar"><button class="donebtn" id="gRuleAdd">\uff0b ' + esc(t("gAddRule")) + '</button>' +
+      '<button class="donebtn strong" id="gRuleSave">' + esc(t("save")) + '</button>' +
+      '<button class="donebtn" id="gRuleClose">' + esc(t("gClose")) + '</button>' +
+      '<span class="tiny" id="gRuleOut"></span></div></div>';
+    return html;
+  }
+
+  function ghSaveJson(path, obj, msg) {
+    if (!storeOn()) return Promise.resolve({ where: "local" });
+    var c = storeGet();
+    return ghApi(c, path).then(function (r) { return r.ok ? r.json() : null; }).then(function (prev) {
+      var bytes = new TextEncoder().encode(JSON.stringify(obj, null, 2) + "\n");
+      var bin = "";
+      for (var i = 0; i < bytes.length; i++) bin += String.fromCharCode(bytes[i]);
+      return ghApi(c, path, {
+        method: "PUT",
+        headers: { "Authorization": "Bearer " + c.token, "Accept": "application/vnd.github+json", "Content-Type": "application/json" },
+        body: JSON.stringify({ message: msg, content: btoa(bin), sha: prev ? prev.sha : undefined }),
+      });
+    }).then(function (r) { if (!r.ok) throw new Error(r.status); return { where: "repo" }; });
+  }
+
+  function renderPrep2() {
+    chansEl.hidden = true;
+    if (!schedule) { view.innerHTML = '<p class="empty">' + esc(t("none")) + '</p>'; return; }
+    if (!calView) calView = window.innerWidth < 640 ? "3day" : "week";
+    if (!calAnchor) calAnchor = ymd(new Date());
+
+    var main;
+    if (recurDraft) {
+      main = calToolbar(t("gRecurTitle")) + calRecurHTML();
+    } else if (calView === "month") {
+      calMonth = calMonth || calAnchor.slice(0, 7);
+      main = calToolbar(calMonth.replace("-", " / ")) + calMonthHTML();
+    } else {
+      var days = calRange();
+      main = calToolbar(calTitle(days)) + calWeekHTML(days);
+    }
+    view.innerHTML = '<div class="gcal">' + calSide() + '<section class="gmain">' + main + '</section></div>';
   }
 
   function renderPrep() {
@@ -2875,25 +3192,91 @@
   });
 
   view.addEventListener("click", function (e) {
-    if (e.target.id === "calPrev" || e.target.id === "calNext") {
-      var y0 = +calMonth.slice(0, 4), m0 = +calMonth.slice(5, 7) - 1;
-      m0 += (e.target.id === "calNext") ? 1 : -1;
-      var nd = new Date(y0, m0, 1);
-      calMonth = ymd(nd).slice(0, 7);
-      renderPrep2();
-      return;
+    // ---- 準備（仮）のカレンダー ----
+    if (e.target.id === "gToday") {
+      calAnchor = ymd(new Date()); calMonth = calAnchor.slice(0, 7); calDay = calAnchor; calSel = null;
+      renderPrep2(); return;
     }
-    if (e.target.id === "calToday") {
-      calMonth = ymd(new Date()).slice(0, 7);
-      calDay = ymd(new Date());
+    if (e.target.id === "gPrev" || e.target.id === "gNext") {
+      var dir = e.target.id === "gNext" ? 1 : -1;
+      if (calView === "month") {
+        var y0 = +calMonth.slice(0, 4), m0 = +calMonth.slice(5, 7) - 1 + dir;
+        calMonth = ymd(new Date(y0, m0, 1)).slice(0, 7);
+      } else {
+        var ad = new Date(calAnchor + "T00:00:00");
+        ad.setDate(ad.getDate() + dir * (calView === "3day" ? 3 : 7));
+        calAnchor = ymd(ad);
+      }
+      calSel = null; renderPrep2(); return;
+    }
+    var gvb = e.target.closest(".gview");
+    if (gvb) {
+      calView = gvb.getAttribute("data-cv");
+      if (calView === "month") { calMonth = calAnchor.slice(0, 7); calDay = calAnchor; }
+      recurDraft = null; calSel = null; renderPrep2(); return;
+    }
+    var gev = e.target.closest(".gev");
+    if (gev) {
+      var gk = gev.getAttribute("data-g");
+      var gg = calGroups[gk];
+      // 企画が1つだけなら、そのままページへ
+      if (gg && gg.evs.length === 1 && !gg.evs[0].recur) {
+        location.hash = "/prep/" + encodeURIComponent(slotKey(gg.evs[0])); return;
+      }
+      calSel = (calSel === gk) ? null : gk;
       renderPrep2();
+      var cd = document.querySelector(".calday"); if (cd) cd.scrollIntoView({ behavior: "smooth", block: "nearest" });
       return;
     }
     var cc = e.target.closest(".calcell");
     if (cc) {
-      calDay = cc.getAttribute("data-d");
+      calDay = cc.getAttribute("data-d"); calAnchor = calDay;
       if (calDay.slice(0, 7) !== calMonth) calMonth = calDay.slice(0, 7);
-      renderPrep2();
+      renderPrep2(); return;
+    }
+    var gmk = e.target.closest(".gmake");
+    if (gmk) {
+      editing = { date: gmk.getAttribute("data-date"), channel: gmk.getAttribute("data-ch"),
+                  platform: gmk.getAttribute("data-pf"), time: gmk.getAttribute("data-time"),
+                  label: gmk.getAttribute("data-label"), type: "text", owner: "" };
+      tab = "prep"; location.hash = ""; renderNav(); syncWide(); renderPrep(); window.scrollTo(0, 0);
+      return;
+    }
+    if (e.target.id === "gRecurBtn") {
+      recurDraft = JSON.parse(JSON.stringify(recurring || { rules: [] }));
+      recurDraft.rules = recurDraft.rules || [];
+      renderPrep2(); return;
+    }
+    if (e.target.id === "gRuleClose") { recurDraft = null; renderPrep2(); return; }
+    if (e.target.id === "gRuleAdd") {
+      var nid = "r" + Date.now().toString(36);
+      recurDraft.rules.push({ id: nid, channel: "hiyoko", platform: "X", time: "09:00", days: [0, 1, 2, 3, 4, 5, 6], label: "" });
+      renderPrep2(); return;
+    }
+    var gdb = e.target.closest(".gday");
+    if (gdb) {
+      var ri = +gdb.closest(".grule").getAttribute("data-i"), dw = +gdb.getAttribute("data-dw");
+      var ds0 = recurDraft.rules[ri].days || [];
+      var ix = ds0.indexOf(dw);
+      if (ix >= 0) ds0.splice(ix, 1); else ds0.push(dw);
+      recurDraft.rules[ri].days = ds0.sort();
+      gdb.setAttribute("aria-pressed", ix < 0); return;
+    }
+    var gdl = e.target.closest(".gdel");
+    if (gdl) {
+      recurDraft.rules.splice(+gdl.closest(".grule").getAttribute("data-i"), 1);
+      renderPrep2(); return;
+    }
+    if (e.target.id === "gRuleSave") {
+      var out = document.getElementById("gRuleOut");
+      var body2 = { note: (recurring && recurring.note) || "", rules: recurDraft.rules };
+      out.textContent = t("saving");
+      ghSaveJson("recurring.json", body2, "recurring: " + body2.rules.length + " rules").then(function (r) {
+        recurring = body2;
+        if (r.where === "local") { try { localStorage.setItem("remitech-recurring", JSON.stringify(body2)); } catch (e2) {} }
+        else { try { localStorage.removeItem("remitech-recurring"); } catch (e3) {} }
+        recurDraft = null; renderPrep2();
+      }, function () { out.textContent = t("saveFail"); });
       return;
     }
     var agh = e.target.closest(".aghead");
@@ -3143,6 +3526,18 @@
       var ok = e.target.getAttribute("data-k");
       var sl4 = (schedule.slots || []).filter(function (x) { return slotKey(x) === ok; })[0];
       if (sl4) { sl4.owner = e.target.value; saveSchedule("schedule: owner " + ok); }
+      return;
+    }
+    if (e.target.classList && e.target.classList.contains("gpchk")) {
+      var gch = e.target.getAttribute("data-ch");
+      if (e.target.checked) delete calHide[gch]; else calHide[gch] = true;
+      try { localStorage.setItem("remitech-calhide", JSON.stringify(calHide)); } catch (e4) {}
+      calSel = null; renderPrep2(); return;
+    }
+    if (e.target.classList && e.target.classList.contains("grf")) {
+      var gri = +e.target.closest(".grule").getAttribute("data-i");
+      recurDraft.rules[gri][e.target.getAttribute("data-f")] = e.target.value;
+      if (e.target.getAttribute("data-f") === "channel") renderPrep2();
       return;
     }
     if (e.target.id === "choreDate") { choreDate = e.target.value; chOpen = {}; renderKpi(); return; }
@@ -3406,6 +3801,14 @@
       .then(function (j) {
         channels = j.channels || [];
         posts = j.posts || [];
+        fetch("./recurring.json", { cache: "no-cache" })
+          .then(function (r) { return r.ok ? r.json() : null; })
+          .then(function (rc) {
+            var loc = null;
+            try { loc = JSON.parse(localStorage.getItem("remitech-recurring") || "null"); } catch (e) {}
+            recurring = loc || rc || { rules: [] };
+            if (tab === "prep2") renderPrep2();
+          }).catch(function () {});
         fetch("./chores.json", { cache: "no-cache" })
           .then(function (r) { return r.ok ? r.json() : null; })
           .then(function (c) { chores = c; if (tab === "kpi") renderKpi(); })

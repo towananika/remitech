@@ -1,0 +1,20 @@
+{
+  "note": "定期の投稿枠。カレンダーの「定期の設定」から直せる。days は 0=日曜 … 6=土曜",
+  "rules": [
+    { "id": "r1",  "channel": "hiyoko", "platform": "IG", "time": "07:30", "days": [0,1,2,3,4,5,6], "label": "フィード" },
+    { "id": "r2",  "channel": "hiyoko", "platform": "X",  "time": "09:30", "days": [0,1,2,3,4,5,6], "label": "朝" },
+    { "id": "r3",  "channel": "hiyoko", "platform": "X",  "time": "17:00", "days": [0,1,2,3,4,5,6], "label": "スレッド" },
+    { "id": "r4",  "channel": "hiyoko", "platform": "IG", "time": "17:00", "days": [0,1,2,3,4,5,6], "label": "フィード" },
+    { "id": "r5",  "channel": "hiyoko", "platform": "FB", "time": "17:00", "days": [0,1,2,3,4,5,6], "label": "フィード" },
+    { "id": "r6",  "channel": "nacha",  "platform": "X",  "time": "10:30", "days": [0,1,2,3,4,5,6], "label": "長文" },
+    { "id": "r7",  "channel": "nacha",  "platform": "X",  "time": "14:00", "days": [0,1,2,3,4,5,6], "label": "ことば" },
+    { "id": "r8",  "channel": "nacha",  "platform": "X",  "time": "20:00", "days": [0,1,2,3,4,5,6], "label": "スレッド" },
+    { "id": "r9",  "channel": "nacha",  "platform": "IG", "time": "20:00", "days": [0,1,2,3,4,5,6], "label": "フィード" },
+    { "id": "r10", "channel": "nacha",  "platform": "IG", "time": "20:05", "days": [0,1,2,3,4,5,6], "label": "ストーリー" },
+    { "id": "r11", "channel": "nacha",  "platform": "IG", "time": "20:10", "days": [0,1,2,3,4,5,6], "label": "動画" },
+    { "id": "r12", "channel": "reel",   "platform": "X",  "time": "09:00", "days": [0,1,2,3,4,5,6], "label": "スレッド" },
+    { "id": "r13", "channel": "reel",   "platform": "IG", "time": "12:00", "days": [0,1,2,3,4,5,6], "label": "IG Feed" },
+    { "id": "r14", "channel": "reel",   "platform": "IG", "time": "12:05", "days": [0,1,2,3,4,5,6], "label": "IG Stories" },
+    { "id": "r15", "channel": "reel",   "platform": "IG", "time": "12:30", "days": [0,1,2,3,4,5,6], "label": "Reply" }
+  ]
+}
