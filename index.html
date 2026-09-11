@@ -93,11 +93,15 @@
   @media (prefers-reduced-motion:reduce){ .totop{ transition:none } }
 
   /* ---- nav ---- */
-  .nav{ display:flex; gap:4px; margin:24px 0 4px; }
+  /* タブが増えて、スマホでは一列に収まらない。ページごと横に揺れないよう、
+     タブの列だけを横に流す */
+  .nav{ display:flex; gap:4px; margin:24px 0 4px; overflow-x:auto; scrollbar-width:none;
+        -webkit-overflow-scrolling:touch; }
+  .nav::-webkit-scrollbar{ display:none; }
   .nav button{
     background:none; border:0; border-bottom:2px solid transparent;
     color:var(--muted); font:inherit; font-size:14px; padding:6px 2px; margin-right:16px;
-    cursor:pointer;
+    cursor:pointer; flex:0 0 auto; white-space:nowrap;
   }
   .nav button[aria-pressed="true"]{ color:var(--ink); border-bottom-color:var(--wood); }
 
@@ -112,20 +116,40 @@
   .ksumname{ font-size:10.5px; color:var(--muted); letter-spacing:.05em; }
   .ksumval{ font-size:18px; font-weight:500; font-variant-numeric:tabular-nums; color:var(--ink); }
   .kgroup{ margin-bottom:18px; }
-  .chores{ margin-top:30px; border-top:1px solid var(--line); padding-top:18px; max-width:640px; }
+  .chores{ margin-top:30px; border-top:1px solid var(--line); padding-top:18px; }
+  .chgrid{ display:grid; grid-template-columns:1fr; gap:10px; align-items:start; }
+  @media (min-width:820px){ .chgrid{ grid-template-columns:1fr 1fr; } }
+  @media (min-width:1100px){ .chgrid{ grid-template-columns:1fr 1fr 1fr; } }
+  .kpi{ max-width:640px; }
   .chhead{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:12px; }
   .chhead .kgtitle{ margin:0; }
   .chhead input[type="date"]{ font:inherit; font-size:12.5px; color:var(--ink); background:var(--surface);
     border:1px solid var(--line); border-radius:8px; padding:5px 9px; }
-  .chcard{ border:1px solid var(--line); border-left:3px solid var(--chc, var(--wood));
-    border-radius:14px; background:var(--surface); padding:12px 14px; margin-bottom:10px; }
-  .chcard .khead .calcount{ margin-left:auto; }
-  .chrow{ display:flex; align-items:center; gap:9px; padding:6px 0; border-bottom:1px solid var(--line);
-    cursor:pointer; font-size:13px; }
-  .chrow:last-child{ border-bottom:0; }
-  .chtime{ width:40px; flex:0 0 auto; font-size:11.5px; color:var(--muted); font-variant-numeric:tabular-nums; }
-  .chbox{ width:17px; height:17px; accent-color:var(--sage); flex:0 0 auto; }
-  .chrow[data-on="true"] .chtask{ color:var(--muted); text-decoration:line-through; }
+  .chhead .calcount{ margin-left:auto; }
+  .chprog{ height:4px; background:var(--line); border-radius:4px; overflow:hidden; margin:0 0 16px; }
+  .chprog i{ display:block; height:100%; background:var(--sage); }
+  .chblock{ border:1px solid var(--line); border-radius:14px; background:var(--surface);
+    padding:10px 14px 6px; }
+  .chblock.now{ border-color:var(--wood); box-shadow:0 0 0 1px var(--wood); }
+  .chblock.full{ background:var(--bg); }
+  .chbhead::after{ content:""; }
+  .chbhead{ cursor:pointer; }
+  .chbhead{ display:flex; align-items:center; justify-content:space-between; margin-bottom:4px; min-height:26px; }
+  .chbtime{ font-size:15px; font-weight:500; font-variant-numeric:tabular-nums; color:var(--ink); }
+  .chacc{ display:flex; flex-direction:column; gap:5px; padding:7px 0 8px;
+    border-top:1px solid var(--line); }
+  .chname{ font-size:12px; font-weight:500; color:var(--chc, var(--ink));
+    border-left:3px solid var(--chc, var(--wood)); padding-left:7px; line-height:1.5; }
+  .chname i{ font-style:normal; font-weight:400; color:var(--muted); font-size:11px; }
+  .chchips{ display:flex; flex-wrap:wrap; gap:6px; }
+  .chchip{ font:inherit; font-size:12.5px; color:var(--ink); background:var(--bg);
+    border:1px solid var(--line); border-radius:999px; padding:5px 12px; cursor:pointer; }
+  .chchip:hover{ border-color:var(--wood); }
+  .chchip[data-on="true"]{ color:var(--surface); background:var(--sage); border-color:var(--sage); }
+  @media (max-width:520px){
+    .chacc{ flex-direction:column; gap:5px; }
+    .chname{ flex-basis:auto; }
+  }
   .kgtitle{
     margin:0 0 8px; font-size:11.5px; color:var(--chc, var(--wood)); letter-spacing:.06em;
     font-weight:500; border-left:3px solid var(--chc, var(--wood)); padding-left:8px;
@@ -2476,6 +2500,7 @@
   var kpi = null;
   var chores = null;      // いいね作業のチェック（chores.json）
   var choreDate = null;
+  var chOpen = {};        // 既定の開閉を、見出しで反転させたもの
 
   // 折れ線。点が1つしかない間は横線と点だけを出す
   function spark(vals, w, h) {
@@ -2500,34 +2525,75 @@
   // ---- いいね作業のチェックリスト ----
   // 表計算で毎日 TRUE/FALSE を付けていたものを、ここで押せるようにする。
   // 誰が押しても全員に見えるよう、置き場（chores.json）へ書き戻す
+  // 作業は時刻ごとに回す（9:30になったら全アカウントのいいね）ので、時刻を主にする。
+  // アカウントごとに縦に積むと46行・2,000pxになり、目的の行を探すのに時間がかかった
+  function toMin(tm) { var m = /^(\d{1,2}):(\d{2})/.exec(tm || ""); return m ? (+m[1]) * 60 + (+m[2]) : 9999; }
+
   function choresHTML() {
     if (!chores || !chores.lists) return "";
     if (!choreDate) choreDate = ymd(new Date());
     var dayDone = (chores.done && chores.done[choreDate]) || {};
-    var html = '<div class="chores"><div class="chhead"><p class="kgtitle">' + esc(t("chTitle")) + '</p>' +
-      '<input type="date" id="choreDate" value="' + esc(choreDate) + '">' +
-      '<span class="tiny" id="choreOut"></span></div>';
+
+    // 時刻 → [{li, tasks}]
+    var blocks = {}, total = 0, doneN = 0;
     chores.lists.forEach(function (li) {
       if (filter && filter !== li.channel) return;
-      var c = chanOf(li.channel) || { name: li.channel, color: "var(--wood)" };
-      var n = 0;
-      li.tasks.forEach(function (tk) { if (dayDone[tk.id]) n++; });
-      html += '<div class="chcard" style="--chc:' + esc(c.color || "var(--wood)") + '">' +
-        '<div class="khead"><i class="pf">' + esc(pfn(li.platform)) + '</i>' +
-        '<span class="who">' + esc(c.name) + '</span>' +
-        '<span class="calcount" data-full="' + (n === li.tasks.length) + '">' + n + "/" + li.tasks.length + '</span></div>';
-      var lastT = null;
       li.tasks.forEach(function (tk) {
-        var on = !!dayDone[tk.id];
-        html += '<label class="chrow" data-on="' + on + '">' +
-          '<span class="chtime">' + (tk.time !== lastT ? esc(tk.time) : "") + '</span>' +
-          '<input type="checkbox" class="chbox" data-id="' + esc(tk.id) + '"' + (on ? " checked" : "") + '>' +
-          '<span class="chtask">' + esc(tk.task) + '</span></label>';
-        lastT = tk.time;
+        var key = tk.time || "-";
+        blocks[key] = blocks[key] || {};
+        var ak = li.channel + "|" + li.platform;
+        (blocks[key][ak] = blocks[key][ak] || { li: li, tasks: [] }).tasks.push(tk);
+        total++; if (dayDone[tk.id]) doneN++;
+      });
+    });
+    var times = Object.keys(blocks).sort(function (x, y) { return toMin(x) - toMin(y); });
+
+    // 今の時間帯（今日のときだけ）
+    var now = new Date(), cur = null;
+    if (choreDate === ymd(now)) {
+      var nm = now.getHours() * 60 + now.getMinutes();
+      times.forEach(function (tm) { if (toMin(tm) <= nm) cur = tm; });
+    }
+    // 次にやる時間帯。ここまでは開いておく。その先は畳む
+    var nextTm = null;
+    if (choreDate === ymd(now)) {
+      var nm2 = now.getHours() * 60 + now.getMinutes();
+      for (var q = 0; q < times.length; q++) { if (toMin(times[q]) > nm2) { nextTm = times[q]; break; } }
+    }
+
+    var pct = total ? Math.round(doneN / total * 100) : 0;
+    var html = '<div class="chores"><div class="chhead"><p class="kgtitle">' + esc(t("chTitle")) + '</p>' +
+      '<input type="date" id="choreDate" value="' + esc(choreDate) + '">' +
+      '<span class="calcount" data-full="' + (doneN === total) + '">' + doneN + "/" + total + '</span>' +
+      '<span class="tiny" id="choreOut"></span></div>' +
+      '<div class="chprog"><i style="width:' + pct + '%"></i></div><div class="chgrid">';
+
+    times.forEach(function (tm) {
+      var accs = blocks[tm], n = 0, m = 0;
+      Object.keys(accs).forEach(function (ak) {
+        accs[ak].tasks.forEach(function (tk) { m++; if (dayDone[tk.id]) n++; });
+      });
+      // 終わった時間帯と、今日のまだ先の時間帯は畳む。見出しを押すと開く（押すたびに反転）
+      var later = (choreDate === ymd(now)) && nextTm !== null && toMin(tm) > toMin(nextTm);
+      var folded = ((n === m) || later) !== !!chOpen[tm];
+      html += '<div class="chblock' + (tm === cur ? " now" : "") + (n === m ? " full" : "") + '">' +
+        '<div class="chbhead" data-tm="' + esc(tm) + '"><span class="chbtime">' + esc(tm) + '</span>' +
+        '<span class="calcount" data-full="' + (n === m) + '">' + (n === m ? "\u2713 " : "") + n + "/" + m + '</span></div>';
+      if (folded) { html += '</div>'; return; }
+      Object.keys(accs).forEach(function (ak) {
+        var g = accs[ak];
+        var c = chanOf(g.li.channel) || { name: g.li.channel, color: "var(--wood)" };
+        html += '<div class="chacc" style="--chc:' + esc(c.color || "var(--wood)") + '">' +
+          '<span class="chname">' + esc(c.name) + ' <i>' + esc(pfn(g.li.platform)) + '</i></span>' +
+          '<span class="chchips">' + g.tasks.map(function (tk) {
+            var on = !!dayDone[tk.id];
+            return '<button class="chchip" data-id="' + esc(tk.id) + '" data-on="' + on + '">' +
+              (on ? "\u2713 " : "") + esc(tk.task) + '</button>';
+          }).join("") + '</span></div>';
       });
       html += '</div>';
     });
-    return html + '</div>';
+    return html + '</div></div>';
   }
 
   // 押した1件だけを、置き場の最新に重ねて書く（他の人の印を消さない）
@@ -2761,6 +2827,23 @@
       renderPrep2();
       return;
     }
+    var chh = e.target.closest(".chbhead");
+    if (chh) { var tmk = chh.getAttribute("data-tm"); chOpen[tmk] = !chOpen[tmk]; renderKpi(); return; }
+    var chp = e.target.closest(".chchip");
+    if (chp) {
+      var cid = chp.getAttribute("data-id"), con = chp.getAttribute("data-on") !== "true";
+      chp.setAttribute("data-on", con);                 // 先に見た目を変える。待たせない
+      var y0 = window.scrollY;
+      saveChore(choreDate, cid, con).then(function (r) {
+        renderKpi(); window.scrollTo(0, y0);
+        var co2 = document.getElementById("choreOut");
+        if (co2) co2.textContent = r.where === "repo" ? t("chSaved") : t("chLocal");
+      }, function () {
+        var co3 = document.getElementById("choreOut");
+        if (co3) co3.textContent = t("saveFail");
+      });
+      return;
+    }
     if (e.target.id === "newSlot") { editing = {}; renderPrep(); return; }
     if (e.target.id === "prepSearchX") { prepSearch = ""; prepPage = 1; renderPrep(); return; }
     var pg = e.target.closest(".pgbtn");
@@ -2979,18 +3062,7 @@
       if (sl4) { sl4.owner = e.target.value; saveSchedule("schedule: owner " + ok); }
       return;
     }
-    if (e.target.classList && e.target.classList.contains("chbox")) {
-      var cid = e.target.getAttribute("data-id"), con = e.target.checked;
-      var row = e.target.closest(".chrow"); if (row) row.setAttribute("data-on", con);
-      var co = document.getElementById("choreOut");
-      saveChore(choreDate, cid, con).then(function (r) {
-        renderKpi();
-        var co2 = document.getElementById("choreOut");
-        if (co2) co2.textContent = r.where === "repo" ? t("chSaved") : t("chLocal");
-      }, function () { if (co) co.textContent = t("saveFail"); });
-      return;
-    }
-    if (e.target.id === "choreDate") { choreDate = e.target.value; renderKpi(); return; }
+    if (e.target.id === "choreDate") { choreDate = e.target.value; chOpen = {}; renderKpi(); return; }
     if (e.target.classList && e.target.classList.contains("mfile")) {
       takeFile(e.target.getAttribute("data-mk"), e.target.files && e.target.files[0]);
       return;
@@ -3182,7 +3254,7 @@
 
   // 週表のときだけ枠を広げる
   function syncWide() {
-    document.body.setAttribute("data-wide", tab === "dash" ? "true" : "false");
+    document.body.setAttribute("data-wide", (tab === "dash" || tab === "kpi" || tab === "prep2") ? "true" : "false");
   }
 
   renderLang();
