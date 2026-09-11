@@ -170,6 +170,28 @@
       "color": "#4a72a8",
       "snippets": [
         {
+          "title": "IG ストーリー リンクボタン（Xへ）",
+          "note": "押すと写せます",
+          "url": "https://x.com/REEL_Experience",
+          "items": [
+            "More on X",
+            "Read the full post on X",
+            "The rest is on X",
+            "Full thread on X",
+            "See it on X",
+            "Continue on X",
+            "Follow REEL on X",
+            "REEL on X",
+            "Get the full story on X",
+            "Play→Review→Reward on X",
+            "Tap for the thread on X",
+            "Join us on X",
+            "The whole story is on X",
+            "Keep reading on X",
+            "Details on X"
+          ]
+        },
+        {
           "title": "これはREELの公式Xアカウントだと返信するとき",
           "items": [
             "This is REEL's official X account."
