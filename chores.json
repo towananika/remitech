@@ -6,23 +6,18 @@
       "platform": "X",
       "tasks": [
         {
-          "id": "hiyoko|X|0",
-          "time": "9:00",
-          "task": "PIN POST"
-        },
-        {
           "id": "hiyoko|X|1",
-          "time": "9:30",
+          "time": "09:30",
           "task": "インプレッションチェック"
         },
         {
           "id": "hiyoko|X|2",
-          "time": "9:30",
+          "time": "09:30",
           "task": "LIKE60"
         },
         {
           "id": "hiyoko|X|3",
-          "time": "9:30",
+          "time": "09:30",
           "task": "Follow / Unfollow"
         },
         {
@@ -37,17 +32,17 @@
         },
         {
           "id": "hiyoko|X|6",
-          "time": "17:00",
+          "time": "17:30",
           "task": "3M overview, content csv(16-20h)"
         },
         {
           "id": "hiyoko|X|7",
-          "time": "17:00",
+          "time": "17:30",
           "task": "LIKE60"
         },
         {
           "id": "hiyoko|X|8",
-          "time": "17:00",
+          "time": "17:30",
           "task": "Follow / Unfollow"
         }
       ]
@@ -57,23 +52,18 @@
       "platform": "X",
       "tasks": [
         {
-          "id": "nacha|X|0",
-          "time": "9:00",
-          "task": "PIN POST"
-        },
-        {
           "id": "nacha|X|1",
-          "time": "9:30",
+          "time": "09:30",
           "task": "インプレッションチェック"
         },
         {
           "id": "nacha|X|2",
-          "time": "9:30",
+          "time": "09:30",
           "task": "LIKE40"
         },
         {
           "id": "nacha|X|3",
-          "time": "9:30",
+          "time": "09:30",
           "task": "Follow / Unfollow"
         },
         {
@@ -88,17 +78,17 @@
         },
         {
           "id": "nacha|X|6",
-          "time": "17:00",
+          "time": "17:30",
           "task": "3M overview, content csv(16-20h)"
         },
         {
           "id": "nacha|X|7",
-          "time": "17:00",
+          "time": "17:30",
           "task": "LIKE40"
         },
         {
           "id": "nacha|X|8",
-          "time": "17:00",
+          "time": "17:30",
           "task": "Follow / Unfollow"
         }
       ]
@@ -108,23 +98,18 @@
       "platform": "X",
       "tasks": [
         {
-          "id": "yuyu|X|0",
-          "time": "9:00",
-          "task": "PIN POST"
-        },
-        {
           "id": "yuyu|X|1",
-          "time": "9:30",
+          "time": "09:30",
           "task": "インプレッションチェック"
         },
         {
           "id": "yuyu|X|2",
-          "time": "9:30",
+          "time": "09:30",
           "task": "Like 20"
         },
         {
           "id": "yuyu|X|3",
-          "time": "9:30",
+          "time": "09:30",
           "task": "Follow / Unfollow"
         },
         {
@@ -155,32 +140,27 @@
       "tasks": [
         {
           "id": "hiyoko|IG|0",
-          "time": "6:00",
+          "time": "09:30",
           "task": "LIKE30"
         },
         {
           "id": "hiyoko|IG|1",
-          "time": "6:00",
+          "time": "09:30",
           "task": "Follow / Unfollow"
         },
         {
-          "id": "hiyoko|IG|2",
-          "time": "9:00",
-          "task": "PIN POST"
-        },
-        {
           "id": "hiyoko|IG|3",
-          "time": "9:30",
+          "time": "09:30",
           "task": "インプレッションチェック"
         },
         {
           "id": "hiyoko|IG|4",
-          "time": "9:30",
+          "time": "09:30",
           "task": "LIKE40"
         },
         {
           "id": "hiyoko|IG|5",
-          "time": "9:30",
+          "time": "09:30",
           "task": "Follow / Unfollow"
         },
         {
@@ -211,32 +191,27 @@
       "tasks": [
         {
           "id": "nacha|IG|0",
-          "time": "6:00",
+          "time": "09:30",
           "task": "LIKE30"
         },
         {
           "id": "nacha|IG|1",
-          "time": "6:00",
+          "time": "09:30",
           "task": "Follow / Unfollow"
         },
         {
-          "id": "nacha|IG|2",
-          "time": "9:00",
-          "task": "PIN POST"
-        },
-        {
           "id": "nacha|IG|3",
-          "time": "9:30",
+          "time": "09:30",
           "task": "インプレッションチェック"
         },
         {
           "id": "nacha|IG|4",
-          "time": "9:30",
+          "time": "09:30",
           "task": "LIKE40"
         },
         {
           "id": "nacha|IG|5",
-          "time": "9:30",
+          "time": "09:30",
           "task": "Follow / Unfollow"
         },
         {

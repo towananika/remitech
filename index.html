@@ -106,7 +106,7 @@
   .nav button[aria-pressed="true"]{ color:var(--ink); border-bottom-color:var(--wood); }
 
   /* ---- KPI ---- */
-  .kpi{ max-width:640px; }
+  .kpi{ max-width:none; }
   .ksumbar{ display:flex; flex-wrap:wrap; gap:8px; margin-bottom:20px; }
   .ksum{
     display:flex; flex-direction:column; gap:2px; border:1px solid var(--line);
@@ -115,12 +115,15 @@
   .ksumall{ border-top-color:var(--ink); }
   .ksumname{ font-size:10.5px; color:var(--muted); letter-spacing:.05em; }
   .ksumval{ font-size:18px; font-weight:500; font-variant-numeric:tabular-nums; color:var(--ink); }
-  .kgroup{ margin-bottom:18px; }
+  .kgroup{ margin-bottom:18px; display:grid; grid-template-columns:repeat(auto-fill, minmax(260px, 1fr));
+    gap:10px; }
+  .kgroup .kgtitle{ grid-column:1 / -1; margin-bottom:0; }
+  .kgroup .kcard{ margin-bottom:0; }
+
   .chores{ margin-top:30px; border-top:1px solid var(--line); padding-top:18px; }
   .chgrid{ display:grid; grid-template-columns:1fr; gap:10px; align-items:start; }
   @media (min-width:820px){ .chgrid{ grid-template-columns:1fr 1fr; } }
   @media (min-width:1100px){ .chgrid{ grid-template-columns:1fr 1fr 1fr; } }
-  .kpi{ max-width:640px; }
   .chhead{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:12px; }
   .chhead .kgtitle{ margin:0; }
   .chhead input[type="date"]{ font:inherit; font-size:12.5px; color:var(--ink); background:var(--surface);
@@ -221,6 +224,39 @@
     font-size:12.5px; color:var(--ink);
     background:var(--bg); border:1px solid var(--line); border-radius:8px; padding:6px 10px;
   }
+  /* ---- 今週（スマホ）: 日ごとの縦の並び ---- */
+  .agenda{ display:none; }
+  .agday{ border:1px solid var(--line); border-radius:14px; background:var(--surface);
+    padding:10px 14px 4px; margin-bottom:10px; }
+  .agday.today{ border-color:var(--wood); box-shadow:0 0 0 1px var(--wood); }
+  .aghead{ margin:0 0 4px; font-size:15px; font-weight:500; color:var(--ink);
+    display:flex; align-items:center; gap:6px; font-variant-numeric:tabular-nums; }
+  .aghead span:first-child{ font-size:12px; color:var(--muted); font-weight:400; }
+  .agn{ margin-left:auto; font-size:12px; color:var(--muted); font-weight:400; }
+  .aghead{ cursor:pointer; min-height:30px; }
+  .aghead::after{ content:"\203a"; color:var(--muted); font-size:16px; transform:rotate(90deg); margin-left:4px; }
+  .agday.shut .aghead::after{ transform:none; }
+  .agday.shut{ padding-bottom:10px; }
+  .agday.shut .aghead{ margin:0; }
+  .agnone{ margin:0 0 8px; color:var(--line); }
+  .agrow{ display:flex; align-items:center; gap:10px; padding:9px 0;
+    border-top:1px solid var(--line); border-left:3px solid var(--chc, var(--wood)); padding-left:9px; }
+  .agmain{ flex:1 1 auto; min-width:0; display:grid; grid-template-columns:auto 1fr auto;
+    align-items:center; column-gap:8px; row-gap:3px; cursor:pointer; }
+  .agtime{ font-size:14px; font-weight:500; font-variant-numeric:tabular-nums; color:var(--ink); }
+  .agwho{ font-size:12.5px; color:var(--chc, var(--ink)); font-weight:500; white-space:nowrap;
+    overflow:hidden; text-overflow:ellipsis; }
+  .agwho i{ font-style:normal; font-weight:400; color:var(--muted); font-size:12px; }
+  .agmain .mk{ font-size:11.5px; }
+  .aglabel{ grid-column:1 / -1; font-size:12.5px; color:var(--muted); white-space:nowrap;
+    overflow:hidden; text-overflow:ellipsis; }
+  .agmats{ display:flex; gap:6px; flex:0 0 auto; }
+  .agmats .mt{ width:34px; height:34px; font-size:13px; border-radius:9px; }
+  @media (max-width:640px){
+    .gridwrap{ display:none; }
+    .agenda{ display:block; }
+  }
+
   .newbar{ display:flex; gap:8px; flex-wrap:wrap; margin-bottom:14px; align-items:center; }
   .searchbox{ position:relative; flex:1 1 auto; min-width:0; }
   .searchbox input[type="search"]{
@@ -278,9 +314,14 @@
     display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden;
   }
   .calday{ margin-top:20px; }
-  @media (max-width:520px){
-    .calcell{ min-height:58px; }
-    .calchip{ font-size:8.5px; }
+  @media (max-width:640px){
+    .calcell{ min-height:52px; padding:4px 3px; }
+    .caltitle{ display:none; }
+    .caltop{ flex-direction:column; align-items:center; gap:3px; }
+    .caldnum{ align-self:center; font-size:13px; }
+    .calcount{ font-size:10.5px; padding:0 4px; }
+    .calbars{ margin-top:2px; }
+    .calhd{ font-size:11px; }
   }
 
   .pager{
@@ -297,6 +338,13 @@
   .pgbtn:disabled{ color:var(--muted); cursor:default; opacity:.45; }
   .pgbtn.pgcur{ background:var(--wood); border-color:var(--wood); color:var(--surface); }
   .pgdots{ padding:6px 3px; color:var(--muted); font-size:12.5px; }
+  .pgbtn{ min-width:38px; min-height:38px; }
+  @media (max-width:640px){
+    .pf{ font-size:11.5px; }
+    .pdot{ font-size:11px; width:20px; height:20px; line-height:18px; }
+    .calcount, .ksumname, .ovtag, .pip{ font-size:11.5px; }
+    .lb2{ font-size:11.5px; }
+  }
   .tg .bar{ align-items:center; margin-bottom:14px; }
   .tg input[type="date"]{
     font:inherit; font-size:13px; color:var(--ink);
@@ -1300,8 +1348,46 @@
       '<select id="remMin">' + opts + '</select>' +
       '<span>' + esc(t("weekStart")) + '</span><select id="wsPick">' + wsOpts + '</select></div>';
 
+    // スマホでは7列の表は画面の倍の幅になり、字も9pxまで小さくなった。
+    // 同じ中身を「日ごとの縦の並び」でも作り、幅に応じてどちらかを見せる
+    var ag = '<div class="agenda">';
+    days.forEach(function (d) {
+      var ds = ymd(d);
+      var list = (schedule.slots || []).filter(function (x) { return x.date === ds; })
+        .sort(function (a, b) { return (a.time + (a.platform || "")) < (b.time + (b.platform || "")) ? -1 : 1; });
+      var isToday = ds === ymd(now);
+      var open = (ds in agOpen) ? agOpen[ds] : isToday;
+      ag += '<div class="agday' + (isToday ? " today" : "") + (open ? "" : " shut") + '"><p class="aghead" data-d="' + ds + '">' +
+        '<span>' + (DOW[lang] || DOW.en)[d.getDay()] + '</span> ' + (d.getMonth() + 1) + "/" + d.getDate() +
+        '<span class="agn">' + list.length + '</span></p>';
+      if (!open) { ag += '</div>'; return; }
+      if (!list.length) ag += '<p class="agnone">\u00b7</p>';
+      list.forEach(function (sl) {
+        var ch = chanOfSlot(sl);
+        var hh = sl.time.split(":");
+        var when = new Date(d.getFullYear(), d.getMonth(), d.getDate(), +hh[0], +hh[1]);
+        var st = slotState(sl, when, now);
+        var mm = matGet(sl);
+        var label = sl.label || ((sl.text && (sl.text[lang] || sl.text.en || sl.text.ja)) || "").split(NLC)[0];
+        var mats = (sl.need || ["text"]).map(function (k) {
+          return '<button class="mt" data-on="' + (!!mm[k]) + '" data-date="' + esc(sl.date) +
+                 '" data-pf="' + esc(sl.platform || "X") + '" data-time="' + esc(sl.time) +
+                 '" data-kind="' + k + '">' + (k === "text" ? "T" : "I") + '</button>';
+        }).join("");
+        ag += '<div class="agrow" style="--chc:' + esc(ch.color || "var(--wood)") + '">' +
+          '<div class="phead agmain" data-k="' + esc(slotKey(sl)) + '">' +
+            '<span class="agtime">' + esc(sl.time) + '</span>' +
+            '<span class="agwho">' + esc(ch.name) + ' <i>' + esc(pfn(sl.platform)) + '</i></span>' +
+            '<span class="mk" data-s="' + st + '">' + esc(t("st" + st.charAt(0).toUpperCase() + st.slice(1))) + '</span>' +
+            (label ? '<span class="aglabel">' + esc(label) + '</span>' : "") +
+          '</div><span class="agmats">' + mats + '</span></div>';
+      });
+      ag += '</div>';
+    });
+    ag += '</div>';
+
     view.innerHTML = sum + bar +
-      '<div class="gridwrap"><table class="grid"><thead>' + head + '</thead><tbody>' + body + '</tbody></table></div>';
+      '<div class="gridwrap"><table class="grid"><thead>' + head + '</thead><tbody>' + body + '</tbody></table></div>' + ag;
     armReminders(days);
   }
 
@@ -2500,6 +2586,7 @@
   var kpi = null;
   var chores = null;      // いいね作業のチェック（chores.json）
   var choreDate = null;
+  var agOpen = {};        // 今週（スマホ）で開いた日。既定は今日だけ開く
   var chOpen = {};        // 既定の開閉を、見出しで反転させたもの
 
   // 折れ線。点が1つしかない間は横線と点だけを出す
@@ -2827,6 +2914,14 @@
       renderPrep2();
       return;
     }
+    var agh = e.target.closest(".aghead");
+    if (agh) {
+      var agd = agh.getAttribute("data-d");
+      var nowOpen = !agh.parentNode.classList.contains("shut");
+      agOpen[agd] = !nowOpen;
+      var y1 = window.scrollY; renderDash(); window.scrollTo(0, y1);
+      return;
+    }
     var chh = e.target.closest(".chbhead");
     if (chh) { var tmk = chh.getAttribute("data-tm"); chOpen[tmk] = !chOpen[tmk]; renderKpi(); return; }
     var chp = e.target.closest(".chchip");
@@ -3043,7 +3138,7 @@
       prepAgain();
       return;
     }
-    var mb = e.target.closest(".matbtn");
+    var mb = e.target.closest(".matbtn, .mt");
     if (!mb) return;
     var dt = mb.getAttribute("data-date"), tm = mb.getAttribute("data-time");
     var pf = mb.getAttribute("data-pf") || "X";
@@ -3052,7 +3147,7 @@
     })[0];
     if (!sl) return;
     matSet(sl, mb.getAttribute("data-kind"), mb.getAttribute("data-on") !== "true");
-    if (tab === "prep") { prepAgain(); } else { renderDash(); }
+    if (tab === "dash" && !/^#\/prep\//.test(location.hash)) { renderDash(); } else { prepAgain(); }
   });
 
   view.addEventListener("change", function (e) {
