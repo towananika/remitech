@@ -1902,6 +1902,29 @@
       });
   }
 
+  // ファイルを1つ受け取る。置き場があれば上げ、無ければ端末に置く
+  function takeFile(mk2, f2) {
+    if (!f2 || !/^(image|video)\//.test(f2.type)) return Promise.resolve();
+    var up = storeOn()
+      ? upload(mk2, f2).then(function (r) {
+          var m = JSON.parse(localStorage.getItem("remitech-media-url") || "{}");
+          m[mk2] = r.url;
+          localStorage.setItem("remitech-media-url", JSON.stringify(m));
+        }).catch(function () {})
+      : Promise.resolve();
+    return up.then(function () {
+      return dbPut(mk2, { blob: f2, type: f2.type, name: f2.name });
+    }).then(function () {
+      var base = mk2.split("#")[0];
+      var pp = base.split("|");
+      var sl3 = (schedule.slots || []).filter(function (x) {
+        return x.date === pp[0] && (x.platform || "X") === pp[1] && x.time === pp[2];
+      })[0];
+      if (sl3) matSet(sl3, "image", true);
+      renderPrep();
+    });
+  }
+
   function mediaKey(sl) { return sl.date + "|" + (sl.platform || "X") + "|" + sl.time; }
 
   // 貼り終わったあとに、保管庫にあるものを差し込む
