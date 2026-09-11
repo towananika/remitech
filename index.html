@@ -112,6 +112,20 @@
   .ksumname{ font-size:10.5px; color:var(--muted); letter-spacing:.05em; }
   .ksumval{ font-size:18px; font-weight:500; font-variant-numeric:tabular-nums; color:var(--ink); }
   .kgroup{ margin-bottom:18px; }
+  .chores{ margin-top:30px; border-top:1px solid var(--line); padding-top:18px; max-width:640px; }
+  .chhead{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:12px; }
+  .chhead .kgtitle{ margin:0; }
+  .chhead input[type="date"]{ font:inherit; font-size:12.5px; color:var(--ink); background:var(--surface);
+    border:1px solid var(--line); border-radius:8px; padding:5px 9px; }
+  .chcard{ border:1px solid var(--line); border-left:3px solid var(--chc, var(--wood));
+    border-radius:14px; background:var(--surface); padding:12px 14px; margin-bottom:10px; }
+  .chcard .khead .calcount{ margin-left:auto; }
+  .chrow{ display:flex; align-items:center; gap:9px; padding:6px 0; border-bottom:1px solid var(--line);
+    cursor:pointer; font-size:13px; }
+  .chrow:last-child{ border-bottom:0; }
+  .chtime{ width:40px; flex:0 0 auto; font-size:11.5px; color:var(--muted); font-variant-numeric:tabular-nums; }
+  .chbox{ width:17px; height:17px; accent-color:var(--sage); flex:0 0 auto; }
+  .chrow[data-on="true"] .chtask{ color:var(--muted); text-decoration:line-through; }
   .kgtitle{
     margin:0 0 8px; font-size:11.5px; color:var(--chc, var(--wood)); letter-spacing:.06em;
     font-weight:500; border-left:3px solid var(--chc, var(--wood)); padding-left:8px;
@@ -800,7 +814,7 @@
           draft:"Draft", live:"Posted", open:"Open channel",
           navDash:"This week", navBook:"Booking", navPrep:"Prep", navKpi:"KPI", navPosts:"Posts",
           followers:"Followers", following:"Following", measuredOn:"Measured", noKpi:"No numbers yet.",
-          kpiTotal:"All channels",
+          kpiTotal:"All channels", chTitle:"Engagement checklist", chSaved:"Saved", chLocal:"Saved on this device only",
           allBooked:"All booked", leftToDo:"left", nothingToday:"Nothing scheduled",
           markSched:"Booked ahead", markPosted:"Posted", markVerified:"Verified", verifiedTag:"Verified", needUrl:"Paste the link first", addFile:"Add image / video", localOnly:"On this device only", onServer:"Shared",
           storeTitle:"Media store (GitHub)", storeUrl:"owner/repo", storeTok:"Access token", storeSave:"Save",
@@ -851,7 +865,7 @@
           draft:"초안", live:"게시함", open:"채널 열기",
           navDash:"이번 주", navBook:"예약", navPrep:"준비", navKpi:"KPI", navPosts:"글",
           followers:"팔로워", following:"팔로잉", measuredOn:"측정일", noKpi:"아직 숫자가 없어.",
-          kpiTotal:"전체 채널",
+          kpiTotal:"전체 채널", chTitle:"좋아요 작업 체크리스트", chSaved:"저장됨", chLocal:"이 기기에만 저장됨",
           allBooked:"모두 예약됨", leftToDo:"남음", nothingToday:"예정 없음",
           markSched:"예약 완료", markPosted:"게시 완료", markVerified:"확인 완료", verifiedTag:"확인 완료", needUrl:"먼저 링크를 붙여넣어", addFile:"이미지 / 영상 추가", localOnly:"이 기기에만", onServer:"공유됨",
           storeTitle:"미디어 저장소 (GitHub)", storeUrl:"owner/repo", storeTok:"액세스 토큰", storeSave:"저장",
@@ -902,7 +916,7 @@
           draft:"下書き", live:"公開ずみ", open:"チャンネルを開く",
           navDash:"今週", navBook:"予約", navPrep:"準備", navKpi:"KPI", navPosts:"投稿",
           followers:"フォロワー", following:"フォロー", measuredOn:"計測日", noKpi:"まだ数字がない。",
-          kpiTotal:"全チャンネル合計",
+          kpiTotal:"全チャンネル合計", chTitle:"いいね作業チェックリスト", chSaved:"保存した", chLocal:"この端末にだけ保存",
           allBooked:"すべて予約ずみ", leftToDo:"残り", nothingToday:"予定なし",
           markSched:"予約完了", markPosted:"投稿完了", markVerified:"投稿確認完了", verifiedTag:"確認完了", needUrl:"先にリンクを貼る", addFile:"画像・動画を入れる", localOnly:"この端末だけ", onServer:"共有ずみ",
           storeTitle:"画像の置き場（GitHub）", storeUrl:"owner/repo", storeTok:"アクセストークン", storeSave:"保存",
@@ -2460,6 +2474,8 @@
   // ---- KPI ----
   // 各チャンネルのフォロワーとフォロー。前回計測との差を出す
   var kpi = null;
+  var chores = null;      // いいね作業のチェック（chores.json）
+  var choreDate = null;
 
   // 折れ線。点が1つしかない間は横線と点だけを出す
   function spark(vals, w, h) {
@@ -2479,6 +2495,77 @@
     return '<svg class="spark" viewBox="0 0 ' + w + " " + h + '" preserveAspectRatio="none">' +
       line + '<circle cx="' + x(vals.length - 1).toFixed(1) + '" cy="' + y(last).toFixed(1) +
       '" r="2.6" class="sd"></circle></svg>';
+  }
+
+  // ---- いいね作業のチェックリスト ----
+  // 表計算で毎日 TRUE/FALSE を付けていたものを、ここで押せるようにする。
+  // 誰が押しても全員に見えるよう、置き場（chores.json）へ書き戻す
+  function choresHTML() {
+    if (!chores || !chores.lists) return "";
+    if (!choreDate) choreDate = ymd(new Date());
+    var dayDone = (chores.done && chores.done[choreDate]) || {};
+    var html = '<div class="chores"><div class="chhead"><p class="kgtitle">' + esc(t("chTitle")) + '</p>' +
+      '<input type="date" id="choreDate" value="' + esc(choreDate) + '">' +
+      '<span class="tiny" id="choreOut"></span></div>';
+    chores.lists.forEach(function (li) {
+      if (filter && filter !== li.channel) return;
+      var c = chanOf(li.channel) || { name: li.channel, color: "var(--wood)" };
+      var n = 0;
+      li.tasks.forEach(function (tk) { if (dayDone[tk.id]) n++; });
+      html += '<div class="chcard" style="--chc:' + esc(c.color || "var(--wood)") + '">' +
+        '<div class="khead"><i class="pf">' + esc(pfn(li.platform)) + '</i>' +
+        '<span class="who">' + esc(c.name) + '</span>' +
+        '<span class="calcount" data-full="' + (n === li.tasks.length) + '">' + n + "/" + li.tasks.length + '</span></div>';
+      var lastT = null;
+      li.tasks.forEach(function (tk) {
+        var on = !!dayDone[tk.id];
+        html += '<label class="chrow" data-on="' + on + '">' +
+          '<span class="chtime">' + (tk.time !== lastT ? esc(tk.time) : "") + '</span>' +
+          '<input type="checkbox" class="chbox" data-id="' + esc(tk.id) + '"' + (on ? " checked" : "") + '>' +
+          '<span class="chtask">' + esc(tk.task) + '</span></label>';
+        lastT = tk.time;
+      });
+      html += '</div>';
+    });
+    return html + '</div>';
+  }
+
+  // 押した1件だけを、置き場の最新に重ねて書く（他の人の印を消さない）
+  function saveChore(date, id, on) {
+    chores.done = chores.done || {};
+    chores.done[date] = chores.done[date] || {};
+    if (on) chores.done[date][id] = true; else delete chores.done[date][id];
+    if (!storeOn()) return Promise.resolve({ where: "local" });
+    var c = storeGet();
+    return ghApi(c, "chores.json").then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (prev) {
+        var body = chores;
+        if (prev) {
+          try {
+            var bin0 = atob((prev.content || "").replace(/\n/g, ""));
+            var b0 = new Uint8Array(bin0.length);
+            for (var i0 = 0; i0 < bin0.length; i0++) b0[i0] = bin0.charCodeAt(i0);
+            body = JSON.parse(new TextDecoder("utf-8").decode(b0));
+            body.done = body.done || {};
+            body.done[date] = body.done[date] || {};
+            if (on) body.done[date][id] = true; else delete body.done[date][id];
+            chores = body;
+          } catch (e) {}
+        }
+        var bytes = new TextEncoder().encode(JSON.stringify(body, null, 2) + "\n");
+        var bin = "";
+        for (var i = 0; i < bytes.length; i++) bin += String.fromCharCode(bytes[i]);
+        return ghApi(c, "chores.json", {
+          method: "PUT",
+          headers: { "Authorization": "Bearer " + c.token, "Accept": "application/vnd.github+json",
+                     "Content-Type": "application/json" },
+          body: JSON.stringify({ message: "chores: " + date + " " + id + (on ? " on" : " off"),
+                                 content: btoa(bin), sha: prev ? prev.sha : undefined }),
+        });
+      }).then(function (r) {
+        if (r && !r.ok) throw new Error(r.status);
+        return { where: "repo" };
+      });
   }
 
   function renderKpi() {
@@ -2557,7 +2644,7 @@
           '<p class="kgtitle">' + esc(c.name) + '</p>' + chHtml + '</div>';
       }
     });
-    view.innerHTML = (shown ? html + '</div>' : '<p class="empty">' + esc(t("noKpi")) + '</p>');
+    view.innerHTML = (shown ? html + '</div>' : '<p class="empty">' + esc(t("noKpi")) + '</p>') + choresHTML();
   }
 
   var TIPS = { dash:"tipDash", book:"tipBook", prep:"tipPrep", prep2:"tipPrep",
@@ -2892,6 +2979,18 @@
       if (sl4) { sl4.owner = e.target.value; saveSchedule("schedule: owner " + ok); }
       return;
     }
+    if (e.target.classList && e.target.classList.contains("chbox")) {
+      var cid = e.target.getAttribute("data-id"), con = e.target.checked;
+      var row = e.target.closest(".chrow"); if (row) row.setAttribute("data-on", con);
+      var co = document.getElementById("choreOut");
+      saveChore(choreDate, cid, con).then(function (r) {
+        renderKpi();
+        var co2 = document.getElementById("choreOut");
+        if (co2) co2.textContent = r.where === "repo" ? t("chSaved") : t("chLocal");
+      }, function () { if (co) co.textContent = t("saveFail"); });
+      return;
+    }
+    if (e.target.id === "choreDate") { choreDate = e.target.value; renderKpi(); return; }
     if (e.target.classList && e.target.classList.contains("mfile")) {
       takeFile(e.target.getAttribute("data-mk"), e.target.files && e.target.files[0]);
       return;
@@ -3110,6 +3209,10 @@
       .then(function (j) {
         channels = j.channels || [];
         posts = j.posts || [];
+        fetch("./chores.json", { cache: "no-cache" })
+          .then(function (r) { return r.ok ? r.json() : null; })
+          .then(function (c) { chores = c; if (tab === "kpi") renderKpi(); })
+          .catch(function () {});
         fetch("./kpi.json", { cache: "no-cache" })
           .then(function (r) { return r.ok ? r.json() : null; })
           .then(function (k) { kpi = k; if (tab === "kpi") renderKpi(); })
