@@ -202,6 +202,49 @@
     margin:0 0 12px; font-size:11.5px; color:var(--muted); font-variant-numeric:tabular-nums;
   }
   mark{ background:var(--wood-soft); color:var(--ink); border-radius:3px; padding:0 1px; }
+  /* ---- 準備（仮）: 月のカレンダー ---- */
+  .calbar{ display:flex; align-items:center; gap:8px; margin-bottom:14px; }
+  .calname{ font-size:15px; font-weight:500; font-variant-numeric:tabular-nums; color:var(--ink);
+            min-width:86px; text-align:center; }
+  .calgrid{
+    display:grid; grid-template-columns:repeat(7, minmax(0, 1fr)); gap:1px;
+    background:var(--line); border:1px solid var(--line); border-radius:12px; overflow:hidden;
+  }
+  .calhd{
+    background:var(--surface); text-align:center; padding:7px 2px;
+    font-size:11px; color:var(--muted); letter-spacing:.06em;
+  }
+  .calhd.wknd{ color:var(--wood); }
+  .calcell{
+    background:var(--surface); min-height:74px; padding:5px 4px 6px; cursor:pointer;
+    display:flex; flex-direction:column; gap:3px;
+  }
+  .calcell:hover{ background:var(--wood-soft); }
+  .calcell.out{ opacity:.38; }
+  .calcell.today .caldnum{ color:var(--surface); background:var(--wood); }
+  .calcell.sel{ box-shadow:inset 0 0 0 2px var(--wood); }
+  .caldnum{
+    align-self:flex-start; font-size:11.5px; font-variant-numeric:tabular-nums; color:var(--ink);
+    border-radius:999px; min-width:18px; height:18px; line-height:18px; text-align:center;
+  }
+  .caltop{ display:flex; align-items:center; justify-content:space-between; gap:4px; }
+  .calcount{
+    font-size:9.5px; font-variant-numeric:tabular-nums; color:var(--muted);
+    border:1px solid var(--line); border-radius:999px; padding:0 5px; line-height:15px;
+  }
+  .calcount[data-full="true"]{ color:var(--surface); background:var(--sage); border-color:var(--sage); }
+  .calbars{ display:flex; gap:2px; }
+  .calbar1{ display:block; height:3px; flex:1 1 auto; border-radius:2px; }
+  .caltitle{
+    font-size:10px; line-height:1.45; color:var(--ink);
+    display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden;
+  }
+  .calday{ margin-top:20px; }
+  @media (max-width:520px){
+    .calcell{ min-height:58px; }
+    .calchip{ font-size:8.5px; }
+  }
+
   .pager{
     display:flex; align-items:center; justify-content:center; gap:4px; flex-wrap:wrap;
     margin:18px 0 6px;
@@ -770,6 +813,7 @@
           matText:"Text", matImage:"Image", remind:"Remind before posting", remindOff:"Off",
           notMatched:"Not checked", matched:"Matches the plan", mismatched:"Differs from the plan",
           navImport:"Import", impHelp:"Paste the plan from your spreadsheet (tab-separated, header row first).",
+          navPrep2:"Prep (beta)", calToday:"Today", calNone:"Nothing on this day", calMore:" more",
           navTg:"Telegram", copyAll:"Copy all", tgEmpty:"Nothing posted with a link on this day yet", tgLinks:"Links",
           navOv:"Overview", ovMeasureOnly:"Followers only, no posting", ovAccounts:"Accounts",
           impCols:"Columns: date (or day), time, platform, type, label, ja, en, ko, asset",
@@ -820,6 +864,7 @@
           matText:"텍스트", matImage:"이미지", remind:"게시 전 알림", remindOff:"끄기",
           notMatched:"미확인", matched:"기획과 일치", mismatched:"기획과 다름",
           navImport:"불러오기", impHelp:"기획표를 붙여넣어. 탭으로 구분된 표(첫 줄은 제목).",
+          navPrep2:"준비(시안)", calToday:"오늘", calNone:"이 날은 비어 있어", calMore:"개 더",
           navTg:"텔레그램", copyAll:"전체 복사", tgEmpty:"이 날짜엔 링크가 있는 게시물이 아직 없어", tgLinks:"링크",
           navOv:"개요", ovMeasureOnly:"팔로워만 추적, 게시는 안 함", ovAccounts:"계정",
           impCols:"열: date (또는 day), time, platform, type, label, ja, en, ko, asset",
@@ -870,6 +915,7 @@
           matText:"テキスト", matImage:"画像", remind:"投稿前にリマインド", remindOff:"切",
           notMatched:"未確認", matched:"企画どおり", mismatched:"企画と違う",
           navImport:"取り込み", impHelp:"表計算からコピーして貼る（タブ区切り・1行目は見出し）。",
+          navPrep2:"準備（仮）", calToday:"今日", calNone:"この日は空", calMore:"件",
           navTg:"Telegram通知", copyAll:"全部コピー", tgEmpty:"この日はまだリンク付きの投稿がない", tgLinks:"リンク",
           navOv:"概要", ovMeasureOnly:"フォロワーだけ追う。投稿はしない", ovAccounts:"運用アカウント",
           impCols:"列: date（または day）, time, platform, type, label, ja, en, ko, asset",
@@ -2109,6 +2155,7 @@
   function prepAgain() {
     var pm = location.hash.match(/^#\/prep\/(.+)$/);
     if (pm) { renderPrepDetail(decodeURIComponent(pm[1])); return; }
+    if (tab === "prep2") { renderPrep2(); return; }
     renderPrep();
   }
 
@@ -2120,6 +2167,108 @@
       else if (out[out.length - 1] !== "…") out.push("…");
     }
     return out;
+  }
+
+  // ---- 準備（仮）: ひと月をカレンダーで見る ----
+  // 一覧を縦に読むより、いつ何が空いているかが先に分かるようにする。
+  // 札そのものは既存の見出し行を使い回すので、押せば同じ専用ページへ行く
+  var calMonth = null;    // "YYYY-MM"
+  var calDay = null;      // 選んでいる日 "YYYY-MM-DD"
+
+  function calSlots(date) {
+    return (schedule.slots || []).filter(function (x) {
+      if (x.date !== date) return false;
+      if (filter && slotCh(x) !== filter) return false;
+      return true;
+    }).sort(function (a, b) { return a.time < b.time ? -1 : 1; });
+  }
+
+  function renderPrep2() {
+    chansEl.hidden = false;
+    if (!schedule) { view.innerHTML = '<p class="empty">' + esc(t("none")) + '</p>'; return; }
+
+    var now = new Date();
+    if (!calMonth) calMonth = ymd(now).slice(0, 7);
+    if (!calDay) calDay = ymd(now);
+
+    var y = +calMonth.slice(0, 4), mo = +calMonth.slice(5, 7) - 1;
+    var first = new Date(y, mo, 1);
+    var back = (first.getDay() - weekStart() + 7) % 7;
+    var start = new Date(first); start.setDate(1 - back);
+
+    var dows = [];
+    for (var w = 0; w < 7; w++) dows.push((weekStart() + w) % 7);
+
+    var html = '<div class="cal">' +
+      '<div class="calbar">' +
+        '<button class="pgbtn" id="calPrev">‹</button>' +
+        '<span class="calname">' + y + " / " + (mo + 1) + '</span>' +
+        '<button class="pgbtn" id="calNext">›</button>' +
+        '<button class="pgbtn" id="calToday">' + esc(t("calToday")) + '</button>' +
+      '</div>' +
+      '<div class="calgrid">';
+
+    dows.forEach(function (d) {
+      html += '<div class="calhd' + ((d === 0 || d === 6) ? " wknd" : "") + '">' +
+        (DOW[lang] || DOW.en)[d] + '</div>';
+    });
+
+    for (var i = 0; i < 42; i++) {
+      var d = new Date(start); d.setDate(start.getDate() + i);
+      var ds = ymd(d);
+      var outside = d.getMonth() !== mo;
+      if (outside && i >= 35) continue;               // 6週目が全部よそなら出さない
+      var list = calSlots(ds);
+      var isToday = ds === ymd(now);
+      // 時刻を並べるより、その日が「何の日か」と「どれだけ揃ったか」を先に出す。
+      // Nachaのダッシュボードが、そこを見せていたので倣う
+      var ready = 0;
+      list.forEach(function (sl) {
+        var hh2 = sl.time.split(":");
+        var w2 = new Date(d.getFullYear(), d.getMonth(), d.getDate(), +hh2[0], +hh2[1]);
+        var s2 = slotState(sl, w2, now);
+        if (s2 === "ready" || s2 === "sched" || s2 === "done") ready++;
+      });
+      var title = "";
+      for (var q = 0; q < list.length; q++) {
+        var lb = list[q].label ||
+                 ((list[q].text && (list[q].text[lang] || list[q].text.en || list[q].text.ja)) || "").split(NLC)[0];
+        if (lb) { title = lb; break; }
+      }
+      var chs = {};
+      list.forEach(function (sl) { chs[slotCh(sl)] = chanOfSlot(sl).color || "var(--wood)"; });
+      var bars = Object.keys(chs).map(function (k) {
+        return '<i class="calbar1" style="background:' + esc(chs[k]) + '"></i>';
+      }).join("");
+
+      html += '<div class="calcell' + (outside ? " out" : "") + (isToday ? " today" : "") +
+              (ds === calDay ? " sel" : "") + '" data-d="' + ds + '">' +
+        '<span class="caltop">' +
+          '<span class="caldnum">' + d.getDate() + '</span>' +
+          (list.length
+            ? '<span class="calcount" data-full="' + (ready === list.length) + '">' +
+              ready + "/" + list.length + '</span>'
+            : "") +
+        '</span>' +
+        (bars ? '<span class="calbars">' + bars + '</span>' : "") +
+        (title ? '<span class="caltitle">' + esc(title) + '</span>' : "") +
+      '</div>';
+    }
+    html += '</div>';
+
+    // 選んだ日の中身。札は一覧と同じものを使う
+    var picked = calSlots(calDay);
+    html += '<div class="calday"><p class="plabel">' + esc(whenLabel(calDay)) + '</p>';
+    if (!picked.length) {
+      html += '<p class="empty">' + esc(t("calNone")) + '</p>';
+    } else {
+      picked.forEach(function (sl, i) {
+        html += '<div class="pcard">' + prepHeadHTML(sl, i) + '</div>';
+      });
+    }
+    html += '</div></div>';
+
+    view.innerHTML = html;
   }
 
   function renderPrep() {
@@ -2411,7 +2560,7 @@
     view.innerHTML = (shown ? html + '</div>' : '<p class="empty">' + esc(t("noKpi")) + '</p>');
   }
 
-  var TIPS = { dash:"tipDash", book:"tipBook", prep:"tipPrep",
+  var TIPS = { dash:"tipDash", book:"tipBook", prep:"tipPrep", prep2:"tipPrep",
                kpi:"tipKpi", posts:"tipPosts", "import":"tipImport" };
 
   function renderNav() {
@@ -2420,6 +2569,7 @@
       '<button data-tab="dash" aria-pressed="' + (tab === "dash") + '">' + esc(t("navDash")) + '</button>' +
       '<button data-tab="book" aria-pressed="' + (tab === "book") + '">' + esc(t("navBook")) + '</button>' +
       '<button data-tab="prep" aria-pressed="' + (tab === "prep") + '">' + esc(t("navPrep")) + '</button>' +
+      '<button data-tab="prep2" aria-pressed="' + (tab === "prep2") + '">' + esc(t("navPrep2")) + '</button>' +
       '<button data-tab="kpi" aria-pressed="' + (tab === "kpi") + '">' + esc(t("navKpi")) + '</button>' +
       '<button data-tab="posts" aria-pressed="' + (tab === "posts") + '">' + esc(t("navPosts")) + '</button>' +
       '<button data-tab="import" aria-pressed="' + (tab === "import") + '">' + esc(t("navImport")) + '</button>' +
@@ -2469,6 +2619,7 @@
     if (tab === "kpi") { renderKpi(); return; }
     if (tab === "book") { renderBook(); return; }
     if (tab === "prep") { renderPrep(); return; }
+    if (tab === "prep2") { renderPrep2(); return; }
     if (tab === "import") { renderImport(); return; }
     if (tab === "tg") { renderTelegram(); return; }
     if (tab === "ov") { renderOverview(); return; }
@@ -2496,11 +2647,33 @@
     filter = b.getAttribute("data-chan");
     renderChans();
     if (tab === "prep") { renderPrep(); }
+    else if (tab === "prep2") { renderPrep2(); }
     else if (tab === "kpi") { renderKpi(); }
     else { renderList(); }
   });
 
   view.addEventListener("click", function (e) {
+    if (e.target.id === "calPrev" || e.target.id === "calNext") {
+      var y0 = +calMonth.slice(0, 4), m0 = +calMonth.slice(5, 7) - 1;
+      m0 += (e.target.id === "calNext") ? 1 : -1;
+      var nd = new Date(y0, m0, 1);
+      calMonth = ymd(nd).slice(0, 7);
+      renderPrep2();
+      return;
+    }
+    if (e.target.id === "calToday") {
+      calMonth = ymd(new Date()).slice(0, 7);
+      calDay = ymd(new Date());
+      renderPrep2();
+      return;
+    }
+    var cc = e.target.closest(".calcell");
+    if (cc) {
+      calDay = cc.getAttribute("data-d");
+      if (calDay.slice(0, 7) !== calMonth) calMonth = calDay.slice(0, 7);
+      renderPrep2();
+      return;
+    }
     if (e.target.id === "newSlot") { editing = {}; renderPrep(); return; }
     if (e.target.id === "prepSearchX") { prepSearch = ""; prepPage = 1; renderPrep(); return; }
     var pg = e.target.closest(".pgbtn");
