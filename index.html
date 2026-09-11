@@ -801,6 +801,15 @@
   .mk[data-s="sched"]{ color:var(--neon-ink); background:var(--neon); border-color:var(--neon); }
   .mk[data-s="done"]{ color:var(--surface); background:var(--sage); border-color:var(--sage); }
   .mk[data-s="late"]{ color:var(--surface); background:#b4553f; border-color:#b4553f; }
+  .mk[data-s="skip"], .pip[data-s="skip"], .st[data-s="skip"]{ color:var(--muted); background:none;
+    border:1px dashed var(--line); text-decoration:line-through; }
+  .gev[data-s="skip"]{ background:var(--bg); color:var(--muted); border-left-color:var(--line);
+    text-decoration:line-through; opacity:.7; }
+  .gev[data-s="skip"] b{ color:var(--muted); }
+  .pskip{ width:100%; margin-top:8px; min-height:40px; font-size:13px !important; color:var(--muted) !important;
+    border-style:dashed !important; }
+  .pskip[data-on="true"]{ color:var(--ink) !important; background:var(--bg) !important; border-style:solid !important;
+    border-color:var(--ink) !important; text-decoration:line-through; }
 
   .cellfoot{ display:flex; align-items:center; gap:5px; margin-top:5px; }
   .lb2{ flex:1 1 auto; min-width:0; font-size:10.5px; color:var(--muted); text-align:left;
@@ -1054,7 +1063,7 @@
           copy:"Copy", copied:"Copied", copyEn:"EN", noText:"No text yet", comment:"Comment",
           visual:"Visual", today:"Today", tomorrow:"Tomorrow", prepEmpty:"Nothing coming up.",
           searchPh:"Search text, title, date…", noMatch:"No matches.", pgPrev:"Prev", pgNext:"Next",
-          stNone:"No text", stText:"Text ready", stSched:"Scheduled", stDone:"Posted",
+          stNone:"No text", stText:"Text ready", stSched:"Scheduled", stDone:"Posted", stSkip:"Not posting", markSkip:"Not posting",
           stLate:"Missed", stReady:"Ready", weekOf:"Week of", ok:"All set", todo:"Needs action",
           matText:"Text", matImage:"Image", remind:"Remind before posting", remindOff:"Off",
           notMatched:"Not checked", matched:"Matches the plan", mismatched:"Differs from the plan",
@@ -1105,7 +1114,7 @@
           copy:"복사", copied:"복사됨", copyEn:"EN", noText:"원고 없음", comment:"댓글",
           visual:"비주얼", today:"오늘", tomorrow:"내일", prepEmpty:"예정된 게 없어.",
           searchPh:"본문, 제목, 날짜로 검색…", noMatch:"일치하는 게 없어.", pgPrev:"이전", pgNext:"다음",
-          stNone:"원고 없음", stText:"원고 있음", stSched:"예약됨", stDone:"게시됨",
+          stNone:"원고 없음", stText:"원고 있음", stSched:"예약됨", stDone:"게시됨", stSkip:"게시 안 함", markSkip:"게시 안 함",
           stLate:"놓침", stReady:"준비 완료", weekOf:"주간", ok:"모두 준비됨", todo:"조치 필요",
           matText:"텍스트", matImage:"이미지", remind:"게시 전 알림", remindOff:"끄기",
           notMatched:"미확인", matched:"기획과 일치", mismatched:"기획과 다름",
@@ -1156,7 +1165,7 @@
           copy:"コピー", copied:"コピーした", copyEn:"EN", noText:"原稿なし", comment:"コメント",
           visual:"ビジュアル", today:"今日", tomorrow:"明日", prepEmpty:"先の予定がない。",
           searchPh:"本文・見出し・日付で探す…", noMatch:"一致するものがない。", pgPrev:"前へ", pgNext:"次へ",
-          stNone:"原稿なし", stText:"原稿あり", stSched:"予約ずみ", stDone:"投稿ずみ",
+          stNone:"原稿なし", stText:"原稿あり", stSched:"予約ずみ", stDone:"投稿ずみ", stSkip:"投稿しない", markSkip:"投稿しない",
           stLate:"抜け", stReady:"投稿準備完了", weekOf:"の週", ok:"すべて整っている", todo:"手が要る",
           matText:"テキスト", matImage:"画像", remind:"投稿前にリマインド", remindOff:"切",
           notMatched:"未確認", matched:"企画どおり", mismatched:"企画と違う",
@@ -1333,6 +1342,7 @@
     if (k === "scheduled") sl.scheduled = v;
     else if (k === "posted") sl.posted = v;
     else if (k === "url") sl.url = v;
+    else if (k === "skip") sl.skip = v;
     else if (k === "checked") {
       sl.check = sl.check || { done:false, at:"", match:null, note:"" };
       sl.check.done = v;
@@ -1396,6 +1406,7 @@
   }
 
   function slotState(sl, when, now) {
+    if (sl.skip) return "skip";          // 投稿しないと決めた枠は、抜けにも未準備にも数えない
     if (isPosted(sl)) return "done";
     var hasText = sl.text && (sl.text.ja || sl.text.en || sl.text.ko);
     // 予約してあれば、時刻を過ぎても抜けではない（自動で出ているはず）。
@@ -1416,7 +1427,7 @@
 
     var now = new Date();
     var days = weekRange(now);
-    var counts = { none:0, text:0, ready:0, sched:0, done:0, late:0 };
+    var counts = { none:0, text:0, ready:0, sched:0, done:0, late:0, skip:0 };
 
     // 行 = チャンネル × 定期の時刻
     var rows = [];
@@ -2563,6 +2574,8 @@
       '<p class="plabel">' + esc(t("ppStatus")) + '</p>' +
       '<div class="psteps">' + step("scheduled", !!st.scheduled, "markSched", 1) +
         step("posted", !!st.posted, "markPosted", 2) + step("checked", isChecked(sl), "markVerified", 3) + '</div>' +
+      '<button class="donebtn pskip" data-mark="skip" data-on="' + (!!sl.skip) + '"' + dd + '>' +
+        (sl.skip ? "\u2713 " : "") + esc(t("markSkip")) + '</button>' +
       '<p class="plabel">' + esc(t("ppLink")) + '</p>' +
       '<div class="linkrow"><input type="url" class="plink" value="' + esc(link) + '" placeholder="' +
         esc(t("linkPh")) + '"' + dd + '>' +
@@ -2845,7 +2858,7 @@
       list.forEach(function (sl) {
         var hh2 = sl.time.split(":");
         var s2 = slotState(sl, new Date(d.getFullYear(), d.getMonth(), d.getDate(), +hh2[0], +hh2[1]), now);
-        if (s2 === "ready" || s2 === "sched" || s2 === "done") ready++;
+        if (s2 === "ready" || s2 === "sched" || s2 === "done" || s2 === "skip") ready++;
       });
       var title = "";
       for (var q = 0; q < list.length; q++) {
