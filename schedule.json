@@ -125,6 +125,95 @@
     },
     {
       "date": "2026-09-01",
+      "channel": "reel",
+      "platform": "IG",
+      "time": "12:00",
+      "label": "IG Feed",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "新しいゲーム、説明書読む？\n読まないよね。触って覚える。\n全ては、遊びを報酬に変えるために。Web3トークンプロジェクト|REEL\n\n手が先に動く感覚。\nあれが、一番正直な「入口」だと思う。\n\n詳細はXで。\n\nPLAY -> REVIEW -> REWARD",
+        "en": "New game — do you read the manual?\nDidn't think so. You learn by playing.\nAll for turning play into reward. Web3 Token Project | REEL\n\nThat feeling when your hands move first.\nThat's the most honest entrance there is.\n\nMore on X.\n\nPLAY -> REVIEW -> REWARD",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-01",
+      "channel": "reel",
+      "platform": "IG",
+      "time": "12:05",
+      "label": "IG Stories",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "触って覚える派？ 読んで覚える派？\n\n→ Xで詳しく",
+        "en": "Touch to learn? Or read to learn?\n\n→ More on X",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-01",
+      "channel": "reel",
+      "platform": "IG",
+      "time": "12:30",
+      "label": "Reply",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "新しいゲーム、まず何する？\n\n① とにかく触る\n② 設定から入る\n③ 動画で予習する\n\n→ コメントで教えて",
+        "en": "New game — first move?\n\n① Just play\n② Check settings\n③ Watch videos\n\n→ Tell me in the comments",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-01",
       "time": "17:00",
       "platform": "FB",
       "type": "image",
@@ -340,6 +429,95 @@
       "comment": "",
       "asset": "",
       "note": "",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-02",
+      "channel": "reel",
+      "platform": "IG",
+      "time": "12:00",
+      "label": "IG Feed",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "「なんか操作しやすい」って思ったこと、ある？\nあれ、偶然じゃないんだよね。\n全ては、遊びを報酬に変えるために。Web3トークンプロジェクト|REEL\n\nボタンが一つ減るだけで、\n手の中の迷いが一つ消える。\nそれが設計。\n\n詳細はXで。\n\nPLAY -> REVIEW -> REWARD",
+        "en": "Ever felt a controller was \"just right\"?\nThat's not an accident.\nAll for turning play into reward. Web3 Token Project | REEL\n\nOne less button,\none less hesitation in your hands.\nThat's design.\n\nMore on X.\n\nPLAY -> REVIEW -> REWARD",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-02",
+      "channel": "reel",
+      "platform": "IG",
+      "time": "12:05",
+      "label": "IG Stories",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "「なんかいい」は、偶然じゃない。\n\n→ Xで詳しく",
+        "en": "\"Just right\" isn't luck.\n\n→ More on X",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-02",
+      "channel": "reel",
+      "platform": "IG",
+      "time": "12:30",
+      "label": "Reply",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "道具で一番気になるのは？\n\n① 手触り\n② 見た目\n③ 機能\n\n→ コメントで教えて",
+        "en": "What matters most in a tool?\n\n① Feel\n② Looks\n③ Function\n\n→ Tell me in the comments",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より",
       "need": [
         "text"
       ],
@@ -585,6 +763,95 @@
     },
     {
       "date": "2026-09-03",
+      "channel": "reel",
+      "platform": "IG",
+      "time": "12:00",
+      "label": "IG Feed",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "ゲームで一番楽しかった瞬間、\n「遊んでた時」じゃなくて「作ってた時」だった人、いない？\n全ては、遊びを報酬に変えるために。Web3トークンプロジェクト|REEL\n\n作る側に回った瞬間、\nゲームとの関係が変わる。\n帰る理由ができるから。\n\n詳細はXで。\n\nPLAY -> REVIEW -> REWARD",
+        "en": "Your most fun moment in a game —\nwas it playing, or was it creating?\nAll for turning play into reward. Web3 Token Project | REEL\n\nThe moment you start building,\nyour relationship with the game changes.\nYou have a reason to come back.\n\nMore on X.\n\nPLAY -> REVIEW -> REWARD",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-03",
+      "channel": "reel",
+      "platform": "IG",
+      "time": "12:05",
+      "label": "IG Stories",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "遊ぶ vs 作る。どっちが楽しい？\n\n→ Xで詳しく",
+        "en": "Playing vs creating. Which is more fun?\n\n→ More on X",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-03",
+      "channel": "reel",
+      "platform": "IG",
+      "time": "12:30",
+      "label": "Reply",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "ゲームで一番楽しいのは？\n\n① 遊ぶこと\n② 作ること\n③ 誰かと共有すること\n\n→ コメントで教えて",
+        "en": "Best part of gaming?\n\n① Playing\n② Creating\n③ Sharing with someone\n\n→ Tell me in the comments",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-03",
       "time": "17:00",
       "platform": "FB",
       "type": "video",
@@ -800,6 +1067,95 @@
       "comment": "",
       "asset": "",
       "note": "",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-04",
+      "channel": "reel",
+      "platform": "IG",
+      "time": "12:00",
+      "label": "IG Feed",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "ロード画面、何秒で冷める？\n自分の中に、明確なラインがあるよね。\n全ては、遊びを報酬に変えるために。Web3トークンプロジェクト|REEL\n\nあの「もういいや」の瞬間。\n入口のスピードで、体験の全部が決まってる。\n\n詳細はXで。\n\nPLAY -> REVIEW -> REWARD",
+        "en": "Loading screen — how many seconds before you're done?\nEveryone has a line.\nAll for turning play into reward. Web3 Token Project | REEL\n\nThat \"forget it\" moment.\nThe speed of the entrance decides the entire experience.\n\nMore on X.\n\nPLAY -> REVIEW -> REWARD",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-04",
+      "channel": "reel",
+      "platform": "IG",
+      "time": "12:05",
+      "label": "IG Stories",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "何秒で冷める？\n\n→ Xで詳しく",
+        "en": "How many seconds before you quit?\n\n→ More on X",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-04",
+      "channel": "reel",
+      "platform": "IG",
+      "time": "12:30",
+      "label": "Reply",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "ゲームで許せないのは？\n\n① ロードが長い\n② ラグ\n③ 操作が複雑\n\n→ コメントで教えて",
+        "en": "Unforgivable in a game?\n\n① Long loading\n② Lag\n③ Complex controls\n\n→ Tell me in the comments",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より",
       "need": [
         "text"
       ],
@@ -1047,6 +1403,95 @@
     },
     {
       "date": "2026-09-05",
+      "channel": "reel",
+      "platform": "IG",
+      "time": "12:00",
+      "label": "IG Feed",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "ゲームの音、消して遊んだことある？\n5分やってみて。何かが足りなくなる。\n全ては、遊びを報酬に変えるために。Web3トークンプロジェクト|REEL\n\n音って、聞いてる時は気づかないのに、\n消えた瞬間にわかる。\n見えないけど、ずっとそこにあったもの。\n\n詳細はXで。\n\nPLAY -> REVIEW -> REWARD",
+        "en": "Ever played a game on mute?\nTry it for 5 minutes. Something's missing.\nAll for turning play into reward. Web3 Token Project | REEL\n\nYou don't notice sound while it's there.\nBut the moment it's gone, you feel it.\nInvisible, but always present.\n\nMore on X.\n\nPLAY -> REVIEW -> REWARD",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-05",
+      "channel": "reel",
+      "platform": "IG",
+      "time": "12:05",
+      "label": "IG Stories",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "音を消すと、何が足りなくなる？\n\n→ Xで詳しく",
+        "en": "Mute a game. What's missing?\n\n→ More on X",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-05",
+      "channel": "reel",
+      "platform": "IG",
+      "time": "12:30",
+      "label": "Reply",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "ゲームの音、どうしてる？\n\n① 全部ON\n② 効果音だけ\n③ 自分の音楽を流す\n\n→ コメントで教えて",
+        "en": "Game audio style?\n\n① Everything ON\n② SFX only\n③ My own music\n\n→ Tell me in the comments",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-05",
       "time": "17:00",
       "platform": "FB",
       "type": "image",
@@ -1216,6 +1661,66 @@
       "note": "",
       "need": [
         "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-06",
+      "channel": "reel",
+      "platform": "IG",
+      "time": "12:00",
+      "label": "IG Feed",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "タクシーに乗る。ドアが勝手に開く。\n何も考えなくていい。\n\n迷わない入口って、気持ちいい。\n全ては、遊びを報酬に変えるために。Web3トークンプロジェクト|REEL\n\n詳細はXで。\n\nPLAY -> REVIEW -> REWARD",
+        "en": "Get in a taxi in Japan. The door opens by itself.\nNo thinking required.\n\nAn entrance with no hesitation just feels right.\nAll for turning play into reward. Web3 Token Project | REEL\n\nMore on X.\n\nPLAY -> REVIEW -> REWARD",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-06",
+      "channel": "reel",
+      "platform": "IG",
+      "time": "12:05",
+      "label": "IG Stories",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "迷わない入口が、一番気持ちいい。\n\n→ Xで詳しく",
+        "en": "No hesitation = the best entrance.\n\n→ More on X",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より",
+      "need": [
+        "text",
+        "image"
       ],
       "scheduled": false,
       "posted": false,
@@ -1424,6 +1929,66 @@
     },
     {
       "date": "2026-09-07",
+      "channel": "reel",
+      "platform": "IG",
+      "time": "12:00",
+      "label": "IG Feed",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "ゲーマーって言われて、\n10代を想像する時代はもう終わった。\n\n平均31歳。仕事もして、生活もして、\nその上でコントローラーを握ってる。\n全ては、遊びを報酬に変えるために。Web3トークンプロジェクト|REEL\n\n詳細はXで。\n\nPLAY -> REVIEW -> REWARD",
+        "en": "When someone says \"gamer,\"\nthe image of a teenager is outdated.\n\nAverage age: 31. Working, living,\nand still picking up the controller.\nAll for turning play into reward. Web3 Token Project | REEL\n\nMore on X.\n\nPLAY -> REVIEW -> REWARD",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-07",
+      "channel": "reel",
+      "platform": "IG",
+      "time": "12:05",
+      "label": "IG Stories",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "ゲーマーの平均年齢、知ってる？\n\n→ Xで詳しく",
+        "en": "Know the average gamer age?\n\n→ More on X",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-07",
       "time": "17:00",
       "platform": "FB",
       "type": "image",
@@ -1611,6 +2176,95 @@
       "comment": "",
       "asset": "",
       "note": "",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-08",
+      "channel": "reel",
+      "platform": "IG",
+      "time": "12:00",
+      "label": "IG Feed",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "VRで最初に見るのは、ゲーム画面じゃなくてロビー。\n\nその空気感で、全部決まる。\nWeb3トークンプロジェクト|REEL\n\n詳細はXで。\n\nPLAY -> REVIEW -> REWARD",
+        "en": "In VR, the first thing you see isn't the game. It's the lobby.\n\nThat atmosphere decides everything.\nWeb3 Token Project | REEL\n\nMore on X.\n\nPLAY -> REVIEW -> REWARD",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-08",
+      "channel": "reel",
+      "platform": "IG",
+      "time": "12:05",
+      "label": "IG Stories",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "ロビーの空気感で、全部決まる。\n\n→ Xで詳しく",
+        "en": "The lobby's vibe decides everything.\n\n→ More on X",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-08",
+      "channel": "reel",
+      "platform": "IG",
+      "time": "12:30",
+      "label": "Reply",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "VR空間で一番大事なのは？\n\n① 広さ\n② 雰囲気\n③ 操作のしやすさ\n\n→ コメントで教えて",
+        "en": "Most important in VR?\n\n① Size\n② Atmosphere\n③ Easy controls\n\n→ Tell me in the comments",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より",
       "need": [
         "text"
       ],
@@ -1882,6 +2536,95 @@
     },
     {
       "date": "2026-09-09",
+      "channel": "reel",
+      "platform": "IG",
+      "time": "12:00",
+      "label": "IG Feed",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "「気づいたら使い続けてた」\n\nそれが、製品への一番の褒め言葉。\nWeb3トークンプロジェクト|REEL\n\n詳細はXで。\n\nPLAY -> REVIEW -> REWARD",
+        "en": "\"I didn't even think about it. I just kept using it.\"\n\nThat's the highest compliment a product can get.\nWeb3 Token Project | REEL\n\nMore on X.\n\nPLAY -> REVIEW -> REWARD",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-09",
+      "channel": "reel",
+      "platform": "IG",
+      "time": "12:05",
+      "label": "IG Stories",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "気づかず使い続けたもの、ある？\n\n→ Xで詳しく",
+        "en": "Anything you kept using without thinking about it?\n\n→ More on X",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-09",
+      "channel": "reel",
+      "platform": "IG",
+      "time": "12:30",
+      "label": "Reply",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "「気づいたら使い続けてた」もの、ある？\n\nA. ある\nB. ない\n\n→ コメントで教えて",
+        "en": "Something you kept using without thinking?\n\nA. Yes\nB. No\n\n→ Tell me in the comments",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-09",
       "time": "17:00",
       "platform": "FB",
       "type": "image",
@@ -2012,6 +2755,95 @@
           "ja": "1000億時間もの視聴時間。\n\nそれが、人々がゲームを楽しむ方法を決めるのだ。",
           "en": "100 billion hours of watching.\nThat's how people decide to play."
         }
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-10",
+      "channel": "reel",
+      "platform": "IG",
+      "time": "12:00",
+      "label": "IG Feed",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "ゲームを始めたきっかけ、\n「誰かが遊んでるのを見て」って多くない？\n\nレビューも同じ。誰かの体験が、次の入口になる。\nWeb3トークンプロジェクト|REEL\n\n詳細はXで。\n\nPLAY -> REVIEW -> REWARD",
+        "en": "How did you start gaming?\nFor most, it was watching someone play.\n\nReviews work the same way — someone's experience becomes the next entrance.\nWeb3 Token Project | REEL\n\nMore on X.\n\nPLAY -> REVIEW -> REWARD",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-10",
+      "channel": "reel",
+      "platform": "IG",
+      "time": "12:05",
+      "label": "IG Stories",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "ゲーム始めたきっかけ、何だった？\n\n→ Xで詳しく",
+        "en": "How did you start gaming?\n\n→ More on X",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-10",
+      "channel": "reel",
+      "platform": "IG",
+      "time": "12:30",
+      "label": "Reply",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "ゲームを始めたきっかけ、教えて。\n\n→ コメントで教えて",
+        "en": "Tell me how you got into gaming.\n\n→ Tell me in the comments",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より",
+      "need": [
+        "text"
       ],
       "scheduled": false,
       "posted": false,
@@ -2347,6 +3179,95 @@
     },
     {
       "date": "2026-09-11",
+      "channel": "reel",
+      "platform": "IG",
+      "time": "12:00",
+      "label": "IG Feed",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "設定が多すぎるゲーム、始める前に疲れない？\n\n選択肢が少ないほど、手は動きやすい。\nWeb3トークンプロジェクト|REEL\n\n詳細はXで。\nPLAY -> REVIEW -> REWARD",
+        "en": "Too many settings before you even start playing?\n\nFewer choices, easier to get started.\nWeb3 Token Project | REEL\n\nMore on X.\n\nPLAY -> REVIEW -> REWARD",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-11",
+      "channel": "reel",
+      "platform": "IG",
+      "time": "12:05",
+      "label": "IG Stories",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "選択肢、少ないほうが動ける。\n\n→ Xで詳しく",
+        "en": "Fewer choices = more action.\n\n→ More on X",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-11",
+      "channel": "reel",
+      "platform": "IG",
+      "time": "12:30",
+      "label": "Reply",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "ゲームで最初にいじる設定は？\n\n→ 一言でコメントして",
+        "en": "What's the first setting you tweak in a game?\n\n→ Answer in one word",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-11",
       "time": "17:00",
       "platform": "FB",
       "type": "image",
@@ -2513,6 +3434,95 @@
       "comment": "",
       "asset": "",
       "note": "",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-12",
+      "channel": "reel",
+      "platform": "IG",
+      "time": "12:00",
+      "label": "IG Feed",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "「稼げる」だけで続いたゲーム、ある？\n\nたぶんない。価格が下がれば理由も消える。\nWeb3トークンプロジェクト|REEL\n\n詳細はXで。\n\nPLAY -> REVIEW -> REWARD",
+        "en": "Ever kept playing a game just for the earnings?\n\nProbably not — the reason vanishes when the price drops.\nWeb3 Token Project | REEL\n\nMore on X.\n\nPLAY -> REVIEW -> REWARD",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-12",
+      "channel": "reel",
+      "platform": "IG",
+      "time": "12:05",
+      "label": "IG Stories",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "稼ぐだけじゃ、続かない。\n\n→ Xで詳しく",
+        "en": "Earning alone won't keep you playing.\n\n→ More on X",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-12",
+      "channel": "reel",
+      "platform": "IG",
+      "time": "12:30",
+      "label": "Reply",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "ゲームを続ける理由は？\n\n① 楽しいから\n② 仲間がいるから\n③ 報酬があるから\n\n→ コメントで教えて",
+        "en": "Why keep playing a game?\n\n① It's fun\n② Friends are there\n③ Rewards\n\n→ Tell me in the comments",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より",
       "need": [
         "text"
       ],
@@ -2727,6 +3737,66 @@
       "note": "",
       "need": [
         "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-13",
+      "channel": "reel",
+      "platform": "IG",
+      "time": "12:00",
+      "label": "IG Feed",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "通知OFF。\nコントローラーを手に。\n土曜の朝。\n\nそれだけで、十分贅沢。\n全ては、遊びを報酬に変えるために。Web3トークンプロジェクト|REEL\n\n詳細はXで。\n\nPLAY -> REVIEW -> REWARD",
+        "en": "Notifications off.\nController in hand.\nSaturday morning.\n\nThat's luxury enough.\nAll for turning play into reward. Web3 Token Project | REEL\n\nMore on X.\n\nPLAY -> REVIEW -> REWARD",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-13",
+      "channel": "reel",
+      "platform": "IG",
+      "time": "12:05",
+      "label": "IG Stories",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "土曜の朝の贅沢。\n\n→ Xで詳しく",
+        "en": "Saturday morning luxury.\n\n→ More on X",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より",
+      "need": [
+        "text",
+        "image"
       ],
       "scheduled": false,
       "posted": false,
@@ -2995,6 +4065,95 @@
     },
     {
       "date": "2026-09-14",
+      "channel": "reel",
+      "platform": "IG",
+      "time": "12:00",
+      "label": "IG Feed",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "好きなものは、だいたい小さく始まった。\n\nあのゲームも、あのチャンネルも。\nWeb3トークンプロジェクト|REEL\n\n詳細はXで。\n\nPLAY -> REVIEW -> REWARD",
+        "en": "Everything you love started small.\n\nThat game. That channel.\nWeb3 Token Project | REEL\n\nMore on X.\n\nPLAY -> REVIEW -> REWARD",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-14",
+      "channel": "reel",
+      "platform": "IG",
+      "time": "12:05",
+      "label": "IG Stories",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "好きなものは、小さく始まった。\n\n→ Xで詳しく",
+        "en": "Everything you love started small.\n\n→ More on X",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-14",
+      "channel": "reel",
+      "platform": "IG",
+      "time": "12:30",
+      "label": "Reply",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "好きなものにハマったきっかけは？\n\nA. 誰かのおすすめ\nB. 自分で偶然見つけた\n\n→ コメントで教えて",
+        "en": "How did you get into something you love?\n\nA. A friend's recommendation\nB. Found it by accident\n\n→ Tell me in the comments",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-14",
       "time": "17:00",
       "platform": "FB",
       "type": "video",
@@ -3222,6 +4381,95 @@
       "owner": ""
     },
     {
+      "date": "2026-09-15",
+      "channel": "reel",
+      "platform": "IG",
+      "time": "12:00",
+      "label": "IG Feed",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "毎日ちょっとだけ上手くなる感覚。\n\nそれが一番、続く理由になる。\nWeb3トークンプロジェクト|REEL\n\n詳細はXで。\n\nPLAY -> REVIEW -> REWARD",
+        "en": "Getting slightly better every day.\n\nThat's the strongest reason to keep going.\nWeb3 Token Project | REEL\n\nMore on X.\n\nPLAY -> REVIEW -> REWARD",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-15",
+      "channel": "reel",
+      "platform": "IG",
+      "time": "12:05",
+      "label": "IG Stories",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "ちょっとずつの積み上げ、見えてる？\n\n→ Xで詳しく",
+        "en": "Can you see your daily progress?\n\n→ More on X",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-15",
+      "channel": "reel",
+      "platform": "IG",
+      "time": "12:30",
+      "label": "Reply",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "続けてる理由、何？\n\n① 上手くなる実感\n② 習慣になった\n③ やめるのが惜しい\n\n→ コメントで教えて",
+        "en": "Why do you keep going?\n\n① Feeling progress\n② It's a habit\n③ Too invested to quit\n\n→ Tell me in the comments",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
       "time": "17:00",
       "type": "text",
       "label": "",
@@ -3349,6 +4597,95 @@
       "comment": "",
       "asset": "",
       "note": "",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-16",
+      "channel": "reel",
+      "platform": "IG",
+      "time": "12:00",
+      "label": "IG Feed",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "セーブデータが消えた瞬間、泣きそうになったことない？\n\n消えるのは時間じゃなく、あの感覚。\nWeb3トークンプロジェクト|REEL\n\n詳細はXで。\n\nPLAY -> REVIEW -> REWARD",
+        "en": "Ever felt like crying when a save file got corrupted?\n\nWhat's lost isn't the time — it's the feeling.\nWeb3 Token Project | REEL\n\nMore on X.\n\nPLAY -> REVIEW -> REWARD",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-16",
+      "channel": "reel",
+      "platform": "IG",
+      "time": "12:05",
+      "label": "IG Stories",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "セーブデータ、消えたことある？\n\n→ Xで詳しく",
+        "en": "Ever lost save data?\n\n→ More on X",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-16",
+      "channel": "reel",
+      "platform": "IG",
+      "time": "12:30",
+      "label": "Reply",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "セーブが消えた話、聞かせて。\n\n→ コメントで教えて",
+        "en": "Tell me about a time you lost save data.\n\n→ Tell me in the comments",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より",
       "need": [
         "text"
       ],
@@ -3533,6 +4870,95 @@
     },
     {
       "date": "2026-09-17",
+      "channel": "reel",
+      "platform": "IG",
+      "time": "12:00",
+      "label": "IG Feed",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "「そっちの機種か。じゃあ一緒にできないね。」\n\nこの一言、何回聞いた？\nWeb3トークンプロジェクト|REEL\n\n詳細はXで。\n\nPLAY -> REVIEW -> REWARD",
+        "en": "\"Oh, different platform? Guess we can't play together.\"\n\nHow many times has that line killed the mood?\nWeb3 Token Project | REEL\n\nMore on X.\n\nPLAY -> REVIEW -> REWARD",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-17",
+      "channel": "reel",
+      "platform": "IG",
+      "time": "12:05",
+      "label": "IG Stories",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "機種の壁で、遊べなかった経験ない？\n\n→ Xで詳しく",
+        "en": "Ever been unable to play because of platform barriers?\n\n→ More on X",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-17",
+      "channel": "reel",
+      "platform": "IG",
+      "time": "12:30",
+      "label": "Reply",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "機種の壁で諦めたゲーム、何？\n\n→ タイトルをコメントで教えて",
+        "en": "What game did platform walls make you give up on?\n\n→ Drop the title in the comments",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-17",
       "time": "17:00",
       "platform": "FB",
       "type": "video",
@@ -3699,6 +5125,95 @@
       "owner": ""
     },
     {
+      "date": "2026-09-18",
+      "channel": "reel",
+      "platform": "IG",
+      "time": "12:00",
+      "label": "IG Feed",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "自分のプレイ履歴を見る瞬間、ちょっと嬉しくない？\n\n全部見えて、全部自分のもの。\nWeb3トークンプロジェクト|REEL\n\n詳細はXで。\n\nPLAY -> REVIEW -> REWARD",
+        "en": "Doesn't it feel good to look back at your play history?\n\nEverything visible. Everything yours.\nWeb3 Token Project | REEL\n\nMore on X.\n\nPLAY -> REVIEW -> REWARD",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-18",
+      "channel": "reel",
+      "platform": "IG",
+      "time": "12:05",
+      "label": "IG Stories",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "自分の記録、見ると嬉しくない？\n\n→ Xで詳しく",
+        "en": "Feels good to see your records, right?\n\n→ More on X",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-18",
+      "channel": "reel",
+      "platform": "IG",
+      "time": "12:30",
+      "label": "Reply",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "自分のプレイデータ、見たい？\n\n① 絶対見たい\n② まあまあ\n③ あまり興味ない\n\n→ コメントで教えて",
+        "en": "Want to see your play data?\n\n① Definitely\n② Maybe\n③ Not really\n\n→ Tell me in the comments",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
       "time": "17:00",
       "type": "text",
       "label": "",
@@ -3790,6 +5305,95 @@
       "owner": ""
     },
     {
+      "date": "2026-09-19",
+      "channel": "reel",
+      "platform": "IG",
+      "time": "12:00",
+      "label": "IG Feed",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "Steamのプレイ時間、確認してみて。\n\n何百時間、残るのは記憶だけ。もったいなくない？\nWeb3トークンプロジェクト|REEL\n\n詳細はXで。\n\nPLAY -> REVIEW -> REWARD",
+        "en": "Check your Steam playtime.\n\nHundreds of hours, and all that's left is memory. Doesn't that feel like a waste?\nWeb3 Token Project | REEL\n\nMore on X.\n\nPLAY -> REVIEW -> REWARD",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-19",
+      "channel": "reel",
+      "platform": "IG",
+      "time": "12:05",
+      "label": "IG Stories",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "あなたのプレイ時間、何時間？\n\n→ Xで詳しく",
+        "en": "How many hours have you played?\n\n→ More on X",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-19",
+      "channel": "reel",
+      "platform": "IG",
+      "time": "12:30",
+      "label": "Reply",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "プレイ時間、見るのが怖い派？\n\nA. 怖くて見れない\nB. むしろ見たい\n\n→ コメントで教えて",
+        "en": "Afraid to check your playtime?\n\nA. Too scared to look\nB. Actually want to know\n\n→ Tell me in the comments",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
       "time": "17:00",
       "type": "text",
       "label": "",
@@ -3879,6 +5483,66 @@
       "date": "2026-09-20",
       "platform": "X",
       "owner": ""
+    },
+    {
+      "date": "2026-09-20",
+      "channel": "reel",
+      "platform": "IG",
+      "time": "12:00",
+      "label": "IG Feed",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "無料だから始めた。でも続けてる理由は、それじゃない。\n\n入口はタダでいい。中身に価値があれば人は残る。\nWeb3トークンプロジェクト|REEL\n\n詳細はXで。\n\nPLAY -> REVIEW -> REWARD",
+        "en": "Started because it was free. That's not why I stayed.\n\nThe entrance can be free — value keeps people inside.\nWeb3 Token Project | REEL\n\nMore on X.\n\nPLAY -> REVIEW -> REWARD",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-20",
+      "channel": "reel",
+      "platform": "IG",
+      "time": "12:05",
+      "label": "IG Stories",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "無料で始めたもの、続いてる？\n\n→ Xで詳しく",
+        "en": "Still using something you started for free?\n\n→ More on X",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
     },
     {
       "time": "17:00",
@@ -3982,6 +5646,95 @@
       "date": "2026-09-21",
       "platform": "X",
       "owner": ""
+    },
+    {
+      "date": "2026-09-21",
+      "channel": "reel",
+      "platform": "IG",
+      "time": "12:00",
+      "label": "IG Feed",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "電車でゲームしてる人、増えたよね。ゲーム機じゃなくてスマホで。\n\n入口は、もうポケットの中にある。\nWeb3トークンプロジェクト|REEL\n\n詳細はXで。\n\nPLAY -> REVIEW -> REWARD",
+        "en": "More people gaming on trains — not on consoles, on phones.\n\nThe entrance is already in your pocket.\nWeb3 Token Project | REEL\n\nMore on X.\n\nPLAY -> REVIEW -> REWARD",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-21",
+      "channel": "reel",
+      "platform": "IG",
+      "time": "12:05",
+      "label": "IG Stories",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "ゲーム機、ポケットの中にある。\n\n→ Xで詳しく",
+        "en": "Your console is in your pocket.\n\n→ More on X",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-21",
+      "channel": "reel",
+      "platform": "IG",
+      "time": "12:30",
+      "label": "Reply",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "一番長く遊んでるスマホゲーム、何？\n\n→ タイトルをコメントで教えて",
+        "en": "What's the mobile game you've played the longest?\n\n→ Drop the title in the comments",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
     },
     {
       "date": "2026-09-21",
@@ -4151,6 +5904,95 @@
       "owner": ""
     },
     {
+      "date": "2026-09-22",
+      "channel": "reel",
+      "platform": "IG",
+      "time": "12:00",
+      "label": "IG Feed",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "フォロワーが何千人いても、本当に繋がってるのは何人？\n\n数より密度。\nWeb3トークンプロジェクト|REEL\n\n詳細はXで。\n\nPLAY -> REVIEW -> REWARD",
+        "en": "Thousands of followers — how many are you truly connected to?\n\nDensity over numbers.\nWeb3 Token Project | REEL\n\nMore on X.\n\nPLAY -> REVIEW -> REWARD",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-22",
+      "channel": "reel",
+      "platform": "IG",
+      "time": "12:05",
+      "label": "IG Stories",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "本当に繋がってる人、何人いる？\n\n→ Xで詳しく",
+        "en": "How many are you truly connected to?\n\n→ More on X",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-22",
+      "channel": "reel",
+      "platform": "IG",
+      "time": "12:30",
+      "label": "Reply",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "コミュニティで大事なのは？\n\n① 人数が多いこと\n② 熱量が高いこと\n③ 居心地がいいこと\n\n→ コメントで教えて",
+        "en": "Most important in a community?\n\n① Numbers\n② Energy\n③ Comfort\n\n→ Tell me in the comments",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
       "time": "17:00",
       "type": "text",
       "label": "",
@@ -4260,6 +6102,95 @@
       "owner": ""
     },
     {
+      "date": "2026-09-23",
+      "channel": "reel",
+      "platform": "IG",
+      "time": "12:00",
+      "label": "IG Feed",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "大人数のグループチャット、発言しにくくない？\n\n大きい場所は見る場所。小さい場所は話す場所。\nWeb3トークンプロジェクト|REEL\n\n詳細はXで。\n\nPLAY -> REVIEW -> REWARD",
+        "en": "Not Yet",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-23",
+      "channel": "reel",
+      "platform": "IG",
+      "time": "12:05",
+      "label": "IG Stories",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "大きい部屋 vs 小さい部屋。\n\n→ Xで詳しく",
+        "en": "Not Yet",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-23",
+      "channel": "reel",
+      "platform": "IG",
+      "time": "12:30",
+      "label": "Reply",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "コミュニティは小さい方が好き？\n\nA. 少人数が好き\nB. 大人数でも平気\n\n→ コメントで教えて",
+        "en": "Not Yet",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
       "time": "17:00",
       "type": "text",
       "label": "",
@@ -4367,6 +6298,95 @@
       "date": "2026-09-24",
       "platform": "X",
       "owner": ""
+    },
+    {
+      "date": "2026-09-24",
+      "channel": "reel",
+      "platform": "IG",
+      "time": "12:00",
+      "label": "IG Feed",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "無料ゲームに課金したことある？\n\nタダで入って、気づいたらスキンに使ってた。\nWeb3トークンプロジェクト|REEL\n\n詳細はXで。\n\nPLAY -> REVIEW -> REWARD",
+        "en": "Not Yet",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-24",
+      "channel": "reel",
+      "platform": "IG",
+      "time": "12:05",
+      "label": "IG Stories",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "無料ゲーム、課金したことある？\n\n→ Xで詳しく",
+        "en": "Not Yet",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-24",
+      "channel": "reel",
+      "platform": "IG",
+      "time": "12:30",
+      "label": "Reply",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "無料ゲームで課金した理由、教えて。\n\n→ コメントで教えて",
+        "en": "Not Yet",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
     },
     {
       "date": "2026-09-24",
@@ -4536,6 +6556,95 @@
       "owner": ""
     },
     {
+      "date": "2026-09-25",
+      "channel": "reel",
+      "platform": "IG",
+      "time": "12:00",
+      "label": "IG Feed",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "広告より、友達の「あれ良かったよ」の方が強い。\n\n売る気のない声は、信頼できる。\nWeb3トークンプロジェクト|REEL\n\n詳細はXで。\n\nPLAY -> REVIEW -> REWARD",
+        "en": "A friend's \"that was good\" beats any ad.\n\nA voice with nothing to sell is easy to trust.\nWeb3 Token Project | REEL\n\nMore on X.\n\nPLAY -> REVIEW -> REWARD",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-25",
+      "channel": "reel",
+      "platform": "IG",
+      "time": "12:05",
+      "label": "IG Stories",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "友達の声 vs 広告。どっちが強い？\n\n→ Xで詳しく",
+        "en": "Friend's word vs ad. Which wins?\n\n→ More on X",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-25",
+      "channel": "reel",
+      "platform": "IG",
+      "time": "12:30",
+      "label": "Reply",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "友達の声・レビュー・公式情報。信じる順に並べて。\n\n→ コメントで教えて",
+        "en": "Friends, reviews, official info — rank them by trust.\n\n→ Tell me in the comments",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
       "time": "17:00",
       "type": "text",
       "label": "",
@@ -4627,6 +6736,95 @@
       "owner": ""
     },
     {
+      "date": "2026-09-26",
+      "channel": "reel",
+      "platform": "IG",
+      "time": "12:00",
+      "label": "IG Feed",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "遊んで、感想を書いて、誰かがそれを見て、また遊び始める。\n\n自然に回る仕組みって、強い。\nWeb3トークンプロジェクト|REEL\n\n詳細はXで。\n\nPLAY -> REVIEW -> REWARD",
+        "en": "Play, write a review, someone reads it, they start playing too.\n\nA loop that turns naturally is powerful.\nWeb3 Token Project | REEL\n\nMore on X.\n\nPLAY -> REVIEW -> REWARD",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-26",
+      "channel": "reel",
+      "platform": "IG",
+      "time": "12:05",
+      "label": "IG Stories",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "自然に回るループ。それが構造。\n\n→ Xで詳しく",
+        "en": "A natural loop. That's the architecture.\n\n→ More on X",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-26",
+      "channel": "reel",
+      "platform": "IG",
+      "time": "12:30",
+      "label": "Reply",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "REELのループ、気になるのは？\n\n① PLAY\n② REVIEW\n③ REWARD\n\n→ コメントで教えて",
+        "en": "Which part of REEL interests you?\n\n① PLAY\n② REVIEW\n③ REWARD\n\n→ Tell me in the comments",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
       "time": "17:00",
       "type": "text",
       "label": "",
@@ -4716,6 +6914,66 @@
       "date": "2026-09-27",
       "platform": "X",
       "owner": ""
+    },
+    {
+      "date": "2026-09-27",
+      "channel": "reel",
+      "platform": "IG",
+      "time": "12:00",
+      "label": "IG Feed",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "行きつけの場所って、あるよね。味とかサービスじゃなくて「自分の場所」だから通ってる。\n\nバーチャルでも、同じことが起きる。\nWeb3トークンプロジェクト|REEL\n\n詳細はXで。\n\nPLAY -> REVIEW -> REWARD",
+        "en": "You have a go-to place, right? Not for the taste — because it feels like yours.\n\nThe same happens in virtual worlds.\nWeb3 Token Project | REEL\n\nMore on X.\n\nPLAY -> REVIEW -> REWARD",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-27",
+      "channel": "reel",
+      "platform": "IG",
+      "time": "12:05",
+      "label": "IG Stories",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "行きつけ、ありますか？\n\n→ Xで詳しく",
+        "en": "Got a go-to place?\n\n→ More on X",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
     },
     {
       "date": "2026-09-27",
@@ -4879,6 +7137,95 @@
       "owner": ""
     },
     {
+      "date": "2026-09-28",
+      "channel": "reel",
+      "platform": "IG",
+      "time": "12:00",
+      "label": "IG Feed",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "帰りたくなる場所は、機能が良いからじゃない。\n\nなんか落ち着くから。自分のものって感じがするから。\nWeb3トークンプロジェクト|REEL\n\n詳細はXで。\n\nPLAY -> REVIEW -> REWARD",
+        "en": "You return to a place not because it's functional.\n\nBecause it feels calm. Because it feels like yours.\nWeb3 Token Project | REEL\n\nMore on X.\n\nPLAY -> REVIEW -> REWARD",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-28",
+      "channel": "reel",
+      "platform": "IG",
+      "time": "12:05",
+      "label": "IG Stories",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "帰りたくなる場所、ある？\n\n→ Xで詳しく",
+        "en": "A place you want to return to?\n\n→ More on X",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-28",
+      "channel": "reel",
+      "platform": "IG",
+      "time": "12:30",
+      "label": "Reply",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "「帰りたくなる場所」、どこで感じる？\n\n① ゲームの中\n② 行きつけの店\n③ 誰かとの会話\n\n→ コメントで教えて",
+        "en": "Where do you feel \"a place you want to return to\"?\n\n① In a game\n② A favorite spot\n③ A conversation with someone\n\n→ Tell me in the comments",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
       "time": "17:00",
       "type": "text",
       "label": "",
@@ -4988,6 +7335,95 @@
       "owner": ""
     },
     {
+      "date": "2026-09-29",
+      "channel": "reel",
+      "platform": "IG",
+      "time": "12:00",
+      "label": "IG Feed",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "始めやすい。続けやすい。戻りやすい。\n\nこの3つが揃うと、生活の一部になる。\nWeb3トークンプロジェクト|REEL\n\n詳細はXで。\n\nPLAY -> REVIEW -> REWARD",
+        "en": "Easy to start. Easy to continue. Easy to return.\n\nWhen all three align, it becomes part of your life.\nWeb3 Token Project | REEL\n\nMore on X.\n\nPLAY -> REVIEW -> REWARD",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-29",
+      "channel": "reel",
+      "platform": "IG",
+      "time": "12:05",
+      "label": "IG Stories",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "始めやすい。続けやすい。戻りやすい。\n\n→ Xで詳しく",
+        "en": "Easy to start. Continue. Return.\n\n→ More on X",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-29",
+      "channel": "reel",
+      "platform": "IG",
+      "time": "12:30",
+      "label": "Reply",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "長く使ってるサービス、続いてる理由は？\n\nA. 始めやすかったから\nB. 気づいたら手放せなくなってた\n\n→ コメントで教えて",
+        "en": "Why do you still use a service long-term?\n\nA. It was easy to start\nB. Became impossible to quit\n\n→ Tell me in the comments",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
       "time": "17:00",
       "type": "text",
       "label": "",
@@ -5095,6 +7531,95 @@
       "date": "2026-09-30",
       "platform": "X",
       "owner": ""
+    },
+    {
+      "date": "2026-09-30",
+      "channel": "reel",
+      "platform": "IG",
+      "time": "12:00",
+      "label": "IG Feed",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "初めて来た人にとって、全てが「最初の印象」。\n\nサムネイル。ロビー。コントローラー。\nWeb3トークンプロジェクト|REEL\n\n詳細はXで。\n\nPLAY -> REVIEW -> REWARD",
+        "en": "For a first-time visitor, everything is a first impression.\n\nThumbnail. Lobby. Controller.\nWeb3 Token Project | REEL\n\nMore on X.\n\nPLAY -> REVIEW -> REWARD",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-30",
+      "channel": "reel",
+      "platform": "IG",
+      "time": "12:05",
+      "label": "IG Stories",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "全ての面が、誰かの入口。\n\n→ Xで詳しく",
+        "en": "Every surface is someone's entrance.\n\n→ More on X",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-30",
+      "channel": "reel",
+      "platform": "IG",
+      "time": "12:30",
+      "label": "Reply",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "あなたにとっての「入口」、一言で言うと？\n\n→ コメントで教えて",
+        "en": "In one word, what's your \"entrance\"?\n\n→ Tell me in the comments",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
     },
     {
       "date": "2026-09-30",
