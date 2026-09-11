@@ -184,11 +184,24 @@
     background:var(--bg); border:1px solid var(--line); border-radius:8px; padding:6px 10px;
   }
   .newbar{ display:flex; gap:8px; flex-wrap:wrap; margin-bottom:14px; align-items:center; }
-  .newbar input[type="search"]{
-    flex:1 1 auto; min-width:0; font:inherit; font-size:13px; color:var(--ink);
-    background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:8px 12px;
+  .searchbox{ position:relative; flex:1 1 auto; min-width:0; }
+  .searchbox input[type="search"]{
+    width:100%; box-sizing:border-box; font:inherit; font-size:13px; color:var(--ink);
+    background:var(--surface); border:1px solid var(--line); border-radius:10px;
+    padding:8px 30px 8px 12px;
   }
-  .newbar input[type="search"]:focus{ outline:none; border-color:var(--wood); }
+  .searchbox input[type="search"]:focus{ outline:none; border-color:var(--wood); }
+  .searchbox input[type="search"]::-webkit-search-cancel-button{ display:none; }
+  .searchclr{
+    position:absolute; right:4px; top:50%; transform:translateY(-50%);
+    width:22px; height:22px; border:none; background:none; color:var(--muted);
+    font-size:15px; line-height:1; cursor:pointer; border-radius:999px;
+  }
+  .searchclr:hover{ background:var(--wood-soft); color:var(--ink); }
+  .resultcount{
+    margin:0 0 12px; font-size:11.5px; color:var(--muted); font-variant-numeric:tabular-nums;
+  }
+  mark{ background:var(--wood-soft); color:var(--ink); border-radius:3px; padding:0 1px; }
   .pager{
     display:flex; align-items:center; justify-content:center; gap:4px; flex-wrap:wrap;
     margin:18px 0 6px;
@@ -1919,6 +1932,16 @@
     });
   }
 
+  // 検索語に一致した部分だけ、印を付ける
+  function hilite(s, q) {
+    s = s || "";
+    if (!q) return esc(s);
+    var idx = s.toLowerCase().indexOf(q);
+    if (idx < 0) return esc(s);
+    return esc(s.slice(0, idx)) + '<mark>' + esc(s.slice(idx, idx + q.length)) + '</mark>' +
+           esc(s.slice(idx + q.length));
+  }
+
   function prepHeadHTML(sl, i) {
     var ch = chanOfSlot(sl);
       var body = (sl.text && (sl.text[lang] || sl.text.en || sl.text.ja || sl.text.ko)) || "";
@@ -1933,11 +1956,12 @@
                '" data-time="' + esc(sl.time) + '" data-kind="' + k + '">' +
                (on ? "\u2713 " : "") + esc(t(k === "text" ? "matText" : "matImage")) + '</button>';
       }).join("");
+    var q = prepSearch.trim().toLowerCase();
     return '<div class="phead" data-k="' + esc(slotKey(sl)) + '" style="--chc:' + esc(ch.color || "var(--wood)") + '">' +
           '<i class="pf" data-p="' + esc(sl.platform || "X") + '">' + esc(pfn(sl.platform)) + '</i>' +
-          '<span class="who">' + esc(ch.name) + '</span>' +
+          '<span class="who">' + hilite(ch.name, q) + '</span>' +
           '<span class="when">' + esc(whenLabel(sl.date)) + " \u00b7 " + esc(sl.time) + '</span>' +
-          (sl.label ? '<span class="when">· ' + esc(sl.label) + '</span>' : "") +
+          (sl.label ? '<span class="when">· ' + hilite(sl.label, q) + '</span>' : "") +
           (parts ? (function () {
             var done = 0, pg = partsGet(mk);
             parts.forEach(function (_, k2) { if (pg["p" + k2]) done++; });
@@ -2104,7 +2128,10 @@
 
     var html = '<div class="prep">' +
       '<div class="bar newbar">' +
-      '<input type="search" id="prepSearch" placeholder="' + esc(t("searchPh")) + '" value="' + esc(prepSearch) + '">' +
+      '<div class="searchbox">' +
+        '<input type="search" id="prepSearch" placeholder="' + esc(t("searchPh")) + '" value="' + esc(prepSearch) + '">' +
+        (prepSearch ? '<button id="prepSearchX" class="searchclr" aria-label="clear">×</button>' : "") +
+      '</div>' +
       '<button id="newSlot" class="donebtn strong">' + esc(t("newSlot")) + '</button></div>';
 
     // チャンネルごとの定型文（押すと写せる）
@@ -2139,7 +2166,11 @@
     var totalPages = Math.max(1, Math.ceil(list.length / PREP_PAGE_SIZE));
     if (prepPage > totalPages) prepPage = totalPages;
     if (prepPage < 1) prepPage = 1;
+    var pgFrom = (prepPage - 1) * PREP_PAGE_SIZE + 1;
+    var pgTo = Math.min(list.length, prepPage * PREP_PAGE_SIZE);
     var pageList = list.slice((prepPage - 1) * PREP_PAGE_SIZE, prepPage * PREP_PAGE_SIZE);
+
+    html += '<p class="resultcount">' + pgFrom + '–' + pgTo + ' / ' + list.length + '</p>';
 
     // 一覧では見出し行だけ。タップすると専用ページへ
     pageList.forEach(function (sl, i) {
@@ -2438,6 +2469,7 @@
 
   view.addEventListener("click", function (e) {
     if (e.target.id === "newSlot") { editing = {}; renderPrep(); return; }
+    if (e.target.id === "prepSearchX") { prepSearch = ""; prepPage = 1; renderPrep(); return; }
     var pg = e.target.closest(".pgbtn");
     if (pg && !pg.disabled) {
       prepPage = +pg.getAttribute("data-pg");

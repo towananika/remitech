@@ -65,31 +65,33 @@
       }
     },
     {
+      "date": "2026-09-01",
+      "channel": "hiyoko",
+      "platform": "X",
       "time": "09:30",
-      "type": "text",
       "label": "9月がきた",
+      "owner": "",
+      "type": "text",
       "text": {
         "ja": "9月がきた。🐣\n\n新しい月、新しいHIYOKO。\n今月も一緒にいてね。😎\n\n#HYK #HIYOKO",
         "en": "september is here. 🐣\n\nnew month. new HIYOKO.\nstick around this month. 😎\n\n#HYK #HIYOKO",
         "ko": "9월이 왔다. 🐣\n\n새로운 달. 새로운 히요코.\n이번 달도 함께해줘. 😎\n\n#HYK #HIYOKO"
       },
+      "comment": "",
       "asset": "",
       "note": "",
-      "scheduled": false,
-      "posted": false,
-      "url": "",
       "need": [
         "text"
       ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
       "check": {
         "done": false,
         "at": "",
         "match": null,
         "note": ""
-      },
-      "date": "2026-09-01",
-      "platform": "X",
-      "owner": ""
+      }
     },
     {
       "date": "2026-09-01",
@@ -150,58 +152,62 @@
       "owner": ""
     },
     {
+      "date": "2026-09-01",
+      "channel": "hiyoko",
+      "platform": "X",
       "time": "17:00",
-      "type": "text",
       "label": "HYKって何者？",
+      "owner": "",
+      "type": "text",
       "text": {
         "ja": "HYKって何者？🪄\n\nHIYOKOのエコシステムを\n全部つなぐ核心トークン。\n\n🎮 ゲーム → CheePoint → HYK\n❤️ 健康チェック → CheePoint → HYK\n🖼️ NFTマーケット → HYK\n📈 取引所（Coinstore）→ HYK\n\nただのトークンじゃない。\nエコシステム全体が\nHYKを中心に回ってる。😎",
         "en": "what even is HYK? 🪄\n\nthe core token connecting\nthe entire HIYOKO ecosystem.\n\n🎮 games → CheePoints → HYK\n❤️ health checks → CheePoints → HYK\n🖼️ NFT marketplace → HYK\n📈 Coinstore → HYK\n\nnot just a token.\nthe entire ecosystem\nrevolves around HYK. 😎",
-        "ko": "HYK가 뭐냐면? 🪄\n\nHIYOKO 에코시스템 전체를\n연결하는 핵심 토큰이야.\n\n🎮 게임 → CheePoint → HYK\n❤️ 건강체크 → CheePoint → HYK\n🖼️ NFT 마켓 → HYK\n📈 거래소 (Coinstore) → HYK\n\n그냥 토큰이 아니야.\n에코시스템 전체가\nHYK를 중심으로 돌아가. 😎"
+        "ko": "HYK가 뫐냐면? 🪄\n\nHIYOKO 에코시스템 전체를\n연결하는 핵심 토큰이야.\n\n🎮 게임 → CheePoint → HYK\n❤️ 건강체크 → CheePoint → HYK\n🖼️ NFT 마켓 → HYK\n📈 거래소 (Coinstore) → HYK\n\n그냥 토큰이 아니야.\n에코시스템 전체가\nHYK를 중심으로 돌아가. 😎"
       },
+      "comment": "",
       "asset": "",
       "note": "",
-      "scheduled": false,
-      "posted": false,
-      "url": "",
       "need": [
         "text"
       ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
       "check": {
         "done": false,
         "at": "",
         "match": null,
         "note": ""
-      },
-      "date": "2026-09-01",
-      "platform": "X",
-      "owner": ""
+      }
     },
     {
+      "date": "2026-09-01",
+      "channel": "hiyoko",
+      "platform": "X",
       "time": "17:05",
-      "type": "reply",
       "label": "Linktree案内",
+      "owner": "",
+      "type": "text",
       "text": {
         "ja": "HIYOKOが気になったら\nここに全部あるよ 👇\nhttps://linktr.ee/HIYOKO_global",
         "en": "curious about HIYOKO?\neverything's here 👇\nhttps://linktr.ee/HIYOKO_global",
         "ko": ""
       },
+      "comment": "",
       "asset": "",
       "note": "",
-      "scheduled": false,
-      "posted": false,
-      "url": "",
       "need": [
         "text"
       ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
       "check": {
         "done": false,
         "at": "",
         "match": null,
         "note": ""
-      },
-      "date": "2026-09-01",
-      "platform": "X",
-      "owner": ""
+      }
     },
     {
       "date": "2026-09-02",
@@ -259,31 +265,33 @@
       }
     },
     {
+      "date": "2026-09-02",
+      "channel": "hiyoko",
+      "platform": "X",
       "time": "09:30",
-      "type": "text",
       "label": "Happy Chick知ってる？",
+      "owner": "",
+      "type": "text",
       "text": {
-        "ja": "Happy Chick知ってる？🪄\n\n累計1億4800万ダウンロードの\nゲームプラットフォームだよ。\n\nゲームして\n→ CheePoint貯まる\n→ HYKに交換できる\n\n遊んでたら\n価値が生まれてた。\nそれがHIYOKOのP2Eだよ。😎\n\n#HYK #HIYOKO",
+        "ja": "Happy Chick知ってる？🪄\n\n累計1億4800万ダウンロードの\nゲームプラットフォームだよ。\n\nゲームして\n→ CheePoint貯まる\n→ HYKに交換できる\n\n邁んでたら\n価値が生まれてた。\nそれがHIYOKOのP2Eだよ。😎\n\n#HYK #HIYOKO",
         "en": "heard of Happy Chick? 🪄\n\n148M+ downloads.\na gaming platform that's already here.\n\nplay games\n→ earn CheePoints\n→ swap them for HYK\n\nyou play.\nyou earn CheePoints.\nthat's HIYOKO's P2E. 😎\n\n#HYK #HIYOKO",
         "ko": "Happy Chick 알아? 🪄\n\n누적 1억 4800만 다운로드.\n이미 여기 있는 게임 플랫폼이야.\n\n게임하면\n→ CheePoint 쌓이고\n→ HYK로 교환 가능\n\n그냥 놀고 있었는데\n가치가 생겨버렸어.\n그게 HIYOKO의 P2E야. 😎\n\n#HYK #HIYOKO"
       },
+      "comment": "",
       "asset": "",
       "note": "",
-      "scheduled": false,
-      "posted": false,
-      "url": "",
       "need": [
         "text"
       ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
       "check": {
         "done": false,
         "at": "",
         "match": null,
         "note": ""
-      },
-      "date": "2026-09-02",
-      "platform": "X",
-      "owner": ""
+      }
     },
     {
       "date": "2026-09-02",
@@ -344,58 +352,62 @@
       "owner": ""
     },
     {
+      "date": "2026-09-02",
+      "channel": "hiyoko",
+      "platform": "X",
       "time": "17:00",
-      "type": "text",
       "label": "ゲームでポイント貯めたことある？",
+      "owner": "",
+      "type": "text",
       "text": {
-        "ja": "ゲームでポイント貯めたことある？🪄\n\nHIYOKOも同じだよ。\n\nHappy Chickでゲームする\n→ CheePointが貯まる\n→ そのポイント、実際の価値に変えられる\n\nゲームしてたら\n知らないうちにポイントが。\n\nそのポイントが\nHYKというトークンになる。\n\n難しく考えなくていい。\n遊んでたら貯まる。\nそれだけだよ。😎\n\n#HYK #HIYOKO",
-        "en": "ever collected points\nwhile playing a game? 🪄\n\nHIYOKO works the same way.\n\nplay on Happy Chick\n→ earn CheePoints\n→ swap them for HYK\n\nyou just play.\nCheePoints stack up.\nthen you can swap them for HYK.\n\nno complicated stuff.\njust play and earn.\nthat's it. 😎\n\n#HYK #HIYOKO",
-        "ko": "게임하면서 포인트 모아본 적 있지? 🪄\n\n히요코도 똑같아.\n\nHappy Chick에서 게임하면\n→ CheePoint 쌓이고\n→ 그 포인트가 진짜 가치로 바뀌어\n\n그냥 게임하면 돼.\n포인트 쌓여.\n포인트가 HYK가 돼.\n\n어렵게 생각 안 해도 돼.\n그냥 하면 쌓이는 거야. 😎\n\n#HYK #HIYOKO"
+        "ja": "ゲームでポイント貯めたことある？🪄\n\nHIYOKOも同じだよ。\n\nHappy Chickでゲームする\n→ CheePointが貯まる\n→ そのポイント、実際の価値に変えられる\n\nゲームしてたら\n知らないうちにポイントが。\n\nそのポイントが\nHYKというトークンになる。\n\n難しく考えなくていい。\n邁んでたら貯まる。それだけだよ。😎\n\n#HYK #HIYOKO",
+        "en": "ever collected points\nwhile playing a game? 🪄\nHIYOKO works the same way.\n\nplay on Happy Chick\n→ earn CheePoints\n→ swap them for HYK\n\nyou just play.\nCheePoints stack up.\nthen you can swap them for HYK.\n\nno complicated stuff.\njust play and earn.\nthat's it. 😎\n\n#HYK #HIYOKO",
+        "ko": "게임하면서 포인트 모아본 적 있지? 🪄\n\n히요코도 또같아.\n\nHappy Chick에서 게임하면\n→ CheePoint 쌓이고\n→ 그 포인트가 진짜 가치로 바뀌어\n\n그냥 게임하면 돼.\n포인트 쌓여.\n포인트가 HYK가 돼.\n\n어렵게 생각 안 해도 돼.\n그냥 하면 쌓이는 거야. 😎\n\n#HYK #HIYOKO"
       },
+      "comment": "",
       "asset": "",
       "note": "",
-      "scheduled": false,
-      "posted": false,
-      "url": "",
       "need": [
         "text"
       ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
       "check": {
         "done": false,
         "at": "",
         "match": null,
         "note": ""
-      },
-      "date": "2026-09-02",
-      "platform": "X",
-      "owner": ""
+      }
     },
     {
+      "date": "2026-09-02",
+      "channel": "hiyoko",
+      "platform": "X",
       "time": "17:05",
-      "type": "reply",
       "label": "Linktree案内",
+      "owner": "",
+      "type": "text",
       "text": {
-        "ja": "",
+        "ja": "HIYOKOにもっと知りたくなったら\nhttps://linktr.ee/HIYOKO_global",
         "en": "want to know more?\neverything's here 👇\nhttps://linktr.ee/HIYOKO_global",
         "ko": ""
       },
+      "comment": "",
       "asset": "",
       "note": "",
-      "scheduled": false,
-      "posted": false,
-      "url": "",
       "need": [
         "text"
       ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
       "check": {
         "done": false,
         "at": "",
         "match": null,
         "note": ""
-      },
-      "date": "2026-09-02",
-      "platform": "X",
-      "owner": ""
+      }
     },
     {
       "date": "2026-09-03",
@@ -453,32 +465,33 @@
       }
     },
     {
+      "date": "2026-09-03",
+      "channel": "hiyoko",
+      "platform": "X",
       "time": "09:30",
-      "type": "image",
-      "label": "健康チェックでHYK（H2E）",
+      "label": "健康チェックしたらHYKが貯まる",
+      "owner": "",
+      "type": "text",
       "text": {
         "ja": "健康チェックしたら\nHYKが貯まるって知ってた？🐣\n\nそれがHIYOKOのH2Eだよ。\n\n#HYK #HIYOKO #H2E",
         "en": "health check → earn HYK. 🐣\n\nthat's HIYOKO's H2E.\n\n#HYK #HIYOKO #H2E",
-        "ko": "건강체크하면 HYK 쌓여. 🐣\n\n그게 HIYOKO의 H2E야.\n\n#HYK #HIYOKO #H2E"
+        "ko": "건강체크하면 HYK가 쌓인다는 거 알았어? 🐣\n\n그게 HIYOKO의 H2E야.\n\n#HYK #HIYOKO #H2E"
       },
-      "asset": "히요코가 Vitalis 기기 들고 홍채 체크하는 장면. CheePoint 팡팡 터지는 효과. 루프 GIF.",
+      "comment": "",
+      "asset": "히요코가 Vitalis 기기 들고 홍채 체크하는 장면. CheePoint 큩큩 터지는 효과. 루프 GIF.",
       "note": "",
+      "need": [
+        "text"
+      ],
       "scheduled": false,
       "posted": false,
       "url": "",
-      "need": [
-        "text",
-        "image"
-      ],
       "check": {
         "done": false,
         "at": "",
         "match": null,
         "note": ""
-      },
-      "date": "2026-09-03",
-      "platform": "X",
-      "owner": ""
+      }
     },
     {
       "date": "2026-09-03",
@@ -539,58 +552,62 @@
       "owner": ""
     },
     {
+      "date": "2026-09-03",
+      "channel": "hiyoko",
+      "platform": "X",
       "time": "17:00",
-      "type": "text",
       "label": "Vitalisって知ってる？",
+      "owner": "",
+      "type": "text",
       "text": {
         "ja": "Vitalisって知ってる？🪄\n\nHIYOKOのHealthFiプラットフォーム。\nすでに55,000人以上が登録済み。\n\n健康チェックするだけで\nCheePointが貯まる。\n\nそのCheePointが\nHYKに交換できる。\n\n健康になりながら\n価値も生まれる。\nそれがH2Eだよ。😎\n\n#HYK #HIYOKO #Vitalis",
         "en": "heard of Vitalis? 🪄\n\nHIYOKO's HealthFi platform.\n55,000+ people already registered.\n\ncheck your health\n→ earn CheePoints\n→ swap them for HYK\n\ntake care of your health\nwhile earning CheePoints.\nthat's H2E. 😎\n\n#HYK #HIYOKO #Vitalis",
         "ko": "Vitalis 알아? 🪄\n\nHIYOKO의 HealthFi 플랫폼이야.\n이미 55,000명 이상 등록했어.\n\n건강체크만 하면\n→ CheePoint 쌓이고\n→ HYK로 교환 가능\n\n건강해지면서\n가치도 생겨.\n그게 H2E야. 😎\n\n#HYK #HIYOKO #Vitalis"
       },
+      "comment": "",
       "asset": "",
       "note": "",
-      "scheduled": false,
-      "posted": false,
-      "url": "",
       "need": [
         "text"
       ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
       "check": {
         "done": false,
         "at": "",
         "match": null,
         "note": ""
-      },
-      "date": "2026-09-03",
-      "platform": "X",
-      "owner": ""
+      }
     },
     {
+      "date": "2026-09-03",
+      "channel": "hiyoko",
+      "platform": "X",
       "time": "17:05",
-      "type": "reply",
-      "label": "フック返信",
+      "label": "Reply",
+      "owner": "",
+      "type": "text",
       "text": {
         "ja": "",
         "en": "health checks come with rewards 👀🐣",
         "ko": ""
       },
+      "comment": "",
       "asset": "",
       "note": "",
-      "scheduled": false,
-      "posted": false,
-      "url": "",
       "need": [
         "text"
       ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
       "check": {
         "done": false,
         "at": "",
         "match": null,
         "note": ""
-      },
-      "date": "2026-09-03",
-      "platform": "X",
-      "owner": ""
+      }
     },
     {
       "date": "2026-09-04",
@@ -648,32 +665,33 @@
       }
     },
     {
+      "date": "2026-09-04",
+      "channel": "hiyoko",
+      "platform": "X",
       "time": "09:30",
-      "type": "image",
-      "label": "空約束はしない",
+      "label": "",
+      "owner": "",
+      "type": "text",
       "text": {
         "ja": "空約束はしない。\nもう作ってる。🐣⛏️",
         "en": "no empty promises.\nalready building. 🐣⛏️",
         "ko": "약속만 하는 프로젝트 아니야.\n이미 만들고 있어. 🐣⛏️"
       },
+      "comment": "",
       "asset": "",
       "note": "",
+      "need": [
+        "text"
+      ],
       "scheduled": false,
       "posted": false,
       "url": "",
-      "need": [
-        "text",
-        "image"
-      ],
       "check": {
         "done": false,
         "at": "",
         "match": null,
         "note": ""
-      },
-      "date": "2026-09-04",
-      "platform": "X",
-      "owner": ""
+      }
     },
     {
       "date": "2026-09-04",
@@ -734,58 +752,62 @@
       "owner": ""
     },
     {
+      "date": "2026-09-04",
+      "channel": "hiyoko",
+      "platform": "X",
       "time": "17:00",
+      "label": "アフターセール、進行中",
+      "owner": "",
       "type": "text",
-      "label": "アフターセール進行中",
       "text": {
         "ja": "アフターセール、進行中。🐣\n\n$0.025で参加できるのは今。\n10月には$0.040になる。\n\n早く知った人が有利なのは\nそういうことだよ。😎\n\n👇 https://sale.hiyoko.io/",
         "en": "after-sale is live. 🐣\n\n$0.025 right now.\nfrom October: $0.040.\n\nbeing early means\ngetting the lower after-sale price. 😎\n\n👇 https://sale.hiyoko.io/",
-        "ko": "애프터세일 진행 중. 🐣\n\n지금 $0.025.\n10월엔 $0.040.\n\n일찍 알수록 유리한 건\n바로 그런 이유야. 😎\n\n👇 https://sale.hiyoko.io/"
+        "ko": "애프터세일 진행 중. 🐣\n\n지금 $0.025.\n10월엔 $0.040.\n\n일직 알수록 유리한 건\n바로 그런 이유야. 😎\n\n👇 https://sale.hiyoko.io/"
       },
+      "comment": "",
       "asset": "",
       "note": "",
-      "scheduled": false,
-      "posted": false,
-      "url": "",
       "need": [
         "text"
       ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
       "check": {
         "done": false,
         "at": "",
         "match": null,
         "note": ""
-      },
-      "date": "2026-09-04",
-      "platform": "X",
-      "owner": ""
+      }
     },
     {
+      "date": "2026-09-04",
+      "channel": "hiyoko",
+      "platform": "X",
       "time": "17:05",
-      "type": "reply",
-      "label": "フック返信",
+      "label": "Reply",
+      "owner": "",
+      "type": "text",
       "text": {
         "ja": "",
         "en": "there's still time in September 👀🐣",
         "ko": ""
       },
+      "comment": "",
       "asset": "",
       "note": "",
-      "scheduled": false,
-      "posted": false,
-      "url": "",
       "need": [
         "text"
       ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
       "check": {
         "done": false,
         "at": "",
         "match": null,
         "note": ""
-      },
-      "date": "2026-09-04",
-      "platform": "X",
-      "owner": ""
+      }
     },
     {
       "date": "2026-09-05",
@@ -845,31 +867,33 @@
       }
     },
     {
+      "date": "2026-09-05",
+      "channel": "hiyoko",
+      "platform": "X",
       "time": "09:30",
+      "label": "HIYOKOはもうすぐインドネシアに行く",
+      "owner": "",
       "type": "text",
-      "label": "インドネシアに行く",
       "text": {
         "ja": "HIYOKOはもうすぐ\nインドネシアに行くよ。🇮🇩🐣\n\n9月、現地でオフラインイベントがある。\n楽しみにしててね。😎\n\n#HYK #HIYOKO #Indonesia",
         "en": "HIYOKO is heading to Indonesia. 🇮🇩🐣\n\nbig offline event coming this September.\nstay tuned. 😎\n\n#HYK #HIYOKO #Indonesia",
-        "ko": "히요코 곧 인도네시아 간다. 🇮🇩🐣\n\n9월 오프라인 행사 있어.\n재미있게 준비하고 있으니까\n기대해줘. 😎\n\n#HYK #HIYOKO #Indonesia"
+        "ko": "히요코 곰 인도네시아 간다. 🇮🇩🐣\n\n9월 오프라인 행사 있어.\n재미있게 준비하고 있으니까 기대해줘. 😎\n\n#HYK #HIYOKO #Indonesia"
       },
+      "comment": "",
       "asset": "",
       "note": "",
-      "scheduled": false,
-      "posted": false,
-      "url": "",
       "need": [
         "text"
       ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
       "check": {
         "done": false,
         "at": "",
         "match": null,
         "note": ""
-      },
-      "date": "2026-09-05",
-      "platform": "X",
-      "owner": ""
+      }
     },
     {
       "date": "2026-09-05",
@@ -930,58 +954,62 @@
       "owner": ""
     },
     {
+      "date": "2026-09-05",
+      "channel": "hiyoko",
+      "platform": "X",
       "time": "17:00",
+      "label": "HIYOKOはゼロから始めない",
+      "owner": "",
       "type": "text",
-      "label": "ゼロから始めない",
       "text": {
-        "ja": "HIYOKOはゼロから始めない。🪄\n\n🎮 Happy Chick — 1億4800万ダウンロード済み\n❤️ Vitalis — 55,000人以上が登録済み\n🌍 非中国ターゲット市場 — 約5,400万人\n\nユーザーはすでにそこにいる。\n\n集めるんじゃなく\n繋げるんだよ。\n\nそれがHIYOKOの\n本当の強さだよ。😎\n\n#HYK #HIYOKO #Web3",
+        "ja": "HIYOKOはゼロから始めない。🪄\n\n🎮 Happy Chick — 1億4800万ダウンロード済み\n❤️ Vitalis — 55,000人以上が登録済み\n🌍 非中国ターゲット市場 — 紊5,400万人\n\nユーザーはすでにそこにいる。\n\n集めるんじゃなく\n繋げるんだよ。\n\nそれがHIYOKOの\n本当の強さだよ。😎\n\n#HYK #HIYOKO #Web3",
         "en": "HIYOKO isn't starting from zero. 🪄\n\n🎮 Happy Chick — 148M+ downloads\n❤️ Vitalis — 55,000+ registered\n🌍 non-China target market — 54M people\n\nthe users are already there.\n\nnot starting from zero.\nconnecting what's already there.\n\nthat's HIYOKO's\nreal strength. 😎\n\n#HYK #HIYOKO #Web3",
         "ko": "HIYOKO는 제로에서 시작하지 않아. 🪄\n\n🎮 Happy Chick — 1억 4800만 다운로드\n❤️ Vitalis — 55,000명+ 등록 완료\n🌍 비중국 타겟 시장 — 약 5,400만 명\n\n유저들은 이미 거기 있어.\n\n제로에서 모으는 게 아니라\n이미 있는 걸 연결하는 거야.\n\n그게 HIYOKO의\n진짜 강점이야. 😎\n\n#HYK #HIYOKO #Web3"
       },
+      "comment": "",
       "asset": "",
       "note": "",
-      "scheduled": false,
-      "posted": false,
-      "url": "",
       "need": [
         "text"
       ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
       "check": {
         "done": false,
         "at": "",
         "match": null,
         "note": ""
-      },
-      "date": "2026-09-05",
-      "platform": "X",
-      "owner": ""
+      }
     },
     {
+      "date": "2026-09-05",
+      "channel": "hiyoko",
+      "platform": "X",
       "time": "17:05",
-      "type": "reply",
-      "label": "フック返信",
+      "label": "Reply",
+      "owner": "",
+      "type": "text",
       "text": {
         "ja": "",
         "en": "already there.\nalready connected.\nthat's the difference. 👀🐣",
         "ko": ""
       },
+      "comment": "",
       "asset": "",
       "note": "",
-      "scheduled": false,
-      "posted": false,
-      "url": "",
       "need": [
         "text"
       ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
       "check": {
         "done": false,
         "at": "",
         "match": null,
         "note": ""
-      },
-      "date": "2026-09-05",
-      "platform": "X",
-      "owner": ""
+      }
     },
     {
       "date": "2026-09-06",
@@ -1021,31 +1049,33 @@
       }
     },
     {
+      "date": "2026-09-06",
+      "channel": "hiyoko",
+      "platform": "X",
       "time": "09:30",
-      "type": "text",
       "label": "【Week 1】今週のHIYOKO",
+      "owner": "",
+      "type": "text",
       "text": {
         "ja": "【Week 1】今週のHIYOKO🪄\n\n🐣 HYK — エコシステムの中心\n🎮 P2E — ゲームしてCheePoint→HYK\n❤️ H2E — 健康チェックしてCheePoint→HYK\n🌍 148M × 55K × 54M — すでにそこにいる\n🇮🇩 9月インドネシアでイベント開催！\n\n今週もありがとう。来週も楽しみに🐣",
         "en": "【Week 1】HIYOKO this week 🪄\n\n🐣 HYK — center of the ecosystem\n🎮 P2E — play → CheePoints → HYK\n❤️ H2E — health check → CheePoints → HYK\n🌍 148M × 55K × 54M — already there\n🇮🇩 offline event in Indonesia this September!\n\nthanks, hooman.\nsee you next week 🐣",
-        "ko": "【1주차】이번 주 HIYOKO 🪄\n\n🐣 HYK — 에코시스템의 중심\n🎮 P2E — 게임 → CheePoint → HYK\n❤️ H2E — 건강체크 → CheePoint → HYK\n🌍 148M × 55K × 54M — 이미 거기 있어\n🇮🇩 9월 인도네시아 오프라인 행사!\n\n이번 주도 고마워. 다음 주도 기대해줘 🐣"
+        "ko": "【주차】1주차의 HIYOKO 🪄\n\n🐣 HYK — 에코시스템의 중심\n🎮 P2E — 게임 → CheePoint → HYK\n❤️ H2E — 건강체크 → CheePoint → HYK\n🌍 148M × 55K × 54M — 이미 거기 있어\n🇮🇩 9월 인도네시아 오프라인 행사!\n\n이번 주도 고마워. 다음 주도 기대해줘 🐣"
       },
+      "comment": "",
       "asset": "",
       "note": "",
-      "scheduled": false,
-      "posted": false,
-      "url": "",
       "need": [
         "text"
       ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
       "check": {
         "done": false,
         "at": "",
         "match": null,
         "note": ""
-      },
-      "date": "2026-09-06",
-      "platform": "X",
-      "owner": ""
+      }
     },
     {
       "date": "2026-09-06",
@@ -1106,32 +1136,33 @@
       "owner": ""
     },
     {
+      "date": "2026-09-06",
+      "channel": "hiyoko",
+      "platform": "X",
       "time": "17:00",
-      "type": "image",
-      "label": "Coinstoreで取引できる",
+      "label": "HYKはCoinstoreで取引できる",
+      "owner": "",
+      "type": "text",
       "text": {
         "ja": "HYKはCoinstoreで取引できるよ。🪄\n\nCoinstoreを開いて\n「HYK」を検索してみて。\n\nHYK/USDTが出てくるよ。😎\n\n#HYK #HIYOKO #Coinstore",
         "en": "HYK is available on Coinstore. 🪄\n\nopen Coinstore.\nsearch for \"HYK\".\n\nyou'll find HYK/USDT. 😎\n\n#HYK #HIYOKO #Coinstore",
         "ko": "HYK Coinstore에서 거래 가능해. 🪄\n\nCoinstore 열고\n\"HYK\" 검색해봐.\n\nHYK/USDT 나와. 😎\n\n#HYK #HIYOKO #Coinstore"
       },
-      "asset": "코인스토어 X 게시물 끌어와서 재업로드",
+      "comment": "",
+      "asset": "",
       "note": "",
+      "need": [
+        "text"
+      ],
       "scheduled": false,
       "posted": false,
       "url": "",
-      "need": [
-        "text",
-        "image"
-      ],
       "check": {
         "done": false,
         "at": "",
         "match": null,
         "note": ""
-      },
-      "date": "2026-09-06",
-      "platform": "X",
-      "owner": ""
+      }
     },
     {
       "date": "2026-09-07",
@@ -1183,31 +1214,33 @@
       }
     },
     {
+      "date": "2026-09-07",
+      "channel": "hiyoko",
+      "platform": "X",
       "time": "09:30",
-      "type": "text",
       "label": "なんでトークンをゆっくり出すの？",
+      "owner": "",
+      "type": "text",
       "text": {
-        "ja": "なんでトークンをゆっくり出すの？🪄\n\n一度に全部出したら\n市場が崩れるから。\n\nHIYOKOは\nプリセール・チーム・財団トークンに\nLock & Vestingを適用してる。\n\n段階的に解放することで\n急激な売り圧力を防いで\n長期的な安定を守る。\n\n早く全部欲しい気持ちはわかる。\nでもゆっくりの方が\nみんなのためになるんだよ。😎\n\n#HYK #HIYOKO #Tokenomics",
+        "ja": "なんでトークンを\nゆっくり出すの？🪄\n\n一度に全部出したら\n市場が崩れるから。\n\nHIYOKOは\nプリセール・チーム・財団トークンに\nLock & Vestingを適用してる。\n\n段階的に解放することで\n急激な売り圧力を防ぐ\n長期的な安定を守る。\n\n早く全部欲しい気持ちはわかる。\nでもゆっくりの方が\nみんなのためになるんだよ。😎\n\n#HYK #HIYOKO #Tokenomics",
         "en": "why release tokens slowly? 🪄\n\nrelease everything at once,\nand it can create heavy selling pressure.\n\nHIYOKO applies\nLock & Vesting to\npresale, team, and foundation tokens.\n\ngradual release helps limit\nsudden selling pressure\nand support long-term stability.\n\nwant it all now? understandable.\nbut a gradual release\nhelps support the ecosystem long-term. 😎\n\n#HYK #HIYOKO #Tokenomics",
         "ko": "왜 토큰을 천천히 풀어? 🪄\n\n한꺼번에 다 풀면\n시장이 무너지니까.\n\nHIYOKO는\n프리세일·팀·파운데이션 토큰에\nLock & Vesting을 적용했어.\n\n단계적으로 풀어서\n급격한 매도 압력을 방지하고\n장기적인 안정을 지켜.\n\n지금 당장 다 원하는 마음 이해해.\n근데 천천히 가는 게\n모두를 위한 거야. 😎\n\n#HYK #HIYOKO #Tokenomics"
       },
+      "comment": "",
       "asset": "",
       "note": "",
-      "scheduled": true,
-      "posted": false,
-      "url": "",
       "need": [
         "text"
       ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
       "check": {
         "done": false,
         "at": "",
         "match": null,
         "note": ""
-      },
-      "date": "2026-09-07",
-      "platform": "X",
-      "owner": ""
+      }
     },
     {
       "date": "2026-09-07",
@@ -1268,31 +1301,62 @@
       "owner": ""
     },
     {
+      "date": "2026-09-07",
+      "channel": "hiyoko",
+      "platform": "X",
       "time": "17:00",
-      "type": "text",
       "label": "HIYOKOの成長ステップ",
+      "owner": "",
+      "type": "text",
       "text": {
         "ja": "HIYOKOの成長ステップ。🪄\n\nプリセール\n→ 取引所上場（Coinstore）✅\n→ アフターセール ← 今ここ\n→ エコシステム拡大\n\nプリセールを逃した人も\nアフターセールで参加できるよ。\n\n今が参加できるタイミング。😎\n\n👇 https://sale.hiyoko.io/\n\n#HYK #HIYOKO #AfterSale",
         "en": "HIYOKO's growth path. 🪄\n\npresale\n→ Coinstore listing ✅\n→ after-sale ← we are here\n→ ecosystem expansion\n\nmissed the presale?\nthe after-sale is open now.\n\nyou can still join. 😎\n\n👇 https://sale.hiyoko.io/\n\n#HYK #HIYOKO #AfterSale",
         "ko": "HIYOKO 성장 단계. 🪄\n\n프리세일\n→ 거래소 상장 (Coinstore) ✅\n→ 애프터세일 ← 지금 여기\n→ 에코시스템 확장\n\n프리세일 놓쳤어?\n애프터세일 지금 열려있어.\n\n지금이 타이밍이야. 😎\n\n👇 https://sale.hiyoko.io/\n\n#HYK #HIYOKO #AfterSale"
       },
+      "comment": "",
       "asset": "",
       "note": "",
-      "scheduled": true,
-      "posted": false,
-      "url": "",
       "need": [
         "text"
       ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
       "check": {
         "done": false,
         "at": "",
         "match": null,
         "note": ""
-      },
+      }
+    },
+    {
       "date": "2026-09-07",
+      "channel": "hiyoko",
       "platform": "X",
-      "owner": ""
+      "time": "18:00",
+      "label": "",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "",
+        "en": "still early. still $0.025. 🐣",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "時刻は元表に明記なし。推定",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
     },
     {
       "date": "2026-09-08",
@@ -1352,31 +1416,33 @@
       }
     },
     {
+      "date": "2026-09-08",
+      "channel": "hiyoko",
+      "platform": "X",
       "time": "09:30",
-      "type": "text",
       "label": "Burnって知ってる？",
+      "owner": "",
+      "type": "text",
       "text": {
         "ja": "Burnって知ってる？🔥🐣\n\nトークンを燃やすやつ。\n\nなんで燃やすの？\n\n流通量が減る\n→ 希少性が上がる\n→ 価値が守られる\n\nHIYOKOも\nエコシステムのバランスを見ながら\nBurnを設計に組み込んでるよ。\n\n燃やすことで守る。\nそういう設計。😎\n\n#HYK #HIYOKO #Tokenomics #Burn",
         "en": "heard of token burning? 🔥🐣\n\nit's when tokens are permanently removed from circulation.\n\nwhy?\n\nless supply\n→ more scarcity\n\nHIYOKO has token burning\nbuilt into its design\nto help balance the ecosystem.\n\nreduce supply.\nincrease scarcity.\nthat's the idea. 😎\n\n#HYK #HIYOKO #Tokenomics #Burn",
-        "ko": "Burn 알아? 🔥🐣\n\n토큰 태우는 거야.\n\n왜 태워?\n\n유통량 줄어\n→ 희소성 올라가\n→ 가치 지켜져\n\n히요코도\n에코시스템 균형 보면서\nBurn을 설계에 넣었어.\n\n태워서 지키는 거야.\n그런 설계야. 😎\n\n#HYK #HIYOKO #Tokenomics #Burn"
+        "ko": "Burn 알아? 🔥🐣\n\n토큰 태우는 거야.\n\n왜 태우지?\n\n유통량 줄어\n→ 희소성 올라가\n→ 가치 지켜져\n\n히요코도\n에코시스템 균형 보면서\nBurn을 설계에 넣었어.\n\n태워서 지키는 거야.\n그런 설계야. 😎\n\n#HYK #HIYOKO #Tokenomics #Burn"
       },
+      "comment": "",
       "asset": "",
       "note": "",
-      "scheduled": true,
-      "posted": false,
-      "url": "",
       "need": [
         "text"
       ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
       "check": {
         "done": false,
         "at": "",
         "match": null,
         "note": ""
-      },
-      "date": "2026-09-08",
-      "platform": "X",
-      "owner": ""
+      }
     },
     {
       "date": "2026-09-08",
@@ -1437,32 +1503,62 @@
       "owner": ""
     },
     {
+      "date": "2026-09-08",
+      "channel": "hiyoko",
+      "platform": "X",
       "time": "17:00",
-      "type": "image",
       "label": "HIYOKOは今、進行中",
+      "owner": "",
+      "type": "text",
       "text": {
         "ja": "HIYOKOは今、進行中。🪄\n\n✅ Happy Chick — 稼働中\n✅ Vitalis — 55,000人以上登録済み\n✅ HYK — Coinstore上場済み\n✅ アフターセール — 進行中\n\nComing:\n🔜 Vitalis 正式リリース\n🔜 NFTマーケット拡大\n🔜 KOLマーケティング本格展開\n🔜 エコシステムさらなる拡大\n\nこれはまだ始まりにすぎない。🐣\n\n#HYK #HIYOKO #Roadmap",
         "en": "HIYOKO is moving forward. 🪄\n\n✅ Happy Chick — live\n✅ Vitalis — 55,000+ registered\n✅ HYK — listed on Coinstore\n✅ after-sale — ongoing\n\ncoming:\n🔜 Vitalis official launch\n🔜 NFT marketplace expansion\n🔜 full KOL marketing rollout\n🔜 further ecosystem expansion\n\nand this is just the beginning. 🐣\n\n#HYK #HIYOKO #Roadmap",
         "ko": "HIYOKO 지금 진행 중. 🪄\n\n✅ Happy Chick — 운영 중\n✅ Vitalis — 55,000명+ 등록 완료\n✅ HYK — Coinstore 상장 완료\n✅ 애프터세일 — 진행 중\n\nComing:\n🔜 Vitalis 정식 출시\n🔜 NFT 마켓 확장\n🔜 KOL 마케팅 본격 전개\n🔜 에코시스템 추가 확장\n\n이건 아직 시작일 뿐이야. 🐣\n\n#HYK #HIYOKO #Roadmap"
       },
-      "asset": "GIF",
+      "comment": "",
+      "asset": "",
       "note": "",
-      "scheduled": true,
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
       "posted": false,
       "url": "",
-      "need": [
-        "text",
-        "image"
-      ],
       "check": {
         "done": false,
         "at": "",
         "match": null,
         "note": ""
-      },
+      }
+    },
+    {
       "date": "2026-09-08",
+      "channel": "hiyoko",
       "platform": "X",
-      "owner": ""
+      "time": "17:05",
+      "label": "Reply",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "",
+        "en": "HIYOKO community is here 👇🐣\nhttps://linktr.ee/HIYOKO_global",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
     },
     {
       "date": "2026-09-09",
@@ -1520,31 +1616,59 @@
       }
     },
     {
+      "date": "2026-09-09",
+      "channel": "hiyoko",
+      "platform": "X",
       "time": "09:30",
-      "type": "text",
-      "label": "",
+      "label": "スレッド HIYOKOはなぜ価値があるの？🪄",
+      "owner": "",
+      "type": "thread",
       "text": {
-        "ja": "",
-        "en": "",
+        "ja": "HIYOKOはなぜ価値があるの？🪄\n\n今日は一日かけて\nその答えを話していくよ。",
+        "en": "why does HIYOKO have value? 🪄\n\ntoday we're going to answer that.\none thread at a time.",
         "ko": ""
       },
+      "comment": "want to join us?\neverything's here 👇\nhttps://linktr.ee/HIYOKO_global",
       "asset": "",
       "note": "",
-      "scheduled": false,
-      "posted": false,
-      "url": "",
       "need": [
         "text"
       ],
+      "scheduled": false,
+      "posted": true,
+      "url": "",
       "check": {
-        "done": false,
-        "at": "",
+        "done": true,
+        "at": "2026-09-10T09:16:57.444Z",
         "match": null,
         "note": ""
       },
-      "date": "2026-09-09",
-      "platform": "X",
-      "owner": ""
+      "parts": [
+        {
+          "time": "09:00",
+          "no": "1/4",
+          "ja": "HIYOKOはなぜ価値があるの？🪄\n\n今日は一日かけて\nその答えを話していくよ。",
+          "en": "why does HIYOKO have value? 🪄\n\ntoday we're going to answer that.\none thread at a time."
+        },
+        {
+          "time": "11:50",
+          "no": "2/4",
+          "ja": "まず、数字を見てみよう。🪄\n\n🎮 Happy Chick — 1億4800万ダウンロード\n❤️ Vitalis — 55,000人以上登録済み\n🌍 非中国ターゲット市場 — 紊5,400万人\n\n多くのWeb3プロジェクトは\nゼロからユーザーを集める。\n\nHIYOKOは違う。\nユーザーはすでにそこにいる。",
+          "en": "first. the numbers. 🪄\n\n🎮 Happy Chick — 148M+ downloads\n❤️ Vitalis — 55,000+ registered\n🌍 non-China target market — 54M people\n\nmost Web3 projects\nbuild their user base from zero.\n\nHIYOKO is different.\nthe users are already there.\n\n2/4 🧵"
+        },
+        {
+          "time": "14:00",
+          "no": "3/4",
+          "ja": "次に、仲組みを見てみよう。🪄\n\n🎮 ゲームして → CheePoint貯まる\n❤️ 健康チェックして → CheePoint貯まる\n🪙 CheePoint → HYKに交換\n\n使う人が増えるほど\nHYKの実需が生まれる。\n\n価格投機じゃなく\n実際の需要が価値を作る。\nそれがHIYOKOの設計だよ。🐣\n\n3/4 🧵",
+          "en": "next. the structure. 🪄\n\n🎮 play games → earn CheePoints\n❤️ check your health → earn CheePoints\n🪙 CheePoints → swap them for HYK\n\nmore users\n→ more utility for HYK.\n\nnot just about price speculation.\nreal use supports the ecosystem.\n\nthat's HIYOKO's design. 🐣\n\n3/4 🧵"
+        },
+        {
+          "time": "17:00",
+          "no": "4/4",
+          "ja": "最後に、未来を見てみよう。🪄\n\nゲームして価値が生まれる。\n健康チェックして価値が生まれる。\nコミュニティが育つほど\nHIYOKOは大きくなる。\n\n日常のあらゆる行動が\n価値に繋がる世界。\n\nそれがHIYOKOのビジョン。\n今まさに作られてる最中だよ。😎\n\n4/4 🧵\n\n#HYK #HIYOKO #Web3 #GameFi #HealthFi",
+          "en": "finally. the future. 🪄\n\nplay games.\ncheck your health.\ntake part in the community.\n\neveryday actions\nconnect to the HIYOKO ecosystem.\n\nas the community grows,\nHIYOKO grows with it.\n\nthat's HIYOKO's vision.\nand it's being built right now. 😎\n\n4/4 🧵\n\n#HYK #HIYOKO #Web3 #GameFi #HealthFi"
+        }
+      ]
     },
     {
       "date": "2026-09-09",
@@ -1605,33 +1729,6 @@
       "owner": ""
     },
     {
-      "time": "17:00",
-      "type": "text",
-      "label": "",
-      "text": {
-        "ja": "",
-        "en": "",
-        "ko": ""
-      },
-      "asset": "",
-      "note": "",
-      "scheduled": true,
-      "posted": false,
-      "url": "",
-      "need": [
-        "text"
-      ],
-      "check": {
-        "done": false,
-        "at": "",
-        "match": null,
-        "note": ""
-      },
-      "date": "2026-09-09",
-      "platform": "X",
-      "owner": ""
-    },
-    {
       "date": "2026-09-10",
       "channel": "reel",
       "platform": "X",
@@ -1685,60 +1782,6 @@
         "match": null,
         "note": ""
       }
-    },
-    {
-      "time": "09:30",
-      "type": "thread",
-      "label": "スレッド HIYOKOはなぜ価値があるの？",
-      "text": {
-        "ja": "HIYOKOはなぜ価値があるの？🪄\n\n今日は一日かけて\nその答えを話していくよ。",
-        "en": "why does HIYOKO have value? 🪄\n\ntoday we're going to answer that.\none thread at a time.",
-        "ko": ""
-      },
-      "asset": "",
-      "note": "実際に使う文面は Nobo Check（2つ目の英語）",
-      "scheduled": false,
-      "posted": true,
-      "url": "",
-      "need": [
-        "text"
-      ],
-      "check": {
-        "done": true,
-        "at": "2026-09-10T09:16:57.444Z",
-        "match": null,
-        "note": ""
-      },
-      "date": "2026-09-10",
-      "platform": "X",
-      "parts": [
-        {
-          "time": "09:00",
-          "no": "1/4",
-          "ja": "HIYOKOはなぜ価値があるの？🪄\n\n今日は一日かけて\nその答えを話していくよ。",
-          "en": "why does HIYOKO have value? 🪄\n\ntoday we're going to answer that.\none thread at a time."
-        },
-        {
-          "time": "11:50",
-          "no": "2/4",
-          "ja": "まず、数字を見てみよう。🪄\n\n🎮 Happy Chick — 1億4800万ダウンロード\n❤️ Vitalis — 55,000人以上登録済み\n🌍 非中国ターゲット市場 — 約5,400万人\n\n多くのWeb3プロジェクトは\nゼロからユーザーを集める。\n\nHIYOKOは違う。\nユーザーはすでにそこにいる。",
-          "en": "first. the numbers. 🪄\n\n🎮 Happy Chick — 148M+ downloads\n❤️ Vitalis — 55,000+ registered\n🌍 non-China target market — 54M people\n\nmost Web3 projects\nbuild their user base from zero.\n\nHIYOKO is different.\nthe users are already there.\n\n2/4 🧵"
-        },
-        {
-          "time": "14:00",
-          "no": "3/4",
-          "ja": "次に、仕組みを見てみよう。🪄\n\n🎮 ゲームして → CheePoint貯まる\n❤️ 健康チェックして → CheePoint貯まる\n🪙 CheePoint → HYKに交換\n\n使う人が増えるほど\nHYKの実需が生まれる。\n\n価格投機じゃなく\n実際の需要が価値を作る。\nそれがHIYOKOの設計だよ。🐣\n\n3/4 🧵",
-          "en": "next. the structure. 🪄\n\n🎮 play games → earn CheePoints\n❤️ check your health → earn CheePoints\n🪙 CheePoints → swap them for HYK\n\nmore users\n→ more utility for HYK.\n\nnot just about price speculation.\nreal use supports the ecosystem.\n\nthat's HIYOKO's design. 🐣\n\n3/4 🧵"
-        },
-        {
-          "time": "17:00",
-          "no": "4/4",
-          "ja": "最後に、未来を見てみよう。🪄\n\nゲームして価値が生まれる。\n健康チェックして価値が生まれる。\nコミュニティが育つほど\nHIYOKOは大きくなる。\n\n日常のあらゆる行動が\n価値に繋がる世界。\n\nそれがHIYOKOのビジョン。\n今まさに作られてる最中だよ。😎\n\n4/4 🧵\n\n#HYK #HIYOKO #Web3 #GameFi #HealthFi",
-          "en": "finally. the future. 🪄\n\nplay games.\ncheck your health.\ntake part in the community.\n\neveryday actions\nconnect to the HIYOKO ecosystem.\n\nas the community grows,\nHIYOKO grows with it.\n\nthat's HIYOKO's vision.\nand it's being built right now. 😎\n\n4/4 🧵\n\n#HYK #HIYOKO #Web3 #GameFi #HealthFi"
-        }
-      ],
-      "comment": "want to join us?\neverything's here 👇\nhttps://linktr.ee/HIYOKO_global",
-      "owner": ""
     },
     {
       "date": "2026-09-10",
@@ -1803,6 +1846,35 @@
     {
       "date": "2026-09-10",
       "channel": "hiyoko",
+      "platform": "X",
+      "time": "14:00",
+      "label": "夏が終わっていく",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "夏が終わっていく。🌊☀️\n\n最後の夏だよ。\nHIYOKOと一緒に楽しもう。🐣\n\n#HYK #HIYOKO #Summer",
+        "en": "summer is ending. 🌊☀️\n\nlast stretch of summer.\nlet's enjoy it with HIYOKO. 🐣\n\n#HYK #HIYOKO #Summer",
+        "ko": "여름이 끝나가고 있어. 🌊☀️\n\n마지막 여름이야.\n히요코랑 같이 즐기자. 🐣\n\n#HYK #HIYOKO #Summer"
+      },
+      "comment": "",
+      "asset": "",
+      "note": "",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-10",
+      "channel": "hiyoko",
       "platform": "YT",
       "time": "14:00",
       "label": "",
@@ -1826,6 +1898,35 @@
       "check": {
         "done": true,
         "at": "2026-09-10T08:22:56.785Z",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-10",
+      "channel": "hiyoko",
+      "platform": "X",
+      "time": "14:05",
+      "label": "Reply",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "",
+        "en": "last days of summer with HIYOKO 🌊🐣",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
         "match": null,
         "note": ""
       }
@@ -1886,34 +1987,6 @@
       "check": {
         "done": true,
         "at": "2026-09-10T08:20:07.896Z",
-        "match": null,
-        "note": ""
-      }
-    },
-    {
-      "date": "2026-09-10",
-      "platform": "X",
-      "time": "17:00",
-      "label": "",
-      "owner": "SuHa",
-      "type": "text",
-      "text": {
-        "ja": "",
-        "en": "",
-        "ko": ""
-      },
-      "comment": "",
-      "asset": "",
-      "note": "",
-      "need": [
-        "text"
-      ],
-      "scheduled": false,
-      "posted": false,
-      "url": "",
-      "check": {
-        "done": false,
-        "at": "",
         "match": null,
         "note": ""
       }
@@ -2125,32 +2198,33 @@
       }
     },
     {
+      "date": "2026-09-12",
+      "channel": "hiyoko",
+      "platform": "X",
       "time": "09:30",
-      "type": "image",
-      "label": "Coinstoreとは",
+      "label": "HYKはCoinstoreに上場してる",
+      "owner": "",
+      "type": "text",
       "text": {
-        "ja": "HYKはCoinstoreに上場してるよ。🪄\n\nCoinstoreって？\n世界1,500万人以上が使う\nグローバル取引所。\n\nそこでHYK/USDTが\n今すぐ取引できる。😎\n\n@CoinstoreExc\n\n#HYK #HIYOKO #Coinstore",
+        "ja": "HYKはCoinstoreに上場してるよ。🪄\n\nCoinstoreって？\n世用1,500万人以上が使う\nグローバル取引所。\n\nそこでHYK/USDTが\n今すぐ取引できる。😎\n\n@CoinstoreExc\n\n#HYK #HIYOKO #Coinstore",
         "en": "HYK is listed on Coinstore. 🪄\n\nwhat's Coinstore?\ntrusted by 15M+ users worldwide.\na global crypto exchange.\n\nHYK/USDT is live there.\nright now. 😎\n\n@CoinstoreExc\n\n#HYK #HIYOKO #Coinstore",
-        "ko": "HYK Coinstore에 상장되어 있어. 🪄\n\nCoinstore가 뭐냐고?\n전 세계 1,500만 명+ 유저가 사용하는\n글로벌 거래소야.\n\n거기서 HYK/USDT\n지금 바로 거래 가능해. 😎\n\n@CoinstoreExc\n\n#HYK #HIYOKO #Coinstore"
+        "ko": "HYK Coinstore에 상장되어 있어. 🪄\n\nCoinstore가 뫐냐고?\n전 세계 1,500만 명+ 유저가 사용하는\n글로벌 거래소야.\n\n거기서 HYK/USDT\n지금 바로 거래 가능해. 😎\n\n@CoinstoreExc\n\n#HYK #HIYOKO #Coinstore"
       },
-      "asset": "코인스토어 X 인기게시물 끌어와서 재업로드",
+      "comment": "",
+      "asset": "",
       "note": "",
+      "need": [
+        "text"
+      ],
       "scheduled": false,
       "posted": false,
       "url": "",
-      "need": [
-        "text",
-        "image"
-      ],
       "check": {
         "done": false,
         "at": "",
         "match": null,
         "note": ""
-      },
-      "date": "2026-09-12",
-      "platform": "X",
-      "owner": ""
+      }
     },
     {
       "date": "2026-09-12",
@@ -2211,31 +2285,62 @@
       "owner": ""
     },
     {
+      "date": "2026-09-12",
+      "channel": "hiyoko",
+      "platform": "X",
       "time": "17:00",
+      "label": "HYKはCoinstoreで取引開始しています",
+      "owner": "",
       "type": "text",
-      "label": "",
       "text": {
-        "ja": "",
-        "en": "",
+        "ja": "HYKはCoinstoreで取引開始しています。🐣\n\nHIYOKOは取引所でも\n活発に動いています。\n\nHYKのリアルタイム取引状況は\nCoinstoreでチェックしてみてください〜",
+        "en": "HYK is live on Coinstore. 🐣\nHIYOKO is staying active on the exchange, too.\nCheck HYK’s real-time trading activity on Coinstore~",
         "ko": ""
       },
+      "comment": "",
       "asset": "",
       "note": "",
-      "scheduled": false,
-      "posted": false,
-      "url": "",
       "need": [
         "text"
       ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
       "check": {
         "done": false,
         "at": "",
         "match": null,
         "note": ""
-      },
+      }
+    },
+    {
       "date": "2026-09-12",
+      "channel": "hiyoko",
       "platform": "X",
-      "owner": ""
+      "time": "17:05",
+      "label": "Reply",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "",
+        "en": "HYK is live on Coinstore 🐣 https://www.coinstore.com/spot/HYKUSDT",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
     },
     {
       "date": "2026-09-13",
@@ -2275,31 +2380,62 @@
       }
     },
     {
+      "date": "2026-09-13",
+      "channel": "hiyoko",
+      "platform": "X",
       "time": "09:30",
+      "label": "インドネシアイベントまであと 12日",
+      "owner": "",
       "type": "text",
-      "label": "インドネシアまであと12日",
       "text": {
-        "ja": "インドネシアイベントまで\nあと12日。🇮🇩🐣\n\n9月24日、現地で会おう。\n\n楽しみにしててね。😎\n\n#HYK #HIYOKO #Indonesia",
+        "ja": "インドネシアイベントまで\nあと 12日。🇮🇩🐣\n\n9月24日、現地で会しよう。\n楽しみにしててね。😎\n\n#HYK #HIYOKO #Indonesia",
         "en": "12 days until the\nIndonesia event. 🇮🇩🐣\n\nSeptember 24th.\nsee you there.\n\nstay tuned. 😎\n\n#HYK #HIYOKO #Indonesia",
-        "ko": "인도네시아 행사까지\n12일 남았어. 🇮🇩🐣\n\n9월 24일, 현지에서 만나자.\n\n기대해줘. 😎\n\n#HYK #HIYOKO #Indonesia"
+        "ko": "인도네시아 행사까지\n12일 남았어. 🇮🇩🐣\n\n9월 24일, 현지에서 만나자.\n기대해줘. 😎\n\n#HYK #HIYOKO #Indonesia"
       },
+      "comment": "",
       "asset": "",
       "note": "",
-      "scheduled": false,
-      "posted": false,
-      "url": "",
       "need": [
         "text"
       ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
       "check": {
         "done": false,
         "at": "",
         "match": null,
         "note": ""
-      },
+      }
+    },
+    {
       "date": "2026-09-13",
+      "channel": "hiyoko",
       "platform": "X",
-      "owner": ""
+      "time": "13:00",
+      "label": "HIYOKOはどうやって流動性を管理してるの？",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "HIYOKOはどうやって\n流動性を管理してるの？🪄\n\n① HYKの初期流通量を約15%に抱える\n② Lock & Vestingで段階的にトークンを解放\n③ Burn・Buyback・Pool補充で需給バランスを保つ\n④ ゲーム・健康チェックでCheePointを循環させる\n\n一度に大量に出さない。\nゆっくり、でも確実に。\n\nそれがHIYOKOの\n流動性管理の答えだよ。😎\n\n#HYK #HIYOKO #Web3 #Tokenomics",
+        "en": "how does HIYOKO manage liquidity? 🪄\n\n① initial circulating supply kept at ~15%\n② Lock & Vesting releases tokens gradually\n③ Burn, Buyback & Pool replenishment help balance supply and demand\n④ games and health checks keep CheePoints circulating\n\nno large amounts released all at once.\ngradual. steady.\n\nthat's HIYOKO's approach\nto liquidity management. 😎\n\n#HYK #HIYOKO #Web3 #Tokenomics",
+        "ko": "HIYOKO는 유동성을\n어떻게 관리하고 있냐면. 🪄\n\n① HYK 초기 유통량 약 15%로 억제\n② Lock & Vesting으로 토큰 단계적 해제\n③ Burn. Buyback. 풀 보충. 수급 균형 유지\n④ 게임·건강체크로 CheePoint 순환\n\n한꺼번에 씁아내지 않아.\n천천히. 하지만 확실하게.\n\n그게 HIYOKO의\n유동성 관리 방식이야. 😎\n\n#HYK #HIYOKO #Web3 #Tokenomics"
+      },
+      "comment": "",
+      "asset": "",
+      "note": "",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
     },
     {
       "date": "2026-09-13",
@@ -2360,31 +2496,62 @@
       "owner": ""
     },
     {
+      "date": "2026-09-13",
+      "channel": "hiyoko",
+      "platform": "X",
       "time": "17:00",
+      "label": "Happy Chickで無料ゲームしよう！",
+      "owner": "",
       "type": "text",
-      "label": "流動性の管理",
       "text": {
-        "ja": "HIYOKOはどうやって\n流動性を管理してるの？🪄\n\n① HYKの初期流通量を約15%に抑える\n② Lock & Vestingで段階的にトークンを解放\n③ Burn・Buyback・Pool補充で需給バランスを保つ\n④ ゲーム・健康チェックでCheePointを循環させる\n\n一度に大量に出さない。\nゆっくり、でも確実に。\n\nそれがHIYOKOの\n流動性管理の答えだよ。😎\n\n#HYK #HIYOKO #Web3 #Tokenomics",
-        "en": "how does HIYOKO manage liquidity? 🪄\n\n① initial circulating supply kept at ~15%\n② Lock & Vesting releases tokens gradually\n③ Burn, Buyback & Pool replenishment help balance supply and demand\n④ games and health checks keep CheePoints circulating\n\nno large amounts released all at once.\ngradual. steady.\n\nthat's HIYOKO's approach\nto liquidity management. 😎\n\n#HYK #HIYOKO #Web3 #Tokenomics",
-        "ko": "HIYOKO는 유동성을\n어떻게 관리하고 있냐면. 🪄\n\n① HYK 초기 유통량 약 15%로 억제\n② Lock & Vesting으로 토큰 단계적 해제\n③ Burn. Buyback. 풀 보충. 수급 균형 유지\n④ 게임·건강체크로 CheePoint 순환\n\n한꺼번에 쏟아내지 않아.\n천천히. 하지만 확실하게.\n\n그게 HIYOKO의\n유동성 관리 방식이야. 😎\n\n#HYK #HIYOKO #Web3 #Tokenomics"
+        "ja": "Happy Chickで無料ゲームしよう！🎮🐣\n\n#HYK #HIYOKO #HappyChick",
+        "en": "come play free games on Happy Chick! 🎮🐣\n\n#HYK #HIYOKO #HappyChick",
+        "ko": "해피칩에서 무료게임 하러 와! 🎮🐣\n\n#HYK #HIYOKO #HappyChick"
       },
+      "comment": "",
       "asset": "",
-      "note": "",
-      "scheduled": false,
-      "posted": false,
-      "url": "",
+      "note": "時刻は元表に明記なし。推定",
       "need": [
         "text"
       ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
       "check": {
         "done": false,
         "at": "",
         "match": null,
         "note": ""
-      },
+      }
+    },
+    {
       "date": "2026-09-13",
+      "channel": "hiyoko",
       "platform": "X",
-      "owner": ""
+      "time": "17:05",
+      "label": "Reply",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "",
+        "en": "👇 https://xiaoji001.org/",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
     },
     {
       "date": "2026-09-14",
@@ -2438,31 +2605,33 @@
       }
     },
     {
+      "date": "2026-09-14",
+      "channel": "hiyoko",
+      "platform": "X",
       "time": "09:30",
+      "label": "ヒヨコがインドネシアへ出発",
+      "owner": "",
       "type": "text",
-      "label": "",
       "text": {
-        "ja": "",
-        "en": "",
-        "ko": ""
+        "ja": "ヒヨコがインドネシアへ出発！🐣\nオンラインを超えて、コミュニティのいる場所へ。\n呼んでくれたら駆けつけるよ。9月24日、待っててねPiyosのみんな✈️",
+        "en": "HIYOKO is heading to Indonesia! 🐣\nBeyond online — straight to where our community is.\nCall us, and we'll come running. September 24th, wait for us Piyos ✈️",
+        "ko": "히요코가 인도네시아로 간다! 🐣\n온라인을 넘어서, 커뮤니티가 있는 곳으로 출발!\n불러주면 달려갈게 — 9월 24일, 기다려 생약이들 ✈️"
       },
+      "comment": "",
       "asset": "",
       "note": "",
-      "scheduled": false,
-      "posted": false,
-      "url": "",
       "need": [
         "text"
       ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
       "check": {
         "done": false,
         "at": "",
         "match": null,
         "note": ""
-      },
-      "date": "2026-09-14",
-      "platform": "X",
-      "owner": ""
+      }
     },
     {
       "date": "2026-09-14",
@@ -2523,31 +2692,62 @@
       "owner": ""
     },
     {
+      "date": "2026-09-14",
+      "channel": "hiyoko",
+      "platform": "X",
       "time": "17:00",
+      "label": "HYKの入手方法は2つ",
+      "owner": "",
       "type": "text",
-      "label": "",
       "text": {
-        "ja": "",
-        "en": "",
-        "ko": ""
+        "ja": "HYKの入手方法は2つあるよ。🪄\n\n① アフターセール 💰\n公式サイトで$0.025で直接購入\n\n② Coinstore 📈\n取引所で市場価格でいつでも取引\n\nどちらも本物。\nどちらも今すぐできる。😎\n\n#HYK #HIYOKO #Coinstore",
+        "en": "2 ways to get HYK. 🪄\n\n① after-sale 💰\nbuy directly at $0.025\non the official site\n\n② Coinstore 📈\ntrade at market price\nanytime on the exchange\n\nboth real.\nboth available now. 😎\n\n#HYK #HIYOKO #Coinstore",
+        "ko": "HYK 얻는 방법 2가지. 🪄\n\n① 애프터세일 💰\n공식 사이트에서 $0.025로 직접 구매\n\n② Coinstore 📈\n거래소에서 시장 가격으로 언제든 거래\n\n둘 다 진짜.\n둘 다 지금 가능해. 😎\n\n#HYK #HIYOKO #Coinstore"
       },
+      "comment": "",
       "asset": "",
       "note": "",
-      "scheduled": false,
-      "posted": false,
-      "url": "",
       "need": [
         "text"
       ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
       "check": {
         "done": false,
         "at": "",
         "match": null,
         "note": ""
-      },
+      }
+    },
+    {
       "date": "2026-09-14",
+      "channel": "hiyoko",
       "platform": "X",
-      "owner": ""
+      "time": "17:05",
+      "label": "Reply",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "",
+        "en": "📍 Details & sign-up: linktr.ee/HIYOKO_global\nGot questions? Ask us in the community! 🐣",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
     },
     {
       "date": "2026-09-15",
@@ -2714,58 +2914,120 @@
       }
     },
     {
+      "date": "2026-09-16",
+      "channel": "hiyoko",
+      "platform": "X",
       "time": "09:30",
+      "label": "HIYOKOはまだ始まったばかり",
+      "owner": "",
       "type": "text",
-      "label": "",
       "text": {
-        "ja": "",
-        "en": "",
-        "ko": ""
+        "ja": "HIYOKOはまだ始まったばかり。🪄\n\nゲーム。健康。Web3。\n全部がつながって、\n全部が動き始めてる。\n\nこれがどこまで大きくなるか。\n誰も想像できないよ。🐣\n\n#HYK #HIYOKO",
+        "en": "HIYOKO is just getting started. 🪄\n\ngames. health. Web3.\nall connected.\nall moving.\n\nhow big this gets?\nnobody can imagine yet. 🐣\n\n#HYK #HIYOKO",
+        "ko": "HIYOKO는 이제 막 시작했어. 🪄\n\n게임. 건강. Web3.\n전부 연결되고.\n전부 움직이기 시작했어.\n\n이게 얼마나 커질지?\n아무도 상상 못 할 거야. 🐣\n\n#HYK #HIYOKO"
       },
+      "comment": "",
       "asset": "",
       "note": "",
-      "scheduled": false,
-      "posted": false,
-      "url": "",
       "need": [
         "text"
       ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
       "check": {
         "done": false,
         "at": "",
         "match": null,
         "note": ""
-      },
-      "date": "2026-09-16",
-      "platform": "X",
-      "owner": ""
+      }
     },
     {
-      "time": "17:00",
+      "date": "2026-09-16",
+      "channel": "hiyoko",
+      "platform": "X",
+      "time": "13:00",
+      "label": "HIYOKOについて聞きたいことある？",
+      "owner": "",
       "type": "text",
-      "label": "",
       "text": {
-        "ja": "",
-        "en": "",
-        "ko": ""
+        "ja": "HIYOKOについて\n聞きたいことある？🪄\n\nAMAを開催するよ。🐣\n\n日時・詳細は近日公開。\n質問を準備しておいてね。😎\n\n#HYK #HIYOKO #AMA",
+        "en": "got questions about HIYOKO? 🪄\n\nwe're hosting an AMA. 🐣\n\ndate and details coming soon.\nstart preparing your questions. 😎\n\n#HYK #HIYOKO #AMA",
+        "ko": "HIYOKO에 대해\n궁금한 거 있어? 🪄\n\nAMA 개최할 거야. 🐣\n\n날짜와 세부사항은 곳 공개.\n질문 미리 준비해둘. 😎\n\n#HYK #HIYOKO #AMA"
       },
+      "comment": "",
       "asset": "",
       "note": "",
-      "scheduled": false,
-      "posted": false,
-      "url": "",
       "need": [
         "text"
       ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
       "check": {
         "done": false,
         "at": "",
         "match": null,
         "note": ""
-      },
+      }
+    },
+    {
       "date": "2026-09-16",
+      "channel": "hiyoko",
       "platform": "X",
-      "owner": ""
+      "time": "17:00",
+      "label": "riding the wave",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "",
+        "en": "riding the wave 🏄🐣\n\n#HYK #HIYOKO #Web3",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "時刻は元表に明記なし。推定",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-16",
+      "channel": "hiyoko",
+      "platform": "X",
+      "time": "17:05",
+      "label": "Reply",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "",
+        "en": "hop on 👀🐣 \nhttps://www.coinstore.com/#/spot/HYKUSDT",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
     },
     {
       "date": "2026-09-17",
