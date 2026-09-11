@@ -3347,6 +3347,21 @@
   watchUpdates();
   setInterval(watchUpdates, 300000);        // 5分ごと
 
+  // いいね作業の印は、何人かが同時に押す。開いている間は1分ごとに読み直して、
+  // 他の人が押した分も見えるようにする（置き場に書いてから表に出るまで1〜2分かかる）
+  setInterval(function () {
+    if (tab !== "kpi" || document.hidden || /^#\/prep\//.test(location.hash)) return;
+    fetch("./chores.json?t=" + Date.now(), { cache: "no-store" })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (c) {
+        if (!c || !chores) return;
+        if (JSON.stringify(c.done || {}) === JSON.stringify(chores.done || {}) &&
+            JSON.stringify(c.lists || []) === JSON.stringify(chores.lists || [])) return;
+        chores = c;
+        var y2 = window.scrollY; renderKpi(); window.scrollTo(0, y2);
+      }).catch(function () {});
+  }, 60000);
+
   // 週表のときだけ枠を広げる
   function syncWide() {
     document.body.setAttribute("data-wide", (tab === "dash" || tab === "kpi" || tab === "prep2") ? "true" : "false");
