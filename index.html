@@ -121,37 +121,29 @@
   .kgroup .kcard{ margin-bottom:0; }
 
   .chores{ margin-top:30px; border-top:1px solid var(--line); padding-top:18px; }
-  .chgrid{ display:grid; grid-template-columns:1fr; gap:10px; align-items:start; }
-  @media (min-width:820px){ .chgrid{ grid-template-columns:1fr 1fr; } }
-  @media (min-width:1100px){ .chgrid{ grid-template-columns:1fr 1fr 1fr; } }
-  .chhead{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:12px; }
-  .chhead .kgtitle{ margin:0; }
-  .chhead input[type="date"]{ font:inherit; font-size:12.5px; color:var(--ink); background:var(--surface);
-    border:1px solid var(--line); border-radius:8px; padding:5px 9px; }
-  .chhead .calcount{ margin-left:auto; }
-  .chprog{ height:4px; background:var(--line); border-radius:4px; overflow:hidden; margin:0 0 16px; }
-  .chprog i{ display:block; height:100%; background:var(--sage); }
-  .chblock{ border:1px solid var(--line); border-radius:14px; background:var(--surface);
-    padding:10px 14px 6px; }
-  .chblock.now{ border-color:var(--wood); box-shadow:0 0 0 1px var(--wood); }
-  .chblock.full{ background:var(--bg); }
-  .chbhead::after{ content:""; }
-  .chbhead{ cursor:pointer; }
-  .chbhead{ display:flex; align-items:center; justify-content:space-between; margin-bottom:4px; min-height:26px; }
-  .chbtime{ font-size:15px; font-weight:500; font-variant-numeric:tabular-nums; color:var(--ink); }
-  .chacc{ display:flex; flex-direction:column; gap:5px; padding:7px 0 8px;
-    border-top:1px solid var(--line); }
-  .chname{ font-size:12px; font-weight:500; color:var(--chc, var(--ink));
-    border-left:3px solid var(--chc, var(--wood)); padding-left:7px; line-height:1.5; }
-  .chname i{ font-style:normal; font-weight:400; color:var(--muted); font-size:11px; }
-  .chchips{ display:flex; flex-wrap:wrap; gap:6px; }
+  .chwrap{ border:1px solid var(--line); border-radius:14px; background:var(--surface); overflow:hidden; }
+  .chtab{ width:100%; border-collapse:collapse; table-layout:fixed; }
+  .chtab th, .chtab td{ padding:9px 8px; border-bottom:1px solid var(--line); vertical-align:middle; }
+  .chtab tbody tr:last-child th, .chtab tbody tr:last-child td{ border-bottom:0; }
+  .chtab thead th{ font-size:13px; font-weight:500; color:var(--muted); text-align:left;
+    font-variant-numeric:tabular-nums; }
+  .chtab thead th:first-child{ width:150px; }
+  .chtab th.now, .chtab td.now{ background:var(--wood-soft); }
+  .chtab thead th.now{ color:var(--wood); }
+  .chacc2{ text-align:left; border-left:3px solid var(--chc, var(--wood)); }
+  .chacc2 b{ display:block; font-size:13px; font-weight:500; color:var(--chc, var(--ink)); }
+  .chacc2 i{ font-style:normal; font-size:11.5px; color:var(--muted); }
+  .chtab td{ display:table-cell; }
+  .chtab td .chchip{ margin:2px 4px 2px 0; }
   .chchip{ font:inherit; font-size:12.5px; color:var(--ink); background:var(--bg);
     border:1px solid var(--line); border-radius:999px; padding:5px 12px; cursor:pointer; }
   .chchip:hover{ border-color:var(--wood); }
   .chchip[data-on="true"]{ color:var(--surface); background:var(--sage); border-color:var(--sage); }
-  @media (max-width:520px){
-    .chacc{ flex-direction:column; gap:5px; }
-    .chname{ flex-basis:auto; }
+  @media (max-width:640px){
+    .chtab thead th:first-child{ width:86px; }
+    .chtab th, .chtab td{ padding:7px 4px; }
+    .chacc2 b{ font-size:12px; }
+    .chtab td .chchip{ display:block; width:100%; margin:3px 0; padding:6px 2px; font-size:11.5px; }
   }
   .kgtitle{
     margin:0 0 8px; font-size:11.5px; color:var(--chc, var(--wood)); letter-spacing:.06em;
@@ -2616,36 +2608,31 @@
   // アカウントごとに縦に積むと46行・2,000pxになり、目的の行を探すのに時間がかかった
   function toMin(tm) { var m = /^(\d{1,2}):(\d{2})/.exec(tm || ""); return m ? (+m[1]) * 60 + (+m[2]) : 9999; }
 
+  // 作業が「いいね」と「インプレッション確認」だけになったので、
+  // アカウント×時間帯の小さな表にする。表計算で見慣れた並びでもある
+  function choreShort(task) {
+    if (/インプレッション/.test(task)) return "インプレ";
+    if (/3M|csv/i.test(task)) return "3M / CSV";
+    return task.replace(/\s+/g, "").toUpperCase();
+  }
+
   function choresHTML() {
     if (!chores || !chores.lists) return "";
     if (!choreDate) choreDate = ymd(new Date());
     var dayDone = (chores.done && chores.done[choreDate]) || {};
 
-    // 時刻 → [{li, tasks}]
-    var blocks = {}, total = 0, doneN = 0;
-    chores.lists.forEach(function (li) {
-      if (filter && filter !== li.channel) return;
-      li.tasks.forEach(function (tk) {
-        var key = tk.time || "-";
-        blocks[key] = blocks[key] || {};
-        var ak = li.channel + "|" + li.platform;
-        (blocks[key][ak] = blocks[key][ak] || { li: li, tasks: [] }).tasks.push(tk);
-        total++; if (dayDone[tk.id]) doneN++;
-      });
+    var tset = {}, total = 0, doneN = 0;
+    var lists = chores.lists.filter(function (li) { return !filter || filter === li.channel; });
+    lists.forEach(function (li) {
+      li.tasks.forEach(function (tk) { tset[tk.time] = 1; total++; if (dayDone[tk.id]) doneN++; });
     });
-    var times = Object.keys(blocks).sort(function (x, y) { return toMin(x) - toMin(y); });
+    var times = Object.keys(tset).sort(function (x, y) { return toMin(x) - toMin(y); });
 
-    // 今の時間帯（今日のときだけ）
+    // 今の時間帯（今日だけ）: 始まっているうち一番遅いもの
     var now = new Date(), cur = null;
     if (choreDate === ymd(now)) {
       var nm = now.getHours() * 60 + now.getMinutes();
       times.forEach(function (tm) { if (toMin(tm) <= nm) cur = tm; });
-    }
-    // 次にやる時間帯。ここまでは開いておく。その先は畳む
-    var nextTm = null;
-    if (choreDate === ymd(now)) {
-      var nm2 = now.getHours() * 60 + now.getMinutes();
-      for (var q = 0; q < times.length; q++) { if (toMin(times[q]) > nm2) { nextTm = times[q]; break; } }
     }
 
     var pct = total ? Math.round(doneN / total * 100) : 0;
@@ -2653,34 +2640,27 @@
       '<input type="date" id="choreDate" value="' + esc(choreDate) + '">' +
       '<span class="calcount" data-full="' + (doneN === total) + '">' + doneN + "/" + total + '</span>' +
       '<span class="tiny" id="choreOut"></span></div>' +
-      '<div class="chprog"><i style="width:' + pct + '%"></i></div><div class="chgrid">';
+      '<div class="chprog"><i style="width:' + pct + '%"></i></div>' +
+      '<div class="chwrap"><table class="chtab"><thead><tr><th></th>' +
+      times.map(function (tm) {
+        return '<th class="' + (tm === cur ? "now" : "") + '">' + esc(tm) + '</th>';
+      }).join("") + '</tr></thead><tbody>';
 
-    times.forEach(function (tm) {
-      var accs = blocks[tm], n = 0, m = 0;
-      Object.keys(accs).forEach(function (ak) {
-        accs[ak].tasks.forEach(function (tk) { m++; if (dayDone[tk.id]) n++; });
+    lists.forEach(function (li) {
+      var c = chanOf(li.channel) || { name: li.channel, color: "var(--wood)" };
+      html += '<tr style="--chc:' + esc(c.color || "var(--wood)") + '"><th class="chacc2">' +
+        '<b>' + esc(c.name) + '</b><i>' + esc(pfn(li.platform)) + '</i></th>';
+      times.forEach(function (tm) {
+        var tks = li.tasks.filter(function (tk) { return tk.time === tm; });
+        html += '<td class="' + (tm === cur ? "now" : "") + '">' + tks.map(function (tk) {
+          var on = !!dayDone[tk.id];
+          return '<button class="chchip" data-id="' + esc(tk.id) + '" data-on="' + on + '" title="' +
+            esc(tk.task) + '">' + (on ? "\u2713 " : "") + esc(choreShort(tk.task)) + '</button>';
+        }).join("") + '</td>';
       });
-      // 終わった時間帯と、今日のまだ先の時間帯は畳む。見出しを押すと開く（押すたびに反転）
-      var later = (choreDate === ymd(now)) && nextTm !== null && toMin(tm) > toMin(nextTm);
-      var folded = ((n === m) || later) !== !!chOpen[tm];
-      html += '<div class="chblock' + (tm === cur ? " now" : "") + (n === m ? " full" : "") + '">' +
-        '<div class="chbhead" data-tm="' + esc(tm) + '"><span class="chbtime">' + esc(tm) + '</span>' +
-        '<span class="calcount" data-full="' + (n === m) + '">' + (n === m ? "\u2713 " : "") + n + "/" + m + '</span></div>';
-      if (folded) { html += '</div>'; return; }
-      Object.keys(accs).forEach(function (ak) {
-        var g = accs[ak];
-        var c = chanOf(g.li.channel) || { name: g.li.channel, color: "var(--wood)" };
-        html += '<div class="chacc" style="--chc:' + esc(c.color || "var(--wood)") + '">' +
-          '<span class="chname">' + esc(c.name) + ' <i>' + esc(pfn(g.li.platform)) + '</i></span>' +
-          '<span class="chchips">' + g.tasks.map(function (tk) {
-            var on = !!dayDone[tk.id];
-            return '<button class="chchip" data-id="' + esc(tk.id) + '" data-on="' + on + '">' +
-              (on ? "\u2713 " : "") + esc(tk.task) + '</button>';
-          }).join("") + '</span></div>';
-      });
-      html += '</div>';
+      html += '</tr>';
     });
-    return html + '</div></div>';
+    return html + '</tbody></table></div></div>';
   }
 
   // 押した1件だけを、置き場の最新に重ねて書く（他の人の印を消さない）
@@ -2922,18 +2902,19 @@
       var y1 = window.scrollY; renderDash(); window.scrollTo(0, y1);
       return;
     }
-    var chh = e.target.closest(".chbhead");
-    if (chh) { var tmk = chh.getAttribute("data-tm"); chOpen[tmk] = !chOpen[tmk]; renderKpi(); return; }
     var chp = e.target.closest(".chchip");
     if (chp) {
       var cid = chp.getAttribute("data-id"), con = chp.getAttribute("data-on") !== "true";
       chp.setAttribute("data-on", con);                 // 先に見た目を変える。待たせない
       var y0 = window.scrollY;
+      choreBusy = true;
       saveChore(choreDate, cid, con).then(function (r) {
+        choreBusy = false; choreEtag = null;
         renderKpi(); window.scrollTo(0, y0);
         var co2 = document.getElementById("choreOut");
         if (co2) co2.textContent = r.where === "repo" ? t("chSaved") : t("chLocal");
       }, function () {
+        choreBusy = false;
         var co3 = document.getElementById("choreOut");
         if (co3) co3.textContent = t("saveFail");
       });
@@ -3347,20 +3328,47 @@
   watchUpdates();
   setInterval(watchUpdates, 300000);        // 5分ごと
 
-  // いいね作業の印は、何人かが同時に押す。開いている間は1分ごとに読み直して、
-  // 他の人が押した分も見えるようにする（置き場に書いてから表に出るまで1〜2分かかる）
-  setInterval(function () {
-    if (tab !== "kpi" || document.hidden || /^#\/prep\//.test(location.hash)) return;
-    fetch("./chores.json?t=" + Date.now(), { cache: "no-store" })
+  // いいね作業の印は、何人かが同時に押す。他の人の印も、開いたまま見えるようにする。
+  // 鍵のある端末: GitHubから直接10秒ごと（公開ページの反映待ち1〜2分を飛ばせる）。
+  //   変わっていなければ 304 が返り、GitHubの回数制限にも数えられない
+  // 鍵のない端末: 公開ページを60秒ごと
+  var choreEtag = null, choreBusy = false;
+  function applyChores(c) {
+    if (!c || !chores) return;
+    if (JSON.stringify(c.done || {}) === JSON.stringify(chores.done || {}) &&
+        JSON.stringify(c.lists || []) === JSON.stringify(chores.lists || [])) return;
+    chores = c;
+    var y2 = window.scrollY; renderKpi(); window.scrollTo(0, y2);
+  }
+  function pullChores() {
+    if (tab !== "kpi" || document.hidden || choreBusy || /^#\/prep\//.test(location.hash)) return Promise.resolve();
+    if (storeOn()) {
+      var c = storeGet();
+      var h = { "Authorization": "Bearer " + c.token, "Accept": "application/vnd.github+json" };
+      if (choreEtag) h["If-None-Match"] = choreEtag;
+      return fetch("https://api.github.com/repos/" + c.url + "/contents/chores.json", { headers: h, cache: "no-store" })
+        .then(function (r) {
+          if (r.status === 304 || !r.ok) return null;
+          choreEtag = r.headers.get("ETag");
+          return r.json();
+        })
+        .then(function (j) {
+          if (!j) return;
+          var bin = atob((j.content || "").replace(/\n/g, ""));
+          var b0 = new Uint8Array(bin.length);
+          for (var i = 0; i < bin.length; i++) b0[i] = bin.charCodeAt(i);
+          applyChores(JSON.parse(new TextDecoder("utf-8").decode(b0)));
+        }).catch(function () {});
+    }
+    return fetch("./chores.json?t=" + Date.now(), { cache: "no-store" })
       .then(function (r) { return r.ok ? r.json() : null; })
-      .then(function (c) {
-        if (!c || !chores) return;
-        if (JSON.stringify(c.done || {}) === JSON.stringify(chores.done || {}) &&
-            JSON.stringify(c.lists || []) === JSON.stringify(chores.lists || [])) return;
-        chores = c;
-        var y2 = window.scrollY; renderKpi(); window.scrollTo(0, y2);
-      }).catch(function () {});
-  }, 60000);
+      .then(applyChores).catch(function () {});
+  }
+  (function loop() {
+    pullChores().then(function () { setTimeout(loop, storeOn() ? 10000 : 60000); });
+  })();
+  // 画面に戻ってきたら、すぐ読む
+  document.addEventListener("visibilitychange", function () { if (!document.hidden) pullChores(); });
 
   // 週表のときだけ枠を広げる
   function syncWide() {

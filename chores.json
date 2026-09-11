@@ -6,29 +6,14 @@
       "platform": "X",
       "tasks": [
         {
-          "id": "hiyoko|X|1",
-          "time": "09:30",
-          "task": "インプレッションチェック"
-        },
-        {
           "id": "hiyoko|X|2",
           "time": "09:30",
           "task": "LIKE60"
         },
         {
-          "id": "hiyoko|X|3",
-          "time": "09:30",
-          "task": "Follow / Unfollow"
-        },
-        {
           "id": "hiyoko|X|4",
           "time": "13:30",
           "task": "LIKE60"
-        },
-        {
-          "id": "hiyoko|X|5",
-          "time": "13:30",
-          "task": "Follow / Unfollow"
         },
         {
           "id": "hiyoko|X|6",
@@ -39,11 +24,6 @@
           "id": "hiyoko|X|7",
           "time": "17:30",
           "task": "LIKE60"
-        },
-        {
-          "id": "hiyoko|X|8",
-          "time": "17:30",
-          "task": "Follow / Unfollow"
         }
       ]
     },
@@ -52,29 +32,14 @@
       "platform": "X",
       "tasks": [
         {
-          "id": "nacha|X|1",
-          "time": "09:30",
-          "task": "インプレッションチェック"
-        },
-        {
           "id": "nacha|X|2",
           "time": "09:30",
           "task": "LIKE40"
         },
         {
-          "id": "nacha|X|3",
-          "time": "09:30",
-          "task": "Follow / Unfollow"
-        },
-        {
           "id": "nacha|X|4",
           "time": "13:30",
           "task": "LIKE40"
-        },
-        {
-          "id": "nacha|X|5",
-          "time": "13:30",
-          "task": "Follow / Unfollow"
         },
         {
           "id": "nacha|X|6",
@@ -85,11 +50,6 @@
           "id": "nacha|X|7",
           "time": "17:30",
           "task": "LIKE40"
-        },
-        {
-          "id": "nacha|X|8",
-          "time": "17:30",
-          "task": "Follow / Unfollow"
         }
       ]
     },
@@ -98,19 +58,9 @@
       "platform": "X",
       "tasks": [
         {
-          "id": "yuyu|X|1",
-          "time": "09:30",
-          "task": "インプレッションチェック"
-        },
-        {
           "id": "yuyu|X|2",
           "time": "09:30",
           "task": "Like 20"
-        },
-        {
-          "id": "yuyu|X|3",
-          "time": "09:30",
-          "task": "Follow / Unfollow"
         },
         {
           "id": "yuyu|X|4",
@@ -118,19 +68,9 @@
           "task": "LIKE 20"
         },
         {
-          "id": "yuyu|X|5",
-          "time": "13:30",
-          "task": "Follow / Unfollow"
-        },
-        {
           "id": "yuyu|X|6",
           "time": "17:30",
           "task": "Like 20"
-        },
-        {
-          "id": "yuyu|X|7",
-          "time": "17:30",
-          "task": "Follow / Unfollow"
         }
       ]
     },
@@ -144,24 +84,9 @@
           "task": "LIKE30"
         },
         {
-          "id": "hiyoko|IG|1",
-          "time": "09:30",
-          "task": "Follow / Unfollow"
-        },
-        {
-          "id": "hiyoko|IG|3",
-          "time": "09:30",
-          "task": "インプレッションチェック"
-        },
-        {
           "id": "hiyoko|IG|4",
           "time": "09:30",
           "task": "LIKE40"
-        },
-        {
-          "id": "hiyoko|IG|5",
-          "time": "09:30",
-          "task": "Follow / Unfollow"
         },
         {
           "id": "hiyoko|IG|6",
@@ -169,19 +94,9 @@
           "task": "LIKE40"
         },
         {
-          "id": "hiyoko|IG|7",
-          "time": "13:30",
-          "task": "Follow / Unfollow"
-        },
-        {
           "id": "hiyoko|IG|8",
           "time": "17:30",
           "task": "LIKE40"
-        },
-        {
-          "id": "hiyoko|IG|9",
-          "time": "17:30",
-          "task": "Follow / Unfollow"
         }
       ]
     },
@@ -195,24 +110,9 @@
           "task": "LIKE30"
         },
         {
-          "id": "nacha|IG|1",
-          "time": "09:30",
-          "task": "Follow / Unfollow"
-        },
-        {
-          "id": "nacha|IG|3",
-          "time": "09:30",
-          "task": "インプレッションチェック"
-        },
-        {
           "id": "nacha|IG|4",
           "time": "09:30",
           "task": "LIKE40"
-        },
-        {
-          "id": "nacha|IG|5",
-          "time": "09:30",
-          "task": "Follow / Unfollow"
         },
         {
           "id": "nacha|IG|6",
@@ -220,319 +120,157 @@
           "task": "LIKE40"
         },
         {
-          "id": "nacha|IG|7",
-          "time": "13:30",
-          "task": "Follow / Unfollow"
-        },
-        {
           "id": "nacha|IG|8",
           "time": "17:30",
           "task": "LIKE40"
-        },
-        {
-          "id": "nacha|IG|9",
-          "time": "17:30",
-          "task": "Follow / Unfollow"
         }
       ]
     }
   ],
   "done": {
     "2026-09-01": {
-      "hiyoko|X|1": true,
       "hiyoko|X|2": true,
-      "hiyoko|X|3": true,
       "hiyoko|X|4": true,
-      "hiyoko|X|5": true,
       "hiyoko|X|6": true,
       "hiyoko|X|7": true,
-      "hiyoko|X|8": true,
-      "nacha|X|1": true,
       "nacha|X|2": true,
-      "nacha|X|3": true,
       "nacha|X|4": true,
-      "nacha|X|5": true,
       "nacha|X|6": true,
       "nacha|X|7": true,
-      "nacha|X|8": true,
-      "yuyu|X|1": true,
       "yuyu|X|2": true,
-      "yuyu|X|3": true,
       "yuyu|X|4": true,
-      "yuyu|X|5": true,
       "yuyu|X|6": true,
-      "yuyu|X|7": true,
-      "hiyoko|IG|3": true,
       "hiyoko|IG|4": true,
-      "hiyoko|IG|5": true,
       "hiyoko|IG|6": true,
-      "hiyoko|IG|7": true,
       "hiyoko|IG|8": true,
-      "hiyoko|IG|9": true,
-      "nacha|IG|3": true,
       "nacha|IG|4": true,
-      "nacha|IG|5": true,
       "nacha|IG|6": true,
-      "nacha|IG|7": true,
-      "nacha|IG|8": true,
-      "nacha|IG|9": true
+      "nacha|IG|8": true
     },
     "2026-09-02": {
-      "hiyoko|X|1": true,
       "hiyoko|X|2": true,
-      "hiyoko|X|3": true,
       "hiyoko|X|4": true,
-      "hiyoko|X|5": true,
       "hiyoko|X|6": true,
       "hiyoko|X|7": true,
-      "hiyoko|X|8": true,
-      "nacha|X|1": true,
       "nacha|X|2": true,
-      "nacha|X|3": true,
       "nacha|X|4": true,
-      "nacha|X|5": true,
       "nacha|X|6": true,
       "nacha|X|7": true,
-      "nacha|X|8": true,
-      "yuyu|X|1": true,
       "yuyu|X|2": true,
-      "yuyu|X|3": true,
       "yuyu|X|4": true,
-      "yuyu|X|5": true,
       "yuyu|X|6": true,
-      "yuyu|X|7": true,
-      "hiyoko|IG|3": true,
       "hiyoko|IG|4": true,
-      "hiyoko|IG|5": true,
       "hiyoko|IG|6": true,
-      "hiyoko|IG|7": true,
       "hiyoko|IG|8": true,
-      "hiyoko|IG|9": true,
-      "nacha|IG|3": true,
       "nacha|IG|4": true,
-      "nacha|IG|5": true,
       "nacha|IG|6": true,
-      "nacha|IG|7": true,
-      "nacha|IG|8": true,
-      "nacha|IG|9": true
+      "nacha|IG|8": true
     },
     "2026-09-04": {
-      "hiyoko|X|1": true,
       "hiyoko|X|2": true,
-      "hiyoko|X|3": true,
       "hiyoko|X|6": true,
       "hiyoko|X|7": true,
-      "hiyoko|X|8": true,
-      "nacha|X|1": true,
       "nacha|X|2": true,
-      "nacha|X|3": true,
       "nacha|X|6": true,
       "nacha|X|7": true,
-      "nacha|X|8": true,
-      "hiyoko|IG|3": true,
       "hiyoko|IG|4": true,
-      "hiyoko|IG|5": true,
       "hiyoko|IG|8": true,
-      "hiyoko|IG|9": true,
-      "nacha|IG|3": true,
       "nacha|IG|4": true,
-      "nacha|IG|5": true,
-      "nacha|IG|8": true,
-      "nacha|IG|9": true
+      "nacha|IG|8": true
     },
     "2026-09-05": {
-      "hiyoko|X|1": true,
       "hiyoko|X|2": true,
-      "hiyoko|X|3": true,
-      "nacha|X|1": true,
       "nacha|X|2": true,
-      "nacha|X|3": true,
-      "nacha|IG|3": true,
-      "nacha|IG|4": true,
-      "nacha|IG|5": true
+      "nacha|IG|4": true
     },
     "2026-09-07": {
-      "hiyoko|X|1": true,
       "hiyoko|X|2": true,
-      "hiyoko|X|3": true,
       "hiyoko|X|4": true,
-      "hiyoko|X|5": true,
       "hiyoko|X|6": true,
       "hiyoko|X|7": true,
-      "hiyoko|X|8": true,
-      "nacha|X|1": true,
       "nacha|X|2": true,
-      "nacha|X|3": true,
       "nacha|X|4": true,
-      "nacha|X|5": true,
       "nacha|X|6": true,
       "nacha|X|7": true,
-      "nacha|X|8": true,
-      "yuyu|X|1": true,
       "yuyu|X|2": true,
-      "yuyu|X|3": true,
       "yuyu|X|4": true,
-      "yuyu|X|5": true,
       "yuyu|X|6": true,
-      "yuyu|X|7": true,
-      "hiyoko|IG|3": true,
       "hiyoko|IG|4": true,
-      "hiyoko|IG|5": true,
       "hiyoko|IG|6": true,
-      "hiyoko|IG|7": true,
       "hiyoko|IG|8": true,
-      "hiyoko|IG|9": true,
-      "nacha|IG|3": true,
       "nacha|IG|4": true,
-      "nacha|IG|5": true,
       "nacha|IG|6": true,
-      "nacha|IG|7": true,
-      "nacha|IG|8": true,
-      "nacha|IG|9": true
+      "nacha|IG|8": true
     },
     "2026-09-08": {
-      "hiyoko|X|1": true,
       "hiyoko|X|2": true,
-      "hiyoko|X|3": true,
       "hiyoko|X|4": true,
-      "hiyoko|X|5": true,
       "hiyoko|X|6": true,
       "hiyoko|X|7": true,
-      "hiyoko|X|8": true,
-      "nacha|X|1": true,
       "nacha|X|2": true,
-      "nacha|X|3": true,
       "nacha|X|4": true,
-      "nacha|X|5": true,
       "nacha|X|6": true,
       "nacha|X|7": true,
-      "nacha|X|8": true,
-      "yuyu|X|1": true,
       "yuyu|X|2": true,
-      "yuyu|X|3": true,
       "yuyu|X|4": true,
-      "yuyu|X|5": true,
       "yuyu|X|6": true,
-      "yuyu|X|7": true,
-      "hiyoko|IG|3": true,
       "hiyoko|IG|4": true,
-      "hiyoko|IG|5": true,
       "hiyoko|IG|6": true,
-      "hiyoko|IG|7": true,
       "hiyoko|IG|8": true,
-      "hiyoko|IG|9": true,
-      "nacha|IG|3": true,
       "nacha|IG|4": true,
-      "nacha|IG|5": true,
       "nacha|IG|6": true,
-      "nacha|IG|7": true,
-      "nacha|IG|8": true,
-      "nacha|IG|9": true
+      "nacha|IG|8": true
     },
     "2026-09-09": {
-      "hiyoko|X|1": true,
       "hiyoko|X|2": true,
-      "hiyoko|X|3": true,
       "hiyoko|X|4": true,
-      "hiyoko|X|5": true,
       "hiyoko|X|6": true,
       "hiyoko|X|7": true,
-      "hiyoko|X|8": true,
-      "nacha|X|1": true,
       "nacha|X|2": true,
-      "nacha|X|3": true,
       "nacha|X|4": true,
-      "nacha|X|5": true,
       "nacha|X|6": true,
       "nacha|X|7": true,
-      "nacha|X|8": true,
-      "yuyu|X|1": true,
       "yuyu|X|2": true,
-      "yuyu|X|3": true,
       "yuyu|X|4": true,
-      "yuyu|X|5": true,
       "yuyu|X|6": true,
-      "yuyu|X|7": true,
-      "hiyoko|IG|3": true,
       "hiyoko|IG|4": true,
-      "hiyoko|IG|5": true,
       "hiyoko|IG|6": true,
-      "hiyoko|IG|7": true,
       "hiyoko|IG|8": true,
-      "hiyoko|IG|9": true,
-      "nacha|IG|3": true,
       "nacha|IG|4": true,
-      "nacha|IG|5": true,
       "nacha|IG|6": true,
-      "nacha|IG|7": true,
-      "nacha|IG|8": true,
-      "nacha|IG|9": true
+      "nacha|IG|8": true
     },
     "2026-09-10": {
-      "hiyoko|X|1": true,
       "hiyoko|X|2": true,
-      "hiyoko|X|3": true,
       "hiyoko|X|4": true,
-      "hiyoko|X|5": true,
       "hiyoko|X|6": true,
       "hiyoko|X|7": true,
-      "hiyoko|X|8": true,
-      "nacha|X|1": true,
       "nacha|X|2": true,
-      "nacha|X|3": true,
       "nacha|X|4": true,
-      "nacha|X|5": true,
       "nacha|X|6": true,
       "nacha|X|7": true,
-      "nacha|X|8": true,
-      "yuyu|X|1": true,
       "yuyu|X|2": true,
-      "yuyu|X|3": true,
       "yuyu|X|4": true,
-      "yuyu|X|5": true,
       "yuyu|X|6": true,
-      "yuyu|X|7": true,
-      "hiyoko|IG|3": true,
       "hiyoko|IG|4": true,
-      "hiyoko|IG|5": true,
       "hiyoko|IG|6": true,
-      "hiyoko|IG|7": true,
       "hiyoko|IG|8": true,
-      "hiyoko|IG|9": true,
-      "nacha|IG|3": true,
       "nacha|IG|4": true,
-      "nacha|IG|5": true,
       "nacha|IG|6": true,
-      "nacha|IG|7": true,
-      "nacha|IG|8": true,
-      "nacha|IG|9": true
+      "nacha|IG|8": true
     },
     "2026-09-11": {
-      "hiyoko|X|1": true,
       "hiyoko|X|2": true,
-      "hiyoko|X|3": true,
-      "nacha|X|1": true,
       "nacha|X|2": true,
-      "nacha|X|3": true,
       "nacha|X|4": true,
-      "nacha|X|5": true,
-      "yuyu|X|1": true,
       "yuyu|X|2": true,
-      "yuyu|X|3": true,
-      "hiyoko|IG|3": true,
       "hiyoko|IG|4": true,
-      "hiyoko|IG|5": true,
-      "nacha|IG|3": true,
       "nacha|IG|4": true,
-      "nacha|IG|5": true,
-      "nacha|IG|6": true,
-      "nacha|IG|7": true
+      "nacha|IG|6": true
     },
     "2026-09-03": {
       "hiyoko|X|7": true,
-      "hiyoko|X|8": true,
-      "nacha|X|7": true,
-      "nacha|X|8": true
+      "nacha|X|7": true
     }
   }
 }
