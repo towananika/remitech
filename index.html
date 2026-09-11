@@ -1765,7 +1765,8 @@
     var ext = (type || "").indexOf("video") === 0
       ? ((type.indexOf("quicktime") > 0) ? "mov" : "mp4")
       : ((type || "").split("/")[1] || "png").replace(/[^a-z0-9]/gi, "");
-    return "media/" + key.replace(/[|#]/g, "-") + "." + ext;
+    // 時刻の「:」などは、そのままだと置き場やWindowsで扱えない。安全な字だけにする
+    return "media/" + key.replace(/[^A-Za-z0-9._-]/g, "-") + "." + ext;
   }
   function ghUrl(repo, path) {
     var o = repo.split("/");
@@ -1921,7 +1922,7 @@
         return x.date === pp[0] && (x.platform || "X") === pp[1] && x.time === pp[2];
       })[0];
       if (sl3) matSet(sl3, "image", true);
-      renderPrep();
+      prepAgain();
     });
   }
 
@@ -2100,6 +2101,15 @@
     }
     view.innerHTML = '<button class="back" id="backBtn">' + esc(t("back")) + '</button>' +
       '<div class="pcard pcard-page">' + prepHeadHTML(sl, 0) + prepBodyHTML(sl, 0) + '</div>';
+    fillMedia();          // 画像は貼り終わってから差し込む。これが無いと出ない
+  }
+
+  // 準備タブは、一覧と専用ページの二つがある。今出ているほうを描き直す。
+  // これを使わずに renderPrep() を呼ぶと、ページを開いている人が一覧へ戻されてしまう
+  function prepAgain() {
+    var pm = location.hash.match(/^#\/prep\/(.+)$/);
+    if (pm) { renderPrepDetail(decodeURIComponent(pm[1])); return; }
+    renderPrep();
   }
 
   // よくある「1 … 4 5 [6] 7 8 … 20」の並びを作る
@@ -2550,6 +2560,7 @@
       var gone = (schedule.slots || []).filter(function (x) { return slotKey(x) === kk; })[0];
       if (gone) schedule.trash = (schedule.trash || []).concat([gone]).slice(-30);
       schedule.slots = (schedule.slots || []).filter(function (x) { return slotKey(x) !== kk; });
+      location.hash = "";     // 消した枠のページには留まれない
       saveSchedule("schedule: remove " + kk).then(function () { renderPrep(); },
                    function () { renderPrep(); });
       return;
@@ -2603,14 +2614,14 @@
     if (ni) {
       partsSet(ni.getAttribute("data-mk"), "ni_" + ni.getAttribute("data-pid"),
                ni.getAttribute("data-on") !== "true");
-      renderPrep();
+      prepAgain();
       return;
     }
     var pc = e.target.closest(".pchk");
     if (pc) {
       partsSet(pc.getAttribute("data-mk"), pc.getAttribute("data-pid"),
                pc.getAttribute("data-on") !== "true");
-      renderPrep();
+      prepAgain();
       return;
     }
     var md = e.target.closest(".mdel");
@@ -2639,7 +2650,7 @@
           localStorage.setItem("remitech-media-url", JSON.stringify(m2));
         } catch (e) {}
         return dbDel(dk);
-      }).then(function () { renderPrep(); });
+      }).then(function () { prepAgain(); });
       return;
     }
     var ph = e.target.closest(".phead");
@@ -2682,11 +2693,11 @@
       var turnOn = db.getAttribute("data-on") !== "true";
       if (mark === "checked" && turnOn && !(stGet(slx).url || slx.url)) {
         db.textContent = t("needUrl");
-        setTimeout(function () { renderPrep(); }, 1600);
+        setTimeout(function () { prepAgain(); }, 1600);
         return;
       }
       markSave(slx, mark, turnOn);
-      renderPrep();
+      prepAgain();
       return;
     }
     var mb = e.target.closest(".matbtn");
@@ -2698,7 +2709,7 @@
     })[0];
     if (!sl) return;
     matSet(sl, mb.getAttribute("data-kind"), mb.getAttribute("data-on") !== "true");
-    if (tab === "prep") { renderPrep(); } else { renderDash(); }
+    if (tab === "prep") { prepAgain(); } else { renderDash(); }
   });
 
   view.addEventListener("change", function (e) {
@@ -2747,7 +2758,7 @@
         var v = e.target.value.trim();
         markSave(sl2, "url", v);
         // リンクが入った時点で「投稿完了」とみなす。貼る＝出したということなので
-        if (v && !isPosted(sl2)) { markSave(sl2, "posted", true); renderPrep(); }
+        if (v && !isPosted(sl2)) { markSave(sl2, "posted", true); prepAgain(); }
       }
       return;
     }
