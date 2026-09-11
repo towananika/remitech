@@ -54,7 +54,8 @@
           "label": "フィード"
         }
       ],
-      "color": "#d3a72a"
+      "color": "#d3a72a",
+      "short": "HY"
     },
     {
       "id": "nacha",
@@ -133,7 +134,8 @@
             "Don't miss the aftersale!"
           ]
         }
-      ]
+      ],
+      "short": "NC"
     },
     {
       "id": "yuyu",
@@ -148,7 +150,8 @@
       ],
       "postTimes": [],
       "color": "#8a6a4a",
-      "role": "measure"
+      "role": "measure",
+      "short": "YU"
     },
     {
       "id": "reel",
@@ -191,7 +194,8 @@
             "Details on X"
           ]
         }
-      ]
+      ],
+      "short": "RL"
     }
   ],
   "posts": [

@@ -249,6 +249,87 @@
     .agenda{ display:block; }
   }
 
+  /* ---- 投稿ページ ---- */
+  .ppback{ display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
+  .savestat{ font-size:12.5px; color:var(--muted); display:inline-flex; align-items:center; gap:6px; }
+  .savestat::before{ content:""; width:8px; height:8px; border-radius:50%; background:var(--sage); }
+  .savestat[data-k="pending"]::before, .savestat[data-k="saving"]::before{ background:var(--wood); animation:svblink 1s infinite; }
+  .savestat[data-k="local"]::before{ background:var(--wood); }
+  .savestat[data-k="fail"]{ color:#b4553f; }
+  .savestat[data-k="fail"]::before{ background:#b4553f; }
+  @keyframes svblink{ 50%{ opacity:.25; } }
+  .pphead{ display:flex; align-items:center; gap:14px; margin:6px 0 18px; padding-bottom:16px;
+    border-bottom:1px solid var(--line); }
+  .twav{ width:40px; height:40px; border-radius:50%; color:#fff; font-weight:600; font-size:13px;
+    display:flex; align-items:center; justify-content:center; flex:0 0 auto; letter-spacing:.02em; }
+  .twav.big{ width:52px; height:52px; font-size:16px; }
+  .ppmeta{ min-width:0; }
+  .ppname{ margin:0; font-size:18px; font-weight:600; color:var(--ink); }
+  .ppname span{ font-size:13.5px; font-weight:400; color:var(--muted); }
+  .ppsub{ margin:3px 0 0; font-size:13.5px; color:var(--muted); display:flex; align-items:center; gap:6px; flex-wrap:wrap; }
+  .ppsub b{ color:var(--ink); font-weight:600; font-variant-numeric:tabular-nums; }
+  .ppstate{ margin-left:auto; font-size:12.5px !important; padding:5px 12px !important; border-radius:999px !important; }
+  .postpage{ display:grid; grid-template-columns:minmax(0, 1fr) 300px; gap:22px; align-items:start; }
+  .ppmain{ min-width:0; }
+  .tw{ display:grid; grid-template-columns:40px minmax(0, 1fr); gap:12px; position:relative; padding-bottom:16px; }
+  .tw-line::before{ content:""; position:absolute; left:19px; top:46px; bottom:4px; width:2px; background:var(--line); }
+  .twbody{ background:var(--surface); border:1px solid var(--line); border-radius:16px; padding:12px 14px 12px;
+    box-shadow:0 1px 2px rgba(0,0,0,.03); min-width:0; }
+  .twhead{ font-size:13.5px; margin-bottom:8px; display:flex; align-items:center; gap:6px; flex-wrap:wrap; }
+  .twhead b{ color:var(--ink); font-weight:600; }
+  .twh{ color:var(--muted); }
+  .twno{ font-size:11.5px; color:var(--muted); border:1px solid var(--line); border-radius:999px; padding:0 8px; line-height:18px; }
+  .twbody .prow{ flex-direction:column; gap:10px; }
+  .twbody .pwrap{ width:100%; }
+  .twbody .pwrap .ptext{ background:none; border:0; padding:0 0 34px; font-size:15px; line-height:1.75; color:var(--ink); }
+  .twbody .cpys{ top:auto; bottom:0; right:auto; left:0; }
+  .twbody .cpy{ font-size:12px; padding:4px 11px; }
+  .twbody .pchk{ right:0; bottom:0; width:30px; height:28px; line-height:26px; font-size:13px; color:var(--muted); }
+  .twbody .pchk[data-on="true"]{ color:var(--surface); }
+  .twbody .mcol{ flex:none; width:100%; display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
+  .twbody .mediabox{ width:100%; }
+  .twbody .mediabox img, .twbody .mediabox video{ max-height:360px; border-radius:14px; }
+  .twbody .madd{ width:auto; flex:1 1 auto; height:44px; line-height:42px; margin:0; border-radius:12px; }
+  .twbody .noimg{ width:auto; margin:0; padding:0 12px; height:44px; font-size:12px; }
+  .ppanel{ position:sticky; top:12px; background:var(--surface); border:1px solid var(--line); border-radius:16px;
+    padding:6px 16px 16px; }
+  .ppanel .plabel{ margin-top:14px; }
+  .psteps{ display:flex; flex-direction:column; gap:6px; }
+  .pstep{ display:flex !important; align-items:center; gap:10px; width:100%; text-align:left; padding:9px 12px !important;
+    min-height:44px; font-size:13.5px !important; }
+  .pstep i{ font-style:normal; width:24px; height:24px; border-radius:50%; border:1.5px solid var(--line);
+    display:flex; align-items:center; justify-content:center; font-size:12px; color:var(--muted); flex:0 0 auto; }
+  .pstep[data-on="true"]{ background:color-mix(in srgb, var(--sage) 16%, var(--surface)) !important; border-color:var(--sage) !important; color:var(--ink) !important; }
+  .pstep[data-on="true"] i{ background:var(--sage); border-color:var(--sage); color:#fff; }
+  .ppanel .ownerSel{ width:100%; font:inherit; font-size:13.5px; padding:8px 10px; border:1px solid var(--line);
+    border-radius:10px; background:var(--bg); color:var(--ink); }
+  .ppanel .linkrow{ margin-top:0; }
+  .ppanel .plink{ min-width:0; }
+  .pmats{ display:flex; gap:6px; flex-wrap:wrap; }
+  .matbtn{ font:inherit; font-size:13px; color:var(--muted); background:var(--bg); border:1px solid var(--line);
+    border-radius:999px; padding:7px 14px; cursor:pointer; min-height:36px; }
+  .matbtn:hover{ border-color:var(--wood); color:var(--ink); }
+  .matbtn[data-on="true"]{ color:var(--surface); background:var(--sage); border-color:var(--sage); }
+  .ppanel .editbar{ margin-top:16px; padding-top:14px; border-top:1px solid var(--line); }
+  @media (max-width:860px){
+    .postpage{ grid-template-columns:1fr; }
+    .ppanel{ position:static; }
+  }
+  @media (max-width:520px){
+    .tw{ grid-template-columns:32px minmax(0, 1fr); gap:8px; }
+    .twav{ width:32px; height:32px; font-size:11px; }
+    .tw-line::before{ left:15px; top:38px; }
+    .twbody{ padding:11px 12px; }
+    .twbody .pwrap .ptext{ font-size:14.5px; }
+    .ppname{ font-size:16px; }
+  }
+
+  .pmemo{ margin-top:14px; }
+  .pmemo-in{ width:100%; box-sizing:border-box; font:inherit; font-size:13.5px; line-height:1.6; color:var(--ink);
+    background:var(--bg); border:1px solid var(--line); border-radius:10px; padding:9px 11px; resize:vertical; }
+  .pmemo-in:focus{ outline:none; border-color:var(--wood); background:var(--surface); }
+  .pmemo-dot{ font-size:13px; color:var(--wood); }
+
   .newbar{ display:flex; gap:8px; flex-wrap:wrap; margin-bottom:14px; align-items:center; }
   .searchbox{ position:relative; flex:1 1 auto; min-width:0; }
   .searchbox input[type="search"]{
@@ -289,37 +370,34 @@
   .gview:first-child{ border-left:0; }
   .gview[aria-pressed="true"]{ background:var(--wood-soft); color:var(--ink); font-weight:500; }
   .gwrap{ border:1px solid var(--line); border-radius:14px; background:var(--surface); overflow:hidden; }
-  .ghead, .gbody{ display:grid; }
-  .ghead{ border-bottom:1px solid var(--line); }
-  .ghday{ text-align:center; padding:8px 2px; border-left:1px solid var(--line); }
+  .gtab{ width:100%; border-collapse:collapse; table-layout:fixed; }
+  .gtab th, .gtab td{ border-bottom:1px solid var(--line); border-left:1px solid var(--line); padding:0; }
+  .gtab tr > :first-child{ border-left:0; }
+  .gtab tbody tr:last-child > *{ border-bottom:0; }
+  .gtcorner{ width:52px; }
+  .ghday{ text-align:center; padding:8px 2px; font-weight:400; }
   .ghday span{ display:block; font-size:11.5px; color:var(--muted); }
   .ghday b{ display:inline-block; font-size:18px; font-weight:500; min-width:32px; height:32px; line-height:32px;
     border-radius:999px; font-variant-numeric:tabular-nums; color:var(--ink); }
   .ghday.today span{ color:var(--wood); }
   .ghday.today b{ background:var(--wood); color:var(--surface); }
-  .ggut{ position:relative; }
-  .ggut span{ position:absolute; right:6px; transform:translateY(-50%); font-size:11px; color:var(--muted);
-    font-variant-numeric:tabular-nums; }
-  .ggut span:first-child{ transform:none; }
-  .gcol{ position:relative; border-left:1px solid var(--line);
-    background-image:linear-gradient(to bottom, var(--line) 1px, transparent 1px); }
-  .gcol.today{ background-color:color-mix(in srgb, var(--wood-soft) 40%, transparent); }
-  .gev{ position:absolute; overflow:hidden; text-align:left; font:inherit; cursor:pointer;
+  .gtime{ font-size:12px; font-weight:500; color:var(--muted); font-variant-numeric:tabular-nums;
+    text-align:right; padding:0 8px !important; vertical-align:middle; white-space:nowrap; }
+  .gcell{ vertical-align:top; padding:3px !important; }
+  .gcell.today{ background:color-mix(in srgb, var(--wood-soft) 40%, transparent); }
+  .gcell.gnowabove{ box-shadow:inset 0 2px 0 #d93025; }
+  .gev{ display:block; width:100%; margin:0 0 3px; position:relative; text-align:left; font:inherit; cursor:pointer;
     background:color-mix(in srgb, var(--chc) 18%, var(--surface)); color:var(--ink);
-    border:0; border-left:3px solid var(--chc); border-radius:6px; padding:2px 5px;
-    font-size:11.5px; line-height:1.35; display:flex; flex-wrap:wrap; align-content:flex-start; column-gap:4px; }
-  .gev:hover{ box-shadow:0 1px 6px rgba(0,0,0,.14); z-index:2; }
-  .gev.sel{ box-shadow:0 0 0 2px var(--chc); z-index:3; }
-  .gev b{ font-weight:500; font-variant-numeric:tabular-nums; }
-  .gev .gevn{ font-weight:500; color:var(--chc); }
-  .gev .gevp{ color:var(--muted); font-size:11px; width:100%; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-  .gev .gevl{ color:var(--ink); font-size:11px; width:100%; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    border:0; border-left:3px solid var(--chc); border-radius:6px; padding:5px 6px;
+    font-size:12px; line-height:1.3; white-space:normal; overflow-wrap:anywhere; }
+  .gev:last-child{ margin-bottom:0; }
+  .gev:hover{ box-shadow:0 1px 6px rgba(0,0,0,.14); }
+  .gev.sel{ box-shadow:0 0 0 2px var(--chc); }
+  .gev b{ font-weight:600; color:var(--chc); letter-spacing:.02em; }
   .gev.recur{ background:var(--surface); border:1px dashed var(--chc); border-left:3px dashed var(--chc); color:var(--muted); }
   .gev[data-s="done"]{ background:color-mix(in srgb, var(--sage) 28%, var(--surface)); }
   .gev[data-s="late"]::after{ content:""; position:absolute; top:4px; right:4px; width:7px; height:7px;
     border-radius:50%; background:#b4553f; }
-  .gnow{ position:absolute; left:0; right:0; height:2px; background:#d93025; z-index:4; pointer-events:none; }
-  .gnow::before{ content:""; position:absolute; left:-5px; top:-4px; width:10px; height:10px; border-radius:50%; background:#d93025; }
   .grecur .phead{ cursor:default; }
   .grecur .gmake{ margin-left:auto; }
   .grecurbox{ border:1px solid var(--line); border-radius:14px; background:var(--surface); padding:14px 16px; }
@@ -345,8 +423,9 @@
     .gtitle{ font-size:14px; width:100%; order:-1; margin:0 0 4px; }
   }
   @media (max-width:640px){
-    .gev{ font-size:10.5px; padding:2px 3px; }
-    .gev .gevp, .gev .gevl{ display:none; }
+    .gtcorner{ width:44px; }
+    .gtime{ font-size:11px; padding:0 4px !important; }
+    .gev{ font-size:11.5px; padding:5px 4px; }
     .ghday b{ font-size:15px; min-width:28px; height:28px; line-height:28px; }
   }
 
@@ -939,7 +1018,7 @@
           brand:"REMITECH",
           tipDash:"The week at a glance — what is booked and what is missing.",
           tipBook:"Day by day: is every channel ready?",
-          tipPrep:"The text and images for the next seven days. Copy from here.",
+          tipPrep:"The text and images for the next seven days. Copy from here.", tipPrep2:"The week as a calendar. Dashed boxes are recurring slots with no post yet.", fMemo:"Memo", svAuto:"Changes save automatically", svLocalOnly:"Changes stay on this device only", svPending:"Saving…", svSaving:"Saving…", svSaved:"Saved", svLocal:"Saved on this device", svFail:"Could not save", ppStatus:"Status", ppLink:"Link to the post", ppMats:"Materials", ppOwner:"In charge", memoPh:"Notes for the team", memoSaved:"Saved",
           tipKpi:"Followers and following, and how they move.",
           tipPosts:"Long-form pieces written for the channels.",
           tipImport:"Bring a plan in, and set where images are kept.",
@@ -990,7 +1069,7 @@
           brand:"REMITECH",
           tipDash:"이번 주 한눈에 — 예약된 것과 빠진 것.",
           tipBook:"날짜별로: 모든 채널이 준비됐는지.",
-          tipPrep:"앞으로 7일의 문안과 이미지. 여기서 복사한다.",
+          tipPrep:"앞으로 7일의 문안과 이미지. 여기서 복사한다.", tipPrep2:"한 주를 달력으로 본다. 점선은 아직 게시물이 없는 정기 시간.", fMemo:"메모", svAuto:"변경은 자동으로 저장돼", svLocalOnly:"변경은 이 기기에만 저장돼", svPending:"저장 중…", svSaving:"저장 중…", svSaved:"저장됨", svLocal:"이 기기에 저장됨", svFail:"저장 실패", ppStatus:"상태", ppLink:"게시물 링크", ppMats:"재료", ppOwner:"담당자", memoPh:"팀에게 남길 메모", memoSaved:"저장됨",
           tipKpi:"팔로워와 팔로잉, 그리고 그 변화.",
           tipPosts:"채널을 위해 쓴 긴 글.",
           tipImport:"기획을 가져오고, 이미지 저장소를 설정한다.",
@@ -1041,7 +1120,7 @@
           brand:"REMITECH",
           tipDash:"今週を1枚で — 予約できているもの、抜けているもの。",
           tipBook:"日ごとに、全チャンネルが整っているか。",
-          tipPrep:"これから7日ぶんの文面と画像。ここからコピーする。",
+          tipPrep:"これから7日ぶんの文面と画像。ここからコピーする。", tipPrep2:"週をカレンダーで見る。点線は、企画がまだ無い定期の枠。", fMemo:"メモ", svAuto:"変更は自動で保存されます", svLocalOnly:"変更はこの端末にだけ保存されます", svPending:"保存中…", svSaving:"保存中…", svSaved:"保存しました", svLocal:"この端末に保存しました", svFail:"保存できませんでした", ppStatus:"状態", ppLink:"投稿のリンク", ppMats:"材料", ppOwner:"担当者", memoPh:"チームへのメモ", memoSaved:"保存した",
           tipKpi:"フォロワーとフォロー、その動き。",
           tipPosts:"チャンネルのために書いた長い文章。",
           tipImport:"企画を取り込み、画像の置き場を決める。",
@@ -1214,6 +1293,35 @@
   }
   // 予約・投稿・確認・リンクは、他の人にも見えないと意味がない。
   // 端末に控えつつ、置き場にも書き戻す
+  // 保存の状態。投稿ページの「一覧へ」の右に出す
+  var savePending = null;      // まだ書いていない保存（関数）
+  var saveBusy = 0;
+  function setSaveStat(kind) {
+    var el = document.getElementById("saveStat");
+    if (!el) return;
+    var d = new Date();
+    var tm = two(d.getHours()) + ":" + two(d.getMinutes());
+    var map = { idle: storeOn() ? "svAuto" : "svLocalOnly", pending: "svPending", saving: "svSaving",
+                saved: "svSaved", local: "svLocal", fail: "svFail" };
+    el.setAttribute("data-k", kind);
+    el.textContent = t(map[kind] || "svAuto") + ((kind === "saved" || kind === "local") ? " " + tm : "");
+  }
+  // 少し待ってから書く。待っている間にページを離れても、先に書いてから移る
+  function saveSoon(fn, ms) {
+    clearTimeout(saveWait);
+    savePending = fn;
+    setSaveStat("pending");
+    saveWait = setTimeout(flushSave, ms || 700);
+  }
+  function flushSave() {
+    clearTimeout(saveWait);
+    var fn = savePending; savePending = null;
+    return fn ? fn() : Promise.resolve();
+  }
+  window.addEventListener("beforeunload", function (e) {
+    if (savePending || saveBusy) { flushSave(); e.preventDefault(); e.returnValue = ""; }
+  });
+
   var saveWait = null;
   function markSave(sl, k, v) {
     stSet(sl, k, v);
@@ -1225,10 +1333,7 @@
       sl.check.done = v;
       sl.check.at = v ? new Date().toISOString() : "";
     }
-    clearTimeout(saveWait);
-    saveWait = setTimeout(function () {
-      saveSchedule("schedule: " + k + " " + slotKey(sl));
-    }, 700);
+    saveSoon(function () { return saveSchedule("schedule: " + k + " " + slotKey(sl)); }, 700);
   }
 
   function isPosted(sl) { return !!(sl.posted || stGet(sl).posted); }
@@ -2079,7 +2184,21 @@
   }
 
   // 企画そのものを書き戻す。鍵が入っていれば元のファイルへ、無ければ端末へ
+  // 保存は1つずつ順番に書く。同時に2つ書くと、GitHub側で版が食い違って失敗する
+  var saveChain = Promise.resolve();
   function saveSchedule(note) {
+    saveBusy++;
+    setSaveStat("saving");
+    var run = saveChain.then(function () { return saveScheduleRaw(note); });
+    saveChain = run.catch(function () {});
+    return run.then(function (r) {
+      saveBusy--; setSaveStat(r.where === "repo" ? "saved" : "local"); return r;
+    }, function (err) {
+      saveBusy--; setSaveStat("fail"); throw err;
+    });
+  }
+
+  function saveScheduleRaw(note) {
     var body = {
       channel: schedule.channel, months: schedule.months,
       timezone: schedule.timezone, note: schedule.note,
@@ -2244,6 +2363,7 @@
           (isChecked(sl)
             ? '<span class="pverif">✓ ' + esc(t("verifiedTag")) + '</span>'
             : "") +
+          (sl.memo ? '<span class="pmemo-dot" title="' + esc(sl.memo) + '">✎</span>' : "") +
           '<span class="chev">›</span>' +
         '</div>';
   }
@@ -2314,12 +2434,10 @@
         '" data-time="' + esc(sl.time) + '">' +
         (isChecked(sl) ? "✓ " : "") + esc(t("markVerified")) + '</button>' +
         '</div>' +
-        '<div class="pbar">' +
-          '<label class="filebtn sm">' + esc(t("addFile")) +
-          '<input type="file" class="mfile" accept="image/*,video/*" data-mk="' + esc(mk) + '">' +
-          '</label>' +
-          '<span class="tiny">' + esc(t("localOnly")) + '</span>' +
-        '</div>' +
+        // 画像は各ブロックの右で入れられるので、下の入れ口は外した。代わりにチームのメモ
+        '<div class="pmemo"><p class="plabel">' + esc(t("fMemo")) + ' <span class="tiny pmemo-out"></span></p>' +
+          '<textarea class="pmemo-in" rows="3" data-k="' + esc(slotKey(sl)) + '" placeholder="' + esc(t("memoPh")) + '">' +
+          esc(sl.memo || "") + '</textarea></div>' +
         '<div class="bar editbar">' +
         '<button class="donebtn eEdit" data-k="' + esc(slotKey(sl)) + '">' + esc(t("edit")) + '</button>' +
         '<button class="donebtn eDel" data-k="' + esc(slotKey(sl)) + '">' + esc(t("del")) + '</button>' +
@@ -2336,6 +2454,102 @@
   }
 
   // 準備の1件を、専用ページとして表示する
+  // 投稿ページ。XやBufferのような投稿画面の定番に寄せる。
+  //   上: アカウント・SNS・日時・状態 / 左: 投稿のプレビュー（スレッドは縦線でつなぐ）
+  //   右: 予約→投稿→確認、リンク、担当者、材料、メモ、修正・削除
+  // ボタンの仕組み（data-属性とclass）は一覧と同じものを使う
+  function acctHandle(ch, pf) {
+    var c = chanOf(ch) || {};
+    var kind = { X: "X", IG: "Instagram", FB: "Facebook", TT: "TikTok", YT: "YouTube" }[pf] || pf;
+    var l = (c.links || []).filter(function (x) { return x.kind === kind; })[0];
+    return l ? (l.handle || "") : "";
+  }
+
+  function postPageHTML(sl) {
+    var cid = slotCh(sl), ch = chanOfSlot(sl), col = ch.color || "var(--wood)";
+    var mm = matGet(sl), st = stGet(sl), mk = mediaKey(sl);
+    var parts = sl.parts && sl.parts.length ? sl.parts : null;
+    var state = slotState(sl, new Date(sl.date + "T" + sl.time + ":00"), new Date());
+    var handle = acctHandle(cid, sl.platform || "X");
+    var av = '<div class="twav" style="background:' + esc(col) + '">' + esc(chShort(cid)) + '</div>';
+    var stName = t("st" + state.charAt(0).toUpperCase() + state.slice(1));
+
+    var blocks = [];
+    if (parts) {
+      parts.forEach(function (pt, k) {
+        blocks.push({ id: "pp0_" + k, cur: pt[lang] || "", en: pt.en || "", pid: "p" + k,
+                      nobo: pt.nobo, rev: pt.reviewed, no: pt.no || ((k + 1) + "/" + parts.length), time: pt.time || "" });
+      });
+    } else {
+      blocks.push({ id: "pt0", cur: (sl.text && sl.text[lang]) || "", en: (sl.text && sl.text.en) || "",
+                    pid: "body", no: "", time: "" });
+    }
+    if (sl.comment) blocks.push({ id: "pc0", cur: "", en: sl.comment, pid: "comment", no: t("comment"), time: "" });
+
+    var left = "";
+    if (sl.platform === "YT") {
+      copyBank.ti0 = { en: sl.label || "", cur: sl.label || "" };
+      left += '<div class="ptitle"><span class="tlab">' + esc(t("fLabel")) + '</span>' +
+        '<span class="tval">' + esc(sl.label || "\u2014") + '</span>' +
+        (sl.label ? '<button class="cpy" data-ck="ti0" data-lg="en">' + esc(t("copy")) + '</button>' : "") + '</div>';
+    }
+    blocks.forEach(function (bk, i) {
+      var hasText = bk.cur || bk.en || bk.nobo;
+      left += '<div class="tw' + (i < blocks.length - 1 ? " tw-line" : "") + '">' + av +
+        '<div class="twbody"><div class="twhead"><b>' + esc(ch.name) + '</b>' +
+          (handle ? ' <span class="twh">' + esc(handle) + '</span>' : "") +
+          (bk.no ? ' <span class="twno">' + esc(bk.no) + '</span>' : "") +
+          (bk.time ? ' <span class="twno">' + esc(bk.time) + '</span>' : "") + '</div>' +
+          (hasText ? textBox(bk.id, bk.cur, bk.en, mk, bk.pid, bk.nobo, bk.rev)
+                   : '<p class="ptext empty2">' + esc(t("noText")) + '</p>') +
+        '</div></div>';
+    });
+    if (sl.asset) left += '<p class="passet">' + esc(t("visual")) + " \u00b7 " + esc(sl.asset) + '</p>';
+
+    var link = st.url || sl.url || "";
+    var dd = ' data-date="' + esc(sl.date) + '" data-pf="' + esc(sl.platform || "X") + '" data-time="' + esc(sl.time) + '"';
+    var step = function (mark, on, label, n) {
+      return '<button class="donebtn pstep" data-mark="' + mark + '" data-on="' + on + '"' + dd + '>' +
+        '<i>' + (on ? "\u2713" : n) + '</i><span>' + esc(t(label)) + '</span></button>';
+    };
+    var mats = (sl.need || ["text"]).map(function (k) {
+      var on = !!mm[k];
+      return '<button class="matbtn" data-on="' + on + '"' + dd + ' data-kind="' + k + '">' +
+        (on ? "\u2713 " : "") + esc(t(k === "text" ? "matText" : "matImage")) + '</button>';
+    }).join("");
+
+    var right = '<aside class="ppanel">' +
+      '<p class="plabel">' + esc(t("ppStatus")) + '</p>' +
+      '<div class="psteps">' + step("scheduled", !!st.scheduled, "markSched", 1) +
+        step("posted", !!st.posted, "markPosted", 2) + step("checked", isChecked(sl), "markVerified", 3) + '</div>' +
+      '<p class="plabel">' + esc(t("ppLink")) + '</p>' +
+      '<div class="linkrow"><input type="url" class="plink" value="' + esc(link) + '" placeholder="' +
+        esc(t("linkPh")) + '"' + dd + '>' +
+        (link ? '<a class="goto" href="' + esc(link) + '" target="_blank" rel="noopener">' + esc(t("open")) + ' \u2197</a>' : "") +
+      '</div>' +
+      '<p class="plabel">' + esc(t("ppOwner")) + '</p>' +
+      '<select class="ownerSel" data-k="' + esc(slotKey(sl)) + '">' + OWNERS.map(function (v) {
+        return '<option value="' + esc(v) + '"' + (v === (sl.owner || "") ? " selected" : "") + '>' + esc(v || t("noOwner")) + '</option>';
+      }).join("") + '</select>' +
+      '<p class="plabel">' + esc(t("ppMats")) + '</p><div class="pmats">' + mats + '</div>' +
+      '<div class="pmemo"><p class="plabel">' + esc(t("fMemo")) + ' <span class="tiny pmemo-out"></span></p>' +
+        '<textarea class="pmemo-in" rows="4" data-k="' + esc(slotKey(sl)) + '" placeholder="' + esc(t("memoPh")) + '">' +
+        esc(sl.memo || "") + '</textarea></div>' +
+      '<div class="bar editbar"><button class="donebtn eEdit" data-k="' + esc(slotKey(sl)) + '">' + esc(t("edit")) + '</button>' +
+        '<button class="donebtn eDel" data-k="' + esc(slotKey(sl)) + '">' + esc(t("del")) + '</button></div>' +
+      '</aside>';
+
+    var head = '<div class="pphead" style="--chc:' + esc(col) + '">' +
+      '<div class="twav big" style="background:' + esc(col) + '">' + esc(chShort(cid)) + '</div>' +
+      '<div class="ppmeta"><p class="ppname">' + esc(ch.name) + (handle ? ' <span>' + esc(handle) + '</span>' : "") + '</p>' +
+        '<p class="ppsub"><i class="pf">' + esc(pfn(sl.platform)) + '</i> ' + esc(whenLabel(sl.date)) + ' \u00b7 <b>' + esc(sl.time) + '</b>' +
+        (sl.label ? ' \u00b7 ' + esc(sl.label) : "") + '</p></div>' +
+      '<span class="ppstate mk" data-s="' + state + '">' + esc(stName) + '</span></div>';
+
+    return head + '<div class="postpage"><section class="ppmain">' + left + '</section>' + right + '</div>';
+  }
+
+  // 準備の1件を、専用ページとして表示する
   function renderPrepDetail(key) {
     chansEl.hidden = true;
     copyBank = {};
@@ -2345,10 +2559,12 @@
         '<p class="empty">' + esc(t("none")) + '</p>';
       return;
     }
-    view.innerHTML = '<button class="back" id="backBtn">' + esc(t("back")) + '</button>' +
-      '<div class="pcard pcard-page">' + prepHeadHTML(sl, 0) + prepBodyHTML(sl, 0) + '</div>';
+    view.innerHTML = '<div class="ppback"><button class="back" id="backBtn">' + esc(t("back")) + '</button>' +
+      '<span class="savestat" id="saveStat"></span></div>' + postPageHTML(sl);
+    setSaveStat(savePending ? "pending" : (saveBusy ? "saving" : "idle"));
     fillMedia();          // 画像は貼り終わってから差し込む。これが無いと出ない
   }
+
 
   // 準備タブは、一覧と専用ページの二つがある。今出ているほうを描き直す。
   // これを使わずに renderPrep() を呼ぶと、ページを開いている人が一覧へ戻されてしまう
@@ -2485,76 +2701,64 @@
       '<button class="donebtn" id="gRecurBtn">' + esc(t("gRecur")) + '</button></aside>';
   }
 
+  // 行は「投稿がある時刻」だけ。空いた時間帯の行は作らない。
+  // 時刻は左の列にだけ出し、コマの中はチャンネルとSNSの略語にする
+  var PF_SHORT = { X: "X", IG: "IG", FB: "FB", TT: "TT", YT: "YT" };
+  function chShort(ch) { var c = chanOf(ch); return (c && (c.short || c.name.slice(0, 2).toUpperCase())) || ch; }
+
   function calWeekHTML(days) {
     var now = new Date();
-    var all = [];
     calGroups = {};
+    var rowsSet = {};
     var perDay = days.map(function (d) {
       var gs = calGroupsFor(ymd(d));
-      gs.forEach(function (g) { all.push(g); });
+      gs.forEach(function (g) { rowsSet[two(Math.floor(g.start / 60)) + ":" + two(g.start % 60)] = 1; });
       return gs;
     });
-    var minS = 6 * 60, maxE = 22 * 60;
-    all.forEach(function (g) { minS = Math.min(minS, Math.floor(g.start / 60) * 60); maxE = Math.max(maxE, Math.ceil(g.end / 60) * 60); });
-    var PX = 1.0;                                        // 1分 = 1px（1時間 60px）
-    var H = (maxE - minS) * PX;
-    var cols = "grid-template-columns:52px repeat(" + days.length + ", minmax(0, 1fr))";
+    var rows = Object.keys(rowsSet).sort(function (x, y) { return toMin(x) - toMin(y); });
+    var nm = now.getHours() * 60 + now.getMinutes();
+    var nextRow = null;
+    for (var q = 0; q < rows.length; q++) { if (toMin(rows[q]) > nm) { nextRow = rows[q]; break; } }
 
-    var head = '<div class="ghead" style="' + cols + '"><div></div>' + days.map(function (d) {
+    var head = '<tr><th class="gtcorner"></th>' + days.map(function (d) {
       var isT = ymd(d) === ymd(now);
-      return '<div class="ghday' + (isT ? " today" : "") + '"><span>' + (DOW[lang] || DOW.en)[d.getDay()] +
-             '</span><b>' + d.getDate() + '</b></div>';
-    }).join("") + '</div>';
+      return '<th class="ghday' + (isT ? " today" : "") + '"><span>' + (DOW[lang] || DOW.en)[d.getDay()] +
+             '</span><b>' + d.getDate() + '</b></th>';
+    }).join("") + '</tr>';
 
-    var gut = '<div class="ggut" style="height:' + H + 'px">';
-    for (var m = minS; m < maxE; m += 60) {
-      gut += '<span style="top:' + ((m - minS) * PX) + 'px">' + two(m / 60) + ':00</span>';
-    }
-    gut += '</div>';
-
-    var body = '<div class="gbody" style="' + cols + '">' + gut;
-    days.forEach(function (d, di) {
-      var ds = ymd(d);
-      var isT = ds === ymd(now);
-      body += '<div class="gcol' + (isT ? " today" : "") + '" style="height:' + H + 'px;' +
-              'background-size:100% ' + (60 * PX) + 'px">';
-      perDay[di].forEach(function (g, gi) {
-        var key = ds + "#" + gi;
-        calGroups[key] = g;
-        var c = chanOf(g.ch) || { name: g.ch, color: "var(--wood)" };
-        var onlyRecur = g.evs.every(function (e) { return e.recur; });
-        var pfs = g.evs.map(function (e) { return pfn(e.platform); });
-        var pfu = pfs.filter(function (x, i) { return pfs.indexOf(x) === i; }).join(" \u00b7 ");
-        var label = "";
-        for (var q = 0; q < g.evs.length; q++) {
-          var e = g.evs[q];
-          label = e.label || (!e.recur && e.text && (e.text[lang] || e.text.en || e.text.ja || "").split(NLC)[0]) || "";
-          if (label) break;
-        }
-        var st = "";
-        if (!onlyRecur) {
-          var sl0 = g.evs.filter(function (e) { return !e.recur; })[0];
-          var hh = sl0.time.split(":");
-          st = slotState(sl0, new Date(d.getFullYear(), d.getMonth(), d.getDate(), +hh[0], +hh[1]), now);
-        }
-        var w = 100 / g.lanes;
-        body += '<button class="gev' + (onlyRecur ? " recur" : "") +
-          (calSel === key ? " sel" : "") + '" data-g="' + key + '" data-s="' + st + '" style="--chc:' +
-          esc(c.color || "var(--wood)") + ';top:' + ((g.start - minS) * PX) + 'px;height:' +
-          ((g.end - g.start) * PX - 2) + 'px;left:calc(' + (g.lane * w) + '% + 1px);width:calc(' + w + '% - 3px)">' +
-          '<b>' + esc(g.evs[0].time) + '</b> <span class="gevn">' + esc(c.name) + '</span>' +
-          '<span class="gevp">' + esc(pfu) + '</span>' +
-          (label ? '<span class="gevl">' + esc(label) + '</span>' : "") + '</button>';
+    var body = "";
+    rows.forEach(function (rt) {
+      body += '<tr><th class="gtime">' + esc(rt) + '</th>';
+      days.forEach(function (d, di) {
+        var ds = ymd(d);
+        var isT = ds === ymd(now);
+        var cell = "";
+        perDay[di].forEach(function (g, gi) {
+          if (two(Math.floor(g.start / 60)) + ":" + two(g.start % 60) !== rt) return;
+          var key = ds + "#" + gi;
+          calGroups[key] = g;
+          var c = chanOf(g.ch) || { name: g.ch, color: "var(--wood)" };
+          var onlyRecur = g.evs.every(function (e) { return e.recur; });
+          var pfs = [];
+          g.evs.forEach(function (e) { var v = PF_SHORT[e.platform] || e.platform; if (pfs.indexOf(v) < 0) pfs.push(v); });
+          var st = "";
+          if (!onlyRecur) {
+            var sl0 = g.evs.filter(function (e) { return !e.recur; })[0];
+            var hh = sl0.time.split(":");
+            st = slotState(sl0, new Date(d.getFullYear(), d.getMonth(), d.getDate(), +hh[0], +hh[1]), now);
+          }
+          var tip = c.name + " " + g.evs.map(function (e) { return e.time + " " + pfn(e.platform) + (e.label ? " " + e.label : ""); }).join(" / ");
+          cell += '<button class="gev' + (onlyRecur ? " recur" : "") + (calSel === key ? " sel" : "") +
+            '" data-g="' + key + '" data-s="' + st + '" title="' + esc(tip) + '" style="--chc:' +
+            esc(c.color || "var(--wood)") + '"><b>' + esc(chShort(g.ch)) + '</b> ' + esc(pfs.join(" ")) + '</button>';
+        });
+        body += '<td class="gcell' + (isT ? " today" : "") + (isT && rt === nextRow ? " gnowabove" : "") + '">' + cell + '</td>';
       });
-      if (isT) {
-        var nm = now.getHours() * 60 + now.getMinutes();
-        if (nm >= minS && nm <= maxE) body += '<i class="gnow" style="top:' + ((nm - minS) * PX) + 'px"></i>';
-      }
-      body += '</div>';
+      body += '</tr>';
     });
-    body += '</div>';
+    if (!rows.length) body = '<tr><td colspan="' + (days.length + 1) + '"><p class="empty">' + esc(t("calNone")) + '</p></td></tr>';
 
-    var html = '<div class="gwrap">' + head + body + '</div>';
+    var html = '<div class="gwrap"><table class="gtab"><thead>' + head + '</thead><tbody>' + body + '</tbody></table></div>';
 
     // 押した箱の中身
     if (calSel && calGroups[calSel]) {
@@ -3099,7 +3303,7 @@
     view.innerHTML = (shown ? html + '</div>' : '<p class="empty">' + esc(t("noKpi")) + '</p>') + choresHTML();
   }
 
-  var TIPS = { dash:"tipDash", book:"tipBook", prep:"tipPrep", prep2:"tipPrep",
+  var TIPS = { dash:"tipDash", book:"tipBook", prep:"tipPrep", prep2:"tipPrep2",
                kpi:"tipKpi", posts:"tipPosts", "import":"tipImport" };
 
   function renderNav() {
@@ -3149,6 +3353,7 @@
   }
 
   function route() {
+    if (savePending) flushSave();
     var pm = location.hash.match(/^#\/prep\/(.+)$/);
     if (pm) { renderPrepDetail(decodeURIComponent(pm[1])); window.scrollTo(0, 0); return; }
     var id = location.hash.replace(/^#\/?/, "");
@@ -3528,6 +3733,10 @@
       if (sl4) { sl4.owner = e.target.value; saveSchedule("schedule: owner " + ok); }
       return;
     }
+    if (e.target.classList && e.target.classList.contains("pmemo-in")) {
+      flushSave();          // 入力欄を離れたら、待たずに書く
+      return;
+    }
     if (e.target.classList && e.target.classList.contains("gpchk")) {
       var gch = e.target.getAttribute("data-ch");
       if (e.target.checked) delete calHide[gch]; else calHide[gch] = true;
@@ -3584,6 +3793,14 @@
       }
       return;
     }
+    if (e.target.classList && e.target.classList.contains("pmemo-in")) {
+      var mkk = e.target.getAttribute("data-k");
+      var msl = (schedule.slots || []).filter(function (x) { return slotKey(x) === mkk; })[0];
+      if (!msl) return;
+      msl.memo = e.target.value.trim();
+      saveSoon(function () { return saveSchedule("schedule: memo " + mkk); }, 800);
+      return;
+    }
     if (e.target.id === "tgDate") { tgDate = e.target.value; renderTelegram(); return; }
     if (e.target.id === "prepSearch") {
       prepSearch = e.target.value; prepPage = 1;
@@ -3609,7 +3826,7 @@
     if (tab === "import" && e.target.tagName === "BUTTON") { importClick(e); return; }
     var card = e.target.closest(".card");
     if (card) { location.hash = "/" + card.getAttribute("data-id"); return; }
-    if (e.target.closest("#backBtn")) { location.hash = ""; }
+    if (e.target.closest("#backBtn")) { flushSave(); location.hash = ""; }
   });
   // 貼り付け欄にファイルを置いても読む
   view.addEventListener("dragover", function (e) {
