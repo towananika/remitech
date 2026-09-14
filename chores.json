@@ -107,6 +107,18 @@
       ]
     },
     {
+      "channel": "hiyoko",
+      "platform": "X",
+      "kind": "csv",
+      "tasks": [
+        {
+          "id": "csv|3M|hiyoko",
+          "time": "17:00",
+          "task": "3M overview, content csv（XからHIYOKOのデータを取る）"
+        }
+      ]
+    },
+    {
       "channel": "nacha",
       "platform": "X",
       "kind": "csv",
