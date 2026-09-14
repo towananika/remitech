@@ -292,7 +292,7 @@
   .bkc[data-s="done"]{ background:var(--sage); border-color:var(--sage); color:#fff; font-size:11px; }
   .bkc[data-s="late"]{ border-color:#b4553f; color:#b4553f; }
   .bkc[data-s="skip"]{ color:var(--muted); text-decoration:line-through; font-size:11px; font-weight:500; border-style:dashed; }
-  .bkno{ color:var(--line); }
+  .bkc.bknew{ color:var(--muted); font-weight:500; border-style:dashed; background:none; }
   @media (max-width:700px){
     .bktab{ min-width:680px; }
     .bktab .bkacc{ width:112px; padding:6px 8px; }
@@ -1245,7 +1245,7 @@
           fail:"Could not load the source.", back:"← All posts",
           mntTitle:"Under maintenance", mntUntil:"Expected back around",
           draft:"Draft", live:"Posted", open:"Open channel",
-          navDash:"This week", navBook:"Booking", bkThis:"This week", bkJump:"Go to date", bkNoSlot:"No slot", bkBooked:"booked", bkUnsure:"Not sure this group is REEL (times differ from the hub)", navPrep:"Prep", navKpi:"KPI", navLikes:"Likes", kDetail:"History", kDate:"Date", kChange:"Change", kShowAll:"Show all", tipLikes:"Like-work checks by week. Tap a time to mark it done", lkWeek:"This week", lkDone:"done", lkCode:"Team passphrase", lkCodeHint:"Enter it once on this device to share checks with everyone", lkCodeSave:"Save", lkCodeBad:"Wrong passphrase", lkServer:"Saved for everyone", lkOffline:"Server unreachable. Kept on this device", lkCsv:"3M / CSV", lkToday:"Today", lkPast:"Past records", lkAllDone:"All likes done today", lkNow:"now", navPosts:"Posts",
+          navDash:"This week", navBook:"Booking", bkThis:"This week", bkJump:"Go to date", bkNoSlot:"No slot yet. Tap to book", bkBooked:"booked", bkUnsure:"Not sure this group is REEL (times differ from the hub)", navPrep:"Prep", navKpi:"KPI", navLikes:"Likes", kDetail:"History", kDate:"Date", kChange:"Change", kShowAll:"Show all", tipLikes:"Like-work checks by week. Tap a time to mark it done", lkWeek:"This week", lkDone:"done", lkCode:"Team passphrase", lkCodeHint:"Enter it once on this device to share checks with everyone", lkCodeSave:"Save", lkCodeBad:"Wrong passphrase", lkServer:"Saved for everyone", lkOffline:"Server unreachable. Kept on this device", lkCsv:"3M / CSV", lkToday:"Today", lkPast:"Past records", lkAllDone:"All likes done today", lkNow:"now", navPosts:"Posts",
           followers:"Followers", following:"Following", measuredOn:"Measured", noKpi:"No numbers yet.",
           kpiTotal:"All channels", chTitle:"Engagement checklist", chSaved:"Saved", chLocal:"Saved on this device only",
           allBooked:"All booked", leftToDo:"left", nothingToday:"Nothing scheduled",
@@ -1296,7 +1296,7 @@
           fail:"원본을 불러오지 못했습니다.", back:"← 목록으로",
           mntTitle:"점검 중", mntUntil:"재개 예정",
           draft:"초안", live:"게시함", open:"채널 열기",
-          navDash:"이번 주", navBook:"예약", bkThis:"이번 주", bkJump:"날짜로 이동", bkNoSlot:"틀 없음", bkBooked:"예약됨", bkUnsure:"이 묶음이 REEL인지 확실하지 않음 (허브와 시간이 다름)", navPrep:"준비", navKpi:"KPI", navLikes:"좋아요", kDetail:"기록", kDate:"날짜", kChange:"증감", kShowAll:"전체 보기", tipLikes:"좋아요 작업을 주 단위로 체크. 시간을 누르면 완료", lkWeek:"이번 주", lkDone:"완료", lkCode:"팀 암호", lkCodeHint:"이 기기에서 한 번만 입력하면 모두와 공유돼", lkCodeSave:"저장", lkCodeBad:"암호가 달라", lkServer:"모두에게 저장됨", lkOffline:"서버에 연결 안 됨. 이 기기에 보관", lkCsv:"3M / CSV", lkToday:"오늘", lkPast:"지난 기록", lkAllDone:"오늘 좋아요 작업 끝", lkNow:"지금", navPosts:"글",
+          navDash:"이번 주", navBook:"예약", bkThis:"이번 주", bkJump:"날짜로 이동", bkNoSlot:"아직 틀 없음. 누르면 예약", bkBooked:"예약됨", bkUnsure:"이 묶음이 REEL인지 확실하지 않음 (허브와 시간이 다름)", navPrep:"준비", navKpi:"KPI", navLikes:"좋아요", kDetail:"기록", kDate:"날짜", kChange:"증감", kShowAll:"전체 보기", tipLikes:"좋아요 작업을 주 단위로 체크. 시간을 누르면 완료", lkWeek:"이번 주", lkDone:"완료", lkCode:"팀 암호", lkCodeHint:"이 기기에서 한 번만 입력하면 모두와 공유돼", lkCodeSave:"저장", lkCodeBad:"암호가 달라", lkServer:"모두에게 저장됨", lkOffline:"서버에 연결 안 됨. 이 기기에 보관", lkCsv:"3M / CSV", lkToday:"오늘", lkPast:"지난 기록", lkAllDone:"오늘 좋아요 작업 끝", lkNow:"지금", navPosts:"글",
           followers:"팔로워", following:"팔로잉", measuredOn:"측정일", noKpi:"아직 숫자가 없어.",
           kpiTotal:"전체 채널", chTitle:"좋아요 작업 체크리스트", chSaved:"저장됨", chLocal:"이 기기에만 저장됨",
           allBooked:"모두 예약됨", leftToDo:"남음", nothingToday:"예정 없음",
@@ -1347,7 +1347,7 @@
           fail:"原本を読み込めませんでした。", back:"← 一覧へ",
           mntTitle:"メンテナンス中", mntUntil:"再開の目安",
           draft:"下書き", live:"公開ずみ", open:"チャンネルを開く",
-          navDash:"今週", navBook:"予約", bkThis:"今週", bkJump:"日付へ移動", bkNoSlot:"枠なし", bkBooked:"予約済み", bkUnsure:"この群がREELかは未確認（HUBの時間と合わない）", navPrep:"準備", navKpi:"KPI", navLikes:"いいね", kDetail:"記録", kDate:"日付", kChange:"増減", kShowAll:"すべて見る", tipLikes:"いいね作業を週ごとにチェック。時間を押すと済み", lkWeek:"今週", lkDone:"済み", lkCode:"チームの合言葉", lkCodeHint:"この端末で一度入れれば、全員と共有されます", lkCodeSave:"保存", lkCodeBad:"合言葉が違います", lkServer:"全員に保存しました", lkOffline:"サーバーにつながりません。この端末に残しました", lkCsv:"3M / CSV", lkToday:"今日", lkPast:"過去の記録", lkAllDone:"今日のいいね作業は済み", lkNow:"今", navPosts:"投稿",
+          navDash:"今週", navBook:"予約", bkThis:"今週", bkJump:"日付へ移動", bkNoSlot:"まだ枠がありません。押すと予約済みで作ります", bkBooked:"予約済み", bkUnsure:"この群がREELかは未確認（HUBの時間と合わない）", navPrep:"準備", navKpi:"KPI", navLikes:"いいね", kDetail:"記録", kDate:"日付", kChange:"増減", kShowAll:"すべて見る", tipLikes:"いいね作業を週ごとにチェック。時間を押すと済み", lkWeek:"今週", lkDone:"済み", lkCode:"チームの合言葉", lkCodeHint:"この端末で一度入れれば、全員と共有されます", lkCodeSave:"保存", lkCodeBad:"合言葉が違います", lkServer:"全員に保存しました", lkOffline:"サーバーにつながりません。この端末に残しました", lkCsv:"3M / CSV", lkToday:"今日", lkPast:"過去の記録", lkAllDone:"今日のいいね作業は済み", lkNow:"今", navPosts:"投稿",
           followers:"フォロワー", following:"フォロー", measuredOn:"計測日", noKpi:"まだ数字がない。",
           kpiTotal:"全チャンネル合計", chTitle:"いいね作業チェックリスト", chSaved:"保存した", chLocal:"この端末にだけ保存",
           allBooked:"すべて予約ずみ", leftToDo:"残り", nothingToday:"予定なし",
@@ -3294,6 +3294,23 @@
     (schedule.slots || []).forEach(function (x) { bySlot[slotCh(x) + "|" + x.date + "|" + (x.platform || "X") + "|" + x.time] = x; });
 
     var total = 0, booked = 0;
+    function rowPlats(r) { return r.platforms || [r.platform || "X"]; }
+    function isStory(x) { return /stor|ストーリー|스토리/i.test((x.label || "") + " " + (x.type || "")); }
+    function rowSlots(g, r, k) {
+      return rowPlats(r).map(function (pf) {
+        var cand = (schedule.slots || []).filter(function (x) {
+          return slotCh(x) === g.channel && x.date === k && (x.platform || "X") === pf && x.time === r.time;
+        });
+        // 同じ時間・同じSNSに2つある（フィードとストーリー）ときだけ、ラベルで選ぶ
+        if (cand.length > 1) cand = cand.filter(function (x) { return r.kind === "story" ? isStory(x) : !isStory(x); });
+        else if (cand.length === 1 && r.kind === "story" && !isStory(cand[0])) cand = [];
+        else if (cand.length === 1 && r.kind !== "story" && isStory(cand[0]) && pf === "IG") {
+          var hasStoryRow = (g.rows || []).some(function (o) { return o !== r && o.kind === "story" && o.time === r.time; });
+          if (hasStoryRow) cand = [];
+        }
+        return cand[0] || null;
+      }).filter(Boolean);
+    }
     var head = '<tr><th class="bkacc"></th>' + days.map(function (d) {
       var k = ymd(d);
       return '<th class="bkday" data-today="' + (k === today) + '" data-wknd="' + (d.getDay() === 0 || d.getDay() === 6) + '">' +
@@ -3306,16 +3323,27 @@
         (g.unsure ? ' <em title="' + esc(g.unsure) + '">' + esc(t("bkUnsure")) + '</em>' : "") + '</th></tr>';
       (g.rows || []).forEach(function (r) {
         h += '<tr style="--chc:' + esc(c.color || "var(--wood)") + '"><th class="bkacc"><b>' + esc(r.label) + '</b><i>' +
-          esc(pfn(r.platform)) + " \u00b7 " + esc(r.time) + '</i></th>';
+          esc(rowPlats(r).map(pfn).join("\u30fb")) + " \u00b7 " + esc(r.time) + '</i></th>';
         days.forEach(function (d) {
-          var k = ymd(d), sl = bySlot[g.channel + "|" + k + "|" + r.platform + "|" + r.time];
-          if (!sl) { h += '<td data-today="' + (k === today) + '"><span class="bkno" title="' + esc(t("bkNoSlot")) + '">\u2013</span></td>'; return; }
+          var k = ymd(d), sls = rowSlots(g, r, k);
+          var gi = (bookRows.groups || []).indexOf(g), ri = g.rows.indexOf(r);
+          if (!sls.length) {
+            h += '<td data-today="' + (k === today) + '"><button class="bkc bknew" data-new="' + gi + "|" + ri + "|" + k + '" title="' +
+              esc(t("bkNoSlot")) + '">\u2013</button></td>';
+            return;
+          }
           var hh = r.time.split(":"), when = new Date(d.getFullYear(), d.getMonth(), d.getDate(), +hh[0], +hh[1]);
-          var st = slotState(sl, when, now);
+          var states = sls.map(function (x) { return slotState(x, when, now); });
+          // 複数SNSの行: 全部出ていれば投稿、全部予約なら予約、1つでも過ぎて未予約なら抜け
+          var st = states.every(function (x) { return x === "done"; }) ? "done"
+            : states.every(function (x) { return x === "skip"; }) ? "skip"
+            : states.every(function (x) { return x === "sched" || x === "done" || x === "skip"; }) ? "sched"
+            : states.indexOf("late") >= 0 ? "late" : states[0];
+          var sl = sls[0];
           if (st !== "skip") { total++; if (st === "sched" || st === "done") booked++; }
           var txt = st === "done" ? t("stDone") : st === "sched" ? "\u2713" : st === "skip" ? t("stSkip") : st === "late" ? "!" : "";
-          h += '<td data-today="' + (k === today) + '"><button class="bkc" data-k="' + esc(slotKey(sl)) + '" data-s="' + st + '" title="' +
-            esc(c.name + " " + pfn(r.platform) + " " + r.time + " " + r.label) + '">' + esc(txt) + '</button></td>';
+          h += '<td data-today="' + (k === today) + '"><button class="bkc" data-k="' + esc(sls.map(slotKey).join("~")) + '" data-s="' + st + '" title="' +
+            esc(c.name + " " + r.label + " " + r.time) + '">' + esc(txt) + '</button></td>';
         });
         h += '</tr>';
       });
@@ -3346,13 +3374,34 @@
     if (e.target.closest("#bkThis")) { bkMon = ymd(lkMonday(now)); renderBook(); return; }
     var b = e.target.closest(".bkc");
     if (!b) return;
-    var k = b.getAttribute("data-k"), st = b.getAttribute("data-s");
-    var sl = (schedule.slots || []).filter(function (x) { return slotKey(x) === k; })[0];
-    if (!sl) return;
-    // 投稿済み・投稿しない枠は、ここでは切り替えない。中身を開く
-    if (st === "done" || st === "skip") { location.hash = "#/prep/" + encodeURIComponent(k); return; }
     var wrap = document.getElementById("bkWrap"), sx = wrap ? wrap.scrollLeft : 0, sy = window.scrollY;
-    markSave(sl, "scheduled", !isSched(sl));
+    var nw = b.getAttribute("data-new");
+    if (nw) {
+      // まだ枠のない日: この行の中身で、予約済みの枠を作る（押したマスの分だけ）
+      var parts = nw.split("|"), g = bookRows.groups[+parts[0]], r = g.rows[+parts[1]], date = parts[2];
+      var made = null;
+      (r.platforms || [r.platform || "X"]).forEach(function (pf) {
+        var sl0 = {
+          date: date, channel: g.channel, platform: pf, time: r.time,
+          label: r.kind === "story" ? "IG Stories" : r.label, owner: "", type: /動画/.test(r.label) ? "video" : "text",
+          text: { ja: "", en: "", ko: "" }, comment: "", asset: "", note: "予約タブで作った枠",
+          need: ["text"], scheduled: true, posted: false, url: "",
+          check: { done: false, at: "", match: null, note: "" },
+        };
+        schedule.slots.push(sl0); made = sl0;
+      });
+      if (made) markSave(made, "scheduled", true);
+      renderBook();
+      var w1 = document.getElementById("bkWrap"); if (w1) w1.scrollLeft = sx; window.scrollTo(0, sy);
+      return;
+    }
+    var keys = b.getAttribute("data-k").split("~"), st = b.getAttribute("data-s");
+    var list = (schedule.slots || []).filter(function (x) { return keys.indexOf(slotKey(x)) >= 0; });
+    if (!list.length) return;
+    // 投稿済み・投稿しない枠は、ここでは切り替えない。中身を開く
+    if (st === "done" || st === "skip") { location.hash = "#/prep/" + encodeURIComponent(keys[0]); return; }
+    var to = !list.every(isSched);
+    list.forEach(function (x) { markSave(x, "scheduled", to); });
     renderBook();
     var w2 = document.getElementById("bkWrap"); if (w2) w2.scrollLeft = sx; window.scrollTo(0, sy);
   });
