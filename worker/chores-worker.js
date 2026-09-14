@@ -12,6 +12,7 @@
 //   bk:a:<日付>        担当者（空文字は「なし」）
 //   bk:s:<枠の鍵>      枠の状態 { scheduled, reply, replyAt, status }
 //   bk:n:<枠の鍵>      予約タブで作った枠
+//   bk:t:<日付>|<チャンネル>  Telegram で共有済み true/false
 //   cfg:codehash       画面で変えた編集用パスワードのハッシュ { salt, hash, at }
 //   rl:<IP>            パスワードの失敗回数 { n, exp }
 //
@@ -24,7 +25,7 @@ import { DurableObject } from "cloudflare:workers";
 const DAYS_KEPT = 60;
 const MAX_BODY = 1024;
 const MAX_BOOK_BODY = 4096;
-const BOOK_KINDS = { h: 1, a: 1, s: 1, n: 1 };
+const BOOK_KINDS = { h: 1, a: 1, s: 1, n: 1, t: 1 };
 const ALLOWED = ["https://towananika.github.io", "http://localhost:8899", "http://127.0.0.1:8899"];
 const FAIL_LIMIT = 5;                 // 同じ IP から 1時間に 5回まちがえたら
 const FAIL_WINDOW = 60 * 60;          // 1時間、どの書き込みもできない（正しいパスワードでも）
@@ -137,7 +138,7 @@ export class HubDO extends DurableObject {
 
   // ---- 予約タブ ----
   async bookList(origin) {
-    const out = { holidays: {}, assignees: {}, slots: {}, newSlots: {} };
+    const out = { holidays: {}, assignees: {}, slots: {}, newSlots: {}, telegram: {} };
     const all = await this.ctx.storage.list({ prefix: "bk:" });
     for (const [name, v] of all) {
       const kind = name.slice(3, 4), key = name.slice(5);
@@ -145,6 +146,7 @@ export class HubDO extends DurableObject {
       else if (kind === "a") out.assignees[key] = typeof v === "string" ? v : "";
       else if (kind === "s" && v) out.slots[key] = v;
       else if (kind === "n" && v) out.newSlots[key] = v;
+      else if (kind === "t") out.telegram[key] = !!v;
     }
     return json(out, 200, origin, { "Cache-Control": "no-store" });
   }
@@ -174,6 +176,9 @@ export class HubDO extends DurableObject {
         replyAt: typeof value.replyAt === "string" ? value.replyAt.slice(0, 40) : "",
         status: value.status === "preparing" ? "preparing" : "",
       };
+    } else if (b.kind === "t") {
+      if (!/^\d{4}-\d{2}-\d{2}\|[a-z0-9_-]{1,30}$/.test(b.key)) return json({ error: "key" }, 400, origin);
+      value = !!value;
     } else if (b.kind === "n") {
       if (!value || typeof value !== "object" || typeof value.date !== "string") return json({ error: "value" }, 400, origin);
     }
