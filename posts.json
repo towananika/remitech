@@ -210,7 +210,17 @@
           ]
         }
       ],
-      "short": "RL"
+      "short": "RL",
+      "docs": [
+        {
+          "name": "X企画",
+          "url": "https://docs.google.com/document/d/1eKZVAvLEYiOlMNOxVIK1PZbAMVQI0SY_2F07yL5jwUo/edit?tab=t.bxco0h2zy079"
+        },
+        {
+          "name": "IG企画",
+          "url": "https://docs.google.com/document/d/1eKZVAvLEYiOlMNOxVIK1PZbAMVQI0SY_2F07yL5jwUo/edit?tab=t.eziwrivkz4z5"
+        }
+      ]
     }
   ],
   "posts": [
