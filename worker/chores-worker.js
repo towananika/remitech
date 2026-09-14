@@ -24,6 +24,11 @@ export default {
     const origin = request.headers.get("Origin") || "";
 
     if (request.method === "OPTIONS") return new Response(null, { headers: cors(origin) });
+    if (url.pathname === "/book") {
+      if (request.method === "GET") return bookList(env, origin);
+      if (request.method === "POST") return bookSave(request, env, origin);
+      return json({ error: "method" }, 405, origin);
+    }
     if (url.pathname !== "/chores") return json({ ok: true, service: "remitech-chores" }, 200, origin);
 
     if (request.method === "GET") return list(env, origin);
@@ -31,6 +36,64 @@ export default {
     return json({ error: "method" }, 405, origin);
   },
 };
+
+// ================= 予約タブ =================
+// schedule.json を土台に、予約タブで押した変更だけをここに置く。どの端末も読み込んで上に重ねる。
+// 1つの印ごとに別の鍵にして、違うマスを同時に押しても上書きし合わないようにする。
+//   bk:h:<日付>        休日 true/false
+//   bk:a:<日付>        担当者 "Suha" など（空文字は「なし」）
+//   bk:s:<枠の鍵>      枠の状態 { scheduled, reply, replyAt, status }
+//   bk:n:<枠の鍵>      予約タブで作った枠（枠そのもの）
+const BOOK_KINDS = { h: 1, a: 1, s: 1, n: 1 };
+const MAX_BOOK_BODY = 4096;
+
+async function bookList(env, origin) {
+  const out = { holidays: {}, assignees: {}, slots: {}, newSlots: {} };
+  let cursor;
+  do {
+    const page = await env.CHORES.list({ prefix: "bk:", cursor });
+    await Promise.all(page.keys.map(async (k) => {
+      const v = await env.CHORES.get(k.name, "json");
+      const kind = k.name.slice(3, 4), key = k.name.slice(5);
+      if (kind === "h") out.holidays[key] = !!v;
+      else if (kind === "a") out.assignees[key] = typeof v === "string" ? v : "";
+      else if (kind === "s" && v) out.slots[key] = v;
+      else if (kind === "n" && v) out.newSlots[key] = v;
+    }));
+    cursor = page.list_complete ? undefined : page.cursor;
+  } while (cursor);
+  return json(out, 200, origin, { "Cache-Control": "no-store" });
+}
+
+async function bookSave(request, env, origin) {
+  if (!env.TEAM_CODE) return json({ error: "not-configured" }, 503, origin);
+  const text = await request.text();
+  if (text.length > MAX_BOOK_BODY) return json({ error: "too-large" }, 413, origin);
+  let b;
+  try { b = JSON.parse(text); } catch (e) { return json({ error: "bad-json" }, 400, origin); }
+  if (!b || typeof b.code !== "string" || !safeEqual(b.code, env.TEAM_CODE)) return json({ error: "code" }, 403, origin);
+  if (!BOOK_KINDS[b.kind]) return json({ error: "kind" }, 400, origin);
+  if (typeof b.key !== "string" || !/^[A-Za-z0-9|_:.\-]{1,80}$/.test(b.key)) return json({ error: "key" }, 400, origin);
+
+  let value = b.value;
+  if (b.kind === "h") value = !!value;
+  else if (b.kind === "a") {
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(b.key)) return json({ error: "key" }, 400, origin);
+    value = typeof value === "string" ? value.slice(0, 20) : "";
+  } else if (b.kind === "s") {
+    if (!value || typeof value !== "object") return json({ error: "value" }, 400, origin);
+    value = {
+      scheduled: !!value.scheduled, reply: !!value.reply,
+      replyAt: typeof value.replyAt === "string" ? value.replyAt.slice(0, 40) : "",
+      status: value.status === "preparing" ? "preparing" : "",
+    };
+  } else if (b.kind === "n") {
+    if (!value || typeof value !== "object" || typeof value.date !== "string") return json({ error: "value" }, 400, origin);
+  }
+  if (b.kind === "h" && !/^\d{4}-\d{2}-\d{2}$/.test(b.key)) return json({ error: "key" }, 400, origin);
+  await env.CHORES.put("bk:" + b.kind + ":" + b.key, JSON.stringify(value));
+  return json({ ok: true }, 200, origin);
+}
 
 async function list(env, origin) {
   const out = {};
