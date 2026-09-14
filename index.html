@@ -250,6 +250,36 @@
     .agenda{ display:block; }
   }
 
+  /* ---- いいね（週のカレンダー） ---- */
+  .lk{ max-width:1100px; }
+  .lkhead{ display:flex; align-items:center; gap:12px; flex-wrap:wrap; margin:4px 0 12px; }
+  .lknav{ display:flex; align-items:center; gap:6px; }
+  .lknav span{ min-width:96px; text-align:center; font-weight:700; }
+  .lknav button{ font:inherit; font-size:18px; width:40px; height:40px; border-radius:50%; border:1px solid var(--line);
+    background:var(--surface); color:var(--ink); cursor:pointer; }
+  .lkwrap{ overflow-x:auto; border:1px solid var(--line); border-radius:12px; background:var(--surface); }
+  .lktab{ border-collapse:collapse; width:100%; min-width:760px; table-layout:fixed; }
+  .lktab th, .lktab td{ border-bottom:1px solid var(--line); border-left:1px solid var(--line); padding:6px 4px; text-align:center; }
+  .lktab tbody tr:last-child th, .lktab tbody tr:last-child td{ border-bottom:0; }
+  .lktab .lkacc{ position:sticky; left:0; z-index:1; width:118px; text-align:left; padding:8px 10px; background:var(--surface);
+    border-left:0; box-shadow:inset 3px 0 0 var(--chc, transparent); }
+  .lkacc b{ display:block; font-size:13px; line-height:1.3; }
+  .lkacc i{ display:block; font-style:normal; font-size:11.5px; color:var(--muted); }
+  .lkday i{ display:block; font-style:normal; font-size:11px; color:var(--muted); }
+  .lkday b{ font-size:15px; }
+  .lktab [data-wknd="true"]{ background:var(--wkndbg); }
+  .lktab [data-today="true"]{ background:var(--todaybg); }
+  .lkday[data-today="true"] b{ display:inline-grid; place-items:center; width:26px; height:26px; border-radius:50%;
+    background:var(--ink); color:var(--surface); }
+  .lkc{ display:block; width:100%; min-height:34px; margin:3px 0; font:inherit; font-size:12.5px; font-variant-numeric:tabular-nums;
+    border:1px solid var(--line); border-radius:8px; background:var(--bg); color:var(--ink); cursor:pointer; }
+  .lkc[data-on="true"]{ background:var(--sage); border-color:var(--sage); color:#fff; font-weight:700; }
+  .lkc:disabled{ opacity:.35; cursor:default; }
+  @media (max-width:700px){
+    .lktab{ min-width:640px; }
+    .lktab .lkacc{ width:92px; padding:6px 8px; }
+    .lkc{ min-height:40px; }
+  }
   /* ---- 今日 ---- */
   .td{ max-width:680px; margin:0 auto; }
   .tdhead{ display:flex; align-items:center; gap:12px; flex-wrap:wrap; margin:6px 0 14px; }
@@ -1137,7 +1167,7 @@
           fail:"Could not load the source.", back:"← All posts",
           mntTitle:"Under maintenance", mntUntil:"Expected back around",
           draft:"Draft", live:"Posted", open:"Open channel",
-          navDash:"This week", navBook:"Booking", navPrep:"Prep", navKpi:"KPI", navPosts:"Posts",
+          navDash:"This week", navBook:"Booking", navPrep:"Prep", navKpi:"KPI", navLikes:"Likes", tipLikes:"Like-work checks by week. Tap a time to mark it done", lkWeek:"This week", lkDone:"done", lkCsv:"3M / CSV", navPosts:"Posts",
           followers:"Followers", following:"Following", measuredOn:"Measured", noKpi:"No numbers yet.",
           kpiTotal:"All channels", chTitle:"Engagement checklist", chSaved:"Saved", chLocal:"Saved on this device only",
           allBooked:"All booked", leftToDo:"left", nothingToday:"Nothing scheduled",
@@ -1188,7 +1218,7 @@
           fail:"원본을 불러오지 못했습니다.", back:"← 목록으로",
           mntTitle:"점검 중", mntUntil:"재개 예정",
           draft:"초안", live:"게시함", open:"채널 열기",
-          navDash:"이번 주", navBook:"예약", navPrep:"준비", navKpi:"KPI", navPosts:"글",
+          navDash:"이번 주", navBook:"예약", navPrep:"준비", navKpi:"KPI", navLikes:"좋아요", tipLikes:"좋아요 작업을 주 단위로 체크. 시간을 누르면 완료", lkWeek:"이번 주", lkDone:"완료", lkCsv:"3M / CSV", navPosts:"글",
           followers:"팔로워", following:"팔로잉", measuredOn:"측정일", noKpi:"아직 숫자가 없어.",
           kpiTotal:"전체 채널", chTitle:"좋아요 작업 체크리스트", chSaved:"저장됨", chLocal:"이 기기에만 저장됨",
           allBooked:"모두 예약됨", leftToDo:"남음", nothingToday:"예정 없음",
@@ -1239,7 +1269,7 @@
           fail:"原本を読み込めませんでした。", back:"← 一覧へ",
           mntTitle:"メンテナンス中", mntUntil:"再開の目安",
           draft:"下書き", live:"公開ずみ", open:"チャンネルを開く",
-          navDash:"今週", navBook:"予約", navPrep:"準備", navKpi:"KPI", navPosts:"投稿",
+          navDash:"今週", navBook:"予約", navPrep:"準備", navKpi:"KPI", navLikes:"いいね", tipLikes:"いいね作業を週ごとにチェック。時間を押すと済み", lkWeek:"今週", lkDone:"済み", lkCsv:"3M / CSV", navPosts:"投稿",
           followers:"フォロワー", following:"フォロー", measuredOn:"計測日", noKpi:"まだ数字がない。",
           kpiTotal:"全チャンネル合計", chTitle:"いいね作業チェックリスト", chSaved:"保存した", chLocal:"この端末にだけ保存",
           allBooked:"すべて予約ずみ", leftToDo:"残り", nothingToday:"予定なし",
@@ -3637,6 +3667,82 @@
     if (tab === "today" && !/^#\//.test(location.hash) && !typing() && !tdUndo && !document.hidden) tdRerender();
   }, 60000);
 
+  /* ================= いいね（週のカレンダー） =================
+     行＝アカウント、列＝月〜日。1マスに 09:30・13:30・17:00 の3つ。
+     押すと済み、もう一度押すと戻る。まだ来ていない日は押せない（先に付けてしまう事故を防ぐ） */
+  var lkWeek = 0;
+  function lkMonday(d) { var x = new Date(d.getFullYear(), d.getMonth(), d.getDate()); x.setDate(x.getDate() - (x.getDay() + 6) % 7); return x; }
+
+  function renderLikes() {
+    chansEl.hidden = true;
+    if (!chores || !chores.lists) { view.innerHTML = '<p class="empty">' + esc(t("loading")) + '</p>'; return; }
+    var now = new Date(), today = ymd(now);
+    var mon = lkMonday(now); mon.setDate(mon.getDate() + lkWeek * 7);
+    var days = [];
+    for (var i = 0; i < 7; i++) { var d = new Date(mon.getTime()); d.setDate(d.getDate() + i); days.push(d); }
+    var total = 0, doneN = 0;
+
+    var head = '<tr><th class="lkacc"></th>' + days.map(function (d) {
+      var k = ymd(d);
+      return '<th class="lkday" data-today="' + (k === today) + '" data-wknd="' + (d.getDay() === 0 || d.getDay() === 6) + '">' +
+        '<i>' + esc(DOW[lang][d.getDay()]) + '</i><b>' + d.getDate() + '</b></th>';
+    }).join("") + '</tr>';
+
+    var rows = chores.lists.map(function (li) {
+      var c = chanOf(li.channel) || { name: li.channel, color: "var(--wood)" };
+      var csv = li.kind === "csv" || li.tasks.some(function (tk) { return /3M|csv/i.test(tk.task); });
+      var n = csv ? "" : ((/(\d+)/.exec((li.tasks[0] || {}).task || "") || [])[1] || "");
+      var h = '<tr style="--chc:' + esc(c.color || "var(--wood)") + '"><th class="lkacc"><b>' + esc(csv ? t("lkCsv") : c.name) + '</b>' +
+        '<i>' + esc(csv ? c.name : pfn(li.platform) + (n ? " \u00b7 " + n : "")) + '</i></th>';
+      days.forEach(function (d) {
+        var k = ymd(d), dd = (chores.done && chores.done[k]) || {}, future = k > today;
+        h += '<td data-today="' + (k === today) + '" data-wknd="' + (d.getDay() === 0 || d.getDay() === 6) + '">' +
+          li.tasks.slice().sort(function (a, b) { return toMin(a.time) - toMin(b.time); }).map(function (tk) {
+            var on = !!dd[tk.id];
+            if (!future) { total++; if (on) doneN++; }
+            return '<button class="lkc" data-d="' + k + '" data-id="' + esc(tk.id) + '" data-on="' + on + '"' +
+              (future ? " disabled" : "") + ' title="' + esc(tk.task) + '">' + (on ? "\u2713" : esc(tk.time.replace(/^0/, "").replace(":30", "\u00bd").replace(":00", ""))) + '</button>';
+          }).join("") + '</td>';
+      });
+      return h + '</tr>';
+    }).join("");
+
+    var end = days[6];
+    var label = lkWeek === 0 ? t("lkWeek") : (mon.getMonth() + 1) + "/" + mon.getDate() + "\u2013" + (end.getMonth() + 1) + "/" + end.getDate();
+    view.innerHTML = '<div class="lk">' +
+      '<div class="lkhead"><div class="lknav"><button id="lkPrev" aria-label="prev">\u2039</button><span>' + esc(label) + '</span>' +
+        '<button id="lkNext" aria-label="next">\u203A</button></div>' +
+        '<span class="calcount" data-full="' + (total > 0 && doneN === total) + '">' + doneN + "/" + total + " " + esc(t("lkDone")) + '</span>' +
+        '<span class="tiny" id="lkOut"></span></div>' +
+      '<div class="lkwrap" id="lkWrap"><table class="lktab"><thead>' + head + '</thead><tbody>' + rows + '</tbody></table></div></div>';
+
+    // スマホでは今日の列が見えるところまで横に送る
+    var wrap = document.getElementById("lkWrap"), tc = wrap.querySelector('th[data-today="true"]');
+    if (tc && wrap.scrollWidth > wrap.clientWidth) wrap.scrollLeft = Math.max(0, tc.offsetLeft - 120);
+  }
+
+  view.addEventListener("click", function (e) {
+    if (tab !== "likes") return;
+    if (e.target.closest("#lkPrev")) { lkWeek--; renderLikes(); return; }
+    if (e.target.closest("#lkNext")) { lkWeek++; renderLikes(); return; }
+    var b = e.target.closest(".lkc");
+    if (!b || b.disabled) return;
+    var on = b.getAttribute("data-on") !== "true";
+    b.setAttribute("data-on", on);                       // 先に見た目を変える。待たせない
+    b.textContent = on ? "\u2713" : "\u2026";
+    var wrap = document.getElementById("lkWrap"), sx = wrap ? wrap.scrollLeft : 0, sy = window.scrollY;
+    choreBusy = true;
+    saveChore(b.getAttribute("data-d"), b.getAttribute("data-id"), on).then(function (r) {
+      choreBusy = false; choreEtag = null;
+      renderLikes();
+      var w2 = document.getElementById("lkWrap"); if (w2) w2.scrollLeft = sx; window.scrollTo(0, sy);
+      var o = document.getElementById("lkOut"); if (o) o.textContent = r.where === "repo" ? t("chSaved") : t("chLocal");
+    }, function () {
+      choreBusy = false;
+      var o2 = document.getElementById("lkOut"); if (o2) o2.textContent = t("saveFail");
+    });
+  });
+
   function renderKpi() {
     chansEl.hidden = false;
     if (!kpi || !kpi.rows || !kpi.rows.length) {
@@ -3713,10 +3819,10 @@
           '<p class="kgtitle">' + esc(c.name) + '</p>' + chHtml + '</div>';
       }
     });
-    view.innerHTML = (shown ? html + '</div>' : '<p class="empty">' + esc(t("noKpi")) + '</p>') + choresHTML();
+    view.innerHTML = (shown ? html + '</div>' : '<p class="empty">' + esc(t("noKpi")) + '</p>');
   }
 
-  var TIPS = { today:"tipToday", dash:"tipDash", book:"tipBook", prep:"tipPrep", prep2:"tipPrep2",
+  var TIPS = { likes:"tipLikes", today:"tipToday", dash:"tipDash", book:"tipBook", prep:"tipPrep", prep2:"tipPrep2",
                kpi:"tipKpi", posts:"tipPosts", "import":"tipImport" };
 
   function renderNav() {
@@ -3728,6 +3834,7 @@
       '<button data-tab="prep" aria-pressed="' + (tab === "prep") + '">' + esc(t("navPrep")) + '</button>' +
       '<button data-tab="prep2" aria-pressed="' + (tab === "prep2") + '">' + esc(t("navPrep2")) + '</button>' +
       '<button data-tab="kpi" aria-pressed="' + (tab === "kpi") + '">' + esc(t("navKpi")) + '</button>' +
+      '<button data-tab="likes" aria-pressed="' + (tab === "likes") + '">' + esc(t("navLikes")) + '</button>' +
       '<button data-tab="posts" aria-pressed="' + (tab === "posts") + '">' + esc(t("navPosts")) + '</button>' +
       '<button data-tab="import" aria-pressed="' + (tab === "import") + '">' + esc(t("navImport")) + '</button>' +
       '<button data-tab="tg" aria-pressed="' + (tab === "tg") + '">' + esc(t("navTg")) + '</button>';
@@ -3776,6 +3883,7 @@
     if (tab === "today") { renderToday(); return; }
     if (tab === "dash") { renderDash(); return; }
     if (tab === "kpi") { renderKpi(); return; }
+    if (tab === "likes") { renderLikes(); return; }
     if (tab === "book") { renderBook(); return; }
     if (tab === "prep") { renderPrep(); return; }
     if (tab === "prep2") { renderPrep2(); return; }
@@ -4374,10 +4482,10 @@
         JSON.stringify(c.lists || []) === JSON.stringify(chores.lists || [])) return;
     chores = c;
     if (tab === "today" && (typing() || tdUndo)) return;
-    var y2 = window.scrollY; if (tab === "today") renderToday(); else renderKpi(); window.scrollTo(0, y2);
+    var y2 = window.scrollY; if (tab === "today") renderToday(); else if (tab === "likes") renderLikes(); else renderKpi(); window.scrollTo(0, y2);
   }
   function pullChores() {
-    if ((tab !== "kpi" && tab !== "today") || document.hidden || choreBusy || /^#\/prep\//.test(location.hash)) return Promise.resolve();
+    if ((tab !== "kpi" && tab !== "today" && tab !== "likes") || document.hidden || choreBusy || /^#\/prep\//.test(location.hash)) return Promise.resolve();
     if (storeOn()) {
       var c = storeGet();
       var h = { "Authorization": "Bearer " + c.token, "Accept": "application/vnd.github+json" };
@@ -4461,7 +4569,7 @@
 
   // 週表のときだけ枠を広げる
   function syncWide() {
-    document.body.setAttribute("data-wide", (tab === "dash" || tab === "kpi" || tab === "prep2") ? "true" : "false");
+    document.body.setAttribute("data-wide", (tab === "dash" || tab === "kpi" || tab === "prep2" || tab === "likes") ? "true" : "false");
   }
 
   renderLang();
@@ -4498,7 +4606,7 @@
           }).catch(function () {});
         fetch("./chores.json", { cache: "no-cache" })
           .then(function (r) { return r.ok ? r.json() : null; })
-          .then(function (c) { chores = c; if (tab === "kpi") renderKpi(); if (tab === "today") renderToday(); })
+          .then(function (c) { chores = c; if (tab === "kpi") renderKpi(); if (tab === "today") renderToday(); if (tab === "likes") renderLikes(); })
           .catch(function () {});
         fetch("./kpi.json", { cache: "no-cache" })
           .then(function (r) { return r.ok ? r.json() : null; })
