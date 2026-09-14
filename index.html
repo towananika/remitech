@@ -165,7 +165,21 @@
   .kmain .dif{ font-size:12px; margin-left:7px; font-variant-numeric:tabular-nums; }
   .kmain .dif[data-up="true"]{ color:var(--sage); }
   .kmain .dif[data-up="false"]{ color:#b4553f; }
-  .kchart{ flex:1 1 120px; max-width:180px; height:40px; }
+  button.ksum{ font:inherit; text-align:left; background:var(--surface); color:inherit; cursor:pointer; }
+  button.ksum:hover{ border-color:var(--chc, var(--wood)); }
+  button.ksum[aria-pressed="true"]{ background:var(--wood-soft); }
+  .ktoggle{ display:block; width:100%; font:inherit; color:inherit; text-align:left; background:none; border:0; padding:0; cursor:pointer; }
+  .kbody{ align-items:center; }
+  .kchev{ font-size:13px; color:var(--muted); }
+  .kdetail{ margin-top:12px; border-top:1px solid var(--line); padding-top:8px; overflow-x:auto; }
+  .kdetail table{ width:100%; border-collapse:collapse; font-size:13px; font-variant-numeric:tabular-nums; }
+  .kdetail th{ font-size:11.5px; font-weight:500; color:var(--muted); text-align:right; padding:4px 6px; }
+  .kdetail td{ text-align:right; padding:5px 6px; border-top:1px solid var(--line); }
+  .kdetail th:first-child, .kdetail td:first-child{ text-align:left; }
+  .kdetail .kd[data-up="true"]{ color:var(--sage); }
+  .kdetail .kd[data-up="false"][data-zero="false"]{ color:#b4553f; }
+  .kmore{ margin-top:8px; font:inherit; font-size:12.5px; background:none; border:1px dashed var(--line); border-radius:8px;
+    padding:6px 10px; color:var(--muted); cursor:pointer; width:100%; }
   .spark{ width:100%; height:40px; display:block; overflow:visible; }
   .spark .sl{ fill:none; stroke:var(--chc, var(--wood)); stroke-width:1.5;
               stroke-linecap:round; stroke-linejoin:round; }
@@ -1167,7 +1181,7 @@
           fail:"Could not load the source.", back:"← All posts",
           mntTitle:"Under maintenance", mntUntil:"Expected back around",
           draft:"Draft", live:"Posted", open:"Open channel",
-          navDash:"This week", navBook:"Booking", navPrep:"Prep", navKpi:"KPI", navLikes:"Likes", tipLikes:"Like-work checks by week. Tap a time to mark it done", lkWeek:"This week", lkDone:"done", lkCsv:"3M / CSV", navPosts:"Posts",
+          navDash:"This week", navBook:"Booking", navPrep:"Prep", navKpi:"KPI", navLikes:"Likes", kDetail:"History", kDate:"Date", kChange:"Change", kShowAll:"Show all", tipLikes:"Like-work checks by week. Tap a time to mark it done", lkWeek:"This week", lkDone:"done", lkCsv:"3M / CSV", navPosts:"Posts",
           followers:"Followers", following:"Following", measuredOn:"Measured", noKpi:"No numbers yet.",
           kpiTotal:"All channels", chTitle:"Engagement checklist", chSaved:"Saved", chLocal:"Saved on this device only",
           allBooked:"All booked", leftToDo:"left", nothingToday:"Nothing scheduled",
@@ -1218,7 +1232,7 @@
           fail:"원본을 불러오지 못했습니다.", back:"← 목록으로",
           mntTitle:"점검 중", mntUntil:"재개 예정",
           draft:"초안", live:"게시함", open:"채널 열기",
-          navDash:"이번 주", navBook:"예약", navPrep:"준비", navKpi:"KPI", navLikes:"좋아요", tipLikes:"좋아요 작업을 주 단위로 체크. 시간을 누르면 완료", lkWeek:"이번 주", lkDone:"완료", lkCsv:"3M / CSV", navPosts:"글",
+          navDash:"이번 주", navBook:"예약", navPrep:"준비", navKpi:"KPI", navLikes:"좋아요", kDetail:"기록", kDate:"날짜", kChange:"증감", kShowAll:"전체 보기", tipLikes:"좋아요 작업을 주 단위로 체크. 시간을 누르면 완료", lkWeek:"이번 주", lkDone:"완료", lkCsv:"3M / CSV", navPosts:"글",
           followers:"팔로워", following:"팔로잉", measuredOn:"측정일", noKpi:"아직 숫자가 없어.",
           kpiTotal:"전체 채널", chTitle:"좋아요 작업 체크리스트", chSaved:"저장됨", chLocal:"이 기기에만 저장됨",
           allBooked:"모두 예약됨", leftToDo:"남음", nothingToday:"예정 없음",
@@ -1269,7 +1283,7 @@
           fail:"原本を読み込めませんでした。", back:"← 一覧へ",
           mntTitle:"メンテナンス中", mntUntil:"再開の目安",
           draft:"下書き", live:"公開ずみ", open:"チャンネルを開く",
-          navDash:"今週", navBook:"予約", navPrep:"準備", navKpi:"KPI", navLikes:"いいね", tipLikes:"いいね作業を週ごとにチェック。時間を押すと済み", lkWeek:"今週", lkDone:"済み", lkCsv:"3M / CSV", navPosts:"投稿",
+          navDash:"今週", navBook:"予約", navPrep:"準備", navKpi:"KPI", navLikes:"いいね", kDetail:"記録", kDate:"日付", kChange:"増減", kShowAll:"すべて見る", tipLikes:"いいね作業を週ごとにチェック。時間を押すと済み", lkWeek:"今週", lkDone:"済み", lkCsv:"3M / CSV", navPosts:"投稿",
           followers:"フォロワー", following:"フォロー", measuredOn:"計測日", noKpi:"まだ数字がない。",
           kpiTotal:"全チャンネル合計", chTitle:"いいね作業チェックリスト", chSaved:"保存した", chLocal:"この端末にだけ保存",
           allBooked:"すべて予約ずみ", leftToDo:"残り", nothingToday:"予定なし",
@@ -3743,6 +3757,29 @@
     });
   });
 
+  // KPIの記録。グラフはやめて、押したカードだけ日付ごとの数字を出す（新しい順）
+  var kOpen = {}, kAll = {};
+  function kpiDetailHTML(arr, kk) {
+    var list = arr.slice().reverse(), lim = kAll[kk] ? list.length : 10;
+    var body = list.slice(0, lim).map(function (r, i) {
+      var older = list[i + 1];
+      var d = older && typeof older.followers === "number" && typeof r.followers === "number" ? r.followers - older.followers : null;
+      return '<tr><td>' + esc(r.date) + '</td><td>' + (typeof r.followers === "number" ? r.followers.toLocaleString() : "-") + '</td>' +
+        '<td class="kd" data-up="' + (d > 0) + '" data-zero="' + (!d) + '">' + (d === null ? "" : (d > 0 ? "+" : "") + d) + '</td>' +
+        '<td>' + (typeof r.following === "number" ? r.following.toLocaleString() : "") + '</td></tr>';
+    }).join("");
+    return '<div class="kdetail"><table><thead><tr><th>' + esc(t("kDate")) + '</th><th>' + esc(t("followers")) + '</th><th>' +
+      esc(t("kChange")) + '</th><th>' + esc(t("following")) + '</th></tr></thead><tbody>' + body + '</tbody></table>' +
+      (list.length > lim ? '<button class="kmore" data-k="' + esc(kk) + '">' + esc(t("kShowAll")) + ' (' + list.length + ')</button>' : "") + '</div>';
+  }
+  view.addEventListener("click", function (e) {
+    if (tab !== "kpi") return;
+    var y = window.scrollY, el;
+    if ((el = e.target.closest(".ktoggle"))) { var k = el.getAttribute("data-k"); kOpen[k] = !kOpen[k]; renderKpi(); window.scrollTo(0, y); return; }
+    if ((el = e.target.closest(".kmore"))) { kAll[el.getAttribute("data-k")] = true; renderKpi(); window.scrollTo(0, y); return; }
+    if ((el = e.target.closest("button.ksum"))) { filter = el.getAttribute("data-chan") || null; renderChans(); renderKpi(); return; }
+  });
+
   function renderKpi() {
     chansEl.hidden = false;
     if (!kpi || !kpi.rows || !kpi.rows.length) {
@@ -3767,9 +3804,9 @@
       if (!has) return;
       anyChan = true;
       grandTotal += total;
-      sumHtml += '<div class="ksum" style="--chc:' + esc(c.color || "var(--wood)") + '">' +
+      sumHtml += '<button class="ksum" data-chan="' + esc(c.id) + '" aria-pressed="' + (filter === c.id) + '" style="--chc:' + esc(c.color || "var(--wood)") + '">' +
         '<span class="ksumname">' + esc(c.name) + '</span>' +
-        '<span class="ksumval">' + total.toLocaleString() + '</span></div>';
+        '<span class="ksumval">' + total.toLocaleString() + '</span></button>';
     });
 
     var html = '<div class="kpi">';
@@ -3778,7 +3815,8 @@
         (!filter
           ? '<div class="ksum ksumall"><span class="ksumname">' + esc(t("kpiTotal")) +
             '</span><span class="ksumval">' + grandTotal.toLocaleString() + '</span></div>'
-          : "") +
+          : '<button class="ksum ksumall" data-chan=""><span class="ksumname">' + esc(t("kpiTotal")) +
+            '</span><span class="ksumval">\u2190</span></button>') +
         sumHtml + '</div>';
     }
 
@@ -3791,12 +3829,13 @@
         if (!arr || !arr.length) return;
         shown++; chHas = true;
         var cur = arr[arr.length - 1], prev = arr.length > 1 ? arr[arr.length - 2] : null;
-        var fs = arr.map(function (r) { return r.followers; }).filter(function (v) { return typeof v === "number"; });
         var dif = prev && typeof prev.followers === "number" ? cur.followers - prev.followers : null;
         var difHtml = (dif === null || dif === 0) ? "" :
           '<span class="dif" data-up="' + (dif > 0) + '">' + (dif > 0 ? "+" : "") + dif + '</span>';
 
-        chHtml += '<div class="kcard" style="--chc:' + esc(c.color || "var(--wood)") + '">' +
+        var kk = c.id + "|" + pf, open = !!kOpen[kk];
+        chHtml += '<div class="kcard" data-open="' + open + '" style="--chc:' + esc(c.color || "var(--wood)") + '">' +
+          '<button class="ktoggle" data-k="' + esc(kk) + '" aria-expanded="' + open + '">' +
           '<div class="khead">' +
             '<i class="pf" data-p="' + pf + '">' + pf + '</i>' +
             '<span class="who">' + esc(c.name) + '</span>' +
@@ -3807,11 +3846,13 @@
               '<span class="lbl">' + esc(t("followers")) + '</span>' +
               '<span class="val">' + (cur.followers || 0).toLocaleString() + '</span>' + difHtml +
             '</div>' +
-            '<div class="kchart">' + spark(fs, 120, 40) + '</div>' +
+            '<span class="kchev" aria-hidden="true">' + (open ? "\u25B4" : "\u25BE") + '</span>' +
           '</div>' +
           (typeof cur.following === "number"
             ? '<p class="ksub">' + esc(t("following")) + " " + cur.following.toLocaleString() + '</p>'
             : "") +
+          '</button>' +
+          (open ? kpiDetailHTML(arr, kk) : "") +
         '</div>';
       });
       if (chHas) {
