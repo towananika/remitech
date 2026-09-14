@@ -309,6 +309,15 @@
   .seg{ display:inline-flex; border:1px solid var(--line); border-radius:999px; overflow:hidden; background:var(--surface); }
   .seg button{ font:inherit; font-size:13px; min-height:36px; padding:0 16px; border:0; background:none; color:var(--muted); cursor:pointer; }
   .seg button[aria-pressed="true"]{ background:var(--ink); color:var(--surface); }
+  .bkno{ color:var(--line); }
+  /* 返信の行は、すぐ上の投稿に付いていると分かるように字下げして低くする。SNSと時間は親と同じなので出さない */
+  .bktab .bkreprow .bkacc{ padding:2px 8px 2px 26px; }
+  .bktab .bkreprow .bkacc b{ font-size:12px; font-weight:500; color:var(--muted); }
+  .bktab .bkreprow .bkacc i{ display:none; }
+  .bktab .bkreprow td{ padding-top:2px; padding-bottom:2px; }
+  .bktab .bkreprow .bkc.bkrep{ min-height:28px; }
+  .bkc.bkrep{ min-height:28px; font-size:12px; background:none; border-style:dotted; }
+  .bkc.bkrep[data-on="true"]{ background:color-mix(in srgb, var(--sage) 22%, var(--surface)); border-style:solid; border-color:var(--sage); color:var(--ink); }
   .bkdoc{ margin-left:8px; font-size:12px; font-weight:500; color:var(--chc); }
   .bkc.bknew{ color:var(--muted); font-weight:500; border-style:dashed; background:none; }
   @media (max-width:700px){
@@ -1283,7 +1292,7 @@
           matText:"Text", matImage:"Image", remind:"Remind before posting", remindOff:"Off",
           notMatched:"Not checked", matched:"Matches the plan", mismatched:"Differs from the plan",
           navImport:"Import", impHelp:"Paste the plan from your spreadsheet (tab-separated, header row first).",
-          navPrep2:"Prep (beta)", pvList:"List", pvCal:"Calendar", bkPrep:"prep", gProjects:"Projects", gRecur:"Recurring", gRecurTitle:"Recurring slots", gAddRule:"Add", gClose:"Close", gMake:"Create this post", gRecurTag:"recurring", gView3:"3 days", gViewWeek:"Week", gViewMonth:"Month", gNoRule:"No recurring slots yet.", calToday:"Today", calNone:"Nothing on this day", calMore:" more",
+          navPrep2:"Prep (beta)", pvList:"List", pvCal:"Calendar", bkPrep:"prep", bkReplyTip:"Reply to this post. Tap when done", gProjects:"Projects", gRecur:"Recurring", gRecurTitle:"Recurring slots", gAddRule:"Add", gClose:"Close", gMake:"Create this post", gRecurTag:"recurring", gView3:"3 days", gViewWeek:"Week", gViewMonth:"Month", gNoRule:"No recurring slots yet.", calToday:"Today", calNone:"Nothing on this day", calMore:" more",
           navTg:"Telegram", copyAll:"Copy all", tgEmpty:"Nothing posted with a link on this day yet", tgLinks:"Links",
           navOv:"Overview", navToday:"Today", tipToday:"Only what you can finish now: likes, scheduling, URLs, checks", tdLeft:"left", tdLikes:"Likes", tdNext:"next", tdAllDone:"All done for today", tdBook:"To schedule", tdLate:"Missed", tdUrl:"Paste URL", tdCheck:"Check", tdBooked:"Scheduled", tdPaste:"Paste", tdChecked:"Checked", tdMemoPh:"Write a note (required)", tdQ1:"No text", tdQ2:"No image", tdQ3:"All good", tdOlder:"Earlier days", tdDoneToday:"Done today", tdUndo:"Undo", tdOpen:"Open", tdNone:"Nothing to schedule this week", tdBadUrl:"URL must start with https://", tdThisWeek:"This week", tdPosted:"Posted", ovMeasureOnly:"Followers only, no posting", ovAccounts:"Accounts", ovDocs:"Plans",
           impCols:"Columns: date (or day), time, platform, type, label, ja, en, ko, asset",
@@ -1334,7 +1343,7 @@
           matText:"텍스트", matImage:"이미지", remind:"게시 전 알림", remindOff:"끄기",
           notMatched:"미확인", matched:"기획과 일치", mismatched:"기획과 다름",
           navImport:"불러오기", impHelp:"기획표를 붙여넣어. 탭으로 구분된 표(첫 줄은 제목).",
-          navPrep2:"준비(시안)", pvList:"목록", pvCal:"캘린더", bkPrep:"준비", gProjects:"프로젝트", gRecur:"정기 설정", gRecurTitle:"정기 게시 시간", gAddRule:"추가", gClose:"닫기", gMake:"이 게시물 만들기", gRecurTag:"정기", gView3:"3일", gViewWeek:"주", gViewMonth:"월", gNoRule:"정기 설정이 아직 없어.", calToday:"오늘", calNone:"이 날은 비어 있어", calMore:"개 더",
+          navPrep2:"준비(시안)", pvList:"목록", pvCal:"캘린더", bkPrep:"준비", bkReplyTip:"이 게시물에 대한 답글. 하면 누르기", gProjects:"프로젝트", gRecur:"정기 설정", gRecurTitle:"정기 게시 시간", gAddRule:"추가", gClose:"닫기", gMake:"이 게시물 만들기", gRecurTag:"정기", gView3:"3일", gViewWeek:"주", gViewMonth:"월", gNoRule:"정기 설정이 아직 없어.", calToday:"오늘", calNone:"이 날은 비어 있어", calMore:"개 더",
           navTg:"텔레그램", copyAll:"전체 복사", tgEmpty:"이 날짜엔 링크가 있는 게시물이 아직 없어", tgLinks:"링크",
           navOv:"개요", navToday:"오늘", tipToday:"지금 끝낼 수 있는 것만: 좋아요, 예약, URL, 확인", tdLeft:"남음", tdLikes:"좋아요", tdNext:"다음", tdAllDone:"오늘은 끝", tdBook:"예약하기", tdLate:"놓침", tdUrl:"URL 붙이기", tdCheck:"확인하기", tdBooked:"예약함", tdPaste:"붙이기", tdChecked:"확인함", tdMemoPh:"메모를 써야 누를 수 있어", tdQ1:"텍스트 없음", tdQ2:"이미지 없음", tdQ3:"문제 없음", tdOlder:"이전 날", tdDoneToday:"오늘 끝낸 것", tdUndo:"되돌리기", tdOpen:"열기", tdNone:"이번 주 예약할 것 없음", tdBadUrl:"URL은 https:// 로 시작해야 해", tdThisWeek:"이번 주", tdPosted:"게시됨", ovMeasureOnly:"팔로워만 추적, 게시는 안 함", ovAccounts:"계정", ovDocs:"기획서",
           impCols:"열: date (또는 day), time, platform, type, label, ja, en, ko, asset",
@@ -1385,7 +1394,7 @@
           matText:"テキスト", matImage:"画像", remind:"投稿前にリマインド", remindOff:"切",
           notMatched:"未確認", matched:"企画どおり", mismatched:"企画と違う",
           navImport:"取り込み", impHelp:"表計算からコピーして貼る（タブ区切り・1行目は見出し）。",
-          navPrep2:"準備（仮）", pvList:"一覧", pvCal:"カレンダー", bkPrep:"準備", gProjects:"プロジェクト", gRecur:"定期の設定", gRecurTitle:"定期の投稿枠", gAddRule:"追加", gClose:"閉じる", gMake:"この企画を作る", gRecurTag:"定期", gView3:"3日", gViewWeek:"週", gViewMonth:"月", gNoRule:"定期の枠はまだない。", calToday:"今日", calNone:"この日は空", calMore:"件",
+          navPrep2:"準備（仮）", pvList:"一覧", pvCal:"カレンダー", bkPrep:"準備", bkReplyTip:"すぐ上の投稿への返信。済んだら押す", gProjects:"プロジェクト", gRecur:"定期の設定", gRecurTitle:"定期の投稿枠", gAddRule:"追加", gClose:"閉じる", gMake:"この企画を作る", gRecurTag:"定期", gView3:"3日", gViewWeek:"週", gViewMonth:"月", gNoRule:"定期の枠はまだない。", calToday:"今日", calNone:"この日は空", calMore:"件",
           navTg:"Telegram通知", copyAll:"全部コピー", tgEmpty:"この日はまだリンク付きの投稿がない", tgLinks:"リンク",
           navOv:"概要", navToday:"今日", tipToday:"今終わらせられるものだけ：いいね・予約・URL・確認", tdLeft:"残り", tdLikes:"いいね", tdNext:"次", tdAllDone:"今日は済み", tdBook:"予約する", tdLate:"予約されずに過ぎた", tdUrl:"URLを貼る", tdCheck:"確認する", tdBooked:"予約した", tdPaste:"貼る", tdChecked:"確認した", tdMemoPh:"メモを書く（書くと押せます）", tdQ1:"テキストなし", tdQ2:"画像なし", tdQ3:"問題なし", tdOlder:"前の日の残り", tdDoneToday:"今日済んだもの", tdUndo:"元に戻す", tdOpen:"開く", tdNone:"今週、予約するものはありません", tdBadUrl:"URLは https:// で始めてください", tdThisWeek:"今週", tdPosted:"投稿", ovMeasureOnly:"フォロワーだけ追う。投稿はしない", ovAccounts:"運用アカウント", ovDocs:"企画書",
           impCols:"列: date（または day）, time, platform, type, label, ja, en, ko, asset",
@@ -3356,10 +3365,18 @@
         }).join("") +
         (g.unsure ? ' <em title="' + esc(g.unsure) + '">' + esc(t("bkUnsure")) + '</em>' : "") + '</th></tr>';
       (g.rows || []).forEach(function (r) {
-        h += '<tr style="--chc:' + esc(c.color || "var(--wood)") + '"><th class="bkacc"><b>' + esc(r.label) + '</b><i>' +
+        h += '<tr' + (r.reply ? ' class="bkreprow"' : '') + ' style="--chc:' + esc(c.color || "var(--wood)") + '"><th class="bkacc"><b>' + (r.reply ? "\u21b3 " : "") + esc(r.label) + '</b><i>' +
           esc(rowPlats(r).map(pfn).join("\u30fb")) + " \u00b7 " + esc(r.time) + '</i></th>';
         days.forEach(function (d) {
           var k = ymd(d), sls = rowSlots(g, r, k);
+          if (r.reply) {
+            var live = sls.filter(function (x) { return !x.skip; });
+            if (!live.length) { h += '<td data-today="' + (k === today) + '"><span class="bkno">\u2013</span></td>'; return; }
+            var rOn = live.every(function (x) { return !!x.reply; });
+            h += '<td data-today="' + (k === today) + '"><button class="bkc bkrep" data-rk="' + esc(live.map(slotKey).join("~")) + '" data-on="' + rOn + '" title="' +
+              esc(t("bkReplyTip")) + '">' + (rOn ? "\u2713" : "") + '</button></td>';
+            return;
+          }
           var gi = (bookRows.groups || []).indexOf(g), ri = g.rows.indexOf(r);
           if (!sls.length) {
             h += '<td data-today="' + (k === today) + '"><button class="bkc bknew" data-new="' + gi + "|" + ri + "|" + k + '" title="' +
@@ -3412,6 +3429,17 @@
     var b = e.target.closest(".bkc");
     if (!b) return;
     var wrap = document.getElementById("bkWrap"), sx = wrap ? wrap.scrollLeft : 0, sy = window.scrollY;
+    var rk = b.getAttribute("data-rk");
+    if (rk) {
+      var rks = rk.split("~");
+      var rls = (schedule.slots || []).filter(function (x) { return rks.indexOf(slotKey(x)) >= 0; });
+      var ron = !rls.every(function (x) { return !!x.reply; });
+      rls.forEach(function (x) { x.reply = ron; x.replyAt = ron ? new Date().toISOString() : ""; });
+      saveSoon(function () { return saveSchedule("schedule: reply " + rks[0]); }, 700);
+      renderBook();
+      var wr = document.getElementById("bkWrap"); if (wr) wr.scrollLeft = sx; window.scrollTo(0, sy);
+      return;
+    }
     var nw = b.getAttribute("data-new");
     if (nw) {
       // まだ枠のない日: この行の中身で、予約済みの枠を作る（押したマスの分だけ）

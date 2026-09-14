@@ -1,114 +1,32 @@
 {
-  "note": "予約タブの行。2026-09-14 に Hibiki が指定した一覧。時間は hh:mm。platforms が複数の行は、同じ中身を同時に出す（どれも予約済みで✓）",
+  "note": "予約タブの行。2026-09-14 に Hibiki が指定。時間は hh:mm（HIYOKO X 午前は 09:30 で確定）。reply:true の行は、すぐ上の投稿に付く返信（予約ではなく、やったかどうか）。SNS は1行に1つ",
   "groups": [
-    {
-      "channel": "hiyoko",
-      "rows": [
-        {
-          "platforms": [
-            "X"
-          ],
-          "time": "09:30",
-          "label": "投稿"
-        },
-        {
-          "platforms": [
-            "X"
-          ],
-          "time": "13:00",
-          "label": "投稿"
-        },
-        {
-          "platforms": [
-            "X"
-          ],
-          "time": "17:00",
-          "label": "投稿（＋返信）"
-        },
-        {
-          "platforms": [
-            "IG",
-            "FB"
-          ],
-          "time": "17:00",
-          "label": "フィード"
-        }
-      ]
-    },
-    {
-      "channel": "nacha",
-      "rows": [
-        {
-          "platforms": [
-            "X"
-          ],
-          "time": "10:30",
-          "label": "X 長文"
-        },
-        {
-          "platforms": [
-            "X"
-          ],
-          "time": "20:00",
-          "label": "X スレッド（本文＋返信）"
-        },
-        {
-          "platforms": [
-            "X"
-          ],
-          "time": "14:00",
-          "label": "X ことば（talk）"
-        },
-        {
-          "platforms": [
-            "IG"
-          ],
-          "time": "20:00",
-          "label": "IG フィード（＋返信）"
-        },
-        {
-          "platforms": [
-            "IG"
-          ],
-          "time": "20:05",
-          "label": "IG ストーリー"
-        },
-        {
-          "platforms": [
-            "IG",
-            "TT",
-            "YT"
-          ],
-          "time": "20:10",
-          "label": "動画（IG・TikTok・YouTube）"
-        }
-      ]
-    },
-    {
-      "channel": "reel",
-      "rows": [
-        {
-          "platforms": [
-            "X"
-          ],
-          "time": "17:00",
-          "label": "X スレッド（本文＋返信）"
-        },
-        {
-          "platforms": [
-            "IG"
-          ],
-          "time": "17:00",
-          "label": "IG フィード（＋返信）"
-        },
-        {
-          "platforms": [
-            "IGS"
-          ],
-          "time": "17:00",
-          "label": "IG ストーリー"
-        }
-      ]
-    }
+    { "channel": "hiyoko", "rows": [
+      { "platforms": ["X"],  "time": "09:30", "label": "投稿" },
+      { "platforms": ["X"],  "time": "13:00", "label": "投稿" },
+      { "platforms": ["X"],  "time": "17:00", "label": "投稿" },
+      { "platforms": ["X"],  "time": "17:00", "label": "返信", "reply": true },
+      { "platforms": ["IG"], "time": "17:00", "label": "フィード" },
+      { "platforms": ["FB"], "time": "17:00", "label": "フィード" }
+    ]},
+    { "channel": "nacha", "rows": [
+      { "platforms": ["X"],  "time": "10:30", "label": "X 長文" },
+      { "platforms": ["X"],  "time": "20:00", "label": "X スレッド" },
+      { "platforms": ["X"],  "time": "20:00", "label": "返信", "reply": true },
+      { "platforms": ["X"],  "time": "14:00", "label": "X ことば（talk）" },
+      { "platforms": ["IG"], "time": "20:00", "label": "IG フィード" },
+      { "platforms": ["IG"], "time": "20:00", "label": "返信", "reply": true },
+      { "platforms": ["IG"], "time": "20:05", "label": "IG ストーリー" },
+      { "platforms": ["IG"], "time": "20:10", "label": "IG 動画" },
+      { "platforms": ["TT"], "time": "20:10", "label": "TikTok 動画" },
+      { "platforms": ["YT"], "time": "20:10", "label": "YouTube 動画" }
+    ]},
+    { "channel": "reel", "rows": [
+      { "platforms": ["X"],   "time": "17:00", "label": "X スレッド" },
+      { "platforms": ["X"],   "time": "17:00", "label": "返信", "reply": true },
+      { "platforms": ["IG"],  "time": "17:00", "label": "IG フィード" },
+      { "platforms": ["IG"],  "time": "17:00", "label": "返信", "reply": true },
+      { "platforms": ["IGS"], "time": "17:00", "label": "IG ストーリー" }
+    ]}
   ]
 }
