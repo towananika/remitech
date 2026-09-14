@@ -264,6 +264,29 @@
     .agenda{ display:block; }
   }
 
+  /* ---- いいね（今日） ---- */
+  .lkttl{ margin:0; font-size:20px; font-weight:700; }
+  .lkttl span{ font-size:14px; font-weight:500; color:var(--muted); margin-left:4px; }
+  .lkprog{ height:6px; border-radius:999px; background:var(--line); overflow:hidden; margin:0 0 12px; }
+  .lkprog i{ display:block; height:100%; background:var(--sage); transition:width .2s ease; }
+  .lkall{ margin:0 0 12px; font-weight:700; color:var(--sage); }
+  .lktoday{ max-width:720px; border:1px solid var(--line); border-radius:14px; background:var(--surface); }
+  .lkrow{ display:flex; align-items:center; gap:10px; padding:10px 12px; border-bottom:1px solid var(--line);
+    box-shadow:inset 3px 0 0 var(--chc); }
+  .lkrow:last-child{ border-bottom:0; }
+  .lkname{ flex:1 1 auto; min-width:0; }
+  .lkname b{ display:block; font-size:14px; line-height:1.3; }
+  .lkname i{ display:block; font-style:normal; font-size:12px; color:var(--muted); }
+  .lkbtns{ flex:0 0 auto; display:flex; gap:6px; }
+  .lkc.lkbig{ width:66px; min-height:44px; margin:0; font-size:13px; border-radius:10px; }
+  .lkc.lkbig[data-now="true"]{ border-color:var(--ink); border-width:2px; font-weight:700; }
+  .lkpast{ display:block; width:100%; max-width:720px; margin:16px 0 12px; padding:12px; font:inherit; font-size:14px;
+    color:var(--muted); background:none; border:1px dashed var(--line); border-radius:12px; cursor:pointer; }
+  @media (max-width:420px){
+    .lkrow{ flex-wrap:wrap; }
+    .lkbtns{ width:100%; }
+    .lkc.lkbig{ flex:1; width:auto; }
+  }
   /* ---- いいね（週のカレンダー） ---- */
   .lk{ max-width:1100px; }
   .lkhead{ display:flex; align-items:center; gap:12px; flex-wrap:wrap; margin:4px 0 12px; }
@@ -1181,7 +1204,7 @@
           fail:"Could not load the source.", back:"← All posts",
           mntTitle:"Under maintenance", mntUntil:"Expected back around",
           draft:"Draft", live:"Posted", open:"Open channel",
-          navDash:"This week", navBook:"Booking", navPrep:"Prep", navKpi:"KPI", navLikes:"Likes", kDetail:"History", kDate:"Date", kChange:"Change", kShowAll:"Show all", tipLikes:"Like-work checks by week. Tap a time to mark it done", lkWeek:"This week", lkDone:"done", lkCsv:"3M / CSV", navPosts:"Posts",
+          navDash:"This week", navBook:"Booking", navPrep:"Prep", navKpi:"KPI", navLikes:"Likes", kDetail:"History", kDate:"Date", kChange:"Change", kShowAll:"Show all", tipLikes:"Like-work checks by week. Tap a time to mark it done", lkWeek:"This week", lkDone:"done", lkCsv:"3M / CSV", lkToday:"Today", lkPast:"Past records", lkAllDone:"All likes done today", lkNow:"now", navPosts:"Posts",
           followers:"Followers", following:"Following", measuredOn:"Measured", noKpi:"No numbers yet.",
           kpiTotal:"All channels", chTitle:"Engagement checklist", chSaved:"Saved", chLocal:"Saved on this device only",
           allBooked:"All booked", leftToDo:"left", nothingToday:"Nothing scheduled",
@@ -1232,7 +1255,7 @@
           fail:"원본을 불러오지 못했습니다.", back:"← 목록으로",
           mntTitle:"점검 중", mntUntil:"재개 예정",
           draft:"초안", live:"게시함", open:"채널 열기",
-          navDash:"이번 주", navBook:"예약", navPrep:"준비", navKpi:"KPI", navLikes:"좋아요", kDetail:"기록", kDate:"날짜", kChange:"증감", kShowAll:"전체 보기", tipLikes:"좋아요 작업을 주 단위로 체크. 시간을 누르면 완료", lkWeek:"이번 주", lkDone:"완료", lkCsv:"3M / CSV", navPosts:"글",
+          navDash:"이번 주", navBook:"예약", navPrep:"준비", navKpi:"KPI", navLikes:"좋아요", kDetail:"기록", kDate:"날짜", kChange:"증감", kShowAll:"전체 보기", tipLikes:"좋아요 작업을 주 단위로 체크. 시간을 누르면 완료", lkWeek:"이번 주", lkDone:"완료", lkCsv:"3M / CSV", lkToday:"오늘", lkPast:"지난 기록", lkAllDone:"오늘 좋아요 작업 끝", lkNow:"지금", navPosts:"글",
           followers:"팔로워", following:"팔로잉", measuredOn:"측정일", noKpi:"아직 숫자가 없어.",
           kpiTotal:"전체 채널", chTitle:"좋아요 작업 체크리스트", chSaved:"저장됨", chLocal:"이 기기에만 저장됨",
           allBooked:"모두 예약됨", leftToDo:"남음", nothingToday:"예정 없음",
@@ -1283,7 +1306,7 @@
           fail:"原本を読み込めませんでした。", back:"← 一覧へ",
           mntTitle:"メンテナンス中", mntUntil:"再開の目安",
           draft:"下書き", live:"公開ずみ", open:"チャンネルを開く",
-          navDash:"今週", navBook:"予約", navPrep:"準備", navKpi:"KPI", navLikes:"いいね", kDetail:"記録", kDate:"日付", kChange:"増減", kShowAll:"すべて見る", tipLikes:"いいね作業を週ごとにチェック。時間を押すと済み", lkWeek:"今週", lkDone:"済み", lkCsv:"3M / CSV", navPosts:"投稿",
+          navDash:"今週", navBook:"予約", navPrep:"準備", navKpi:"KPI", navLikes:"いいね", kDetail:"記録", kDate:"日付", kChange:"増減", kShowAll:"すべて見る", tipLikes:"いいね作業を週ごとにチェック。時間を押すと済み", lkWeek:"今週", lkDone:"済み", lkCsv:"3M / CSV", lkToday:"今日", lkPast:"過去の記録", lkAllDone:"今日のいいね作業は済み", lkNow:"今", navPosts:"投稿",
           followers:"フォロワー", following:"フォロー", measuredOn:"計測日", noKpi:"まだ数字がない。",
           kpiTotal:"全チャンネル合計", chTitle:"いいね作業チェックリスト", chSaved:"保存した", chLocal:"この端末にだけ保存",
           allBooked:"すべて予約ずみ", leftToDo:"残り", nothingToday:"予定なし",
@@ -3369,11 +3392,33 @@
   }
 
   // 押した1件だけを、置き場の最新に重ねて書く（他の人の印を消さない）
+  var CHORE_LOCAL = "remitech-chores-mine";
+  function choreMine() {
+    try { return JSON.parse(localStorage.getItem(CHORE_LOCAL) || "{}") || {}; } catch (e) { return {}; }
+  }
+  // 置き場から読んだ印に、この端末で押した分を重ねる（鍵のない端末だけ）
+  function choreOverlay(c) {
+    if (!c || storeOn()) return c;
+    var mine = choreMine();
+    c.done = c.done || {};
+    for (var d in mine) {
+      c.done[d] = c.done[d] || {};
+      for (var k in mine[d]) { if (mine[d][k]) c.done[d][k] = true; else delete c.done[d][k]; }
+    }
+    return c;
+  }
   function saveChore(date, id, on) {
     chores.done = chores.done || {};
     chores.done[date] = chores.done[date] || {};
     if (on) chores.done[date][id] = true; else delete chores.done[date][id];
-    if (!storeOn()) return Promise.resolve({ where: "local" });
+    if (!storeOn()) {
+      var mine = choreMine();
+      mine[date] = mine[date] || {};
+      mine[date][id] = !!on;
+      try { localStorage.setItem(CHORE_LOCAL, JSON.stringify(mine)); }
+      catch (e) { return Promise.reject(e); }
+      return Promise.resolve({ where: "local" });
+    }
     var c = storeGet();
     return ghApi(c, "chores.json").then(function (r) { return r.ok ? r.json() : null; })
       .then(function (prev) {
@@ -3684,7 +3729,7 @@
   /* ================= いいね（週のカレンダー） =================
      行＝アカウント、列＝月〜日。1マスに 09:30・13:30・17:00 の3つ。
      押すと済み、もう一度押すと戻る。まだ来ていない日は押せない（先に付けてしまう事故を防ぐ） */
-  var lkWeek = 0;
+  var lkWeek = 0, lkPastOpen = false;
   function lkMonday(d) { var x = new Date(d.getFullYear(), d.getMonth(), d.getDate()); x.setDate(x.getDate() - (x.getDay() + 6) % 7); return x; }
 
   function renderLikes() {
@@ -3723,20 +3768,50 @@
 
     var end = days[6];
     var label = lkWeek === 0 ? t("lkWeek") : (mon.getMonth() + 1) + "/" + mon.getDate() + "\u2013" + (end.getMonth() + 1) + "/" + end.getDate();
-    view.innerHTML = '<div class="lk">' +
-      '<div class="lkhead"><div class="lknav"><button id="lkPrev" aria-label="prev">\u2039</button><span>' + esc(label) + '</span>' +
-        '<button id="lkNext" aria-label="next">\u203A</button></div>' +
-        '<span class="calcount" data-full="' + (total > 0 && doneN === total) + '">' + doneN + "/" + total + " " + esc(t("lkDone")) + '</span>' +
-        '<span class="tiny" id="lkOut"></span></div>' +
-      '<div class="lkwrap" id="lkWrap"><table class="lktab"><thead>' + head + '</thead><tbody>' + rows + '</tbody></table></div></div>';
+    // ---- 今日：一目で見える1枚。行＝アカウント、押すところ＝時間 ----
+    var td = (chores.done && chores.done[today]) || {}, nm = now.getHours() * 60 + now.getMinutes();
+    var times = {};
+    chores.lists.forEach(function (li) { li.tasks.forEach(function (tk) { times[tk.time] = 1; }); });
+    var cur = null;
+    Object.keys(times).sort(function (a, b) { return toMin(a) - toMin(b); }).forEach(function (tm) { if (toMin(tm) <= nm) cur = tm; });
+    var tAll = 0, tDone = 0;
+    var todayRows = chores.lists.map(function (li) {
+      var c = chanOf(li.channel) || { name: li.channel, color: "var(--wood)" };
+      var csv = li.kind === "csv" || li.tasks.some(function (tk) { return /3M|csv/i.test(tk.task); });
+      var n = csv ? "" : ((/(\d+)/.exec((li.tasks[0] || {}).task || "") || [])[1] || "");
+      return '<div class="lkrow" style="--chc:' + esc(c.color || "var(--wood)") + '">' +
+        '<div class="lkname"><b>' + esc(csv ? t("lkCsv") : c.name) + '</b><i>' + esc(csv ? c.name : pfn(li.platform) + (n ? " \u00b7 " + n : "")) + '</i></div>' +
+        '<div class="lkbtns">' + li.tasks.slice().sort(function (a, b) { return toMin(a.time) - toMin(b.time); }).map(function (tk) {
+          var on = !!td[tk.id]; tAll++; if (on) tDone++;
+          return '<button class="lkc lkbig" data-d="' + today + '" data-id="' + esc(tk.id) + '" data-on="' + on + '" data-now="' + (tk.time === cur && !on) + '" title="' + esc(tk.task) + '">' +
+            (on ? "\u2713 " : "") + esc(tk.time) + '</button>';
+        }).join("") + '</div></div>';
+    }).join("");
 
-    // スマホでは今日の列が見えるところまで横に送る
-    var wrap = document.getElementById("lkWrap"), tc = wrap.querySelector('th[data-today="true"]');
+    var h = '<div class="lk">' +
+      '<div class="lkhead"><p class="lkttl">' + esc(t("lkToday")) + ' <span>' + (now.getMonth() + 1) + "/" + now.getDate() + "(" + esc(DOW[lang][now.getDay()]) + ')</span></p>' +
+        '<span class="calcount" data-full="' + (tAll > 0 && tDone === tAll) + '">' + tDone + "/" + tAll + '</span>' +
+        '<span class="tiny" id="lkOut"></span></div>' +
+      '<div class="lkprog"><i style="width:' + (tAll ? Math.round(tDone / tAll * 100) : 0) + '%"></i></div>' +
+      (tAll > 0 && tDone === tAll ? '<p class="lkall">\u2713 ' + esc(t("lkAllDone")) + '</p>' : "") +
+      '<div class="lktoday">' + todayRows + '</div>' +
+      '<button class="lkpast" id="lkPast" aria-expanded="' + lkPastOpen + '">' + esc(t("lkPast")) + (lkPastOpen ? " \u25B4" : " \u25BE") + '</button>';
+    if (lkPastOpen) {
+      h += '<div class="lkhead"><div class="lknav"><button id="lkPrev" aria-label="prev">\u2039</button><span>' + esc(label) + '</span>' +
+          '<button id="lkNext" aria-label="next">\u203A</button></div>' +
+          '<span class="calcount" data-full="' + (total > 0 && doneN === total) + '">' + doneN + "/" + total + " " + esc(t("lkDone")) + '</span></div>' +
+        '<div class="lkwrap" id="lkWrap"><table class="lktab"><thead>' + head + '</thead><tbody>' + rows + '</tbody></table></div>';
+    }
+    view.innerHTML = h + '</div>';
+
+    // 過去の表を開いたときは、スマホでは今日の列が見えるところまで横に送る
+    var wrap = document.getElementById("lkWrap"), tc = wrap && wrap.querySelector('th[data-today="true"]');
     if (tc && wrap.scrollWidth > wrap.clientWidth) wrap.scrollLeft = Math.max(0, tc.offsetLeft - 120);
   }
 
   view.addEventListener("click", function (e) {
     if (tab !== "likes") return;
+    if (e.target.closest("#lkPast")) { lkPastOpen = !lkPastOpen; renderLikes(); return; }
     if (e.target.closest("#lkPrev")) { lkWeek--; renderLikes(); return; }
     if (e.target.closest("#lkNext")) { lkWeek++; renderLikes(); return; }
     var b = e.target.closest(".lkc");
@@ -4519,6 +4594,7 @@
   var choreEtag = null, choreBusy = false;
   function applyChores(c) {
     if (!c || !chores) return;
+    c = choreOverlay(c);
     if (JSON.stringify(c.done || {}) === JSON.stringify(chores.done || {}) &&
         JSON.stringify(c.lists || []) === JSON.stringify(chores.lists || [])) return;
     chores = c;
@@ -4647,7 +4723,7 @@
           }).catch(function () {});
         fetch("./chores.json", { cache: "no-cache" })
           .then(function (r) { return r.ok ? r.json() : null; })
-          .then(function (c) { chores = c; if (tab === "kpi") renderKpi(); if (tab === "today") renderToday(); if (tab === "likes") renderLikes(); })
+          .then(function (c) { chores = choreOverlay(c); if (tab === "kpi") renderKpi(); if (tab === "today") renderToday(); if (tab === "likes") renderLikes(); })
           .catch(function () {});
         fetch("./kpi.json", { cache: "no-cache" })
           .then(function (r) { return r.ok ? r.json() : null; })
