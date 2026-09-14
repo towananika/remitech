@@ -66,12 +66,13 @@ async function bookList(env, origin) {
 }
 
 async function bookSave(request, env, origin) {
-  if (!env.TEAM_CODE) return json({ error: "not-configured" }, 503, origin);
   const text = await request.text();
   if (text.length > MAX_BOOK_BODY) return json({ error: "too-large" }, 413, origin);
   let b;
   try { b = JSON.parse(text); } catch (e) { return json({ error: "bad-json" }, 400, origin); }
-  if (!b || typeof b.code !== "string" || !safeEqual(b.code, env.TEAM_CODE)) return json({ error: "code" }, 403, origin);
+  if (!b) return json({ error: "bad-json" }, 400, origin);
+  const denied = await checkCode(request, env, origin, b);
+  if (denied) return denied;
   if (!BOOK_KINDS[b.kind]) return json({ error: "kind" }, 400, origin);
   if (typeof b.key !== "string" || !/^[A-Za-z0-9|_:.\-]{1,80}$/.test(b.key)) return json({ error: "key" }, 400, origin);
 
@@ -107,17 +108,16 @@ async function list(env, origin) {
 }
 
 async function save(request, env, origin) {
-  // 合言葉が設定されていないうちは、誰にも書かせない
-  if (!env.TEAM_CODE) return json({ error: "not-configured" }, 503, origin);
+  // 合言葉なしで運用する（2026-09-14 Hibiki 指定）。TEAM_CODE を設定したときだけ合言葉を求める
 
   const text = await request.text();
   if (text.length > MAX_BODY) return json({ error: "too-large" }, 413, origin);
   let b;
   try { b = JSON.parse(text); } catch (e) { return json({ error: "bad-json" }, 400, origin); }
 
-  if (!b || typeof b.code !== "string" || !safeEqual(b.code, env.TEAM_CODE)) {
-    return json({ error: "code" }, 403, origin);
-  }
+  if (!b) return json({ error: "bad-json" }, 400, origin);
+  const denied = await checkCode(request, env, origin, b);
+  if (denied) return denied;
   if (!/^\d{4}-\d{2}-\d{2}$/.test(b.date || "")) return json({ error: "date" }, 400, origin);
   if (!/^[A-Za-z0-9|_:.-]{1,40}$/.test(b.id || "")) return json({ error: "id" }, 400, origin);
 
@@ -127,6 +127,35 @@ async function save(request, env, origin) {
   if (b.on) day[b.id] = true; else delete day[b.id];
   await env.CHORES.put(key, JSON.stringify(day));
   return json({ ok: true, date: b.date, day }, 200, origin);
+}
+
+// パスワードの総当たり（BOT が次々に試す）を止める。
+// 同じ IP から 1時間に 5回まちがえたら、その IP は 1時間どの書き込みもできない（正しいパスワードでも）。
+// 数は KV に「rl:<IP>」で持ち、1時間で自然に消える
+const FAIL_LIMIT = 5;
+const FAIL_WINDOW = 60 * 60;
+
+function clientIp(request) {
+  return request.headers.get("CF-Connecting-IP") || request.headers.get("X-Forwarded-For") || "local";
+}
+async function isBlocked(env, ip) {
+  const n = parseInt((await env.CHORES.get("rl:" + ip)) || "0", 10);
+  return n >= FAIL_LIMIT;
+}
+async function countFail(env, ip) {
+  const n = parseInt((await env.CHORES.get("rl:" + ip)) || "0", 10) + 1;
+  await env.CHORES.put("rl:" + ip, String(n), { expirationTtl: FAIL_WINDOW });
+  return n;
+}
+// パスワードを調べる。null なら通してよい。Response なら、それを返す
+async function checkCode(request, env, origin, b) {
+  if (!env.TEAM_CODE) return null;                       // パスワードなしで運用中
+  const ip = clientIp(request);
+  if (await isBlocked(env, ip)) return json({ error: "too-many" }, 429, origin, { "Retry-After": String(FAIL_WINDOW) });
+  if (typeof b.code === "string" && safeEqual(b.code, env.TEAM_CODE)) return null;
+  const n = await countFail(env, ip);
+  if (n >= FAIL_LIMIT) return json({ error: "too-many" }, 429, origin, { "Retry-After": String(FAIL_WINDOW) });
+  return json({ error: "code" }, 403, origin);
 }
 
 // 合言葉の比較で、一致した文字数が時間差から漏れないようにする
