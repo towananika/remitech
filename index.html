@@ -3447,6 +3447,9 @@
       }).catch(function () {});
   }
   setInterval(function () { if (tab === "book") bookPull(); }, 10000);
+  // 画面に戻ってきたら、10秒を待たずにすぐ読む（ほかの端末で押した分を早く出す）
+  document.addEventListener("visibilitychange", function () { if (!document.hidden) bookPull(true); });
+  window.addEventListener("focus", function () { bookPull(true); });
   var BK_WHO = ["Suha", "Hyejeong", "Seohyun"];
   // 休日: 手で切り替えた日はその値。触っていない日は、土日なら休日
   function bkIsHol(k) {
