@@ -265,6 +265,13 @@
   }
 
   /* ---- いいね（今日） ---- */
+  .lkcode{ display:flex; flex-wrap:wrap; align-items:center; gap:8px; max-width:720px; margin:0 0 12px; padding:10px 12px;
+    border:1px solid var(--line); border-radius:12px; background:var(--surface); }
+  .lkcode label{ font-size:13px; font-weight:700; }
+  .lkcode input{ flex:1 1 180px; min-width:0; min-height:44px; font:inherit; font-size:15px; padding:8px 12px;
+    border:1px solid var(--line); border-radius:10px; background:var(--bg); color:var(--ink); }
+  .lkcode button{ min-height:44px; padding:0 16px; font:inherit; font-weight:700; border:0; border-radius:10px;
+    background:var(--ink); color:var(--surface); cursor:pointer; }
   .lkttl{ margin:0; font-size:20px; font-weight:700; }
   .lkttl span{ font-size:14px; font-weight:500; color:var(--muted); margin-left:4px; }
   .lkprog{ height:6px; border-radius:999px; background:var(--line); overflow:hidden; margin:0 0 12px; }
@@ -1204,7 +1211,7 @@
           fail:"Could not load the source.", back:"← All posts",
           mntTitle:"Under maintenance", mntUntil:"Expected back around",
           draft:"Draft", live:"Posted", open:"Open channel",
-          navDash:"This week", navBook:"Booking", navPrep:"Prep", navKpi:"KPI", navLikes:"Likes", kDetail:"History", kDate:"Date", kChange:"Change", kShowAll:"Show all", tipLikes:"Like-work checks by week. Tap a time to mark it done", lkWeek:"This week", lkDone:"done", lkCsv:"3M / CSV", lkToday:"Today", lkPast:"Past records", lkAllDone:"All likes done today", lkNow:"now", navPosts:"Posts",
+          navDash:"This week", navBook:"Booking", navPrep:"Prep", navKpi:"KPI", navLikes:"Likes", kDetail:"History", kDate:"Date", kChange:"Change", kShowAll:"Show all", tipLikes:"Like-work checks by week. Tap a time to mark it done", lkWeek:"This week", lkDone:"done", lkCode:"Team passphrase", lkCodeHint:"Enter it once on this device to share checks with everyone", lkCodeSave:"Save", lkCodeBad:"Wrong passphrase", lkServer:"Saved for everyone", lkOffline:"Server unreachable. Kept on this device", lkCsv:"3M / CSV", lkToday:"Today", lkPast:"Past records", lkAllDone:"All likes done today", lkNow:"now", navPosts:"Posts",
           followers:"Followers", following:"Following", measuredOn:"Measured", noKpi:"No numbers yet.",
           kpiTotal:"All channels", chTitle:"Engagement checklist", chSaved:"Saved", chLocal:"Saved on this device only",
           allBooked:"All booked", leftToDo:"left", nothingToday:"Nothing scheduled",
@@ -1255,7 +1262,7 @@
           fail:"원본을 불러오지 못했습니다.", back:"← 목록으로",
           mntTitle:"점검 중", mntUntil:"재개 예정",
           draft:"초안", live:"게시함", open:"채널 열기",
-          navDash:"이번 주", navBook:"예약", navPrep:"준비", navKpi:"KPI", navLikes:"좋아요", kDetail:"기록", kDate:"날짜", kChange:"증감", kShowAll:"전체 보기", tipLikes:"좋아요 작업을 주 단위로 체크. 시간을 누르면 완료", lkWeek:"이번 주", lkDone:"완료", lkCsv:"3M / CSV", lkToday:"오늘", lkPast:"지난 기록", lkAllDone:"오늘 좋아요 작업 끝", lkNow:"지금", navPosts:"글",
+          navDash:"이번 주", navBook:"예약", navPrep:"준비", navKpi:"KPI", navLikes:"좋아요", kDetail:"기록", kDate:"날짜", kChange:"증감", kShowAll:"전체 보기", tipLikes:"좋아요 작업을 주 단위로 체크. 시간을 누르면 완료", lkWeek:"이번 주", lkDone:"완료", lkCode:"팀 암호", lkCodeHint:"이 기기에서 한 번만 입력하면 모두와 공유돼", lkCodeSave:"저장", lkCodeBad:"암호가 달라", lkServer:"모두에게 저장됨", lkOffline:"서버에 연결 안 됨. 이 기기에 보관", lkCsv:"3M / CSV", lkToday:"오늘", lkPast:"지난 기록", lkAllDone:"오늘 좋아요 작업 끝", lkNow:"지금", navPosts:"글",
           followers:"팔로워", following:"팔로잉", measuredOn:"측정일", noKpi:"아직 숫자가 없어.",
           kpiTotal:"전체 채널", chTitle:"좋아요 작업 체크리스트", chSaved:"저장됨", chLocal:"이 기기에만 저장됨",
           allBooked:"모두 예약됨", leftToDo:"남음", nothingToday:"예정 없음",
@@ -1306,7 +1313,7 @@
           fail:"原本を読み込めませんでした。", back:"← 一覧へ",
           mntTitle:"メンテナンス中", mntUntil:"再開の目安",
           draft:"下書き", live:"公開ずみ", open:"チャンネルを開く",
-          navDash:"今週", navBook:"予約", navPrep:"準備", navKpi:"KPI", navLikes:"いいね", kDetail:"記録", kDate:"日付", kChange:"増減", kShowAll:"すべて見る", tipLikes:"いいね作業を週ごとにチェック。時間を押すと済み", lkWeek:"今週", lkDone:"済み", lkCsv:"3M / CSV", lkToday:"今日", lkPast:"過去の記録", lkAllDone:"今日のいいね作業は済み", lkNow:"今", navPosts:"投稿",
+          navDash:"今週", navBook:"予約", navPrep:"準備", navKpi:"KPI", navLikes:"いいね", kDetail:"記録", kDate:"日付", kChange:"増減", kShowAll:"すべて見る", tipLikes:"いいね作業を週ごとにチェック。時間を押すと済み", lkWeek:"今週", lkDone:"済み", lkCode:"チームの合言葉", lkCodeHint:"この端末で一度入れれば、全員と共有されます", lkCodeSave:"保存", lkCodeBad:"合言葉が違います", lkServer:"全員に保存しました", lkOffline:"サーバーにつながりません。この端末に残しました", lkCsv:"3M / CSV", lkToday:"今日", lkPast:"過去の記録", lkAllDone:"今日のいいね作業は済み", lkNow:"今", navPosts:"投稿",
           followers:"フォロワー", following:"フォロー", measuredOn:"計測日", noKpi:"まだ数字がない。",
           kpiTotal:"全チャンネル合計", chTitle:"いいね作業チェックリスト", chSaved:"保存した", chLocal:"この端末にだけ保存",
           allBooked:"すべて予約ずみ", leftToDo:"残り", nothingToday:"予定なし",
@@ -3398,7 +3405,7 @@
   }
   // 置き場から読んだ印に、この端末で押した分を重ねる（鍵のない端末だけ）
   function choreOverlay(c) {
-    if (!c || storeOn()) return c;
+    if (!c) return c;
     var mine = choreMine();
     c.done = c.done || {};
     for (var d in mine) {
@@ -3407,48 +3414,39 @@
     }
     return c;
   }
+  // いいね作業の印はサーバー（Cloudflare Worker）に置く。合言葉を知っている端末ならどれからでも書け、誰でも読める。
+  // 開発中は localStorage の remitech-chore-api で置き場を差し替えられる
+  var CHORE_API = (function () {
+    try { return localStorage.getItem("remitech-chore-api") || "https://remitech-chores.jaykim-can.workers.dev/chores"; }
+    catch (e) { return "https://remitech-chores.jaykim-can.workers.dev/chores"; }
+  })();
+  function teamCode() { try { return localStorage.getItem("remitech-team-code") || ""; } catch (e) { return ""; } }
+  function setTeamCode(v) { try { if (v) localStorage.setItem("remitech-team-code", v); else localStorage.removeItem("remitech-team-code"); } catch (e) {} }
+
   function saveChore(date, id, on) {
     chores.done = chores.done || {};
     chores.done[date] = chores.done[date] || {};
     if (on) chores.done[date][id] = true; else delete chores.done[date][id];
-    if (!storeOn()) {
-      var mine = choreMine();
-      mine[date] = mine[date] || {};
-      mine[date][id] = !!on;
-      try { localStorage.setItem(CHORE_LOCAL, JSON.stringify(mine)); }
-      catch (e) { return Promise.reject(e); }
-      return Promise.resolve({ where: "local" });
-    }
-    var c = storeGet();
-    return ghApi(c, "chores.json").then(function (r) { return r.ok ? r.json() : null; })
-      .then(function (prev) {
-        var body = chores;
-        if (prev) {
-          try {
-            var bin0 = atob((prev.content || "").replace(/\n/g, ""));
-            var b0 = new Uint8Array(bin0.length);
-            for (var i0 = 0; i0 < bin0.length; i0++) b0[i0] = bin0.charCodeAt(i0);
-            body = JSON.parse(new TextDecoder("utf-8").decode(b0));
-            body.done = body.done || {};
-            body.done[date] = body.done[date] || {};
-            if (on) body.done[date][id] = true; else delete body.done[date][id];
-            chores = body;
-          } catch (e) {}
-        }
-        var bytes = new TextEncoder().encode(JSON.stringify(body, null, 2) + "\n");
-        var bin = "";
-        for (var i = 0; i < bytes.length; i++) bin += String.fromCharCode(bytes[i]);
-        return ghApi(c, "chores.json", {
-          method: "PUT",
-          headers: { "Authorization": "Bearer " + c.token, "Accept": "application/vnd.github+json",
-                     "Content-Type": "application/json" },
-          body: JSON.stringify({ message: "chores: " + date + " " + id + (on ? " on" : " off"),
-                                 content: btoa(bin), sha: prev ? prev.sha : undefined }),
-        });
-      }).then(function (r) {
-        if (r && !r.ok) throw new Error(r.status);
-        return { where: "repo" };
-      });
+    // 先にこの端末にも残す。サーバーに届かなかったときの控え
+    var mine = choreMine();
+    mine[date] = mine[date] || {};
+    mine[date][id] = !!on;
+    try { localStorage.setItem(CHORE_LOCAL, JSON.stringify(mine)); } catch (e) {}
+
+    var code = teamCode();
+    if (!code) return Promise.reject({ reason: "need-code" });
+    return fetch(CHORE_API, {
+      method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ date: date, id: id, on: !!on, code: code }),
+    }).then(function (r) {
+      if (r.status === 403) { setTeamCode(""); throw { reason: "code" }; }
+      if (!r.ok) throw { reason: "offline" };
+      // サーバーに届いた分は、控えから外す
+      var m2 = choreMine();
+      if (m2[date]) { delete m2[date][id]; if (!Object.keys(m2[date]).length) delete m2[date]; }
+      try { localStorage.setItem(CHORE_LOCAL, JSON.stringify(m2)); } catch (e) {}
+      return { where: "server" };
+    }, function () { throw { reason: "offline" }; });
   }
 
   /* ================= 今日 =================
@@ -3792,6 +3790,9 @@
       '<div class="lkhead"><p class="lkttl">' + esc(t("lkToday")) + ' <span>' + (now.getMonth() + 1) + "/" + now.getDate() + "(" + esc(DOW[lang][now.getDay()]) + ')</span></p>' +
         '<span class="calcount" data-full="' + (tAll > 0 && tDone === tAll) + '">' + tDone + "/" + tAll + '</span>' +
         '<span class="tiny" id="lkOut"></span></div>' +
+      (teamCode() ? "" : '<div class="lkcode"><label for="lkCodeIn">' + esc(t("lkCode")) + '</label>' +
+        '<input id="lkCodeIn" type="password" autocomplete="off" placeholder="' + esc(t("lkCodeHint")) + '">' +
+        '<button id="lkCodeSave">' + esc(t("lkCodeSave")) + '</button></div>') +
       '<div class="lkprog"><i style="width:' + (tAll ? Math.round(tDone / tAll * 100) : 0) + '%"></i></div>' +
       (tAll > 0 && tDone === tAll ? '<p class="lkall">\u2713 ' + esc(t("lkAllDone")) + '</p>' : "") +
       '<div class="lktoday">' + todayRows + '</div>' +
@@ -3812,6 +3813,20 @@
   view.addEventListener("click", function (e) {
     if (tab !== "likes") return;
     if (e.target.closest("#lkPast")) { lkPastOpen = !lkPastOpen; renderLikes(); return; }
+    if (e.target.closest("#lkCodeSave")) {
+      var ci = document.getElementById("lkCodeIn"), v = ci ? ci.value.trim() : "";
+      if (!v) return;
+      setTeamCode(v);
+      // 控えに残っている分（サーバーに届いていない印）を送り直す
+      var mine = choreMine(), jobs = [];
+      Object.keys(mine).forEach(function (d) { Object.keys(mine[d]).forEach(function (k) { jobs.push([d, k, mine[d][k]]); }); });
+      choreBusy = true;
+      jobs.reduce(function (pr, j) { return pr.then(function () { return saveChore(j[0], j[1], j[2]); }); }, Promise.resolve())
+        .then(function () { choreBusy = false; renderLikes(); var o = document.getElementById("lkOut"); if (o) o.textContent = t("lkServer"); },
+              function (err) { choreBusy = false; renderLikes(); var o = document.getElementById("lkOut");
+                if (o) o.textContent = err && err.reason === "code" ? t("lkCodeBad") : t("lkOffline"); });
+      return;
+    }
     if (e.target.closest("#lkPrev")) { lkWeek--; renderLikes(); return; }
     if (e.target.closest("#lkNext")) { lkWeek++; renderLikes(); return; }
     var b = e.target.closest(".lkc");
@@ -3821,14 +3836,19 @@
     b.textContent = on ? "\u2713" : "\u2026";
     var wrap = document.getElementById("lkWrap"), sx = wrap ? wrap.scrollLeft : 0, sy = window.scrollY;
     choreBusy = true;
-    saveChore(b.getAttribute("data-d"), b.getAttribute("data-id"), on).then(function (r) {
-      choreBusy = false; choreEtag = null;
+    saveChore(b.getAttribute("data-d"), b.getAttribute("data-id"), on).then(function () {
+      choreBusy = false;
       renderLikes();
       var w2 = document.getElementById("lkWrap"); if (w2) w2.scrollLeft = sx; window.scrollTo(0, sy);
-      var o = document.getElementById("lkOut"); if (o) o.textContent = r.where === "repo" ? t("chSaved") : t("chLocal");
-    }, function () {
+      var o = document.getElementById("lkOut"); if (o) o.textContent = t("lkServer");
+    }, function (err) {
       choreBusy = false;
-      var o2 = document.getElementById("lkOut"); if (o2) o2.textContent = t("saveFail");
+      renderLikes();
+      var w3 = document.getElementById("lkWrap"); if (w3) w3.scrollLeft = sx; window.scrollTo(0, sy);
+      var o2 = document.getElementById("lkOut");
+      var why = err && err.reason;
+      if (o2) o2.textContent = why === "code" ? t("lkCodeBad") : why === "need-code" ? t("lkCodeHint") : t("lkOffline");
+      var ci = document.getElementById("lkCodeIn"); if (ci && (why === "code" || why === "need-code")) ci.focus();
     });
   });
 
@@ -4603,30 +4623,15 @@
   }
   function pullChores() {
     if ((tab !== "kpi" && tab !== "today" && tab !== "likes") || document.hidden || choreBusy || /^#\/prep\//.test(location.hash)) return Promise.resolve();
-    if (storeOn()) {
-      var c = storeGet();
-      var h = { "Authorization": "Bearer " + c.token, "Accept": "application/vnd.github+json" };
-      if (choreEtag) h["If-None-Match"] = choreEtag;
-      return fetch("https://api.github.com/repos/" + c.url + "/contents/chores.json", { headers: h, cache: "no-store" })
-        .then(function (r) {
-          if (r.status === 304 || !r.ok) return null;
-          choreEtag = r.headers.get("ETag");
-          return r.json();
-        })
-        .then(function (j) {
-          if (!j) return;
-          var bin = atob((j.content || "").replace(/\n/g, ""));
-          var b0 = new Uint8Array(bin.length);
-          for (var i = 0; i < bin.length; i++) b0[i] = bin.charCodeAt(i);
-          applyChores(JSON.parse(new TextDecoder("utf-8").decode(b0)));
-        }).catch(function () {});
-    }
-    return fetch("./chores.json?t=" + Date.now(), { cache: "no-store" })
+    return fetch(CHORE_API, { cache: "no-store" })
       .then(function (r) { return r.ok ? r.json() : null; })
-      .then(applyChores).catch(function () {});
+      .then(function (j) {
+        if (!j || !j.done || !chores) return;
+        applyChores({ lists: chores.lists, note: chores.note, done: j.done });
+      }).catch(function () {});
   }
   (function loop() {
-    pullChores().then(function () { setTimeout(loop, storeOn() ? 10000 : 60000); });
+    pullChores().then(function () { setTimeout(loop, 10000); });
   })();
   // 画面に戻ってきたら、すぐ読む
   document.addEventListener("visibilitychange", function () { if (!document.hidden) { pullChores(); pullSchedule(); } });
@@ -4723,7 +4728,18 @@
           }).catch(function () {});
         fetch("./chores.json", { cache: "no-cache" })
           .then(function (r) { return r.ok ? r.json() : null; })
-          .then(function (c) { chores = choreOverlay(c); if (tab === "kpi") renderKpi(); if (tab === "today") renderToday(); if (tab === "likes") renderLikes(); })
+          .then(function (c) {
+            chores = choreOverlay(c); if (tab === "kpi") renderKpi(); if (tab === "today") renderToday(); if (tab === "likes") renderLikes();
+            // 今どのタブにいても、サーバーの印を一度取りに行く。描き直すのは、印を使うタブにいるときだけ
+            fetch(CHORE_API, { cache: "no-store" })
+              .then(function (r) { return r.ok ? r.json() : null; })
+              .then(function (j) {
+                if (!j || !j.done || !chores) return;
+                chores.done = j.done;
+                chores = choreOverlay(chores);
+                if (tab === "kpi") renderKpi(); if (tab === "today") renderToday(); if (tab === "likes") renderLikes();
+              }).catch(function () {});
+          })
           .catch(function () {});
         fetch("./kpi.json", { cache: "no-cache" })
           .then(function (r) { return r.ok ? r.json() : null; })
