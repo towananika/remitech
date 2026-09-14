@@ -3453,7 +3453,8 @@
           var txt = st === "done" ? t("stDone") : st === "sched" ? "✓ " + t("bkBookedShort") : st === "skip" ? t("stSkip") : st === "late" ? "! " + t("bkNotYet") : t("bkNotYet");
           // 材料の印（テキスト・イメージ）。投稿済み・投稿しない枠では出さない
           var keysStr = esc(sls.map(slotKey).join("~"));
-          var showMat = st !== "done" && st !== "skip";
+          // 予約済み・投稿済み・投稿しない枠では、材料の印は要らないので出さない
+          var showMat = st !== "done" && st !== "skip" && st !== "sched";
           var mt = sls.every(function (x) { return !!matGet(x).text; }), mi = sls.every(function (x) { return !!matGet(x).image; });
           h += '<td data-today="' + (k === today) + '" data-hol="' + isHol(k) + '"><div class="bkcell">' +
             (showMat ? '<div class="bkmat">' +
