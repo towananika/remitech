@@ -7,7 +7,9 @@
       { "platforms": ["X"],  "time": "17:00", "label": "投稿" },
       { "platforms": ["X"],  "time": "17:00", "label": "返信", "reply": true },
       { "platforms": ["IG"], "time": "17:00", "label": "フィード" },
-      { "platforms": ["FB"], "time": "17:00", "label": "フィード" }
+      { "platforms": ["IG"], "time": "17:00", "label": "返信", "reply": true },
+      { "platforms": ["FB"], "time": "17:00", "label": "フィード" },
+      { "platforms": ["FB"], "time": "17:00", "label": "返信", "reply": true }
     ]},
     { "channel": "nacha", "rows": [
       { "platforms": ["X"],  "time": "10:30", "label": "X 長文" },
