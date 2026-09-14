@@ -1,5 +1,5 @@
 {
-  "note": "いいね作業のチェック。09:30・13:30・17:00。HIYOKO X 60、悠悠観音堂 X 20、ほかは40。3M・CSVは1つの作業",
+  "note": "いいね作業のチェック。09:30・13:30・17:00。HIYOKO X 60、悠悠観音堂 X 20、ほかは40。3M・CSVは1つの作業。HIYOKO・NACHA の X と IG は、12:00 にフォロワー確認とフォロー+5（2026-09-14追加）",
   "lists": [
     {
       "channel": "hiyoko",
@@ -9,6 +9,16 @@
           "id": "hiyoko|X|2",
           "time": "09:30",
           "task": "LIKE60"
+        },
+        {
+          "id": "hiyoko|X|f5",
+          "time": "12:00",
+          "task": "FOLLOW+5"
+        },
+        {
+          "id": "hiyoko|X|fc",
+          "time": "12:00",
+          "task": "フォロワー確認"
         },
         {
           "id": "hiyoko|X|4",
@@ -30,6 +40,16 @@
           "id": "nacha|X|2",
           "time": "09:30",
           "task": "LIKE40"
+        },
+        {
+          "id": "nacha|X|f5",
+          "time": "12:00",
+          "task": "FOLLOW+5"
+        },
+        {
+          "id": "nacha|X|fc",
+          "time": "12:00",
+          "task": "フォロワー確認"
         },
         {
           "id": "nacha|X|4",
@@ -74,6 +94,16 @@
           "task": "LIKE40"
         },
         {
+          "id": "hiyoko|IG|f5",
+          "time": "12:00",
+          "task": "FOLLOW+5"
+        },
+        {
+          "id": "hiyoko|IG|fc",
+          "time": "12:00",
+          "task": "フォロワー確認"
+        },
+        {
           "id": "hiyoko|IG|6",
           "time": "13:30",
           "task": "LIKE40"
@@ -93,6 +123,16 @@
           "id": "nacha|IG|4",
           "time": "09:30",
           "task": "LIKE40"
+        },
+        {
+          "id": "nacha|IG|f5",
+          "time": "12:00",
+          "task": "FOLLOW+5"
+        },
+        {
+          "id": "nacha|IG|fc",
+          "time": "12:00",
+          "task": "フォロワー確認"
         },
         {
           "id": "nacha|IG|6",

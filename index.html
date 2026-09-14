@@ -320,13 +320,17 @@
   .lkname i{ display:block; font-style:normal; font-size:12px; color:var(--muted); }
   .lkbtns{ flex:0 0 auto; display:flex; gap:6px; }
   .lkc.lkbig{ width:66px; min-height:44px; margin:0; font-size:13px; border-radius:10px; }
+  .lkbtns{ flex-wrap:wrap; justify-content:flex-end; }
+  .lkc.lkbig.lkwide{ width:auto; padding:0 10px; }
   .lkc.lkbig[data-now="true"]{ border-color:var(--ink); border-width:2px; font-weight:700; }
   .lkpast{ display:block; width:100%; max-width:720px; margin:16px 0 12px; padding:12px; font:inherit; font-size:14px;
     color:var(--muted); background:none; border:1px dashed var(--line); border-radius:12px; cursor:pointer; }
   @media (max-width:420px){
     .lkrow{ flex-wrap:wrap; }
     .lkbtns{ width:100%; }
-    .lkc.lkbig{ flex:1; width:auto; }
+    .lkc.lkbig{ flex:1 1 28%; width:auto; }
+    /* 5つ並ぶ行は2段に折り返す。文字は1行のまま */
+    .lkc.lkbig.lkwide{ flex:1 1 40%; white-space:nowrap; }
   }
   /* ---- いいね（週のカレンダー） ---- */
   .lk{ max-width:1100px; }
@@ -3832,6 +3836,12 @@
      行＝アカウント、列＝月〜日。1マスに 09:30・13:30・17:00 の3つ。
      押すと済み、もう一度押すと戻る。まだ来ていない日は押せない（先に付けてしまう事故を防ぐ） */
   var lkWeek = 0, lkPastOpen = false;
+  // ボタンの文字。いいねは時間だけ、それ以外（フォロワー確認・フォロー+5）は中身を出す
+  function lkLabel(tk, short) {
+    if (/follow\s*\+\s*(\d+)/i.test(tk.task)) return (short ? "+" : "フォロー+") + /follow\s*\+\s*(\d+)/i.exec(tk.task)[1];
+    if (/フォロワー確認/.test(tk.task)) return short ? "確認" : "フォロワー確認";
+    return null;
+  }
   function lkMonday(d) { var x = new Date(d.getFullYear(), d.getMonth(), d.getDate()); x.setDate(x.getDate() - (x.getDay() + 6) % 7); return x; }
 
   function renderLikes() {
@@ -3852,7 +3862,7 @@
     var rows = chores.lists.map(function (li) {
       var c = chanOf(li.channel) || { name: li.channel, color: "var(--wood)" };
       var csv = li.kind === "csv" || li.tasks.some(function (tk) { return /3M|csv/i.test(tk.task); });
-      var n = csv ? "" : ((/(\d+)/.exec((li.tasks[0] || {}).task || "") || [])[1] || "");
+      var n = csv ? "" : ((/(\d+)/.exec(((li.tasks.filter(function (tk) { return /like/i.test(tk.task); })[0] || li.tasks[0] || {}).task) || "") || [])[1] || "");
       var h = '<tr style="--chc:' + esc(c.color || "var(--wood)") + '"><th class="lkacc"><b>' + esc(csv ? t("lkCsv") : c.name) + '</b>' +
         '<i>' + esc(csv ? c.name : pfn(li.platform) + (n ? " \u00b7 " + n : "")) + '</i></th>';
       days.forEach(function (d) {
@@ -3862,7 +3872,7 @@
             var on = !!dd[tk.id];
             if (!future) { total++; if (on) doneN++; }
             return '<button class="lkc" data-d="' + k + '" data-id="' + esc(tk.id) + '" data-on="' + on + '"' +
-              (future ? " disabled" : "") + ' title="' + esc(tk.task) + '">' + (on ? "\u2713" : esc(tk.time.replace(/^0/, "").replace(":30", "\u00bd").replace(":00", ""))) + '</button>';
+              (future ? " disabled" : "") + ' title="' + esc(tk.task) + '">' + (on ? "\u2713" : esc(lkLabel(tk, true) || tk.time.replace(/^0/, "").replace(":30", "\u00bd").replace(":00", ""))) + '</button>';
           }).join("") + '</td>';
       });
       return h + '</tr>';
@@ -3880,13 +3890,13 @@
     var todayRows = chores.lists.map(function (li) {
       var c = chanOf(li.channel) || { name: li.channel, color: "var(--wood)" };
       var csv = li.kind === "csv" || li.tasks.some(function (tk) { return /3M|csv/i.test(tk.task); });
-      var n = csv ? "" : ((/(\d+)/.exec((li.tasks[0] || {}).task || "") || [])[1] || "");
+      var n = csv ? "" : ((/(\d+)/.exec(((li.tasks.filter(function (tk) { return /like/i.test(tk.task); })[0] || li.tasks[0] || {}).task) || "") || [])[1] || "");
       return '<div class="lkrow" style="--chc:' + esc(c.color || "var(--wood)") + '">' +
         '<div class="lkname"><b>' + esc(csv ? t("lkCsv") : c.name) + '</b><i>' + esc(csv ? c.name : pfn(li.platform) + (n ? " \u00b7 " + n : "")) + '</i></div>' +
         '<div class="lkbtns">' + li.tasks.slice().sort(function (a, b) { return toMin(a.time) - toMin(b.time); }).map(function (tk) {
           var on = !!td[tk.id]; tAll++; if (on) tDone++;
-          return '<button class="lkc lkbig" data-d="' + today + '" data-id="' + esc(tk.id) + '" data-on="' + on + '" data-now="' + (tk.time === cur && !on) + '" title="' + esc(tk.task) + '">' +
-            (on ? "\u2713 " : "") + esc(tk.time) + '</button>';
+          return '<button class="lkc lkbig' + (lkLabel(tk) ? " lkwide" : "") + '" data-d="' + today + '" data-id="' + esc(tk.id) + '" data-on="' + on + '" data-now="' + (tk.time === cur && !on) + '" title="' + esc(tk.task) + '">' +
+            (on ? "\u2713 " : "") + esc(lkLabel(tk) || tk.time) + '</button>';
         }).join("") + '</div></div>';
     }).join("");
 
