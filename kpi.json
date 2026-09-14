@@ -4,13 +4,6 @@
     {
       "date": "2026-09-10",
       "channel": "hiyoko",
-      "platform": "X",
-      "followers": 249,
-      "following": 257
-    },
-    {
-      "date": "2026-09-10",
-      "channel": "hiyoko",
       "platform": "IG",
       "followers": 2174,
       "following": 236,
@@ -18,10 +11,10 @@
     },
     {
       "date": "2026-09-10",
-      "channel": "nacha",
+      "channel": "hiyoko",
       "platform": "X",
-      "followers": 64,
-      "following": 63
+      "followers": 249,
+      "following": 257
     },
     {
       "date": "2026-09-10",
@@ -33,10 +26,17 @@
     },
     {
       "date": "2026-09-10",
-      "channel": "yuyu",
+      "channel": "nacha",
       "platform": "X",
+      "followers": 64,
+      "following": 63
+    },
+    {
+      "date": "2026-09-10",
+      "channel": "nacha",
+      "platform": "YT",
       "followers": 13,
-      "following": 13
+      "videos": 101
     },
     {
       "date": "2026-09-10",
@@ -47,10 +47,26 @@
     },
     {
       "date": "2026-09-10",
+      "channel": "yuyu",
+      "platform": "X",
+      "followers": 13,
+      "following": 13
+    },
+    {
+      "date": "2026-09-14",
+      "channel": "hiyoko",
+      "platform": "YT",
+      "followers": 94,
+      "videos": 204,
+      "source": "auto"
+    },
+    {
+      "date": "2026-09-14",
       "channel": "nacha",
       "platform": "YT",
       "followers": 13,
-      "videos": 101
+      "videos": 105,
+      "source": "auto"
     }
   ]
 }
