@@ -55,7 +55,13 @@
         }
       ],
       "color": "#d3a72a",
-      "short": "HY"
+      "short": "HY",
+      "docs": [
+        {
+          "name": "HIYOKO詳細企画",
+          "url": "https://docs.google.com/document/d/1Mo6t-x3_D93bPt2vrUP1ZoVlAfuTOIVaglsm4TPyCok/edit?tab=t.naenwgffxfpa"
+        }
+      ]
     },
     {
       "id": "nacha",
