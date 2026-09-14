@@ -5,4 +5,4 @@ compatibility_date = "2026-09-14"
 # npx wrangler kv namespace create CHORES で作成し、出た id をここに貼る
 [[kv_namespaces]]
 binding = "CHORES"
-id = "REPLACE_WITH_KV_ID"
+id = "ae0f234e8af148f693c88d4f0272c414"

@@ -6230,57 +6230,6 @@
     },
     {
       "date": "2026-09-14",
-      "channel": "reel",
-      "platform": "X",
-      "time": "09:00",
-      "label": "",
-      "owner": "JiSeong",
-      "type": "thread",
-      "text": {
-        "ja": "",
-        "en": "",
-        "ko": ""
-      },
-      "comment": "",
-      "asset": "",
-      "note": "確定ドラフト",
-      "need": [
-        "text"
-      ],
-      "parts": [
-        {
-          "no": "Thread1",
-          "time": "",
-          "ja": "YouTube初の動画：\n18秒。\n\n象の前に立つ男。\n\nすべてのシステムは、小さなことから始まる。",
-          "en": "YouTube's first video:\n18 seconds.\n\nA guy standing\nin front of elephants.\n\nEvery system starts\nwith something small."
-        },
-        {
-          "no": "Thread2",
-          "time": "",
-          "ja": "REELも、最初は一件のレビューから始まった。\n\n壮大なビジョンではなく、\n小さな行動の積み重ねがシステムを形づくる。",
-          "en": "REEL also started\nwith a single review.\n\nNot a grand vision —\nsmall actions, stacked,\nshape the system."
-        },
-        {
-          "no": "Thread3",
-          "time": "",
-          "ja": "始まりは小さくていい。\n\n育てるのは、続けることだ。\n\nプレイ → レビュー → 報酬",
-          "en": "It's fine to start small.\nWhat grows it is continuing.\n\nPLAY → REVIEW → REWARD",
-          "nobo": "It's fine to start small. What makes it grow is consistency.\n\nPLAY → REVIEW → REWARD",
-          "reviewed": true
-        }
-      ],
-      "scheduled": true,
-      "posted": false,
-      "url": "",
-      "check": {
-        "done": false,
-        "at": "",
-        "match": null,
-        "note": ""
-      }
-    },
-    {
-      "date": "2026-09-14",
       "channel": "hiyoko",
       "platform": "X",
       "time": "09:30",
@@ -6341,66 +6290,6 @@
       "date": "2026-09-14",
       "channel": "reel",
       "platform": "IG",
-      "time": "12:00",
-      "label": "IG Feed",
-      "owner": "",
-      "type": "text",
-      "text": {
-        "ja": "好きなものは、だいたい小さく始まった。\n\nあのゲームも、あのチャンネルも。\nWeb3トークンプロジェクト|REEL\n\n詳細はXで。\n\nPLAY -> REVIEW -> REWARD",
-        "en": "Everything you love started small.\n\nThat game. That channel.\nWeb3 Token Project | REEL\n\nMore on X.\n\nPLAY -> REVIEW -> REWARD",
-        "ko": ""
-      },
-      "comment": "",
-      "asset": "",
-      "note": "REEL Instagram企画表より",
-      "need": [
-        "text",
-        "image"
-      ],
-      "scheduled": true,
-      "posted": false,
-      "url": "",
-      "check": {
-        "done": false,
-        "at": "",
-        "match": null,
-        "note": ""
-      }
-    },
-    {
-      "date": "2026-09-14",
-      "channel": "reel",
-      "platform": "IG",
-      "time": "12:05",
-      "label": "IG Stories",
-      "owner": "",
-      "type": "text",
-      "text": {
-        "ja": "好きなものは、小さく始まった。\n\n→ Xで詳しく",
-        "en": "Everything you love started small.\n\n→ More on X",
-        "ko": ""
-      },
-      "comment": "",
-      "asset": "",
-      "note": "REEL Instagram企画表より",
-      "need": [
-        "text",
-        "image"
-      ],
-      "scheduled": true,
-      "posted": false,
-      "url": "",
-      "check": {
-        "done": false,
-        "at": "",
-        "match": null,
-        "note": ""
-      }
-    },
-    {
-      "date": "2026-09-14",
-      "channel": "reel",
-      "platform": "IG",
       "time": "12:30",
       "label": "Reply",
       "owner": "",
@@ -6412,7 +6301,7 @@
       },
       "comment": "",
       "asset": "",
-      "note": "REEL Instagram企画表より",
+      "note": "REEL Instagram企画表より / 2026-09-14: 返信は 17:00 のフィード（＋返信）に含めた",
       "need": [
         "text"
       ],
@@ -6424,7 +6313,8 @@
         "at": "",
         "match": null,
         "note": ""
-      }
+      },
+      "skip": true
     },
     {
       "date": "2026-09-14",
@@ -6486,6 +6376,36 @@
     },
     {
       "date": "2026-09-14",
+      "channel": "reel",
+      "platform": "IG",
+      "time": "17:00",
+      "label": "IG Feed",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "好きなものは、だいたい小さく始まった。\n\nあのゲームも、あのチャンネルも。\nWeb3トークンプロジェクト|REEL\n\n詳細はXで。\n\nPLAY -> REVIEW -> REWARD",
+        "en": "Everything you love started small.\n\nThat game. That channel.\nWeb3 Token Project | REEL\n\nMore on X.\n\nPLAY -> REVIEW -> REWARD",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-14",
       "time": "17:00",
       "platform": "IG",
       "type": "video",
@@ -6512,6 +6432,87 @@
         "note": ""
       },
       "owner": ""
+    },
+    {
+      "date": "2026-09-14",
+      "channel": "reel",
+      "platform": "IGS",
+      "time": "17:00",
+      "label": "IG Stories",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "好きなものは、小さく始まった。\n\n→ Xで詳しく",
+        "en": "Everything you love started small.\n\n→ More on X",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-14",
+      "channel": "reel",
+      "platform": "X",
+      "time": "17:00",
+      "label": "スレッド",
+      "owner": "JiSeong",
+      "type": "thread",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "確定ドラフト",
+      "need": [
+        "text"
+      ],
+      "parts": [
+        {
+          "no": "Thread1",
+          "time": "",
+          "ja": "YouTube初の動画：\n18秒。\n\n象の前に立つ男。\n\nすべてのシステムは、小さなことから始まる。",
+          "en": "YouTube's first video:\n18 seconds.\n\nA guy standing\nin front of elephants.\n\nEvery system starts\nwith something small."
+        },
+        {
+          "no": "Thread2",
+          "time": "",
+          "ja": "REELも、最初は一件のレビューから始まった。\n\n壮大なビジョンではなく、\n小さな行動の積み重ねがシステムを形づくる。",
+          "en": "REEL also started\nwith a single review.\n\nNot a grand vision —\nsmall actions, stacked,\nshape the system."
+        },
+        {
+          "no": "Thread3",
+          "time": "",
+          "ja": "始まりは小さくていい。\n\n育てるのは、続けることだ。\n\nプレイ → レビュー → 報酬",
+          "en": "It's fine to start small.\nWhat grows it is continuing.\n\nPLAY → REVIEW → REWARD",
+          "nobo": "It's fine to start small. What makes it grow is consistency.\n\nPLAY → REVIEW → REWARD",
+          "reviewed": true
+        }
+      ],
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
     },
     {
       "date": "2026-09-14",
@@ -6689,61 +6690,6 @@
       }
     },
     {
-      "date": "2026-09-15",
-      "channel": "reel",
-      "platform": "X",
-      "time": "09:00",
-      "label": "",
-      "owner": "JiSeong",
-      "type": "thread",
-      "text": {
-        "ja": "",
-        "en": "",
-        "ko": ""
-      },
-      "comment": "",
-      "asset": "",
-      "note": "確定ドラフト",
-      "need": [
-        "text"
-      ],
-      "parts": [
-        {
-          "no": "Thread1",
-          "time": "",
-          "ja": "1日1% → 1年で37倍。\n\n1日-1% → 1年で0.03。\n\n同じ1%。\n\n1,200倍の差。\n\n少額投資でも複利効果は大きい。",
-          "en": "1% per day → 37x in a year.\n\n-1% per day → 0.03 in a year.\n\nSame 1%.\n1,200x difference.\n\nSmall inputs compound."
-        },
-        {
-          "no": "Thread2",
-          "time": "",
-          "ja": "REELでは、すべてのレビューがシステムに貢献します。\n\n1日1件のレビュー。\n\n365日間。\n\n信頼の基盤が構築されます。",
-          "en": "In REEL, every review\nadds to the system.\n\n1 review per day.\n365 days.\nA trust layer is built."
-        },
-        {
-          "no": "Thread3",
-          "time": "",
-          "ja": "最初のレビューは小さく見えます。\n\n365回目のレビューでシステムが変わります。\n\nプレイ → レビュー → 報酬",
-          "en": "The first review looks small.\nThe 365th changes the system.\n\nPLAY → REVIEW → REWARD"
-        },
-        {
-          "no": "Reply",
-          "time": "",
-          "ja": "小さなことが積み重なっていく。\n\nそれが建築というものだ。",
-          "en": "Small things compound.\nThat's the architecture."
-        }
-      ],
-      "scheduled": true,
-      "posted": false,
-      "url": "",
-      "check": {
-        "done": false,
-        "at": "",
-        "match": null,
-        "note": ""
-      }
-    },
-    {
       "time": "09:30",
       "type": "text",
       "label": "",
@@ -6803,7 +6749,66 @@
       "date": "2026-09-15",
       "channel": "reel",
       "platform": "IG",
-      "time": "12:00",
+      "time": "12:30",
+      "label": "Reply",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "続けてる理由、何？\n\n① 上手くなる実感\n② 習慣になった\n③ やめるのが惜しい\n\n→ コメントで教えて",
+        "en": "Why do you keep going?\n\n① Feeling progress\n② It's a habit\n③ Too invested to quit\n\n→ Tell me in the comments",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より / 2026-09-14: 返信は 17:00 のフィード（＋返信）に含めた",
+      "need": [
+        "text"
+      ],
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "skip": true
+    },
+    {
+      "date": "2026-09-15",
+      "channel": "nacha",
+      "platform": "X",
+      "time": "14:00",
+      "label": "ことば",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
+      "need": [
+        "text"
+      ],
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-15",
+      "channel": "reel",
+      "platform": "IG",
+      "time": "17:00",
       "label": "IG Feed",
       "owner": "",
       "type": "text",
@@ -6832,8 +6837,8 @@
     {
       "date": "2026-09-15",
       "channel": "reel",
-      "platform": "IG",
-      "time": "12:05",
+      "platform": "IGS",
+      "time": "17:00",
       "label": "IG Stories",
       "owner": "",
       "type": "text",
@@ -6862,40 +6867,11 @@
     {
       "date": "2026-09-15",
       "channel": "reel",
-      "platform": "IG",
-      "time": "12:30",
-      "label": "Reply",
-      "owner": "",
-      "type": "text",
-      "text": {
-        "ja": "続けてる理由、何？\n\n① 上手くなる実感\n② 習慣になった\n③ やめるのが惜しい\n\n→ コメントで教えて",
-        "en": "Why do you keep going?\n\n① Feeling progress\n② It's a habit\n③ Too invested to quit\n\n→ Tell me in the comments",
-        "ko": ""
-      },
-      "comment": "",
-      "asset": "",
-      "note": "REEL Instagram企画表より",
-      "need": [
-        "text"
-      ],
-      "scheduled": true,
-      "posted": false,
-      "url": "",
-      "check": {
-        "done": false,
-        "at": "",
-        "match": null,
-        "note": ""
-      }
-    },
-    {
-      "date": "2026-09-15",
-      "channel": "nacha",
       "platform": "X",
-      "time": "14:00",
-      "label": "ことば",
-      "owner": "",
-      "type": "text",
+      "time": "17:00",
+      "label": "スレッド",
+      "owner": "JiSeong",
+      "type": "thread",
       "text": {
         "ja": "",
         "en": "",
@@ -6903,9 +6879,35 @@
       },
       "comment": "",
       "asset": "",
-      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
+      "note": "確定ドラフト",
       "need": [
         "text"
+      ],
+      "parts": [
+        {
+          "no": "Thread1",
+          "time": "",
+          "ja": "1日1% → 1年で37倍。\n\n1日-1% → 1年で0.03。\n\n同じ1%。\n\n1,200倍の差。\n\n少額投資でも複利効果は大きい。",
+          "en": "1% per day → 37x in a year.\n\n-1% per day → 0.03 in a year.\n\nSame 1%.\n1,200x difference.\n\nSmall inputs compound."
+        },
+        {
+          "no": "Thread2",
+          "time": "",
+          "ja": "REELでは、すべてのレビューがシステムに貢献します。\n\n1日1件のレビュー。\n\n365日間。\n\n信頼の基盤が構築されます。",
+          "en": "In REEL, every review\nadds to the system.\n\n1 review per day.\n365 days.\nA trust layer is built."
+        },
+        {
+          "no": "Thread3",
+          "time": "",
+          "ja": "最初のレビューは小さく見えます。\n\n365回目のレビューでシステムが変わります。\n\nプレイ → レビュー → 報酬",
+          "en": "The first review looks small.\nThe 365th changes the system.\n\nPLAY → REVIEW → REWARD"
+        },
+        {
+          "no": "Reply",
+          "time": "",
+          "ja": "小さなことが積み重なっていく。\n\nそれが建築というものだ。",
+          "en": "Small things compound.\nThat's the architecture."
+        }
       ],
       "scheduled": true,
       "posted": false,
@@ -7063,61 +7065,6 @@
     },
     {
       "date": "2026-09-16",
-      "channel": "reel",
-      "platform": "X",
-      "time": "09:00",
-      "label": "",
-      "owner": "JiSeong",
-      "type": "thread",
-      "text": {
-        "ja": "",
-        "en": "",
-        "ko": ""
-      },
-      "comment": "",
-      "asset": "",
-      "note": "確定ドラフト",
-      "need": [
-        "text"
-      ],
-      "parts": [
-        {
-          "no": "Thread1",
-          "time": "",
-          "ja": "セーブデータが失われても、\n時間そのものは消えない。\n\n消えるのは、意味だ。\n\n記録は、\n私たちが思っている以上に大切なものだ。",
-          "en": "A lost save file\ndoesn't erase hours.\n\nIt erases meaning.\n\nRecords matter more\nthan we think."
-        },
-        {
-          "no": "Thread2",
-          "time": "",
-          "ja": "REELでは、記録はオンチェーンでリアルタイムに更新されます。\n\nプレイ時間、レビュー、評判。\n\nデータ改ざんなし。リセットなし。\n\nあなたの体験は、あなただけのものです。",
-          "en": "In REEL, records\nlive on-chain.\n\nPlaytime. Reviews. Reputation.\n\nNo corruption. No reset.\nYour experience is yours."
-        },
-        {
-          "no": "Thread3",
-          "time": "",
-          "ja": "記録を削除すれば、\nその体験は消え去る。\n\n記録を所有すれば、\nその体験は生き続ける。",
-          "en": "Delete the record —\nthe experience dies.\n\nOwn the record —\nthe experience lives."
-        },
-        {
-          "no": "Reply",
-          "time": "",
-          "ja": "あなたの記録。\n\nあなたの所有権。",
-          "en": "Your record.\nYour ownership."
-        }
-      ],
-      "scheduled": true,
-      "posted": false,
-      "url": "",
-      "check": {
-        "done": false,
-        "at": "",
-        "match": null,
-        "note": ""
-      }
-    },
-    {
-      "date": "2026-09-16",
       "channel": "hiyoko",
       "platform": "X",
       "time": "09:30",
@@ -7178,66 +7125,6 @@
       "date": "2026-09-16",
       "channel": "reel",
       "platform": "IG",
-      "time": "12:00",
-      "label": "IG Feed",
-      "owner": "",
-      "type": "text",
-      "text": {
-        "ja": "セーブデータが消えた瞬間、泣きそうになったことない？\n\n消えるのは時間じゃなく、あの感覚。\nWeb3トークンプロジェクト|REEL\n\n詳細はXで。\n\nPLAY -> REVIEW -> REWARD",
-        "en": "Ever felt like crying when a save file got corrupted?\n\nWhat's lost isn't the time — it's the feeling.\nWeb3 Token Project | REEL\n\nMore on X.\n\nPLAY -> REVIEW -> REWARD",
-        "ko": ""
-      },
-      "comment": "",
-      "asset": "",
-      "note": "REEL Instagram企画表より",
-      "need": [
-        "text",
-        "image"
-      ],
-      "scheduled": true,
-      "posted": false,
-      "url": "",
-      "check": {
-        "done": false,
-        "at": "",
-        "match": null,
-        "note": ""
-      }
-    },
-    {
-      "date": "2026-09-16",
-      "channel": "reel",
-      "platform": "IG",
-      "time": "12:05",
-      "label": "IG Stories",
-      "owner": "",
-      "type": "text",
-      "text": {
-        "ja": "セーブデータ、消えたことある？\n\n→ Xで詳しく",
-        "en": "Ever lost save data?\n\n→ More on X",
-        "ko": ""
-      },
-      "comment": "",
-      "asset": "",
-      "note": "REEL Instagram企画表より",
-      "need": [
-        "text",
-        "image"
-      ],
-      "scheduled": true,
-      "posted": false,
-      "url": "",
-      "check": {
-        "done": false,
-        "at": "",
-        "match": null,
-        "note": ""
-      }
-    },
-    {
-      "date": "2026-09-16",
-      "channel": "reel",
-      "platform": "IG",
       "time": "12:30",
       "label": "Reply",
       "owner": "",
@@ -7249,7 +7136,7 @@
       },
       "comment": "",
       "asset": "",
-      "note": "REEL Instagram企画表より",
+      "note": "REEL Instagram企画表より / 2026-09-14: 返信は 17:00 のフィード（＋返信）に含めた",
       "need": [
         "text"
       ],
@@ -7261,7 +7148,8 @@
         "at": "",
         "match": null,
         "note": ""
-      }
+      },
+      "skip": true
     },
     {
       "date": "2026-09-16",
@@ -7310,6 +7198,121 @@
       "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
       "need": [
         "text"
+      ],
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-16",
+      "channel": "reel",
+      "platform": "IG",
+      "time": "17:00",
+      "label": "IG Feed",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "セーブデータが消えた瞬間、泣きそうになったことない？\n\n消えるのは時間じゃなく、あの感覚。\nWeb3トークンプロジェクト|REEL\n\n詳細はXで。\n\nPLAY -> REVIEW -> REWARD",
+        "en": "Ever felt like crying when a save file got corrupted?\n\nWhat's lost isn't the time — it's the feeling.\nWeb3 Token Project | REEL\n\nMore on X.\n\nPLAY -> REVIEW -> REWARD",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-16",
+      "channel": "reel",
+      "platform": "IGS",
+      "time": "17:00",
+      "label": "IG Stories",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "セーブデータ、消えたことある？\n\n→ Xで詳しく",
+        "en": "Ever lost save data?\n\n→ More on X",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-16",
+      "channel": "reel",
+      "platform": "X",
+      "time": "17:00",
+      "label": "スレッド",
+      "owner": "JiSeong",
+      "type": "thread",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "確定ドラフト",
+      "need": [
+        "text"
+      ],
+      "parts": [
+        {
+          "no": "Thread1",
+          "time": "",
+          "ja": "セーブデータが失われても、\n時間そのものは消えない。\n\n消えるのは、意味だ。\n\n記録は、\n私たちが思っている以上に大切なものだ。",
+          "en": "A lost save file\ndoesn't erase hours.\n\nIt erases meaning.\n\nRecords matter more\nthan we think."
+        },
+        {
+          "no": "Thread2",
+          "time": "",
+          "ja": "REELでは、記録はオンチェーンでリアルタイムに更新されます。\n\nプレイ時間、レビュー、評判。\n\nデータ改ざんなし。リセットなし。\n\nあなたの体験は、あなただけのものです。",
+          "en": "In REEL, records\nlive on-chain.\n\nPlaytime. Reviews. Reputation.\n\nNo corruption. No reset.\nYour experience is yours."
+        },
+        {
+          "no": "Thread3",
+          "time": "",
+          "ja": "記録を削除すれば、\nその体験は消え去る。\n\n記録を所有すれば、\nその体験は生き続ける。",
+          "en": "Delete the record —\nthe experience dies.\n\nOwn the record —\nthe experience lives."
+        },
+        {
+          "no": "Reply",
+          "time": "",
+          "ja": "あなたの記録。\n\nあなたの所有権。",
+          "en": "Your record.\nYour ownership."
+        }
       ],
       "scheduled": true,
       "posted": false,
@@ -7467,11 +7470,244 @@
       }
     },
     {
+      "time": "09:30",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "need": [
+        "text"
+      ],
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "date": "2026-09-17",
+      "platform": "X",
+      "owner": ""
+    },
+    {
+      "date": "2026-09-17",
+      "channel": "nacha",
+      "platform": "X",
+      "time": "10:30",
+      "label": "長文",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
+      "need": [
+        "text"
+      ],
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-17",
+      "channel": "reel",
+      "platform": "IG",
+      "time": "12:30",
+      "label": "Reply",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "機種の壁で諦めたゲーム、何？\n\n→ タイトルをコメントで教えて",
+        "en": "What game did platform walls make you give up on?\n\n→ Drop the title in the comments",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より / 2026-09-14: 返信は 17:00 のフィード（＋返信）に含めた",
+      "need": [
+        "text"
+      ],
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "skip": true
+    },
+    {
+      "date": "2026-09-17",
+      "channel": "nacha",
+      "platform": "X",
+      "time": "14:00",
+      "label": "ことば",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
+      "need": [
+        "text"
+      ],
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-17",
+      "time": "17:00",
+      "platform": "FB",
+      "type": "video",
+      "label": "動画 hyejeong",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "動画 hyejeong",
+      "note": "",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "owner": ""
+    },
+    {
+      "date": "2026-09-17",
+      "channel": "reel",
+      "platform": "IG",
+      "time": "17:00",
+      "label": "IG Feed",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "「そっちの機種か。じゃあ一緒にできないね。」\n\nこの一言、何回聞いた？\nWeb3トークンプロジェクト|REEL\n\n詳細はXで。\n\nPLAY -> REVIEW -> REWARD",
+        "en": "\"Oh, different platform? Guess we can't play together.\"\n\nHow many times has that line killed the mood?\nWeb3 Token Project | REEL\n\nMore on X.\n\nPLAY -> REVIEW -> REWARD",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-17",
+      "time": "17:00",
+      "platform": "IG",
+      "type": "video",
+      "label": "動画 hyejeong",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "動画 hyejeong",
+      "note": "",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "owner": ""
+    },
+    {
+      "date": "2026-09-17",
+      "channel": "reel",
+      "platform": "IGS",
+      "time": "17:00",
+      "label": "IG Stories",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "機種の壁で、遊べなかった経験ない？\n\n→ Xで詳しく",
+        "en": "Ever been unable to play because of platform barriers?\n\n→ More on X",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
       "date": "2026-09-17",
       "channel": "reel",
       "platform": "X",
-      "time": "09:00",
-      "label": "",
+      "time": "17:00",
+      "label": "スレッド",
       "owner": "JiSeong",
       "type": "thread",
       "text": {
@@ -7522,238 +7758,6 @@
       }
     },
     {
-      "time": "09:30",
-      "type": "text",
-      "label": "",
-      "text": {
-        "ja": "",
-        "en": "",
-        "ko": ""
-      },
-      "asset": "",
-      "note": "",
-      "scheduled": false,
-      "posted": false,
-      "url": "",
-      "need": [
-        "text"
-      ],
-      "check": {
-        "done": false,
-        "at": "",
-        "match": null,
-        "note": ""
-      },
-      "date": "2026-09-17",
-      "platform": "X",
-      "owner": ""
-    },
-    {
-      "date": "2026-09-17",
-      "channel": "nacha",
-      "platform": "X",
-      "time": "10:30",
-      "label": "長文",
-      "owner": "",
-      "type": "text",
-      "text": {
-        "ja": "",
-        "en": "",
-        "ko": ""
-      },
-      "comment": "",
-      "asset": "",
-      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
-      "need": [
-        "text"
-      ],
-      "scheduled": true,
-      "posted": false,
-      "url": "",
-      "check": {
-        "done": false,
-        "at": "",
-        "match": null,
-        "note": ""
-      }
-    },
-    {
-      "date": "2026-09-17",
-      "channel": "reel",
-      "platform": "IG",
-      "time": "12:00",
-      "label": "IG Feed",
-      "owner": "",
-      "type": "text",
-      "text": {
-        "ja": "「そっちの機種か。じゃあ一緒にできないね。」\n\nこの一言、何回聞いた？\nWeb3トークンプロジェクト|REEL\n\n詳細はXで。\n\nPLAY -> REVIEW -> REWARD",
-        "en": "\"Oh, different platform? Guess we can't play together.\"\n\nHow many times has that line killed the mood?\nWeb3 Token Project | REEL\n\nMore on X.\n\nPLAY -> REVIEW -> REWARD",
-        "ko": ""
-      },
-      "comment": "",
-      "asset": "",
-      "note": "REEL Instagram企画表より",
-      "need": [
-        "text",
-        "image"
-      ],
-      "scheduled": true,
-      "posted": false,
-      "url": "",
-      "check": {
-        "done": false,
-        "at": "",
-        "match": null,
-        "note": ""
-      }
-    },
-    {
-      "date": "2026-09-17",
-      "channel": "reel",
-      "platform": "IG",
-      "time": "12:05",
-      "label": "IG Stories",
-      "owner": "",
-      "type": "text",
-      "text": {
-        "ja": "機種の壁で、遊べなかった経験ない？\n\n→ Xで詳しく",
-        "en": "Ever been unable to play because of platform barriers?\n\n→ More on X",
-        "ko": ""
-      },
-      "comment": "",
-      "asset": "",
-      "note": "REEL Instagram企画表より",
-      "need": [
-        "text",
-        "image"
-      ],
-      "scheduled": true,
-      "posted": false,
-      "url": "",
-      "check": {
-        "done": false,
-        "at": "",
-        "match": null,
-        "note": ""
-      }
-    },
-    {
-      "date": "2026-09-17",
-      "channel": "reel",
-      "platform": "IG",
-      "time": "12:30",
-      "label": "Reply",
-      "owner": "",
-      "type": "text",
-      "text": {
-        "ja": "機種の壁で諦めたゲーム、何？\n\n→ タイトルをコメントで教えて",
-        "en": "What game did platform walls make you give up on?\n\n→ Drop the title in the comments",
-        "ko": ""
-      },
-      "comment": "",
-      "asset": "",
-      "note": "REEL Instagram企画表より",
-      "need": [
-        "text"
-      ],
-      "scheduled": true,
-      "posted": false,
-      "url": "",
-      "check": {
-        "done": false,
-        "at": "",
-        "match": null,
-        "note": ""
-      }
-    },
-    {
-      "date": "2026-09-17",
-      "channel": "nacha",
-      "platform": "X",
-      "time": "14:00",
-      "label": "ことば",
-      "owner": "",
-      "type": "text",
-      "text": {
-        "ja": "",
-        "en": "",
-        "ko": ""
-      },
-      "comment": "",
-      "asset": "",
-      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
-      "need": [
-        "text"
-      ],
-      "scheduled": true,
-      "posted": false,
-      "url": "",
-      "check": {
-        "done": false,
-        "at": "",
-        "match": null,
-        "note": ""
-      }
-    },
-    {
-      "date": "2026-09-17",
-      "time": "17:00",
-      "platform": "FB",
-      "type": "video",
-      "label": "動画 hyejeong",
-      "text": {
-        "ja": "",
-        "en": "",
-        "ko": ""
-      },
-      "comment": "",
-      "asset": "動画 hyejeong",
-      "note": "",
-      "need": [
-        "text",
-        "image"
-      ],
-      "scheduled": false,
-      "posted": false,
-      "url": "",
-      "check": {
-        "done": false,
-        "at": "",
-        "match": null,
-        "note": ""
-      },
-      "owner": ""
-    },
-    {
-      "date": "2026-09-17",
-      "time": "17:00",
-      "platform": "IG",
-      "type": "video",
-      "label": "動画 hyejeong",
-      "text": {
-        "ja": "",
-        "en": "",
-        "ko": ""
-      },
-      "comment": "",
-      "asset": "動画 hyejeong",
-      "note": "",
-      "need": [
-        "text",
-        "image"
-      ],
-      "scheduled": false,
-      "posted": false,
-      "url": "",
-      "check": {
-        "done": false,
-        "at": "",
-        "match": null,
-        "note": ""
-      },
-      "owner": ""
-    },
-    {
       "time": "17:00",
       "type": "text",
       "label": "",
@@ -7868,11 +7872,186 @@
       }
     },
     {
+      "time": "09:30",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "need": [
+        "text"
+      ],
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "date": "2026-09-18",
+      "platform": "X",
+      "owner": ""
+    },
+    {
+      "date": "2026-09-18",
+      "channel": "nacha",
+      "platform": "X",
+      "time": "10:30",
+      "label": "長文",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
+      "need": [
+        "text"
+      ],
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-18",
+      "channel": "reel",
+      "platform": "IG",
+      "time": "12:30",
+      "label": "Reply",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "自分のプレイデータ、見たい？\n\n① 絶対見たい\n② まあまあ\n③ あまり興味ない\n\n→ コメントで教えて",
+        "en": "Want to see your play data?\n\n① Definitely\n② Maybe\n③ Not really\n\n→ Tell me in the comments",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より / 2026-09-14: 返信は 17:00 のフィード（＋返信）に含めた",
+      "need": [
+        "text"
+      ],
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "skip": true
+    },
+    {
+      "date": "2026-09-18",
+      "channel": "nacha",
+      "platform": "X",
+      "time": "14:00",
+      "label": "ことば",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
+      "need": [
+        "text"
+      ],
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-18",
+      "channel": "reel",
+      "platform": "IG",
+      "time": "17:00",
+      "label": "IG Feed",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "自分のプレイ履歴を見る瞬間、ちょっと嬉しくない？\n\n全部見えて、全部自分のもの。\nWeb3トークンプロジェクト|REEL\n\n詳細はXで。\n\nPLAY -> REVIEW -> REWARD",
+        "en": "Doesn't it feel good to look back at your play history?\n\nEverything visible. Everything yours.\nWeb3 Token Project | REEL\n\nMore on X.\n\nPLAY -> REVIEW -> REWARD",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-18",
+      "channel": "reel",
+      "platform": "IGS",
+      "time": "17:00",
+      "label": "IG Stories",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "自分の記録、見ると嬉しくない？\n\n→ Xで詳しく",
+        "en": "Feels good to see your records, right?\n\n→ More on X",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
       "date": "2026-09-18",
       "channel": "reel",
       "platform": "X",
-      "time": "09:00",
-      "label": "",
+      "time": "17:00",
+      "label": "スレッド",
       "owner": "JiSeong",
       "type": "thread",
       "text": {
@@ -7923,180 +8102,6 @@
       }
     },
     {
-      "time": "09:30",
-      "type": "text",
-      "label": "",
-      "text": {
-        "ja": "",
-        "en": "",
-        "ko": ""
-      },
-      "asset": "",
-      "note": "",
-      "scheduled": false,
-      "posted": false,
-      "url": "",
-      "need": [
-        "text"
-      ],
-      "check": {
-        "done": false,
-        "at": "",
-        "match": null,
-        "note": ""
-      },
-      "date": "2026-09-18",
-      "platform": "X",
-      "owner": ""
-    },
-    {
-      "date": "2026-09-18",
-      "channel": "nacha",
-      "platform": "X",
-      "time": "10:30",
-      "label": "長文",
-      "owner": "",
-      "type": "text",
-      "text": {
-        "ja": "",
-        "en": "",
-        "ko": ""
-      },
-      "comment": "",
-      "asset": "",
-      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
-      "need": [
-        "text"
-      ],
-      "scheduled": true,
-      "posted": false,
-      "url": "",
-      "check": {
-        "done": false,
-        "at": "",
-        "match": null,
-        "note": ""
-      }
-    },
-    {
-      "date": "2026-09-18",
-      "channel": "reel",
-      "platform": "IG",
-      "time": "12:00",
-      "label": "IG Feed",
-      "owner": "",
-      "type": "text",
-      "text": {
-        "ja": "自分のプレイ履歴を見る瞬間、ちょっと嬉しくない？\n\n全部見えて、全部自分のもの。\nWeb3トークンプロジェクト|REEL\n\n詳細はXで。\n\nPLAY -> REVIEW -> REWARD",
-        "en": "Doesn't it feel good to look back at your play history?\n\nEverything visible. Everything yours.\nWeb3 Token Project | REEL\n\nMore on X.\n\nPLAY -> REVIEW -> REWARD",
-        "ko": ""
-      },
-      "comment": "",
-      "asset": "",
-      "note": "REEL Instagram企画表より",
-      "need": [
-        "text",
-        "image"
-      ],
-      "scheduled": true,
-      "posted": false,
-      "url": "",
-      "check": {
-        "done": false,
-        "at": "",
-        "match": null,
-        "note": ""
-      }
-    },
-    {
-      "date": "2026-09-18",
-      "channel": "reel",
-      "platform": "IG",
-      "time": "12:05",
-      "label": "IG Stories",
-      "owner": "",
-      "type": "text",
-      "text": {
-        "ja": "自分の記録、見ると嬉しくない？\n\n→ Xで詳しく",
-        "en": "Feels good to see your records, right?\n\n→ More on X",
-        "ko": ""
-      },
-      "comment": "",
-      "asset": "",
-      "note": "REEL Instagram企画表より",
-      "need": [
-        "text",
-        "image"
-      ],
-      "scheduled": true,
-      "posted": false,
-      "url": "",
-      "check": {
-        "done": false,
-        "at": "",
-        "match": null,
-        "note": ""
-      }
-    },
-    {
-      "date": "2026-09-18",
-      "channel": "reel",
-      "platform": "IG",
-      "time": "12:30",
-      "label": "Reply",
-      "owner": "",
-      "type": "text",
-      "text": {
-        "ja": "自分のプレイデータ、見たい？\n\n① 絶対見たい\n② まあまあ\n③ あまり興味ない\n\n→ コメントで教えて",
-        "en": "Want to see your play data?\n\n① Definitely\n② Maybe\n③ Not really\n\n→ Tell me in the comments",
-        "ko": ""
-      },
-      "comment": "",
-      "asset": "",
-      "note": "REEL Instagram企画表より",
-      "need": [
-        "text"
-      ],
-      "scheduled": true,
-      "posted": false,
-      "url": "",
-      "check": {
-        "done": false,
-        "at": "",
-        "match": null,
-        "note": ""
-      }
-    },
-    {
-      "date": "2026-09-18",
-      "channel": "nacha",
-      "platform": "X",
-      "time": "14:00",
-      "label": "ことば",
-      "owner": "",
-      "type": "text",
-      "text": {
-        "ja": "",
-        "en": "",
-        "ko": ""
-      },
-      "comment": "",
-      "asset": "",
-      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
-      "need": [
-        "text"
-      ],
-      "scheduled": true,
-      "posted": false,
-      "url": "",
-      "check": {
-        "done": false,
-        "at": "",
-        "match": null,
-        "note": ""
-      }
-    },
-    {
       "time": "17:00",
       "type": "text",
       "label": "",
@@ -8211,11 +8216,186 @@
       }
     },
     {
+      "time": "09:30",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "need": [
+        "text"
+      ],
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "date": "2026-09-19",
+      "platform": "X",
+      "owner": ""
+    },
+    {
+      "date": "2026-09-19",
+      "channel": "nacha",
+      "platform": "X",
+      "time": "10:30",
+      "label": "長文",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
+      "need": [
+        "text"
+      ],
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-19",
+      "channel": "reel",
+      "platform": "IG",
+      "time": "12:30",
+      "label": "Reply",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "プレイ時間、見るのが怖い派？\n\nA. 怖くて見れない\nB. むしろ見たい\n\n→ コメントで教えて",
+        "en": "Afraid to check your playtime?\n\nA. Too scared to look\nB. Actually want to know\n\n→ Tell me in the comments",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より / 2026-09-14: 返信は 17:00 のフィード（＋返信）に含めた",
+      "need": [
+        "text"
+      ],
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "skip": true
+    },
+    {
+      "date": "2026-09-19",
+      "channel": "nacha",
+      "platform": "X",
+      "time": "14:00",
+      "label": "ことば",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
+      "need": [
+        "text"
+      ],
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-19",
+      "channel": "reel",
+      "platform": "IG",
+      "time": "17:00",
+      "label": "IG Feed",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "Steamのプレイ時間、確認してみて。\n\n何百時間、残るのは記憶だけ。もったいなくない？\nWeb3トークンプロジェクト|REEL\n\n詳細はXで。\n\nPLAY -> REVIEW -> REWARD",
+        "en": "Check your Steam playtime.\n\nHundreds of hours, and all that's left is memory. Doesn't that feel like a waste?\nWeb3 Token Project | REEL\n\nMore on X.\n\nPLAY -> REVIEW -> REWARD",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-19",
+      "channel": "reel",
+      "platform": "IGS",
+      "time": "17:00",
+      "label": "IG Stories",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "あなたのプレイ時間、何時間？\n\n→ Xで詳しく",
+        "en": "How many hours have you played?\n\n→ More on X",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
       "date": "2026-09-19",
       "channel": "reel",
       "platform": "X",
-      "time": "09:00",
-      "label": "",
+      "time": "17:00",
+      "label": "スレッド",
       "owner": "JiSeong",
       "type": "thread",
       "text": {
@@ -8248,180 +8428,6 @@
       }
     },
     {
-      "time": "09:30",
-      "type": "text",
-      "label": "",
-      "text": {
-        "ja": "",
-        "en": "",
-        "ko": ""
-      },
-      "asset": "",
-      "note": "",
-      "scheduled": false,
-      "posted": false,
-      "url": "",
-      "need": [
-        "text"
-      ],
-      "check": {
-        "done": false,
-        "at": "",
-        "match": null,
-        "note": ""
-      },
-      "date": "2026-09-19",
-      "platform": "X",
-      "owner": ""
-    },
-    {
-      "date": "2026-09-19",
-      "channel": "nacha",
-      "platform": "X",
-      "time": "10:30",
-      "label": "長文",
-      "owner": "",
-      "type": "text",
-      "text": {
-        "ja": "",
-        "en": "",
-        "ko": ""
-      },
-      "comment": "",
-      "asset": "",
-      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
-      "need": [
-        "text"
-      ],
-      "scheduled": true,
-      "posted": false,
-      "url": "",
-      "check": {
-        "done": false,
-        "at": "",
-        "match": null,
-        "note": ""
-      }
-    },
-    {
-      "date": "2026-09-19",
-      "channel": "reel",
-      "platform": "IG",
-      "time": "12:00",
-      "label": "IG Feed",
-      "owner": "",
-      "type": "text",
-      "text": {
-        "ja": "Steamのプレイ時間、確認してみて。\n\n何百時間、残るのは記憶だけ。もったいなくない？\nWeb3トークンプロジェクト|REEL\n\n詳細はXで。\n\nPLAY -> REVIEW -> REWARD",
-        "en": "Check your Steam playtime.\n\nHundreds of hours, and all that's left is memory. Doesn't that feel like a waste?\nWeb3 Token Project | REEL\n\nMore on X.\n\nPLAY -> REVIEW -> REWARD",
-        "ko": ""
-      },
-      "comment": "",
-      "asset": "",
-      "note": "REEL Instagram企画表より",
-      "need": [
-        "text",
-        "image"
-      ],
-      "scheduled": true,
-      "posted": false,
-      "url": "",
-      "check": {
-        "done": false,
-        "at": "",
-        "match": null,
-        "note": ""
-      }
-    },
-    {
-      "date": "2026-09-19",
-      "channel": "reel",
-      "platform": "IG",
-      "time": "12:05",
-      "label": "IG Stories",
-      "owner": "",
-      "type": "text",
-      "text": {
-        "ja": "あなたのプレイ時間、何時間？\n\n→ Xで詳しく",
-        "en": "How many hours have you played?\n\n→ More on X",
-        "ko": ""
-      },
-      "comment": "",
-      "asset": "",
-      "note": "REEL Instagram企画表より",
-      "need": [
-        "text",
-        "image"
-      ],
-      "scheduled": true,
-      "posted": false,
-      "url": "",
-      "check": {
-        "done": false,
-        "at": "",
-        "match": null,
-        "note": ""
-      }
-    },
-    {
-      "date": "2026-09-19",
-      "channel": "reel",
-      "platform": "IG",
-      "time": "12:30",
-      "label": "Reply",
-      "owner": "",
-      "type": "text",
-      "text": {
-        "ja": "プレイ時間、見るのが怖い派？\n\nA. 怖くて見れない\nB. むしろ見たい\n\n→ コメントで教えて",
-        "en": "Afraid to check your playtime?\n\nA. Too scared to look\nB. Actually want to know\n\n→ Tell me in the comments",
-        "ko": ""
-      },
-      "comment": "",
-      "asset": "",
-      "note": "REEL Instagram企画表より",
-      "need": [
-        "text"
-      ],
-      "scheduled": true,
-      "posted": false,
-      "url": "",
-      "check": {
-        "done": false,
-        "at": "",
-        "match": null,
-        "note": ""
-      }
-    },
-    {
-      "date": "2026-09-19",
-      "channel": "nacha",
-      "platform": "X",
-      "time": "14:00",
-      "label": "ことば",
-      "owner": "",
-      "type": "text",
-      "text": {
-        "ja": "",
-        "en": "",
-        "ko": ""
-      },
-      "comment": "",
-      "asset": "",
-      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
-      "need": [
-        "text"
-      ],
-      "scheduled": true,
-      "posted": false,
-      "url": "",
-      "check": {
-        "done": false,
-        "at": "",
-        "match": null,
-        "note": ""
-      }
-    },
-    {
       "time": "17:00",
       "type": "text",
       "label": "",
@@ -8536,11 +8542,156 @@
       }
     },
     {
+      "time": "09:30",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "need": [
+        "text"
+      ],
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "date": "2026-09-20",
+      "platform": "X",
+      "owner": ""
+    },
+    {
+      "date": "2026-09-20",
+      "channel": "nacha",
+      "platform": "X",
+      "time": "10:30",
+      "label": "長文",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
+      "need": [
+        "text"
+      ],
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-20",
+      "channel": "nacha",
+      "platform": "X",
+      "time": "14:00",
+      "label": "ことば",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
+      "need": [
+        "text"
+      ],
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-20",
+      "channel": "reel",
+      "platform": "IG",
+      "time": "17:00",
+      "label": "IG Feed",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "無料だから始めた。でも続けてる理由は、それじゃない。\n\n入口はタダでいい。中身に価値があれば人は残る。\nWeb3トークンプロジェクト|REEL\n\n詳細はXで。\n\nPLAY -> REVIEW -> REWARD",
+        "en": "Started because it was free. That's not why I stayed.\n\nThe entrance can be free — value keeps people inside.\nWeb3 Token Project | REEL\n\nMore on X.\n\nPLAY -> REVIEW -> REWARD",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-20",
+      "channel": "reel",
+      "platform": "IGS",
+      "time": "17:00",
+      "label": "IG Stories",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "無料で始めたもの、続いてる？\n\n→ Xで詳しく",
+        "en": "Still using something you started for free?\n\n→ More on X",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
       "date": "2026-09-20",
       "channel": "reel",
       "platform": "X",
-      "time": "09:00",
-      "label": "",
+      "time": "17:00",
+      "label": "スレッド",
       "owner": "JiSeong",
       "type": "thread",
       "text": {
@@ -8573,151 +8724,6 @@
       }
     },
     {
-      "time": "09:30",
-      "type": "text",
-      "label": "",
-      "text": {
-        "ja": "",
-        "en": "",
-        "ko": ""
-      },
-      "asset": "",
-      "note": "",
-      "scheduled": false,
-      "posted": false,
-      "url": "",
-      "need": [
-        "text"
-      ],
-      "check": {
-        "done": false,
-        "at": "",
-        "match": null,
-        "note": ""
-      },
-      "date": "2026-09-20",
-      "platform": "X",
-      "owner": ""
-    },
-    {
-      "date": "2026-09-20",
-      "channel": "nacha",
-      "platform": "X",
-      "time": "10:30",
-      "label": "長文",
-      "owner": "",
-      "type": "text",
-      "text": {
-        "ja": "",
-        "en": "",
-        "ko": ""
-      },
-      "comment": "",
-      "asset": "",
-      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
-      "need": [
-        "text"
-      ],
-      "scheduled": true,
-      "posted": false,
-      "url": "",
-      "check": {
-        "done": false,
-        "at": "",
-        "match": null,
-        "note": ""
-      }
-    },
-    {
-      "date": "2026-09-20",
-      "channel": "reel",
-      "platform": "IG",
-      "time": "12:00",
-      "label": "IG Feed",
-      "owner": "",
-      "type": "text",
-      "text": {
-        "ja": "無料だから始めた。でも続けてる理由は、それじゃない。\n\n入口はタダでいい。中身に価値があれば人は残る。\nWeb3トークンプロジェクト|REEL\n\n詳細はXで。\n\nPLAY -> REVIEW -> REWARD",
-        "en": "Started because it was free. That's not why I stayed.\n\nThe entrance can be free — value keeps people inside.\nWeb3 Token Project | REEL\n\nMore on X.\n\nPLAY -> REVIEW -> REWARD",
-        "ko": ""
-      },
-      "comment": "",
-      "asset": "",
-      "note": "REEL Instagram企画表より",
-      "need": [
-        "text",
-        "image"
-      ],
-      "scheduled": true,
-      "posted": false,
-      "url": "",
-      "check": {
-        "done": false,
-        "at": "",
-        "match": null,
-        "note": ""
-      }
-    },
-    {
-      "date": "2026-09-20",
-      "channel": "reel",
-      "platform": "IG",
-      "time": "12:05",
-      "label": "IG Stories",
-      "owner": "",
-      "type": "text",
-      "text": {
-        "ja": "無料で始めたもの、続いてる？\n\n→ Xで詳しく",
-        "en": "Still using something you started for free?\n\n→ More on X",
-        "ko": ""
-      },
-      "comment": "",
-      "asset": "",
-      "note": "REEL Instagram企画表より",
-      "need": [
-        "text",
-        "image"
-      ],
-      "scheduled": true,
-      "posted": false,
-      "url": "",
-      "check": {
-        "done": false,
-        "at": "",
-        "match": null,
-        "note": ""
-      }
-    },
-    {
-      "date": "2026-09-20",
-      "channel": "nacha",
-      "platform": "X",
-      "time": "14:00",
-      "label": "ことば",
-      "owner": "",
-      "type": "text",
-      "text": {
-        "ja": "",
-        "en": "",
-        "ko": ""
-      },
-      "comment": "",
-      "asset": "",
-      "note": "Nacha 컨텐츠 대시보드で管理。ここでは予約の状態だけを持つ",
-      "need": [
-        "text"
-      ],
-      "scheduled": true,
-      "posted": false,
-      "url": "",
-      "check": {
-        "done": false,
-        "at": "",
-        "match": null,
-        "note": ""
-      }
-    },
-    {
       "time": "17:00",
       "type": "text",
       "label": "",
@@ -8832,11 +8838,186 @@
       }
     },
     {
+      "time": "09:30",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "need": [
+        "text"
+      ],
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "date": "2026-09-21",
+      "platform": "X",
+      "owner": ""
+    },
+    {
+      "date": "2026-09-21",
+      "channel": "reel",
+      "platform": "IG",
+      "time": "12:30",
+      "label": "Reply",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "一番長く遊んでるスマホゲーム、何？\n\n→ タイトルをコメントで教えて",
+        "en": "What's the mobile game you've played the longest?\n\n→ Drop the title in the comments",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より / 2026-09-14: 返信は 17:00 のフィード（＋返信）に含めた",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "skip": true
+    },
+    {
+      "date": "2026-09-21",
+      "time": "17:00",
+      "platform": "FB",
+      "type": "video",
+      "label": "動画 SUHA",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "動画 SUHA",
+      "note": "",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "owner": ""
+    },
+    {
+      "date": "2026-09-21",
+      "channel": "reel",
+      "platform": "IG",
+      "time": "17:00",
+      "label": "IG Feed",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "電車でゲームしてる人、増えたよね。ゲーム機じゃなくてスマホで。\n\n入口は、もうポケットの中にある。\nWeb3トークンプロジェクト|REEL\n\n詳細はXで。\n\nPLAY -> REVIEW -> REWARD",
+        "en": "More people gaming on trains — not on consoles, on phones.\n\nThe entrance is already in your pocket.\nWeb3 Token Project | REEL\n\nMore on X.\n\nPLAY -> REVIEW -> REWARD",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-21",
+      "time": "17:00",
+      "platform": "IG",
+      "type": "video",
+      "label": "動画 SUHA",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "動画 SUHA",
+      "note": "",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "owner": ""
+    },
+    {
+      "date": "2026-09-21",
+      "channel": "reel",
+      "platform": "IGS",
+      "time": "17:00",
+      "label": "IG Stories",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "ゲーム機、ポケットの中にある。\n\n→ Xで詳しく",
+        "en": "Your console is in your pocket.\n\n→ More on X",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
       "date": "2026-09-21",
       "channel": "reel",
       "platform": "X",
-      "time": "09:00",
-      "label": "",
+      "time": "17:00",
+      "label": "スレッド",
       "owner": "JiSeong",
       "type": "thread",
       "text": {
@@ -8881,6 +9062,33 @@
       }
     },
     {
+      "time": "17:00",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "need": [
+        "text"
+      ],
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "date": "2026-09-21",
+      "platform": "X",
+      "owner": ""
+    },
+    {
       "time": "09:30",
       "type": "text",
       "label": "",
@@ -8903,72 +9111,12 @@
         "match": null,
         "note": ""
       },
-      "date": "2026-09-21",
+      "date": "2026-09-22",
       "platform": "X",
       "owner": ""
     },
     {
-      "date": "2026-09-21",
-      "channel": "reel",
-      "platform": "IG",
-      "time": "12:00",
-      "label": "IG Feed",
-      "owner": "",
-      "type": "text",
-      "text": {
-        "ja": "電車でゲームしてる人、増えたよね。ゲーム機じゃなくてスマホで。\n\n入口は、もうポケットの中にある。\nWeb3トークンプロジェクト|REEL\n\n詳細はXで。\n\nPLAY -> REVIEW -> REWARD",
-        "en": "More people gaming on trains — not on consoles, on phones.\n\nThe entrance is already in your pocket.\nWeb3 Token Project | REEL\n\nMore on X.\n\nPLAY -> REVIEW -> REWARD",
-        "ko": ""
-      },
-      "comment": "",
-      "asset": "",
-      "note": "REEL Instagram企画表より",
-      "need": [
-        "text",
-        "image"
-      ],
-      "scheduled": false,
-      "posted": false,
-      "url": "",
-      "check": {
-        "done": false,
-        "at": "",
-        "match": null,
-        "note": ""
-      }
-    },
-    {
-      "date": "2026-09-21",
-      "channel": "reel",
-      "platform": "IG",
-      "time": "12:05",
-      "label": "IG Stories",
-      "owner": "",
-      "type": "text",
-      "text": {
-        "ja": "ゲーム機、ポケットの中にある。\n\n→ Xで詳しく",
-        "en": "Your console is in your pocket.\n\n→ More on X",
-        "ko": ""
-      },
-      "comment": "",
-      "asset": "",
-      "note": "REEL Instagram企画表より",
-      "need": [
-        "text",
-        "image"
-      ],
-      "scheduled": false,
-      "posted": false,
-      "url": "",
-      "check": {
-        "done": false,
-        "at": "",
-        "match": null,
-        "note": ""
-      }
-    },
-    {
-      "date": "2026-09-21",
+      "date": "2026-09-22",
       "channel": "reel",
       "platform": "IG",
       "time": "12:30",
@@ -8976,15 +9124,46 @@
       "owner": "",
       "type": "text",
       "text": {
-        "ja": "一番長く遊んでるスマホゲーム、何？\n\n→ タイトルをコメントで教えて",
-        "en": "What's the mobile game you've played the longest?\n\n→ Drop the title in the comments",
+        "ja": "コミュニティで大事なのは？\n\n① 人数が多いこと\n② 熱量が高いこと\n③ 居心地がいいこと\n\n→ コメントで教えて",
+        "en": "Most important in a community?\n\n① Numbers\n② Energy\n③ Comfort\n\n→ Tell me in the comments",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より / 2026-09-14: 返信は 17:00 のフィード（＋返信）に含めた",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "skip": true
+    },
+    {
+      "date": "2026-09-22",
+      "channel": "reel",
+      "platform": "IG",
+      "time": "17:00",
+      "label": "IG Feed",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "フォロワーが何千人いても、本当に繋がってるのは何人？\n\n数より密度。\nWeb3トークンプロジェクト|REEL\n\n詳細はXで。\n\nPLAY -> REVIEW -> REWARD",
+        "en": "Thousands of followers — how many are you truly connected to?\n\nDensity over numbers.\nWeb3 Token Project | REEL\n\nMore on X.\n\nPLAY -> REVIEW -> REWARD",
         "ko": ""
       },
       "comment": "",
       "asset": "",
       "note": "REEL Instagram企画表より",
       "need": [
-        "text"
+        "text",
+        "image"
       ],
       "scheduled": false,
       "posted": false,
@@ -8997,96 +9176,41 @@
       }
     },
     {
-      "date": "2026-09-21",
+      "date": "2026-09-22",
+      "channel": "reel",
+      "platform": "IGS",
       "time": "17:00",
-      "platform": "FB",
-      "type": "video",
-      "label": "動画 SUHA",
-      "text": {
-        "ja": "",
-        "en": "",
-        "ko": ""
-      },
-      "comment": "",
-      "asset": "動画 SUHA",
-      "note": "",
-      "need": [
-        "text",
-        "image"
-      ],
-      "scheduled": false,
-      "posted": false,
-      "url": "",
-      "check": {
-        "done": false,
-        "at": "",
-        "match": null,
-        "note": ""
-      },
-      "owner": ""
-    },
-    {
-      "date": "2026-09-21",
-      "time": "17:00",
-      "platform": "IG",
-      "type": "video",
-      "label": "動画 SUHA",
-      "text": {
-        "ja": "",
-        "en": "",
-        "ko": ""
-      },
-      "comment": "",
-      "asset": "動画 SUHA",
-      "note": "",
-      "need": [
-        "text",
-        "image"
-      ],
-      "scheduled": false,
-      "posted": false,
-      "url": "",
-      "check": {
-        "done": false,
-        "at": "",
-        "match": null,
-        "note": ""
-      },
-      "owner": ""
-    },
-    {
-      "time": "17:00",
+      "label": "IG Stories",
+      "owner": "",
       "type": "text",
-      "label": "",
       "text": {
-        "ja": "",
-        "en": "",
+        "ja": "本当に繋がってる人、何人いる？\n\n→ Xで詳しく",
+        "en": "How many are you truly connected to?\n\n→ More on X",
         "ko": ""
       },
+      "comment": "",
       "asset": "",
-      "note": "",
+      "note": "REEL Instagram企画表より",
+      "need": [
+        "text",
+        "image"
+      ],
       "scheduled": false,
       "posted": false,
       "url": "",
-      "need": [
-        "text"
-      ],
       "check": {
         "done": false,
         "at": "",
         "match": null,
         "note": ""
-      },
-      "date": "2026-09-21",
-      "platform": "X",
-      "owner": ""
+      }
     },
     {
       "date": "2026-09-22",
       "channel": "reel",
       "platform": "X",
-      "time": "09:00",
-      "label": "",
+      "time": "17:00",
+      "label": "スレッド",
       "owner": "JiSeong",
       "type": "thread",
       "text": {
@@ -9137,122 +9261,6 @@
       }
     },
     {
-      "time": "09:30",
-      "type": "text",
-      "label": "",
-      "text": {
-        "ja": "",
-        "en": "",
-        "ko": ""
-      },
-      "asset": "",
-      "note": "",
-      "scheduled": false,
-      "posted": false,
-      "url": "",
-      "need": [
-        "text"
-      ],
-      "check": {
-        "done": false,
-        "at": "",
-        "match": null,
-        "note": ""
-      },
-      "date": "2026-09-22",
-      "platform": "X",
-      "owner": ""
-    },
-    {
-      "date": "2026-09-22",
-      "channel": "reel",
-      "platform": "IG",
-      "time": "12:00",
-      "label": "IG Feed",
-      "owner": "",
-      "type": "text",
-      "text": {
-        "ja": "フォロワーが何千人いても、本当に繋がってるのは何人？\n\n数より密度。\nWeb3トークンプロジェクト|REEL\n\n詳細はXで。\n\nPLAY -> REVIEW -> REWARD",
-        "en": "Thousands of followers — how many are you truly connected to?\n\nDensity over numbers.\nWeb3 Token Project | REEL\n\nMore on X.\n\nPLAY -> REVIEW -> REWARD",
-        "ko": ""
-      },
-      "comment": "",
-      "asset": "",
-      "note": "REEL Instagram企画表より",
-      "need": [
-        "text",
-        "image"
-      ],
-      "scheduled": false,
-      "posted": false,
-      "url": "",
-      "check": {
-        "done": false,
-        "at": "",
-        "match": null,
-        "note": ""
-      }
-    },
-    {
-      "date": "2026-09-22",
-      "channel": "reel",
-      "platform": "IG",
-      "time": "12:05",
-      "label": "IG Stories",
-      "owner": "",
-      "type": "text",
-      "text": {
-        "ja": "本当に繋がってる人、何人いる？\n\n→ Xで詳しく",
-        "en": "How many are you truly connected to?\n\n→ More on X",
-        "ko": ""
-      },
-      "comment": "",
-      "asset": "",
-      "note": "REEL Instagram企画表より",
-      "need": [
-        "text",
-        "image"
-      ],
-      "scheduled": false,
-      "posted": false,
-      "url": "",
-      "check": {
-        "done": false,
-        "at": "",
-        "match": null,
-        "note": ""
-      }
-    },
-    {
-      "date": "2026-09-22",
-      "channel": "reel",
-      "platform": "IG",
-      "time": "12:30",
-      "label": "Reply",
-      "owner": "",
-      "type": "text",
-      "text": {
-        "ja": "コミュニティで大事なのは？\n\n① 人数が多いこと\n② 熱量が高いこと\n③ 居心地がいいこと\n\n→ コメントで教えて",
-        "en": "Most important in a community?\n\n① Numbers\n② Energy\n③ Comfort\n\n→ Tell me in the comments",
-        "ko": ""
-      },
-      "comment": "",
-      "asset": "",
-      "note": "REEL Instagram企画表より",
-      "need": [
-        "text"
-      ],
-      "scheduled": false,
-      "posted": false,
-      "url": "",
-      "check": {
-        "done": false,
-        "at": "",
-        "match": null,
-        "note": ""
-      }
-    },
-    {
       "time": "17:00",
       "type": "text",
       "label": "",
@@ -9280,11 +9288,128 @@
       "owner": ""
     },
     {
+      "time": "09:30",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "need": [
+        "text"
+      ],
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "date": "2026-09-23",
+      "platform": "X",
+      "owner": ""
+    },
+    {
+      "date": "2026-09-23",
+      "channel": "reel",
+      "platform": "IG",
+      "time": "12:30",
+      "label": "Reply",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "コミュニティは小さい方が好き？\n\nA. 少人数が好き\nB. 大人数でも平気\n\n→ コメントで教えて",
+        "en": "Not Yet",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より / 2026-09-14: 返信は 17:00 のフィード（＋返信）に含めた",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "skip": true
+    },
+    {
+      "date": "2026-09-23",
+      "channel": "reel",
+      "platform": "IG",
+      "time": "17:00",
+      "label": "IG Feed",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "大人数のグループチャット、発言しにくくない？\n\n大きい場所は見る場所。小さい場所は話す場所。\nWeb3トークンプロジェクト|REEL\n\n詳細はXで。\n\nPLAY -> REVIEW -> REWARD",
+        "en": "Not Yet",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-23",
+      "channel": "reel",
+      "platform": "IGS",
+      "time": "17:00",
+      "label": "IG Stories",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "大きい部屋 vs 小さい部屋。\n\n→ Xで詳しく",
+        "en": "Not Yet",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
       "date": "2026-09-23",
       "channel": "reel",
       "platform": "X",
-      "time": "09:00",
-      "label": "",
+      "time": "17:00",
+      "label": "スレッド",
       "owner": "JiSeong",
       "type": "thread",
       "text": {
@@ -9335,122 +9460,6 @@
       }
     },
     {
-      "time": "09:30",
-      "type": "text",
-      "label": "",
-      "text": {
-        "ja": "",
-        "en": "",
-        "ko": ""
-      },
-      "asset": "",
-      "note": "",
-      "scheduled": false,
-      "posted": false,
-      "url": "",
-      "need": [
-        "text"
-      ],
-      "check": {
-        "done": false,
-        "at": "",
-        "match": null,
-        "note": ""
-      },
-      "date": "2026-09-23",
-      "platform": "X",
-      "owner": ""
-    },
-    {
-      "date": "2026-09-23",
-      "channel": "reel",
-      "platform": "IG",
-      "time": "12:00",
-      "label": "IG Feed",
-      "owner": "",
-      "type": "text",
-      "text": {
-        "ja": "大人数のグループチャット、発言しにくくない？\n\n大きい場所は見る場所。小さい場所は話す場所。\nWeb3トークンプロジェクト|REEL\n\n詳細はXで。\n\nPLAY -> REVIEW -> REWARD",
-        "en": "Not Yet",
-        "ko": ""
-      },
-      "comment": "",
-      "asset": "",
-      "note": "REEL Instagram企画表より",
-      "need": [
-        "text",
-        "image"
-      ],
-      "scheduled": false,
-      "posted": false,
-      "url": "",
-      "check": {
-        "done": false,
-        "at": "",
-        "match": null,
-        "note": ""
-      }
-    },
-    {
-      "date": "2026-09-23",
-      "channel": "reel",
-      "platform": "IG",
-      "time": "12:05",
-      "label": "IG Stories",
-      "owner": "",
-      "type": "text",
-      "text": {
-        "ja": "大きい部屋 vs 小さい部屋。\n\n→ Xで詳しく",
-        "en": "Not Yet",
-        "ko": ""
-      },
-      "comment": "",
-      "asset": "",
-      "note": "REEL Instagram企画表より",
-      "need": [
-        "text",
-        "image"
-      ],
-      "scheduled": false,
-      "posted": false,
-      "url": "",
-      "check": {
-        "done": false,
-        "at": "",
-        "match": null,
-        "note": ""
-      }
-    },
-    {
-      "date": "2026-09-23",
-      "channel": "reel",
-      "platform": "IG",
-      "time": "12:30",
-      "label": "Reply",
-      "owner": "",
-      "type": "text",
-      "text": {
-        "ja": "コミュニティは小さい方が好き？\n\nA. 少人数が好き\nB. 大人数でも平気\n\n→ コメントで教えて",
-        "en": "Not Yet",
-        "ko": ""
-      },
-      "comment": "",
-      "asset": "",
-      "note": "REEL Instagram企画表より",
-      "need": [
-        "text"
-      ],
-      "scheduled": false,
-      "posted": false,
-      "url": "",
-      "check": {
-        "done": false,
-        "at": "",
-        "match": null,
-        "note": ""
-      }
-    },
-    {
       "time": "17:00",
       "type": "text",
       "label": "",
@@ -9478,11 +9487,186 @@
       "owner": ""
     },
     {
+      "time": "09:30",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "need": [
+        "text"
+      ],
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "date": "2026-09-24",
+      "platform": "X",
+      "owner": ""
+    },
+    {
+      "date": "2026-09-24",
+      "channel": "reel",
+      "platform": "IG",
+      "time": "12:30",
+      "label": "Reply",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "無料ゲームで課金した理由、教えて。\n\n→ コメントで教えて",
+        "en": "Not Yet",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より / 2026-09-14: 返信は 17:00 のフィード（＋返信）に含めた",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "skip": true
+    },
+    {
+      "date": "2026-09-24",
+      "time": "17:00",
+      "platform": "FB",
+      "type": "video",
+      "label": "動画 Seohyun",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "動画 Seohyun",
+      "note": "",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "owner": ""
+    },
+    {
+      "date": "2026-09-24",
+      "channel": "reel",
+      "platform": "IG",
+      "time": "17:00",
+      "label": "IG Feed",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "無料ゲームに課金したことある？\n\nタダで入って、気づいたらスキンに使ってた。\nWeb3トークンプロジェクト|REEL\n\n詳細はXで。\n\nPLAY -> REVIEW -> REWARD",
+        "en": "Not Yet",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-24",
+      "time": "17:00",
+      "platform": "IG",
+      "type": "video",
+      "label": "動画 Seohyun",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "動画 Seohyun",
+      "note": "",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "owner": ""
+    },
+    {
+      "date": "2026-09-24",
+      "channel": "reel",
+      "platform": "IGS",
+      "time": "17:00",
+      "label": "IG Stories",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "無料ゲーム、課金したことある？\n\n→ Xで詳しく",
+        "en": "Not Yet",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
       "date": "2026-09-24",
       "channel": "reel",
       "platform": "X",
-      "time": "09:00",
-      "label": "",
+      "time": "17:00",
+      "label": "スレッド",
       "owner": "JiSeong",
       "type": "thread",
       "text": {
@@ -9533,6 +9717,33 @@
       }
     },
     {
+      "time": "17:00",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "need": [
+        "text"
+      ],
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "date": "2026-09-24",
+      "platform": "X",
+      "owner": ""
+    },
+    {
       "time": "09:30",
       "type": "text",
       "label": "",
@@ -9555,72 +9766,12 @@
         "match": null,
         "note": ""
       },
-      "date": "2026-09-24",
+      "date": "2026-09-25",
       "platform": "X",
       "owner": ""
     },
     {
-      "date": "2026-09-24",
-      "channel": "reel",
-      "platform": "IG",
-      "time": "12:00",
-      "label": "IG Feed",
-      "owner": "",
-      "type": "text",
-      "text": {
-        "ja": "無料ゲームに課金したことある？\n\nタダで入って、気づいたらスキンに使ってた。\nWeb3トークンプロジェクト|REEL\n\n詳細はXで。\n\nPLAY -> REVIEW -> REWARD",
-        "en": "Not Yet",
-        "ko": ""
-      },
-      "comment": "",
-      "asset": "",
-      "note": "REEL Instagram企画表より",
-      "need": [
-        "text",
-        "image"
-      ],
-      "scheduled": false,
-      "posted": false,
-      "url": "",
-      "check": {
-        "done": false,
-        "at": "",
-        "match": null,
-        "note": ""
-      }
-    },
-    {
-      "date": "2026-09-24",
-      "channel": "reel",
-      "platform": "IG",
-      "time": "12:05",
-      "label": "IG Stories",
-      "owner": "",
-      "type": "text",
-      "text": {
-        "ja": "無料ゲーム、課金したことある？\n\n→ Xで詳しく",
-        "en": "Not Yet",
-        "ko": ""
-      },
-      "comment": "",
-      "asset": "",
-      "note": "REEL Instagram企画表より",
-      "need": [
-        "text",
-        "image"
-      ],
-      "scheduled": false,
-      "posted": false,
-      "url": "",
-      "check": {
-        "done": false,
-        "at": "",
-        "match": null,
-        "note": ""
-      }
-    },
-    {
-      "date": "2026-09-24",
+      "date": "2026-09-25",
       "channel": "reel",
       "platform": "IG",
       "time": "12:30",
@@ -9628,15 +9779,46 @@
       "owner": "",
       "type": "text",
       "text": {
-        "ja": "無料ゲームで課金した理由、教えて。\n\n→ コメントで教えて",
-        "en": "Not Yet",
+        "ja": "友達の声・レビュー・公式情報。信じる順に並べて。\n\n→ コメントで教えて",
+        "en": "Friends, reviews, official info — rank them by trust.\n\n→ Tell me in the comments",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より / 2026-09-14: 返信は 17:00 のフィード（＋返信）に含めた",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "skip": true
+    },
+    {
+      "date": "2026-09-25",
+      "channel": "reel",
+      "platform": "IG",
+      "time": "17:00",
+      "label": "IG Feed",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "広告より、友達の「あれ良かったよ」の方が強い。\n\n売る気のない声は、信頼できる。\nWeb3トークンプロジェクト|REEL\n\n詳細はXで。\n\nPLAY -> REVIEW -> REWARD",
+        "en": "A friend's \"that was good\" beats any ad.\n\nA voice with nothing to sell is easy to trust.\nWeb3 Token Project | REEL\n\nMore on X.\n\nPLAY -> REVIEW -> REWARD",
         "ko": ""
       },
       "comment": "",
       "asset": "",
       "note": "REEL Instagram企画表より",
       "need": [
-        "text"
+        "text",
+        "image"
       ],
       "scheduled": false,
       "posted": false,
@@ -9649,96 +9831,41 @@
       }
     },
     {
-      "date": "2026-09-24",
+      "date": "2026-09-25",
+      "channel": "reel",
+      "platform": "IGS",
       "time": "17:00",
-      "platform": "FB",
-      "type": "video",
-      "label": "動画 Seohyun",
-      "text": {
-        "ja": "",
-        "en": "",
-        "ko": ""
-      },
-      "comment": "",
-      "asset": "動画 Seohyun",
-      "note": "",
-      "need": [
-        "text",
-        "image"
-      ],
-      "scheduled": false,
-      "posted": false,
-      "url": "",
-      "check": {
-        "done": false,
-        "at": "",
-        "match": null,
-        "note": ""
-      },
-      "owner": ""
-    },
-    {
-      "date": "2026-09-24",
-      "time": "17:00",
-      "platform": "IG",
-      "type": "video",
-      "label": "動画 Seohyun",
-      "text": {
-        "ja": "",
-        "en": "",
-        "ko": ""
-      },
-      "comment": "",
-      "asset": "動画 Seohyun",
-      "note": "",
-      "need": [
-        "text",
-        "image"
-      ],
-      "scheduled": false,
-      "posted": false,
-      "url": "",
-      "check": {
-        "done": false,
-        "at": "",
-        "match": null,
-        "note": ""
-      },
-      "owner": ""
-    },
-    {
-      "time": "17:00",
+      "label": "IG Stories",
+      "owner": "",
       "type": "text",
-      "label": "",
       "text": {
-        "ja": "",
-        "en": "",
+        "ja": "友達の声 vs 広告。どっちが強い？\n\n→ Xで詳しく",
+        "en": "Friend's word vs ad. Which wins?\n\n→ More on X",
         "ko": ""
       },
+      "comment": "",
       "asset": "",
-      "note": "",
+      "note": "REEL Instagram企画表より",
+      "need": [
+        "text",
+        "image"
+      ],
       "scheduled": false,
       "posted": false,
       "url": "",
-      "need": [
-        "text"
-      ],
       "check": {
         "done": false,
         "at": "",
         "match": null,
         "note": ""
-      },
-      "date": "2026-09-24",
-      "platform": "X",
-      "owner": ""
+      }
     },
     {
       "date": "2026-09-25",
       "channel": "reel",
       "platform": "X",
-      "time": "09:00",
-      "label": "",
+      "time": "17:00",
+      "label": "スレッド",
       "owner": "JiSeong",
       "type": "thread",
       "text": {
@@ -9789,122 +9916,6 @@
       }
     },
     {
-      "time": "09:30",
-      "type": "text",
-      "label": "",
-      "text": {
-        "ja": "",
-        "en": "",
-        "ko": ""
-      },
-      "asset": "",
-      "note": "",
-      "scheduled": false,
-      "posted": false,
-      "url": "",
-      "need": [
-        "text"
-      ],
-      "check": {
-        "done": false,
-        "at": "",
-        "match": null,
-        "note": ""
-      },
-      "date": "2026-09-25",
-      "platform": "X",
-      "owner": ""
-    },
-    {
-      "date": "2026-09-25",
-      "channel": "reel",
-      "platform": "IG",
-      "time": "12:00",
-      "label": "IG Feed",
-      "owner": "",
-      "type": "text",
-      "text": {
-        "ja": "広告より、友達の「あれ良かったよ」の方が強い。\n\n売る気のない声は、信頼できる。\nWeb3トークンプロジェクト|REEL\n\n詳細はXで。\n\nPLAY -> REVIEW -> REWARD",
-        "en": "A friend's \"that was good\" beats any ad.\n\nA voice with nothing to sell is easy to trust.\nWeb3 Token Project | REEL\n\nMore on X.\n\nPLAY -> REVIEW -> REWARD",
-        "ko": ""
-      },
-      "comment": "",
-      "asset": "",
-      "note": "REEL Instagram企画表より",
-      "need": [
-        "text",
-        "image"
-      ],
-      "scheduled": false,
-      "posted": false,
-      "url": "",
-      "check": {
-        "done": false,
-        "at": "",
-        "match": null,
-        "note": ""
-      }
-    },
-    {
-      "date": "2026-09-25",
-      "channel": "reel",
-      "platform": "IG",
-      "time": "12:05",
-      "label": "IG Stories",
-      "owner": "",
-      "type": "text",
-      "text": {
-        "ja": "友達の声 vs 広告。どっちが強い？\n\n→ Xで詳しく",
-        "en": "Friend's word vs ad. Which wins?\n\n→ More on X",
-        "ko": ""
-      },
-      "comment": "",
-      "asset": "",
-      "note": "REEL Instagram企画表より",
-      "need": [
-        "text",
-        "image"
-      ],
-      "scheduled": false,
-      "posted": false,
-      "url": "",
-      "check": {
-        "done": false,
-        "at": "",
-        "match": null,
-        "note": ""
-      }
-    },
-    {
-      "date": "2026-09-25",
-      "channel": "reel",
-      "platform": "IG",
-      "time": "12:30",
-      "label": "Reply",
-      "owner": "",
-      "type": "text",
-      "text": {
-        "ja": "友達の声・レビュー・公式情報。信じる順に並べて。\n\n→ コメントで教えて",
-        "en": "Friends, reviews, official info — rank them by trust.\n\n→ Tell me in the comments",
-        "ko": ""
-      },
-      "comment": "",
-      "asset": "",
-      "note": "REEL Instagram企画表より",
-      "need": [
-        "text"
-      ],
-      "scheduled": false,
-      "posted": false,
-      "url": "",
-      "check": {
-        "done": false,
-        "at": "",
-        "match": null,
-        "note": ""
-      }
-    },
-    {
       "time": "17:00",
       "type": "text",
       "label": "",
@@ -9932,11 +9943,128 @@
       "owner": ""
     },
     {
+      "time": "09:30",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "need": [
+        "text"
+      ],
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "date": "2026-09-26",
+      "platform": "X",
+      "owner": ""
+    },
+    {
+      "date": "2026-09-26",
+      "channel": "reel",
+      "platform": "IG",
+      "time": "12:30",
+      "label": "Reply",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "REELのループ、気になるのは？\n\n① PLAY\n② REVIEW\n③ REWARD\n\n→ コメントで教えて",
+        "en": "Which part of REEL interests you?\n\n① PLAY\n② REVIEW\n③ REWARD\n\n→ Tell me in the comments",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より / 2026-09-14: 返信は 17:00 のフィード（＋返信）に含めた",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "skip": true
+    },
+    {
+      "date": "2026-09-26",
+      "channel": "reel",
+      "platform": "IG",
+      "time": "17:00",
+      "label": "IG Feed",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "遊んで、感想を書いて、誰かがそれを見て、また遊び始める。\n\n自然に回る仕組みって、強い。\nWeb3トークンプロジェクト|REEL\n\n詳細はXで。\n\nPLAY -> REVIEW -> REWARD",
+        "en": "Play, write a review, someone reads it, they start playing too.\n\nA loop that turns naturally is powerful.\nWeb3 Token Project | REEL\n\nMore on X.\n\nPLAY -> REVIEW -> REWARD",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-26",
+      "channel": "reel",
+      "platform": "IGS",
+      "time": "17:00",
+      "label": "IG Stories",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "自然に回るループ。それが構造。\n\n→ Xで詳しく",
+        "en": "A natural loop. That's the architecture.\n\n→ More on X",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
       "date": "2026-09-26",
       "channel": "reel",
       "platform": "X",
-      "time": "09:00",
-      "label": "",
+      "time": "17:00",
+      "label": "スレッド",
       "owner": "JiSeong",
       "type": "thread",
       "text": {
@@ -9969,122 +10097,6 @@
       }
     },
     {
-      "time": "09:30",
-      "type": "text",
-      "label": "",
-      "text": {
-        "ja": "",
-        "en": "",
-        "ko": ""
-      },
-      "asset": "",
-      "note": "",
-      "scheduled": false,
-      "posted": false,
-      "url": "",
-      "need": [
-        "text"
-      ],
-      "check": {
-        "done": false,
-        "at": "",
-        "match": null,
-        "note": ""
-      },
-      "date": "2026-09-26",
-      "platform": "X",
-      "owner": ""
-    },
-    {
-      "date": "2026-09-26",
-      "channel": "reel",
-      "platform": "IG",
-      "time": "12:00",
-      "label": "IG Feed",
-      "owner": "",
-      "type": "text",
-      "text": {
-        "ja": "遊んで、感想を書いて、誰かがそれを見て、また遊び始める。\n\n自然に回る仕組みって、強い。\nWeb3トークンプロジェクト|REEL\n\n詳細はXで。\n\nPLAY -> REVIEW -> REWARD",
-        "en": "Play, write a review, someone reads it, they start playing too.\n\nA loop that turns naturally is powerful.\nWeb3 Token Project | REEL\n\nMore on X.\n\nPLAY -> REVIEW -> REWARD",
-        "ko": ""
-      },
-      "comment": "",
-      "asset": "",
-      "note": "REEL Instagram企画表より",
-      "need": [
-        "text",
-        "image"
-      ],
-      "scheduled": false,
-      "posted": false,
-      "url": "",
-      "check": {
-        "done": false,
-        "at": "",
-        "match": null,
-        "note": ""
-      }
-    },
-    {
-      "date": "2026-09-26",
-      "channel": "reel",
-      "platform": "IG",
-      "time": "12:05",
-      "label": "IG Stories",
-      "owner": "",
-      "type": "text",
-      "text": {
-        "ja": "自然に回るループ。それが構造。\n\n→ Xで詳しく",
-        "en": "A natural loop. That's the architecture.\n\n→ More on X",
-        "ko": ""
-      },
-      "comment": "",
-      "asset": "",
-      "note": "REEL Instagram企画表より",
-      "need": [
-        "text",
-        "image"
-      ],
-      "scheduled": false,
-      "posted": false,
-      "url": "",
-      "check": {
-        "done": false,
-        "at": "",
-        "match": null,
-        "note": ""
-      }
-    },
-    {
-      "date": "2026-09-26",
-      "channel": "reel",
-      "platform": "IG",
-      "time": "12:30",
-      "label": "Reply",
-      "owner": "",
-      "type": "text",
-      "text": {
-        "ja": "REELのループ、気になるのは？\n\n① PLAY\n② REVIEW\n③ REWARD\n\n→ コメントで教えて",
-        "en": "Which part of REEL interests you?\n\n① PLAY\n② REVIEW\n③ REWARD\n\n→ Tell me in the comments",
-        "ko": ""
-      },
-      "comment": "",
-      "asset": "",
-      "note": "REEL Instagram企画表より",
-      "need": [
-        "text"
-      ],
-      "scheduled": false,
-      "posted": false,
-      "url": "",
-      "check": {
-        "done": false,
-        "at": "",
-        "match": null,
-        "note": ""
-      }
-    },
-    {
       "time": "17:00",
       "type": "text",
       "label": "",
@@ -10112,43 +10124,6 @@
       "owner": ""
     },
     {
-      "date": "2026-09-27",
-      "channel": "reel",
-      "platform": "X",
-      "time": "09:00",
-      "label": "",
-      "owner": "JiSeong",
-      "type": "thread",
-      "text": {
-        "ja": "",
-        "en": "",
-        "ko": ""
-      },
-      "comment": "",
-      "asset": "",
-      "note": "確定ドラフト",
-      "need": [
-        "text"
-      ],
-      "parts": [
-        {
-          "no": "Thread1",
-          "time": "",
-          "ja": "ロイヤルティプログラム会員は、\n年間12～18%多く支出します。\n\n彼らを動かしているのは、\n割引ではありません。\n\nそれは、\n継続する関係性です。",
-          "en": "Loyalty program members\nspend 12–18% more per year.\n\nWhat moves them\nisn't the discount.\n\nIt's the relationship\nthat continues."
-        }
-      ],
-      "scheduled": false,
-      "posted": false,
-      "url": "",
-      "check": {
-        "done": false,
-        "at": "",
-        "match": null,
-        "note": ""
-      }
-    },
-    {
       "time": "09:30",
       "type": "text",
       "label": "",
@@ -10174,66 +10149,6 @@
       "date": "2026-09-27",
       "platform": "X",
       "owner": ""
-    },
-    {
-      "date": "2026-09-27",
-      "channel": "reel",
-      "platform": "IG",
-      "time": "12:00",
-      "label": "IG Feed",
-      "owner": "",
-      "type": "text",
-      "text": {
-        "ja": "行きつけの場所って、あるよね。味とかサービスじゃなくて「自分の場所」だから通ってる。\n\nバーチャルでも、同じことが起きる。\nWeb3トークンプロジェクト|REEL\n\n詳細はXで。\n\nPLAY -> REVIEW -> REWARD",
-        "en": "You have a go-to place, right? Not for the taste — because it feels like yours.\n\nThe same happens in virtual worlds.\nWeb3 Token Project | REEL\n\nMore on X.\n\nPLAY -> REVIEW -> REWARD",
-        "ko": ""
-      },
-      "comment": "",
-      "asset": "",
-      "note": "REEL Instagram企画表より",
-      "need": [
-        "text",
-        "image"
-      ],
-      "scheduled": false,
-      "posted": false,
-      "url": "",
-      "check": {
-        "done": false,
-        "at": "",
-        "match": null,
-        "note": ""
-      }
-    },
-    {
-      "date": "2026-09-27",
-      "channel": "reel",
-      "platform": "IG",
-      "time": "12:05",
-      "label": "IG Stories",
-      "owner": "",
-      "type": "text",
-      "text": {
-        "ja": "行きつけ、ありますか？\n\n→ Xで詳しく",
-        "en": "Got a go-to place?\n\n→ More on X",
-        "ko": ""
-      },
-      "comment": "",
-      "asset": "",
-      "note": "REEL Instagram企画表より",
-      "need": [
-        "text",
-        "image"
-      ],
-      "scheduled": false,
-      "posted": false,
-      "url": "",
-      "check": {
-        "done": false,
-        "at": "",
-        "match": null,
-        "note": ""
-      }
     },
     {
       "date": "2026-09-27",
@@ -10266,6 +10181,36 @@
     },
     {
       "date": "2026-09-27",
+      "channel": "reel",
+      "platform": "IG",
+      "time": "17:00",
+      "label": "IG Feed",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "行きつけの場所って、あるよね。味とかサービスじゃなくて「自分の場所」だから通ってる。\n\nバーチャルでも、同じことが起きる。\nWeb3トークンプロジェクト|REEL\n\n詳細はXで。\n\nPLAY -> REVIEW -> REWARD",
+        "en": "You have a go-to place, right? Not for the taste — because it feels like yours.\n\nThe same happens in virtual worlds.\nWeb3 Token Project | REEL\n\nMore on X.\n\nPLAY -> REVIEW -> REWARD",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-27",
       "time": "17:00",
       "platform": "IG",
       "type": "video",
@@ -10292,6 +10237,73 @@
         "note": ""
       },
       "owner": ""
+    },
+    {
+      "date": "2026-09-27",
+      "channel": "reel",
+      "platform": "IGS",
+      "time": "17:00",
+      "label": "IG Stories",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "行きつけ、ありますか？\n\n→ Xで詳しく",
+        "en": "Got a go-to place?\n\n→ More on X",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-27",
+      "channel": "reel",
+      "platform": "X",
+      "time": "17:00",
+      "label": "スレッド",
+      "owner": "JiSeong",
+      "type": "thread",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "確定ドラフト",
+      "need": [
+        "text"
+      ],
+      "parts": [
+        {
+          "no": "Thread1",
+          "time": "",
+          "ja": "ロイヤルティプログラム会員は、\n年間12～18%多く支出します。\n\n彼らを動かしているのは、\n割引ではありません。\n\nそれは、\n継続する関係性です。",
+          "en": "Loyalty program members\nspend 12–18% more per year.\n\nWhat moves them\nisn't the discount.\n\nIt's the relationship\nthat continues."
+        }
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
     },
     {
       "time": "17:00",
@@ -10321,11 +10333,128 @@
       "owner": ""
     },
     {
+      "time": "09:30",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "need": [
+        "text"
+      ],
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "date": "2026-09-28",
+      "platform": "X",
+      "owner": ""
+    },
+    {
+      "date": "2026-09-28",
+      "channel": "reel",
+      "platform": "IG",
+      "time": "12:30",
+      "label": "Reply",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "「帰りたくなる場所」、どこで感じる？\n\n① ゲームの中\n② 行きつけの店\n③ 誰かとの会話\n\n→ コメントで教えて",
+        "en": "Where do you feel \"a place you want to return to\"?\n\n① In a game\n② A favorite spot\n③ A conversation with someone\n\n→ Tell me in the comments",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より / 2026-09-14: 返信は 17:00 のフィード（＋返信）に含めた",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "skip": true
+    },
+    {
+      "date": "2026-09-28",
+      "channel": "reel",
+      "platform": "IG",
+      "time": "17:00",
+      "label": "IG Feed",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "帰りたくなる場所は、機能が良いからじゃない。\n\nなんか落ち着くから。自分のものって感じがするから。\nWeb3トークンプロジェクト|REEL\n\n詳細はXで。\n\nPLAY -> REVIEW -> REWARD",
+        "en": "You return to a place not because it's functional.\n\nBecause it feels calm. Because it feels like yours.\nWeb3 Token Project | REEL\n\nMore on X.\n\nPLAY -> REVIEW -> REWARD",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-28",
+      "channel": "reel",
+      "platform": "IGS",
+      "time": "17:00",
+      "label": "IG Stories",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "帰りたくなる場所、ある？\n\n→ Xで詳しく",
+        "en": "A place you want to return to?\n\n→ More on X",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
       "date": "2026-09-28",
       "channel": "reel",
       "platform": "X",
-      "time": "09:00",
-      "label": "",
+      "time": "17:00",
+      "label": "スレッド",
       "owner": "JiSeong",
       "type": "thread",
       "text": {
@@ -10370,122 +10499,6 @@
       }
     },
     {
-      "time": "09:30",
-      "type": "text",
-      "label": "",
-      "text": {
-        "ja": "",
-        "en": "",
-        "ko": ""
-      },
-      "asset": "",
-      "note": "",
-      "scheduled": false,
-      "posted": false,
-      "url": "",
-      "need": [
-        "text"
-      ],
-      "check": {
-        "done": false,
-        "at": "",
-        "match": null,
-        "note": ""
-      },
-      "date": "2026-09-28",
-      "platform": "X",
-      "owner": ""
-    },
-    {
-      "date": "2026-09-28",
-      "channel": "reel",
-      "platform": "IG",
-      "time": "12:00",
-      "label": "IG Feed",
-      "owner": "",
-      "type": "text",
-      "text": {
-        "ja": "帰りたくなる場所は、機能が良いからじゃない。\n\nなんか落ち着くから。自分のものって感じがするから。\nWeb3トークンプロジェクト|REEL\n\n詳細はXで。\n\nPLAY -> REVIEW -> REWARD",
-        "en": "You return to a place not because it's functional.\n\nBecause it feels calm. Because it feels like yours.\nWeb3 Token Project | REEL\n\nMore on X.\n\nPLAY -> REVIEW -> REWARD",
-        "ko": ""
-      },
-      "comment": "",
-      "asset": "",
-      "note": "REEL Instagram企画表より",
-      "need": [
-        "text",
-        "image"
-      ],
-      "scheduled": false,
-      "posted": false,
-      "url": "",
-      "check": {
-        "done": false,
-        "at": "",
-        "match": null,
-        "note": ""
-      }
-    },
-    {
-      "date": "2026-09-28",
-      "channel": "reel",
-      "platform": "IG",
-      "time": "12:05",
-      "label": "IG Stories",
-      "owner": "",
-      "type": "text",
-      "text": {
-        "ja": "帰りたくなる場所、ある？\n\n→ Xで詳しく",
-        "en": "A place you want to return to?\n\n→ More on X",
-        "ko": ""
-      },
-      "comment": "",
-      "asset": "",
-      "note": "REEL Instagram企画表より",
-      "need": [
-        "text",
-        "image"
-      ],
-      "scheduled": false,
-      "posted": false,
-      "url": "",
-      "check": {
-        "done": false,
-        "at": "",
-        "match": null,
-        "note": ""
-      }
-    },
-    {
-      "date": "2026-09-28",
-      "channel": "reel",
-      "platform": "IG",
-      "time": "12:30",
-      "label": "Reply",
-      "owner": "",
-      "type": "text",
-      "text": {
-        "ja": "「帰りたくなる場所」、どこで感じる？\n\n① ゲームの中\n② 行きつけの店\n③ 誰かとの会話\n\n→ コメントで教えて",
-        "en": "Where do you feel \"a place you want to return to\"?\n\n① In a game\n② A favorite spot\n③ A conversation with someone\n\n→ Tell me in the comments",
-        "ko": ""
-      },
-      "comment": "",
-      "asset": "",
-      "note": "REEL Instagram企画表より",
-      "need": [
-        "text"
-      ],
-      "scheduled": false,
-      "posted": false,
-      "url": "",
-      "check": {
-        "done": false,
-        "at": "",
-        "match": null,
-        "note": ""
-      }
-    },
-    {
       "time": "17:00",
       "type": "text",
       "label": "",
@@ -10513,11 +10526,128 @@
       "owner": ""
     },
     {
+      "time": "09:30",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "need": [
+        "text"
+      ],
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "date": "2026-09-29",
+      "platform": "X",
+      "owner": ""
+    },
+    {
+      "date": "2026-09-29",
+      "channel": "reel",
+      "platform": "IG",
+      "time": "12:30",
+      "label": "Reply",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "長く使ってるサービス、続いてる理由は？\n\nA. 始めやすかったから\nB. 気づいたら手放せなくなってた\n\n→ コメントで教えて",
+        "en": "Why do you still use a service long-term?\n\nA. It was easy to start\nB. Became impossible to quit\n\n→ Tell me in the comments",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より / 2026-09-14: 返信は 17:00 のフィード（＋返信）に含めた",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "skip": true
+    },
+    {
+      "date": "2026-09-29",
+      "channel": "reel",
+      "platform": "IG",
+      "time": "17:00",
+      "label": "IG Feed",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "始めやすい。続けやすい。戻りやすい。\n\nこの3つが揃うと、生活の一部になる。\nWeb3トークンプロジェクト|REEL\n\n詳細はXで。\n\nPLAY -> REVIEW -> REWARD",
+        "en": "Easy to start. Easy to continue. Easy to return.\n\nWhen all three align, it becomes part of your life.\nWeb3 Token Project | REEL\n\nMore on X.\n\nPLAY -> REVIEW -> REWARD",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-29",
+      "channel": "reel",
+      "platform": "IGS",
+      "time": "17:00",
+      "label": "IG Stories",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "始めやすい。続けやすい。戻りやすい。\n\n→ Xで詳しく",
+        "en": "Easy to start. Continue. Return.\n\n→ More on X",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
       "date": "2026-09-29",
       "channel": "reel",
       "platform": "X",
-      "time": "09:00",
-      "label": "",
+      "time": "17:00",
+      "label": "スレッド",
       "owner": "JiSeong",
       "type": "thread",
       "text": {
@@ -10568,122 +10698,6 @@
       }
     },
     {
-      "time": "09:30",
-      "type": "text",
-      "label": "",
-      "text": {
-        "ja": "",
-        "en": "",
-        "ko": ""
-      },
-      "asset": "",
-      "note": "",
-      "scheduled": false,
-      "posted": false,
-      "url": "",
-      "need": [
-        "text"
-      ],
-      "check": {
-        "done": false,
-        "at": "",
-        "match": null,
-        "note": ""
-      },
-      "date": "2026-09-29",
-      "platform": "X",
-      "owner": ""
-    },
-    {
-      "date": "2026-09-29",
-      "channel": "reel",
-      "platform": "IG",
-      "time": "12:00",
-      "label": "IG Feed",
-      "owner": "",
-      "type": "text",
-      "text": {
-        "ja": "始めやすい。続けやすい。戻りやすい。\n\nこの3つが揃うと、生活の一部になる。\nWeb3トークンプロジェクト|REEL\n\n詳細はXで。\n\nPLAY -> REVIEW -> REWARD",
-        "en": "Easy to start. Easy to continue. Easy to return.\n\nWhen all three align, it becomes part of your life.\nWeb3 Token Project | REEL\n\nMore on X.\n\nPLAY -> REVIEW -> REWARD",
-        "ko": ""
-      },
-      "comment": "",
-      "asset": "",
-      "note": "REEL Instagram企画表より",
-      "need": [
-        "text",
-        "image"
-      ],
-      "scheduled": false,
-      "posted": false,
-      "url": "",
-      "check": {
-        "done": false,
-        "at": "",
-        "match": null,
-        "note": ""
-      }
-    },
-    {
-      "date": "2026-09-29",
-      "channel": "reel",
-      "platform": "IG",
-      "time": "12:05",
-      "label": "IG Stories",
-      "owner": "",
-      "type": "text",
-      "text": {
-        "ja": "始めやすい。続けやすい。戻りやすい。\n\n→ Xで詳しく",
-        "en": "Easy to start. Continue. Return.\n\n→ More on X",
-        "ko": ""
-      },
-      "comment": "",
-      "asset": "",
-      "note": "REEL Instagram企画表より",
-      "need": [
-        "text",
-        "image"
-      ],
-      "scheduled": false,
-      "posted": false,
-      "url": "",
-      "check": {
-        "done": false,
-        "at": "",
-        "match": null,
-        "note": ""
-      }
-    },
-    {
-      "date": "2026-09-29",
-      "channel": "reel",
-      "platform": "IG",
-      "time": "12:30",
-      "label": "Reply",
-      "owner": "",
-      "type": "text",
-      "text": {
-        "ja": "長く使ってるサービス、続いてる理由は？\n\nA. 始めやすかったから\nB. 気づいたら手放せなくなってた\n\n→ コメントで教えて",
-        "en": "Why do you still use a service long-term?\n\nA. It was easy to start\nB. Became impossible to quit\n\n→ Tell me in the comments",
-        "ko": ""
-      },
-      "comment": "",
-      "asset": "",
-      "note": "REEL Instagram企画表より",
-      "need": [
-        "text"
-      ],
-      "scheduled": false,
-      "posted": false,
-      "url": "",
-      "check": {
-        "done": false,
-        "at": "",
-        "match": null,
-        "note": ""
-      }
-    },
-    {
       "time": "17:00",
       "type": "text",
       "label": "",
@@ -10711,11 +10725,186 @@
       "owner": ""
     },
     {
+      "time": "09:30",
+      "type": "text",
+      "label": "",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "asset": "",
+      "note": "",
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "need": [
+        "text"
+      ],
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "date": "2026-09-30",
+      "platform": "X",
+      "owner": ""
+    },
+    {
+      "date": "2026-09-30",
+      "channel": "reel",
+      "platform": "IG",
+      "time": "12:30",
+      "label": "Reply",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "あなたにとっての「入口」、一言で言うと？\n\n→ コメントで教えて",
+        "en": "In one word, what's your \"entrance\"?\n\n→ Tell me in the comments",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より / 2026-09-14: 返信は 17:00 のフィード（＋返信）に含めた",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "skip": true
+    },
+    {
+      "date": "2026-09-30",
+      "time": "17:00",
+      "platform": "FB",
+      "type": "video",
+      "label": "動画 SUHA",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "動画 SUHA",
+      "note": "",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "owner": ""
+    },
+    {
+      "date": "2026-09-30",
+      "channel": "reel",
+      "platform": "IG",
+      "time": "17:00",
+      "label": "IG Feed",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "初めて来た人にとって、全てが「最初の印象」。\n\nサムネイル。ロビー。コントローラー。\nWeb3トークンプロジェクト|REEL\n\n詳細はXで。\n\nPLAY -> REVIEW -> REWARD",
+        "en": "For a first-time visitor, everything is a first impression.\n\nThumbnail. Lobby. Controller.\nWeb3 Token Project | REEL\n\nMore on X.\n\nPLAY -> REVIEW -> REWARD",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-09-30",
+      "time": "17:00",
+      "platform": "IG",
+      "type": "video",
+      "label": "動画 SUHA",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "動画 SUHA",
+      "note": "",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "owner": ""
+    },
+    {
+      "date": "2026-09-30",
+      "channel": "reel",
+      "platform": "IGS",
+      "time": "17:00",
+      "label": "IG Stories",
+      "owner": "",
+      "type": "text",
+      "text": {
+        "ja": "全ての面が、誰かの入口。\n\n→ Xで詳しく",
+        "en": "Every surface is someone's entrance.\n\n→ More on X",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "REEL Instagram企画表より",
+      "need": [
+        "text",
+        "image"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      }
+    },
+    {
       "date": "2026-09-30",
       "channel": "reel",
       "platform": "X",
-      "time": "09:00",
-      "label": "",
+      "time": "17:00",
+      "label": "スレッド",
       "owner": "JiSeong",
       "type": "thread",
       "text": {
@@ -10764,180 +10953,6 @@
         "match": null,
         "note": ""
       }
-    },
-    {
-      "time": "09:30",
-      "type": "text",
-      "label": "",
-      "text": {
-        "ja": "",
-        "en": "",
-        "ko": ""
-      },
-      "asset": "",
-      "note": "",
-      "scheduled": false,
-      "posted": false,
-      "url": "",
-      "need": [
-        "text"
-      ],
-      "check": {
-        "done": false,
-        "at": "",
-        "match": null,
-        "note": ""
-      },
-      "date": "2026-09-30",
-      "platform": "X",
-      "owner": ""
-    },
-    {
-      "date": "2026-09-30",
-      "channel": "reel",
-      "platform": "IG",
-      "time": "12:00",
-      "label": "IG Feed",
-      "owner": "",
-      "type": "text",
-      "text": {
-        "ja": "初めて来た人にとって、全てが「最初の印象」。\n\nサムネイル。ロビー。コントローラー。\nWeb3トークンプロジェクト|REEL\n\n詳細はXで。\n\nPLAY -> REVIEW -> REWARD",
-        "en": "For a first-time visitor, everything is a first impression.\n\nThumbnail. Lobby. Controller.\nWeb3 Token Project | REEL\n\nMore on X.\n\nPLAY -> REVIEW -> REWARD",
-        "ko": ""
-      },
-      "comment": "",
-      "asset": "",
-      "note": "REEL Instagram企画表より",
-      "need": [
-        "text",
-        "image"
-      ],
-      "scheduled": false,
-      "posted": false,
-      "url": "",
-      "check": {
-        "done": false,
-        "at": "",
-        "match": null,
-        "note": ""
-      }
-    },
-    {
-      "date": "2026-09-30",
-      "channel": "reel",
-      "platform": "IG",
-      "time": "12:05",
-      "label": "IG Stories",
-      "owner": "",
-      "type": "text",
-      "text": {
-        "ja": "全ての面が、誰かの入口。\n\n→ Xで詳しく",
-        "en": "Every surface is someone's entrance.\n\n→ More on X",
-        "ko": ""
-      },
-      "comment": "",
-      "asset": "",
-      "note": "REEL Instagram企画表より",
-      "need": [
-        "text",
-        "image"
-      ],
-      "scheduled": false,
-      "posted": false,
-      "url": "",
-      "check": {
-        "done": false,
-        "at": "",
-        "match": null,
-        "note": ""
-      }
-    },
-    {
-      "date": "2026-09-30",
-      "channel": "reel",
-      "platform": "IG",
-      "time": "12:30",
-      "label": "Reply",
-      "owner": "",
-      "type": "text",
-      "text": {
-        "ja": "あなたにとっての「入口」、一言で言うと？\n\n→ コメントで教えて",
-        "en": "In one word, what's your \"entrance\"?\n\n→ Tell me in the comments",
-        "ko": ""
-      },
-      "comment": "",
-      "asset": "",
-      "note": "REEL Instagram企画表より",
-      "need": [
-        "text"
-      ],
-      "scheduled": false,
-      "posted": false,
-      "url": "",
-      "check": {
-        "done": false,
-        "at": "",
-        "match": null,
-        "note": ""
-      }
-    },
-    {
-      "date": "2026-09-30",
-      "time": "17:00",
-      "platform": "FB",
-      "type": "video",
-      "label": "動画 SUHA",
-      "text": {
-        "ja": "",
-        "en": "",
-        "ko": ""
-      },
-      "comment": "",
-      "asset": "動画 SUHA",
-      "note": "",
-      "need": [
-        "text",
-        "image"
-      ],
-      "scheduled": false,
-      "posted": false,
-      "url": "",
-      "check": {
-        "done": false,
-        "at": "",
-        "match": null,
-        "note": ""
-      },
-      "owner": ""
-    },
-    {
-      "date": "2026-09-30",
-      "time": "17:00",
-      "platform": "IG",
-      "type": "video",
-      "label": "動画 SUHA",
-      "text": {
-        "ja": "",
-        "en": "",
-        "ko": ""
-      },
-      "comment": "",
-      "asset": "動画 SUHA",
-      "note": "",
-      "need": [
-        "text",
-        "image"
-      ],
-      "scheduled": false,
-      "posted": false,
-      "url": "",
-      "check": {
-        "done": false,
-        "at": "",
-        "match": null,
-        "note": ""
-      },
-      "owner": ""
     },
     {
       "time": "17:00",

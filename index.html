@@ -171,6 +171,18 @@
   .ktoggle{ display:block; width:100%; font:inherit; color:inherit; text-align:left; background:none; border:0; padding:0; cursor:pointer; }
   .kbody{ align-items:center; }
   .kchev{ font-size:13px; color:var(--muted); }
+  .kman{ margin:0 0 20px; padding:14px 16px; border:1px solid var(--line); border-radius:14px; background:var(--surface); }
+  .kmhead{ display:flex; align-items:baseline; gap:10px; flex-wrap:wrap; }
+  .kmhead .kgtitle{ margin:0; }
+  .kmyt{ margin:6px 0 0; font-size:12.5px; color:var(--muted); }
+  .kmgrid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(150px, 1fr)); gap:8px; margin-top:10px; }
+  .kmcell{ display:flex; flex-direction:column; gap:3px; font-size:12px; color:var(--muted); box-shadow:inset 3px 0 0 var(--chc); padding-left:8px; }
+  .kmcell b{ color:var(--ink); font-weight:600; }
+  .kmin{ min-height:44px; font:inherit; font-size:16px; font-variant-numeric:tabular-nums; padding:6px 10px;
+    border:1px solid var(--line); border-radius:10px; background:var(--bg); color:var(--ink); }
+  .kmbar{ display:flex; align-items:center; gap:10px; margin-top:12px; }
+  .kmbar button{ min-height:44px; padding:0 22px; font:inherit; font-weight:700; border:0; border-radius:10px;
+    background:var(--ink); color:var(--surface); cursor:pointer; }
   .kdetail{ margin-top:12px; border-top:1px solid var(--line); padding-top:8px; overflow-x:auto; }
   .kdetail table{ width:100%; border-collapse:collapse; font-size:13px; font-variant-numeric:tabular-nums; }
   .kdetail th{ font-size:11.5px; font-weight:500; color:var(--muted); text-align:right; padding:4px 6px; }
@@ -1249,7 +1261,7 @@
           fail:"Could not load the source.", back:"← All posts",
           mntTitle:"Under maintenance", mntUntil:"Expected back around",
           draft:"Draft", live:"Posted", open:"Open channel",
-          navDash:"This week", navBook:"Booking", bkThis:"This week", bkJump:"Go to date", bkNoSlot:"No slot yet. Tap to book", bkBooked:"booked", bkUnsure:"Not sure this group is REEL (times differ from the hub)", navPrep:"Prep", navKpi:"KPI", navLikes:"Likes", kDetail:"History", kDate:"Date", kChange:"Change", kShowAll:"Show all", tipLikes:"Like-work checks by week. Tap a time to mark it done", lkWeek:"This week", lkDone:"done", lkCode:"Team passphrase", lkCodeHint:"Enter it once on this device to share checks with everyone", lkCodeSave:"Save", lkCodeBad:"Wrong passphrase", lkServer:"Saved for everyone", lkOffline:"Server unreachable. Kept on this device", lkCsv:"3M / CSV", lkToday:"Today", lkPast:"Past records", lkAllDone:"All likes done today", lkNow:"now", navPosts:"Posts",
+          navDash:"This week", navBook:"Booking", bkThis:"This week", bkJump:"Go to date", bkNoSlot:"No slot yet. Tap to book", bkBooked:"booked", bkUnsure:"Not sure this group is REEL (times differ from the hub)", navPrep:"Prep", navKpi:"KPI", navLikes:"Likes", kDetail:"History", kmTitle:"Today's followers", kmHint:"YouTube is fetched automatically at 12:00. Enter the rest by hand", kmSave:"Save", kmSaved:"Saved", kmLocal:"Saved on this device", kmFail:"Could not save", kmAuto:"auto", kDate:"Date", kChange:"Change", kShowAll:"Show all", tipLikes:"Like-work checks by week. Tap a time to mark it done", lkWeek:"This week", lkDone:"done", lkCode:"Team passphrase", lkCodeHint:"Enter it once on this device to share checks with everyone", lkCodeSave:"Save", lkCodeBad:"Wrong passphrase", lkServer:"Saved for everyone", lkOffline:"Server unreachable. Kept on this device", lkCsv:"3M / CSV", lkToday:"Today", lkPast:"Past records", lkAllDone:"All likes done today", lkNow:"now", navPosts:"Posts",
           followers:"Followers", following:"Following", measuredOn:"Measured", noKpi:"No numbers yet.",
           kpiTotal:"All channels", chTitle:"Engagement checklist", chSaved:"Saved", chLocal:"Saved on this device only",
           allBooked:"All booked", leftToDo:"left", nothingToday:"Nothing scheduled",
@@ -1300,7 +1312,7 @@
           fail:"원본을 불러오지 못했습니다.", back:"← 목록으로",
           mntTitle:"점검 중", mntUntil:"재개 예정",
           draft:"초안", live:"게시함", open:"채널 열기",
-          navDash:"이번 주", navBook:"예약", bkThis:"이번 주", bkJump:"날짜로 이동", bkNoSlot:"아직 틀 없음. 누르면 예약", bkBooked:"예약됨", bkUnsure:"이 묶음이 REEL인지 확실하지 않음 (허브와 시간이 다름)", navPrep:"준비", navKpi:"KPI", navLikes:"좋아요", kDetail:"기록", kDate:"날짜", kChange:"증감", kShowAll:"전체 보기", tipLikes:"좋아요 작업을 주 단위로 체크. 시간을 누르면 완료", lkWeek:"이번 주", lkDone:"완료", lkCode:"팀 암호", lkCodeHint:"이 기기에서 한 번만 입력하면 모두와 공유돼", lkCodeSave:"저장", lkCodeBad:"암호가 달라", lkServer:"모두에게 저장됨", lkOffline:"서버에 연결 안 됨. 이 기기에 보관", lkCsv:"3M / CSV", lkToday:"오늘", lkPast:"지난 기록", lkAllDone:"오늘 좋아요 작업 끝", lkNow:"지금", navPosts:"글",
+          navDash:"이번 주", navBook:"예약", bkThis:"이번 주", bkJump:"날짜로 이동", bkNoSlot:"아직 틀 없음. 누르면 예약", bkBooked:"예약됨", bkUnsure:"이 묶음이 REEL인지 확실하지 않음 (허브와 시간이 다름)", navPrep:"준비", navKpi:"KPI", navLikes:"좋아요", kDetail:"기록", kmTitle:"오늘의 팔로워", kmHint:"YouTube는 12시에 자동으로 가져와. 나머지는 직접 입력", kmSave:"저장", kmSaved:"저장됨", kmLocal:"이 기기에 저장됨", kmFail:"저장 실패", kmAuto:"자동", kDate:"날짜", kChange:"증감", kShowAll:"전체 보기", tipLikes:"좋아요 작업을 주 단위로 체크. 시간을 누르면 완료", lkWeek:"이번 주", lkDone:"완료", lkCode:"팀 암호", lkCodeHint:"이 기기에서 한 번만 입력하면 모두와 공유돼", lkCodeSave:"저장", lkCodeBad:"암호가 달라", lkServer:"모두에게 저장됨", lkOffline:"서버에 연결 안 됨. 이 기기에 보관", lkCsv:"3M / CSV", lkToday:"오늘", lkPast:"지난 기록", lkAllDone:"오늘 좋아요 작업 끝", lkNow:"지금", navPosts:"글",
           followers:"팔로워", following:"팔로잉", measuredOn:"측정일", noKpi:"아직 숫자가 없어.",
           kpiTotal:"전체 채널", chTitle:"좋아요 작업 체크리스트", chSaved:"저장됨", chLocal:"이 기기에만 저장됨",
           allBooked:"모두 예약됨", leftToDo:"남음", nothingToday:"예정 없음",
@@ -1351,7 +1363,7 @@
           fail:"原本を読み込めませんでした。", back:"← 一覧へ",
           mntTitle:"メンテナンス中", mntUntil:"再開の目安",
           draft:"下書き", live:"公開ずみ", open:"チャンネルを開く",
-          navDash:"今週", navBook:"予約", bkThis:"今週", bkJump:"日付へ移動", bkNoSlot:"まだ枠がありません。押すと予約済みで作ります", bkBooked:"予約済み", bkUnsure:"この群がREELかは未確認（HUBの時間と合わない）", navPrep:"準備", navKpi:"KPI", navLikes:"いいね", kDetail:"記録", kDate:"日付", kChange:"増減", kShowAll:"すべて見る", tipLikes:"いいね作業を週ごとにチェック。時間を押すと済み", lkWeek:"今週", lkDone:"済み", lkCode:"チームの合言葉", lkCodeHint:"この端末で一度入れれば、全員と共有されます", lkCodeSave:"保存", lkCodeBad:"合言葉が違います", lkServer:"全員に保存しました", lkOffline:"サーバーにつながりません。この端末に残しました", lkCsv:"3M / CSV", lkToday:"今日", lkPast:"過去の記録", lkAllDone:"今日のいいね作業は済み", lkNow:"今", navPosts:"投稿",
+          navDash:"今週", navBook:"予約", bkThis:"今週", bkJump:"日付へ移動", bkNoSlot:"まだ枠がありません。押すと予約済みで作ります", bkBooked:"予約済み", bkUnsure:"この群がREELかは未確認（HUBの時間と合わない）", navPrep:"準備", navKpi:"KPI", navLikes:"いいね", kDetail:"記録", kmTitle:"今日のフォロワー", kmHint:"YouTubeは12時に自動で取ります。ほかは手で入れてください", kmSave:"保存", kmSaved:"保存しました", kmLocal:"この端末に保存しました", kmFail:"保存できませんでした", kmAuto:"自動", kDate:"日付", kChange:"増減", kShowAll:"すべて見る", tipLikes:"いいね作業を週ごとにチェック。時間を押すと済み", lkWeek:"今週", lkDone:"済み", lkCode:"チームの合言葉", lkCodeHint:"この端末で一度入れれば、全員と共有されます", lkCodeSave:"保存", lkCodeBad:"合言葉が違います", lkServer:"全員に保存しました", lkOffline:"サーバーにつながりません。この端末に残しました", lkCsv:"3M / CSV", lkToday:"今日", lkPast:"過去の記録", lkAllDone:"今日のいいね作業は済み", lkNow:"今", navPosts:"投稿",
           followers:"フォロワー", following:"フォロー", measuredOn:"計測日", noKpi:"まだ数字がない。",
           kpiTotal:"全チャンネル合計", chTitle:"いいね作業チェックリスト", chSaved:"保存した", chLocal:"この端末にだけ保存",
           allBooked:"すべて予約ずみ", leftToDo:"残り", nothingToday:"予定なし",
@@ -2014,7 +2026,7 @@
   }
 
   // 表示・並びの基準。X→Instagram→Facebook→TikTok→YouTubeの順に固定する
-  var PF_ORDER = { X: 0, IG: 1, FB: 2, TT: 3, YT: 4 };
+  var PF_ORDER = { X: 0, IG: 1, IGS: 1.5, FB: 2, TT: 3, YT: 4 };
 
   // 準備タブと同じ場所（schedule.slots）から、その日・投稿ずみでリンクが貼られている枠を拾う
   function telegramItems(dateStr) {
@@ -2193,7 +2205,7 @@
   var editing = null;          // 編集中の枠。{} なら新規
 
   // 縮めた記号ではなく、そのまま呼ぶ
-  var PFN = { X:"X", IG:"Instagram", FB:"Facebook", TT:"TikTok", YT:"YouTube" };
+  var PFN = { X:"X", IG:"Instagram", IGS:"IG Stories", FB:"Facebook", TT:"TikTok", YT:"YouTube" };
   function pfn(p) { return PFN[p || "X"] || (p || "X"); }
   function slotKey(x) { return slotCh(x) + "|" + x.date + "|" + (x.platform || "X") + "|" + x.time; }
 
@@ -2540,7 +2552,9 @@
     });
   }
 
-  function mediaKey(sl) { return sl.date + "|" + (sl.platform || "X") + "|" + sl.time; }
+  // 画像の鍵。HIYOKO は以前からの形のまま（保管済みの画像を読めるように）。ほかはチャンネルを頭に付け、
+  // 同じ日・同じSNS・同じ時間の別チャンネル（例: HIYOKO と REEL の IG 17:00）が画像や✓を共有しないようにする
+  function mediaKey(sl) { var c = slotCh(sl); return (c === "hiyoko" ? "" : c + "|") + sl.date + "|" + (sl.platform || "X") + "|" + sl.time; }
 
   // 貼り終わったあとに、保管庫にあるものを差し込む
   function fillMedia() {
@@ -2953,7 +2967,7 @@
 
   // 行は「投稿がある時刻」だけ。空いた時間帯の行は作らない。
   // 時刻は左の列にだけ出し、コマの中はチャンネルとSNSの略語にする
-  var PF_SHORT = { X: "X", IG: "IG", FB: "FB", TT: "TT", YT: "YT" };
+  var PF_SHORT = { X: "X", IG: "IG", IGS: "IGS", FB: "FB", TT: "TT", YT: "YT" };
   function chShort(ch) { var c = chanOf(ch); return (c && (c.short || c.name.slice(0, 2).toUpperCase())) || ch; }
 
   function calWeekHTML(days) {
@@ -3989,10 +4003,63 @@
     if ((el = e.target.closest("button.ksum"))) { filter = el.getAttribute("data-chan") || null; renderChans(); renderKpi(); return; }
   });
 
+  var KM_ACCOUNTS = [
+    ["hiyoko", "X"], ["nacha", "X"], ["yuyu", "X"], ["reel", "X"],
+    ["hiyoko", "IG"], ["nacha", "IG"], ["reel", "IG"],
+    ["hiyoko", "TT"], ["nacha", "TT"], ["hiyoko", "FB"]
+  ];
+  var kmOpen = true;
+  function kpiManualHTML() {
+    var today = ymd(new Date()), rows = (kpi && kpi.rows) || [];
+    function last(ch, pf) {
+      return rows.filter(function (r) { return r.channel === ch && r.platform === pf; })
+        .sort(function (a, b) { return a.date < b.date ? -1 : 1; }).pop();
+    }
+    var cells = KM_ACCOUNTS.map(function (a) {
+      var c = chanOf(a[0]) || { name: a[0], color: "var(--wood)" }, l = last(a[0], a[1]);
+      var todayV = l && l.date === today ? l.followers : "";
+      return '<label class="kmcell" style="--chc:' + esc(c.color || "var(--wood)") + '"><span><b>' + esc(c.name) + '</b> ' + esc(pfn(a[1])) + '</span>' +
+        '<input type="number" inputmode="numeric" min="0" class="kmin" data-ch="' + esc(a[0]) + '" data-pf="' + esc(a[1]) + '" value="' + esc(todayV) + '"' +
+        ' placeholder="' + esc(l ? String(l.followers) + " (" + l.date.slice(5) + ")" : "") + '"></label>';
+    }).join("");
+    var yt = rows.filter(function (r) { return r.platform === "YT" && r.date === today; }).map(function (r) {
+      return esc((chanOf(r.channel) || { name: r.channel }).name) + " YouTube " + r.followers + " (" + esc(t("kmAuto")) + ")";
+    }).join(" \u00b7 ");
+    return '<div class="kman"><div class="kmhead"><p class="kgtitle">' + esc(t("kmTitle")) + ' ' + today.slice(5) + '</p>' +
+      '<span class="tiny">' + esc(t("kmHint")) + '</span></div>' +
+      (yt ? '<p class="kmyt">' + yt + '</p>' : "") +
+      '<div class="kmgrid">' + cells + '</div>' +
+      '<div class="kmbar"><button id="kmSave">' + esc(t("kmSave")) + '</button><span class="tiny" id="kmOut"></span></div></div>';
+  }
+  view.addEventListener("click", function (e) {
+    if (tab !== "kpi" || !e.target.closest("#kmSave")) return;
+    var today = ymd(new Date()), n = 0;
+    kpi = kpi || { rows: [] }; kpi.rows = kpi.rows || [];
+    [].forEach.call(document.querySelectorAll(".kmin"), function (inp) {
+      var v = inp.value.trim();
+      if (v === "" || isNaN(+v)) return;
+      var ch = inp.getAttribute("data-ch"), pf = inp.getAttribute("data-pf");
+      var old = kpi.rows.filter(function (r) { return r.date === today && r.channel === ch && r.platform === pf; })[0];
+      kpi.rows = kpi.rows.filter(function (r) { return !(r.date === today && r.channel === ch && r.platform === pf); });
+      var row = { date: today, channel: ch, platform: pf, followers: Math.round(+v) };
+      if (old && typeof old.following === "number") row.following = old.following;
+      kpi.rows.push(row); n++;
+    });
+    var out = document.getElementById("kmOut");
+    if (!n) return;
+    kpi.rows.sort(function (a, b) { return a.date < b.date ? -1 : a.date > b.date ? 1 : (a.channel + a.platform < b.channel + b.platform ? -1 : 1); });
+    try { localStorage.setItem("remitech-kpi-local", JSON.stringify(kpi)); } catch (e2) {}
+    if (out) out.textContent = t("saving");
+    ghSaveJson("kpi.json", kpi, "kpi: " + today + " manual " + n).then(function (r) {
+      var y = window.scrollY; renderKpi(); window.scrollTo(0, y);
+      var o = document.getElementById("kmOut"); if (o) o.textContent = r.where === "repo" ? t("kmSaved") : t("kmLocal");
+    }, function () { var o = document.getElementById("kmOut"); if (o) o.textContent = t("kmFail"); });
+  });
+
   function renderKpi() {
     chansEl.hidden = false;
     if (!kpi || !kpi.rows || !kpi.rows.length) {
-      view.innerHTML = '<p class="empty">' + esc(t("noKpi")) + '</p>';
+      view.innerHTML = kpiManualHTML() + '<p class="empty">' + esc(t("noKpi")) + '</p>';
       return;
     }
     var rows = kpi.rows.slice().sort(function (a, b) { return a.date < b.date ? -1 : 1; });
@@ -4069,7 +4136,7 @@
           '<p class="kgtitle">' + esc(c.name) + '</p>' + chHtml + '</div>';
       }
     });
-    view.innerHTML = (shown ? html + '</div>' : '<p class="empty">' + esc(t("noKpi")) + '</p>');
+    view.innerHTML = kpiManualHTML() + (shown ? html + '</div>' : '<p class="empty">' + esc(t("noKpi")) + '</p>');
   }
 
   var TIPS = { likes:"tipLikes", today:"tipToday", dash:"tipDash", book:"tipBook", prep:"tipPrep", prep2:"tipPrep2",
@@ -4861,7 +4928,18 @@
           .catch(function () {});
         fetch("./kpi.json", { cache: "no-cache" })
           .then(function (r) { return r.ok ? r.json() : null; })
-          .then(function (k) { kpi = k; if (tab === "kpi") renderKpi(); })
+          .then(function (k) {
+            kpi = k;
+            try {
+              var loc = JSON.parse(localStorage.getItem("remitech-kpi-local") || "null");
+              if (loc && loc.rows && !storeOn()) {
+                var have = {};
+                kpi.rows.forEach(function (r) { have[r.date + "|" + r.channel + "|" + r.platform] = 1; });
+                loc.rows.forEach(function (r) { if (!have[r.date + "|" + r.channel + "|" + r.platform]) kpi.rows.push(r); });
+              }
+            } catch (e) {}
+            if (tab === "kpi") renderKpi();
+          })
           .catch(function () {});
         return fetch("./schedule.json", { cache: "no-cache" })
           .then(function (r) { return r.ok ? r.json() : null; })
