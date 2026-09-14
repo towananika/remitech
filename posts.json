@@ -70,7 +70,11 @@
           "url": "https://docs.google.com/spreadsheets/d/1E3VfBsss5XeP-BKa5URn22QFUv4tnXPlmzcV_0hXgB8/edit?gid=482697083#gid=482697083"
         }
       ],
-      "docTitle": "HIYOKO詳細企画"
+      "docTitle": "HIYOKO詳細企画",
+      "telegramAt": {
+        "days": 0,
+        "time": "17:30"
+      }
     },
     {
       "id": "nacha",
@@ -150,7 +154,11 @@
           ]
         }
       ],
-      "short": "NC"
+      "short": "NC",
+      "telegramAt": {
+        "days": 1,
+        "time": "10:30"
+      }
     },
     {
       "id": "yuyu",
@@ -220,7 +228,11 @@
           "name": "IG企画",
           "url": "https://docs.google.com/document/d/1eKZVAvLEYiOlMNOxVIK1PZbAMVQI0SY_2F07yL5jwUo/edit?tab=t.eziwrivkz4z5"
         }
-      ]
+      ],
+      "telegramAt": {
+        "days": 0,
+        "time": "17:30"
+      }
     }
   ],
   "posts": [
