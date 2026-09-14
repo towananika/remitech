@@ -6234,7 +6234,7 @@
       "platform": "X",
       "time": "09:30",
       "label": "ヒヨコがインドネシアへ出発",
-      "owner": "",
+      "owner": "SeoHyun",
       "type": "text",
       "text": {
         "ja": "ヒヨコがインドネシアへ出発！🐣\nオンラインを超えて、コミュニティのいる場所へ。\n呼んでくれたら駆けつけるよ。9月24日、待っててねPiyosのみんな✈️",
@@ -6255,7 +6255,8 @@
         "at": "",
         "match": null,
         "note": ""
-      }
+      },
+      "memo": "9/14 13:00時点: 予約完了（SeoHyun）"
     },
     {
       "date": "2026-09-14",
@@ -6284,7 +6285,8 @@
         "at": "",
         "match": null,
         "note": ""
-      }
+      },
+      "memo": "9/14 13:00時点: 予約完了（）"
     },
     {
       "date": "2026-09-14",
@@ -6343,7 +6345,8 @@
         "at": "",
         "match": null,
         "note": ""
-      }
+      },
+      "memo": "9/14 13:00時点: 予約完了（）"
     },
     {
       "date": "2026-09-14",
@@ -6363,7 +6366,7 @@
         "text",
         "image"
       ],
-      "scheduled": false,
+      "scheduled": true,
       "posted": false,
       "url": "",
       "check": {
@@ -6372,7 +6375,8 @@
         "match": null,
         "note": ""
       },
-      "owner": ""
+      "owner": "SeoHyun",
+      "memo": "9/14 13:00時点: 予約完了（SeoHyun）"
     },
     {
       "date": "2026-09-14",
@@ -6422,7 +6426,7 @@
         "text",
         "image"
       ],
-      "scheduled": false,
+      "scheduled": true,
       "posted": false,
       "url": "",
       "check": {
@@ -6431,7 +6435,8 @@
         "match": null,
         "note": ""
       },
-      "owner": ""
+      "owner": "SeoHyun",
+      "memo": "9/14 13:00時点: 予約完了（SeoHyun）"
     },
     {
       "date": "2026-09-14",
@@ -6520,7 +6525,7 @@
       "platform": "X",
       "time": "17:00",
       "label": "HYKの入手方法は2つ",
-      "owner": "",
+      "owner": "SeoHyun",
       "type": "text",
       "text": {
         "ja": "HYKの入手方法は2つあるよ。🪄\n\n① アフターセール 💰\n公式サイトで$0.025で直接購入\n\n② Coinstore 📈\n取引所で市場価格でいつでも取引\n\nどちらも本物。\nどちらも今すぐできる。😎\n\n#HYK #HIYOKO #Coinstore",
@@ -6541,7 +6546,8 @@
         "at": "",
         "match": null,
         "note": ""
-      }
+      },
+      "memo": "9/14 13:00時点: 予約完了（SeoHyun）"
     },
     {
       "date": "2026-09-14",
@@ -6599,7 +6605,8 @@
         "at": "",
         "match": null,
         "note": ""
-      }
+      },
+      "memo": "9/14 13:00時点: 予約完了（）"
     },
     {
       "date": "2026-09-14",
@@ -6628,7 +6635,8 @@
         "at": "",
         "match": null,
         "note": ""
-      }
+      },
+      "memo": "9/14 13:00時点: 予約完了（）"
     },
     {
       "date": "2026-09-14",
@@ -6657,7 +6665,98 @@
         "at": "",
         "match": null,
         "note": ""
-      }
+      },
+      "memo": "9/14 13:00時点: 予約完了（）"
+    },
+    {
+      "date": "2026-09-14",
+      "channel": "nacha",
+      "platform": "IG",
+      "time": "20:10",
+      "label": "動画",
+      "owner": "HyeJeong",
+      "type": "video",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "9/14 の予約状況から作った枠",
+      "need": [
+        "text"
+      ],
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "memo": "9/14 13:00時点: 予約完了（HyeJeong）"
+    },
+    {
+      "date": "2026-09-14",
+      "channel": "nacha",
+      "platform": "TT",
+      "time": "20:10",
+      "label": "動画",
+      "owner": "HyeJeong",
+      "type": "video",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "9/14 の予約状況から作った枠",
+      "need": [
+        "text"
+      ],
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "memo": "9/14 13:00時点: 予約完了（HyeJeong）"
+    },
+    {
+      "date": "2026-09-14",
+      "channel": "nacha",
+      "platform": "YT",
+      "time": "20:10",
+      "label": "動画",
+      "owner": "HyeJeong",
+      "type": "video",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "9/14 の予約状況から作った枠",
+      "need": [
+        "text"
+      ],
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "memo": "9/14 13:00時点: 予約完了（HyeJeong）"
     },
     {
       "date": "2026-09-15",
@@ -6714,7 +6813,9 @@
       },
       "date": "2026-09-15",
       "platform": "X",
-      "owner": ""
+      "owner": "HyeJeong",
+      "status": "preparing",
+      "memo": "9/14 13:00時点: 予約準備中（HyeJeong） 노보상 텍스트（報酬なしのテキスト）"
     },
     {
       "date": "2026-09-15",
@@ -6743,7 +6844,8 @@
         "at": "",
         "match": null,
         "note": ""
-      }
+      },
+      "memo": "9/14 13:00時点: 予約完了（）"
     },
     {
       "date": "2026-09-15",
@@ -6802,7 +6904,39 @@
         "at": "",
         "match": null,
         "note": ""
-      }
+      },
+      "memo": "9/14 13:00時点: 予約完了（）"
+    },
+    {
+      "date": "2026-09-15",
+      "channel": "hiyoko",
+      "platform": "FB",
+      "time": "17:00",
+      "label": "フィード",
+      "owner": "HyeJeong",
+      "type": "text",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "9/14 の予約状況から作った枠",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "status": "preparing",
+      "memo": "9/14 13:00時点: 予約準備中（HyeJeong） 노보상 텍스트（報酬なしのテキスト）"
     },
     {
       "date": "2026-09-15",
@@ -6833,6 +6967,37 @@
         "match": null,
         "note": ""
       }
+    },
+    {
+      "date": "2026-09-15",
+      "channel": "hiyoko",
+      "platform": "IG",
+      "time": "17:00",
+      "label": "フィード",
+      "owner": "HyeJeong",
+      "type": "text",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "9/14 の予約状況から作った枠",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "status": "preparing",
+      "memo": "9/14 13:00時点: 予約準備中（HyeJeong） 노보상 텍스트（報酬なしのテキスト）"
     },
     {
       "date": "2026-09-15",
@@ -6944,7 +7109,9 @@
       },
       "date": "2026-09-15",
       "platform": "X",
-      "owner": ""
+      "owner": "HyeJeong",
+      "status": "preparing",
+      "memo": "9/14 13:00時点: 予約準備中（HyeJeong） 노보상 텍스트（報酬なしのテキスト）"
     },
     {
       "date": "2026-09-15",
@@ -6973,7 +7140,8 @@
         "at": "",
         "match": null,
         "note": ""
-      }
+      },
+      "memo": "9/14 13:00時点: 予約完了（）"
     },
     {
       "date": "2026-09-15",
@@ -7002,7 +7170,8 @@
         "at": "",
         "match": null,
         "note": ""
-      }
+      },
+      "memo": "9/14 13:00時点: 予約完了（）"
     },
     {
       "date": "2026-09-15",
@@ -7031,7 +7200,98 @@
         "at": "",
         "match": null,
         "note": ""
-      }
+      },
+      "memo": "9/14 13:00時点: 予約完了（）"
+    },
+    {
+      "date": "2026-09-15",
+      "channel": "nacha",
+      "platform": "IG",
+      "time": "20:10",
+      "label": "動画",
+      "owner": "HyeJeong",
+      "type": "video",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "9/14 の予約状況から作った枠",
+      "need": [
+        "text"
+      ],
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "memo": "9/14 13:00時点: 予約完了（HyeJeong）"
+    },
+    {
+      "date": "2026-09-15",
+      "channel": "nacha",
+      "platform": "TT",
+      "time": "20:10",
+      "label": "動画",
+      "owner": "HyeJeong",
+      "type": "video",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "9/14 の予約状況から作った枠",
+      "need": [
+        "text"
+      ],
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "memo": "9/14 13:00時点: 予約完了（HyeJeong）"
+    },
+    {
+      "date": "2026-09-15",
+      "channel": "nacha",
+      "platform": "YT",
+      "time": "20:10",
+      "label": "動画",
+      "owner": "HyeJeong",
+      "type": "video",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "9/14 の予約状況から作った枠",
+      "need": [
+        "text"
+      ],
+      "scheduled": true,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "memo": "9/14 13:00時点: 予約完了（HyeJeong）"
     },
     {
       "date": "2026-09-16",
@@ -7069,7 +7329,7 @@
       "platform": "X",
       "time": "09:30",
       "label": "HIYOKOはまだ始まったばかり",
-      "owner": "",
+      "owner": "SeoHyun",
       "type": "text",
       "text": {
         "ja": "HIYOKOはまだ始まったばかり。🪄\n\nゲーム。健康。Web3。\n全部がつながって、\n全部が動き始めてる。\n\nこれがどこまで大きくなるか。\n誰も想像できないよ。🐣\n\n#HYK #HIYOKO",
@@ -7090,7 +7350,9 @@
         "at": "",
         "match": null,
         "note": ""
-      }
+      },
+      "status": "preparing",
+      "memo": "9/14 13:00時点: 予約準備中（SeoHyun） 이미지 GIF（画像はGIF）"
     },
     {
       "date": "2026-09-16",
@@ -7119,7 +7381,8 @@
         "at": "",
         "match": null,
         "note": ""
-      }
+      },
+      "memo": "9/14 13:00時点: 予約完了（）"
     },
     {
       "date": "2026-09-16",
@@ -7157,7 +7420,7 @@
       "platform": "X",
       "time": "13:00",
       "label": "HIYOKOについて聞きたいことある？",
-      "owner": "",
+      "owner": "SeoHyun",
       "type": "text",
       "text": {
         "ja": "HIYOKOについて\n聞きたいことある？🪄\n\nAMAを開催するよ。🐣\n\n日時・詳細は近日公開。\n質問を準備しておいてね。😎\n\n#HYK #HIYOKO #AMA",
@@ -7178,7 +7441,9 @@
         "at": "",
         "match": null,
         "note": ""
-      }
+      },
+      "status": "preparing",
+      "memo": "9/14 13:00時点: 予約準備中（SeoHyun） 이미지 GIF（画像はGIF）"
     },
     {
       "date": "2026-09-16",
@@ -7207,7 +7472,39 @@
         "at": "",
         "match": null,
         "note": ""
-      }
+      },
+      "memo": "9/14 13:00時点: 予約完了（）"
+    },
+    {
+      "date": "2026-09-16",
+      "channel": "hiyoko",
+      "platform": "FB",
+      "time": "17:00",
+      "label": "フィード",
+      "owner": "SeoHyun",
+      "type": "video",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "9/14 の予約状況から作った枠",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "status": "preparing",
+      "memo": "9/14 13:00時点: 予約準備中（SeoHyun） 이미지 GIF（画像はGIF）"
     },
     {
       "date": "2026-09-16",
@@ -7238,6 +7535,37 @@
         "match": null,
         "note": ""
       }
+    },
+    {
+      "date": "2026-09-16",
+      "channel": "hiyoko",
+      "platform": "IG",
+      "time": "17:00",
+      "label": "フィード",
+      "owner": "SeoHyun",
+      "type": "video",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "9/14 の予約状況から作った枠",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "status": "preparing",
+      "memo": "9/14 13:00時点: 予約準備中（SeoHyun） 이미지 GIF（画像はGIF）"
     },
     {
       "date": "2026-09-16",
@@ -7330,7 +7658,7 @@
       "platform": "X",
       "time": "17:00",
       "label": "riding the wave",
-      "owner": "",
+      "owner": "SeoHyun",
       "type": "text",
       "text": {
         "ja": "",
@@ -7351,7 +7679,9 @@
         "at": "",
         "match": null,
         "note": ""
-      }
+      },
+      "status": "preparing",
+      "memo": "9/14 13:00時点: 予約準備中（SeoHyun） 이미지 GIF（画像はGIF）"
     },
     {
       "date": "2026-09-16",
@@ -7409,7 +7739,8 @@
         "at": "",
         "match": null,
         "note": ""
-      }
+      },
+      "memo": "9/14 13:00時点: 予約完了（）"
     },
     {
       "date": "2026-09-16",
@@ -7438,7 +7769,8 @@
         "at": "",
         "match": null,
         "note": ""
-      }
+      },
+      "memo": "9/14 13:00時点: 予約完了（）"
     },
     {
       "date": "2026-09-16",
@@ -7467,7 +7799,101 @@
         "at": "",
         "match": null,
         "note": ""
-      }
+      },
+      "memo": "9/14 13:00時点: 予約完了（）"
+    },
+    {
+      "date": "2026-09-16",
+      "channel": "nacha",
+      "platform": "IG",
+      "time": "20:10",
+      "label": "動画",
+      "owner": "SuHa",
+      "type": "video",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "9/14 の予約状況から作った枠",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "status": "preparing",
+      "memo": "9/14 13:00時点: 予約準備中（SuHa）"
+    },
+    {
+      "date": "2026-09-16",
+      "channel": "nacha",
+      "platform": "TT",
+      "time": "20:10",
+      "label": "動画",
+      "owner": "SuHa",
+      "type": "video",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "9/14 の予約状況から作った枠",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "status": "preparing",
+      "memo": "9/14 13:00時点: 予約準備中（SuHa）"
+    },
+    {
+      "date": "2026-09-16",
+      "channel": "nacha",
+      "platform": "YT",
+      "time": "20:10",
+      "label": "動画",
+      "owner": "SuHa",
+      "type": "video",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "9/14 の予約状況から作った枠",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "status": "preparing",
+      "memo": "9/14 13:00時点: 予約準備中（SuHa）"
     },
     {
       "time": "09:30",
@@ -7494,7 +7920,9 @@
       },
       "date": "2026-09-17",
       "platform": "X",
-      "owner": ""
+      "owner": "HyeJeong",
+      "status": "preparing",
+      "memo": "9/14 13:00時点: 予約準備中（HyeJeong） 슬랙 준비중（Slackで準備中）"
     },
     {
       "date": "2026-09-17",
@@ -7523,7 +7951,8 @@
         "at": "",
         "match": null,
         "note": ""
-      }
+      },
+      "memo": "9/14 13:00時点: 予約完了（）"
     },
     {
       "date": "2026-09-17",
@@ -7582,7 +8011,8 @@
         "at": "",
         "match": null,
         "note": ""
-      }
+      },
+      "memo": "9/14 13:00時点: 予約完了（）"
     },
     {
       "date": "2026-09-17",
@@ -7611,7 +8041,9 @@
         "match": null,
         "note": ""
       },
-      "owner": ""
+      "owner": "HyeJeong",
+      "status": "preparing",
+      "memo": "9/14 13:00時点: 予約準備中（HyeJeong） 슬랙 준비중（Slackで準備中）"
     },
     {
       "date": "2026-09-17",
@@ -7670,7 +8102,9 @@
         "match": null,
         "note": ""
       },
-      "owner": ""
+      "owner": "HyeJeong",
+      "status": "preparing",
+      "memo": "9/14 13:00時点: 予約準備中（HyeJeong） 슬랙 준비중（Slackで準備中）"
     },
     {
       "date": "2026-09-17",
@@ -7782,7 +8216,9 @@
       },
       "date": "2026-09-17",
       "platform": "X",
-      "owner": ""
+      "owner": "HyeJeong",
+      "status": "preparing",
+      "memo": "9/14 13:00時点: 予約準備中（HyeJeong） 슬랙 준비중（Slackで準備中）"
     },
     {
       "date": "2026-09-17",
@@ -7811,7 +8247,8 @@
         "at": "",
         "match": null,
         "note": ""
-      }
+      },
+      "memo": "9/14 13:00時点: 予約完了（）"
     },
     {
       "date": "2026-09-17",
@@ -7840,7 +8277,8 @@
         "at": "",
         "match": null,
         "note": ""
-      }
+      },
+      "memo": "9/14 13:00時点: 予約完了（）"
     },
     {
       "date": "2026-09-17",
@@ -7869,7 +8307,101 @@
         "at": "",
         "match": null,
         "note": ""
-      }
+      },
+      "memo": "9/14 13:00時点: 予約完了（）"
+    },
+    {
+      "date": "2026-09-17",
+      "channel": "nacha",
+      "platform": "IG",
+      "time": "20:10",
+      "label": "動画",
+      "owner": "SuHa",
+      "type": "video",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "9/14 の予約状況から作った枠",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "status": "preparing",
+      "memo": "9/14 13:00時点: 予約準備中（SuHa）"
+    },
+    {
+      "date": "2026-09-17",
+      "channel": "nacha",
+      "platform": "TT",
+      "time": "20:10",
+      "label": "動画",
+      "owner": "SuHa",
+      "type": "video",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "9/14 の予約状況から作った枠",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "status": "preparing",
+      "memo": "9/14 13:00時点: 予約準備中（SuHa）"
+    },
+    {
+      "date": "2026-09-17",
+      "channel": "nacha",
+      "platform": "YT",
+      "time": "20:10",
+      "label": "動画",
+      "owner": "SuHa",
+      "type": "video",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "9/14 の予約状況から作った枠",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "status": "preparing",
+      "memo": "9/14 13:00時点: 予約準備中（SuHa）"
     },
     {
       "time": "09:30",
@@ -7896,7 +8428,9 @@
       },
       "date": "2026-09-18",
       "platform": "X",
-      "owner": ""
+      "owner": "SeoHyun",
+      "status": "preparing",
+      "memo": "9/14 13:00時点: 予約準備中（SeoHyun） 슬랙 준비중（Slackで準備中）"
     },
     {
       "date": "2026-09-18",
@@ -7925,7 +8459,8 @@
         "at": "",
         "match": null,
         "note": ""
-      }
+      },
+      "memo": "9/14 13:00時点: 予約完了（）"
     },
     {
       "date": "2026-09-18",
@@ -7984,7 +8519,39 @@
         "at": "",
         "match": null,
         "note": ""
-      }
+      },
+      "memo": "9/14 13:00時点: 予約完了（）"
+    },
+    {
+      "date": "2026-09-18",
+      "channel": "hiyoko",
+      "platform": "FB",
+      "time": "17:00",
+      "label": "フィード",
+      "owner": "SeoHyun",
+      "type": "text",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "9/14 の予約状況から作った枠",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "status": "preparing",
+      "memo": "9/14 13:00時点: 予約準備中（SeoHyun） 슬랙 준비중（Slackで準備中）"
     },
     {
       "date": "2026-09-18",
@@ -8015,6 +8582,37 @@
         "match": null,
         "note": ""
       }
+    },
+    {
+      "date": "2026-09-18",
+      "channel": "hiyoko",
+      "platform": "IG",
+      "time": "17:00",
+      "label": "フィード",
+      "owner": "SeoHyun",
+      "type": "text",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "9/14 の予約状況から作った枠",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "status": "preparing",
+      "memo": "9/14 13:00時点: 予約準備中（SeoHyun） 슬랙 준비중（Slackで準備中）"
     },
     {
       "date": "2026-09-18",
@@ -8126,7 +8724,9 @@
       },
       "date": "2026-09-18",
       "platform": "X",
-      "owner": ""
+      "owner": "SeoHyun",
+      "status": "preparing",
+      "memo": "9/14 13:00時点: 予約準備中（SeoHyun） 슬랙 준비중（Slackで準備中）"
     },
     {
       "date": "2026-09-18",
@@ -8155,7 +8755,8 @@
         "at": "",
         "match": null,
         "note": ""
-      }
+      },
+      "memo": "9/14 13:00時点: 予約完了（）"
     },
     {
       "date": "2026-09-18",
@@ -8184,7 +8785,8 @@
         "at": "",
         "match": null,
         "note": ""
-      }
+      },
+      "memo": "9/14 13:00時点: 予約完了（）"
     },
     {
       "date": "2026-09-18",
@@ -8213,7 +8815,101 @@
         "at": "",
         "match": null,
         "note": ""
-      }
+      },
+      "memo": "9/14 13:00時点: 予約完了（）"
+    },
+    {
+      "date": "2026-09-18",
+      "channel": "nacha",
+      "platform": "IG",
+      "time": "20:10",
+      "label": "動画",
+      "owner": "SuHa",
+      "type": "video",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "9/14 の予約状況から作った枠",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "status": "preparing",
+      "memo": "9/14 13:00時点: 予約準備中（SuHa）"
+    },
+    {
+      "date": "2026-09-18",
+      "channel": "nacha",
+      "platform": "TT",
+      "time": "20:10",
+      "label": "動画",
+      "owner": "SuHa",
+      "type": "video",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "9/14 の予約状況から作った枠",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "status": "preparing",
+      "memo": "9/14 13:00時点: 予約準備中（SuHa）"
+    },
+    {
+      "date": "2026-09-18",
+      "channel": "nacha",
+      "platform": "YT",
+      "time": "20:10",
+      "label": "動画",
+      "owner": "SuHa",
+      "type": "video",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "9/14 の予約状況から作った枠",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "status": "preparing",
+      "memo": "9/14 13:00時点: 予約準備中（SuHa）"
     },
     {
       "time": "09:30",
@@ -8240,7 +8936,9 @@
       },
       "date": "2026-09-19",
       "platform": "X",
-      "owner": ""
+      "owner": "SuHa",
+      "status": "preparing",
+      "memo": "9/14 13:00時点: 予約準備中（SuHa） 슬랙 준비중（Slackで準備中）"
     },
     {
       "date": "2026-09-19",
@@ -8269,7 +8967,8 @@
         "at": "",
         "match": null,
         "note": ""
-      }
+      },
+      "memo": "9/14 13:00時点: 予約完了（）"
     },
     {
       "date": "2026-09-19",
@@ -8328,7 +9027,39 @@
         "at": "",
         "match": null,
         "note": ""
-      }
+      },
+      "memo": "9/14 13:00時点: 予約完了（）"
+    },
+    {
+      "date": "2026-09-19",
+      "channel": "hiyoko",
+      "platform": "FB",
+      "time": "17:00",
+      "label": "フィード",
+      "owner": "SuHa",
+      "type": "text",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "9/14 の予約状況から作った枠",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "status": "preparing",
+      "memo": "9/14 13:00時点: 予約準備中（SuHa） 슬랙 준비중（Slackで準備中）"
     },
     {
       "date": "2026-09-19",
@@ -8359,6 +9090,37 @@
         "match": null,
         "note": ""
       }
+    },
+    {
+      "date": "2026-09-19",
+      "channel": "hiyoko",
+      "platform": "IG",
+      "time": "17:00",
+      "label": "フィード",
+      "owner": "SuHa",
+      "type": "text",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "9/14 の予約状況から作った枠",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "status": "preparing",
+      "memo": "9/14 13:00時点: 予約準備中（SuHa） 슬랙 준비중（Slackで準備中）"
     },
     {
       "date": "2026-09-19",
@@ -8452,7 +9214,9 @@
       },
       "date": "2026-09-19",
       "platform": "X",
-      "owner": ""
+      "owner": "SuHa",
+      "status": "preparing",
+      "memo": "9/14 13:00時点: 予約準備中（SuHa） 슬랙 준비중（Slackで準備中）"
     },
     {
       "date": "2026-09-19",
@@ -8481,7 +9245,8 @@
         "at": "",
         "match": null,
         "note": ""
-      }
+      },
+      "memo": "9/14 13:00時点: 予約完了（）"
     },
     {
       "date": "2026-09-19",
@@ -8510,7 +9275,8 @@
         "at": "",
         "match": null,
         "note": ""
-      }
+      },
+      "memo": "9/14 13:00時点: 予約完了（）"
     },
     {
       "date": "2026-09-19",
@@ -8539,7 +9305,101 @@
         "at": "",
         "match": null,
         "note": ""
-      }
+      },
+      "memo": "9/14 13:00時点: 予約完了（）"
+    },
+    {
+      "date": "2026-09-19",
+      "channel": "nacha",
+      "platform": "IG",
+      "time": "20:10",
+      "label": "動画",
+      "owner": "SuHa",
+      "type": "video",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "9/14 の予約状況から作った枠",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "status": "preparing",
+      "memo": "9/14 13:00時点: 予約準備中（SuHa）"
+    },
+    {
+      "date": "2026-09-19",
+      "channel": "nacha",
+      "platform": "TT",
+      "time": "20:10",
+      "label": "動画",
+      "owner": "SuHa",
+      "type": "video",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "9/14 の予約状況から作った枠",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "status": "preparing",
+      "memo": "9/14 13:00時点: 予約準備中（SuHa）"
+    },
+    {
+      "date": "2026-09-19",
+      "channel": "nacha",
+      "platform": "YT",
+      "time": "20:10",
+      "label": "動画",
+      "owner": "SuHa",
+      "type": "video",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "9/14 の予約状況から作った枠",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "status": "preparing",
+      "memo": "9/14 13:00時点: 予約準備中（SuHa）"
     },
     {
       "time": "09:30",
@@ -8566,7 +9426,9 @@
       },
       "date": "2026-09-20",
       "platform": "X",
-      "owner": ""
+      "owner": "SeoHyun",
+      "status": "preparing",
+      "memo": "9/14 13:00時点: 予約準備中（SeoHyun） 슬랙 준비중（Slackで準備中）"
     },
     {
       "date": "2026-09-20",
@@ -8595,7 +9457,8 @@
         "at": "",
         "match": null,
         "note": ""
-      }
+      },
+      "memo": "9/14 13:00時点: 予約完了（）"
     },
     {
       "date": "2026-09-20",
@@ -8624,7 +9487,39 @@
         "at": "",
         "match": null,
         "note": ""
-      }
+      },
+      "memo": "9/14 13:00時点: 予約完了（）"
+    },
+    {
+      "date": "2026-09-20",
+      "channel": "hiyoko",
+      "platform": "FB",
+      "time": "17:00",
+      "label": "フィード",
+      "owner": "SeoHyun",
+      "type": "video",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "9/14 の予約状況から作った枠",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "status": "preparing",
+      "memo": "9/14 13:00時点: 予約準備中（SeoHyun） 슬랙 준비중（Slackで準備中）"
     },
     {
       "date": "2026-09-20",
@@ -8655,6 +9550,37 @@
         "match": null,
         "note": ""
       }
+    },
+    {
+      "date": "2026-09-20",
+      "channel": "hiyoko",
+      "platform": "IG",
+      "time": "17:00",
+      "label": "フィード",
+      "owner": "SeoHyun",
+      "type": "video",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "9/14 の予約状況から作った枠",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "status": "preparing",
+      "memo": "9/14 13:00時点: 予約準備中（SeoHyun） 슬랙 준비중（Slackで準備中）"
     },
     {
       "date": "2026-09-20",
@@ -8748,7 +9674,9 @@
       },
       "date": "2026-09-20",
       "platform": "X",
-      "owner": ""
+      "owner": "SeoHyun",
+      "status": "preparing",
+      "memo": "9/14 13:00時点: 予約準備中（SeoHyun） 슬랙 준비중（Slackで準備中）"
     },
     {
       "date": "2026-09-20",
@@ -8777,7 +9705,8 @@
         "at": "",
         "match": null,
         "note": ""
-      }
+      },
+      "memo": "9/14 13:00時点: 予約完了（）"
     },
     {
       "date": "2026-09-20",
@@ -8806,7 +9735,8 @@
         "at": "",
         "match": null,
         "note": ""
-      }
+      },
+      "memo": "9/14 13:00時点: 予約完了（）"
     },
     {
       "date": "2026-09-20",
@@ -8835,7 +9765,101 @@
         "at": "",
         "match": null,
         "note": ""
-      }
+      },
+      "memo": "9/14 13:00時点: 予約完了（）"
+    },
+    {
+      "date": "2026-09-20",
+      "channel": "nacha",
+      "platform": "IG",
+      "time": "20:10",
+      "label": "動画",
+      "owner": "SuHa",
+      "type": "video",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "9/14 の予約状況から作った枠",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "status": "preparing",
+      "memo": "9/14 13:00時点: 予約準備中（SuHa）"
+    },
+    {
+      "date": "2026-09-20",
+      "channel": "nacha",
+      "platform": "TT",
+      "time": "20:10",
+      "label": "動画",
+      "owner": "SuHa",
+      "type": "video",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "9/14 の予約状況から作った枠",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "status": "preparing",
+      "memo": "9/14 13:00時点: 予約準備中（SuHa）"
+    },
+    {
+      "date": "2026-09-20",
+      "channel": "nacha",
+      "platform": "YT",
+      "time": "20:10",
+      "label": "動画",
+      "owner": "SuHa",
+      "type": "video",
+      "text": {
+        "ja": "",
+        "en": "",
+        "ko": ""
+      },
+      "comment": "",
+      "asset": "",
+      "note": "9/14 の予約状況から作った枠",
+      "need": [
+        "text"
+      ],
+      "scheduled": false,
+      "posted": false,
+      "url": "",
+      "check": {
+        "done": false,
+        "at": "",
+        "match": null,
+        "note": ""
+      },
+      "status": "preparing",
+      "memo": "9/14 13:00時点: 予約準備中（SuHa）"
     },
     {
       "time": "09:30",
