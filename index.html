@@ -312,18 +312,14 @@
   .bkno{ color:var(--line); }
   .bkwho{ display:block; width:100%; margin-top:3px; min-height:24px; font:inherit; font-size:11.5px; font-weight:700; line-height:1;
     border:1px dashed var(--line); border-radius:999px; background:none; color:var(--muted); cursor:pointer; }
-  .bkwho[data-name="seohyun"]{ background:#f6d32d; border:1px solid #e0b90f; color:#3a3000; }
-  .bkwho[data-name="suha"]{ background:#e5534b; border:1px solid #c93c34; color:#fff; }
-  .bkwho[data-name="hyejeong"]{ background:#f28c28; border:1px solid #d9741a; color:#fff; }
+  .bkwho[data-name="seohyun"]{ background:#fcefa6; border:1px solid #ecd45e; color:#111; }
+  .bkwho[data-name="suha"]{ background:#f8cdca; border:1px solid #e9a19c; color:#111; }
+  .bkwho[data-name="hyejeong"]{ background:#fcd9b6; border:1px solid #f0b47c; color:#111; }
   .bkdaybtn{ display:block; width:100%; font:inherit; color:inherit; background:none; border:0; padding:2px 0; cursor:pointer; border-radius:8px; }
   .bkdaybtn:hover{ background:color-mix(in srgb, #d9534f 10%, transparent); }
   .bkdaybtn em{ display:block; font-style:normal; font-size:10.5px; font-weight:700; color:#c0392b; }
   .bktab th[data-hol="true"], .bktab td[data-hol="true"]{ background:color-mix(in srgb, #e5534b 13%, var(--surface)); }
   .bkcell{ display:flex; flex-direction:column; gap:3px; }
-  .bkmat{ display:flex; gap:3px; }
-  .bkm{ flex:1 1 0; min-width:0; min-height:24px; padding:0 2px; font:inherit; font-size:10.5px; font-weight:700; letter-spacing:.02em; line-height:1; white-space:nowrap;
-    border:1px solid var(--line); border-radius:6px; background:var(--surface); color:var(--muted); cursor:pointer; }
-  .bkm[data-on="true"]{ background:var(--sage); border-color:var(--sage); color:#fff; font-weight:700; }
   .bkc.bkbig{ min-height:44px; font-size:13px; }
   .bkc.bkbig[data-s="none"], .bkc.bkbig[data-s="text"], .bkc.bkbig[data-s="ready"]{ background:none; border-style:dashed; color:var(--muted); font-weight:500; }
   /* 返信の行は、すぐ上の投稿に付いていると分かるように字下げして低くする。SNSと時間は親と同じなので出さない */
@@ -3451,15 +3447,8 @@
           var owners = sls.map(function (x) { return x.owner; }).filter(Boolean).filter(function (v, i, a) { return a.indexOf(v) === i; }).join("\u30fb");
           // 予約済みは大きなボタンを押したときだけ。テキスト・イメージの印があっても、押すまでは「未予約」
           var txt = st === "done" ? t("stDone") : st === "sched" ? "✓ " + t("bkBookedShort") : st === "skip" ? t("stSkip") : st === "late" ? "! " + t("bkNotYet") : t("bkNotYet");
-          // 材料の印（テキスト・イメージ）。投稿済み・投稿しない枠では出さない
           var keysStr = esc(sls.map(slotKey).join("~"));
-          // 予約済み・投稿済み・投稿しない枠では、材料の印は要らないので出さない
-          var showMat = st !== "done" && st !== "skip" && st !== "sched";
-          var mt = sls.every(function (x) { return !!matGet(x).text; }), mi = sls.every(function (x) { return !!matGet(x).image; });
           h += '<td data-today="' + (k === today) + '" data-hol="' + isHol(k) + '"><div class="bkcell">' +
-            (showMat ? '<div class="bkmat">' +
-              '<button class="bkm" data-mk="' + keysStr + '" data-kind="text" data-on="' + mt + '" title="' + esc(t("bkText")) + '" aria-label="' + esc(t("bkText")) + '">TXT</button>' +
-              '<button class="bkm" data-mk="' + keysStr + '" data-kind="image" data-on="' + mi + '" title="' + esc(t("bkImg")) + '" aria-label="' + esc(t("bkImg")) + '">IMG</button></div>' : "") +
             '<button class="bkc bkbig" data-k="' + keysStr + '" data-s="' + st + '" title="' +
             esc(c.name + " " + r.label + " " + r.time + (owners ? " / " + owners : "") + ((sls[0].memo || "") ? "\n" + sls[0].memo : "")) + '">' + esc(txt) + '</button></div></td>';
         });
@@ -3513,17 +3502,6 @@
       saveSoon(function () { return saveSchedule("schedule: holiday " + hk + (schedule.holidays[hk] ? " on" : " off")); }, 500);
       renderBook();
       var hw2 = document.getElementById("bkWrap"); if (hw2) hw2.scrollLeft = hsx; window.scrollTo(0, hsy);
-      return;
-    }
-    var mb = e.target.closest(".bkm");
-    if (mb) {
-      var mks = mb.getAttribute("data-mk").split("~"), kind = mb.getAttribute("data-kind");
-      var mls = (schedule.slots || []).filter(function (x) { return mks.indexOf(slotKey(x)) >= 0; });
-      var mon2 = mb.getAttribute("data-on") !== "true";
-      var mw = document.getElementById("bkWrap"), msx = mw ? mw.scrollLeft : 0, msy = window.scrollY;
-      mls.forEach(function (x) { matSet(x, kind, mon2); });
-      renderBook();
-      var mw2 = document.getElementById("bkWrap"); if (mw2) mw2.scrollLeft = msx; window.scrollTo(0, msy);
       return;
     }
     var b = e.target.closest(".bkc");
