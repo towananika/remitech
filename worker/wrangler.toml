@@ -2,7 +2,16 @@ name = "remitech-chores"
 main = "chores-worker.js"
 compatibility_date = "2026-09-14"
 
-# npx wrangler kv namespace create CHORES で作成し、出た id をここに貼る
+# 以前の置き場（KV）。HubDO が最初に動いたときに中身を写すためだけに残す
 [[kv_namespaces]]
 binding = "CHORES"
 id = "ae0f234e8af148f693c88d4f0272c414"
+
+# すべてのデータを持つ1つの Durable Object（リアルタイムの知らせも出す）
+[[durable_objects.bindings]]
+name = "HUB"
+class_name = "HubDO"
+
+[[migrations]]
+tag = "v1"
+new_sqlite_classes = ["HubDO"]

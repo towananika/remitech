@@ -3446,7 +3446,38 @@
         }
       }).catch(function () {});
   }
-  setInterval(function () { if (tab === "book") bookPull(); }, 10000);
+  // つながっている間は、知らせで読み直すので、10秒ごとの読み直しは3回に1回（30秒ごと）に減らす
+  var bkTick = 0;
+  setInterval(function () { if (tab === "book" && (!hubWsUp || ++bkTick % 3 === 0)) bookPull(); }, 10000);
+
+  // ---- リアルタイム: サーバーとつなぎっぱなしにして、誰かが書いたらすぐ読み直す ----
+  var hubWs = null, hubWsUp = false, hubWsTry = 0, hubWsRetry = null, hubWsPing = null;
+  function hubWsUrl() { return String(CHORE_API).replace(/^http/, "ws").replace(/\/chores$/, "/ws"); }
+  function hubConnect() {
+    if (hubWs && (hubWs.readyState === 0 || hubWs.readyState === 1)) return;
+    clearTimeout(hubWsRetry);
+    try { hubWs = new WebSocket(hubWsUrl()); } catch (e) { hubRetry(); return; }
+    hubWs.onopen = function () {
+      hubWsUp = true; hubWsTry = 0;
+      clearInterval(hubWsPing);
+      hubWsPing = setInterval(function () { try { if (hubWs && hubWs.readyState === 1) hubWs.send("ping"); } catch (e) {} }, 45000);
+      // つながった時点で1回読む（切れていた間の変更を取りこぼさない）
+      choreEtag = null; pullChores(); bookPull(true);
+    };
+    hubWs.onmessage = function (ev) {
+      var m; try { m = JSON.parse(ev.data); } catch (e) { return; }
+      if (m && m.t === "chores") { choreEtag = null; pullChores(); }
+      if (m && m.t === "book") bookPull(true);
+    };
+    hubWs.onclose = function () { hubWsUp = false; clearInterval(hubWsPing); hubRetry(); };
+    hubWs.onerror = function () { try { hubWs.close(); } catch (e) {} };
+  }
+  function hubRetry() {
+    clearTimeout(hubWsRetry);
+    var wait = Math.min(30000, 1000 * Math.pow(2, hubWsTry++));   // 1秒, 2秒, 4秒 … 最大30秒
+    hubWsRetry = setTimeout(hubConnect, wait);
+  }
+  document.addEventListener("visibilitychange", function () { if (!document.hidden && !hubWsUp) { hubWsTry = 0; hubConnect(); } });
   // 画面に戻ってきたら、10秒を待たずにすぐ読む（ほかの端末で押した分を早く出す）
   document.addEventListener("visibilitychange", function () { if (!document.hidden) bookPull(true); });
   window.addEventListener("focus", function () { bookPull(true); });
@@ -5127,7 +5158,7 @@
       }).catch(function () {});
   }
   (function loop() {
-    pullChores().then(function () { setTimeout(loop, 10000); });
+    pullChores().then(function () { setTimeout(loop, hubWsUp ? 30000 : 10000); });
   })();
   // 画面に戻ってきたら、すぐ読む
   document.addEventListener("visibilitychange", function () { if (!document.hidden) { pullChores(); pullSchedule(); } });
@@ -5288,6 +5319,7 @@
             } catch (e) {}
             renderChans(); route();
             bookPull(true);
+            hubConnect();
           });
       })
       .catch(function () { view.innerHTML = '<p class="empty">' + esc(t("fail")) + '</p>'; });
