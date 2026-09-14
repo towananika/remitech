@@ -24,6 +24,7 @@ export default {
     const origin = request.headers.get("Origin") || "";
 
     if (request.method === "OPTIONS") return new Response(null, { headers: cors(origin) });
+    if (url.pathname === "/code" && request.method === "POST") return changeCode(request, env, origin);
     if (url.pathname === "/book") {
       if (request.method === "GET") return bookList(env, origin);
       if (request.method === "POST") return bookSave(request, env, origin);
@@ -149,13 +150,42 @@ async function countFail(env, ip) {
 }
 // パスワードを調べる。null なら通してよい。Response なら、それを返す
 async function checkCode(request, env, origin, b) {
-  if (!env.TEAM_CODE) return null;                       // パスワードなしで運用中
+  const stored = await env.CHORES.get("cfg:codehash", "json");
+  if (!stored && !env.TEAM_CODE) return null;            // パスワードなしで運用中
   const ip = clientIp(request);
   if (await isBlocked(env, ip)) return json({ error: "too-many" }, 429, origin, { "Retry-After": String(FAIL_WINDOW) });
-  if (typeof b.code === "string" && safeEqual(b.code, env.TEAM_CODE)) return null;
+  if (typeof b.code === "string" && await codeMatches(env, b.code, stored)) return null;
   const n = await countFail(env, ip);
   if (n >= FAIL_LIMIT) return json({ error: "too-many" }, 429, origin, { "Retry-After": String(FAIL_WINDOW) });
   return json({ error: "code" }, 403, origin);
+}
+
+// ================= パスワードの変更 =================
+// 最初のパスワードは、このPCのスクリプト（wrangler secret TEAM_CODE）でだけ入れる。
+// 画面からは「今のパスワード」を知っている人だけが変えられる。変えたものは KV にハッシュで持つ（パスワードそのものは置かない）
+async function sha256Hex(text) {
+  const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(text));
+  return [...new Uint8Array(buf)].map((x) => x.toString(16).padStart(2, "0")).join("");
+}
+async function codeMatches(env, code, stored) {
+  if (stored && stored.salt && stored.hash) return safeEqual(await sha256Hex(stored.salt + code), stored.hash);
+  return !!env.TEAM_CODE && safeEqual(code, env.TEAM_CODE);
+}
+async function changeCode(request, env, origin) {
+  const text = await request.text();
+  if (text.length > MAX_BODY) return json({ error: "too-large" }, 413, origin);
+  let b;
+  try { b = JSON.parse(text); } catch (e) { return json({ error: "bad-json" }, 400, origin); }
+  if (!b || typeof b.next !== "string") return json({ error: "bad-json" }, 400, origin);
+  const stored = await env.CHORES.get("cfg:codehash", "json");
+  // パスワードがまだ無いときは、画面からは決めさせない（最初はスクリプトで）
+  if (!stored && !env.TEAM_CODE) return json({ error: "no-password" }, 409, origin);
+  const denied = await checkCode(request, env, origin, { code: b.current });
+  if (denied) return denied;
+  if (b.next.length < 8 || b.next.length > 64) return json({ error: "length" }, 400, origin);
+  const salt = [...crypto.getRandomValues(new Uint8Array(16))].map((x) => x.toString(16).padStart(2, "0")).join("");
+  await env.CHORES.put("cfg:codehash", JSON.stringify({ salt, hash: await sha256Hex(salt + b.next), at: new Date().toISOString() }));
+  return json({ ok: true }, 200, origin);
 }
 
 // 合言葉の比較で、一致した文字数が時間差から漏れないようにする

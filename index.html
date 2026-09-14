@@ -332,6 +332,13 @@
   .bktab .bkreprow .bkc.bkrep{ min-height:28px; }
   .bkc.bkrep{ min-height:28px; font-size:12px; background:none; border-style:dotted; }
   .bkc.bkrep[data-on="true"]{ background:color-mix(in srgb, var(--sage) 22%, var(--surface)); border-style:solid; border-color:var(--sage); color:var(--ink); }
+  .pwlink{ display:block; margin:18px 0 0; padding:6px 0; font:inherit; font-size:12.5px; color:var(--muted); background:none; border:0; text-decoration:underline; cursor:pointer; }
+  .pwform{ max-width:420px; margin:18px 0 0; padding:12px 14px; border:1px solid var(--line); border-radius:12px; background:var(--surface); display:flex; flex-direction:column; gap:8px; }
+  .pwform .kgtitle{ margin:0; }
+  .pwform input{ min-height:44px; font:inherit; font-size:15px; padding:8px 12px; border:1px solid var(--line); border-radius:10px; background:var(--bg); color:var(--ink); }
+  .pwbar{ display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
+  .pwbar button{ min-height:44px; padding:0 18px; font:inherit; font-weight:700; border:0; border-radius:10px; background:var(--ink); color:var(--surface); cursor:pointer; }
+  .pwbar .pwsub{ background:none; color:var(--muted); border:1px solid var(--line); font-weight:500; }
   .bkdoc{ margin-left:8px; font-size:12px; font-weight:500; color:var(--chc); }
   .bkc.bknew{ color:var(--muted); font-weight:500; border-style:dashed; background:none; }
   @media (max-width:700px){
@@ -1291,7 +1298,7 @@
           fail:"Could not load the source.", back:"← All posts",
           mntTitle:"Under maintenance", mntUntil:"Expected back around",
           draft:"Draft", live:"Posted", open:"Open channel",
-          navDash:"This week", navBook:"Booking", bkThis:"This week", bkJump:"Go to date", bkNoSlot:"No slot yet. Tap to book", bkBooked:"booked", bkUnsure:"Not sure this group is REEL (times differ from the hub)", navPrep:"Prep", navKpi:"KPI", navLikes:"Likes", navFollow:"Follow", tipFollow:"Follow 5 more accounts each day on HIYOKO and NACHA (X and IG)", fwAllDone:"Today's follows are done", kDetail:"History", kmTitle:"Today's followers", kmHint:"YouTube is fetched automatically at 12:00. Enter the rest by hand", kmSave:"Save", kmSaved:"Saved", kmLocal:"Saved on this device", kmFail:"Could not save", kmAuto:"auto", kDate:"Date", kChange:"Change", kShowAll:"Show all", tipLikes:"Like-work checks by week. Tap a time to mark it done", lkWeek:"This week", lkDone:"done", lkCode:"Edit password", lkCodeHint:"Editing is locked. Enter the edit password once on this device", lkCodeSave:"Save", lkCodeBad:"Wrong password", lkTooMany:"Too many attempts. Try again in an hour", lkServer:"Saved for everyone", lkOffline:"Server unreachable. Kept on this device", lkCsv:"3M / CSV", lkToday:"Today", lkPast:"Past records", lkAllDone:"All likes done today", lkNow:"now", navPosts:"Posts",
+          navDash:"This week", navBook:"Booking", bkThis:"This week", bkJump:"Go to date", bkNoSlot:"No slot yet. Tap to book", bkBooked:"booked", bkUnsure:"Not sure this group is REEL (times differ from the hub)", navPrep:"Prep", navKpi:"KPI", navLikes:"Likes", navFollow:"Follow", tipFollow:"Follow 5 more accounts each day on HIYOKO and NACHA (X and IG)", fwAllDone:"Today's follows are done", kDetail:"History", kmTitle:"Today's followers", kmHint:"YouTube is fetched automatically at 12:00. Enter the rest by hand", kmSave:"Save", kmSaved:"Saved", kmLocal:"Saved on this device", kmFail:"Could not save", kmAuto:"auto", kDate:"Date", kChange:"Change", kShowAll:"Show all", tipLikes:"Like-work checks by week. Tap a time to mark it done", lkWeek:"This week", lkDone:"done", lkCode:"Edit password", lkCodeHint:"Editing is locked. Enter the edit password once on this device", lkCodeSave:"Save", lkCodeBad:"Wrong password", lkTooMany:"Too many attempts. Try again in an hour", pwChange:"Change edit password", pwCur:"Current password", pwNew:"New password (8+ characters)", pwNew2:"New password again", pwSave:"Change", pwMismatch:"The new passwords do not match", pwShort:"Use 8 or more characters", pwDone:"Password changed", pwNone:"No password is set yet. The first one is set from Hibiki's PC", pwClose:"Close", lkServer:"Saved for everyone", lkOffline:"Server unreachable. Kept on this device", lkCsv:"3M / CSV", lkToday:"Today", lkPast:"Past records", lkAllDone:"All likes done today", lkNow:"now", navPosts:"Posts",
           followers:"Followers", following:"Following", measuredOn:"Measured", noKpi:"No numbers yet.",
           kpiTotal:"All channels", chTitle:"Engagement checklist", chSaved:"Saved", chLocal:"Saved on this device only",
           allBooked:"All booked", leftToDo:"left", nothingToday:"Nothing scheduled",
@@ -1342,7 +1349,7 @@
           fail:"원본을 불러오지 못했습니다.", back:"← 목록으로",
           mntTitle:"점검 중", mntUntil:"재개 예정",
           draft:"초안", live:"게시함", open:"채널 열기",
-          navDash:"이번 주", navBook:"예약", bkThis:"이번 주", bkJump:"날짜로 이동", bkNoSlot:"아직 틀 없음. 누르면 예약", bkBooked:"예약됨", bkUnsure:"이 묶음이 REEL인지 확실하지 않음 (허브와 시간이 다름)", navPrep:"준비", navKpi:"KPI", navLikes:"좋아요", navFollow:"팔로우", tipFollow:"HIYOKO・NACHA의 X와 IG에서 매일 5명 팔로우", fwAllDone:"오늘 팔로우 끝", kDetail:"기록", kmTitle:"오늘의 팔로워", kmHint:"YouTube는 12시에 자동으로 가져와. 나머지는 직접 입력", kmSave:"저장", kmSaved:"저장됨", kmLocal:"이 기기에 저장됨", kmFail:"저장 실패", kmAuto:"자동", kDate:"날짜", kChange:"증감", kShowAll:"전체 보기", tipLikes:"좋아요 작업을 주 단위로 체크. 시간을 누르면 완료", lkWeek:"이번 주", lkDone:"완료", lkCode:"편집 비밀번호", lkCodeHint:"편집이 잠겨 있어. 이 기기에서 한 번만 비밀번호를 입력", lkCodeSave:"저장", lkCodeBad:"비밀번호가 달라", lkTooMany:"시도가 너무 많아. 1시간 뒤에 다시", lkServer:"모두에게 저장됨", lkOffline:"서버에 연결 안 됨. 이 기기에 보관", lkCsv:"3M / CSV", lkToday:"오늘", lkPast:"지난 기록", lkAllDone:"오늘 좋아요 작업 끝", lkNow:"지금", navPosts:"글",
+          navDash:"이번 주", navBook:"예약", bkThis:"이번 주", bkJump:"날짜로 이동", bkNoSlot:"아직 틀 없음. 누르면 예약", bkBooked:"예약됨", bkUnsure:"이 묶음이 REEL인지 확실하지 않음 (허브와 시간이 다름)", navPrep:"준비", navKpi:"KPI", navLikes:"좋아요", navFollow:"팔로우", tipFollow:"HIYOKO・NACHA의 X와 IG에서 매일 5명 팔로우", fwAllDone:"오늘 팔로우 끝", kDetail:"기록", kmTitle:"오늘의 팔로워", kmHint:"YouTube는 12시에 자동으로 가져와. 나머지는 직접 입력", kmSave:"저장", kmSaved:"저장됨", kmLocal:"이 기기에 저장됨", kmFail:"저장 실패", kmAuto:"자동", kDate:"날짜", kChange:"증감", kShowAll:"전체 보기", tipLikes:"좋아요 작업을 주 단위로 체크. 시간을 누르면 완료", lkWeek:"이번 주", lkDone:"완료", lkCode:"편집 비밀번호", lkCodeHint:"편집이 잠겨 있어. 이 기기에서 한 번만 비밀번호를 입력", lkCodeSave:"저장", lkCodeBad:"비밀번호가 달라", lkTooMany:"시도가 너무 많아. 1시간 뒤에 다시", pwChange:"편집 비밀번호 변경", pwCur:"현재 비밀번호", pwNew:"새 비밀번호 (8자 이상)", pwNew2:"새 비밀번호 다시", pwSave:"변경", pwMismatch:"새 비밀번호가 서로 달라", pwShort:"8자 이상으로 해줘", pwDone:"비밀번호를 바꿨어", pwNone:"아직 비밀번호가 없어. 처음 설정은 Hibiki의 PC에서", pwClose:"닫기", lkServer:"모두에게 저장됨", lkOffline:"서버에 연결 안 됨. 이 기기에 보관", lkCsv:"3M / CSV", lkToday:"오늘", lkPast:"지난 기록", lkAllDone:"오늘 좋아요 작업 끝", lkNow:"지금", navPosts:"글",
           followers:"팔로워", following:"팔로잉", measuredOn:"측정일", noKpi:"아직 숫자가 없어.",
           kpiTotal:"전체 채널", chTitle:"좋아요 작업 체크리스트", chSaved:"저장됨", chLocal:"이 기기에만 저장됨",
           allBooked:"모두 예약됨", leftToDo:"남음", nothingToday:"예정 없음",
@@ -1393,7 +1400,7 @@
           fail:"原本を読み込めませんでした。", back:"← 一覧へ",
           mntTitle:"メンテナンス中", mntUntil:"再開の目安",
           draft:"下書き", live:"公開ずみ", open:"チャンネルを開く",
-          navDash:"今週", navBook:"予約", bkThis:"今週", bkJump:"日付へ移動", bkNoSlot:"まだ枠がありません。押すと予約済みで作ります", bkBooked:"予約済み", bkUnsure:"この群がREELかは未確認（HUBの時間と合わない）", navPrep:"準備", navKpi:"KPI", navLikes:"いいね", navFollow:"フォロー", tipFollow:"HIYOKO・NACHA の X と IG で、毎日5人フォローを増やす", fwAllDone:"今日のフォローは済み", kDetail:"記録", kmTitle:"今日のフォロワー", kmHint:"YouTubeは12時に自動で取ります。ほかは手で入れてください", kmSave:"保存", kmSaved:"保存しました", kmLocal:"この端末に保存しました", kmFail:"保存できませんでした", kmAuto:"自動", kDate:"日付", kChange:"増減", kShowAll:"すべて見る", tipLikes:"いいね作業を週ごとにチェック。時間を押すと済み", lkWeek:"今週", lkDone:"済み", lkCode:"編集用パスワード", lkCodeHint:"編集にはパスワードが必要です。この端末で一度入れてください", lkCodeSave:"保存", lkCodeBad:"パスワードが違います", lkTooMany:"試行回数が多すぎます。1時間ほど待ってからもう一度", lkServer:"全員に保存しました", lkOffline:"サーバーにつながりません。この端末に残しました", lkCsv:"3M / CSV", lkToday:"今日", lkPast:"過去の記録", lkAllDone:"今日のいいね作業は済み", lkNow:"今", navPosts:"投稿",
+          navDash:"今週", navBook:"予約", bkThis:"今週", bkJump:"日付へ移動", bkNoSlot:"まだ枠がありません。押すと予約済みで作ります", bkBooked:"予約済み", bkUnsure:"この群がREELかは未確認（HUBの時間と合わない）", navPrep:"準備", navKpi:"KPI", navLikes:"いいね", navFollow:"フォロー", tipFollow:"HIYOKO・NACHA の X と IG で、毎日5人フォローを増やす", fwAllDone:"今日のフォローは済み", kDetail:"記録", kmTitle:"今日のフォロワー", kmHint:"YouTubeは12時に自動で取ります。ほかは手で入れてください", kmSave:"保存", kmSaved:"保存しました", kmLocal:"この端末に保存しました", kmFail:"保存できませんでした", kmAuto:"自動", kDate:"日付", kChange:"増減", kShowAll:"すべて見る", tipLikes:"いいね作業を週ごとにチェック。時間を押すと済み", lkWeek:"今週", lkDone:"済み", lkCode:"編集用パスワード", lkCodeHint:"編集にはパスワードが必要です。この端末で一度入れてください", lkCodeSave:"保存", lkCodeBad:"パスワードが違います", lkTooMany:"試行回数が多すぎます。1時間ほど待ってからもう一度", pwChange:"編集用パスワードの変更", pwCur:"今のパスワード", pwNew:"新しいパスワード（8文字以上）", pwNew2:"新しいパスワード（もう一度）", pwSave:"変更する", pwMismatch:"新しいパスワードが一致しません", pwShort:"8文字以上にしてください", pwDone:"パスワードを変更しました", pwNone:"まだパスワードがありません。最初の設定は Hibiki のPCから行います", pwClose:"閉じる", lkServer:"全員に保存しました", lkOffline:"サーバーにつながりません。この端末に残しました", lkCsv:"3M / CSV", lkToday:"今日", lkPast:"過去の記録", lkAllDone:"今日のいいね作業は済み", lkNow:"今", navPosts:"投稿",
           followers:"フォロワー", following:"フォロー", measuredOn:"計測日", noKpi:"まだ数字がない。",
           kpiTotal:"全チャンネル合計", chTitle:"いいね作業チェックリスト", chSaved:"保存した", chLocal:"この端末にだけ保存",
           allBooked:"すべて予約ずみ", leftToDo:"残り", nothingToday:"予定なし",
@@ -3532,7 +3539,7 @@
 (editLocked && !teamCode() ? '<div class="lkcode"><label for="bkCodeIn">' + esc(t("lkCode")) + '</label>' +
         '<input id="bkCodeIn" type="password" autocomplete="off" placeholder="' + esc(t("lkCodeHint")) + '">' +
         '<button id="bkCodeSave">' + esc(t("lkCodeSave")) + '</button></div>' : "") +
-      '<div class="bkwrap" id="bkWrap"><table class="bktab"><thead>' + head + '</thead><tbody>' + body + '</tbody></table></div></div>';
+      '<div class="bkwrap" id="bkWrap"><table class="bktab"><thead>' + head + '</thead><tbody>' + body + '</tbody></table></div>' + pwFormHTML() + '</div>';
 
     var wrap = document.getElementById("bkWrap"), tc = wrap.querySelector('th[data-today="true"]');
     if (tc && wrap.scrollWidth > wrap.clientWidth) wrap.scrollLeft = Math.max(0, tc.offsetLeft - 140);
@@ -3746,7 +3753,33 @@
     try { return localStorage.getItem("remitech-chore-api") || "https://remitech-chores.jaykim-can.workers.dev/chores"; }
     catch (e) { return "https://remitech-chores.jaykim-can.workers.dev/chores"; }
   })();
-  var editLocked = false;
+  var editLocked = false, pwOpen = false, pwMsg = "";
+  function pwFormHTML() {
+    if (!pwOpen) return '<button class="pwlink" id="pwOpen">' + esc(t("pwChange")) + '</button>';
+    return '<div class="pwform"><p class="kgtitle">' + esc(t("pwChange")) + '</p>' +
+      '<input id="pwCur" type="password" autocomplete="current-password" placeholder="' + esc(t("pwCur")) + '">' +
+      '<input id="pwNew" type="password" autocomplete="new-password" placeholder="' + esc(t("pwNew")) + '">' +
+      '<input id="pwNew2" type="password" autocomplete="new-password" placeholder="' + esc(t("pwNew2")) + '">' +
+      '<div class="pwbar"><button id="pwSave">' + esc(t("pwSave")) + '</button><button id="pwClose" class="pwsub">' + esc(t("pwClose")) + '</button>' +
+      '<span class="tiny" id="pwOut">' + esc(pwMsg) + '</span></div></div>';
+  }
+  function pwRerender() { if (tab === "book") renderBook(); else if (tab === "likes" || tab === "follow") renderLikes(); }
+  document.addEventListener("click", function (e) {
+    if (e.target.closest("#pwOpen")) { pwOpen = true; pwMsg = ""; pwRerender(); var c0 = document.getElementById("pwCur"); if (c0) c0.focus(); return; }
+    if (e.target.closest("#pwClose")) { pwOpen = false; pwMsg = ""; pwRerender(); return; }
+    if (!e.target.closest("#pwSave")) return;
+    var cur = (document.getElementById("pwCur") || {}).value || "", nw = (document.getElementById("pwNew") || {}).value || "", nw2 = (document.getElementById("pwNew2") || {}).value || "";
+    var out = document.getElementById("pwOut");
+    function say(k) { pwMsg = t(k); if (out) out.textContent = pwMsg; }
+    if (nw.length < 8) { say("pwShort"); return; }
+    if (nw !== nw2) { say("pwMismatch"); return; }
+    fetch(String(CHORE_API).replace(/\/chores$/, "/code"), { method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ current: cur, next: nw }) })
+      .then(function (r) {
+        if (r.ok) { setTeamCode(nw); editLocked = false; pwOpen = false; pwMsg = t("pwDone"); pwRerender(); return; }
+        say(r.status === 429 ? "lkTooMany" : r.status === 409 ? "pwNone" : r.status === 400 ? "pwShort" : "lkCodeBad");
+      }, function () { say("lkOffline"); });
+  });
   function lkCodeAccept(v) {
     setTeamCode(v); editLocked = false;
     var mine = choreMine(), jobs = [];
@@ -4157,7 +4190,7 @@
           '<span class="calcount" data-full="' + (total > 0 && doneN === total) + '">' + doneN + "/" + total + " " + esc(t("lkDone")) + '</span></div>' +
         '<div class="lkwrap" id="lkWrap"><table class="lktab"><thead>' + head + '</thead><tbody>' + rows + '</tbody></table></div>';
     }
-    view.innerHTML = h + '</div>';
+    view.innerHTML = h + pwFormHTML() + '</div>';
 
     // 過去の表を開いたときは、スマホでは今日の列が見えるところまで横に送る
     var wrap = document.getElementById("lkWrap"), tc = wrap && wrap.querySelector('th[data-today="true"]');
