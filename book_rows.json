@@ -10,9 +10,9 @@
       { "platforms": ["IG"], "time": "17:00", "label": "返信", "reply": true },
       { "platforms": ["FB"], "time": "17:00", "label": "フィード" },
       { "platforms": ["FB"], "time": "17:00", "label": "返信", "reply": true },
-      { "platforms": ["TT"], "time": "", "label": "TikTok 投稿確認", "check": "hiyoko-tt" },
+      { "platforms": ["TT"], "time": "", "label": "TikTok 動画投稿確認", "check": "hiyoko-tt" },
       { "platforms": ["TT"], "time": "", "label": "返信", "reply": true, "check": "hiyoko-tt-rep" },
-      { "platforms": ["YT"], "time": "", "label": "YouTube 投稿確認", "check": "hiyoko-yt" },
+      { "platforms": ["YT"], "time": "", "label": "YouTube 動画投稿確認", "check": "hiyoko-yt" },
       { "platforms": ["YT"], "time": "", "label": "返信", "reply": true, "check": "hiyoko-yt-rep" }
     ]},
     { "channel": "nacha", "rows": [
