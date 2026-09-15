@@ -25,7 +25,7 @@ import { DurableObject } from "cloudflare:workers";
 const DAYS_KEPT = 60;
 const MAX_BODY = 1024;
 const MAX_BOOK_BODY = 4096;
-const BOOK_KINDS = { h: 1, a: 1, s: 1, n: 1, t: 1, l: 1 };   // l = 予約タブの行に貼るリンク（2026-09-15）
+const BOOK_KINDS = { h: 1, a: 1, s: 1, n: 1, t: 1, l: 1, o: 1 };   // o = 予約ボタンのラベル一覧（テキストと色）   // l = 予約タブの行に貼るリンク（2026-09-15）
 const ALLOWED = ["https://towananika.github.io", "http://localhost:8899", "http://127.0.0.1:8899"];
 const FAIL_LIMIT = 5;                 // 同じ IP から 1時間に 5回まちがえたら
 const FAIL_WINDOW = 60 * 60;          // 1時間、どの書き込みもできない（正しいパスワードでも）
@@ -138,7 +138,7 @@ export class HubDO extends DurableObject {
 
   // ---- 予約タブ ----
   async bookList(origin) {
-    const out = { holidays: {}, assignees: {}, slots: {}, newSlots: {}, telegram: {}, links: {} };
+    const out = { holidays: {}, assignees: {}, slots: {}, newSlots: {}, telegram: {}, links: {}, labels: [] };
     const all = await this.ctx.storage.list({ prefix: "bk:" });
     for (const [name, v] of all) {
       const kind = name.slice(3, 4), key = name.slice(5);
@@ -148,6 +148,7 @@ export class HubDO extends DurableObject {
       else if (kind === "n" && v) out.newSlots[key] = v;
       else if (kind === "t") out.telegram[key] = !!v;
       else if (kind === "l" && typeof v === "string" && v) out.links[key] = v;
+      else if (kind === "o" && key === "labels" && Array.isArray(v)) out.labels = v;
     }
     return json(out, 200, origin, { "Cache-Control": "no-store" });
   }
@@ -175,7 +176,8 @@ export class HubDO extends DurableObject {
       value = {
         scheduled: !!value.scheduled, reply: !!value.reply,
         replyAt: typeof value.replyAt === "string" ? value.replyAt.slice(0, 40) : "",
-        status: value.status === "preparing" ? "preparing" : "",
+        // 準備中、または登録したラベル（c:id）
+        status: value.status === "preparing" || /^c:[a-z0-9]{1,12}$/.test(String(value.status || "")) ? value.status : "",
       };
     } else if (b.kind === "t") {
       if (!/^\d{4}-\d{2}-\d{2}\|[a-z0-9_-]{1,30}$/.test(b.key)) return json({ error: "key" }, 400, origin);
@@ -191,6 +193,14 @@ export class HubDO extends DurableObject {
         this.broadcast("book");
         return json({ ok: true }, 200, origin);
       }
+    } else if (b.kind === "o") {
+      // 予約ボタンのラベル一覧。20個まで、テキスト20文字まで、色は #rrggbb だけ
+      if (b.key !== "labels" || !Array.isArray(value)) return json({ error: "value" }, 400, origin);
+      value = value.slice(0, 20).map((l) => ({
+        id: String((l && l.id) || "").slice(0, 12),
+        text: String((l && l.text) || "").slice(0, 20),
+        color: String((l && l.color) || ""),
+      })).filter((l) => /^[a-z0-9]{1,12}$/.test(l.id) && l.text && /^#[0-9a-fA-F]{6}$/.test(l.color));
     }
     await this.ctx.storage.put("bk:" + b.kind + ":" + b.key, value);
     this.broadcast("book");
