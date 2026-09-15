@@ -1,5 +1,5 @@
 {
-  "note": "予約タブの行。2026-09-14 に Hibiki が指定。時間は hh:mm（HIYOKO X 午前は 09:30 で確定）。reply:true の行は、すぐ上の投稿に付く返信（予約ではなく、やったかどうか）。SNS は1行に1つ",
+  "note": "予約タブの行。2026-09-14 に Hibiki が指定。時間は hh:mm（HIYOKO X 午前は 09:30 で確定）。reply:true の行は、すぐ上の投稿に付く返信（予約ではなく、やったかどうか）。SNS は1行に1つ。check:\"id\" の行（2026-09-15 HIYOKO TikTok・YouTube）は予約ではなく、投稿されたかの確認と返信。動画は毎日ではないので月間企画で確かめる。押した印はサーバーの kind t に「日付|id」で置く",
   "groups": [
     { "channel": "hiyoko", "rows": [
       { "platforms": ["X"],  "time": "09:30", "label": "投稿" },
@@ -9,7 +9,11 @@
       { "platforms": ["IG"], "time": "17:00", "label": "フィード" },
       { "platforms": ["IG"], "time": "17:00", "label": "返信", "reply": true },
       { "platforms": ["FB"], "time": "17:00", "label": "フィード" },
-      { "platforms": ["FB"], "time": "17:00", "label": "返信", "reply": true }
+      { "platforms": ["FB"], "time": "17:00", "label": "返信", "reply": true },
+      { "platforms": ["TT"], "time": "", "label": "TikTok 投稿確認", "check": "hiyoko-tt" },
+      { "platforms": ["TT"], "time": "", "label": "返信", "reply": true, "check": "hiyoko-tt-rep" },
+      { "platforms": ["YT"], "time": "", "label": "YouTube 投稿確認", "check": "hiyoko-yt" },
+      { "platforms": ["YT"], "time": "", "label": "返信", "reply": true, "check": "hiyoko-yt-rep" }
     ]},
     { "channel": "nacha", "rows": [
       { "platforms": ["X"],  "time": "10:30", "label": "X 長文" },

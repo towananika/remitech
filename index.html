@@ -1513,6 +1513,7 @@
     ["ことば", { en: "Talk", ko: "말" }],
     ["長文", { en: "Long post", ko: "장문" }],
     ["動画", { en: "Video", ko: "영상" }],
+    ["投稿確認", { en: "posted check", ko: "게시 확인" }],
     ["投稿", { en: "Post", ko: "게시" }],
     ["返信", { en: "Reply", ko: "답글" }],
     ["企画", { en: "plan", ko: "기획" }]
@@ -3615,9 +3616,17 @@
         (g.unsure ? ' <em title="' + esc(g.unsure) + '">' + esc(t("bkUnsure")) + '</em>' : "") + '</th></tr>';
       (g.rows || []).forEach(function (r) {
         h += '<tr' + (r.reply ? ' class="bkreprow"' : '') + ' style="--chc:' + esc(c.color || "var(--wood)") + '"><th class="bkacc"><b>' + (r.reply ? "\u21b3 " : "") + esc(tl(r.label)) + '</b><i>' +
-          esc(rowPlats(r).map(pfn).join("\u30fb")) + " \u00b7 " + esc(r.time) + '</i></th>';
+          esc(rowPlats(r).map(pfn).join("\u30fb")) + (r.time ? " \u00b7 " + esc(r.time) : "") + '</i></th>';
         days.forEach(function (d) {
-          var k = ymd(d), sls = rowSlots(g, r, k);
+          var k = ymd(d);
+          // \u78ba\u8a8d\u306e\u884c\uff08\u4e88\u7d04\u3067\u306f\u306a\u3044\uff09\uff1a\u6295\u7a3f\u3055\u308c\u305f\u304b\u30fb\u8fd4\u4fe1\u3057\u305f\u304b\u3092\u62bc\u3057\u3066\u2713\u3002\u52d5\u753b\u306f\u6bce\u65e5\u3067\u306f\u306a\u3044\u306e\u3067\u6708\u9593\u4f01\u753b\u3067\u78ba\u304b\u3081\u308b
+          if (r.check) {
+            var ckk = k + "|" + r.check, cOn = !!(schedule.telegram && schedule.telegram[ckk]);
+            h += '<td data-today="' + (k === today) + '" data-hol="' + isHol(k) + '"><button class="bkc bkrep" data-ck="' + esc(ckk) + '" data-on="' + cOn + '" title="' +
+              esc(c.name + " " + tl(r.label)) + '">' + (cOn ? "\u2713" : "") + '</button></td>';
+            return;
+          }
+          var sls = rowSlots(g, r, k);
           if (r.reply) {
             var live = sls.filter(function (x) { return !x.skip; });
             if (!live.length) { h += '<td data-today="' + (k === today) + '" data-hol="' + isHol(k) + '"><span class="bkno">\u2013</span></td>'; return; }
@@ -3724,6 +3733,16 @@
     var b = e.target.closest(".bkc");
     if (!b) return;
     var wrap = document.getElementById("bkWrap"), sx = wrap ? wrap.scrollLeft : 0, sy = window.scrollY;
+    var ck = b.getAttribute("data-ck");
+    if (ck) {
+      // 置き場は Telegram の共有済みと同じ kind t（キー「日付|id」）。サーバーを変えずに済む
+      schedule.telegram = schedule.telegram || {};
+      schedule.telegram[ck] = !schedule.telegram[ck];
+      bookPush("t", ck, schedule.telegram[ck]);
+      renderBook();
+      var cw = document.getElementById("bkWrap"); if (cw) cw.scrollLeft = sx; window.scrollTo(0, sy);
+      return;
+    }
     var rk = b.getAttribute("data-rk");
     if (rk) {
       var rks = rk.split("~");
