@@ -1386,7 +1386,7 @@
           impPaste:"Paste the plan here", impFile:"Choose a file", impUrl:"Paste a link",
           impUrlNo:"This address cannot be read from the browser. Give it to Claude instead.",
           impRead:"Read", impResult:"slots read", impBad:"Could not read it. Check the header row.",
-          updated:"New content", reload:"Reload", close:"Close",
+          updated:"New content", reload:"Reload", updating:"Updating…", close:"Close",
           weekStart:"Week starts on", noSlots:"No regular slots yet." },
     ko: { tagline:"올리는 글을 쓰고, 확인하고, 남기는 곳.",
           brand:"REMITECH",
@@ -1437,7 +1437,7 @@
           impPaste:"기획 내용을 여기에 붙여넣기", impFile:"파일 선택", impUrl:"링크 붙여넣기",
           impUrlNo:"이 주소는 브라우저에서 읽을 수 없어. Claude에게 주면 돼.",
           impRead:"읽기", impResult:"개 읽음", impBad:"읽지 못했어. 첫 줄의 제목을 확인해줘.",
-          updated:"새 내용", reload:"새로고침", close:"닫기",
+          updated:"새 내용", reload:"새로고침", updating:"업데이트 중…", close:"닫기",
           weekStart:"주 시작", noSlots:"정기 업로드 시간이 없어." },
     ja: { tagline:"投稿するものを、書いて・確かめて・残す場所。",
           brand:"REMITECH",
@@ -1488,7 +1488,7 @@
           impPaste:"企画の内容をここに貼る", impFile:"ファイルを選ぶ", impUrl:"リンクを貼る",
           impUrlNo:"この住所はブラウザからは読めない。Claudeに渡してください。",
           impRead:"読む", impResult:"件 読めた", impBad:"読めなかった。1行目の見出しを確かめて。",
-          updated:"新しい内容", reload:"読み直す", close:"閉じる",
+          updated:"新しい内容", reload:"読み直す", updating:"更新しています…", close:"閉じる",
           weekStart:"週の始まり", noSlots:"定期の枠がまだない。" }
   };
   var LANGS = [["en","EN"], ["ko","한국어"], ["ja","日本語"]];
@@ -5481,37 +5481,51 @@
 
   window.addEventListener("hashchange", route);
 
-  // 置かれているファイルが差し替わったかを、たまに見に行く。
-  // 作業中に画面を作り直すと入力が消えるので、帯を出すだけにする
-  var seen = {};
+  // 置かれているファイル（画面のコードも含む）が差し替わったかを、たまに見に行く。
+  // 2026-09-15 Hibiki指定: 気づいたら更新があると出し続ける（× で消しても、次の確認でまた出す）。
+  // 更新するときは、今の入力・画面の場所をそのまま持って読み直す
+  var bootStamp = {}, pendingUpdate = false;
   function stamp(res) {
     return (res.headers.get("etag") || "") + "|" + (res.headers.get("last-modified") || "");
   }
   function watchUpdates() {
-    ["./posts.json", "./schedule.json", "./kpi.json"].forEach(function (u) {
+    ["./index.html", "./posts.json", "./schedule.json", "./kpi.json", "./book_rows.json", "./chores.json"].forEach(function (u) {
       fetch(u, { method: "HEAD", cache: "no-store" }).then(function (r) {
         if (!r.ok) return;
         var st = stamp(r);
         if (!st) return;
-        if (seen[u] === undefined) { seen[u] = st; return; }
-        if (seen[u] !== st) {
-          seen[u] = st;
-          var el = document.getElementById("toast");
-          document.getElementById("toastText").textContent = t("updated");
-          document.getElementById("toastGo").textContent = t("reload");
-          el.hidden = false;
-          clearTimeout(window.__toastT);
-          window.__toastT = setTimeout(function () { el.hidden = true; }, 20000);  // 放っておけば消える
-        }
-      }).catch(function () {});
+        if (bootStamp[u] === undefined) { bootStamp[u] = st; return; }   // 読み込んだときの版を基準にする（以後は変えない）
+        if (bootStamp[u] !== st) pendingUpdate = true;
+      }).catch(function () {}).then(showUpdateToastIfPending);
     });
   }
-  document.getElementById("toastGo").addEventListener("click", function () { location.reload(); });
+  function showUpdateToastIfPending() {
+    if (!pendingUpdate) return;
+    var el = document.getElementById("toast");
+    document.getElementById("toastText").textContent = t("updated");
+    document.getElementById("toastGo").textContent = t("reload");
+    el.hidden = false;
+  }
+  // 今の入力・画面の場所を残してから読み直す。保存中のもの（saveSoon で待たせてあるもの）は先に確定させる
+  function updateNow() {
+    var go = document.getElementById("toastGo");
+    go.disabled = true; go.textContent = t("updating");
+    Promise.resolve().then(flushSave).catch(function () {}).then(function () {
+      try {
+        sessionStorage.setItem("remitech-reload-state", JSON.stringify({
+          tab: tab, filter: filter, bkMon: bkMon, tgDate: tgDate,
+          lkWeek: lkWeek, lkMode: lkMode, lang: lang, scrollY: window.scrollY, hash: location.hash
+        }));
+      } catch (e) {}
+      location.reload();
+    });
+  }
+  document.getElementById("toastGo").addEventListener("click", updateNow);
   document.getElementById("toastX").addEventListener("click", function () {
-    document.getElementById("toast").hidden = true;
+    document.getElementById("toast").hidden = true;   // 消しても更新自体はまだ。次の確認でまた出す
   });
   watchUpdates();
-  setInterval(watchUpdates, 300000);        // 5分ごと
+  setInterval(watchUpdates, 60000);        // 1分ごと
 
   // いいね作業の印は、何人かが同時に押す。他の人の印も、開いたまま見えるようにする。
   // 鍵のある端末: GitHubから直接10秒ごと（公開ページの反映待ち1〜2分を飛ばせる）。
@@ -5600,6 +5614,26 @@
   function syncWide() {
     document.body.setAttribute("data-wide", (tab === "dash" || tab === "kpi" || tab === "prep2" || tab === "likes" || tab === "follow" || tab === "book") ? "true" : "false");
   }
+
+  // 更新のために読み直したときは、直前にいた画面・入力の場所に戻す（updateNow が残したもの。一度使ったら消す）
+  var restoreScrollY = 0;
+  (function restoreReloadState() {
+    try {
+      var raw = sessionStorage.getItem("remitech-reload-state");
+      if (!raw) return;
+      sessionStorage.removeItem("remitech-reload-state");
+      var st = JSON.parse(raw);
+      if (st.lang && T[st.lang]) lang = st.lang;
+      if (st.tab) tab = st.tab;
+      if (typeof st.filter === "string") filter = st.filter;
+      if (st.bkMon) bkMon = st.bkMon;
+      if (st.tgDate) tgDate = st.tgDate;
+      if (typeof st.lkWeek === "number") lkWeek = st.lkWeek;
+      if (st.lkMode) lkMode = st.lkMode;
+      if (st.hash && !location.hash) { try { history.replaceState(null, "", st.hash); } catch (e1) {} }
+      restoreScrollY = st.scrollY || 0;
+    } catch (e) {}
+  })();
 
   renderLang();
   renderNav();
@@ -5699,6 +5733,7 @@
             renderChans(); route();
             bookPull(true);
             hubConnect();
+            if (restoreScrollY) setTimeout(function () { window.scrollTo(0, restoreScrollY); }, 60);
           });
       })
       .catch(function () { view.innerHTML = '<p class="empty">' + esc(t("fail")) + '</p>'; });
