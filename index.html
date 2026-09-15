@@ -776,6 +776,9 @@
   .ovlink:hover{ border-color:var(--chc, var(--wood)); }
   .ovkind{ color:var(--muted); font-size:11px; }
   .tglinks{ margin-top:22px; }
+  .tgshares{ margin:14px 0 18px; }
+  .tgshares .tghead{ margin-top:8px; }
+  .tgshares .plabel{ border-left:2px solid var(--chc, var(--wood)); padding-left:8px; }
   .tghead{ display:flex; align-items:center; justify-content:space-between; gap:10px; margin-top:16px; }
   .tghead .plabel{ margin:0; margin-right:auto; }
   .tgdue{ font-size:12.5px; color:var(--muted); font-variant-numeric:tabular-nums; }
@@ -2199,21 +2202,23 @@
     }).join("\n\n\n");
 
     // リンクだけを別に並べる。1本ずつ写せる
-    var linkRows = "";
-    blocks.forEach(function (b, bi) {
-      var tk = tgDate + "|" + b.ch.id, shared = !!(schedule.telegram && schedule.telegram[tk]);
-      // 共有する時間（posts.json の telegramAt: 投稿日から days 日後の time）。過ぎてもまだなら「遅れ」
-      var ta = b.ch.telegramAt, dueTxt = "", late = false;
-      if (ta && ta.time) {
-        var dp = tgDate.split("-"), hm = ta.time.split(":");
-        var due = new Date(+dp[0], +dp[1] - 1, +dp[2] + (ta.days || 0), +hm[0], +hm[1]);
-        dueTxt = t("tgDue") + " " + (ta.days ? t("tgNextDay") + " " : "") + ta.time;
-        late = !shared && Date.now() > due.getTime();
-      }
-      linkRows += '<div class="tghead" style="--chc:' + esc(b.ch.color || "var(--wood)") + '"><p class="plabel">' + esc(b.ch.name) + '</p>' +
-        (dueTxt ? '<span class="tgdue" data-late="' + late + '">' + esc(dueTxt) + '</span>' : "") +
+    // 共有済みボタン：HIYOKO・NACHA・REEL を、投稿の有無に関係なくいつも上に並べる（2026-09-15）
+    // 共有する時間は posts.json の telegramAt（投稿日から days 日後の time）。過ぎてもまだなら「遅れ」
+    var shareRows = channels.filter(function (c) { return c.telegramAt && c.telegramAt.time; }).map(function (c) {
+      var tk = tgDate + "|" + c.id, shared = !!(schedule.telegram && schedule.telegram[tk]);
+      var ta = c.telegramAt, dp = tgDate.split("-"), hm = ta.time.split(":");
+      var due = new Date(+dp[0], +dp[1] - 1, +dp[2] + (ta.days || 0), +hm[0], +hm[1]);
+      var dueTxt = t("tgDue") + " " + (ta.days ? t("tgNextDay") + " " : "") + ta.time;
+      var late = !shared && Date.now() > due.getTime();
+      return '<div class="tghead" style="--chc:' + esc(c.color || "var(--wood)") + '"><p class="plabel">' + esc(c.name) + '</p>' +
+        '<span class="tgdue" data-late="' + late + '">' + esc(dueTxt) + '</span>' +
         '<button class="tgshare" data-tk="' + esc(tk) + '" data-on="' + shared + '" data-late="' + late + '" title="' + esc(t("tgShareTip")) + '">' +
         (shared ? "✓ " + esc(t("tgShared")) : (late ? "! " : "") + esc(t("tgNotShared"))) + '</button></div>';
+    }).join("");
+
+    var linkRows = "";
+    blocks.forEach(function (b, bi) {
+      linkRows += '<div class="tghead" style="--chc:' + esc(b.ch.color || "var(--wood)") + '"><p class="plabel">' + esc(b.ch.name) + '</p></div>';
       b.items.forEach(function (it, ii) {
         var ck = "tgl" + bi + "_" + ii;
         copyBank[ck] = { en: it.url, cur: it.url };
@@ -2229,6 +2234,7 @@
       '<div class="bar"><input type="date" id="tgDate" value="' + esc(tgDate) + '">' +
       (blocks.length ? '<button class="cpy strong" data-ck="tgAll" data-lg="en">' + esc(t("copyAll")) + '</button>' : "") +
       '</div>' +
+      (shareRows ? '<div class="tgshares">' + shareRows + '</div>' : "") +
       (blocks.length
         ? '<pre class="tgtext">' + shownText + '</pre>' +
           '<div class="tglinks"><p class="plabel">' + esc(t("tgLinks")) + '</p>' + linkRows + '</div>'
