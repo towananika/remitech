@@ -4209,9 +4209,23 @@
      押すと済み、もう一度押すと戻る。まだ来ていない日は押せない（先に付けてしまう事故を防ぐ） */
   var lkWeek = 0, lkPastOpen = false, lkMode = "likes";
   // いいねタブとフォロータブは同じ画面の作り。見せるリストだけが違う
+  // 2026-09-15: フォロー+5 はいいねタブの同じアカウントの行に入れ、09:30 の左に置く
   function lkLists() {
-    return ((chores && chores.lists) || []).filter(function (li) {
-      return lkMode === "follow" ? li.kind === "follow" : li.kind !== "follow";
+    var all = (chores && chores.lists) || [];
+    var fw = all.filter(function (li) { return li.kind === "follow"; });
+    if (lkMode === "follow") return fw;
+    return all.filter(function (li) { return li.kind !== "follow"; }).map(function (li) {
+      if (li.kind === "csv") return li;
+      var add = [];
+      fw.forEach(function (f) { if (f.channel === li.channel && f.platform === li.platform) add = add.concat(f.tasks); });
+      return add.length ? { channel: li.channel, platform: li.platform, kind: li.kind, tasks: add.concat(li.tasks) } : li;
+    });
+  }
+  // 並び：フォロー+5 を先頭、あとは時間順
+  function lkSorted(tasks) {
+    return tasks.slice().sort(function (a, b) {
+      var fa = /follow/i.test(a.task) ? 0 : 1, fb = /follow/i.test(b.task) ? 0 : 1;
+      return fa - fb || toMin(a.time) - toMin(b.time);
     });
   }
   // ボタンの文字。いいねは時間だけ、それ以外（フォロワー確認・フォロー+5）は中身を出す
@@ -4246,7 +4260,7 @@
       days.forEach(function (d) {
         var k = ymd(d), dd = (chores.done && chores.done[k]) || {}, future = k > today;
         h += '<td data-today="' + (k === today) + '" data-wknd="' + (d.getDay() === 0 || d.getDay() === 6) + '">' +
-          li.tasks.slice().sort(function (a, b) { return toMin(a.time) - toMin(b.time); }).map(function (tk) {
+          lkSorted(li.tasks).map(function (tk) {
             var on = !!dd[tk.id];
             if (!future) { total++; if (on) doneN++; }
             return '<button class="lkc" data-d="' + k + '" data-id="' + esc(tk.id) + '" data-on="' + on + '"' +
@@ -4271,7 +4285,7 @@
       var n = csv ? "" : ((/(\d+)/.exec(((li.tasks.filter(function (tk) { return /like/i.test(tk.task); })[0] || li.tasks[0] || {}).task) || "") || [])[1] || "");
       return '<div class="lkrow" style="--chc:' + esc(c.color || "var(--wood)") + '">' +
         '<div class="lkname"><b>' + esc(csv ? t("lkCsv") : c.name) + '</b><i>' + esc(csv ? c.name : pfn(li.platform) + (n ? " \u00b7 " + n : "")) + '</i></div>' +
-        '<div class="lkbtns">' + li.tasks.slice().sort(function (a, b) { return toMin(a.time) - toMin(b.time); }).map(function (tk) {
+        '<div class="lkbtns">' + lkSorted(li.tasks).map(function (tk) {
           var on = !!td[tk.id]; tAll++; if (on) tDone++;
           return '<button class="lkc lkbig' + (lkLabel(tk) ? " lkwide" : "") + '" data-d="' + today + '" data-id="' + esc(tk.id) + '" data-on="' + on + '" data-now="' + (tk.time === cur && !on) + '" title="' + esc(tk.task) + '">' +
             (on ? "\u2713 " : "") + esc(lkLabel(tk) || tk.time) + '</button>';
@@ -4512,7 +4526,6 @@
       '<button data-tab="prep" aria-pressed="' + (tab === "prep" || tab === "prep2") + '">' + esc(t("navPrep")) + '</button>' +
       '<button data-tab="kpi" aria-pressed="' + (tab === "kpi") + '">' + esc(t("navKpi")) + '</button>' +
       '<button data-tab="likes" aria-pressed="' + (tab === "likes") + '">' + esc(t("navLikes")) + '</button>' +
-      '<button data-tab="follow" aria-pressed="' + (tab === "follow") + '">' + esc(t("navFollow")) + '</button>' +
       '<button data-tab="import" aria-pressed="' + (tab === "import") + '">' + esc(t("navImport")) + '</button>' +
       '<button data-tab="tg" aria-pressed="' + (tab === "tg") + '">' + esc(t("navTg")) + '</button>';
     var tip = document.getElementById("navtip");
@@ -4581,7 +4594,7 @@
     if (tab === "dash") { renderDash(); return; }
     if (tab === "kpi") { renderKpi(); return; }
     if (tab === "likes") { lkMode = "likes"; renderLikes(); return; }
-    if (tab === "follow") { lkMode = "follow"; renderLikes(); return; }
+    if (tab === "follow") { lkMode = "likes"; renderLikes(); return; }   // フォロータブはいいねタブに統合（古いリンク用）
     if (tab === "book") { renderBook(); bookPull(true); return; }
     if (tab === "prep") { renderPrep(); return; }
     if (tab === "prep2") { renderPrep2(); return; }
