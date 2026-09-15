@@ -3626,6 +3626,24 @@
     if (e.key === "Enter" && e.target && e.target.id === "bkmText" && bkMenuEl) { e.preventDefault(); var ad = bkMenuEl.querySelector(".bkmadd"); if (ad) ad.click(); }
   });
 
+  // リンクを1件、貼る・変える。呼んだときの日付（今日）を基準に鍵を決める側からも使う
+  function bkLinkPromptFor(lkey) {
+    var lcur = (schedule.links && schedule.links[lkey]) || "";
+    var nv = window.prompt(t("bkLinkPrompt"), lcur);
+    if (nv === null) return;
+    nv = nv.trim();
+    if (nv && !/^https?:\/\/[^\s"'<>]+$/i.test(nv)) {
+      bkOut = t("bkLinkBad"); var lbo = document.getElementById("bkOut"); if (lbo) lbo.textContent = bkOut;
+      return;
+    }
+    if (nv === lcur) return;
+    schedule.links = schedule.links || {};
+    if (nv) schedule.links[lkey] = nv; else delete schedule.links[lkey];
+    var lw = document.getElementById("bkWrap"), lsx = lw ? lw.scrollLeft : 0, lsy = window.scrollY;
+    bookPush("l", lkey, nv);
+    renderBook();
+    var lw2 = document.getElementById("bkWrap"); if (lw2) lw2.scrollLeft = lsx; window.scrollTo(0, lsy);
+  }
   function bookPushSlot(x) {
     return bookPush("s", slotKey(x), { scheduled: !!x.scheduled, reply: !!x.reply, replyAt: x.replyAt || "", status: x.status || "" });
   }
@@ -3903,10 +3921,14 @@
     var rkth = e.target.closest("th.bkacc[data-rk]");
     if (rkth) {
       var rrk = rkth.getAttribute("data-rk");
-      bkLinkOpen[rrk] = !bkLinkOpen[rrk];
+      var opening = !bkLinkOpen[rrk];
+      bkLinkOpen[rrk] = opening;
       var rw = document.getElementById("bkWrap"), rsx = rw ? rw.scrollLeft : 0, rsy = window.scrollY;
       renderBook();
       var rw2 = document.getElementById("bkWrap"); if (rw2) rw2.scrollLeft = rsx; window.scrollTo(0, rsy);
+      // 開いたとき、今日のリンクがまだなければ、その場で貼れるように聞く（追加した日時＝今日を基準にする）
+      var todayKey = ymd(new Date()) + "|" + rrk;
+      if (opening && !(schedule.links && schedule.links[todayKey])) bkLinkPromptFor(todayKey);
       return;
     }
     var hd = e.target.closest(".bkdaybtn");
@@ -3941,24 +3963,7 @@
       return;
     }
     var la = e.target.closest(".bkladd, .bkledit");
-    if (la) {
-      var lkey = la.getAttribute("data-lk"), lcur = (schedule.links && schedule.links[lkey]) || "";
-      var nv = window.prompt(t("bkLinkPrompt"), lcur);
-      if (nv === null) return;
-      nv = nv.trim();
-      if (nv && !/^https?:\/\/[^\s"'<>]+$/i.test(nv)) {
-        bkOut = t("bkLinkBad"); var lbo = document.getElementById("bkOut"); if (lbo) lbo.textContent = bkOut;
-        return;
-      }
-      if (nv === lcur) return;
-      schedule.links = schedule.links || {};
-      if (nv) schedule.links[lkey] = nv; else delete schedule.links[lkey];
-      var lw = document.getElementById("bkWrap"), lsx = lw ? lw.scrollLeft : 0, lsy = window.scrollY;
-      bookPush("l", lkey, nv);
-      renderBook();
-      var lw2 = document.getElementById("bkWrap"); if (lw2) lw2.scrollLeft = lsx; window.scrollTo(0, lsy);
-      return;
-    }
+    if (la) { bkLinkPromptFor(la.getAttribute("data-lk")); return; }
     var b = e.target.closest(".bkc");
     if (!b) return;
     var wrap = document.getElementById("bkWrap"), sx = wrap ? wrap.scrollLeft : 0, sy = window.scrollY;
