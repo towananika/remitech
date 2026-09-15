@@ -25,7 +25,7 @@ import { DurableObject } from "cloudflare:workers";
 const DAYS_KEPT = 60;
 const MAX_BODY = 1024;
 const MAX_BOOK_BODY = 4096;
-const BOOK_KINDS = { h: 1, a: 1, s: 1, n: 1, t: 1 };
+const BOOK_KINDS = { h: 1, a: 1, s: 1, n: 1, t: 1, l: 1 };   // l = 予約タブの行に貼るリンク（2026-09-15）
 const ALLOWED = ["https://towananika.github.io", "http://localhost:8899", "http://127.0.0.1:8899"];
 const FAIL_LIMIT = 5;                 // 同じ IP から 1時間に 5回まちがえたら
 const FAIL_WINDOW = 60 * 60;          // 1時間、どの書き込みもできない（正しいパスワードでも）
@@ -138,7 +138,7 @@ export class HubDO extends DurableObject {
 
   // ---- 予約タブ ----
   async bookList(origin) {
-    const out = { holidays: {}, assignees: {}, slots: {}, newSlots: {}, telegram: {} };
+    const out = { holidays: {}, assignees: {}, slots: {}, newSlots: {}, telegram: {}, links: {} };
     const all = await this.ctx.storage.list({ prefix: "bk:" });
     for (const [name, v] of all) {
       const kind = name.slice(3, 4), key = name.slice(5);
@@ -147,6 +147,7 @@ export class HubDO extends DurableObject {
       else if (kind === "s" && v) out.slots[key] = v;
       else if (kind === "n" && v) out.newSlots[key] = v;
       else if (kind === "t") out.telegram[key] = !!v;
+      else if (kind === "l" && typeof v === "string" && v) out.links[key] = v;
     }
     return json(out, 200, origin, { "Cache-Control": "no-store" });
   }
@@ -181,6 +182,15 @@ export class HubDO extends DurableObject {
       value = !!value;
     } else if (b.kind === "n") {
       if (!value || typeof value !== "object" || typeof value.date !== "string") return json({ error: "value" }, 400, origin);
+    } else if (b.kind === "l") {
+      // http(s) のアドレスだけ。空なら消す（javascript: などは置かせない）
+      value = typeof value === "string" ? value.trim().slice(0, 500) : "";
+      if (value && !/^https?:\/\/[^\s"'<>]+$/i.test(value)) return json({ error: "value" }, 400, origin);
+      if (!value) {
+        await this.ctx.storage.delete("bk:l:" + b.key);
+        this.broadcast("book");
+        return json({ ok: true }, 200, origin);
+      }
     }
     await this.ctx.storage.put("bk:" + b.kind + ":" + b.key, value);
     this.broadcast("book");
