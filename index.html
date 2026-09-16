@@ -315,7 +315,9 @@
   .bktab .bkc.bkbig[data-drag="left"]{ transform:translateX(-3px); }
   .bktab .bkc.bkbig[data-drag="right"]{ transform:translateX(3px); }
   .bktab .bkc.bkbig[data-drag="down"]{ transform:translateY(3px); }
+  .bktab .bkc.bkbig[data-drag="up"]{ transform:translateY(-3px); }
   .bkmemodot{ position:absolute; top:2px; right:3px; font-size:9px; opacity:.7; }
+  .bklinkdot{ position:absolute; top:2px; left:3px; font-size:9px; opacity:.7; }
   /* 予約ボタンのドロップダウン。ラベルを選んだボタンはその色（文字は黒） */
   .bktab .bkc.bkbig[data-cust]{ background:var(--cc); border:1px solid var(--cc); border-style:solid; color:#1b1b1b; font-weight:600; font-size:11.5px; }
   #bkMenu{ position:absolute; z-index:60; min-width:190px; max-width:min(280px, calc(100vw - 16px)); padding:6px; border:1px solid var(--line); border-radius:12px;
@@ -3848,8 +3850,14 @@
         }).join("") +
         (g.unsure ? ' <em title="' + esc(g.unsure) + '">' + esc(t("bkUnsure")) + '</em>' : "") + '</th></tr>';
       (g.rows || []).forEach(function (r) {
-        var rk = bkRowKey(g, r), linkOpen = !!bkLinkOpen[rk];
-        h += '<tr' + (r.reply ? ' class="bkreprow"' : '') + ' style="--chc:' + esc(c.color || "var(--wood)") + '"><th class="bkacc" data-rk="' + esc(rk) + '" data-lkopen="' + linkOpen + '" title="' + esc(t("bkLinkRowTip")) + '"><b>' + (r.reply ? "\u21b3 " : "") + esc(tl(r.label)) + '</b><i>' +
+        var rk = bkRowKey(g, r);
+        // 2026-09-16: \u30ea\u30f3\u30af\u306f\u3001\u901a\u5e38\u306e\u4e88\u7d04\u30dc\u30bf\u30f3\u3067\u306f\u9577\u62bc\u3057\uff0b\u4e0a\u30c9\u30e9\u30c3\u30b0\u306b\u7d71\u4e00\u3057\u305f\uff08\u898b\u51fa\u3057\u30bf\u30c3\u30d7\u306f\u5ec3\u6b62\uff09\u3002
+        // \u78ba\u8a8d\u30fb\u8fd4\u4fe1\u306e\u884c\uff08\u30dc\u30bf\u30f3\u306b\u9577\u62bc\u3057\u64cd\u4f5c\u304c\u306a\u3044\uff09\u3060\u3051\u3001\u3053\u308c\u307e\u3067\u3069\u304a\u308a\u898b\u51fa\u3057\u30bf\u30c3\u30d7\u3067\u958b\u9589\u3059\u308b
+        var hasGestureLink = !r.check && !r.reply;
+        var linkOpen = !hasGestureLink && !!bkLinkOpen[rk];
+        h += '<tr' + (r.reply ? ' class="bkreprow"' : '') + ' style="--chc:' + esc(c.color || "var(--wood)") + '"><th class="bkacc"' +
+          (hasGestureLink ? '' : ' data-rk="' + esc(rk) + '" data-lkopen="' + linkOpen + '" title="' + esc(t("bkLinkRowTip")) + '"') +
+          '><b>' + (r.reply ? "\u21b3 " : "") + esc(tl(r.label)) + '</b><i>' +
           esc(rowPlats(r).map(pfn).join("\u30fb")) + (r.time ? " \u00b7 " + esc(r.time) : "") + '</i></th>';
         days.forEach(function (d) {
           var k = ymd(d);
@@ -3873,7 +3881,7 @@
           var gi = (bookRows.groups || []).indexOf(g), ri = g.rows.indexOf(r);
           if (!sls.length) {
             h += '<td data-today="' + (k === today) + '" data-hol="' + isHol(k) + '"><button class="bkc bknew" data-new="' + gi + "|" + ri + "|" + k + '" title="' +
-              esc(t("bkNoSlot")) + '">\u2013</button>' + linkHtml + '</td>';
+              esc(t("bkNoSlot")) + '">\u2013</button></td>';
             return;
           }
           var hh = r.time.split(":"), when = new Date(d.getFullYear(), d.getMonth(), d.getDate(), +hh[0], +hh[1]);
@@ -3901,14 +3909,18 @@
           var keysStr = esc(sls.map(slotKey).join("~"));
           // 2026-09-16 Hibiki指定: ナチャのIG動画の行だけ、準備中のとき下に担当者を出す
           var showOwner = g.channel === "nacha" && r.label === "IG 動画" && st !== "sched" && st !== "done" && st !== "skip" && owners;
+          // 長押し＋上ドラッグでリンクを開閉する（見出しタップの代わり）。あれば小さな印だけ常に出す
+          var linkKey = bkDateLinkKey(rk, k), linkVal = schedule.links && schedule.links[linkKey];
+          var hasLink = linkVal && typeof linkVal === "object" && /^https?:\/\//i.test(linkVal.url || "");
           h += '<td data-today="' + (k === today) + '" data-hol="' + isHol(k) + '"><div class="bkcell">' +
-            '<button class="bkc bkbig" data-k="' + keysStr + '" data-s="' + st + '"' +
+            '<button class="bkc bkbig" data-k="' + keysStr + '" data-s="' + st + '" data-linkkey="' + esc(linkKey) + '"' +
             (cust ? ' data-cust="1" style="--cc:' + esc(cust.color) + '"' : (isVideo ? ' data-video="1"' : '')) +
             (hasMemo ? ' data-memo="1"' : '') + ' aria-haspopup="menu" title="' + esc(titleTxt) + '"' +
             (st === "sched" ? ' aria-label="' + esc(t("bkBookedShort")) + '"' : '') + '>' +
             (st === "sched" ? '<span class="bkchk">✓</span>' : esc(cust ? cust.text : txt)) +
             (hasMemo ? '<span class="bkmemodot" title="' + esc(sls[0].memo) + '">✎</span>' : '') +
-            '</button>' + (showOwner ? '<div class="bkowner">' + esc(bkWhoName(owners)) + '</div>' : '') + linkHtml + '</div></td>';
+            (hasLink ? '<span class="bklinkdot" title="' + esc(linkVal.url) + '">↗</span>' : '') +
+            '</button>' + (showOwner ? '<div class="bkowner">' + esc(bkWhoName(owners)) + '</div>' : '') + '</div></td>';
         });
         h += '</tr>';
       });
@@ -4063,11 +4075,12 @@
     if (st === "done") { location.hash = "#/prep/" + encodeURIComponent(keys[0]); return; }
   });
 
-  // ===== 予約ボタンの操作（2026-09-16 Hibiki指定）=====
+  // ===== 予約ボタンの操作（2026-09-16 Hibiki指定。同日、上ドラッグをリンクに割り当て）=====
   // タップ（すぐ離す）: 予約済み⇄準備中
-  // 長押し（約0.45秒）してから指を動かす: 左＝動画投稿／下＝空欄（投稿しない）／右＝コメントを直接入力
+  // 長押し（約0.45秒）してから指を動かす: 左＝動画投稿／下＝空欄（投稿しない）／右＝コメントを直接入力／上＝リンクの登録・変更
   // 長押しして動かさずに離す: これまでどおりドロップダウン（登録したラベルなど）
   // 長押しの前に大きく動いた場合は、表の縦横スクロールとみなして何もしない
+  // リンクがある枠には、常に小さな↗の印を出す（前は見出しタップで開閉していたが、操作を1か所にまとめた）
   (function bkGesture() {
     var LONG_MS = 450, THRESH = 22;
     var g = null;   // { btn, x0, y0, timer, longActive, dir, keys }
@@ -4086,7 +4099,7 @@
       if (!btn || btn.getAttribute("data-s") === "done" || bkMenuEl) return;
       clearActive();
       g = { btn: btn, x0: e.clientX, y0: e.clientY, dir: null, longActive: false,
-            keys: btn.getAttribute("data-k").split("~") };
+            keys: btn.getAttribute("data-k").split("~"), linkKey: btn.getAttribute("data-linkkey") };
       g.timer = setTimeout(function () {
         if (!g) return;
         g.longActive = true;
@@ -4108,7 +4121,7 @@
       if (Math.abs(dx) < THRESH && Math.abs(dy) < THRESH) return;
       e.preventDefault();   // 長押しが成立したあとの動きだけ、表のスクロールより優先する
       if (!g.dir) {
-        g.dir = Math.abs(dx) >= Math.abs(dy) ? (dx < 0 ? "left" : "right") : (dy > 0 ? "down" : null);
+        g.dir = Math.abs(dx) >= Math.abs(dy) ? (dx < 0 ? "left" : "right") : (dy > 0 ? "down" : "up");
         if (g.dir) g.btn.setAttribute("data-drag", g.dir);
       }
     }
@@ -4127,6 +4140,8 @@
         bkSetSlotsState(list, "skip"); renderBookKeep();
       } else if (a.dir === "right") {
         bkCommentPromptFor(list);
+      } else if (a.dir === "up") {
+        if (a.linkKey) bkLinkPromptFor(a.linkKey);
       } else {
         bkMenuOpen(a.btn, a.keys);   // 長押しだけ、動かさずに離した
       }
