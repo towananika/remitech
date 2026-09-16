@@ -177,7 +177,8 @@ export class HubDO extends DurableObject {
         scheduled: !!value.scheduled, reply: !!value.reply,
         replyAt: typeof value.replyAt === "string" ? value.replyAt.slice(0, 40) : "",
         // 準備中、または登録したラベル（c:id）
-        status: value.status === "preparing" || /^c:[a-z0-9]{1,12}$/.test(String(value.status || "")) ? value.status : "",
+        // 準備中／動画投稿、または登録したラベル（c:id）
+        status: value.status === "preparing" || value.status === "video" || /^c:[a-z0-9]{1,12}$/.test(String(value.status || "")) ? value.status : "",
       };
     } else if (b.kind === "t") {
       if (!/^\d{4}-\d{2}-\d{2}\|[a-z0-9_-]{1,30}$/.test(b.key)) return json({ error: "key" }, 400, origin);
