@@ -24,8 +24,8 @@
       { "platforms": ["IG"], "time": "20:00", "label": "返信", "reply": true },
       { "platforms": ["IG"], "time": "20:05", "label": "IG ストーリー" },
       { "platforms": ["IG"], "time": "20:10", "label": "IG 動画" },
-      { "platforms": ["TT"], "time": "20:10", "label": "TikTok 動画" },
-      { "platforms": ["YT"], "time": "20:10", "label": "YouTube 動画" }
+      { "platforms": ["TT"], "time": "20:00", "label": "TikTok 動画" },
+      { "platforms": ["YT"], "time": "20:00", "label": "YouTube 動画" }
     ]},
     { "channel": "reel", "rows": [
       { "platforms": ["X"],   "time": "17:00", "label": "X スレッド" },

@@ -307,6 +307,7 @@
   th.bkacc[data-rk][data-lkopen="true"]{ background:color-mix(in srgb, var(--chc, var(--wood)) 10%, var(--surface)); }
   th.bkacc[data-rk][data-lkopen="true"]::after{ opacity:.9; }
   .bklwrap{ margin-top:3px; }
+  .bkowner{ margin-top:2px; font-size:10.5px; color:var(--muted); text-align:center; }
   /* 予約ボタンのドロップダウン。ラベルを選んだボタンはその色（文字は黒） */
   .bktab .bkc.bkbig[data-cust]{ background:var(--cc); border:1px solid var(--cc); border-style:solid; color:#1b1b1b; font-weight:600; font-size:11.5px; }
   #bkMenu{ position:absolute; z-index:60; min-width:190px; max-width:min(280px, calc(100vw - 16px)); padding:6px; border:1px solid var(--line); border-radius:12px;
@@ -3870,12 +3871,14 @@
           var titleTxt = st === "skip" ? t("markSkip") :
             (c.name + " " + tl(r.label) + " " + r.time + (owners ? " / " + owners : "") + ((sls[0].memo || "") ? "\n" + sls[0].memo : ""));
           var keysStr = esc(sls.map(slotKey).join("~"));
+          // 2026-09-16 Hibiki指定: ナチャのIG動画の行だけ、準備中のとき下に担当者を出す
+          var showOwner = g.channel === "nacha" && r.label === "IG 動画" && st !== "sched" && st !== "done" && st !== "skip" && owners;
           h += '<td data-today="' + (k === today) + '" data-hol="' + isHol(k) + '"><div class="bkcell">' +
             '<button class="bkc bkbig" data-k="' + keysStr + '" data-s="' + st + '"' +
             (cust ? ' data-cust="1" style="--cc:' + esc(cust.color) + '"' : '') + ' aria-haspopup="menu" title="' + esc(titleTxt) + '"' +
             (st === "sched" ? ' aria-label="' + esc(t("bkBookedShort")) + '"' : '') + '>' +
             (st === "sched" ? '<span class="bkchk">✓</span>' : esc(cust ? cust.text : txt)) +
-            '</button>' + linkHtml + '</div></td>';
+            '</button>' + (showOwner ? '<div class="bkowner">' + esc(bkWhoName(owners)) + '</div>' : '') + linkHtml + '</div></td>';
         });
         h += '</tr>';
       });
