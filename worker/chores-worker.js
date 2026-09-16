@@ -147,7 +147,7 @@ export class HubDO extends DurableObject {
       else if (kind === "s" && v) out.slots[key] = v;
       else if (kind === "n" && v) out.newSlots[key] = v;
       else if (kind === "t") out.telegram[key] = !!v;
-      else if (kind === "l" && typeof v === "string" && v) out.links[key] = v;
+      else if (kind === "l" && v && typeof v === "object" && v.url) out.links[key] = v;
       else if (kind === "o" && key === "labels" && Array.isArray(v)) out.labels = v;
     }
     return json(out, 200, origin, { "Cache-Control": "no-store" });
@@ -185,14 +185,17 @@ export class HubDO extends DurableObject {
     } else if (b.kind === "n") {
       if (!value || typeof value !== "object" || typeof value.date !== "string") return json({ error: "value" }, 400, origin);
     } else if (b.kind === "l") {
-      // http(s) のアドレスだけ。空なら消す（javascript: などは置かせない）
-      value = typeof value === "string" ? value.trim().slice(0, 500) : "";
-      if (value && !/^https?:\/\/[^\s"'<>]+$/i.test(value)) return json({ error: "value" }, 400, origin);
-      if (!value) {
+      // {url, at}。urlはhttp(s)のアドレスだけ。atは登録した日時（クライアントのISO文字列）。空なら消す
+      var lu = value && typeof value === "object" ? value.url : "";
+      lu = typeof lu === "string" ? lu.trim().slice(0, 500) : "";
+      if (lu && !/^https?:\/\/[^\s"'<>]+$/i.test(lu)) return json({ error: "value" }, 400, origin);
+      if (!lu) {
         await this.ctx.storage.delete("bk:l:" + b.key);
         this.broadcast("book");
         return json({ ok: true }, 200, origin);
       }
+      var la = value && typeof value.at === "string" ? value.at.slice(0, 40) : new Date().toISOString();
+      value = { url: lu, at: la };
     } else if (b.kind === "o") {
       // 予約ボタンのラベル一覧。20個まで、テキスト20文字まで、色は #rrggbb だけ
       if (b.key !== "labels" || !Array.isArray(value)) return json({ error: "value" }, 400, origin);

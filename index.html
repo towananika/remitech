@@ -3504,11 +3504,18 @@
     return r.check || (g.channel + "|" + (r.platforms || []).join("-") + "|" + String(r.time || "").replace(":", "") + "|" + (r.reply ? "r" : "p"));
   }
   function bkDateLinkKey(rk, k) { return k + "|" + rk; }
-  // アドレスの文字は出さない。押すとそのページへ飛ぶ印だけ出し、右にコピー・修正・削除を小さく置く
+  // 2026-09-16: アドレスの文字は出さず、登録した日時を出す。押すとそのページへ飛ぶ。右にコピー・修正・削除
+  function bkLinkStamp(at) {
+    if (!at) return t("bkLinkOpen");   // 古い形式（日時なし）や壊れた値は「開く」に逃がす
+    var d = new Date(at);
+    if (isNaN(d.getTime())) return t("bkLinkOpen");
+    return (d.getMonth() + 1) + "/" + d.getDate() + " " + two(d.getHours()) + ":" + two(d.getMinutes());
+  }
   function bkLinkCellHTML(rk, k) {
-    var key = bkDateLinkKey(rk, k), u = schedule && schedule.links && schedule.links[key];
+    var key = bkDateLinkKey(rk, k), v = schedule && schedule.links && schedule.links[key];
+    var u = v && typeof v === "object" ? v.url : (typeof v === "string" ? v : "");   // 旧形式（文字列だけ）も読める
     if (!u || !/^https?:\/\//i.test(u)) return '<button class="bkladd" data-lk="' + esc(key) + '">' + esc(t("bkLinkAdd")) + '</button>';
-    return '<span class="bklrow"><a class="bklink" href="' + esc(u) + '" target="_blank" rel="noopener" title="' + esc(u) + '">↗ ' + esc(t("bkLinkOpen")) + '</a>' +
+    return '<span class="bklrow"><a class="bklink" href="' + esc(u) + '" target="_blank" rel="noopener" title="' + esc(u) + '">↗ ' + esc(bkLinkStamp(v && v.at)) + '</a>' +
       '<button class="bklcopy" data-url="' + esc(u) + '" title="' + esc(u) + '">' + esc(t("copy")) + '</button>' +
       '<button class="bkledit" data-lk="' + esc(key) + '" title="' + esc(t("bkLinkEdit")) + '" aria-label="' + esc(t("bkLinkEdit")) + '">✎</button>' +
       '<button class="bkldel" data-lkdel="' + esc(key) + '" title="' + esc(t("bkLinkDel")) + '" aria-label="' + esc(t("bkLinkDel")) + '">✕</button></span>';
@@ -3628,7 +3635,8 @@
 
   // リンクを1件、貼る・変える。呼んだときの日付（今日）を基準に鍵を決める側からも使う
   function bkLinkPromptFor(lkey) {
-    var lcur = (schedule.links && schedule.links[lkey]) || "";
+    var lv = schedule.links && schedule.links[lkey];
+    var lcur = lv && typeof lv === "object" ? lv.url : (typeof lv === "string" ? lv : "");
     var nv = window.prompt(t("bkLinkPrompt"), lcur);
     if (nv === null) return;
     nv = nv.trim();
@@ -3638,9 +3646,11 @@
     }
     if (nv === lcur) return;
     schedule.links = schedule.links || {};
-    if (nv) schedule.links[lkey] = nv; else delete schedule.links[lkey];
+    // 貼った・変えた日時を、登録した日時として持つ（表示はアドレスではなくこの日時）
+    var at = new Date().toISOString();
+    if (nv) schedule.links[lkey] = { url: nv, at: at }; else delete schedule.links[lkey];
     var lw = document.getElementById("bkWrap"), lsx = lw ? lw.scrollLeft : 0, lsy = window.scrollY;
-    bookPush("l", lkey, nv);
+    bookPush("l", lkey, nv ? { url: nv, at: at } : "");
     renderBook();
     var lw2 = document.getElementById("bkWrap"); if (lw2) lw2.scrollLeft = lsx; window.scrollTo(0, lsy);
   }
@@ -3674,7 +3684,10 @@
     // リンクはサーバーにあるものがすべて（消したものも反映する）。古いサーバーで links がないときは触らない
     if (o.links) {
       schedule.links = {};
-      Object.keys(o.links).forEach(function (k) { if (/^https?:\/\//i.test(o.links[k])) schedule.links[k] = o.links[k]; });
+      Object.keys(o.links).forEach(function (k) {
+        var v = o.links[k];
+        if (v && typeof v === "object" && /^https?:\/\//i.test(v.url || "")) schedule.links[k] = v;
+      });
     }
     if (Array.isArray(o.labels)) {
       schedule.bkLabels = o.labels.filter(function (l) {
