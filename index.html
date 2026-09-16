@@ -302,11 +302,6 @@
     border-left:0; box-shadow:inset 3px 0 0 var(--chc, transparent); }
   .bkacc b{ display:block; font-size:13px; line-height:1.3; font-weight:500; }
   .bkacc i{ display:block; font-style:normal; font-size:11.5px; color:var(--muted); font-variant-numeric:tabular-nums; }
-  th.bkacc[data-rk]{ cursor:pointer; }
-  th.bkacc[data-rk]::after{ content:"\1F517"; font-size:10px; opacity:.35; margin-left:4px; }
-  th.bkacc[data-rk][data-lkopen="true"]{ background:color-mix(in srgb, var(--chc, var(--wood)) 10%, var(--surface)); }
-  th.bkacc[data-rk][data-lkopen="true"]::after{ opacity:.9; }
-  .bklwrap{ margin-top:3px; }
   .bkowner{ margin-top:2px; font-size:10.5px; color:var(--muted); text-align:center; }
   /* 予約ボタンの操作（タップ・長押し＋ドラッグ）*/
   .bktab .bkc.bkbig{ touch-action:pan-y; position:relative; }   /* 縦スクロールは邪魔しない。横は長押し成立後だけ奪う */
@@ -347,16 +342,6 @@
   .bkmnew input[type=color]{ flex:0 0 auto; width:36px; height:34px; padding:0; border:1px solid var(--line); border-radius:6px; background:none; }
   .bkmnew input[type=text]{ flex:1 1 auto; min-width:0; min-height:34px; font:inherit; font-size:16px; padding:2px 8px; border:1px solid var(--line); border-radius:6px; background:var(--bg); color:var(--ink); }
   .bkmadd{ flex:0 0 auto; min-height:34px; padding:0 10px; font:inherit; font-weight:700; border:0; border-radius:6px; background:var(--ink); color:var(--surface); cursor:pointer; }
-  /* 行に貼るリンク：押すとそのページへ。右に小さくコピーと変更 */
-  .bklrow{ display:flex; align-items:center; gap:4px; margin-top:3px; min-width:0; }
-  .bklink{ flex:1 1 auto; min-width:0; font-size:11.5px; color:var(--ink); text-decoration:none; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
-    border-bottom:1px solid var(--chc, var(--line)); }
-  .bklink:hover{ color:var(--chc, var(--ink)); }
-  .bklcopy, .bkledit, .bkldel{ flex:0 0 auto; font:inherit; font-size:10.5px; line-height:1; padding:3px 5px; border:1px solid var(--line); border-radius:5px;
-    background:var(--surface); color:var(--muted); cursor:pointer; }
-  .bkldel{ color:#b4553f; }
-  .bkladd{ display:block; margin-top:3px; font:inherit; font-size:11px; line-height:1.2; color:var(--muted); background:none;
-    border:1px dashed var(--line); border-radius:6px; padding:2px 6px; cursor:pointer; }
   .bkday i{ display:block; font-style:normal; font-size:11px; color:var(--muted); }
   .bkday b{ font-size:14px; font-variant-numeric:tabular-nums; }
   .bktab [data-wknd="true"]{ background:var(--wkndbg); }
@@ -1404,7 +1389,7 @@
           matText:"Text", matImage:"Image", remind:"Remind before posting", remindOff:"Off",
           notMatched:"Not checked", matched:"Matches the plan", mismatched:"Differs from the plan",
           navImport:"Import", impHelp:"Paste the plan from your spreadsheet (tab-separated, header row first).",
-          navPrep2:"Prep (beta)", pvList:"List", pvCal:"Calendar", bkPrep:"prep", bkText:"Text", bkImg:"Image", bkHoliday:"Day off", tgShared:"Shared", tgNotShared:"Not shared yet", tgDue:"Share by", tgNextDay:"next day", tgLate:"Overdue", tgShareTip:"Tap after posting this to Telegram", bkShared:"Saved for everyone", bkOffline:"Server unreachable. Saved on this device only", bkNeedCode:"Enter the team passphrase to share with everyone", bkWhoTip:"Tap to change who is in charge", bkHolTip:"Tap to mark this day as a day off", bkNotYet:"Preparing", bkBookedShort:"Booked", bkReplyTip:"Reply to this post. Tap when done", bkLinkAdd:"+ Link", bkLinkOpen:"Open", bkLinkEdit:"Change link", bkLinkDel:"Delete link", bkLinkPrompt:"Paste the link (leave empty to remove)", bkLinkBad:"Only links starting with http:// or https://", bkVideo:"Video posted", bkCommentPrompt:"Comment (leave empty to remove)", bkLinkUpTip:"Link", bkCommentTip:"Comment", bkLabelsEdit:"Add labels", bkLabelAdd:"Add", bkLabelDel:"Delete", bkLabelPh:"e.g. On hold", bkBlank:"Blank", bkLinkRowTip:"Tap to show/hide this row's links", gProjects:"Projects", gRecur:"Recurring", gRecurTitle:"Recurring slots", gAddRule:"Add", gClose:"Close", gMake:"Create this post", gRecurTag:"recurring", gView3:"3 days", gViewWeek:"Week", gViewMonth:"Month", gNoRule:"No recurring slots yet.", calToday:"Today", calNone:"Nothing on this day", calMore:" more",
+          navPrep2:"Prep (beta)", pvList:"List", pvCal:"Calendar", bkPrep:"prep", bkText:"Text", bkImg:"Image", bkHoliday:"Day off", tgShared:"Shared", tgNotShared:"Not shared yet", tgDue:"Share by", tgNextDay:"next day", tgLate:"Overdue", tgShareTip:"Tap after posting this to Telegram", bkShared:"Saved for everyone", bkOffline:"Server unreachable. Saved on this device only", bkNeedCode:"Enter the team passphrase to share with everyone", bkWhoTip:"Tap to change who is in charge", bkHolTip:"Tap to mark this day as a day off", bkNotYet:"Preparing", bkBookedShort:"Booked", bkReplyTip:"Reply to this post. Tap when done", bkLinkPrompt:"Paste the link (leave empty to remove)", bkLinkBad:"Only links starting with http:// or https://", bkVideo:"Video posted", bkCommentPrompt:"Comment (leave empty to remove)", bkLinkUpTip:"Link", bkCommentTip:"Comment", bkLabelsEdit:"Add labels", bkLabelAdd:"Add", bkLabelDel:"Delete", bkLabelPh:"e.g. On hold", bkBlank:"Blank", gProjects:"Projects", gRecur:"Recurring", gRecurTitle:"Recurring slots", gAddRule:"Add", gClose:"Close", gMake:"Create this post", gRecurTag:"recurring", gView3:"3 days", gViewWeek:"Week", gViewMonth:"Month", gNoRule:"No recurring slots yet.", calToday:"Today", calNone:"Nothing on this day", calMore:" more",
           navTg:"Telegram", navGuide:"Guide", tipGuide:"How each task is done.", copyAll:"Copy all", tgEmpty:"Nothing posted with a link on this day yet", tgLinks:"Links",
           navOv:"Overview", navToday:"Today", tipToday:"Only what you can finish now: likes, scheduling, URLs, checks", tdLeft:"left", tdLikes:"Likes", tdNext:"next", tdAllDone:"All done for today", tdBook:"To schedule", tdLate:"Missed", tdUrl:"Paste URL", tdCheck:"Check", tdBooked:"Scheduled", tdPaste:"Paste", tdChecked:"Checked", tdMemoPh:"Write a note (required)", tdQ1:"No text", tdQ2:"No image", tdQ3:"All good", tdOlder:"Earlier days", tdDoneToday:"Done today", tdUndo:"Undo", tdOpen:"Open", tdNone:"Nothing to schedule this week", tdBadUrl:"URL must start with https://", tdThisWeek:"This week", tdPosted:"Posted", ovMeasureOnly:"Followers only, no posting", ovAccounts:"Accounts", ovDocs:"Plans",
           impCols:"Columns: date (or day), time, platform, type, label, ja, en, ko, asset",
@@ -1455,7 +1440,7 @@
           matText:"텍스트", matImage:"이미지", remind:"게시 전 알림", remindOff:"끄기",
           notMatched:"미확인", matched:"기획과 일치", mismatched:"기획과 다름",
           navImport:"불러오기", impHelp:"기획표를 붙여넣어. 탭으로 구분된 표(첫 줄은 제목).",
-          navPrep2:"준비(시안)", pvList:"목록", pvCal:"캘린더", bkPrep:"준비", bkText:"텍스트", bkImg:"이미지", bkHoliday:"휴일", tgShared:"공유함", tgNotShared:"아직 공유 안 함", tgDue:"공유", tgNextDay:"다음 날", tgLate:"늦음", tgShareTip:"텔레그램에 올린 뒤 누르기", bkShared:"모두에게 저장됨", bkOffline:"서버에 연결 안 됨. 이 기기에만 저장", bkNeedCode:"팀 암호를 넣으면 모두와 공유돼", bkWhoTip:"누르면 담당자 변경", bkHolTip:"누르면 이 날을 휴일로", bkNotYet:"준비 중", bkBookedShort:"예약됨", bkReplyTip:"이 게시물에 대한 답글. 하면 누르기", bkLinkAdd:"+ 링크", bkLinkOpen:"열기", bkLinkEdit:"링크 바꾸기", bkLinkDel:"링크 삭제", bkLinkPrompt:"링크를 붙여 넣어 (비우면 삭제)", bkLinkBad:"http:// 또는 https:// 로 시작하는 링크만 돼", bkVideo:"영상 게시", bkCommentPrompt:"코멘트 (비우면 삭제)", bkLinkUpTip:"링크", bkCommentTip:"코멘트", bkLabelsEdit:"라벨 등록", bkLabelAdd:"추가", bkLabelDel:"삭제", bkLabelPh:"예: 보류", bkBlank:"빈칸", bkLinkRowTip:"누르면 이 행의 링크가 열리고 닫혀", gProjects:"프로젝트", gRecur:"정기 설정", gRecurTitle:"정기 게시 시간", gAddRule:"추가", gClose:"닫기", gMake:"이 게시물 만들기", gRecurTag:"정기", gView3:"3일", gViewWeek:"주", gViewMonth:"월", gNoRule:"정기 설정이 아직 없어.", calToday:"오늘", calNone:"이 날은 비어 있어", calMore:"개 더",
+          navPrep2:"준비(시안)", pvList:"목록", pvCal:"캘린더", bkPrep:"준비", bkText:"텍스트", bkImg:"이미지", bkHoliday:"휴일", tgShared:"공유함", tgNotShared:"아직 공유 안 함", tgDue:"공유", tgNextDay:"다음 날", tgLate:"늦음", tgShareTip:"텔레그램에 올린 뒤 누르기", bkShared:"모두에게 저장됨", bkOffline:"서버에 연결 안 됨. 이 기기에만 저장", bkNeedCode:"팀 암호를 넣으면 모두와 공유돼", bkWhoTip:"누르면 담당자 변경", bkHolTip:"누르면 이 날을 휴일로", bkNotYet:"준비 중", bkBookedShort:"예약됨", bkReplyTip:"이 게시물에 대한 답글. 하면 누르기", bkLinkPrompt:"링크를 붙여 넣어 (비우면 삭제)", bkLinkBad:"http:// 또는 https:// 로 시작하는 링크만 돼", bkVideo:"영상 게시", bkCommentPrompt:"코멘트 (비우면 삭제)", bkLinkUpTip:"링크", bkCommentTip:"코멘트", bkLabelsEdit:"라벨 등록", bkLabelAdd:"추가", bkLabelDel:"삭제", bkLabelPh:"예: 보류", bkBlank:"빈칸", gProjects:"프로젝트", gRecur:"정기 설정", gRecurTitle:"정기 게시 시간", gAddRule:"추가", gClose:"닫기", gMake:"이 게시물 만들기", gRecurTag:"정기", gView3:"3일", gViewWeek:"주", gViewMonth:"월", gNoRule:"정기 설정이 아직 없어.", calToday:"오늘", calNone:"이 날은 비어 있어", calMore:"개 더",
           navTg:"텔레그램", navGuide:"설명", tipGuide:"작업을 어떻게 하는지.", copyAll:"전체 복사", tgEmpty:"이 날짜엔 링크가 있는 게시물이 아직 없어", tgLinks:"링크",
           navOv:"개요", navToday:"오늘", tipToday:"지금 끝낼 수 있는 것만: 좋아요, 예약, URL, 확인", tdLeft:"남음", tdLikes:"좋아요", tdNext:"다음", tdAllDone:"오늘은 끝", tdBook:"예약하기", tdLate:"놓침", tdUrl:"URL 붙이기", tdCheck:"확인하기", tdBooked:"예약함", tdPaste:"붙이기", tdChecked:"확인함", tdMemoPh:"메모를 써야 누를 수 있어", tdQ1:"텍스트 없음", tdQ2:"이미지 없음", tdQ3:"문제 없음", tdOlder:"이전 날", tdDoneToday:"오늘 끝낸 것", tdUndo:"되돌리기", tdOpen:"열기", tdNone:"이번 주 예약할 것 없음", tdBadUrl:"URL은 https:// 로 시작해야 해", tdThisWeek:"이번 주", tdPosted:"게시됨", ovMeasureOnly:"팔로워만 추적, 게시는 안 함", ovAccounts:"계정", ovDocs:"기획서",
           impCols:"열: date (또는 day), time, platform, type, label, ja, en, ko, asset",
@@ -1506,7 +1491,7 @@
           matText:"テキスト", matImage:"画像", remind:"投稿前にリマインド", remindOff:"切",
           notMatched:"未確認", matched:"企画どおり", mismatched:"企画と違う",
           navImport:"取り込み", impHelp:"表計算からコピーして貼る（タブ区切り・1行目は見出し）。",
-          navPrep2:"準備（仮）", pvList:"一覧", pvCal:"カレンダー", bkPrep:"準備", bkText:"テキスト", bkImg:"イメージ", bkHoliday:"休日", tgShared:"共有済み", tgNotShared:"未共有", tgDue:"共有", tgNextDay:"翌日", tgLate:"遅れ", tgShareTip:"Telegramに投稿したら押す", bkShared:"全員に保存しました", bkOffline:"サーバーにつながりません。この端末にだけ残しました", bkNeedCode:"チームの合言葉を入れると、全員と共有されます", bkWhoTip:"押すと担当者が変わる", bkHolTip:"押すと、この日を休日にする", bkNotYet:"準備中", bkBookedShort:"予約済み", bkReplyTip:"すぐ上の投稿への返信。済んだら押す", bkLinkAdd:"+ リンク", bkLinkOpen:"開く", bkLinkEdit:"リンクを変える", bkLinkDel:"リンクを削除", bkLinkPrompt:"リンクを貼ってください（空にすると消えます）", bkLinkBad:"http:// か https:// で始まるリンクだけ置けます", bkVideo:"動画投稿", bkCommentPrompt:"コメント（空にすると消えます）", bkLinkUpTip:"リンク", bkCommentTip:"コメント", bkLabelsEdit:"ラベルを登録", bkLabelAdd:"追加", bkLabelDel:"削除", bkLabelPh:"例：保留", bkBlank:"空欄", bkLinkRowTip:"押すと、この行のリンクだけ開く・閉じる", gProjects:"プロジェクト", gRecur:"定期の設定", gRecurTitle:"定期の投稿枠", gAddRule:"追加", gClose:"閉じる", gMake:"この企画を作る", gRecurTag:"定期", gView3:"3日", gViewWeek:"週", gViewMonth:"月", gNoRule:"定期の枠はまだない。", calToday:"今日", calNone:"この日は空", calMore:"件",
+          navPrep2:"準備（仮）", pvList:"一覧", pvCal:"カレンダー", bkPrep:"準備", bkText:"テキスト", bkImg:"イメージ", bkHoliday:"休日", tgShared:"共有済み", tgNotShared:"未共有", tgDue:"共有", tgNextDay:"翌日", tgLate:"遅れ", tgShareTip:"Telegramに投稿したら押す", bkShared:"全員に保存しました", bkOffline:"サーバーにつながりません。この端末にだけ残しました", bkNeedCode:"チームの合言葉を入れると、全員と共有されます", bkWhoTip:"押すと担当者が変わる", bkHolTip:"押すと、この日を休日にする", bkNotYet:"準備中", bkBookedShort:"予約済み", bkReplyTip:"すぐ上の投稿への返信。済んだら押す", bkLinkPrompt:"リンクを貼ってください（空にすると消えます）", bkLinkBad:"http:// か https:// で始まるリンクだけ置けます", bkVideo:"動画投稿", bkCommentPrompt:"コメント（空にすると消えます）", bkLinkUpTip:"リンク", bkCommentTip:"コメント", bkLabelsEdit:"ラベルを登録", bkLabelAdd:"追加", bkLabelDel:"削除", bkLabelPh:"例：保留", bkBlank:"空欄", gProjects:"プロジェクト", gRecur:"定期の設定", gRecurTitle:"定期の投稿枠", gAddRule:"追加", gClose:"閉じる", gMake:"この企画を作る", gRecurTag:"定期", gView3:"3日", gViewWeek:"週", gViewMonth:"月", gNoRule:"定期の枠はまだない。", calToday:"今日", calNone:"この日は空", calMore:"件",
           navTg:"Telegram通知", navGuide:"説明", tipGuide:"作業のやり方。", copyAll:"全部コピー", tgEmpty:"この日はまだリンク付きの投稿がない", tgLinks:"リンク",
           navOv:"概要", navToday:"今日", tipToday:"今終わらせられるものだけ：いいね・予約・URL・確認", tdLeft:"残り", tdLikes:"いいね", tdNext:"次", tdAllDone:"今日は済み", tdBook:"予約する", tdLate:"予約されずに過ぎた", tdUrl:"URLを貼る", tdCheck:"確認する", tdBooked:"予約した", tdPaste:"貼る", tdChecked:"確認した", tdMemoPh:"メモを書く（書くと押せます）", tdQ1:"テキストなし", tdQ2:"画像なし", tdQ3:"問題なし", tdOlder:"前の日の残り", tdDoneToday:"今日済んだもの", tdUndo:"元に戻す", tdOpen:"開く", tdNone:"今週、予約するものはありません", tdBadUrl:"URLは https:// で始めてください", tdThisWeek:"今週", tdPosted:"投稿", ovMeasureOnly:"フォロワーだけ追う。投稿はしない", ovAccounts:"運用アカウント", ovDocs:"企画書",
           impCols:"列: date（または day）, time, platform, type, label, ja, en, ko, asset",
@@ -3523,29 +3508,12 @@
       }, function () { bkOut = t("bkOffline"); })
       .then(function () { var o = document.getElementById("bkOut"); if (o) o.textContent = bkOut; });
   }
-  // 行に貼るリンク（投稿の確認・返信で、すぐそのページへ飛ぶ）。2026-09-15: 日付ごとに貼れるように変更。
-  // 既定は非表示。行の一番左（見出しブロック）をタップすると、その行のリンクだけ開く
-  var bkLinkOpen = {};
+  // 行に貼るリンク（投稿の確認・返信で、すぐそのページへ飛ぶ）。
+  // 2026-09-17: 行見出しブロックのタップは廃止。通常の予約ボタンの長押し＋上ドラッグだけで扱う（bkGesture参照）
   function bkRowKey(g, r) {
     return r.check || (g.channel + "|" + (r.platforms || []).join("-") + "|" + String(r.time || "").replace(":", "") + "|" + (r.reply ? "r" : "p"));
   }
   function bkDateLinkKey(rk, k) { return k + "|" + rk; }
-  // 2026-09-16: アドレスの文字は出さず、登録した日時を出す。押すとそのページへ飛ぶ。右にコピー・修正・削除
-  function bkLinkStamp(at) {
-    if (!at) return t("bkLinkOpen");   // 古い形式（日時なし）や壊れた値は「開く」に逃がす
-    var d = new Date(at);
-    if (isNaN(d.getTime())) return t("bkLinkOpen");
-    return (d.getMonth() + 1) + "/" + d.getDate() + " " + two(d.getHours()) + ":" + two(d.getMinutes());
-  }
-  function bkLinkCellHTML(rk, k) {
-    var key = bkDateLinkKey(rk, k), v = schedule && schedule.links && schedule.links[key];
-    var u = v && typeof v === "object" ? v.url : (typeof v === "string" ? v : "");   // 旧形式（文字列だけ）も読める
-    if (!u || !/^https?:\/\//i.test(u)) return '<button class="bkladd" data-lk="' + esc(key) + '">' + esc(t("bkLinkAdd")) + '</button>';
-    return '<span class="bklrow"><a class="bklink" href="' + esc(u) + '" target="_blank" rel="noopener" title="' + esc(u) + '">↗ ' + esc(bkLinkStamp(v && v.at)) + '</a>' +
-      '<button class="bklcopy" data-url="' + esc(u) + '" title="' + esc(u) + '">' + esc(t("copy")) + '</button>' +
-      '<button class="bkledit" data-lk="' + esc(key) + '" title="' + esc(t("bkLinkEdit")) + '" aria-label="' + esc(t("bkLinkEdit")) + '">✎</button>' +
-      '<button class="bkldel" data-lkdel="' + esc(key) + '" title="' + esc(t("bkLinkDel")) + '" aria-label="' + esc(t("bkLinkDel")) + '">✕</button></span>';
-  }
   // ===== 予約ボタンのドロップダウン（2026-09-15 Hibiki指定）=====
   // 押すと「予約済み・準備中・登録したラベル」を選べる。ラベル（テキストと色）はここで足したり消したりする。
   // ラベルを選んだ枠は status "c:id"。一覧はサーバーの kind o「labels」
@@ -3865,31 +3833,25 @@
         (g.unsure ? ' <em title="' + esc(g.unsure) + '">' + esc(t("bkUnsure")) + '</em>' : "") + '</th></tr>';
       (g.rows || []).forEach(function (r) {
         var rk = bkRowKey(g, r);
-        // 2026-09-16: \u30ea\u30f3\u30af\u306f\u3001\u901a\u5e38\u306e\u4e88\u7d04\u30dc\u30bf\u30f3\u3067\u306f\u9577\u62bc\u3057\uff0b\u4e0a\u30c9\u30e9\u30c3\u30b0\u306b\u7d71\u4e00\u3057\u305f\uff08\u898b\u51fa\u3057\u30bf\u30c3\u30d7\u306f\u5ec3\u6b62\uff09\u3002
-        // \u78ba\u8a8d\u30fb\u8fd4\u4fe1\u306e\u884c\uff08\u30dc\u30bf\u30f3\u306b\u9577\u62bc\u3057\u64cd\u4f5c\u304c\u306a\u3044\uff09\u3060\u3051\u3001\u3053\u308c\u307e\u3067\u3069\u304a\u308a\u898b\u51fa\u3057\u30bf\u30c3\u30d7\u3067\u958b\u9589\u3059\u308b
-        var hasGestureLink = !r.check && !r.reply;
-        var linkOpen = !hasGestureLink && !!bkLinkOpen[rk];
-        h += '<tr' + (r.reply ? ' class="bkreprow"' : '') + ' style="--chc:' + esc(c.color || "var(--wood)") + '"><th class="bkacc"' +
-          (hasGestureLink ? '' : ' data-rk="' + esc(rk) + '" data-lkopen="' + linkOpen + '" title="' + esc(t("bkLinkRowTip")) + '"') +
-          '><b>' + (r.reply ? "\u21b3 " : "") + esc(tl(r.label)) + '</b><i>' +
+        h += '<tr' + (r.reply ? ' class="bkreprow"' : '') + ' style="--chc:' + esc(c.color || "var(--wood)") + '"><th class="bkacc">' +
+          '<b>' + (r.reply ? "\u21b3 " : "") + esc(tl(r.label)) + '</b><i>' +
           esc(rowPlats(r).map(pfn).join("\u30fb")) + (r.time ? " \u00b7 " + esc(r.time) : "") + '</i></th>';
         days.forEach(function (d) {
           var k = ymd(d);
-          var linkHtml = linkOpen ? '<div class="bklwrap">' + bkLinkCellHTML(rk, k) + '</div>' : "";
           // \u78ba\u8a8d\u306e\u884c\uff08\u4e88\u7d04\u3067\u306f\u306a\u3044\uff09\uff1a\u6295\u7a3f\u3055\u308c\u305f\u304b\u30fb\u8fd4\u4fe1\u3057\u305f\u304b\u3092\u62bc\u3057\u3066\u2713\u3002\u52d5\u753b\u306f\u6bce\u65e5\u3067\u306f\u306a\u3044\u306e\u3067\u6708\u9593\u4f01\u753b\u3067\u78ba\u304b\u3081\u308b
           if (r.check) {
             var ckk = k + "|" + r.check, cOn = !!(schedule.telegram && schedule.telegram[ckk]);
             h += '<td data-today="' + (k === today) + '" data-hol="' + isHol(k) + '"><button class="bkc bkrep" data-ck="' + esc(ckk) + '" data-on="' + cOn + '" title="' +
-              esc(c.name + " " + tl(r.label)) + '">' + (cOn ? "\u2713" : "") + '</button>' + linkHtml + '</td>';
+              esc(c.name + " " + tl(r.label)) + '">' + (cOn ? "\u2713" : "") + '</button></td>';
             return;
           }
           var sls = rowSlots(g, r, k);
           if (r.reply) {
             var live = sls.filter(function (x) { return !x.skip; });
-            if (!live.length) { h += '<td data-today="' + (k === today) + '" data-hol="' + isHol(k) + '"><span class="bkno">\u2013</span>' + linkHtml + '</td>'; return; }
+            if (!live.length) { h += '<td data-today="' + (k === today) + '" data-hol="' + isHol(k) + '"><span class="bkno">\u2013</span></td>'; return; }
             var rOn = live.every(function (x) { return !!x.reply; });
             h += '<td data-today="' + (k === today) + '" data-hol="' + isHol(k) + '"><button class="bkc bkrep" data-rk="' + esc(live.map(slotKey).join("~")) + '" data-on="' + rOn + '" title="' +
-              esc(t("bkReplyTip")) + '">' + (rOn ? "\u2713" : "") + '</button>' + linkHtml + '</td>';
+              esc(t("bkReplyTip")) + '">' + (rOn ? "\u2713" : "") + '</button></td>';
             return;
           }
           var gi = (bookRows.groups || []).indexOf(g), ri = g.rows.indexOf(r);
@@ -3992,20 +3954,6 @@
       });
       return;
     }
-    // 行の一番左（見出しブロック）をタップすると、その行のリンクだけ開く・閉じる
-    var rkth = e.target.closest("th.bkacc[data-rk]");
-    if (rkth) {
-      var rrk = rkth.getAttribute("data-rk");
-      var opening = !bkLinkOpen[rrk];
-      bkLinkOpen[rrk] = opening;
-      var rw = document.getElementById("bkWrap"), rsx = rw ? rw.scrollLeft : 0, rsy = window.scrollY;
-      renderBook();
-      var rw2 = document.getElementById("bkWrap"); if (rw2) rw2.scrollLeft = rsx; window.scrollTo(0, rsy);
-      // 開いたとき、今日のリンクがまだなければ、その場で貼れるように聞く（追加した日時＝今日を基準にする）
-      var todayKey = ymd(new Date()) + "|" + rrk;
-      if (opening && !(schedule.links && schedule.links[todayKey])) bkLinkPromptFor(todayKey);
-      return;
-    }
     var hd = e.target.closest(".bkdaybtn");
     if (hd) {
       var hk = hd.getAttribute("data-hd");
@@ -4018,27 +3966,6 @@
       var hw2 = document.getElementById("bkWrap"); if (hw2) hw2.scrollLeft = hsx; window.scrollTo(0, hsy);
       return;
     }
-    var lc = e.target.closest(".bklcopy");
-    if (lc) {
-      var lu = lc.getAttribute("data-url");
-      if (lu && navigator.clipboard) navigator.clipboard.writeText(lu).then(function () {
-        lc.textContent = "✓"; setTimeout(function () { lc.textContent = t("copy"); }, 1200);
-      });
-      return;
-    }
-    var ld = e.target.closest(".bkldel");
-    if (ld) {
-      var dkey = ld.getAttribute("data-lkdel");
-      schedule.links = schedule.links || {};
-      delete schedule.links[dkey];
-      var dw = document.getElementById("bkWrap"), dsx = dw ? dw.scrollLeft : 0, dsy = window.scrollY;
-      bookPush("l", dkey, "");
-      renderBook();
-      var dw2 = document.getElementById("bkWrap"); if (dw2) dw2.scrollLeft = dsx; window.scrollTo(0, dsy);
-      return;
-    }
-    var la = e.target.closest(".bkladd, .bkledit");
-    if (la) { bkLinkPromptFor(la.getAttribute("data-lk")); return; }
     var b = e.target.closest(".bkc");
     if (!b) return;
     var wrap = document.getElementById("bkWrap"), sx = wrap ? wrap.scrollLeft : 0, sy = window.scrollY;
