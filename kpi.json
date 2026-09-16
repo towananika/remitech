@@ -71,6 +71,20 @@
     {
       "date": "2026-09-16",
       "channel": "hiyoko",
+      "platform": "IG",
+      "followers": 2245,
+      "source": "auto"
+    },
+    {
+      "date": "2026-09-16",
+      "channel": "hiyoko",
+      "platform": "TT",
+      "followers": 130,
+      "source": "auto"
+    },
+    {
+      "date": "2026-09-16",
+      "channel": "hiyoko",
       "platform": "YT",
       "followers": 94,
       "videos": 205,
@@ -79,9 +93,30 @@
     {
       "date": "2026-09-16",
       "channel": "nacha",
+      "platform": "IG",
+      "followers": 143,
+      "source": "auto"
+    },
+    {
+      "date": "2026-09-16",
+      "channel": "nacha",
+      "platform": "TT",
+      "followers": 37,
+      "source": "auto"
+    },
+    {
+      "date": "2026-09-16",
+      "channel": "nacha",
       "platform": "YT",
       "followers": 13,
       "videos": 107,
+      "source": "auto"
+    },
+    {
+      "date": "2026-09-16",
+      "channel": "reel",
+      "platform": "IG",
+      "followers": 193,
       "source": "auto"
     }
   ]
