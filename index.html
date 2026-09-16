@@ -822,6 +822,9 @@
   .tglinks{ margin-top:22px; }
   .guide{ max-width:640px; }
   .gtitle{ font-size:18px; margin:6px 0 14px; }
+  .gsub{ font-size:14px; margin:18px 0 8px; color:var(--muted); }
+  .gsub:first-of-type{ margin-top:0; }
+  .gkwrow code + code{ margin-left:6px; }
   .gstep{ border:1px solid var(--line); border-radius:12px; padding:12px 14px; margin-bottom:12px; }
   .gstep .plabel{ margin:0 0 6px; }
   .gstep p{ margin:0 0 6px; line-height:1.6; }
@@ -4840,22 +4843,34 @@
     view.innerHTML = kpiManualHTML() + (shown ? html + '</div>' : '<p class="empty">' + esc(t("noKpi")) + '</p>');
   }
 
-  /* ===== 説明タブ（2026-09-15 Hibiki指定）=====
-     作業のやり方。今はフォロー作業だけ。プロジェクト別のキーワードは GUIDE_KW */
+  /* ===== 説明タブ（2026-09-15 Hibiki指定、2026-09-16 いいね作業を追加）=====
+     作業のやり方。プロジェクト別のキーワードは GUIDE_KW（1つのチャンネルに複数可） */
   var GUIDE_KW = [
-    { ch: "hiyoko", kw: "Bitcoin" },
-    { ch: "nacha",  kw: "meme coin" },
-    { ch: "reel",   kw: "bitcoin" },
-    { ch: "yuyu",   kw: "temple" }
+    { ch: "hiyoko", kw: ["Bitcoin"] },
+    { ch: "nacha",  kw: ["meme coin", "memecoin"] },
+    { ch: "reel",   kw: ["bitcoin"] },
+    { ch: "yuyu",   kw: ["temple"] }
   ];
   var GUIDE_TXT = {
-    ja: { title: "フォロー作業", un: "フォロー解除", unBody: "フォローしているユーザーのうち、いちばん古くフォローしていて、フォローバックされていない人を解除する。",
+    ja: { title: "作業のやり方",
+          likeTitle: "いいね作業", likeTime: "時間：09:30・13:30・17:00の3回",
+          likeBody: "その回数ぶん、いいねを押す。", likeExc1: "HIYOKO の X だけ 60回",
+          likeExc2: "悠悠観音堂（Yuyu Kannondo）の X だけ 20回", likeRest: "ほかはすべて 40回",
+          followTitle: "フォロー作業", un: "フォロー解除", unBody: "フォローしているユーザーのうち、いちばん古くフォローしていて、フォローバックされていない人を解除する。",
           unAim: "目安：5人以上", add: "新しくフォロー", addBody: "キーワードで検索したユーザーのうち、次の2つに当てはまる人をフォローする。",
           add1: "フォロワーが1万人以下", add2: "フォローしている数が多い", kw: "キーワード（プロジェクト別）" },
-    en: { title: "Follow task", un: "Unfollow", unBody: "Among the users you follow, unfollow the ones you followed longest ago who have not followed back.",
+    en: { title: "How each task is done",
+          likeTitle: "Likes task", likeTime: "Times: 09:30, 13:30, 17:00",
+          likeBody: "Tap Like that many times.", likeExc1: "HIYOKO X only: 60",
+          likeExc2: "Yuyu Kannondo X only: 20", likeRest: "Everything else: 40",
+          followTitle: "Follow task", un: "Unfollow", unBody: "Among the users you follow, unfollow the ones you followed longest ago who have not followed back.",
           unAim: "Aim: 5 or more", add: "Follow new users", addBody: "Search by keyword and follow users who match both:",
           add1: "10,000 followers or fewer", add2: "Following many accounts", kw: "Keywords (per project)" },
-    ko: { title: "팔로우 작업", un: "언팔로우", unBody: "팔로우 중인 사용자 중 가장 오래전에 팔로우했는데 맞팔하지 않은 사람을 언팔로우한다.",
+    ko: { title: "작업 방법",
+          likeTitle: "좋아요 작업", likeTime: "시간: 09:30・13:30・17:00 하루 3번",
+          likeBody: "그 횟수만큼 좋아요를 누른다.", likeExc1: "HIYOKO의 X만 60회",
+          likeExc2: "유유관음당(Yuyu Kannondo)의 X만 20회", likeRest: "나머지는 모두 40회",
+          followTitle: "팔로우 작업", un: "언팔로우", unBody: "팔로우 중인 사용자 중 가장 오래전에 팔로우했는데 맞팔하지 않은 사람을 언팔로우한다.",
           unAim: "기준: 5명 이상", add: "새로 팔로우", addBody: "키워드로 검색한 사용자 중 아래 두 가지에 맞는 사람을 팔로우한다.",
           add1: "팔로워 1만 명 이하", add2: "팔로잉 수가 많은 사람", kw: "키워드 (프로젝트별)" }
   };
@@ -4864,12 +4879,17 @@
     var g = GUIDE_TXT[lang] || GUIDE_TXT.ja;
     view.innerHTML = '<div class="guide">' +
       '<h2 class="gtitle">' + esc(g.title) + '</h2>' +
+      '<h3 class="gsub">' + esc(g.likeTitle) + '</h3>' +
+      '<div class="gstep"><p>' + esc(g.likeTime) + '</p><p>' + esc(g.likeBody) + '</p>' +
+        '<ul><li>' + esc(g.likeExc1) + '</li><li>' + esc(g.likeExc2) + '</li><li>' + esc(g.likeRest) + '</li></ul></div>' +
+      '<h3 class="gsub">' + esc(g.followTitle) + '</h3>' +
       '<div class="gstep"><p class="plabel">1. ' + esc(g.un) + '</p><p>' + esc(g.unBody) + '</p><p class="gaim">' + esc(g.unAim) + '</p></div>' +
       '<div class="gstep"><p class="plabel">2. ' + esc(g.add) + '</p><p>' + esc(g.addBody) + '</p>' +
         '<ul><li>' + esc(g.add1) + '</li><li>' + esc(g.add2) + '</li></ul></div>' +
       '<div class="gstep"><p class="plabel">' + esc(g.kw) + '</p><div class="gkw">' + GUIDE_KW.map(function (k) {
         var c = chanOf(k.ch) || { name: k.ch, color: "var(--wood)" };
-        return '<div class="gkwrow" style="--chc:' + esc(c.color || "var(--wood)") + '"><b>' + esc(c.name) + '</b><code>' + esc(k.kw) + '</code></div>';
+        return '<div class="gkwrow" style="--chc:' + esc(c.color || "var(--wood)") + '"><b>' + esc(c.name) + '</b>' +
+          k.kw.map(function (w) { return '<code>' + esc(w) + '</code>'; }).join("") + '</div>';
       }).join("") + '</div></div>' +
       '</div>';
   }
