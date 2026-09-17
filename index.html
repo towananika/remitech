@@ -25,6 +25,9 @@
     --ink:#f2eee5; --muted:#b6ad99; --wood:#c99f74; --wood-soft:#382d20; --sage:#9aab84; --todaybg:#2b2318; --wkndbg:#221f19;
   }
   *{box-sizing:border-box}
+  /* 2026-09-17: 押したときに一瞬ボタンの大きさが変わる問題を消す。
+     端末側の既定の押下効果（灰色の重ね・ダブルタップ拡大・OS純正のボタン装飾）が原因だった */
+  button{ -webkit-tap-highlight-color:transparent; -webkit-appearance:none; appearance:none; touch-action:manipulation; }
   body{
     margin:0; background:var(--bg); color:var(--ink);
     font-family:var(--gothic); font-weight:400; line-height:1.8;
