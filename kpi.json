@@ -118,6 +118,20 @@
       "platform": "IG",
       "followers": 193,
       "source": "auto"
+    },
+    {
+      "date": "2026-09-17",
+      "channel": "hiyoko",
+      "platform": "X",
+      "followers": 245,
+      "following": 246,
+      "posts": 1921,
+      "source": "manual",
+      "checkedAt": {
+        "followers": "2026-09-17T09:06:11.770589",
+        "following": "2026-09-17T09:06:11.770589",
+        "posts": "2026-09-17T09:06:11.770589"
+      }
     }
   ]
 }
