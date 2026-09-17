@@ -136,6 +136,11 @@
       "kind": "follow",
       "tasks": [
         {
+          "id": "hiyoko|X|fm5",
+          "time": "11:55",
+          "task": "FOLLOW-5"
+        },
+        {
           "id": "hiyoko|X|f5",
           "time": "12:00",
           "task": "FOLLOW+5"
@@ -147,6 +152,11 @@
       "platform": "X",
       "kind": "follow",
       "tasks": [
+        {
+          "id": "nacha|X|fm5",
+          "time": "11:55",
+          "task": "FOLLOW-5"
+        },
         {
           "id": "nacha|X|f5",
           "time": "12:00",
@@ -160,6 +170,11 @@
       "kind": "follow",
       "tasks": [
         {
+          "id": "hiyoko|IG|fm5",
+          "time": "11:55",
+          "task": "FOLLOW-5"
+        },
+        {
           "id": "hiyoko|IG|f5",
           "time": "12:00",
           "task": "FOLLOW+5"
@@ -171,6 +186,11 @@
       "platform": "IG",
       "kind": "follow",
       "tasks": [
+        {
+          "id": "nacha|IG|fm5",
+          "time": "11:55",
+          "task": "FOLLOW-5"
+        },
         {
           "id": "nacha|IG|f5",
           "time": "12:00",
