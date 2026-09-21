@@ -108,6 +108,9 @@
     cursor:pointer; flex:0 0 auto; white-space:nowrap;
   }
   .nav button[aria-pressed="true"]{ color:var(--ink); border-bottom-color:var(--wood); }
+  /* いいねタブ＝日々の作業タブ。押していなくても少し目立たせる（2026-09-21） */
+  .nav button.navhot{ color:var(--wood); font-weight:700; }
+  .nav button.navhot[aria-pressed="true"]{ color:var(--ink); }
 
   /* ---- KPI ---- */
   .kpi{ max-width:none; }
@@ -2259,9 +2262,9 @@
     view.innerHTML = html;
   }
 
-  function renderTelegram() {
-    chansEl.hidden = true;
-    if (!schedule) { view.innerHTML = '<p class="empty">' + esc(t("none")) + '</p>'; return; }
+  // 旧Telegram通知タブの中身。いいねタブの下に差し込む（2026-09-21 タブ統合）
+  function telegramSectionHTML() {
+    if (!schedule) return "";
     if (!tgDate) tgDate = ymd(new Date());
     var blocks = telegramBlocks(tgDate);
     var raw = telegramTextRaw(tgDate);
@@ -2312,16 +2315,16 @@
           '<div class="tglinks"><p class="plabel">' + esc(t("tgLinks")) + '</p>' + linkRows + '</div>'
         : '<p class="empty">' + esc(t("tgEmpty")) + '</p>') +
       '</div>';
-    view.innerHTML = html;
+    return html;
   }
   view.addEventListener("click", function (e) {
-    if (tab !== "tg") return;
+    if (tab !== "likes" && tab !== "follow") return;
     var b = e.target.closest(".tgshare");
     if (!b) return;
     var k = b.getAttribute("data-tk");
     schedule.telegram = schedule.telegram || {};
     schedule.telegram[k] = !schedule.telegram[k];
-    var y = window.scrollY; renderTelegram(); window.scrollTo(0, y);
+    var y = window.scrollY; renderLikes(); window.scrollTo(0, y);
     bookPush("t", k, schedule.telegram[k]);
   });
 
@@ -3721,7 +3724,7 @@
       .then(function (o) {
         if (o) bkLast = o;
         var bkChanged = bookApply(o);
-        if (bkChanged && tab === "tg" && !/^#\//.test(location.hash)) { var ty = window.scrollY; renderTelegram(); window.scrollTo(0, ty); }
+        if (bkChanged && (tab === "likes" || tab === "follow") && !/^#\//.test(location.hash)) { var ty = window.scrollY; renderLikes(); window.scrollTo(0, ty); }
         if (bkChanged && tab === "book" && !/^#\//.test(location.hash)) {
           var w = document.getElementById("bkWrap"), sx = w ? w.scrollLeft : 0, sy = window.scrollY;
           renderBook();
@@ -3764,7 +3767,7 @@
   // 画面に戻ってきたら、10秒を待たずにすぐ読む（ほかの端末で押した分を早く出す）
   document.addEventListener("visibilitychange", function () { if (!document.hidden) bookPull(true); });
   var tgTick = 0;
-  setInterval(function () { if (tab === "tg" && (!hubWsUp || ++tgTick % 3 === 0)) bookPull(); }, 10000);
+  setInterval(function () { if ((tab === "likes" || tab === "follow") && (!hubWsUp || ++tgTick % 3 === 0)) bookPull(); }, 10000);
   window.addEventListener("focus", function () { bookPull(true); });
   var BK_WHO = ["Suha", "Hyejeong", "Seohyun"];
   // 休日: 手で切り替えた日はその値。触っていない日は、土日なら休日
@@ -4691,6 +4694,7 @@
       '<div class="lkprog"><i style="width:' + (tAll ? Math.round(tDone / tAll * 100) : 0) + '%"></i></div>' +
       (tAll > 0 && tDone === tAll ? '<p class="lkall">\u2713 ' + esc(t(lkMode === "follow" ? "fwAllDone" : "lkAllDone")) + '</p>' : "") +
       '<div class="lktoday">' + todayRows + '</div>' +
+      (lkMode === "follow" ? "" : telegramSectionHTML()) +
       '<button class="lkpast" id="lkPast" aria-expanded="' + lkPastOpen + '">' + esc(t("lkPast")) + (lkPastOpen ? " \u25B4" : " \u25BE") + '</button>';
     if (lkPastOpen) {
       h += '<div class="lkhead"><div class="lknav"><button id="lkPrev" aria-label="prev">\u2039</button><span>' + esc(label) + '</span>' +
@@ -5014,9 +5018,8 @@
       '<button data-tab="book" aria-pressed="' + (tab === "book") + '">' + esc(t("navBook")) + '</button>' +
       '<button data-tab="prep" aria-pressed="' + (tab === "prep" || tab === "prep2") + '">' + esc(t("navPrep")) + '</button>' +
       '<button data-tab="kpi" aria-pressed="' + (tab === "kpi") + '">' + esc(t("navKpi")) + '</button>' +
-      '<button data-tab="likes" aria-pressed="' + (tab === "likes") + '">' + esc(t("navLikes")) + '</button>' +
+      '<button class="navhot" data-tab="likes" aria-pressed="' + (tab === "likes") + '">' + esc(t("navLikes")) + '</button>' +
       '<button data-tab="import" aria-pressed="' + (tab === "import") + '">' + esc(t("navImport")) + '</button>' +
-      '<button data-tab="tg" aria-pressed="' + (tab === "tg") + '">' + esc(t("navTg")) + '</button>' +
       '<button data-tab="guide" aria-pressed="' + (tab === "guide") + '">' + esc(t("navGuide")) + '</button>';
     var tip = document.getElementById("navtip");
     if (tip) tip.textContent = t(TIPS[tab] || "tipDash");
@@ -5089,7 +5092,7 @@
     if (tab === "prep") { renderPrep(); return; }
     if (tab === "prep2") { renderPrep2(); return; }
     if (tab === "import") { renderImport(); return; }
-    if (tab === "tg") { renderTelegram(); return; }
+    if (tab === "tg") { tab = "likes"; lkMode = "likes"; renderLikes(); return; }   // Telegramタブは廃止、いいねタブへ（古いリンク用）
     if (tab === "guide") { renderGuide(); return; }
     if (tab === "ov") { renderOverview(); return; }
     renderList();
@@ -5527,7 +5530,7 @@
       saveSoon(function () { return saveSchedule("schedule: memo " + mkk); }, 800);
       return;
     }
-    if (e.target.id === "tgDate") { tgDate = e.target.value; renderTelegram(); return; }
+    if (e.target.id === "tgDate") { tgDate = e.target.value; renderLikes(); return; }
     if (e.target.id === "prepSearch") {
       prepSearch = e.target.value; prepPage = 1;
       var sel = e.target.selectionStart;
