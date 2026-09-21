@@ -356,6 +356,9 @@
   .bktab [data-today="true"]{ background:var(--todaybg); }
   .bkgrp th{ position:sticky; left:0; text-align:left; padding:8px 10px; font-size:12.5px; font-weight:700; color:var(--chc);
     background:var(--bg); border-left:0; }
+  /* プロジェクト名の行は表の幅いっぱいなので、名前だけを左に留める（横に送っても見える。2026-09-21） */
+  .bkgrp th{ position:static; }
+  .bkgrpin{ position:sticky; left:10px; display:inline-block; }
   .bkgrp em{ font-style:normal; font-weight:500; font-size:11.5px; color:#b4553f; margin-left:6px; }
   .bkc{ display:block; width:100%; min-height:38px; font:inherit; font-size:12.5px; font-weight:700; border:1px solid var(--line);
     border-radius:8px; background:var(--bg); color:var(--ink); cursor:pointer; }
@@ -3881,11 +3884,11 @@
 
     var body = (bookRows.groups || []).map(function (g) {
       var c = chanOf(g.channel) || { name: g.channel, color: "var(--wood)" };
-      var h = '<tr class="bkgrp" style="--chc:' + esc(c.color || "var(--wood)") + '"><th colspan="8">' + esc(c.name) +
+      var h = '<tr class="bkgrp" style="--chc:' + esc(c.color || "var(--wood)") + '"><th colspan="8"><span class="bkgrpin">' + esc(c.name) +
         (c.docs || []).map(function (dc) {
           return ' <a class="bkdoc" href="' + esc(dc.url) + '" target="_blank" rel="noopener">' + esc(tl(dc.name)) + ' ↗</a>';
         }).join("") +
-        (g.unsure ? ' <em title="' + esc(g.unsure) + '">' + esc(t("bkUnsure")) + '</em>' : "") + '</th></tr>';
+        (g.unsure ? ' <em title="' + esc(g.unsure) + '">' + esc(t("bkUnsure")) + '</em>' : "") + '</span></th></tr>';
       (g.rows || []).forEach(function (r) {
         var rk = bkRowKey(g, r);
         h += '<tr' + (r.reply ? ' class="bkreprow"' : '') + ' style="--chc:' + esc(c.color || "var(--wood)") + '"><th class="bkacc">' +
