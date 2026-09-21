@@ -10,7 +10,8 @@
 //   d:<日付>           その日のいいね作業の済み { id: true }
 //   bk:h:<日付>        休日 true/false
 //   bk:a:<日付>        担当者（空文字は「なし」）
-//   bk:s:<枠の鍵>      枠の状態 { scheduled, reply, replyAt, status }
+//   bk:s:<枠の鍵>      枠の状態 { scheduled, reply, replyAt, status, skip }（skip は 2026-09-21 から）
+//   bk:m:<枠の鍵>      枠のコメント（文字列）。2026-09-21: 端末の中にしか残らず、更新で消えていたため
 //   bk:n:<枠の鍵>      予約タブで作った枠
 //   bk:t:<日付>|<チャンネル>  Telegram で共有済み true/false
 //   cfg:codehash       画面で変えた編集用パスワードのハッシュ { salt, hash, at }
@@ -25,7 +26,7 @@ import { DurableObject } from "cloudflare:workers";
 const DAYS_KEPT = 60;
 const MAX_BODY = 1024;
 const MAX_BOOK_BODY = 4096;
-const BOOK_KINDS = { h: 1, a: 1, s: 1, n: 1, t: 1, l: 1, o: 1 };   // o = 予約ボタンのラベル一覧（テキストと色）   // l = 予約タブの行に貼るリンク（2026-09-15）
+const BOOK_KINDS = { h: 1, a: 1, s: 1, n: 1, t: 1, l: 1, o: 1, m: 1 };   // m = 枠のコメント（2026-09-21）   // o = 予約ボタンのラベル一覧（テキストと色）   // l = 予約タブの行に貼るリンク（2026-09-15）
 const ALLOWED = ["https://towananika.github.io", "http://localhost:8899", "http://127.0.0.1:8899"];
 const FAIL_LIMIT = 5;                 // 同じ IP から 1時間に 5回まちがえたら
 const FAIL_WINDOW = 60 * 60;          // 1時間、どの書き込みもできない（正しいパスワードでも）
@@ -138,7 +139,7 @@ export class HubDO extends DurableObject {
 
   // ---- 予約タブ ----
   async bookList(origin) {
-    const out = { holidays: {}, assignees: {}, slots: {}, newSlots: {}, telegram: {}, links: {}, labels: [] };
+    const out = { holidays: {}, assignees: {}, slots: {}, newSlots: {}, telegram: {}, links: {}, labels: [], memos: {} };
     const all = await this.ctx.storage.list({ prefix: "bk:" });
     for (const [name, v] of all) {
       const kind = name.slice(3, 4), key = name.slice(5);
@@ -149,6 +150,7 @@ export class HubDO extends DurableObject {
       else if (kind === "t") out.telegram[key] = !!v;
       else if (kind === "l" && v && typeof v === "object" && v.url) out.links[key] = v;
       else if (kind === "o" && key === "labels" && Array.isArray(v)) out.labels = v;
+      else if (kind === "m" && typeof v === "string") out.memos[key] = v;
     }
     return json(out, 200, origin, { "Cache-Control": "no-store" });
   }
@@ -180,6 +182,11 @@ export class HubDO extends DurableObject {
         // 準備中／動画投稿、または登録したラベル（c:id）
         status: value.status === "preparing" || value.status === "video" || /^c:[a-z0-9]{1,12}$/.test(String(value.status || "")) ? value.status : "",
       };
+      // 投稿しない（空欄）。送ってこない古い画面のときは持たない（画面側は「なし」なら元の企画のまま）
+      if (typeof b.value.skip === "boolean") value.skip = b.value.skip;
+    } else if (b.kind === "m") {
+      // 枠のコメント。空文字も「消した」として持つ（画面が元の企画のコメントに戻らないように）
+      value = typeof value === "string" ? value.slice(-2000) : "";   // 長いときは新しい側（後ろ）を残す
     } else if (b.kind === "t") {
       if (!/^\d{4}-\d{2}-\d{2}\|[a-z0-9_-]{1,30}$/.test(b.key)) return json({ error: "key" }, 400, origin);
       value = !!value;

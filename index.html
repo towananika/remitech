@@ -1719,10 +1719,16 @@
       sl.check.at = v ? new Date().toISOString() : "";
     }
     saveSoon(function () { return saveSchedule("schedule: " + k + " " + slotKey(sl)); }, 700);
+    // 予約・空欄はサーバーにも送る（どの画面から変えても、更新で戻らないように。2026-09-21）
+    if (k === "scheduled" || k === "skip") bookPushSlotSoon(sl);
   }
 
   function isPosted(sl) { return !!(sl.posted || stGet(sl).posted); }
-  function isSched(sl) { return !!(sl.scheduled || stGet(sl).scheduled); }
+  // サーバーに状態がある枠は、サーバーの予約済みだけを見る。
+  // 端末の印（stGet）は日付・SNS・時刻だけの鍵で、プロジェクトを区別しない（HIYOKOとREELの同じ時刻が混ざる）。
+  // 古い印がサーバーの「準備中」を上書きして、変えても戻って見えていた（2026-09-21）
+  var bkSrv = {};
+  function isSched(sl) { return bkSrv[slotKey(sl)] ? !!sl.scheduled : !!(sl.scheduled || stGet(sl).scheduled); }
   function isChecked(sl) { return !!((sl.check && sl.check.done) || stGet(sl).checked); }
 
   function matKey(sl) { return "remitech-mat-" + sl.date + "-" + (sl.platform || "X") + "-" + sl.time; }
@@ -3632,7 +3638,7 @@
       // 素のグレーの表示と2種類に分かれていた）
       if (v === "prep") x.status = "preparing"; else x.status = v;
     }
-    bookPushSlot(x);
+    bookPushSlotSoon(x);
   }
   function bkSetSlotsState(list, v) {
     list.forEach(function (x) { bkSetSlotState(x, v); });
@@ -3674,12 +3680,41 @@
     if (nv === null) return;
     nv = nv.trim();
     if (nv === cur) return;
-    list.forEach(function (x) { x.memo = nv; });
+    list.forEach(function (x) { x.memo = nv; bookMemoSoon(x); });
     saveSoon(function () { return saveSchedule("schedule: comment " + slotKey(list[0])); }, 700);
     renderBookKeep();
   }
+  // 2026-09-21: 空欄（skip）も送る。前は端末の中にしか残らず、更新すると元に戻っていた
+  // 送っている途中の枠は、読み直しで古い状態に戻さない（bookApply が見る）
+  var bkPending = {};
   function bookPushSlot(x) {
-    return bookPush("s", slotKey(x), { scheduled: !!x.scheduled, reply: !!x.reply, replyAt: x.replyAt || "", status: x.status || "" });
+    var k = slotKey(x);
+    bkSrv[k] = true;
+    bkPending[k] = (bkPending[k] || 0) + 1;
+    return bookPush("s", k, { scheduled: !!x.scheduled, reply: !!x.reply, replyAt: x.replyAt || "", status: x.status || "", skip: !!x.skip })
+      .then(function () { if (--bkPending[k] <= 0) delete bkPending[k]; });
+  }
+  // 同じ枠を続けて変えたとき（予約→空欄など）は、最後の状態を1回だけ送る
+  var bkSoon = {};
+  function bookPushSlotSoon(x) {
+    var k = slotKey(x);
+    if (bkSoon[k]) clearTimeout(bkSoon[k]);
+    else bkPending[k] = (bkPending[k] || 0) + 1;   // 待っている間も、読み直しで戻さない
+    bkSoon[k] = setTimeout(function () {
+      delete bkSoon[k];
+      bookPushSlot(x).then(function () { if (--bkPending[k] <= 0) delete bkPending[k]; });
+    }, 150);
+  }
+  // 枠のコメント（memo）。打っている途中で何度も送らないよう、少し待ってから送る
+  var bkMemoSoon = {};
+  function bookMemoSoon(x) {
+    var k = slotKey(x);
+    bkPending["m|" + k] = 1;
+    clearTimeout(bkMemoSoon[k]);
+    bkMemoSoon[k] = setTimeout(function () {
+      delete bkMemoSoon[k];
+      bookPush("m", k, String(x.memo || "").slice(-2000)).then(function () { delete bkPending["m|" + k]; });
+    }, 700);
   }
   // サーバーの印を schedule に重ねる。変わったら true
   var bkLast = null;       // 最後に読んだサーバーの印。schedule.json を読み直したときに重ね直す
@@ -3695,10 +3730,19 @@
     });
     Object.keys(o.slots || {}).forEach(function (k) {
       var x = have[k], v = o.slots[k];
-      if (!x || !v) return;
-      if (!!x.scheduled !== !!v.scheduled || !!x.reply !== !!v.reply || (x.status || "") !== (v.status || "")) changed = true;
+      if (!x || !v || bkPending[k]) return;   // 送っている途中の枠は、古い状態で上書きしない
+      var hasSkip = typeof v.skip === "boolean";   // 2026-09-21 より前に送られた枠は skip を持たない。そのときは元の企画のまま
+      if (!!x.scheduled !== !!v.scheduled || !!x.reply !== !!v.reply || (x.status || "") !== (v.status || "") ||
+          (hasSkip && !!x.skip !== v.skip)) changed = true;
       x.scheduled = !!v.scheduled; x.reply = !!v.reply; x.replyAt = v.replyAt || "";
       if (v.status) x.status = v.status; else delete x.status;
+      if (hasSkip) x.skip = v.skip;
+      if (!bkSrv[k]) { bkSrv[k] = true; changed = true; }
+    });
+    Object.keys(o.memos || {}).forEach(function (k) {
+      var x = have[k];
+      if (!x || bkPending["m|" + k] || typeof o.memos[k] !== "string") return;
+      if ((x.memo || "") !== o.memos[k]) { x.memo = o.memos[k]; changed = true; }
     });
     schedule.holidays = schedule.holidays || {}; schedule.assignees = schedule.assignees || {};
     Object.keys(o.holidays || {}).forEach(function (k) { schedule.holidays[k] = !!o.holidays[k]; });
@@ -4513,6 +4557,7 @@
   }
   function tdMemo(sl, kindKey, text) {
     sl.memo = (sl.memo ? sl.memo + "\n" : "") + tdStamp() + " " + t(kindKey) + ": " + text;
+    bookMemoSoon(sl);
   }
 
   view.addEventListener("input", function (e) {
@@ -4541,7 +4586,7 @@
       var sl0 = (schedule.slots || []).filter(function (x) { return slotKey(x) === u.key; })[0];
       if (sl0) {
         ["scheduled", "posted", "url", "checked", "skip"].forEach(function (k) { markSave(sl0, k, u[k]); });
-        sl0.memo = u.memo; sl0.bookedAt = u.bookedAt; sl0.urlAt = u.urlAt;
+        sl0.memo = u.memo; sl0.bookedAt = u.bookedAt; sl0.urlAt = u.urlAt; bookMemoSoon(sl0);
       }
       tdRerender(); return;
     }
@@ -5529,7 +5574,7 @@
       var mkk = e.target.getAttribute("data-k");
       var msl = (schedule.slots || []).filter(function (x) { return slotKey(x) === mkk; })[0];
       if (!msl) return;
-      msl.memo = e.target.value.trim();
+      msl.memo = e.target.value.trim(); bookMemoSoon(msl);
       saveSoon(function () { return saveSchedule("schedule: memo " + mkk); }, 800);
       return;
     }
