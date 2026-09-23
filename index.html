@@ -379,7 +379,12 @@
   .bkc[data-s="done"]{ background:var(--sage); border-color:var(--sage); color:#fff; font-size:11px; }
   .bkc[data-s="late"]{ border-color:#b4553f; color:#b4553f; }
   .bkc[data-s="skip"]{ color:var(--muted); text-decoration:line-through; font-size:11px; font-weight:500; border-style:dashed; }
-  .bkc[data-s="prep"]{ background:color-mix(in srgb, #e0a53a 22%, var(--surface)); border-color:#e0a53a; color:var(--ink); font-size:11.5px; }
+  /* 「準備中」と出るマスは、どれも同じオレンジにそろえる（2026-09-23 Hibiki指定）。
+     前は、準備中として登録した枠＝オレンジ、まだ何も押していない枠＝灰色の破線、と2種類あった */
+  .bkc[data-s="prep"],
+  .bkc.bkbig[data-s="none"], .bkc.bkbig[data-s="text"], .bkc.bkbig[data-s="ready"]{
+    background:color-mix(in srgb, #e0a53a 22%, var(--surface)); border-color:#e0a53a; border-style:solid;
+    color:var(--ink); font-weight:700; font-size:11.5px; }
   .subnav{ margin:6px 0 10px; }
   .seg{ display:inline-flex; border:1px solid var(--line); border-radius:999px; overflow:hidden; background:var(--surface); }
   .seg button{ font:inherit; font-size:13px; min-height:36px; padding:0 16px; border:0; background:none; color:var(--muted); cursor:pointer; }
@@ -414,7 +419,6 @@
   .bkc.bkbig{ min-height:44px; font-size:13px; }
   /* 予約済みは ✓ の印だけ */
   .bkchk{ font-size:18px; line-height:1; }
-  .bkc.bkbig[data-s="none"], .bkc.bkbig[data-s="text"], .bkc.bkbig[data-s="ready"]{ background:none; border-style:dashed; color:var(--muted); font-weight:500; }
   /* 返信の行は、すぐ上の投稿に付いていると分かるように字下げして低くする。SNSと時間は親と同じなので出さない */
   .bktab .bkreprow .bkacc{ padding:2px 8px 2px 26px; }
   .bktab .bkreprow .bkacc b{ font-size:12px; font-weight:500; color:var(--muted); }
