@@ -7,11 +7,13 @@
 //   以前の置き場（KV: CHORES）の中身は、最初に動いたときに1回だけ写す。
 //
 // 置くもの（鍵の形は以前の KV と同じ）:
-//   d:<日付>           その日のいいね作業の済み { id: true }
+//   d:<日付>           その日のいいね作業の済み { id: true }（消さない。全部の日を持つ）
+//   dt:<日付>          押した時刻 { id: ISO }（2026-09-21 から）
 //   bk:h:<日付>        休日 true/false
 //   bk:a:<日付>        担当者（空文字は「なし」）
 //   bk:s:<枠の鍵>      枠の状態 { scheduled, reply, replyAt, status, skip }（skip は 2026-09-21 から）
 //   bk:m:<枠の鍵>      枠のコメント（文字列）。2026-09-21: 端末の中にしか残らず、更新で消えていたため
+//   bk:r:<日付|行の鍵>  返信の枠の状態 { st: "video"|"skip"|"", memo }（2026-09-21 返信にもフリップ操作）
 //   bk:n:<枠の鍵>      予約タブで作った枠
 //   bk:t:<日付>|<チャンネル>  Telegram で共有済み true/false
 //   cfg:codehash       画面で変えた編集用パスワードのハッシュ { salt, hash, at }
@@ -26,7 +28,7 @@ import { DurableObject } from "cloudflare:workers";
 const DAYS_KEPT = 60;
 const MAX_BODY = 1024;
 const MAX_BOOK_BODY = 4096;
-const BOOK_KINDS = { h: 1, a: 1, s: 1, n: 1, t: 1, l: 1, o: 1, m: 1 };   // m = 枠のコメント（2026-09-21）   // o = 予約ボタンのラベル一覧（テキストと色）   // l = 予約タブの行に貼るリンク（2026-09-15）
+const BOOK_KINDS = { h: 1, a: 1, s: 1, n: 1, t: 1, l: 1, o: 1, m: 1, r: 1 };   // r = 返信の枠（2026-09-21）   // m = 枠のコメント（2026-09-21）   // o = 予約ボタンのラベル一覧（テキストと色）   // l = 予約タブの行に貼るリンク（2026-09-15）
 const ALLOWED = ["https://towananika.github.io", "http://localhost:8899", "http://127.0.0.1:8899"];
 const FAIL_LIMIT = 5;                 // 同じ IP から 1時間に 5回まちがえたら
 const FAIL_WINDOW = 60 * 60;          // 1時間、どの書き込みもできない（正しいパスワードでも）
@@ -69,7 +71,7 @@ export class HubDO extends DurableObject {
       if (request.method === "POST") return this.bookSave(request, origin);
       return json({ error: "method" }, 405, origin);
     }
-    if (request.method === "GET") return this.list(origin);
+    if (request.method === "GET") return this.list(origin, url);
     if (request.method === "POST") return this.save(request, origin);
     return json({ error: "method" }, 405, origin);
   }
@@ -108,15 +110,29 @@ export class HubDO extends DurableObject {
   }
 
   // ---- いいね作業 ----
-  async list(origin) {
+  // 記録は消さない（全部の日を持っている）。ふだんの読み直しは直近 DAYS_KEPT 日だけ返して軽くする。
+  // 2026-09-21: 過去も見られるように ?from=YYYY-MM-DD&to=YYYY-MM-DD で期間を、?all=1 で全部を返す。
+  // at は押した時刻 { 日付: { id: ISO } }（2026-09-21 より前の分は時刻がない）
+  async list(origin, url) {
     const all = await this.ctx.storage.list({ prefix: "d:" });
-    const names = [...all.keys()].sort().slice(-DAYS_KEPT);
-    const out = {};
-    for (const name of names) {
-      const v = all.get(name);
-      if (v && Object.keys(v).length) out[name.slice(2)] = v;
+    const times = await this.ctx.storage.list({ prefix: "dt:" });
+    const from = url && url.searchParams.get("from"), to = url && url.searchParams.get("to");
+    const everything = url && url.searchParams.get("all") === "1";
+    let names = [...all.keys()].sort();
+    if (from || to) {
+      names = names.filter((n) => (!from || n.slice(2) >= from) && (!to || n.slice(2) <= to));
+    } else if (!everything) {
+      names = names.slice(-DAYS_KEPT);
     }
-    return json({ done: out }, 200, origin, { "Cache-Control": "no-store" });
+    const out = {}, at = {};
+    for (const name of names) {
+      const v = all.get(name), d = name.slice(2);
+      if (v && Object.keys(v).length) out[d] = v;
+      const tv = times.get("dt:" + d);
+      if (tv && Object.keys(tv).length) at[d] = tv;
+    }
+    const first = [...all.keys()].sort()[0];
+    return json({ done: out, at, first: first ? first.slice(2) : "" }, 200, origin, { "Cache-Control": "no-store" });
   }
 
   async save(request, origin) {
@@ -133,13 +149,18 @@ export class HubDO extends DurableObject {
     const day = (await this.ctx.storage.get(key)) || {};
     if (b.on) day[b.id] = true; else delete day[b.id];
     await this.ctx.storage.put(key, day);
+    // 押した時刻も残す（何時に済ませたかを、あとから見られるように）
+    const tkey = "dt:" + b.date;
+    const tday = (await this.ctx.storage.get(tkey)) || {};
+    if (b.on) { if (!tday[b.id]) tday[b.id] = new Date().toISOString(); } else delete tday[b.id];
+    if (Object.keys(tday).length) await this.ctx.storage.put(tkey, tday); else await this.ctx.storage.delete(tkey);
     this.broadcast("chores");
     return json({ ok: true, date: b.date, day }, 200, origin);
   }
 
   // ---- 予約タブ ----
   async bookList(origin) {
-    const out = { holidays: {}, assignees: {}, slots: {}, newSlots: {}, telegram: {}, links: {}, labels: [], memos: {} };
+    const out = { holidays: {}, assignees: {}, slots: {}, newSlots: {}, telegram: {}, links: {}, labels: [], memos: {}, replies: {} };
     const all = await this.ctx.storage.list({ prefix: "bk:" });
     for (const [name, v] of all) {
       const kind = name.slice(3, 4), key = name.slice(5);
@@ -151,6 +172,7 @@ export class HubDO extends DurableObject {
       else if (kind === "l" && v && typeof v === "object" && v.url) out.links[key] = v;
       else if (kind === "o" && key === "labels" && Array.isArray(v)) out.labels = v;
       else if (kind === "m" && typeof v === "string") out.memos[key] = v;
+      else if (kind === "r" && v && typeof v === "object") out.replies[key] = v;
     }
     return json(out, 200, origin, { "Cache-Control": "no-store" });
   }
@@ -187,6 +209,17 @@ export class HubDO extends DurableObject {
     } else if (b.kind === "m") {
       // 枠のコメント。空文字も「消した」として持つ（画面が元の企画のコメントに戻らないように）
       value = typeof value === "string" ? value.slice(-2000) : "";   // 長いときは新しい側（後ろ）を残す
+    } else if (b.kind === "r") {
+      // 返信の枠。st は 動画投稿(video)・返信しない(skip)・なし。どちらも空なら消す
+      var rv = value && typeof value === "object" ? value : {};
+      var rst = rv.st === "video" || rv.st === "skip" ? rv.st : "";
+      var rmemo = typeof rv.memo === "string" ? rv.memo.slice(-2000) : "";
+      if (!rst && !rmemo) {
+        await this.ctx.storage.delete("bk:r:" + b.key);
+        this.broadcast("book");
+        return json({ ok: true }, 200, origin);
+      }
+      value = { st: rst, memo: rmemo };
     } else if (b.kind === "t") {
       if (!/^\d{4}-\d{2}-\d{2}\|[a-z0-9_-]{1,30}$/.test(b.key)) return json({ error: "key" }, 400, origin);
       value = !!value;
