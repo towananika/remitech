@@ -320,7 +320,18 @@
   .bktab{ border-collapse:collapse; width:100%; min-width:760px; table-layout:fixed; }
   .bktab th, .bktab td{ border-bottom:1px solid var(--line); border-left:1px solid var(--line); padding:4px; text-align:center; }
   .bktab .bkacc{ position:sticky; left:0; z-index:1; width:150px; text-align:left; padding:6px 10px; background:var(--surface);
-    border-left:0; box-shadow:inset 3px 0 0 var(--chc, transparent); }
+    border-left:0; box-shadow:inset 3px 0 0 var(--chc, transparent); transition:width .15s ease, padding .15s ease; }
+  /* 行見出しを細い帯に畳む（2026-09-23 Hibiki指定）。畳んでいる間はプロジェクト色の帯だけ残す。
+     帯のどこを押しても戻る。横に送ると自分で畳む（手で開いたあとは、勝手に畳み直さない） */
+  .bktab[data-head="off"]{ min-width:562px; }   /* 見出しを畳んだぶん、表全体も細くする（日付が1つ多く見える） */
+  .bktab[data-head="off"] .bkacc{ width:16px; padding:0; box-shadow:inset 6px 0 0 var(--chc, transparent); cursor:pointer; }
+  .bktab[data-head="off"] .bkacc b, .bktab[data-head="off"] .bkacc i{ display:none; }
+  .bktab[data-head="off"] .bkgrpin{ left:20px; }
+  .bkheadbtn{ display:block; width:100%; min-height:44px; font:inherit; font-size:15px; font-weight:700; color:var(--muted);
+    background:none; border:0; padding:0; cursor:pointer; border-radius:8px; line-height:1; }
+  .bkheadbtn:hover{ color:var(--ink); background:color-mix(in srgb, var(--wood) 12%, transparent); }
+  .bktab[data-head="off"] .bkheadbtn{ min-height:32px; font-size:12px; }
+  @media (prefers-reduced-motion:reduce){ .bktab .bkacc{ transition:none } }
   .bkacc b{ display:block; font-size:13px; line-height:1.3; font-weight:500; }
   .bkacc i{ display:block; font-style:normal; font-size:11.5px; color:var(--muted); font-variant-numeric:tabular-nums; }
   .bkowner{ margin-top:2px; font-size:10.5px; color:var(--muted); text-align:center; }
@@ -424,7 +435,9 @@
   .bkc.bknew{ color:var(--muted); font-weight:500; border-style:dashed; background:none; }
   @media (max-width:700px){
     .bktab{ min-width:680px; }
+    .bktab[data-head="off"]{ min-width:520px; }
     .bktab .bkacc{ width:112px; padding:6px 8px; }
+    .bktab[data-head="off"] .bkacc{ width:16px; padding:0; }
     .bkc{ min-height:42px; }
   }
   /* ---- いいね（今日） ---- */
@@ -1420,7 +1433,7 @@
           matText:"Text", matImage:"Image", remind:"Remind before posting", remindOff:"Off",
           notMatched:"Not checked", matched:"Matches the plan", mismatched:"Differs from the plan",
           navImport:"Import", impHelp:"Paste the plan from your spreadsheet (tab-separated, header row first).",
-          navPrep2:"Prep (beta)", pvList:"List", pvCal:"Calendar", bkPrep:"prep", bkText:"Text", bkImg:"Image", bkHoliday:"Day off", tgShared:"Shared", tgNotShared:"Not shared yet", tgDue:"Share by", tgNextDay:"next day", tgLate:"Overdue", tgShareTip:"Tap after posting this to Telegram", bkShared:"Saved for everyone", bkOffline:"Server unreachable. Saved on this device only", bkNeedCode:"Enter the team passphrase to share with everyone", bkWhoTip:"Tap to change who is in charge", bkHolTip:"Tap to mark this day as a day off", bkNotYet:"Preparing", bkBookedShort:"Booked", bkReplyTip:"Reply to this post. Tap when done", bkLinkPrompt:"Paste the link (leave empty to remove)", bkLinkBad:"Only links starting with http:// or https://", bkVideo:"Video posted", bkCommentPrompt:"Comment (leave empty to remove)", bkLinkUpTip:"Link", bkCommentTip:"Comment", bkLabelsEdit:"Add labels", bkLabelAdd:"Add", bkLabelDel:"Delete", bkLabelPh:"e.g. On hold", bkBlank:"Blank", bkNoReply:"No reply", gProjects:"Projects", gRecur:"Recurring", gRecurTitle:"Recurring slots", gAddRule:"Add", gClose:"Close", gMake:"Create this post", gRecurTag:"recurring", gView3:"3 days", gViewWeek:"Week", gViewMonth:"Month", gNoRule:"No recurring slots yet.", calToday:"Today", calNone:"Nothing on this day", calMore:" more",
+          navPrep2:"Prep (beta)", pvList:"List", pvCal:"Calendar", bkPrep:"prep", bkText:"Text", bkImg:"Image", bkHoliday:"Day off", tgShared:"Shared", tgNotShared:"Not shared yet", tgDue:"Share by", tgNextDay:"next day", tgLate:"Overdue", tgShareTip:"Tap after posting this to Telegram", bkShared:"Saved for everyone", bkOffline:"Server unreachable. Saved on this device only", bkNeedCode:"Enter the team passphrase to share with everyone", bkWhoTip:"Tap to change who is in charge", bkHolTip:"Tap to mark this day as a day off", bkNotYet:"Preparing", bkBookedShort:"Booked", bkReplyTip:"Reply to this post. Tap when done", bkLinkPrompt:"Paste the link (leave empty to remove)", bkLinkBad:"Only links starting with http:// or https://", bkVideo:"Video posted", bkCommentPrompt:"Comment (leave empty to remove)", bkLinkUpTip:"Link", bkCommentTip:"Comment", bkLabelsEdit:"Add labels", bkLabelAdd:"Add", bkLabelDel:"Delete", bkLabelPh:"e.g. On hold", bkBlank:"Blank", bkNoReply:"No reply", bkHeadHide:"Fold the row names", bkHeadShow:"Show the row names", gProjects:"Projects", gRecur:"Recurring", gRecurTitle:"Recurring slots", gAddRule:"Add", gClose:"Close", gMake:"Create this post", gRecurTag:"recurring", gView3:"3 days", gViewWeek:"Week", gViewMonth:"Month", gNoRule:"No recurring slots yet.", calToday:"Today", calNone:"Nothing on this day", calMore:" more",
           navTg:"Telegram", navGuide:"Guide", tipGuide:"How each task is done.", copyAll:"Copy all", tgEmpty:"Nothing posted with a link on this day yet", tgLinks:"Links",
           navOv:"Overview", navToday:"Today", tipToday:"Only what you can finish now: likes, scheduling, URLs, checks", tdLeft:"left", tdLikes:"Likes", tdNext:"next", tdAllDone:"All done for today", tdBook:"To schedule", tdLate:"Missed", tdUrl:"Paste URL", tdCheck:"Check", tdBooked:"Scheduled", tdPaste:"Paste", tdChecked:"Checked", tdMemoPh:"Write a note (required)", tdQ1:"No text", tdQ2:"No image", tdQ3:"All good", tdOlder:"Earlier days", tdDoneToday:"Done today", tdUndo:"Undo", tdOpen:"Open", tdNone:"Nothing to schedule this week", tdBadUrl:"URL must start with https://", tdThisWeek:"This week", tdPosted:"Posted", ovMeasureOnly:"Followers only, no posting", ovAccounts:"Accounts", ovDocs:"Plans",
           impCols:"Columns: date (or day), time, platform, type, label, ja, en, ko, asset",
@@ -1471,7 +1484,7 @@
           matText:"텍스트", matImage:"이미지", remind:"게시 전 알림", remindOff:"끄기",
           notMatched:"미확인", matched:"기획과 일치", mismatched:"기획과 다름",
           navImport:"불러오기", impHelp:"기획표를 붙여넣어. 탭으로 구분된 표(첫 줄은 제목).",
-          navPrep2:"준비(시안)", pvList:"목록", pvCal:"캘린더", bkPrep:"준비", bkText:"텍스트", bkImg:"이미지", bkHoliday:"휴일", tgShared:"공유함", tgNotShared:"아직 공유 안 함", tgDue:"공유", tgNextDay:"다음 날", tgLate:"늦음", tgShareTip:"텔레그램에 올린 뒤 누르기", bkShared:"모두에게 저장됨", bkOffline:"서버에 연결 안 됨. 이 기기에만 저장", bkNeedCode:"팀 암호를 넣으면 모두와 공유돼", bkWhoTip:"누르면 담당자 변경", bkHolTip:"누르면 이 날을 휴일로", bkNotYet:"준비 중", bkBookedShort:"예약됨", bkReplyTip:"이 게시물에 대한 답글. 하면 누르기", bkLinkPrompt:"링크를 붙여 넣어 (비우면 삭제)", bkLinkBad:"http:// 또는 https:// 로 시작하는 링크만 돼", bkVideo:"영상 게시", bkCommentPrompt:"코멘트 (비우면 삭제)", bkLinkUpTip:"링크", bkCommentTip:"코멘트", bkLabelsEdit:"라벨 등록", bkLabelAdd:"추가", bkLabelDel:"삭제", bkLabelPh:"예: 보류", bkBlank:"빈칸", bkNoReply:"답글 안 함", gProjects:"프로젝트", gRecur:"정기 설정", gRecurTitle:"정기 게시 시간", gAddRule:"추가", gClose:"닫기", gMake:"이 게시물 만들기", gRecurTag:"정기", gView3:"3일", gViewWeek:"주", gViewMonth:"월", gNoRule:"정기 설정이 아직 없어.", calToday:"오늘", calNone:"이 날은 비어 있어", calMore:"개 더",
+          navPrep2:"준비(시안)", pvList:"목록", pvCal:"캘린더", bkPrep:"준비", bkText:"텍스트", bkImg:"이미지", bkHoliday:"휴일", tgShared:"공유함", tgNotShared:"아직 공유 안 함", tgDue:"공유", tgNextDay:"다음 날", tgLate:"늦음", tgShareTip:"텔레그램에 올린 뒤 누르기", bkShared:"모두에게 저장됨", bkOffline:"서버에 연결 안 됨. 이 기기에만 저장", bkNeedCode:"팀 암호를 넣으면 모두와 공유돼", bkWhoTip:"누르면 담당자 변경", bkHolTip:"누르면 이 날을 휴일로", bkNotYet:"준비 중", bkBookedShort:"예약됨", bkReplyTip:"이 게시물에 대한 답글. 하면 누르기", bkLinkPrompt:"링크를 붙여 넣어 (비우면 삭제)", bkLinkBad:"http:// 또는 https:// 로 시작하는 링크만 돼", bkVideo:"영상 게시", bkCommentPrompt:"코멘트 (비우면 삭제)", bkLinkUpTip:"링크", bkCommentTip:"코멘트", bkLabelsEdit:"라벨 등록", bkLabelAdd:"추가", bkLabelDel:"삭제", bkLabelPh:"예: 보류", bkBlank:"빈칸", bkNoReply:"답글 안 함", bkHeadHide:"행 이름 접기", bkHeadShow:"행 이름 보기", gProjects:"프로젝트", gRecur:"정기 설정", gRecurTitle:"정기 게시 시간", gAddRule:"추가", gClose:"닫기", gMake:"이 게시물 만들기", gRecurTag:"정기", gView3:"3일", gViewWeek:"주", gViewMonth:"월", gNoRule:"정기 설정이 아직 없어.", calToday:"오늘", calNone:"이 날은 비어 있어", calMore:"개 더",
           navTg:"텔레그램", navGuide:"설명", tipGuide:"작업을 어떻게 하는지.", copyAll:"전체 복사", tgEmpty:"이 날짜엔 링크가 있는 게시물이 아직 없어", tgLinks:"링크",
           navOv:"개요", navToday:"오늘", tipToday:"지금 끝낼 수 있는 것만: 좋아요, 예약, URL, 확인", tdLeft:"남음", tdLikes:"좋아요", tdNext:"다음", tdAllDone:"오늘은 끝", tdBook:"예약하기", tdLate:"놓침", tdUrl:"URL 붙이기", tdCheck:"확인하기", tdBooked:"예약함", tdPaste:"붙이기", tdChecked:"확인함", tdMemoPh:"메모를 써야 누를 수 있어", tdQ1:"텍스트 없음", tdQ2:"이미지 없음", tdQ3:"문제 없음", tdOlder:"이전 날", tdDoneToday:"오늘 끝낸 것", tdUndo:"되돌리기", tdOpen:"열기", tdNone:"이번 주 예약할 것 없음", tdBadUrl:"URL은 https:// 로 시작해야 해", tdThisWeek:"이번 주", tdPosted:"게시됨", ovMeasureOnly:"팔로워만 추적, 게시는 안 함", ovAccounts:"계정", ovDocs:"기획서",
           impCols:"열: date (또는 day), time, platform, type, label, ja, en, ko, asset",
@@ -1522,7 +1535,7 @@
           matText:"テキスト", matImage:"画像", remind:"投稿前にリマインド", remindOff:"切",
           notMatched:"未確認", matched:"企画どおり", mismatched:"企画と違う",
           navImport:"取り込み", impHelp:"表計算からコピーして貼る（タブ区切り・1行目は見出し）。",
-          navPrep2:"準備（仮）", pvList:"一覧", pvCal:"カレンダー", bkPrep:"準備", bkText:"テキスト", bkImg:"イメージ", bkHoliday:"休日", tgShared:"共有済み", tgNotShared:"未共有", tgDue:"共有", tgNextDay:"翌日", tgLate:"遅れ", tgShareTip:"Telegramに投稿したら押す", bkShared:"全員に保存しました", bkOffline:"サーバーにつながりません。この端末にだけ残しました", bkNeedCode:"チームの合言葉を入れると、全員と共有されます", bkWhoTip:"押すと担当者が変わる", bkHolTip:"押すと、この日を休日にする", bkNotYet:"準備中", bkBookedShort:"予約済み", bkReplyTip:"すぐ上の投稿への返信。済んだら押す", bkLinkPrompt:"リンクを貼ってください（空にすると消えます）", bkLinkBad:"http:// か https:// で始まるリンクだけ置けます", bkVideo:"動画投稿", bkCommentPrompt:"コメント（空にすると消えます）", bkLinkUpTip:"リンク", bkCommentTip:"コメント", bkLabelsEdit:"ラベルを登録", bkLabelAdd:"追加", bkLabelDel:"削除", bkLabelPh:"例：保留", bkBlank:"空欄", bkNoReply:"返信しない", gProjects:"プロジェクト", gRecur:"定期の設定", gRecurTitle:"定期の投稿枠", gAddRule:"追加", gClose:"閉じる", gMake:"この企画を作る", gRecurTag:"定期", gView3:"3日", gViewWeek:"週", gViewMonth:"月", gNoRule:"定期の枠はまだない。", calToday:"今日", calNone:"この日は空", calMore:"件",
+          navPrep2:"準備（仮）", pvList:"一覧", pvCal:"カレンダー", bkPrep:"準備", bkText:"テキスト", bkImg:"イメージ", bkHoliday:"休日", tgShared:"共有済み", tgNotShared:"未共有", tgDue:"共有", tgNextDay:"翌日", tgLate:"遅れ", tgShareTip:"Telegramに投稿したら押す", bkShared:"全員に保存しました", bkOffline:"サーバーにつながりません。この端末にだけ残しました", bkNeedCode:"チームの合言葉を入れると、全員と共有されます", bkWhoTip:"押すと担当者が変わる", bkHolTip:"押すと、この日を休日にする", bkNotYet:"準備中", bkBookedShort:"予約済み", bkReplyTip:"すぐ上の投稿への返信。済んだら押す", bkLinkPrompt:"リンクを貼ってください（空にすると消えます）", bkLinkBad:"http:// か https:// で始まるリンクだけ置けます", bkVideo:"動画投稿", bkCommentPrompt:"コメント（空にすると消えます）", bkLinkUpTip:"リンク", bkCommentTip:"コメント", bkLabelsEdit:"ラベルを登録", bkLabelAdd:"追加", bkLabelDel:"削除", bkLabelPh:"例：保留", bkBlank:"空欄", bkNoReply:"返信しない", bkHeadHide:"行の名前をたたむ", bkHeadShow:"行の名前を出す", gProjects:"プロジェクト", gRecur:"定期の設定", gRecurTitle:"定期の投稿枠", gAddRule:"追加", gClose:"閉じる", gMake:"この企画を作る", gRecurTag:"定期", gView3:"3日", gViewWeek:"週", gViewMonth:"月", gNoRule:"定期の枠はまだない。", calToday:"今日", calNone:"この日は空", calMore:"件",
           navTg:"Telegram通知", navGuide:"説明", tipGuide:"作業のやり方。", copyAll:"全部コピー", tgEmpty:"この日はまだリンク付きの投稿がない", tgLinks:"リンク",
           navOv:"概要", navToday:"今日", tipToday:"今終わらせられるものだけ：いいね・予約・URL・確認", tdLeft:"残り", tdLikes:"いいね", tdNext:"次", tdAllDone:"今日は済み", tdBook:"予約する", tdLate:"予約されずに過ぎた", tdUrl:"URLを貼る", tdCheck:"確認する", tdBooked:"予約した", tdPaste:"貼る", tdChecked:"確認した", tdMemoPh:"メモを書く（書くと押せます）", tdQ1:"テキストなし", tdQ2:"画像なし", tdQ3:"問題なし", tdOlder:"前の日の残り", tdDoneToday:"今日済んだもの", tdUndo:"元に戻す", tdOpen:"開く", tdNone:"今週、予約するものはありません", tdBadUrl:"URLは https:// で始めてください", tdThisWeek:"今週", tdPosted:"投稿", ovMeasureOnly:"フォロワーだけ追う。投稿はしない", ovAccounts:"運用アカウント", ovDocs:"企画書",
           impCols:"列: date（または day）, time, platform, type, label, ja, en, ko, asset",
@@ -3530,6 +3543,28 @@
   /* 予約タブ。行＝予約する中身（book_rows.json、元はスプレッドシート）、列＝月〜日。
      マスの状態は schedule.json の枠から出す。枠がない行は押せない（間違った枠を作らないため） */
   var bookRows = null, bkMon = null;
+  // 行見出しの開閉（2026-09-23 Hibiki指定）。端末に覚える。
+  // 横に送ると自分で畳むが、手で開いたあとは勝手に畳み直さない
+  var bkHeadOpen = (function () {
+    try { return localStorage.getItem("remitech-bkhead") !== "off"; } catch (e) { return true; }
+  })();
+  var bkHeadAuto = true;
+  function bkHeadApply() {
+    var tb = document.querySelector(".bktab");
+    if (tb) tb.setAttribute("data-head", bkHeadOpen ? "on" : "off");
+    var bt = document.getElementById("bkHeadBtn");
+    if (bt) {
+      bt.textContent = bkHeadOpen ? "\u00ab" : "\u00bb";
+      bt.title = t(bkHeadOpen ? "bkHeadHide" : "bkHeadShow");
+      bt.setAttribute("aria-label", bt.title);
+      bt.setAttribute("aria-expanded", String(bkHeadOpen));
+    }
+  }
+  function bkHeadSet(open, byHand) {
+    bkHeadOpen = !!open;
+    if (byHand) { bkHeadAuto = false; try { localStorage.setItem("remitech-bkhead", open ? "on" : "off"); } catch (e) {} }
+    bkHeadApply();
+  }
   // 予約タブの印（予約・返信・準備中・休日・担当者・作った枠）はサーバーにも置き、どの端末でも同じ画面にする。
   // schedule.json が土台で、サーバーの印を上に重ねる
   // 置き場の住所は、いいね作業と同じサーバーの /book。呼ぶときに決める（読み込み順に左右されないように）
@@ -3934,7 +3969,7 @@
         return cand[0] || null;
       }).filter(Boolean);
     }
-    var head = '<tr><th class="bkacc"></th>' + days.map(function (d) {
+    var head = '<tr><th class="bkacc"><button class="bkheadbtn" id="bkHeadBtn" type="button"></button></th>' + days.map(function (d) {
       var k = ymd(d);
       return '<th class="bkday" data-today="' + (k === today) + '" data-wknd="' + (d.getDay() === 0 || d.getDay() === 6) + '" data-hol="' + isHol(k) + '">' +
         '<button class="bkdaybtn" data-hd="' + k + '" aria-pressed="' + isHol(k) + '" title="' + esc(t("bkHolTip")) + '">' +
@@ -4039,6 +4074,12 @@
     var wrap = document.getElementById("bkWrap"), tc = wrap.querySelector('th[data-today="true"]');
     if (tc && wrap.scrollWidth > wrap.clientWidth) wrap.scrollLeft = Math.max(0, tc.offsetLeft - 140);
     bkFitHeight();
+    bkHeadApply();
+    wrap.addEventListener("scroll", function () {
+      if (!bkHeadAuto) return;
+      if (wrap.scrollLeft > 24 && bkHeadOpen) bkHeadSet(false, false);
+      else if (wrap.scrollLeft <= 4 && !bkHeadOpen) bkHeadSet(true, false);
+    });
   }
   // 表の高さを画面に合わせる（2026-09-23）。日付の見出しは表の中で上に留まるので、
   // 表そのものが画面に収まっていないと、ページを送ったときに見出しごと消えてしまう
@@ -4083,6 +4124,8 @@
       });
       return;
     }
+    if (e.target.closest("#bkHeadBtn")) { bkHeadSet(!bkHeadOpen, true); return; }
+    if (!bkHeadOpen && e.target.closest("th.bkacc")) { bkHeadSet(true, true); return; }
     var hd = e.target.closest(".bkdaybtn");
     if (hd) {
       var hk = hd.getAttribute("data-hd");
