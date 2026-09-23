@@ -4107,9 +4107,18 @@
       '<div class="bkwrap" id="bkWrap"><table class="bktab"><thead>' + head + '</thead><tbody>' + body + '</tbody></table></div>' + pwFormHTML() + '</div>';
 
     var wrap = document.getElementById("bkWrap"), tc = wrap.querySelector('th[data-today="true"]');
-    if (tc && wrap.scrollWidth > wrap.clientWidth) wrap.scrollLeft = Math.max(0, tc.offsetLeft - 140);
     bkFitHeight();
+    // 2026-09-23: 表の中を縦にも送るようにしたとき、描き直しで縦の位置が先頭に戻っていた。
+    // 同じ週を見ている間は、押す前の位置（縦・横とも）をそのまま戻す
+    if (bkScroll.key === bkMon) {
+      wrap.scrollLeft = bkScroll.x;
+      wrap.scrollTop = bkScroll.y;
+    } else if (tc && wrap.scrollWidth > wrap.clientWidth) {
+      wrap.scrollLeft = Math.max(0, tc.offsetLeft - 140);   // 週を変えた直後は、今日の列を出す
+    }
+    wrap.addEventListener("scroll", function () { bkScroll = { key: bkMon, x: wrap.scrollLeft, y: wrap.scrollTop }; });
   }
+  var bkScroll = { key: "", x: 0, y: 0 };   // 予約タブの表を、どこまで送っていたか
   // 表の高さを画面に合わせる（2026-09-23）。日付の見出しは表の中で上に留まるので、
   // 表そのものが画面に収まっていないと、ページを送ったときに見出しごと消えてしまう
   function bkFitHeight() {
