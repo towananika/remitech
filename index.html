@@ -1704,9 +1704,22 @@
   // 「投稿ずみ」「一致確認」は schedule.json 側に残す（みんなで見る記録）
   // 投稿したか、確認したか。schedule.json に書ければ一番よいが、
   // 置いてあるファイルは書き換えられないので、まず端末に残す
-  function stKey(sl) { return "remitech-st-" + sl.date + "-" + (sl.platform || "X") + "-" + sl.time; }
+  // 2026-09-23: 鍵にプロジェクトを入れる。前は日付・SNS・時刻だけだったので、
+  // HIYOKOの「X・17:00」とREELの「X・17:00」が同じ印を共有し、片方を押すともう片方も押された形になっていた
+  function stKey(sl) { return "remitech-st-" + slotCh(sl) + "-" + sl.date + "-" + (sl.platform || "X") + "-" + sl.time; }
+  function stKeyOld(sl) { return "remitech-st-" + sl.date + "-" + (sl.platform || "X") + "-" + sl.time; }
   function stGet(sl) {
-    try { return JSON.parse(localStorage.getItem(stKey(sl)) || "{}") || {}; } catch (e) { return {}; }
+    try {
+      var v = localStorage.getItem(stKey(sl));
+      if (v === null) {
+        // 古い鍵で残っている分は、こちらに写して使う（写したあとは、プロジェクトごとに分かれる）
+        var old = localStorage.getItem(stKeyOld(sl));
+        if (old === null) return {};
+        try { localStorage.setItem(stKey(sl), old); } catch (e1) {}
+        return JSON.parse(old) || {};
+      }
+      return JSON.parse(v) || {};
+    } catch (e) { return {}; }
   }
   function stSet(sl, k, v) {
     var o = stGet(sl); o[k] = v;
@@ -1768,12 +1781,13 @@
   function isSched(sl) { return bkSrv[slotKey(sl)] ? !!sl.scheduled : !!(sl.scheduled || stGet(sl).scheduled); }
   function isChecked(sl) { return !!((sl.check && sl.check.done) || stGet(sl).checked); }
 
-  function matKey(sl) { return "remitech-mat-" + sl.date + "-" + (sl.platform || "X") + "-" + sl.time; }
+  function matKey(sl) { return "remitech-mat-" + slotCh(sl) + "-" + sl.date + "-" + (sl.platform || "X") + "-" + sl.time; }
+  function matKeyOld(sl) { return "remitech-mat-" + sl.date + "-" + (sl.platform || "X") + "-" + sl.time; }
   // 材料の印は企画（schedule.json）の中に持つ。誰が押しても全員に見える。
   // 以前この端末にだけ残した印も、読むときは拾う
   function matGet(sl) {
     var m = {};
-    try { m = JSON.parse(localStorage.getItem(matKey(sl)) || "{}") || {}; } catch (e) {}
+    try { m = JSON.parse(localStorage.getItem(matKey(sl)) || localStorage.getItem(matKeyOld(sl)) || "{}") || {}; } catch (e) {}
     if (sl.mat) { for (var mk0 in sl.mat) m[mk0] = sl.mat[mk0]; }
     // 原稿が入っていれば、テキストは用意できたものとして扱う。
     // 取り込んだ直後に押し直す手間をなくすため。外したいときは押せば消える
