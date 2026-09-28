@@ -13,6 +13,7 @@
 //   bk:a:<日付>        担当者（空文字は「なし」）
 //   bk:s:<枠の鍵>      枠の状態 { scheduled, reply, replyAt, status, skip }（skip は 2026-09-21 から）
 //   bk:m:<枠の鍵>      枠のコメント（文字列）。2026-09-21: 端末の中にしか残らず、更新で消えていたため
+//   bk:w:rows       画面で足した行 [{id,channel,label,platforms,time,reply}]（みんな共通。2026-09-28）
 //   bk:v:rows       隠している行の一覧（行の鍵の配列。みんな共通。2026-09-23）
 //   bk:r:<日付|行の鍵>  返信の枠の状態 { st: "video"|"skip"|"", memo }（2026-09-21 返信にもフリップ操作）
 //   bk:n:<枠の鍵>      予約タブで作った枠
@@ -29,7 +30,7 @@ import { DurableObject } from "cloudflare:workers";
 const DAYS_KEPT = 60;
 const MAX_BODY = 1024;
 const MAX_BOOK_BODY = 4096;
-const BOOK_KINDS = { h: 1, a: 1, s: 1, n: 1, t: 1, l: 1, o: 1, m: 1, r: 1, v: 1 };   // v = 隠している行（2026-09-23）   // r = 返信の枠（2026-09-21）   // m = 枠のコメント（2026-09-21）   // o = 予約ボタンのラベル一覧（テキストと色）   // l = 予約タブの行に貼るリンク（2026-09-15）
+const BOOK_KINDS = { h: 1, a: 1, s: 1, n: 1, t: 1, l: 1, o: 1, m: 1, r: 1, v: 1, w: 1 };   // w = 画面で足した行（2026-09-28）   // v = 隠している行（2026-09-23）   // r = 返信の枠（2026-09-21）   // m = 枠のコメント（2026-09-21）   // o = 予約ボタンのラベル一覧（テキストと色）   // l = 予約タブの行に貼るリンク（2026-09-15）
 const ALLOWED = ["https://towananika.github.io", "http://localhost:8899", "http://127.0.0.1:8899"];
 const FAIL_LIMIT = 5;                 // 同じ IP から 1時間に 5回まちがえたら
 const FAIL_WINDOW = 60 * 60;          // 1時間、どの書き込みもできない（正しいパスワードでも）
@@ -161,7 +162,7 @@ export class HubDO extends DurableObject {
 
   // ---- 予約タブ ----
   async bookList(origin) {
-    const out = { holidays: {}, assignees: {}, slots: {}, newSlots: {}, telegram: {}, links: {}, labels: [], memos: {}, replies: {}, hideRows: [] };
+    const out = { holidays: {}, assignees: {}, slots: {}, newSlots: {}, telegram: {}, links: {}, labels: [], memos: {}, replies: {}, hideRows: [], addRows: [] };
     const all = await this.ctx.storage.list({ prefix: "bk:" });
     for (const [name, v] of all) {
       const kind = name.slice(3, 4), key = name.slice(5);
@@ -175,6 +176,7 @@ export class HubDO extends DurableObject {
       else if (kind === "m" && typeof v === "string") out.memos[key] = v;
       else if (kind === "r" && v && typeof v === "object") out.replies[key] = v;
       else if (kind === "v" && key === "rows" && Array.isArray(v)) out.hideRows = v;
+      else if (kind === "w" && key === "rows" && Array.isArray(v)) out.addRows = v;
     }
     return json(out, 200, origin, { "Cache-Control": "no-store" });
   }
@@ -208,6 +210,18 @@ export class HubDO extends DurableObject {
       };
       // 投稿しない（空欄）。送ってこない古い画面のときは持たない（画面側は「なし」なら元の企画のまま）
       if (typeof b.value.skip === "boolean") value.skip = b.value.skip;
+    } else if (b.kind === "w") {
+      // 画面で足した行。100行まで。形が合わないものは捨てる
+      if (b.key !== "rows" || !Array.isArray(value)) return json({ error: "value" }, 400, origin);
+      value = value.slice(0, 100).map((r) => ({
+        id: String((r && r.id) || "").slice(0, 16),
+        channel: String((r && r.channel) || "").slice(0, 20),
+        label: String((r && r.label) || "").slice(0, 30),
+        platforms: (Array.isArray(r && r.platforms) ? r.platforms : []).map(String).filter((p) => /^[A-Z]{1,4}$/.test(p)).slice(0, 3),
+        time: String((r && r.time) || ""),
+        reply: !!(r && r.reply),
+      })).filter((r) => /^[a-z0-9]{1,16}$/.test(r.id) && /^[a-z0-9_-]{1,20}$/.test(r.channel) && r.label &&
+        r.platforms.length && /^\d{2}:\d{2}$/.test(r.time));
     } else if (b.kind === "v") {
       // 隠している行。行の鍵の配列（200個まで、1つ80文字まで）
       if (b.key !== "rows" || !Array.isArray(value)) return json({ error: "value" }, 400, origin);
