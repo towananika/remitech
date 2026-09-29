@@ -285,6 +285,66 @@
       "platform": "IG",
       "followers": 189,
       "source": "auto"
+    },
+    {
+      "date": "2026-09-29",
+      "channel": "hiyoko",
+      "platform": "X",
+      "followers": 253,
+      "following": 249,
+      "source": "browser",
+      "checkedAt": {
+        "followers": "2026-09-29T13:15:09",
+        "following": "2026-09-29T13:15:09"
+      }
+    },
+    {
+      "date": "2026-09-29",
+      "channel": "nacha",
+      "platform": "X",
+      "followers": 69,
+      "following": 69,
+      "source": "browser",
+      "checkedAt": {
+        "followers": "2026-09-29T13:15:09",
+        "following": "2026-09-29T13:15:09"
+      }
+    },
+    {
+      "date": "2026-09-29",
+      "channel": "reel",
+      "platform": "X",
+      "followers": 871,
+      "following": 766,
+      "source": "browser",
+      "checkedAt": {
+        "followers": "2026-09-29T13:15:09",
+        "following": "2026-09-29T13:15:09"
+      }
+    },
+    {
+      "date": "2026-09-29",
+      "channel": "yuyu",
+      "platform": "X",
+      "followers": 16,
+      "following": 14,
+      "source": "browser",
+      "checkedAt": {
+        "followers": "2026-09-29T13:15:09",
+        "following": "2026-09-29T13:15:09"
+      }
+    },
+    {
+      "date": "2026-09-29",
+      "channel": "hiyoko",
+      "platform": "FB",
+      "followers": 48,
+      "following": 2,
+      "source": "browser",
+      "checkedAt": {
+        "followers": "2026-09-29T13:15:09",
+        "following": "2026-09-29T13:15:09"
+      }
     }
   ]
 }
