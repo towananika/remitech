@@ -238,6 +238,18 @@
     {
       "date": "2026-09-29",
       "channel": "hiyoko",
+      "platform": "FB",
+      "followers": 48,
+      "following": 2,
+      "source": "browser",
+      "checkedAt": {
+        "followers": "2026-09-29T13:15:09",
+        "following": "2026-09-29T13:15:09"
+      }
+    },
+    {
+      "date": "2026-09-29",
+      "channel": "hiyoko",
       "platform": "IG",
       "followers": 2726,
       "source": "auto"
@@ -248,6 +260,18 @@
       "platform": "TT",
       "followers": 163,
       "source": "auto"
+    },
+    {
+      "date": "2026-09-29",
+      "channel": "hiyoko",
+      "platform": "X",
+      "followers": 253,
+      "following": 249,
+      "source": "browser",
+      "checkedAt": {
+        "followers": "2026-09-29T13:15:09",
+        "following": "2026-09-29T13:15:09"
+      }
     },
     {
       "date": "2026-09-29",
@@ -274,6 +298,18 @@
     {
       "date": "2026-09-29",
       "channel": "nacha",
+      "platform": "X",
+      "followers": 69,
+      "following": 69,
+      "source": "browser",
+      "checkedAt": {
+        "followers": "2026-09-29T13:15:09",
+        "following": "2026-09-29T13:15:09"
+      }
+    },
+    {
+      "date": "2026-09-29",
+      "channel": "nacha",
       "platform": "YT",
       "followers": 13,
       "videos": 112,
@@ -285,30 +321,6 @@
       "platform": "IG",
       "followers": 189,
       "source": "auto"
-    },
-    {
-      "date": "2026-09-29",
-      "channel": "hiyoko",
-      "platform": "X",
-      "followers": 253,
-      "following": 249,
-      "source": "browser",
-      "checkedAt": {
-        "followers": "2026-09-29T13:15:09",
-        "following": "2026-09-29T13:15:09"
-      }
-    },
-    {
-      "date": "2026-09-29",
-      "channel": "nacha",
-      "platform": "X",
-      "followers": 69,
-      "following": 69,
-      "source": "browser",
-      "checkedAt": {
-        "followers": "2026-09-29T13:15:09",
-        "following": "2026-09-29T13:15:09"
-      }
     },
     {
       "date": "2026-09-29",
@@ -335,16 +347,55 @@
       }
     },
     {
-      "date": "2026-09-29",
+      "date": "2026-09-30",
       "channel": "hiyoko",
-      "platform": "FB",
-      "followers": 48,
-      "following": 2,
-      "source": "browser",
-      "checkedAt": {
-        "followers": "2026-09-29T13:15:09",
-        "following": "2026-09-29T13:15:09"
-      }
+      "platform": "IG",
+      "followers": 2714,
+      "source": "auto"
+    },
+    {
+      "date": "2026-09-30",
+      "channel": "hiyoko",
+      "platform": "TT",
+      "followers": 163,
+      "source": "auto"
+    },
+    {
+      "date": "2026-09-30",
+      "channel": "hiyoko",
+      "platform": "YT",
+      "followers": 95,
+      "videos": 208,
+      "source": "auto"
+    },
+    {
+      "date": "2026-09-30",
+      "channel": "nacha",
+      "platform": "IG",
+      "followers": 140,
+      "source": "auto"
+    },
+    {
+      "date": "2026-09-30",
+      "channel": "nacha",
+      "platform": "TT",
+      "followers": 41,
+      "source": "auto"
+    },
+    {
+      "date": "2026-09-30",
+      "channel": "nacha",
+      "platform": "YT",
+      "followers": 13,
+      "videos": 112,
+      "source": "auto"
+    },
+    {
+      "date": "2026-09-30",
+      "channel": "reel",
+      "platform": "IG",
+      "followers": 189,
+      "source": "auto"
     }
   ]
 }
