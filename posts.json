@@ -250,6 +250,26 @@
         "days": 0,
         "time": "17:30"
       }
+    },
+    {
+      "id": "ret",
+      "name": "RET",
+      "tagline": "",
+      "links": [
+        {
+          "kind": "X",
+          "handle": "@RET_OfficialCH",
+          "url": "https://x.com/RET_OfficialCH"
+        },
+        {
+          "kind": "Instagram",
+          "handle": "@ret_global",
+          "url": "https://www.instagram.com/ret_global/"
+        }
+      ],
+      "postTimes": [],
+      "color": "#7625bd",
+      "short": "RT"
     }
   ],
   "posts": [
