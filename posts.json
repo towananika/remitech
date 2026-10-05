@@ -139,6 +139,7 @@
         {
           "title": "nacha.club",
           "note": "押すとコピーできます",
+          "max": 25,
           "url": "https://nacha.club/",
           "items": [
             "Visit nacha.club",
@@ -149,24 +150,25 @@
             "Find us at nacha.club",
             "Head to nacha.club",
             "Tap to visit nacha.club",
-            "Everything is on nacha.club",
+            "It's all on nacha.club",
             "Discover nacha.club"
           ]
         },
         {
           "title": "IG ストーリー リンクボタン（アフターセール）",
           "note": "押すとコピーできます",
+          "max": 25,
           "url": "https://sale.nacha.vip/",
           "items": [
             "Aftersale is live!",
             "Aftersale is now live!",
             "The aftersale is open!",
             "Aftersale is ongoing!",
-            "Aftersale is now underway!",
+            "Aftersale is underway!",
             "Join the aftersale now!",
-            "Our aftersale has started!",
+            "Aftersale has started!",
             "Aftersale happening now!",
-            "Aftersale officially open!",
+            "Aftersale now open!",
             "Don't miss the aftersale!"
           ]
         }
@@ -215,6 +217,7 @@
         {
           "title": "IG ストーリー リンクボタン（Xへ）",
           "note": "押すとコピーできます",
+          "max": 25,
           "url": "https://x.com/REEL_Experience",
           "items": [
             "More on X",
