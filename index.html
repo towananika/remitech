@@ -4726,12 +4726,11 @@
   }
 
   // 日付の右に、最近7日のいいねタスクの達成を円で（2026-10-06 Hibiki指定）。
-  // 円の塗り＝その日に済ませた割合。今の作業の並び（chores.lists）で数えるので、時刻を変えた前の日は少なめに出ることがある
+  // 円の塗り＝その日に済ませた割合。タスクタブの「今日」と同じ並び（lkLists＝いいね＋フォロー）で数える。
+  // 今の並びが基準なので、作業時刻を変えた前の日は少なめに出ることがある
   function td7HTML(now) {
     var ids = [];
-    ((chores && chores.lists) || []).filter(function (li) { return li.kind !== "follow"; }).forEach(function (li) {
-      li.tasks.forEach(function (tk) { ids.push(tk.id); });
-    });
+    lkLists().forEach(function (li) { li.tasks.forEach(function (tk) { ids.push(tk.id); }); });
     if (!ids.length) return "";
     var h = "";
     for (var i = 6; i >= 0; i--) {
@@ -4783,7 +4782,6 @@
     // ---- 画面 ----
     var h = '<div class="td">' +
       '<div class="tdhead"><p class="tddate">' + esc((now.getMonth() + 1) + "/" + now.getDate() + "(" + DOW[lang][now.getDay()] + ")") + '</p>' +
-      '<span class="td7" aria-label="' + esc(t("td7")) + '">' + td7HTML(now) + '</span>' +
         '<span class="tdleft" data-zero="' + (left === 0) + '">' + esc(t("tdLeft")) + ' ' + left + '</span>' +
         '<span class="savestat" id="saveStat"></span></div>';
 
@@ -5077,6 +5075,7 @@
 
     var h = '<div class="lk">' +
       '<div class="lkhead"><p class="lkttl">' + esc(t("lkToday")) + ' <span>' + (now.getMonth() + 1) + "/" + now.getDate() + "(" + esc(DOW[lang][now.getDay()]) + ')</span></p>' +
+        '<span class="td7" aria-label="' + esc(t("td7")) + '">' + td7HTML(now) + '</span>' +
         '<span class="calcount" data-full="' + (tAll > 0 && tDone === tAll) + '">' + tDone + "/" + tAll + '</span>' +
         '<span class="tiny" id="lkOut"></span></div>' +
 (editLocked && !teamCode() ? '<div class="lkcode"><label for="lkCodeIn">' + esc(t("lkCode")) + '</label>' +
