@@ -532,6 +532,10 @@
   .tdleft{ font-size:13px; font-weight:700; padding:3px 10px; border-radius:999px; color:var(--surface); background:var(--ink); }
   .tdleft[data-zero="true"]{ background:var(--sage); }
   .tdhead .savestat{ margin-left:auto; }
+  .td7{ display:inline-flex; align-items:center; gap:5px; }
+  .td7d{ width:14px; height:14px; border-radius:50%; border:1.5px solid var(--sage);
+    background:conic-gradient(var(--sage) var(--p), transparent 0); }
+  .td7d.td7now{ box-shadow:0 0 0 2px var(--surface), 0 0 0 3.5px var(--ink); }
   .tdsec{ margin:0 0 18px; }
   .tdsech{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin:0 0 8px; }
   .tdsech > p{ margin:0; font-size:13px; font-weight:700; color:var(--muted); letter-spacing:.04em; }
@@ -1447,7 +1451,7 @@
           allBooked:"All booked", leftToDo:"left", nothingToday:"Nothing scheduled",
           markSched:"Booked ahead", markPosted:"Posted", markVerified:"Verified", verifiedTag:"Verified", needUrl:"Paste the link first", addFile:"Add image / video", localOnly:"On this device only", onServer:"Shared",
           storeTitle:"Media store (GitHub)", storeUrl:"owner/repo", storeTok:"Access token", storeSave:"Save",
-          storeOk:"Connected", storeNo:"Could not connect", sure:"Delete?", noImg:"No image needed", pickOne:"Random", snOver:"-char limit exceeded", linkPh:"Paste the link of the post", open:"Open",
+          storeOk:"Connected", storeNo:"Could not connect", sure:"Delete?", noImg:"No image needed", pickOne:"Random", snOver:"-char limit exceeded", td7:"Last 7 days", linkPh:"Paste the link of the post", open:"Open",
           copy:"Copy", copied:"Copied", copyEn:"EN", noText:"No text yet", comment:"Comment",
           visual:"Visual", today:"Today", tomorrow:"Tomorrow", prepEmpty:"Nothing coming up.",
           searchPh:"Search text, title, date…", noMatch:"No matches.", pgPrev:"Prev", pgNext:"Next",
@@ -1498,7 +1502,7 @@
           allBooked:"모두 예약됨", leftToDo:"남음", nothingToday:"예정 없음",
           markSched:"예약 완료", markPosted:"게시 완료", markVerified:"확인 완료", verifiedTag:"확인 완료", needUrl:"먼저 링크를 붙여넣어", addFile:"이미지 / 영상 추가", localOnly:"이 기기에만", onServer:"공유됨",
           storeTitle:"미디어 저장소 (GitHub)", storeUrl:"owner/repo", storeTok:"액세스 토큰", storeSave:"저장",
-          storeOk:"연결됨", storeNo:"연결 실패", sure:"삭제?", noImg:"이미지 불필요", pickOne:"랜덤", snOver:"자 초과", linkPh:"게시물 링크 붙여넣기", open:"열기",
+          storeOk:"연결됨", storeNo:"연결 실패", sure:"삭제?", noImg:"이미지 불필요", pickOne:"랜덤", snOver:"자 초과", td7:"최근 7일", linkPh:"게시물 링크 붙여넣기", open:"열기",
           copy:"복사", copied:"복사됨", copyEn:"EN", noText:"원고 없음", comment:"댓글",
           visual:"비주얼", today:"오늘", tomorrow:"내일", prepEmpty:"예정된 게 없어.",
           searchPh:"본문, 제목, 날짜로 검색…", noMatch:"일치하는 게 없어.", pgPrev:"이전", pgNext:"다음",
@@ -1549,7 +1553,7 @@
           allBooked:"すべて予約ずみ", leftToDo:"残り", nothingToday:"予定なし",
           markSched:"予約完了", markPosted:"投稿完了", markVerified:"投稿確認完了", verifiedTag:"確認完了", needUrl:"先にリンクを貼る", addFile:"画像・動画を入れる", localOnly:"この端末だけ", onServer:"共有ずみ",
           storeTitle:"画像の置き場（GitHub）", storeUrl:"owner/repo", storeTok:"アクセストークン", storeSave:"保存",
-          storeOk:"つながった", storeNo:"つながらない", sure:"消す？", noImg:"画像は要らない", pickOne:"ランダムにコピー", snOver:"字を超えている", linkPh:"投稿したリンクを貼る", open:"開く",
+          storeOk:"つながった", storeNo:"つながらない", sure:"消す？", noImg:"画像は要らない", pickOne:"ランダムにコピー", snOver:"字を超えている", td7:"最近7日のタスク", linkPh:"投稿したリンクを貼る", open:"開く",
           copy:"コピー", copied:"コピーした", copyEn:"EN", noText:"原稿なし", comment:"コメント",
           visual:"ビジュアル", today:"今日", tomorrow:"明日", prepEmpty:"先の予定がない。",
           searchPh:"本文・見出し・日付で探す…", noMatch:"一致するものがない。", pgPrev:"前へ", pgNext:"次へ",
@@ -4721,6 +4725,26 @@
     return h + '<p class="tdout"></p></div></div>';
   }
 
+  // 日付の右に、最近7日のいいねタスクの達成を円で（2026-10-06 Hibiki指定）。
+  // 円の塗り＝その日に済ませた割合。今の作業の並び（chores.lists）で数えるので、時刻を変えた前の日は少なめに出ることがある
+  function td7HTML(now) {
+    var ids = [];
+    ((chores && chores.lists) || []).filter(function (li) { return li.kind !== "follow"; }).forEach(function (li) {
+      li.tasks.forEach(function (tk) { ids.push(tk.id); });
+    });
+    if (!ids.length) return "";
+    var h = "";
+    for (var i = 6; i >= 0; i--) {
+      var d = new Date(now.getFullYear(), now.getMonth(), now.getDate() - i);
+      var dd = lkDayDone(ymd(d)), n = 0;
+      ids.forEach(function (id) { if (dd[id]) n++; });
+      var p = Math.round(n / ids.length * 100);
+      h += '<i class="td7d' + (i === 0 ? ' td7now' : '') + (p === 100 ? ' td7full' : '') + '" style="--p:' + p + '%" title="' +
+        esc((d.getMonth() + 1) + "/" + d.getDate() + "(" + DOW[lang][d.getDay()] + ") " + n + "/" + ids.length) + '"></i>';
+    }
+    return h;
+  }
+
   function renderToday() {
     chansEl.hidden = true;
     if (!schedule) { view.innerHTML = '<p class="empty">' + esc(t("loading")) + '</p>'; return; }
@@ -4759,6 +4783,7 @@
     // ---- 画面 ----
     var h = '<div class="td">' +
       '<div class="tdhead"><p class="tddate">' + esc((now.getMonth() + 1) + "/" + now.getDate() + "(" + DOW[lang][now.getDay()] + ")") + '</p>' +
+      '<span class="td7" aria-label="' + esc(t("td7")) + '">' + td7HTML(now) + '</span>' +
         '<span class="tdleft" data-zero="' + (left === 0) + '">' + esc(t("tdLeft")) + ' ' + left + '</span>' +
         '<span class="savestat" id="saveStat"></span></div>';
 
