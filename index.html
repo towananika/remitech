@@ -988,7 +988,6 @@
     color:var(--ink); font:inherit; font-size:12px; padding:5px 12px; cursor:pointer;
   }
   .snitem:hover{ border-color:var(--wood); }
-  .snitem[data-n]::after{ content:attr(data-n); margin-left:6px; font-size:11px; opacity:.5; }
   .snitem.over{ border-color:#d93025; color:#d93025; }
   .snitem[data-done="true"]{ color:var(--surface); background:var(--sage); border-color:var(--sage); }
   .pcard{
@@ -5819,7 +5818,7 @@
         while (bank.pick.length > 1 && txt === bank.last && ++tries < 10);
         bank.last = txt;
         var shown = cp.parentNode.querySelector(".snpicked");
-        if (shown) shown.textContent = txt + "\u3000(" + txt.length + (bank.max ? "/" + bank.max : "") + ")";
+        if (shown) shown.textContent = txt;   // \u6587\u5b57\u6570\u306f\u51fa\u3055\u306a\u3044\uff082026-10-07 Hibiki\u6307\u5b9a\uff09\u300225\u5b57\u306e\u4e0a\u9650\u306f posts.json \u306e max \u3067\u5b88\u308b
       } else if (bank) {
         txt = cp.getAttribute("data-lg") === "en" ? bank.en : bank.cur;
       }
