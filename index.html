@@ -895,6 +895,8 @@
   .ovlink:hover{ border-color:var(--chc, var(--wood)); }
   .ovkind{ color:var(--muted); font-size:11px; }
   .ovlink.ovended{ opacity:.55; }
+  .pfi{ width:1.25em; height:1.25em; vertical-align:-0.25em; margin-right:4px; flex:none; display:inline-block; }
+  .ovkind .pfi{ width:16px; height:16px; vertical-align:-4px; }
   .tglinks{ margin-top:22px; }
   .guide{ max-width:640px; }
   .gtitle{ font-size:18px; margin:6px 0 14px; }
@@ -1921,7 +1923,7 @@
 
     var body = "";
     rows.forEach(function (row, ri) {
-      var pf = row.platform ? '<i class="pf" data-p="' + esc(row.platform) + '">' + esc(pfn(row.platform)) + '</i>' : "";
+      var pf = row.platform ? '<i class="pf" data-p="' + esc(row.platform) + '">' + pfIco(row.platform) + esc(pfn(row.platform)) + '</i>' : "";
       var first = (ri === 0) || (rows[ri - 1].ch.id !== row.ch.id);
       var col = row.ch.color || "var(--wood)";
       body += '<tr class="' + (first ? "chstart" : "") + '" data-ch="' + esc(row.ch.id) +
@@ -2029,7 +2031,7 @@
         ag += '<div class="agrow" style="--chc:' + esc(ch.color || "var(--wood)") + '">' +
           '<div class="phead agmain" data-k="' + esc(slotKey(sl)) + '">' +
             '<span class="agtime">' + esc(sl.time) + '</span>' +
-            '<span class="agwho">' + esc(ch.name) + ' <i>' + esc(pfn(sl.platform)) + '</i></span>' +
+            '<span class="agwho">' + esc(ch.name) + ' <i>' + pfIco(sl.platform) + esc(pfn(sl.platform)) + '</i></span>' +
             '<span class="mk" data-s="' + st + '">' + esc(t("st" + st.charAt(0).toUpperCase() + st.slice(1))) + '</span>' +
             (label ? '<span class="aglabel">' + esc(tl(label)) + '</span>' : "") +
           '</div><span class="agmats">' + mats + '</span></div>';
@@ -2329,7 +2331,7 @@
           ? '<p class="plabel">' + esc(t("ovAccounts")) + '</p>' +
             '<div class="ovlinks">' + links.map(function (l) {
               return '<a class="ovlink" href="' + esc(l.url) + '" target="_blank" rel="noopener">' +
-                '<span class="ovkind">' + esc(l.kind) + '</span>' +
+                '<span class="ovkind">' + pfIco(l.kind) + esc(l.kind) + '</span>' +
                 '<span class="ovhandle">' + esc(l.handle || "") + '</span></a>';
             }).join("") + '</div>'
           : "") +
@@ -2490,6 +2492,20 @@
 
   // 縮めた記号ではなく、そのまま呼ぶ
   var PFN = { X:"X", IG:"Instagram", IGS:"IG Stories", FB:"Facebook", TT:"TikTok", YT:"YouTube" };
+  // SNSのアイコン（2026-10-07）。名前の前に付けて、どのSNSかを一目で分かるようにする。X・TikTok は文字色に合わせる（暗い画面でも見える）
+  var PF_ICO = {
+    X:  '<path d="M5 4.5l14 15M19 4.5l-14 15" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" fill="none"/>',
+    IG: '<rect x="3" y="3" width="18" height="18" rx="5.2" fill="none" stroke="#E1306C" stroke-width="2.2"/><circle cx="12" cy="12" r="4.2" fill="none" stroke="#E1306C" stroke-width="2.2"/><circle cx="17.4" cy="6.6" r="1.4" fill="#E1306C"/>',
+    IGS:'<circle cx="12" cy="12" r="9.2" fill="none" stroke="#E1306C" stroke-width="2.2" stroke-dasharray="4.2 2.6"/><circle cx="12" cy="12" r="4.4" fill="#E1306C"/>',
+    FB: '<circle cx="12" cy="12" r="10" fill="#1877F2"/><path d="M13.3 19.5v-6.3h2.1l.4-2.6h-2.5V9c0-.75.35-1.4 1.45-1.4h1.15V5.4c-.35-.05-1.15-.12-2.05-.12-2.05 0-3.35 1.2-3.35 3.45v1.9H8.3v2.6h2.2v6.3z" fill="#fff"/>',
+    TT: '<path d="M13.6 3h2.6c.3 2.2 1.8 3.7 4 3.9v2.7c-1.5 0-2.9-.5-4-1.3v6.4a5.2 5.2 0 1 1-5.2-5.2c.3 0 .6 0 .9.1v2.8a2.5 2.5 0 1 0 1.7 2.3z" fill="currentColor"/>',
+    YT: '<rect x="2" y="5" width="20" height="14" rx="4.2" fill="#FF0000"/><path d="M10 8.9l5.4 3.1-5.4 3.1z" fill="#fff"/>'
+  };
+  var PF_KIND = { Instagram:"IG", Facebook:"FB", TikTok:"TT", YouTube:"YT", "IG Stories":"IGS" };
+  function pfIco(p) {
+    var k = PF_KIND[p] || p || "X", d = PF_ICO[k];
+    return d ? '<svg class="pfi" viewBox="0 0 24 24" aria-hidden="true">' + d + '</svg>' : "";
+  }
   function pfn(p) { return PFN[p || "X"] || (p || "X"); }
   function slotKey(x) { return slotCh(x) + "|" + x.date + "|" + (x.platform || "X") + "|" + x.time; }
 
@@ -2903,7 +2919,7 @@
       }).join("");
     var q = prepSearch.trim().toLowerCase();
     return '<div class="phead" data-k="' + esc(slotKey(sl)) + '" style="--chc:' + esc(ch.color || "var(--wood)") + '">' +
-          '<i class="pf" data-p="' + esc(sl.platform || "X") + '">' + esc(pfn(sl.platform)) + '</i>' +
+          '<i class="pf" data-p="' + esc(sl.platform || "X") + '">' + pfIco(sl.platform) + esc(pfn(sl.platform)) + '</i>' +
           '<span class="who">' + hilite(ch.name, q) + '</span>' +
           '<span class="when">' + esc(whenLabel(sl.date)) + " \u00b7 " + esc(sl.time) + '</span>' +
           (sl.label ? '<span class="when">· ' + hilite(tl(sl.label), q) + '</span>' : "") +
@@ -3100,7 +3116,7 @@
     var head = '<div class="pphead" style="--chc:' + esc(col) + '">' +
       '<div class="twav big" style="background:' + esc(col) + '">' + esc(chShort(cid)) + '</div>' +
       '<div class="ppmeta"><p class="ppname">' + esc(ch.name) + (handle ? ' <span>' + esc(handle) + '</span>' : "") + '</p>' +
-        '<p class="ppsub"><i class="pf">' + esc(pfn(sl.platform)) + '</i> ' + esc(whenLabel(sl.date)) + ' \u00b7 <b>' + esc(sl.time) + '</b>' +
+        '<p class="ppsub"><i class="pf">' + pfIco(sl.platform) + esc(pfn(sl.platform)) + '</i> ' + esc(whenLabel(sl.date)) + ' \u00b7 <b>' + esc(sl.time) + '</b>' +
         (sl.label ? ' \u00b7 ' + esc(tl(sl.label)) : "") + '</p></div>' +
       '<span class="ppstate mk" data-s="' + state + '">' + esc(stName) + '</span></div>';
 
@@ -3326,7 +3342,7 @@
         if (!ev.recur) { html += '<div class="pcard">' + prepHeadHTML(ev, i) + '</div>'; return; }
         var c = chanOf(ev.channel) || { name: ev.channel, color: "var(--wood)" };
         html += '<div class="pcard grecur" style="--chc:' + esc(c.color || "var(--wood)") + '">' +
-          '<div class="phead snhead"><i class="pf">' + esc(pfn(ev.platform)) + '</i>' +
+          '<div class="phead snhead"><i class="pf">' + pfIco(ev.platform) + esc(pfn(ev.platform)) + '</i>' +
           '<span class="who">' + esc(c.name) + '</span><span class="when">' + esc(ev.time) +
           (ev.label ? " \u00b7 " + esc(tl(ev.label)) : "") + '</span>' +
           '<span class="ovtag">' + esc(t("gRecurTag")) + '</span>' +
@@ -3388,7 +3404,7 @@
     pr.forEach(function (ev) {
       var c = chanOf(ev.channel) || { name: ev.channel, color: "var(--wood)" };
       html += '<div class="pcard grecur" style="--chc:' + esc(c.color || "var(--wood)") + '">' +
-        '<div class="phead snhead"><i class="pf">' + esc(pfn(ev.platform)) + '</i><span class="who">' + esc(c.name) +
+        '<div class="phead snhead"><i class="pf">' + pfIco(ev.platform) + esc(pfn(ev.platform)) + '</i><span class="who">' + esc(c.name) +
         '</span><span class="when">' + esc(ev.time) + (ev.label ? " \u00b7 " + esc(tl(ev.label)) : "") + '</span>' +
         '<span class="ovtag">' + esc(t("gRecurTag")) + '</span>' +
         '<button class="donebtn gmake" data-date="' + esc(ev.date) + '" data-ch="' + esc(ev.channel) +
@@ -3578,7 +3594,7 @@
       (tr.length
         ? tr.map(function (x) {
             return '<div class="trow"><span class="tiny">' + esc(x.date) + " · " +
-              esc(pfn(x.platform)) + " · " + esc(x.time) +
+              pfIco(x.platform) + esc(pfn(x.platform)) + " · " + esc(x.time) +
               (x.label ? " · " + esc(tl(x.label)) : "") + '</span>' +
               '<button class="donebtn restore" data-k="' + esc(slotKey(x)) + '">' +
               esc(t("restore")) + '</button></div>';
@@ -4134,7 +4150,7 @@
         h += '<tr' + (r.reply ? ' class="bkreprow"' : '') + ' style="--chc:' + esc(c.color || "var(--wood)") + '"><th class="bkacc" data-row="' + esc(rk) + '"' +
           (r.added ? ' data-added="1" data-added-id="' + esc(r.id) + '"' : '') + ' title="' + esc(t("bkRowHide")) + '">' +
           '<b>' + (r.reply ? "\u21b3 " : "") + esc(tl(r.label)) + '</b><i>' +
-          esc(rowPlats(r).map(pfn).join("\u30fb")) + (r.time ? " \u00b7 " + esc(r.time) : "") + '</i></th>';
+          rowPlats(r).map(function (pf) { return pfIco(pf) + esc(pfn(pf)); }).join("\u30fb") + (r.time ? " \u00b7 " + esc(r.time) : "") + '</i></th>';
         days.forEach(function (d) {
           var k = ymd(d);
           // \u78ba\u8a8d\u306e\u884c\uff08\u4e88\u7d04\u3067\u306f\u306a\u3044\uff09\uff1a\u6295\u7a3f\u3055\u308c\u305f\u304b\u30fb\u8fd4\u4fe1\u3057\u305f\u304b\u3092\u62bc\u3057\u3066\u2713\u3002\u52d5\u753b\u306f\u6bce\u65e5\u3067\u306f\u306a\u3044\u306e\u3067\u6708\u9593\u4f01\u753b\u3067\u78ba\u304b\u3081\u308b
@@ -4561,7 +4577,7 @@
     lists.forEach(function (li) {
       var c = chanOf(li.channel) || { name: li.channel, color: "var(--wood)" };
       html += '<tr style="--chc:' + esc(c.color || "var(--wood)") + '"><th class="chacc2">' +
-        '<b>' + esc(c.name) + '</b><i>' + esc(pfn(li.platform)) + '</i></th>';
+        '<b>' + esc(c.name) + '</b><i>' + pfIco(li.platform) + esc(pfn(li.platform)) + '</i></th>';
       times.forEach(function (tm) {
         var tks = li.tasks.filter(function (tk) { return tk.time === tm; });
         html += '<td class="' + (tm === cur ? "now" : "") + '">' + tks.map(function (tk) {
@@ -4714,7 +4730,7 @@
       '<a class="tdav" href="#/prep/' + encodeURIComponent(key) + '">' + esc(chShort(slotCh(sl))) + '</a>' +
       '<div class="tdbody">' +
         '<div class="tdl1"><a class="tdname" href="#/prep/' + encodeURIComponent(key) + '">' + esc(c.name) + '</a>' +
-          '<span class="tdmeta">' + esc(pfn(sl.platform)) + ' · ' + esc(tdDay(sl)) + ' ' + esc(sl.time) + '</span>' +
+          '<span class="tdmeta">' + pfIco(sl.platform) + esc(pfn(sl.platform)) + ' · ' + esc(tdDay(sl)) + ' ' + esc(sl.time) + '</span>' +
           '<em class="tdkind">' + esc(t(kl)) + '</em></div>' +
         (body ? '<p class="tdtext">' + esc(body.slice(0, 80)) + '</p>' : "") +
         (memo.length ? '<div class="tdlog">' + memo.map(function (m) { return '<p>' + esc(m) + '</p>'; }).join("") + '</div>' : "");
@@ -4810,7 +4826,7 @@
       var n = (/(\d+)/.exec(it.tk.task) || [])[1];
       h += '<button class="tdst" data-id="' + esc(it.tk.id) + '" data-on="' + it.on + '" style="--chc:' + esc(c.color || "var(--wood)") + '" title="' + esc(it.tk.task) + '">' +
         '<span class="tdring"><b>' + esc(csv ? "3M" : chShort(it.li.channel)) + '</b>' + (it.on ? '<em>\u2713</em>' : '') + '</span>' +
-        '<i>' + esc(csv ? "CSV" : pfn(it.li.platform) + (n ? " " + n : "")) + '</i></button>';
+        '<i>' + (csv ? "" : pfIco(it.li.platform)) + esc(csv ? "CSV" : pfn(it.li.platform) + (n ? " " + n : "")) + '</i></button>';
     });
     h += '</div></section>';
 
@@ -4850,7 +4866,7 @@
           var c = chanOfSlot(sl) || { name: slotCh(sl) };
           var what = isChecked(sl) ? t("tdChecked") : sl.url ? t("tdPosted") : t("tdBooked");
           return '<a href="#/prep/' + encodeURIComponent(slotKey(sl)) + '"><b>\u2713 ' + esc(what) + '</b> ' +
-            esc(c.name) + ' ' + esc(pfn(sl.platform)) + ' ' + esc(tdDay(sl)) + ' ' + esc(sl.time) + '</a>';
+            esc(c.name) + ' ' + pfIco(sl.platform) + esc(pfn(sl.platform)) + ' ' + esc(tdDay(sl)) + ' ' + esc(sl.time) + '</a>';
         }).join("") + '</div>';
       }
     }
@@ -5047,7 +5063,7 @@
       var csv = li.kind === "csv" || li.tasks.some(function (tk) { return /3M|csv/i.test(tk.task); });
       var n = csv ? "" : ((/(\d+)/.exec(((li.tasks.filter(function (tk) { return /like/i.test(tk.task); })[0] || li.tasks[0] || {}).task) || "") || [])[1] || "");
       var h = '<tr style="--chc:' + esc(c.color || "var(--wood)") + '"><th class="lkacc"><b>' + esc(csv ? t("lkCsv") : c.name) + '</b>' +
-        '<i>' + esc(csv ? c.name : pfn(li.platform) + (n ? " \u00b7 " + n : "")) + '</i></th>';
+        '<i>' + (csv ? "" : pfIco(li.platform)) + esc(csv ? c.name : pfn(li.platform) + (n ? " \u00b7 " + n : "")) + '</i></th>';
       days.forEach(function (d) {
         var k = ymd(d), dd = lkDayDone(k), future = k > today;
         h += '<td data-today="' + (k === today) + '" data-wknd="' + (d.getDay() === 0 || d.getDay() === 6) + '">' +
@@ -5075,7 +5091,7 @@
       var csv = li.kind === "csv" || li.tasks.some(function (tk) { return /3M|csv/i.test(tk.task); });
       var n = csv ? "" : ((/(\d+)/.exec(((li.tasks.filter(function (tk) { return /like/i.test(tk.task); })[0] || li.tasks[0] || {}).task) || "") || [])[1] || "");
       return '<div class="lkrow" style="--chc:' + esc(c.color || "var(--wood)") + '">' +
-        '<div class="lkname"><b>' + esc(csv ? t("lkCsv") : c.name) + '</b><i>' + esc(csv ? c.name : pfn(li.platform) + (n ? " \u00b7 " + n : "")) + '</i></div>' +
+        '<div class="lkname"><b>' + esc(csv ? t("lkCsv") : c.name) + '</b><i>' + (csv ? "" : pfIco(li.platform)) + esc(csv ? c.name : pfn(li.platform) + (n ? " \u00b7 " + n : "")) + '</i></div>' +
         '<div class="lkbtns">' + lkSorted(li.tasks).map(function (tk) {
           var on = !!td[tk.id]; tAll++; if (on) tDone++;
           return '<button class="lkc lkbig' + (lkLabel(tk) ? " lkwide" : "") + '" data-d="' + today + '" data-id="' + esc(tk.id) + '" data-on="' + on + '" data-now="' + (tk.time === cur && !on) + '" title="' + esc(tk.task + (on && lkAtText(today, tk.id) ? "\n\u2713 " + lkAtText(today, tk.id) : "")) + '">' +
@@ -5221,7 +5237,7 @@
       }
       var dt = lf ? lf.date : (lg ? lg.date : "");
       return '<div class="kmcell" style="--chc:' + esc(c.color || "var(--wood)") + '">' +
-        '<span class="kmwho"><b>' + esc(c.name) + '</b> ' + esc(pfn(a[1])) +
+        '<span class="kmwho"><b>' + esc(c.name) + '</b> ' + pfIco(a[1]) + esc(pfn(a[1])) +
           (dt && dt !== common ? ' <i class="kmdt" data-old="true">' + esc(dt.slice(5)) + '</i>' : "") + '</span>' +
         '<span class="kmrow"><i>' + esc(t("followers")) + '</i>' + num("followers", lf, true) + '</span>' +
         '<span class="kmrow"><i>' + esc(t("following")) + '</i>' + num("following", lg, false) + '</span></div>';
