@@ -71,6 +71,11 @@
         }
       ],
       "docTitle": "HIYOKO詳細企画",
+      "sites": [
+        { "name": { "en": "Official site", "ko": "공식 홈페이지", "ja": "公式HP" }, "url": "https://hiyokotoken.com/" },
+        { "name": { "en": "Season 1", "ko": "시즌1", "ja": "シーズン1" }, "status": "now", "url": "https://season.hiyoko.vip/" },
+        { "name": { "en": "Aftersale", "ko": "애프터세일", "ja": "アフターセール" }, "status": "ended", "url": "https://sale.hiyoko.io/" }
+      ],
       "telegramAt": {
         "days": 0,
         "time": "17:30"
