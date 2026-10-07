@@ -109,7 +109,7 @@
       ],
       "sites": [
         { "name": { "en": "Official site", "ko": "공식 홈페이지", "ja": "公式HP" }, "url": "https://nacha.club/" },
-        { "name": { "en": "Aftersale", "ko": "애프터세일", "ja": "アフターセール" }, "url": "https://sale.nacha.vip/" }
+        { "name": { "en": "Aftersale", "ko": "애프터세일", "ja": "アフターセール" }, "status": "now", "url": "https://sale.nacha.vip/" }
       ],
       "postTimes": [
         {
