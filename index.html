@@ -2496,12 +2496,11 @@
   var PF_ICO = {
     X:  '<path d="M5 4.5l14 15M19 4.5l-14 15" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" fill="none"/>',
     IG: '<rect x="3" y="3" width="18" height="18" rx="5.2" fill="none" stroke="#E1306C" stroke-width="2.2"/><circle cx="12" cy="12" r="4.2" fill="none" stroke="#E1306C" stroke-width="2.2"/><circle cx="17.4" cy="6.6" r="1.4" fill="#E1306C"/>',
-    IGS:'<circle cx="12" cy="12" r="9.2" fill="none" stroke="#E1306C" stroke-width="2.2" stroke-dasharray="4.2 2.6"/><circle cx="12" cy="12" r="4.4" fill="#E1306C"/>',
     FB: '<circle cx="12" cy="12" r="10" fill="#1877F2"/><path d="M13.3 19.5v-6.3h2.1l.4-2.6h-2.5V9c0-.75.35-1.4 1.45-1.4h1.15V5.4c-.35-.05-1.15-.12-2.05-.12-2.05 0-3.35 1.2-3.35 3.45v1.9H8.3v2.6h2.2v6.3z" fill="#fff"/>',
     TT: '<path d="M13.6 3h2.6c.3 2.2 1.8 3.7 4 3.9v2.7c-1.5 0-2.9-.5-4-1.3v6.4a5.2 5.2 0 1 1-5.2-5.2c.3 0 .6 0 .9.1v2.8a2.5 2.5 0 1 0 1.7 2.3z" fill="currentColor"/>',
     YT: '<rect x="2" y="5" width="20" height="14" rx="4.2" fill="#FF0000"/><path d="M10 8.9l5.4 3.1-5.4 3.1z" fill="#fff"/>'
   };
-  var PF_KIND = { Instagram:"IG", Facebook:"FB", TikTok:"TT", YouTube:"YT", "IG Stories":"IGS" };
+  var PF_KIND = { Instagram:"IG", Facebook:"FB", TikTok:"TT", YouTube:"YT", "IG Stories":"IG", IGS:"IG" };   // ストーリーもインスタのアイコン（2026-10-07）
   function pfIco(p) {
     var k = PF_KIND[p] || p || "X", d = PF_ICO[k];
     return d ? '<svg class="pfi" viewBox="0 0 24 24" aria-hidden="true">' + d + '</svg>' : "";
