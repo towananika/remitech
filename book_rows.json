@@ -1,5 +1,5 @@
 {
-  "note": "予約タブの行。2026-09-14 に Hibiki が指定。時間は hh:mm（HIYOKO X 午前は 09:30 で確定）。reply:true の行は、すぐ上の投稿に付く返信（予約ではなく、やったかどうか）。SNS は1行に1つ。check:\"id\" の行（2026-09-15 HIYOKO TikTok・YouTube）は予約ではなく、投稿されたかの確認と返信。動画は毎日ではないので月間企画で確かめる。押した印はサーバーの kind t に「日付|id」で置く",
+  "note": "予約タブの行。2026-09-14 に Hibiki が指定。時間は hh:mm（HIYOKO X 午前は 09:30 で確定）。reply:true の行は、すぐ上の投稿に付く返信（予約ではなく、やったかどうか）。SNS は1行に1つ。check:\"id\" の行（2026-09-15 HIYOKO TikTok・YouTube）は予約ではなく、投稿されたかの確認と返信。動画は毎日ではないので月間企画で確かめる。押した印はサーバーの kind t に「日付|id」で置く。2026-10-08 悠悠観音堂（X・IG のみ）を追加：企画書では X は毎朝、IG・FB は火・木・金と祝日の朝。時刻の決まりはないので 09:00 にした",
   "groups": [
     { "channel": "hiyoko", "rows": [
       { "platforms": ["X"],  "time": "09:30", "label": "投稿" },
@@ -33,6 +33,10 @@
       { "platforms": ["IG"],  "time": "17:00", "label": "IG フィード" },
       { "platforms": ["IG"],  "time": "17:00", "label": "返信", "reply": true },
       { "platforms": ["IGS"], "time": "17:00", "label": "IG ストーリー" }
+    ]},
+    { "channel": "yuyu", "rows": [
+      { "platforms": ["X"],  "time": "09:00", "label": "投稿" },
+      { "platforms": ["IG"], "time": "09:00", "label": "フィード" }
     ]}
   ]
 }

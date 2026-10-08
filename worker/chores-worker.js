@@ -45,7 +45,7 @@ export default {
     if (request.method === "OPTIONS") return new Response(null, { headers: cors(origin) });
     const url = new URL(request.url);
     if (!["/chores", "/book", "/code", "/ws"].includes(url.pathname) &&
-        !/^\/(auth\/(register|login|renew|logout|users|member)|internal\/[a-z0-9_-]{1,30})$/.test(url.pathname)) {
+        !/^\/(auth\/(register|login|renew|logout|logoutall|password|reset|resetcode|delete|users|member)|internal\/[a-z0-9_-]{1,30})$/.test(url.pathname)) {
       return json({ ok: true, service: "remitech-chores" }, 200, origin);
     }
     const stub = env.HUB.get(env.HUB.idFromName("main"));
@@ -299,6 +299,7 @@ export class HubDO extends DurableObject {
       if (!/^[a-z0-9_.-]{3,20}$/.test(id)) return json({ error: "id" }, 400, origin);
       if (pw.length < 8 || pw.length > 64) return json({ error: "pw" }, 400, origin);
       if (op === "register") {
+        if (pw.toLowerCase() === id) return json({ error: "pw-id" }, 400, origin);   // ID と同じ PW は使えない
         // 新規登録は同じ IP から1時間に5件まで、全体で300人まで
         if (await this.limited("R:" + ip, 5, 3600)) return json({ error: "too-many" }, 429, origin);
         if (await this.ctx.storage.get("u:" + id)) return json({ error: "taken" }, 409, origin);
@@ -318,6 +319,28 @@ export class HubDO extends DurableObject {
       if (!ok) { await this.bump("L:" + ip, 900); await this.bump("I:" + id, 3600); return json({ error: "wrong" }, 403, origin); }
       return this.newSession(id, origin);
     }
+    if (op === "reset") {
+      // パスワードを忘れたとき（2026-10-08）。メールがないので、管理者が出した「再設定コード」（24時間・1回だけ）で新しい PW にする。
+      // ID の有無・コードの違い・期限切れは同じ返事にする。済んだら全部の端末をログアウトさせ、自動ではログインしない（OWASP）
+      const b = await readJson(request);
+      const id = typeof (b && b.id) === "string" ? b.id.trim().toLowerCase() : "";
+      const code = typeof (b && b.code) === "string" ? b.code.trim().toUpperCase().replace(/[^A-Z0-9]/g, "") : "";
+      const pw = typeof (b && b.pw) === "string" ? b.pw : "";
+      if (pw.length < 8 || pw.length > 64) return json({ error: "pw" }, 400, origin);
+      if (pw.toLowerCase() === id) return json({ error: "pw-id" }, 400, origin);
+      if (await this.limited("L:" + ip, 10, 900) || await this.limited("C:" + id, 5, 3600)) return json({ error: "too-many" }, 429, origin);
+      const rc = /^[a-z0-9_.-]{3,20}$/.test(id) ? await this.ctx.storage.get("rc:" + id) : null;
+      const ch = await sha256Hex("rc|" + id + "|" + code);
+      const u = rc ? await this.ctx.storage.get("u:" + id) : null;
+      if (!rc || !u || rc.exp < Date.now() || !safeEqual(ch, rc.hash)) {
+        await this.bump("L:" + ip, 900); await this.bump("C:" + id, 3600);
+        return json({ error: "code" }, 403, origin);
+      }
+      await this.setPassword(u, pw);
+      await this.ctx.storage.delete("rc:" + id);
+      await this.endSessions(id, null);
+      return json({ ok: true }, 200, origin);
+    }
     const s = await this.session(request);
     if (!s) return json({ error: "login" }, 401, origin);
     if (op === "logout") { await this.ctx.storage.delete(s.key); return json({ ok: true }, 200, origin); }
@@ -326,7 +349,44 @@ export class HubDO extends DurableObject {
       await this.ctx.storage.put(s.key, s.val);
       return json({ ok: true, exp: s.val.exp, user: this.publicUser(s.user) }, 200, origin);
     }
+    if (op === "logoutall") { await this.endSessions(s.user.id, null); return json({ ok: true }, 200, origin); }
+    if (op === "password") {
+      // PW の変更は今の PW を入れ直してから（開きっぱなしの端末で勝手に変えられないように）。
+      // 変えたらほかの端末はログアウト、この端末は新しい鍵に替える
+      const b = await readJson(request);
+      const cur = typeof (b && b.current) === "string" ? b.current : "", pw = typeof (b && b.pw) === "string" ? b.pw : "";
+      if (pw.length < 8 || pw.length > 64) return json({ error: "pw" }, 400, origin);
+      if (pw.toLowerCase() === s.user.id) return json({ error: "pw-id" }, 400, origin);
+      if (await this.limited("I:" + s.user.id, 10, 3600)) return json({ error: "too-many" }, 429, origin);
+      if (!safeEqual(await pbkdf2Hex(cur, s.user.salt, s.user.iter || PW_ITER), s.user.hash)) {
+        await this.bump("I:" + s.user.id, 3600);
+        return json({ error: "wrong" }, 403, origin);
+      }
+      await this.setPassword(s.user, pw);
+      await this.endSessions(s.user.id, null);
+      return this.newSession(s.user.id, origin);
+    }
     if (!this.isAdmin(s.user.id)) return json({ error: "admin" }, 403, origin);
+    if (op === "resetcode") {
+      // 管理者が、PW を忘れた人に再設定コードを出す。コードはこの返事で1回だけ見せ、サーバーにはハッシュで持つ
+      const b = await readJson(request);
+      const id = typeof (b && b.id) === "string" ? b.id.toLowerCase() : "";
+      if (!(await this.ctx.storage.get("u:" + id))) return json({ error: "no-user" }, 404, origin);
+      const ABC = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";   // 見まちがえやすい I O 0 1 は使わない
+      const code = [...crypto.getRandomValues(new Uint8Array(12))].map((x) => ABC[x % 32]).join("");
+      const exp = Date.now() + 24 * 60 * 60 * 1000;
+      await this.ctx.storage.put("rc:" + id, { hash: await sha256Hex("rc|" + id + "|" + code), exp, by: s.user.id });
+      return json({ ok: true, id, code: code.slice(0, 4) + "-" + code.slice(4, 8) + "-" + code.slice(8), exp }, 200, origin, { "Cache-Control": "no-store" });
+    }
+    if (op === "delete") {
+      const b = await readJson(request);
+      const id = typeof (b && b.id) === "string" ? b.id.toLowerCase() : "";
+      if (this.isAdmin(id)) return json({ error: "admin-user" }, 400, origin);   // 管理者は消せない
+      await this.ctx.storage.delete("u:" + id);
+      await this.ctx.storage.delete("rc:" + id);
+      await this.endSessions(id, null);
+      return json({ ok: true }, 200, origin);
+    }
     if (op === "users") {
       const all = await this.ctx.storage.list({ prefix: "u:" });
       const users = [...all.values()].map((u) => this.publicUser(u)).sort((a, b) => (a.created < b.created ? -1 : 1));
@@ -343,6 +403,15 @@ export class HubDO extends DurableObject {
       return json({ ok: true, user: this.publicUser(u) }, 200, origin);
     }
     return json({ error: "op" }, 404, origin);
+  }
+  async setPassword(u, pw) {
+    u.salt = randHex(16); u.iter = PW_ITER; u.hash = await pbkdf2Hex(pw, u.salt, PW_ITER); u.pwAt = new Date().toISOString();
+    await this.ctx.storage.put("u:" + u.id, u);
+  }
+  // その人のログインを全部終わらせる（keepKey だけ残す）
+  async endSessions(id, keepKey) {
+    const all = await this.ctx.storage.list({ prefix: "ss:" });
+    for (const [k, v] of all) if (k !== keepKey && (!v || v.id === id || v.exp < Date.now())) await this.ctx.storage.delete(k);
   }
   isAdmin(id) {
     return String(this.env.ADMIN_IDS || "").split(",").map((x) => x.trim().toLowerCase()).filter(Boolean).includes(id);
@@ -452,6 +521,11 @@ async function pbkdf2Hex(pw, saltHex, iter) {
   const salt = new Uint8Array((saltHex.match(/../g) || []).map((x) => parseInt(x, 16)));
   const bits = await crypto.subtle.deriveBits({ name: "PBKDF2", hash: "SHA-256", salt, iterations: iter }, key, 256);
   return [...new Uint8Array(bits)].map((x) => x.toString(16).padStart(2, "0")).join("");
+}
+async function readJson(request) {
+  const text = await request.text();
+  if (text.length > MAX_BODY) return null;
+  try { return JSON.parse(text); } catch (e) { return null; }
 }
 function clientIp(request) {
   return request.headers.get("CF-Connecting-IP") || request.headers.get("X-Forwarded-For") || "local";
