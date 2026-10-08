@@ -20,6 +20,10 @@
 //   bk:t:<日付>|<チャンネル>  Telegram で共有済み true/false
 //   cfg:codehash       画面で変えた編集用パスワードのハッシュ { salt, hash, at }
 //   rl:<IP>            パスワードの失敗回数 { n, exp }
+//   u:<id>             ログインする人 { id, salt, hash, iter, created, member }。PW は PBKDF2（10万回）で変えた形だけ（2026-10-08）
+//   ss:<鍵のSHA-256>   ログイン中の鍵 { id, exp }。鍵そのものは持たない
+//   rl:R:/L:/I:        登録・ログインの回数制限（IP はハッシュにして持つ）
+//   社内の文書は KV の in:<名前>（wrangler で直接入れる。リポジトリには置かない）
 //
 // 読む:  GET  /chores → { done }   GET /book → { holidays, assignees, slots, newSlots }
 // 書く:  POST /chores { date, id, on, code }   POST /book { kind, key, value, code }   POST /code { current, next }
@@ -40,7 +44,8 @@ export default {
     const origin = request.headers.get("Origin") || "";
     if (request.method === "OPTIONS") return new Response(null, { headers: cors(origin) });
     const url = new URL(request.url);
-    if (!["/chores", "/book", "/code", "/ws"].includes(url.pathname)) {
+    if (!["/chores", "/book", "/code", "/ws"].includes(url.pathname) &&
+        !/^\/(auth\/(register|login|renew|logout|users|member)|internal\/[a-z0-9_-]{1,30})$/.test(url.pathname)) {
       return json({ ok: true, service: "remitech-chores" }, 200, origin);
     }
     const stub = env.HUB.get(env.HUB.idFromName("main"));
@@ -68,6 +73,8 @@ export class HubDO extends DurableObject {
       return new Response(null, { status: 101, webSocket: pair[0] });
     }
     if (url.pathname === "/code" && request.method === "POST") return this.changeCode(request, origin);
+    if (url.pathname.startsWith("/auth/")) return this.auth(url.pathname.slice(6), request, origin);
+    if (url.pathname.startsWith("/internal/")) return this.internal(url.pathname.slice(10), request, origin);
     if (url.pathname === "/book") {
       if (request.method === "GET") return this.bookList(origin);
       if (request.method === "POST") return this.bookSave(request, origin);
@@ -271,6 +278,123 @@ export class HubDO extends DurableObject {
     return json({ ok: true }, 200, origin);
   }
 
+  // ---- ログイン（2026-10-08 Hibiki指定）----
+  // 社内の文書（悠悠観音堂の企画など）は公開リポジトリに置けないので、ログインした「社内」の人にだけここから渡す。
+  //   u:<id>      { id, salt, hash, iter, created, member }   PW は PBKDF2 で変えた形だけ持つ（元に戻せない）
+  //   ss:<鍵の SHA-256>  { id, exp }   ログインは7日。画面は1日1回だけ /auth/renew で7日に延ばす
+  //   管理者は env.ADMIN_IDS（wrangler secret。IDをカンマ区切り）だけで決まる。画面から管理者は作れない
+  //   社内（member）を付けられるのは管理者だけ
+  async auth(op, request, origin) {
+    if (request.method !== "POST" && !(op === "users" && request.method === "GET")) return json({ error: "method" }, 405, origin);
+    if (origin && !ALLOWED.includes(origin)) return json({ error: "origin" }, 403, origin);
+    // 回数制限の鍵に IP をそのまま残さない（ハッシュの先頭だけ。1時間で消える）
+    const ip = (await sha256Hex("ip|" + clientIp(request))).slice(0, 24);
+    if (op === "register" || op === "login") {
+      const text = await request.text();
+      if (text.length > MAX_BODY) return json({ error: "too-large" }, 413, origin);
+      let b;
+      try { b = JSON.parse(text); } catch (e) { return json({ error: "bad-json" }, 400, origin); }
+      const id = typeof (b && b.id) === "string" ? b.id.trim().toLowerCase() : "";
+      const pw = typeof (b && b.pw) === "string" ? b.pw : "";
+      if (!/^[a-z0-9_.-]{3,20}$/.test(id)) return json({ error: "id" }, 400, origin);
+      if (pw.length < 8 || pw.length > 64) return json({ error: "pw" }, 400, origin);
+      if (op === "register") {
+        // 新規登録は同じ IP から1時間に5件まで、全体で300人まで
+        if (await this.limited("R:" + ip, 5, 3600)) return json({ error: "too-many" }, 429, origin);
+        if (await this.ctx.storage.get("u:" + id)) return json({ error: "taken" }, 409, origin);
+        const count = (await this.ctx.storage.list({ prefix: "u:", limit: 301 })).size;
+        if (count >= 300) return json({ error: "full" }, 409, origin);
+        await this.bump("R:" + ip, 3600);
+        const salt = randHex(16);
+        await this.ctx.storage.put("u:" + id, { id, salt, iter: PW_ITER, hash: await pbkdf2Hex(pw, salt, PW_ITER), created: new Date().toISOString(), member: false });
+        return this.newSession(id, origin);
+      }
+      // ログイン: 同じ IP から15分に10回、同じ ID に1時間に10回まちがえたら止める
+      if (await this.limited("L:" + ip, 10, 900) || await this.limited("I:" + id, 10, 3600)) return json({ error: "too-many" }, 429, origin);
+      const u = await this.ctx.storage.get("u:" + id);
+      // いない ID でも同じだけ時間をかける（返事の速さで ID の有無が分からないように）
+      const h = await pbkdf2Hex(pw, u ? u.salt : "00", u ? u.iter || PW_ITER : PW_ITER);
+      const ok = !!u && safeEqual(h, u.hash);
+      if (!ok) { await this.bump("L:" + ip, 900); await this.bump("I:" + id, 3600); return json({ error: "wrong" }, 403, origin); }
+      return this.newSession(id, origin);
+    }
+    const s = await this.session(request);
+    if (!s) return json({ error: "login" }, 401, origin);
+    if (op === "logout") { await this.ctx.storage.delete(s.key); return json({ ok: true }, 200, origin); }
+    if (op === "renew") {
+      s.val.exp = Date.now() + SESSION_MS;
+      await this.ctx.storage.put(s.key, s.val);
+      return json({ ok: true, exp: s.val.exp, user: this.publicUser(s.user) }, 200, origin);
+    }
+    if (!this.isAdmin(s.user.id)) return json({ error: "admin" }, 403, origin);
+    if (op === "users") {
+      const all = await this.ctx.storage.list({ prefix: "u:" });
+      const users = [...all.values()].map((u) => this.publicUser(u)).sort((a, b) => (a.created < b.created ? -1 : 1));
+      return json({ users }, 200, origin, { "Cache-Control": "no-store" });
+    }
+    if (op === "member") {
+      let b;
+      try { b = JSON.parse(await request.text()); } catch (e) { return json({ error: "bad-json" }, 400, origin); }
+      const id = typeof (b && b.id) === "string" ? b.id.toLowerCase() : "";
+      const u = await this.ctx.storage.get("u:" + id);
+      if (!u) return json({ error: "no-user" }, 404, origin);
+      u.member = !!b.member;
+      await this.ctx.storage.put("u:" + id, u);
+      return json({ ok: true, user: this.publicUser(u) }, 200, origin);
+    }
+    return json({ error: "op" }, 404, origin);
+  }
+  isAdmin(id) {
+    return String(this.env.ADMIN_IDS || "").split(",").map((x) => x.trim().toLowerCase()).filter(Boolean).includes(id);
+  }
+  publicUser(u) {
+    const admin = this.isAdmin(u.id);
+    return { id: u.id, member: !!u.member || admin, admin, created: u.created };
+  }
+  async newSession(id, origin) {
+    const token = randHex(32), exp = Date.now() + SESSION_MS;
+    await this.ctx.storage.put("ss:" + await sha256Hex(token), { id, exp });
+    // ついでに期限切れのログインを片づける
+    const old = await this.ctx.storage.list({ prefix: "ss:" });
+    for (const [k, v] of old) if (!v || v.exp < Date.now()) await this.ctx.storage.delete(k);
+    const u = await this.ctx.storage.get("u:" + id);
+    return json({ ok: true, token, exp, user: this.publicUser(u) }, 200, origin, { "Cache-Control": "no-store" });
+  }
+  async session(request) {
+    const m = /^Bearer ([0-9a-f]{64})$/.exec(request.headers.get("Authorization") || "");
+    if (!m) return null;
+    const key = "ss:" + await sha256Hex(m[1]);
+    const val = await this.ctx.storage.get(key);
+    if (!val || val.exp < Date.now()) { if (val) await this.ctx.storage.delete(key); return null; }
+    const user = await this.ctx.storage.get("u:" + val.id);
+    if (!user) return null;
+    return { key, val, user };
+  }
+  async limited(k, max, win) {
+    const r = await this.ctx.storage.get("rl:" + k);
+    if (!r) return false;
+    if (r.exp < Date.now()) { await this.ctx.storage.delete("rl:" + k); return false; }
+    return r.n >= max;
+  }
+  async bump(k, win) {
+    const now = Date.now(), r = await this.ctx.storage.get("rl:" + k);
+    const cur = r && r.exp > now ? r : { n: 0, exp: now + win * 1000 };
+    cur.n += 1;
+    await this.ctx.storage.put("rl:" + k, cur);
+  }
+
+  // ---- 社内の文書 ----
+  // 中身は KV（CHORES）の in:<名前> に、wrangler で直接入れる（リポジトリには置かない）。社内の人だけ読める
+  async internal(name, request, origin) {
+    if (request.method !== "GET") return json({ error: "method" }, 405, origin);
+    const s = await this.session(request);
+    if (!s) return json({ error: "login" }, 401, origin);
+    if (!this.publicUser(s.user).member) return json({ error: "member" }, 403, origin);
+    const doc = this.env.CHORES ? await this.env.CHORES.get("in:" + name, "json") : null;
+    if (!doc) return json({ error: "none" }, 404, origin);
+    return json(doc, 200, origin, { "Cache-Control": "private, no-store" });
+  }
+
   // ---- パスワード ----
   async checkCode(request, origin, b) {
     const stored = await this.ctx.storage.get("cfg:codehash");
@@ -318,6 +442,17 @@ export class HubDO extends DurableObject {
   }
 }
 
+const PW_ITER = 100000;                       // Workers の PBKDF2 の上限
+const SESSION_MS = 7 * 24 * 60 * 60 * 1000;   // ログインは7日
+function randHex(n) {
+  return [...crypto.getRandomValues(new Uint8Array(n))].map((x) => x.toString(16).padStart(2, "0")).join("");
+}
+async function pbkdf2Hex(pw, saltHex, iter) {
+  const key = await crypto.subtle.importKey("raw", new TextEncoder().encode(pw), "PBKDF2", false, ["deriveBits"]);
+  const salt = new Uint8Array((saltHex.match(/../g) || []).map((x) => parseInt(x, 16)));
+  const bits = await crypto.subtle.deriveBits({ name: "PBKDF2", hash: "SHA-256", salt, iterations: iter }, key, 256);
+  return [...new Uint8Array(bits)].map((x) => x.toString(16).padStart(2, "0")).join("");
+}
 function clientIp(request) {
   return request.headers.get("CF-Connecting-IP") || request.headers.get("X-Forwarded-For") || "local";
 }
@@ -336,7 +471,7 @@ function cors(origin) {
   return {
     "Access-Control-Allow-Origin": ALLOWED.includes(origin) ? origin : ALLOWED[0],
     "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
-    "Access-Control-Allow-Headers": "Content-Type",
+    "Access-Control-Allow-Headers": "Content-Type, Authorization",
     "Vary": "Origin",
   };
 }
