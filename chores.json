@@ -1,5 +1,5 @@
 {
-  "note": "いいね作業のチェック。09:30・13:30・17:00。HIYOKO X 60、悠悠観音堂 X 20、ほかは40。3M・CSVは1つの作業。kind=follow のリストはフォロータブ（HIYOKO・NACHA の X と IG、毎日フォロー+5）",
+  "note": "いいね作業のチェック。09:00・13:00・17:00。2026-10-08 Hiworks メールチェック（18:00、title と url を持つ作業）を追加。HIYOKO X 60、悠悠観音堂 X 20、ほかは40。3M・CSVは1つの作業。kind=follow のリストはフォロータブ（HIYOKO・NACHA の X と IG、毎日フォロー+5）",
   "lists": [
     {
       "channel": "hiyoko",
@@ -127,6 +127,20 @@
           "id": "csv|3M|0",
           "time": "17:00",
           "task": "3M overview, content csv（Xから取ってNACHAダッシュボードに登録）"
+        }
+      ]
+    },
+    {
+      "channel": "hiworks",
+      "platform": "MAIL",
+      "kind": "mail",
+      "title": "Hiworks メールチェック",
+      "url": "https://dashboard.office.hiworks.com/",
+      "tasks": [
+        {
+          "id": "mail|hiworks|18",
+          "time": "18:00",
+          "task": "Hiworks メールチェック"
         }
       ]
     },

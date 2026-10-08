@@ -315,6 +315,8 @@
   .yurow pre{ flex:1 1 auto; min-width:0; margin:0; white-space:pre-wrap; word-break:break-word; font:inherit; font-size:13px; line-height:1.5;
     background:var(--bg); border:1px solid var(--line); border-radius:8px; padding:6px 10px; max-height:7.6em; overflow:auto; }
   .yurow .cpy{ flex:0 0 auto; }
+  .yuphotos{ display:flex; flex-wrap:wrap; gap:6px; margin:0 0 8px; }
+  .yuph{ font-variant-numeric:tabular-nums; }
   .yunote{ margin:4px 0 0; font-size:12px; color:var(--muted); }
   /* ---- 今週（スマホ）: 日ごとの縦の並び ---- */
   .agenda{ display:none; }
@@ -540,6 +542,7 @@
     box-shadow:inset 3px 0 0 var(--chc); }
   .lkrow:last-child{ border-bottom:0; }
   .lkname{ flex:1 1 auto; min-width:0; }
+  .lklink{ color:var(--muted); text-decoration:underline; word-break:break-all; }
   .lkname b{ display:block; font-size:14px; line-height:1.3; }
   .lkname i{ display:block; font-style:normal; font-size:12px; color:var(--muted); }
   .lkbtns{ flex:0 0 auto; display:flex; gap:6px; }
@@ -4904,6 +4907,18 @@
       if (tab === "prep" && filter === "yuyu") route();
     }, function () { yuState = "err"; if (tab === "prep" && filter === "yuyu") route(); });
   }
+  // 使う写真のファイル名をコピーできるようにする（2026-10-08）。企画書の番号 6737 → DSC06737.JPG
+  // 「9/4 に使っていたら 6752」のような予備の番号も出す（写真フォルダで探すときにそのまま貼れる）
+  function yuPhotos(img, key) {
+    var nums = [], m, re = /(?:DSC0)?(\d{4})(?!\d)/g;
+    while ((m = re.exec(img || ""))) if (nums.indexOf(m[1]) < 0 && +m[1] >= 6000) nums.push(m[1]);
+    if (!nums.length) return "";
+    return '<div class="yuphotos">' + nums.map(function (n, j) {
+      var f = "DSC0" + n + ".JPG";
+      copyBank[key + j] = { en: f, cur: f };
+      return '<button class="cpy yuph" data-ck="' + key + j + '" data-lg="en" title="' + esc(t("copy")) + '">📷 ' + esc(f) + '</button>';
+    }).join("") + '</div>';
+  }
   function yuAddDays(k, n) {
     var p = k.split("-"), d = new Date(+p[0], +p[1] - 1, +p[2]); d.setDate(d.getDate() + n); return ymd(d);
   }
@@ -4934,7 +4949,7 @@
         (it.fixed ? '<span class="yutag fix">' + esc(t("yuFixed")) + '</span>' : '') +
         // 企画書と違う日に動かした投稿は「企画 M/D」を出す（plan＝企画書の日付）
         (function () { var pl = it.plan || it.date; return pl !== x.day ? '<span class="yutag">' + esc(t("yuPlan")) + " " + (+pl.slice(5, 7)) + "/" + (+pl.slice(8)) + '</span>' : ''; })() + '</div>' +
-        '<p class="yuimg">' + esc(it.image || t("yuNoImg")) + '</p>' +
+        '<p class="yuimg">' + esc(it.image || t("yuNoImg")) + '</p>' + yuPhotos(it.image, "yu" + x.i + "f") +
         row("yu" + x.i + "x", t("yuX"), it.x) + row("yu" + x.i + "i", t("yuIg"), it.ig) + row("yu" + x.i + "p", t("yuPrompt"), it.prompt) +
         (it.note ? '<p class="yunote">' + esc(it.note) + '</p>' : '') + '</div>';
     }
@@ -5165,8 +5180,8 @@
       var csv = /3M|csv/i.test(it.tk.task);
       var n = (/(\d+)/.exec(it.tk.task) || [])[1];
       h += '<button class="tdst" data-id="' + esc(it.tk.id) + '" data-on="' + it.on + '" style="--chc:' + esc(c.color || "var(--wood)") + '" title="' + esc(it.tk.task) + '">' +
-        '<span class="tdring"><b>' + esc(csv ? "3M" : chShort(it.li.channel)) + '</b>' + (it.on ? '<em>\u2713</em>' : '') + '</span>' +
-        '<i>' + (csv ? "" : pfIco(it.li.platform)) + esc(csv ? "CSV" : pfn(it.li.platform) + (n ? " " + n : "")) + '</i></button>';
+        '<span class="tdring"><b>' + esc(it.li.kind === "mail" ? "\u2709" : csv ? "3M" : chShort(it.li.channel)) + '</b>' + (it.on ? '<em>\u2713</em>' : '') + '</span>' +
+        '<i>' + (it.li.kind === "mail" ? esc(String(it.li.title || "Mail").split(" ")[0]) : (csv ? "" : pfIco(it.li.platform)) + esc(csv ? "CSV" : pfn(it.li.platform) + (n ? " " + n : ""))) + '</i></button>';
     });
     h += '</div></section>';
 
@@ -5381,6 +5396,14 @@
     if (/フォロワー確認/.test(tk.task)) return short ? t("fwCheckShort") : t("fwCheck");
     return null;
   }
+  function lkHeadHTML(li, c, csv, n) {
+    if (li.title) {
+      var host = "";
+      try { host = li.url ? new URL(li.url).hostname : ""; } catch (e) { host = ""; }
+      return '<b>' + esc(tl(li.title)) + '</b><i>' + (host ? '<a class="lklink" href="' + esc(li.url) + '" target="_blank" rel="noopener">' + esc(host) + ' \u2197</a>' : "") + '</i>';
+    }
+    return '<b>' + esc(csv ? t("lkCsv") : c.name) + '</b><i>' + (csv ? "" : pfIco(li.platform)) + esc(csv ? c.name : pfn(li.platform) + (n ? " \u00b7 " + n : "")) + '</i>';
+  }
   function lkMonday(d) { var x = new Date(d.getFullYear(), d.getMonth(), d.getDate()); x.setDate(x.getDate() - (x.getDay() + 6) % 7); return x; }
 
   function renderLikes() {
@@ -5406,8 +5429,7 @@
       var c = chanOf(li.channel) || { name: li.channel, color: "var(--wood)" };
       var csv = li.kind === "csv" || li.tasks.some(function (tk) { return /3M|csv/i.test(tk.task); });
       var n = csv ? "" : ((/(\d+)/.exec(((li.tasks.filter(function (tk) { return /like/i.test(tk.task); })[0] || li.tasks[0] || {}).task) || "") || [])[1] || "");
-      var h = '<tr style="--chc:' + esc(c.color || "var(--wood)") + '"><th class="lkacc"><b>' + esc(csv ? t("lkCsv") : c.name) + '</b>' +
-        '<i>' + (csv ? "" : pfIco(li.platform)) + esc(csv ? c.name : pfn(li.platform) + (n ? " \u00b7 " + n : "")) + '</i></th>';
+      var h = '<tr style="--chc:' + esc(c.color || "var(--wood)") + '"><th class="lkacc">' + lkHeadHTML(li, c, csv, n) + '</th>';
       days.forEach(function (d) {
         var k = ymd(d), dd = lkDayDone(k), future = k > today;
         h += '<td data-today="' + (k === today) + '" data-wknd="' + (d.getDay() === 0 || d.getDay() === 6) + '">' +
@@ -5435,7 +5457,7 @@
       var csv = li.kind === "csv" || li.tasks.some(function (tk) { return /3M|csv/i.test(tk.task); });
       var n = csv ? "" : ((/(\d+)/.exec(((li.tasks.filter(function (tk) { return /like/i.test(tk.task); })[0] || li.tasks[0] || {}).task) || "") || [])[1] || "");
       return '<div class="lkrow" style="--chc:' + esc(c.color || "var(--wood)") + '">' +
-        '<div class="lkname"><b>' + esc(csv ? t("lkCsv") : c.name) + '</b><i>' + (csv ? "" : pfIco(li.platform)) + esc(csv ? c.name : pfn(li.platform) + (n ? " \u00b7 " + n : "")) + '</i></div>' +
+        '<div class="lkname">' + lkHeadHTML(li, c, csv, n) + '</div>' +
         '<div class="lkbtns">' + lkSorted(li.tasks).map(function (tk) {
           var on = !!td[tk.id]; tAll++; if (on) tDone++;
           return '<button class="lkc lkbig' + (lkLabel(tk) ? " lkwide" : "") + '" data-d="' + today + '" data-id="' + esc(tk.id) + '" data-on="' + on + '" data-now="' + (tk.time === cur && !on) + '" title="' + esc(tk.task + (on && lkAtText(today, tk.id) ? "\n\u2713 " + lkAtText(today, tk.id) : "")) + '">' +
