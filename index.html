@@ -317,6 +317,10 @@
   .yurow .cpy{ flex:0 0 auto; }
   .yuphotos{ display:flex; flex-wrap:wrap; gap:6px; margin:0 0 8px; }
   .yuph{ font-variant-numeric:tabular-nums; }
+  .yuprompts{ border:1px solid var(--line); border-radius:12px; padding:10px 12px; margin:0 0 12px; background:var(--bg); }
+  .yuptitle{ margin:0 0 6px; font-weight:700; font-size:14px; }
+  .yupitem{ padding:8px 0; border-top:1px dashed var(--line); }
+  .yupitem[data-past="true"]{ opacity:.55; }
   .yunote{ margin:4px 0 0; font-size:12px; color:var(--muted); }
   /* ---- 今週（スマホ）: 日ごとの縦の並び ---- */
   .agenda{ display:none; }
@@ -4955,6 +4959,17 @@
     }
     h += '<details><summary>' + esc(t("yuRules")) + '</summary><ul>' + (yuDoc.rules || []).map(function (r) { return '<li>' + esc(r) + '</li>'; }).join("") +
       (yuDoc.promptHow ? '<li>' + esc(yuDoc.promptHow) + '</li>' : '') + '</ul></details>';
+    // 画像プロンプトは 🎨 の日にしかないので、上にまとめても出す（2026-10-08「イメージプロンプトがない」より）
+    var withP = items.filter(function (x) { return x.it.prompt; });
+    if (withP.length) {
+      h += '<div class="yuprompts"><p class="yuptitle">🎨 ' + esc(t("yuPrompt")) + ' (' + withP.length + ')</p>' +
+        (yuDoc.promptHow ? '<p class="yunote" style="margin:0 0 6px">' + esc(yuDoc.promptHow) + '</p>' : '') +
+        withP.map(function (x) {
+          var p = x.day.split("-");
+          return '<div class="yupitem" data-past="' + (x.day < today) + '"><div class="yudate"><b>' + (+p[1]) + "/" + (+p[2]) + '</b><span class="tiny">' + esc(x.it.image) + '</span></div>' +
+            yuPhotos(x.it.image, "yuq" + x.i + "f") + row("yuq" + x.i, t("yuPrompt"), x.it.prompt) + '</div>';
+        }).join("") + '</div>';
+    }
     h += next.map(day).join("");
     (yuDoc.reserve || []).forEach(function (r, k) { h += '<div class="yuday">' + row("yur" + k, t("yuReserve"), r.x) + '</div>'; });
     if (past.length) {
