@@ -287,6 +287,10 @@
   .pccmp pre{ margin:0; white-space:pre-wrap; word-break:break-word; font:inherit; font-size:13px; line-height:1.5; background:var(--bg); border:1px solid var(--line); border-radius:8px; padding:8px 10px; }
   @media (max-width:640px){ .pccmp{ grid-template-columns:1fr; } }
   .tgsc{ margin-left:auto; }
+  .bkkpi{ display:flex; justify-content:center; flex-wrap:wrap; gap:0 5px; margin-top:3px; font-size:10.5px; line-height:1.4; color:var(--muted);
+    text-decoration:none; font-variant-numeric:tabular-nums; white-space:nowrap; }
+  .bkkpi:hover{ color:var(--ink); }
+  .bkkpil{ color:var(--wood); }
   .authbg{ position:fixed; inset:0; z-index:60; background:rgba(0,0,0,.35); display:flex; align-items:flex-start; justify-content:center; padding:72px 16px 16px; overflow:auto; }
   .authbg[hidden]{ display:none; }
   .authbox{ width:100%; max-width:380px; background:var(--surface); color:var(--ink); border:1px solid var(--line); border-radius:16px; padding:18px; box-shadow:0 10px 30px rgba(0,0,0,.18); }
@@ -2461,6 +2465,7 @@
       postsCheck = j || { accounts: {} }; pcState = "ok";
       if (tab === "posted") renderPosted();
       if (tab === "likes") renderLikes();
+      if (tab === "book") renderBook();
     }, function () { pcState = "err"; if (!postsCheck) postsCheck = { accounts: {} }; });
   }
   function pcCovered(a) { var ps = (a && a.posts || []).filter(function (x) { return !x.pinned && x.at; }); return ps.length ? ps.map(function (x) { return pcDay(x.at); }).sort()[0] : "9999"; }
@@ -2493,32 +2498,19 @@
     if (sl && sl.text) return sl.text.en || sl.text.ja || sl.text.ko || "";
     return "";
   }
-  function pcNum(v) { return v === null || v === undefined ? "–" : (v >= 10000 ? (Math.round(v / 100) / 10) + "k" : String(v)); }
-  function renderPosted() {
-    chansEl.hidden = true;
-    if (!schedule || !bookRows) { view.innerHTML = '<p class="empty">' + esc(t("loading")) + '</p>'; return; }
-    if (!postsCheck) { pcLoad(false); view.innerHTML = '<p class="empty">' + esc(t("loading")) + '</p>'; return; }
-    if (authUser() && authUser().member && !yuDoc && yuState !== "loading" && yuState !== "err") yuLoad();
-    var now = new Date(), today = ymd(now);
-    if (!pcMon) pcMon = ymd(lkMonday(now));
-    var m0 = pcMon.split("-"), mon = new Date(+m0[0], +m0[1] - 1, +m0[2]), days = [];
-    for (var i = 0; i < 7; i++) { var d0 = new Date(mon.getTime()); d0.setDate(d0.getDate() + i); days.push(d0); }
-    var detail = null, head = '<tr><th class="bkacc"></th>' + days.map(function (d) {
-      var k = ymd(d);
-      return '<th class="bkday" data-today="' + (k === today) + '"><i>' + esc(DOW[lang][d.getDay()]) + '</i><b>' + (d.getMonth() + 1) + "/" + d.getDate() + '</b></th>';
-    }).join("") + '</tr>';
-    var body = (bookRows.groups || []).map(function (g) {
-      var c = chanOf(g.channel) || { name: g.channel, color: "var(--wood)" };
-      var rows = bkGroupRows(g).filter(function (r) {
-        var pf = (r.platforms || [r.platform || "X"])[0];
-        return !r.reply && pf !== "IGS" && r.kind !== "story" && !/ストーリー|story/i.test(r.label || "");
-      });
-      if (!rows.length) return "";
-      var h = '<tr class="bkgrp" style="--chc:' + esc(c.color || "var(--wood)") + '"><th colspan="8"><span class="bkgrpin">' + esc(c.name) + '</span></th></tr>';
+  // 投稿を確かめる行（返信・ストーリーは除く）
+  function pcRowsOf(g) {
+    return bkGroupRows(g).filter(function (r) {
+      var pf = (r.platforms || [r.platform || "X"])[0];
+      return !r.reply && pf !== "IGS" && r.kind !== "story" && !/ストーリー|story/i.test(r.label || "");
+    });
+  }
+  // 行×日のマスに、その日の投稿を当てる。返す: { "行の鍵|日付": { post, plan, sl, pf } }
+  function pcMatch(g, rows, dayKeys) {
       // 同じ日・同じSNSに予約が何本かあるときは、行と投稿の組を全部比べて、近い組（文が似ている → 時刻が近い）から順に当てる
-      var cells = {};
-      days.forEach(function (d) {
-        var k = ymd(d), byPf = {};
+    var cells = {};
+    dayKeys.forEach(function (k) {
+      var byPf = {};
         rows.forEach(function (r) {
           var pf = (r.platforms || [r.platform || "X"])[0];
           var sl = (schedule.slots || []).filter(function (x) { return slotCh(x) === g.channel && x.date === k && (x.platform || "X") === pf && x.time === r.time; })[0] || null;
@@ -2545,6 +2537,35 @@
           });
         });
       });
+    return cells;
+  }
+  function bkKpiHTML(cell) {
+    var po = cell && cell.post;
+    if (!po) return "";
+    return '<a class="bkkpi" href="' + esc(po.url) + '" target="_blank" rel="noopener" title="' + esc((po.text || "").slice(0, 200)) + '">' +
+      '<span>\uD83D\uDC41' + pcNum(po.views) + '</span><span>\u2665' + pcNum(po.likes) + '</span><span>\uD83D\uDCAC' + pcNum(po.comments) + '</span>' +
+      '<span class="bkkpil">\u2197</span></a>';
+  }
+  function pcNum(v) { return v === null || v === undefined ? "–" : (v >= 10000 ? (Math.round(v / 100) / 10) + "k" : String(v)); }
+  function renderPosted() {
+    chansEl.hidden = true;
+    if (!schedule || !bookRows) { view.innerHTML = '<p class="empty">' + esc(t("loading")) + '</p>'; return; }
+    if (!postsCheck) { pcLoad(false); view.innerHTML = '<p class="empty">' + esc(t("loading")) + '</p>'; return; }
+    if (authUser() && authUser().member && !yuDoc && yuState !== "loading" && yuState !== "err") yuLoad();
+    var now = new Date(), today = ymd(now);
+    if (!pcMon) pcMon = ymd(lkMonday(now));
+    var m0 = pcMon.split("-"), mon = new Date(+m0[0], +m0[1] - 1, +m0[2]), days = [];
+    for (var i = 0; i < 7; i++) { var d0 = new Date(mon.getTime()); d0.setDate(d0.getDate() + i); days.push(d0); }
+    var detail = null, head = '<tr><th class="bkacc"></th>' + days.map(function (d) {
+      var k = ymd(d);
+      return '<th class="bkday" data-today="' + (k === today) + '"><i>' + esc(DOW[lang][d.getDay()]) + '</i><b>' + (d.getMonth() + 1) + "/" + d.getDate() + '</b></th>';
+    }).join("") + '</tr>';
+    var body = (bookRows.groups || []).map(function (g) {
+      var c = chanOf(g.channel) || { name: g.channel, color: "var(--wood)" };
+      var rows = pcRowsOf(g);
+      if (!rows.length) return "";
+      var h = '<tr class="bkgrp" style="--chc:' + esc(c.color || "var(--wood)") + '"><th colspan="8"><span class="bkgrpin">' + esc(c.name) + '</span></th></tr>';
+      var cells = pcMatch(g, rows, days.map(ymd));
       rows.forEach(function (r) {
         var pf = (r.platforms || [r.platform || "X"])[0], acct = pcAcct(g.channel, pf), rk = bkRowKey(g, r);
         h += '<tr style="--chc:' + esc(c.color || "var(--wood)") + '"><th class="bkacc"><b>' + esc(tl(r.label)) + '</b><i>' + pfIco(pf) + esc(pfn(pf)) +
@@ -4425,8 +4446,11 @@
         (isHol(k) ? '<em>' + esc(t("bkHoliday")) + '</em>' : "") + '</button>' + whoHTML(k) + '</th>';
     }).join("") + '</tr>';
 
+    if (!postsCheck) pcLoad(false);
     var body = (bookRows.groups || []).map(function (g) {
       var c = chanOf(g.channel) || { name: g.channel, color: "var(--wood)" };
+      // 投稿された数字（2026-10-08）: 投稿タブと同じ照らし合わせで、マスの下にアイコンで出す
+      var kpiCells = postsCheck ? pcMatch(g, pcRowsOf(g), days.map(ymd)) : {};
       var h = '<tr class="bkgrp" style="--chc:' + esc(c.color || "var(--wood)") + '"><th colspan="8"><span class="bkgrpin">' + esc(c.name) +
         (c.docs || []).map(function (dc) {
           return ' <a class="bkdoc" href="' + esc(dc.url) + '" target="_blank" rel="noopener">' + esc(tl(dc.name)) + ' ↗</a>';
@@ -4453,7 +4477,7 @@
               return;
             }
             h += '<td data-today="' + (k === today) + '" data-hol="' + isHol(k) + '">' +
-              bkRepBtn('data-ck="' + esc(ckk) + '"', bkDateLinkKey(rk, k), cOn, c.name + " " + tl(r.label)) + '</td>';
+              bkRepBtn('data-ck="' + esc(ckk) + '"', bkDateLinkKey(rk, k), cOn, c.name + " " + tl(r.label)) + bkKpiHTML(kpiCells[rk + "|" + k]) + '</td>';
             return;
           }
           var sls = rowSlots(g, r, k);
@@ -4512,7 +4536,7 @@
             (st === "sched" ? '<span class="bkchk">✓</span>' + (sls.some(function (x) { return x.status === "video"; }) ? '<small class="bkvmark">' + esc(t("bkVideo")) + '</small>' : '') : esc(cust ? cust.text : txt)) +
             (hasMemo ? '<span class="bkmemodot" title="' + esc(sls[0].memo) + '">✎</span>' : '') +
             (hasLink ? '<span class="bklinkdot" title="' + esc(linkVal.url) + '">↗</span>' : '') +
-            '</button>' + (showOwner ? '<div class="bkowner">' + esc(bkWhoName(owners)) + '</div>' : '') + '</div></td>';
+            '</button>' + (showOwner ? '<div class="bkowner">' + esc(bkWhoName(owners)) + '</div>' : '') + bkKpiHTML(kpiCells[rk + "|" + k]) + '</div></td>';
         });
         h += '</tr>';
       });
