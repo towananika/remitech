@@ -2463,6 +2463,7 @@
     pcState = "loading";
     fetch("./posts_check.json", { cache: "no-cache" }).then(function (r) { return r.ok ? r.json() : null; }).then(function (j) {
       postsCheck = j || { accounts: {} }; pcState = "ok";
+      pcAutoDone = false; pcAutoUrl();
       if (tab === "posted") renderPosted();
       if (tab === "likes") renderLikes();
       if (tab === "book") renderBook();
@@ -2538,6 +2539,35 @@
         });
       });
     return cells;
+  }
+  // 予約の枠に当たった投稿のリンクを、その枠のリンク欄に入れる（2026-10-09 Hibiki指定）。
+  // 入れるのはリンクが空の枠だけ。人が貼ったリンクは書き換えない。
+  // 当て違いを避けるため、文が似ている（0.5以上）か、投稿時刻が予約の時刻から3時間以内のときだけ入れる
+  var pcAutoDone = false;
+  function pcAutoUrl() {
+    if (pcAutoDone || !postsCheck || !postsCheck.accounts || !schedule || !bookRows || !bookRows.groups) return 0;
+    pcAutoDone = true;
+    var today = ymd(new Date()), days = {}, n = 0, iso = new Date().toISOString();
+    Object.keys(postsCheck.accounts).forEach(function (k) {
+      (postsCheck.accounts[k].posts || []).forEach(function (x) { var d = x.at && pcDay(x.at); if (d && d <= today) days[d] = 1; });
+    });
+    var dayKeys = Object.keys(days);
+    if (!dayKeys.length) return 0;
+    bookRows.groups.forEach(function (g) {
+      var rows = pcRowsOf(g), cells = pcMatch(g, rows, dayKeys);
+      rows.forEach(function (r) {
+        dayKeys.forEach(function (k) {
+          var c = cells[bkRowKey(g, r) + "|" + k];
+          if (!c || !c.post || !c.sl || c.sl.url || c.sl.skip) return;
+          var sim = c.plan ? (pcSim(c.plan, c.post.text) || 0) : 0;
+          var tm = new Date(c.post.at), dm = Math.abs(tm.getHours() * 60 + tm.getMinutes() - toMin(r.time || "12:00"));
+          if (sim < 0.5 && dm > 180) return;
+          markSave(c.sl, "url", c.post.url); markSave(c.sl, "posted", true);
+          c.sl.urlAt = iso; c.sl.urlAuto = true; n++;
+        });
+      });
+    });
+    return n;
   }
   function bkKpiHTML(cell) {
     var po = cell && cell.post;
@@ -4400,6 +4430,7 @@
   function renderBook() {
     chansEl.hidden = true;
     if (!schedule || !bookRows) { view.innerHTML = '<p class="empty">' + esc(t("loading")) + '</p>'; return; }
+    if (postsCheck && !pcAutoDone) pcAutoUrl();   // 予約の行が後から読めたときのため
     var now = new Date(), today = ymd(now);
     if (!bkMon) bkMon = ymd(lkMonday(now));
     var m = bkMon.split("-"), mon = new Date(+m[0], +m[1] - 1, +m[2]);
