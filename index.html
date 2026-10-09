@@ -2552,7 +2552,7 @@
       rows.forEach(function (r) {
         var pf = (r.platforms || [r.platform || "X"])[0];
         var sl = (schedule.slots || []).filter(function (x) { return slotCh(x) === g.channel && x.date === k && (x.platform || "X") === pf && x.time === r.time; })[0];
-        if (sl && sl.skip) return;
+        if (!sl || sl.skip) return;          // その日に投稿の企画（予約の枠）が載っている行だけ
         (byPf[pf] = byPf[pf] || []).push(r);
       });
       Object.keys(byPf).forEach(function (pf) {
@@ -6148,7 +6148,7 @@
       '<button data-tab="ov" aria-pressed="' + (tab === "ov") + '">' + esc(t("navOv")) + '</button>' +
       '<button data-tab="dash" aria-pressed="' + (tab === "dash") + '">' + esc(t("navDash")) + '</button>' +
       '<button data-tab="book" aria-pressed="' + (tab === "book") + '">' + esc(t("navBook")) + '</button>' +
-      '<button data-tab="posted" aria-pressed="' + (tab === "posted") + '">' + esc(t("navPosted")) + '</button>' +
+      // 投稿タブは出さない（2026-10-09 Hibiki「投稿タブはいれない」）。投稿の確認は予約タブの青いボタンで見る
       '<button data-tab="prep" aria-pressed="' + (tab === "prep" || tab === "prep2") + '">' + esc(t("navPrep")) + '</button>' +
       '<button data-tab="kpi" aria-pressed="' + (tab === "kpi") + '">' + esc(t("navKpi")) + '</button>' +
       '<button class="navhot" data-tab="likes" aria-pressed="' + (tab === "likes") + '">' + esc(t("navLikes")) + '</button>' +
