@@ -467,6 +467,8 @@
   .bkc[data-s="done"]{ background:var(--sage); border-color:var(--sage); color:#fff; font-size:11px; }
   .bkc[data-s="late"]{ border-color:#b4553f; color:#b4553f; }
   .bkc[data-s="skip"]{ color:var(--muted); text-decoration:line-through; font-size:11px; font-weight:500; border-style:dashed; }
+  /* 投稿が確かめられてリンクが入った枠は青（2026-10-09 Hibiki指定）。ほかの状態より優先 */
+  .bkc.bkbig[data-posted="1"]{ background:#2f6fd6; border-color:#2f6fd6; color:#fff; }
   /* 「準備中」と出るマスは、どれも同じオレンジにそろえる（2026-09-23 Hibiki指定）。
      前は、準備中として登録した枠＝オレンジ、まだ何も押していない枠＝灰色の破線、と2種類あった */
   .bkc[data-s="prep"],
@@ -2540,31 +2542,71 @@
       });
     return cells;
   }
-  // 予約の枠に当たった投稿のリンクを、その枠のリンク欄に入れる（2026-10-09 Hibiki指定）。
-  // 入れるのはリンクが空の枠だけ。人が貼ったリンクは書き換えない。
-  // 当て違いを避けるため、文が似ている（0.5以上）か、投稿時刻が予約の時刻から3時間以内のときだけ入れる
-  var pcAutoDone = false;
+  // その日・そのSNSの投稿を、予約の行の順（時刻の早い順）に 1番目・2番目… と当てる（2026-10-09 Hibiki指定）。
+  // 投稿の時刻は予約の時刻とずれるので、時刻では比べない。例: HIYOKO の X に投稿が2つなら、早い方が 09:30 の行、遅い方が 17:00 の行。
+  // 「投稿しない」にした枠は数えない。返す: { "行の鍵|日付": 投稿 }
+  function pcOrdinal(g, dayKeys) {
+    var out = {}, rows = pcRowsOf(g);
+    dayKeys.forEach(function (k) {
+      var byPf = {};
+      rows.forEach(function (r) {
+        var pf = (r.platforms || [r.platform || "X"])[0];
+        var sl = (schedule.slots || []).filter(function (x) { return slotCh(x) === g.channel && x.date === k && (x.platform || "X") === pf && x.time === r.time; })[0];
+        if (sl && sl.skip) return;
+        (byPf[pf] = byPf[pf] || []).push(r);
+      });
+      Object.keys(byPf).forEach(function (pf) {
+        var rs = byPf[pf].slice().sort(function (a, b) { return toMin(a.time || "12:00") - toMin(b.time || "12:00"); });
+        var ps = pcOn(g.channel, pf, k);   // その日の投稿（早い順・固定の投稿は除く）
+        var mins = function (x) { var d = new Date(x.at); return d.getHours() * 60 + d.getMinutes(); };
+        pcOrderPair(rs.map(function (r) { return toMin(r.time || "12:00"); }), ps.map(mins)).forEach(function (pr) {
+          out[bkRowKey(g, rs[pr[0]]) + "|" + k] = ps[pr[1]];
+        });
+      });
+    });
+    return out;
+  }
+  // 行の時刻 a と投稿の時刻 b を、順番を崩さずに組にする。返す: [[行の番号, 投稿の番号], ...]
+  // 数が同じなら時刻は見ずに順番どおり（1番目と1番目、2番目と2番目）。
+  // 数が違うときだけ、少ない方を全部使い、時刻の差の合計がいちばん小さくなる組み方を選ぶ（例: 行 9:30・13:00・17:00、投稿 9:41・17:02 → 9:30 と 17:00）
+  function pcOrderPair(a, b) {
+    var i, j, out = [];
+    if (a.length === b.length) { for (i = 0; i < a.length; i++) out.push([i, i]); return out; }
+    var swap = a.length < b.length, L = swap ? b : a, S = swap ? a : b;   // L: 多い方、S: 少ない方（全部使う）
+    var n = L.length, m = S.length, INF = 1e9, f = [];
+    for (i = 0; i <= n; i++) { f.push([]); for (j = 0; j <= m; j++) f[i].push(j === 0 ? 0 : INF); }
+    for (i = 1; i <= n; i++) for (j = 1; j <= Math.min(i, m); j++)
+      f[i][j] = Math.min(f[i - 1][j], f[i - 1][j - 1] + Math.abs(L[i - 1] - S[j - 1]));
+    for (i = n, j = m; j > 0; i--) {
+      if (f[i][j] === f[i - 1][j - 1] + Math.abs(L[i - 1] - S[j - 1]) && f[i][j] <= f[i - 1][j]) { out.unshift(swap ? [j - 1, i - 1] : [i - 1, j - 1]); j--; }
+    }
+    return out;
+  }
+  // 見つかった投稿のリンクを、予約ボタンのリンク（長押しで開くリンク）に入れる。
+  // 入れるのはリンクが空のところだけ。人が入れたリンクは書き換えない。鍵のある端末ではサーバーにも送る
+  var pcAutoDone = false, bkSeenServer = false;
   function pcAutoUrl() {
-    if (pcAutoDone || !postsCheck || !postsCheck.accounts || !schedule || !bookRows || !bookRows.groups) return 0;
+    // サーバーの状態を読む前は入れない（人がサーバーに入れたリンクを上書きしないため）
+    if (pcAutoDone || !bkSeenServer || !postsCheck || !postsCheck.accounts || !schedule || !bookRows || !bookRows.groups) return 0;
     pcAutoDone = true;
-    var today = ymd(new Date()), days = {}, n = 0, iso = new Date().toISOString();
-    Object.keys(postsCheck.accounts).forEach(function (k) {
-      (postsCheck.accounts[k].posts || []).forEach(function (x) { var d = x.at && pcDay(x.at); if (d && d <= today) days[d] = 1; });
+    var today = ymd(new Date()), days = {}, n = 0, at = new Date().toISOString();
+    Object.keys(postsCheck.accounts).forEach(function (a) {
+      (postsCheck.accounts[a].posts || []).forEach(function (x) { var d = x.at && pcDay(x.at); if (d && d <= today) days[d] = 1; });
     });
     var dayKeys = Object.keys(days);
     if (!dayKeys.length) return 0;
+    schedule.links = schedule.links || {};
+    var canSend = !!teamCode();
     bookRows.groups.forEach(function (g) {
-      var rows = pcRowsOf(g), cells = pcMatch(g, rows, dayKeys);
-      rows.forEach(function (r) {
-        dayKeys.forEach(function (k) {
-          var c = cells[bkRowKey(g, r) + "|" + k];
-          if (!c || !c.post || !c.sl || c.sl.url || c.sl.skip) return;
-          var sim = c.plan ? (pcSim(c.plan, c.post.text) || 0) : 0;
-          var tm = new Date(c.post.at), dm = Math.abs(tm.getHours() * 60 + tm.getMinutes() - toMin(r.time || "12:00"));
-          if (sim < 0.5 && dm > 180) return;
-          markSave(c.sl, "url", c.post.url); markSave(c.sl, "posted", true);
-          c.sl.urlAt = iso; c.sl.urlAuto = true; n++;
-        });
+      var m = pcOrdinal(g, dayKeys);
+      Object.keys(m).forEach(function (key) {
+        var cut = key.lastIndexOf("|"), rk = key.slice(0, cut), k = key.slice(cut + 1);
+        var lk = bkDateLinkKey(rk, k), cur = schedule.links[lk];
+        if (cur && (typeof cur === "string" ? cur : cur.url)) return;
+        var v = { url: m[key].url, at: at, auto: true };
+        schedule.links[lk] = v;
+        if (canSend) bookPush("l", lk, v);
+        n++;
       });
     });
     return n;
@@ -4368,6 +4410,8 @@
       .then(function (o) {
         if (o) bkLast = o;
         var bkChanged = bookApply(o);
+        // サーバーの予約状態（人が入れたリンクを含む）を読んでから、見つかった投稿のリンクを入れる
+        if (o && o.links) { bkSeenServer = true; if (!pcAutoDone && pcAutoUrl() > 0) bkChanged = true; }
         if (bkChanged && (tab === "likes" || tab === "follow") && !/^#\//.test(location.hash)) { var ty = window.scrollY; renderLikes(); window.scrollTo(0, ty); }
         if (bkChanged && tab === "book" && !/^#\//.test(location.hash)) {
           var w = document.getElementById("bkWrap"), sx = w ? w.scrollLeft : 0, sy = window.scrollY;
@@ -4481,7 +4525,6 @@
     var body = (bookRows.groups || []).map(function (g) {
       var c = chanOf(g.channel) || { name: g.channel, color: "var(--wood)" };
       // 投稿された数字（2026-10-08）: 投稿タブと同じ照らし合わせで、マスの下にアイコンで出す
-      var kpiCells = postsCheck ? pcMatch(g, pcRowsOf(g), days.map(ymd)) : {};
       var h = '<tr class="bkgrp" style="--chc:' + esc(c.color || "var(--wood)") + '"><th colspan="8"><span class="bkgrpin">' + esc(c.name) +
         (c.docs || []).map(function (dc) {
           return ' <a class="bkdoc" href="' + esc(dc.url) + '" target="_blank" rel="noopener">' + esc(tl(dc.name)) + ' ↗</a>';
@@ -4508,7 +4551,7 @@
               return;
             }
             h += '<td data-today="' + (k === today) + '" data-hol="' + isHol(k) + '">' +
-              bkRepBtn('data-ck="' + esc(ckk) + '"', bkDateLinkKey(rk, k), cOn, c.name + " " + tl(r.label)) + bkKpiHTML(kpiCells[rk + "|" + k]) + '</td>';
+              bkRepBtn('data-ck="' + esc(ckk) + '"', bkDateLinkKey(rk, k), cOn, c.name + " " + tl(r.label)) + '</td>';
             return;
           }
           var sls = rowSlots(g, r, k);
@@ -4559,15 +4602,17 @@
           // 長押し＋上ドラッグでリンクを開閉する（見出しタップの代わり）。あれば小さな印だけ常に出す
           var linkKey = bkDateLinkKey(rk, k), linkVal = schedule.links && schedule.links[linkKey];
           var hasLink = linkVal && typeof linkVal === "object" && /^https?:\/\//i.test(linkVal.url || "");
+          // 投稿が確かめられた（リンクが入った）枠は「投稿済み」と出す。予約済みの ✓ はそのまま
+          if (hasLink && st !== "skip" && st !== "sched") { cust = null; isVideo = false; txt = t("stDone"); }
           h += '<td data-today="' + (k === today) + '" data-hol="' + isHol(k) + '"><div class="bkcell">' +
             '<button class="bkc bkbig" data-k="' + keysStr + '" data-s="' + st + '" data-linkkey="' + esc(linkKey) + '"' +
             (cust ? ' data-cust="1" style="--cc:' + esc(cust.color) + '"' : (isVideo ? ' data-video="1"' : '')) +
-            (hasMemo ? ' data-memo="1"' : '') + ' aria-haspopup="menu" title="' + esc(titleTxt) + '"' +
+            (hasMemo ? ' data-memo="1"' : '') + (hasLink && st !== "skip" ? ' data-posted="1"' : '') + ' aria-haspopup="menu" title="' + esc(titleTxt) + '"' +
             (st === "sched" ? ' aria-label="' + esc(t("bkBookedShort")) + '"' : '') + '>' +
             (st === "sched" ? '<span class="bkchk">✓</span>' + (sls.some(function (x) { return x.status === "video"; }) ? '<small class="bkvmark">' + esc(t("bkVideo")) + '</small>' : '') : esc(cust ? cust.text : txt)) +
             (hasMemo ? '<span class="bkmemodot" title="' + esc(sls[0].memo) + '">✎</span>' : '') +
             (hasLink ? '<span class="bklinkdot" title="' + esc(linkVal.url) + '">↗</span>' : '') +
-            '</button>' + (showOwner ? '<div class="bkowner">' + esc(bkWhoName(owners)) + '</div>' : '') + bkKpiHTML(kpiCells[rk + "|" + k]) + '</div></td>';
+            '</button>' + (showOwner ? '<div class="bkowner">' + esc(bkWhoName(owners)) + '</div>' : '') + '</div></td>';
         });
         h += '</tr>';
       });
