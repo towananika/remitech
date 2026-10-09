@@ -1089,6 +1089,8 @@
   }
   .snitem:hover{ border-color:var(--wood); }
   .snitem.over{ border-color:#d93025; color:#d93025; }
+  .yubk{ font-size:12.5px; padding:5px 12px; border:1px solid var(--line); border-radius:8px; background:var(--surface); color:var(--ink); cursor:pointer; margin-left:6px; white-space:nowrap; }
+  .yubk[data-on="true"]{ background:var(--neon); border-color:var(--neon); color:var(--neon-ink); }
   .snitem[data-done="true"]{ color:var(--surface); background:var(--sage); border-color:var(--sage); }
   .pcard{
     border:1px solid var(--line); border-left:3px solid var(--chc, var(--wood));
@@ -1551,7 +1553,7 @@
           allBooked:"All booked", leftToDo:"left", nothingToday:"Nothing scheduled",
           markSched:"Booked ahead", markPosted:"Posted", markVerified:"Verified", verifiedTag:"Verified", needUrl:"Paste the link first", addFile:"Add image / video", localOnly:"On this device only", onServer:"Shared",
           storeTitle:"Media store (GitHub)", storeUrl:"owner/repo", storeTok:"Access token", storeSave:"Save",
-          storeOk:"Connected", storeNo:"Could not connect", sure:"Delete?", noImg:"No image needed", pickOne:"Random", snOver:"-char limit exceeded", td7:"Last 7 days", ovSites:"Sites", ovNow:"now", ovEnded:"ended", linkPh:"Paste the link of the post", open:"Open",
+          storeOk:"Connected", storeNo:"Could not connect", sure:"Delete?", noImg:"No image needed", pickOne:"Random", snOver:"-char limit exceeded", td7:"Last 7 days", yuBook:"Book", yuBooked:"Booked", yuBookTip:"Mark this as booked. Shows in the Booking tab too", ovSites:"Sites", ovNow:"now", ovEnded:"ended", linkPh:"Paste the link of the post", open:"Open",
           copy:"Copy", copied:"Copied", copyEn:"EN", noText:"No text yet", comment:"Comment",
           visual:"Visual", today:"Today", tomorrow:"Tomorrow", prepEmpty:"Nothing coming up.",
           searchPh:"Search text, title, date…", noMatch:"No matches.", pgPrev:"Prev", pgNext:"Next",
@@ -1602,7 +1604,7 @@
           allBooked:"모두 예약됨", leftToDo:"남음", nothingToday:"예정 없음",
           markSched:"예약 완료", markPosted:"게시 완료", markVerified:"확인 완료", verifiedTag:"확인 완료", needUrl:"먼저 링크를 붙여넣어", addFile:"이미지 / 영상 추가", localOnly:"이 기기에만", onServer:"공유됨",
           storeTitle:"미디어 저장소 (GitHub)", storeUrl:"owner/repo", storeTok:"액세스 토큰", storeSave:"저장",
-          storeOk:"연결됨", storeNo:"연결 실패", sure:"삭제?", noImg:"이미지 불필요", pickOne:"랜덤", snOver:"자 초과", td7:"최근 7일", ovSites:"사이트", ovNow:"현재", ovEnded:"종료", linkPh:"게시물 링크 붙여넣기", open:"열기",
+          storeOk:"연결됨", storeNo:"연결 실패", sure:"삭제?", noImg:"이미지 불필요", pickOne:"랜덤", snOver:"자 초과", td7:"최근 7일", yuBook:"예약", yuBooked:"예약됨", yuBookTip:"예약 완료로 표시합니다. 예약 탭에도 반영됩니다", ovSites:"사이트", ovNow:"현재", ovEnded:"종료", linkPh:"게시물 링크 붙여넣기", open:"열기",
           copy:"복사", copied:"복사됨", copyEn:"EN", noText:"원고 없음", comment:"댓글",
           visual:"비주얼", today:"오늘", tomorrow:"내일", prepEmpty:"예정된 게 없어.",
           searchPh:"본문, 제목, 날짜로 검색…", noMatch:"일치하는 게 없어.", pgPrev:"이전", pgNext:"다음",
@@ -1653,7 +1655,7 @@
           allBooked:"すべて予約ずみ", leftToDo:"残り", nothingToday:"予定なし",
           markSched:"予約完了", markPosted:"投稿完了", markVerified:"投稿確認完了", verifiedTag:"確認完了", needUrl:"先にリンクを貼る", addFile:"画像・動画を入れる", localOnly:"この端末だけ", onServer:"共有ずみ",
           storeTitle:"画像の置き場（GitHub）", storeUrl:"owner/repo", storeTok:"アクセストークン", storeSave:"保存",
-          storeOk:"つながった", storeNo:"つながらない", sure:"消す？", noImg:"画像は要らない", pickOne:"ランダムにコピー", snOver:"字を超えている", td7:"最近7日のタスク", ovSites:"サイト", ovNow:"開催中", ovEnded:"終了", linkPh:"投稿したリンクを貼る", open:"開く",
+          storeOk:"つながった", storeNo:"つながらない", sure:"消す？", noImg:"画像は要らない", pickOne:"ランダムにコピー", snOver:"字を超えている", td7:"最近7日のタスク", yuBook:"予約", yuBooked:"予約済み", yuBookTip:"予約済みにする。予約タブにも出る", ovSites:"サイト", ovNow:"開催中", ovEnded:"終了", linkPh:"投稿したリンクを貼る", open:"開く",
           copy:"コピー", copied:"コピーした", copyEn:"EN", noText:"原稿なし", comment:"コメント",
           visual:"ビジュアル", today:"今日", tomorrow:"明日", prepEmpty:"先の予定がない。",
           searchPh:"本文・見出し・日付で探す…", noMatch:"一致するものがない。", pgPrev:"前へ", pgNext:"次へ",
@@ -5244,6 +5246,46 @@
   function yuAddDays(k, n) {
     var p = k.split("-"), d = new Date(+p[0], +p[1] - 1, +p[2]); d.setDate(d.getDate() + n); return ymd(d);
   }
+  // YUYU の準備から予約する（2026-10-09 Hibiki指定）。予約タブの同じ行（X の行／IG・FB の行）の枠を予約済みにする。
+  // もう一度押すと「準備中」に戻す。枠がまだない日は、予約タブで押したときと同じ形で作る
+  function yuRow(pf) {
+    var g = bookRows && (bookRows.groups || []).filter(function (x) { return x.channel === "yuyu"; })[0];
+    if (!g) return null;
+    var r = bkGroupRows(g).filter(function (x) { return !x.reply && !x.check && (x.platforms || [x.platform || "X"]).indexOf(pf) >= 0; })[0];
+    return r ? { g: g, r: r } : null;
+  }
+  function yuSlots(day, pf) {
+    var gr = yuRow(pf);
+    if (!gr || !schedule) return { gr: gr, list: [] };
+    var pfs = gr.r.platforms || [gr.r.platform || "X"];
+    return { gr: gr, pfs: pfs, list: (schedule.slots || []).filter(function (x) {
+      return slotCh(x) === "yuyu" && x.date === day && pfs.indexOf(x.platform || "X") >= 0 && x.time === gr.r.time;
+    }) };
+  }
+  function yuBooked(day, pf) {
+    var o = yuSlots(day, pf);
+    return !!(o.list.length && o.list.every(function (x) { return x.scheduled && !x.skip; }));
+  }
+  function yuBookToggle(day, pf) {
+    var o = yuSlots(day, pf);
+    if (!o.gr) return false;
+    if (yuBooked(day, pf)) { o.list.forEach(function (x) { bkSetSlotState(x, "prep"); }); return true; }
+    o.pfs.forEach(function (p) {
+      var x = o.list.filter(function (y) { return (y.platform || "X") === p; })[0];
+      if (x) { bkSetSlotState(x, "sched"); return; }
+      var r = o.gr.r, sl0 = {
+        date: day, channel: "yuyu", platform: p, time: r.time, label: r.label, owner: "", type: /動画/.test(r.label) ? "video" : "text",
+        text: { ja: "", en: "", ko: "" }, comment: "", asset: "", note: "準備タブで予約した枠",
+        need: ["text"], scheduled: true, posted: false, url: "",
+        check: { done: false, at: "", match: null, note: "" },
+      };
+      schedule.slots.push(sl0);
+      bookPush("n", slotKey(sl0), sl0);
+      markSave(sl0, "scheduled", true);
+    });
+    return true;
+  }
+  var yuPullOnce = false;
   function yuInternalHTML(c) {
     var h = '<div class="yuin" style="--chc:' + esc(c.color || "var(--wood)") + '"><div class="yuhd"><b>' + esc(c.name) + '</b>' +
       '<span class="yulock">\uD83D\uDD12 ' + esc(t("yuTitle")) + '</span>' + (yuDoc ? '<span class="tiny">' + esc(yuDoc.title || "") + '</span>' : '') + '</div>';
@@ -5254,16 +5296,24 @@
       if (yuState !== "loading" && yuState !== "err") yuLoad();
       return h + '<p class="tiny">' + esc(yuState === "err" ? t("authNet") : t("yuLoading")) + '</p></div>';
     }
+    // 予約ボタンの状態を正しく出すため、サーバーの予約状態を一度読む（読めたら描き直す）
+    if (!bkSeenServer && !yuPullOnce) { yuPullOnce = true; bookPull(true).then(function () { if (tab === "prep") { var sy0 = window.scrollY; route(); window.scrollTo(0, sy0); } }); }
     var today = ymd(new Date()), shift = +yuDoc.shift || 0;
     var items = (yuDoc.items || []).map(function (it, i) {
       return { it: it, i: i, day: it.fixed ? it.date : yuAddDays(it.date, shift) };
     }).sort(function (a, b) { return a.day < b.day ? -1 : a.day > b.day ? 1 : 0; });
     var past = items.filter(function (x) { return x.day < today; }), next = items.filter(function (x) { return x.day >= today; });
-    function row(key, label, text) {
+    function row(key, label, text, bkDay, bkPf) {
       if (!text) return "";
       copyBank[key] = { en: text, cur: text };
+      var bk = "";
+      if (bkDay) {
+        var on = yuBooked(bkDay, bkPf);
+        bk = '<button class="yubk" data-day="' + bkDay + '" data-pf="' + bkPf + '" data-on="' + on + '" title="' + esc(t("yuBookTip")) + '">' +
+          esc(on ? "✓ " + t("yuBooked") : t("yuBook")) + '</button>';
+      }
       return '<div class="yurow"><span class="yuk">' + esc(label) + '</span><pre>' + esc(text) + '</pre>' +
-        '<button class="cpy" data-ck="' + key + '" data-lg="en">' + esc(t("copy")) + '</button></div>';
+        '<button class="cpy" data-ck="' + key + '" data-lg="en">' + esc(t("copy")) + '</button>' + bk + '</div>';
     }
     function day(x) {
       var it = x.it, p = x.day.split("-"), d = new Date(+p[0], +p[1] - 1, +p[2]);
@@ -5272,7 +5322,7 @@
         // 企画書と違う日に動かした投稿は「企画 M/D」を出す（plan＝企画書の日付）
         (function () { var pl = it.plan || it.date; return pl !== x.day ? '<span class="yutag">' + esc(t("yuPlan")) + " " + (+pl.slice(5, 7)) + "/" + (+pl.slice(8)) + '</span>' : ''; })() + '</div>' +
         '<p class="yuimg">' + esc(it.image || t("yuNoImg")) + '</p>' + yuPhotos(it.image, "yu" + x.i + "f") +
-        row("yu" + x.i + "x", t("yuX"), it.x) + row("yu" + x.i + "i", t("yuIg"), it.ig) + row("yu" + x.i + "p", t("yuPrompt"), it.prompt) +
+        row("yu" + x.i + "x", t("yuX"), it.x, x.day, "X") + row("yu" + x.i + "i", t("yuIg"), it.ig, x.day, "IG") + row("yu" + x.i + "p", t("yuPrompt"), it.prompt) +
         (it.note ? '<p class="yunote">' + esc(it.note) + '</p>' : '') + '</div>';
     }
     h += '<details><summary>' + esc(t("yuRules")) + '</summary><ul>' + (yuDoc.rules || []).map(function (r) { return '<li>' + esc(r) + '</li>'; }).join("") +
@@ -5297,6 +5347,15 @@
   }
   view.addEventListener("click", function (e) {
     if (e.target.closest("#yuLogin")) { authOpen(); return; }
+    var ybk = e.target.closest(".yubk");
+    if (ybk) {
+      if (editLocked && !teamCode()) { ybk.title = t("lkCodeHint"); return; }
+      var ysy = window.scrollY, yday = ybk.getAttribute("data-day"), ypf = ybk.getAttribute("data-pf");
+      var ydo = function () { if (yuBookToggle(yday, ypf)) { route(); window.scrollTo(0, ysy); } };
+      // サーバーの予約状態をまだ読んでいなければ、先に読む（予約タブで作った枠を、ここで二重に作らないため）
+      if (bkSeenServer) ydo(); else { ybk.disabled = true; bookPull(true).then(ydo, ydo); }
+      return;
+    }
     if (e.target.closest("#yuRecheck")) { authRenew(true); return; }
   });
   view.addEventListener("toggle", function (e) { if (e.target && e.target.id === "yuPast") yuPastOpen = e.target.open; }, true);
