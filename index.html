@@ -1089,7 +1089,8 @@
   }
   .snitem:hover{ border-color:var(--wood); }
   .snitem.over{ border-color:#d93025; color:#d93025; }
-  .yubk{ font-size:12.5px; padding:5px 12px; border:1px solid var(--line); border-radius:8px; background:var(--surface); color:var(--ink); cursor:pointer; margin-left:6px; white-space:nowrap; }
+  .yubk{ font-size:12.5px; padding:5px 12px; border:1px solid var(--line); border-radius:8px; background:var(--surface); color:var(--ink); cursor:pointer; white-space:nowrap; }
+  .yubtns{ flex:0 0 auto; display:flex; flex-direction:column; align-items:stretch; gap:6px; }
   .yubk[data-on="true"]{ background:var(--neon); border-color:var(--neon); color:var(--neon-ink); }
   .yurow-done{ align-items:center; }
   .yurow-done .yuk{ padding-top:0; }
@@ -5320,8 +5321,9 @@
         // 予約した行は文を畳み、ボタンだけ残す（押せば予約を戻せる）。2026-10-09 Hibiki「予約したら非表示に」
         if (on) return '<div class="yurow yurow-done"><span class="yuk">' + esc(label) + '</span>' + bk + '</div>';
       }
+      // 予約ボタンはコピーの下に置く（2026-10-09 Hibiki指定）
       return '<div class="yurow"><span class="yuk">' + esc(label) + '</span><pre>' + esc(text) + '</pre>' +
-        '<button class="cpy" data-ck="' + key + '" data-lg="en">' + esc(t("copy")) + '</button>' + bk + '</div>';
+        '<div class="yubtns"><button class="cpy" data-ck="' + key + '" data-lg="en">' + esc(t("copy")) + '</button>' + bk + '</div></div>';
     }
     function day(x) {
       var it = x.it, p = x.day.split("-"), d = new Date(+p[0], +p[1] - 1, +p[2]);
