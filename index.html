@@ -4533,6 +4533,8 @@
         }).join("") +
         (g.unsure ? ' <em title="' + esc(g.unsure) + '">' + esc(t("bkUnsure")) + '</em>' : "") + '</span></th></tr>';
       var igFeed = bkGroupRows(g).filter(function (r) { return !r.reply && !r.check && rowPlats(r).indexOf("IG") >= 0 && /フィード/.test(r.label); })[0] || null;
+      // 投稿の一覧（posts_check.json）で見つかった投稿は、保存されたリンクがなくても、その場で「投稿ずみ（青）」として出す（2026-10-09）
+      var autoM = postsCheck ? pcOrdinal(g, days.map(ymd).filter(function (dk) { return dk <= today; })) : {};
       bkGroupRows(g).forEach(function (r, rIdx) {
         var rk = bkRowKey(g, r);
         if (bkRowHidden(rk)) return;   // 隠している行は出さない
@@ -4604,6 +4606,8 @@
           // 長押し＋上ドラッグでリンクを開閉する（見出しタップの代わり）。あれば小さな印だけ常に出す
           var linkKey = bkDateLinkKey(rk, k), linkVal = schedule.links && schedule.links[linkKey];
           var hasLink = linkVal && typeof linkVal === "object" && /^https?:\/\//i.test(linkVal.url || "");
+          var autoP = !hasLink && autoM[rk + "|" + k];
+          if (autoP) { hasLink = true; linkVal = { url: autoP.url, auto: true }; }
           // 投稿が確かめられた（リンクが入った）枠は「投稿済み」と出す。予約済みの ✓ はそのまま
           if (hasLink && st !== "skip" && st !== "sched") { cust = null; isVideo = false; txt = t("stDone"); }
           h += '<td data-today="' + (k === today) + '" data-hol="' + isHol(k) + '"><div class="bkcell">' +
