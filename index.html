@@ -1091,6 +1091,8 @@
   .snitem.over{ border-color:#d93025; color:#d93025; }
   .yubk{ font-size:12.5px; padding:5px 12px; border:1px solid var(--line); border-radius:8px; background:var(--surface); color:var(--ink); cursor:pointer; margin-left:6px; white-space:nowrap; }
   .yubk[data-on="true"]{ background:var(--neon); border-color:var(--neon); color:var(--neon-ink); }
+  .yurow-done{ align-items:center; }
+  .yurow-done .yuk{ padding-top:0; }
   .snitem[data-done="true"]{ color:var(--surface); background:var(--sage); border-color:var(--sage); }
   .pcard{
     border:1px solid var(--line); border-left:3px solid var(--chc, var(--wood));
@@ -5315,6 +5317,8 @@
         var on = yuBooked(bkDay, bkPf);
         bk = '<button class="yubk" data-day="' + bkDay + '" data-pf="' + bkPf + '" data-on="' + on + '" title="' + esc(t("yuBookTip")) + '">' +
           esc(on ? "✓ " + t("yuBooked") : t("yuBook")) + '</button>';
+        // 予約した行は文を畳み、ボタンだけ残す（押せば予約を戻せる）。2026-10-09 Hibiki「予約したら非表示に」
+        if (on) return '<div class="yurow yurow-done"><span class="yuk">' + esc(label) + '</span>' + bk + '</div>';
       }
       return '<div class="yurow"><span class="yuk">' + esc(label) + '</span><pre>' + esc(text) + '</pre>' +
         '<button class="cpy" data-ck="' + key + '" data-lg="en">' + esc(t("copy")) + '</button>' + bk + '</div>';
@@ -5331,18 +5335,12 @@
     }
     h += '<details><summary>' + esc(t("yuRules")) + '</summary><ul>' + (yuDoc.rules || []).map(function (r) { return '<li>' + esc(r) + '</li>'; }).join("") +
       (yuDoc.promptHow ? '<li>' + esc(yuDoc.promptHow) + '</li>' : '') + '</ul></details>';
-    // 画像プロンプトは 🎨 の日にしかないので、上にまとめても出す（2026-10-08「イメージプロンプトがない」より）
-    var withP = items.filter(function (x) { return x.it.prompt; });
-    if (withP.length) {
-      h += '<div class="yuprompts"><p class="yuptitle">🎨 ' + esc(t("yuPrompt")) + ' (' + withP.length + ')</p>' +
-        (yuDoc.promptHow ? '<p class="yunote" style="margin:0 0 6px">' + esc(yuDoc.promptHow) + '</p>' : '') +
-        withP.map(function (x) {
-          var p = x.day.split("-");
-          return '<div class="yupitem" data-past="' + (x.day < today) + '"><div class="yudate"><b>' + (+p[1]) + "/" + (+p[2]) + '</b><span class="tiny">' + esc(x.it.image) + '</span></div>' +
-            yuPhotos(x.it.image, "yuq" + x.i + "f") + row("yuq" + x.i, t("yuPrompt"), x.it.prompt) + '</div>';
-        }).join("") + '</div>';
-    }
-    h += next.map(day).join("");
+    // 画像プロンプトのまとめは出さない（2026-10-09 Hibiki「各日の下にもうあるので消して」）。各日の中の行で見る
+    // X も IG も予約した日は、下の「予約済み（N）」にしまう（文がない方は予約済みとみなす）
+    var dayDone = function (x) { return (!x.it.x || yuBooked(x.day, "X")) && (!x.it.ig || yuBooked(x.day, "IG")) && (x.it.x || x.it.ig); };
+    var nextOpen = next.filter(function (x) { return !dayDone(x); }), nextDone = next.filter(dayDone);
+    h += nextOpen.map(day).join("");
+    if (nextDone.length) h += '<details class="yudone"><summary>✓ ' + esc(t("yuBooked")) + " (" + nextDone.length + ')</summary>' + nextDone.map(day).join("") + '</details>';
     (yuDoc.reserve || []).forEach(function (r, k) { h += '<div class="yuday">' + row("yur" + k, t("yuReserve"), r.x) + '</div>'; });
     if (past.length) {
       h += '<details' + (yuPastOpen ? ' open' : '') + ' id="yuPast"><summary>' + esc(t("yuPast")) + " (" + past.length + ')</summary>' + past.map(day).join("") + '</details>';
