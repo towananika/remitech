@@ -6088,8 +6088,19 @@
     tab = b.getAttribute("data-tab");
     if (tab === "prep") { try { if (localStorage.getItem("remitech-prepview") === "cal") tab = "prep2"; } catch (e0) {} }
     location.hash = "";
-    renderNav(); syncWide(); route();
+    goWithUpdate();
   });
+  // ページ（タブ）を移るときに、新しい内容が出ていれば読み直してから移る（2026-10-09 Hibiki指定）。
+  // 確かめに時間がかかるときは待たずに移り、あとで新しい内容が見つかったらその場で読み直す
+  function goWithUpdate() {
+    var moved = false;
+    var go = function () { renderNav(); syncWide(); route(); };
+    var timer = setTimeout(function () { moved = true; go(); }, 1200);
+    watchUpdates().then(function (has) {
+      if (!moved) { clearTimeout(timer); if (has) { updateNow(true); return; } go(); return; }
+      if (has) updateNow(true);
+    });
+  }
 
   var NO = ["一","二","三","四","五","六","七","八","九","十"];
 
@@ -6710,16 +6721,17 @@
   function stamp(res) {
     return (res.headers.get("etag") || "") + "|" + (res.headers.get("last-modified") || "");
   }
+  // 新しい内容があるかを確かめる。終わったら「あるか」を返す（ページ移動のときに使う）
   function watchUpdates() {
-    ["./index.html", "./posts.json", "./schedule.json", "./kpi.json", "./book_rows.json", "./chores.json"].forEach(function (u) {
-      fetch(u, { method: "HEAD", cache: "no-store" }).then(function (r) {
+    return Promise.all(["./index.html", "./posts.json", "./schedule.json", "./kpi.json", "./book_rows.json", "./chores.json"].map(function (u) {
+      return fetch(u, { method: "HEAD", cache: "no-store" }).then(function (r) {
         if (!r.ok) return;
         var st = stamp(r);
         if (!st) return;
         if (bootStamp[u] === undefined) { bootStamp[u] = st; return; }   // 読み込んだときの版を基準にする（以後は変えない）
         if (bootStamp[u] !== st) pendingUpdate = true;
-      }).catch(function () {}).then(showUpdateToastIfPending);
-    });
+      }).catch(function () {});
+    })).then(function () { showUpdateToastIfPending(); return pendingUpdate; });
   }
   function showUpdateToastIfPending() {
     if (!pendingUpdate) return;
@@ -6729,14 +6741,14 @@
     el.hidden = false;
   }
   // 今の入力・画面の場所を残してから読み直す。保存中のもの（saveSoon で待たせてあるもの）は先に確定させる
-  function updateNow() {
+  function updateNow(fromNav) {
     var go = document.getElementById("toastGo");
     go.disabled = true; go.textContent = t("updating");
     Promise.resolve().then(flushSave).catch(function () {}).then(function () {
       try {
         sessionStorage.setItem("remitech-reload-state", JSON.stringify({
           tab: tab, filter: filter, bkMon: bkMon, tgDate: tgDate,
-          lkWeek: lkWeek, lkMode: lkMode, lang: lang, scrollY: window.scrollY, hash: location.hash
+          lkWeek: lkWeek, lkMode: lkMode, lang: lang, scrollY: fromNav === true ? 0 : window.scrollY, hash: location.hash
         }));
       } catch (e) {}
       location.reload();
@@ -6747,7 +6759,7 @@
     document.getElementById("toast").hidden = true;   // 消しても更新自体はまだ。次の確認でまた出す
   });
   watchUpdates();
-  setInterval(watchUpdates, 60000);        // 1分ごと
+  setInterval(watchUpdates, 3 * 60 * 60 * 1000);   // ふだんの確認は3時間ごと（2026-10-09 Hibiki指定。ページを移るときにも確かめる）
 
   // いいね作業の印は、何人かが同時に押す。他の人の印も、開いたまま見えるようにする。
   // 鍵のある端末: GitHubから直接10秒ごと（公開ページの反映待ち1〜2分を飛ばせる）。
