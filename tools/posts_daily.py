@@ -21,11 +21,18 @@ def git(*args):
 def main():
     lines = ["==== %s" % datetime.datetime.now().isoformat(timespec="seconds")]
     env = dict(os.environ, PYTHONIOENCODING="utf-8")
+    # Claude のアプリの中から入れた Playwright のブラウザは、アプリ専用の AppData に入っていて、
+    # タスクスケジューラからは見えない（2026-10-10 判明）。アプリの外から見える ~/.ms-playwright に写したものを使う
+    pw = os.path.join(os.path.expanduser("~"), ".ms-playwright")
+    if os.path.isdir(pw):
+        env["PLAYWRIGHT_BROWSERS_PATH"] = pw
+    lines.append("user=%s localappdata=%s" % (os.environ.get("USERNAME"), os.environ.get("LOCALAPPDATA")))
     pf = subprocess.run([sys.executable, os.path.join(ROOT, "tools", "posts_fetch.py")],
                         cwd=ROOT, env=env, capture_output=True, text=True, encoding="utf-8")
     lines.append(pf.stdout.strip())
     if pf.stderr.strip():
-        lines.append(pf.stderr.strip()[-600:])
+        err = [x for x in pf.stderr.strip().splitlines() if "Error" in x or "error" in x or "Executable" in x or "exist" in x]
+        lines.append("stderr: " + " / ".join(err)[:900])
     if git("status", "--porcelain", "--", "posts_check.json").stdout.strip():
         # ほかの変更が混ざらないよう、このファイルだけをコミットする
         git("add", "posts_check.json")
