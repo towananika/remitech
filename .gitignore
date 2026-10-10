@@ -2,3 +2,5 @@
 worker/.dev.vars
 worker/.wrangler/
 worker/node_modules/
+tools/posts_daily.log
+tools/__pycache__/
