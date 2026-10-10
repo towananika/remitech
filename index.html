@@ -2550,6 +2550,8 @@
   // その日・そのSNSの投稿を、予約の行の順（時刻の早い順）に 1番目・2番目… と当てる（2026-10-09 Hibiki指定）。
   // 投稿の時刻は予約の時刻とずれるので、時刻では比べない。例: HIYOKO の X に投稿が2つなら、早い方が 09:30 の行、遅い方が 17:00 の行。
   // 「投稿しない」にした枠は数えない。返す: { "行の鍵|日付": 投稿 }
+  // 誤差の範囲（分）。予約の時刻 ±この分の間に出た投稿だけを、その枠の投稿として当てる（2026-10-10）
+  var PC_TOL_MIN = 90;
   function pcOrdinal(g, dayKeys) {
     var out = {}, rows = pcRowsOf(g);
     dayKeys.forEach(function (k) {
@@ -2565,6 +2567,8 @@
         var ps = pcOn(g.channel, pf, k);   // その日の投稿（早い順・固定の投稿は除く）
         var mins = function (x) { var d = new Date(x.at); return d.getHours() * 60 + d.getMinutes(); };
         pcOrderPair(rs.map(function (r) { return toMin(r.time || "12:00"); }), ps.map(mins)).forEach(function (pr) {
+          // 2026-10-10 Hibiki指定: 予約の時刻から誤差の範囲（PC_TOL_MIN 分）を超えてずれた投稿は、その枠の投稿として扱わない
+          if (rs[pr[0]].time && Math.abs(mins(ps[pr[1]]) - toMin(rs[pr[0]].time)) > PC_TOL_MIN) return;
           out[bkRowKey(g, rs[pr[0]]) + "|" + k] = ps[pr[1]];
         });
       });
