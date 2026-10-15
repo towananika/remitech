@@ -64,6 +64,7 @@ export class HubDO extends DurableObject {
     const url = new URL(request.url);
     const origin = request.headers.get("Origin") || "";
     await this.migrateOnce();
+    await this.seedOnce();
 
     if (url.pathname === "/ws") {
       if (request.headers.get("Upgrade") !== "websocket") return json({ error: "websocket" }, 426, origin);
@@ -98,6 +99,28 @@ export class HubDO extends DurableObject {
   }
 
   // ---- 以前の KV の中身を、1回だけ写す ----
+  // ---- まとめて入れる（2026-10-15）----
+  // 予約タブの担当者など、表から読んだものを管理側からまとめて入れるための口。画面の合言葉は使わない。
+  // KV（CHORES）の seed:bk に { id, onlyIfEmpty, items: { "bk:a:2026-10-12": "Suha", ... } } を wrangler で置く。
+  // 同じ id は1回だけ。onlyIfEmpty なら、もう値がある鍵（人が画面で入れたもの）は書き換えない。bk:a（担当者）だけ受け付ける
+  async seedOnce() {
+    if (this.seedChecked && Date.now() - this.seedChecked < 60000) return;
+    this.seedChecked = Date.now();
+    if (!this.env.CHORES) return;
+    const s = await this.env.CHORES.get("seed:bk", "json");
+    if (!s || !s.id || !s.items || await this.ctx.storage.get("meta:seed:" + s.id)) return;
+    let n = 0;
+    for (const [k, v] of Object.entries(s.items)) {
+      if (!/^bk:a:\d{4}-\d{2}-\d{2}$/.test(k) || typeof v !== "string" || v.length > 20) continue;
+      const cur = await this.ctx.storage.get(k);
+      if (s.onlyIfEmpty && typeof cur === "string" && cur) continue;
+      await this.ctx.storage.put(k, v);
+      n++;
+    }
+    await this.ctx.storage.put("meta:seed:" + s.id, { at: new Date().toISOString(), n });
+    if (n) this.broadcast("book");
+  }
+
   async migrateOnce() {
     if (this.migrated) return;
     if (await this.ctx.storage.get("meta:migrated")) { this.migrated = true; return; }
