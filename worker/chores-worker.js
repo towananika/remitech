@@ -45,7 +45,7 @@ export default {
     if (request.method === "OPTIONS") return new Response(null, { headers: cors(origin) });
     const url = new URL(request.url);
     if (!["/chores", "/book", "/code", "/ws"].includes(url.pathname) &&
-        !/^\/(auth\/(register|login|renew|logout|logoutall|password|reset|resetcode|delete|users|member)|internal\/[a-z0-9_-]{1,30})$/.test(url.pathname)) {
+        !/^\/(auth\/(register|login|renew|logout|logoutall|password|reset|resetcode|delete|users|member)|internal\/[a-z0-9_-]{1,30}|fetchreq(\/state)?)$/.test(url.pathname)) {
       return json({ ok: true, service: "remitech-chores" }, 200, origin);
     }
     const stub = env.HUB.get(env.HUB.idFromName("main"));
@@ -74,6 +74,7 @@ export class HubDO extends DurableObject {
       return new Response(null, { status: 101, webSocket: pair[0] });
     }
     if (url.pathname === "/code" && request.method === "POST") return this.changeCode(request, origin);
+    if (url.pathname.startsWith("/fetchreq")) return this.fetchReq(url.pathname, request, origin);
     if (url.pathname.startsWith("/auth/")) return this.auth(url.pathname.slice(6), request, origin);
     if (url.pathname.startsWith("/internal/")) return this.internal(url.pathname.slice(10), request, origin);
     if (url.pathname === "/book") {
@@ -99,6 +100,39 @@ export class HubDO extends DurableObject {
   }
 
   // ---- 以前の KV の中身を、1回だけ写す ----
+  // ---- 投稿確認の依頼（2026-10-15 Hibiki指定「投稿確認ボタン」）----
+  // 画面のボタン → POST /fetchreq で依頼を置く。ひびきの PC（tools/posts_poll.py、2分ごと）が GET で見て、
+  // 各 SNS を読んで push し、POST /fetchreq/state で 進行中・済み を知らせる。読むだけの依頼なので合言葉は要らない（回数は絞る）
+  //   cfg:fetchreq  { state: "pending"|"running"|"done"|"error", reqAt, startAt, doneAt, msg }
+  async fetchReq(path, request, origin) {
+    const cur = (await this.ctx.storage.get("cfg:fetchreq")) || { state: "idle" };
+    if (request.method === "GET") return json(cur, 200, origin, { "Cache-Control": "no-store" });
+    if (request.method !== "POST") return json({ error: "method" }, 405, origin);
+    const now = Date.now();
+    if (path === "/fetchreq") {
+      if (origin && !ALLOWED.includes(origin)) return json({ error: "origin" }, 403, origin);
+      // 待っている・読んでいる最中なら、それをそのまま返す（何度押しても1回分）。止まったまま15分たった依頼は置き直す
+      const busy = (cur.state === "pending" || cur.state === "running") && now - Date.parse(cur.state === "running" ? cur.startAt : cur.reqAt) < 15 * 60 * 1000;
+      if (busy) return json(cur, 200, origin);
+      const next = { state: "pending", reqAt: new Date(now).toISOString(), lastDoneAt: cur.doneAt || cur.lastDoneAt || "", msg: "" };
+      await this.ctx.storage.put("cfg:fetchreq", next);
+      this.broadcast("fetchreq");
+      return json(next, 200, origin);
+    }
+    // PC からの知らせ（ブラウザからは受け付けない）
+    if (origin) return json({ error: "origin" }, 403, origin);
+    let b;
+    try { b = JSON.parse(await request.text()); } catch (e) { return json({ error: "bad-json" }, 400, origin); }
+    const st = b && b.state;
+    if (!["running", "done", "error"].includes(st)) return json({ error: "state" }, 400, origin);
+    const next = Object.assign({}, cur, { state: st, msg: typeof b.msg === "string" ? b.msg.slice(0, 300) : "" });
+    if (st === "running") next.startAt = new Date(now).toISOString();
+    else next.doneAt = new Date(now).toISOString();
+    await this.ctx.storage.put("cfg:fetchreq", next);
+    this.broadcast("fetchreq");
+    return json(next, 200, origin);
+  }
+
   // ---- まとめて入れる（2026-10-15）----
   // 予約タブの担当者など、表から読んだものを管理側からまとめて入れるための口。画面の合言葉は使わない。
   // KV（CHORES）の seed:bk に { id, onlyIfEmpty, items: { "bk:a:2026-10-12": "Suha", ... } } を wrangler で置く。

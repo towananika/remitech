@@ -60,7 +60,13 @@ def load():
 def merge(data, key, posts, source):
     """同じリンクの投稿は数字を新しくする。古いもの・多すぎるものは捨てる"""
     acct = data["accounts"].setdefault(key, {"posts": []})
-    by = {p["url"]: p for p in acct.get("posts", [])}
+    # リンクの書き方をそろえてから重ねる（instagram.com/ユーザー名/p/… と instagram.com/p/… を同じ投稿として扱う）
+    for p in list(acct.get("posts", [])) + list(posts):
+        if p.get("url"):
+            p["url"] = re.sub(r"instagram\.com/[^/]+/(p|reel)/", r"instagram.com/\1/", p["url"].split("?")[0])
+    by = {}
+    for p in acct.get("posts", []):
+        by.setdefault(p["url"], p)
     for p in posts:
         if not p.get("url"):
             continue
@@ -94,6 +100,23 @@ def ig_posts(page, url):
         out.append({"url": re.sub(r"instagram\.com/[^/]+/(p|reel)/", r"instagram.com/\1/", h.split("?")[0]), "at": at, "text": m.group(3) if m else "",
                     "likes": num(m.group(1)) if m else None, "comments": num(m.group(2)) if m else None,
                     "views": None, "kind": "reel" if "/reel/" in h else "post"})
+    return out
+
+
+UA_X = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36"
+
+
+def x_posts(page, url):
+    """X のプロフィールを開いて、tools/x_posts_extract.js で最近の投稿（5件ほど）を読む"""
+    page.goto(url, wait_until="domcontentloaded", timeout=40000)
+    page.wait_for_timeout(7000)
+    js = io.open(ROOT / "tools" / "x_posts_extract.js", encoding="utf-8").read().strip().rstrip(";")
+    got = page.evaluate(js) or []
+    out = []
+    for x in got:
+        if x.get("pinned"):
+            continue
+        out.append({k: x.get(k) for k in ("url", "at", "text", "likes", "views", "comments", "reposts")})
     return out
 
 
@@ -136,7 +159,7 @@ def auto():
         if c.get("id") not in CHANNELS:
             continue
         for l in c.get("links", []):
-            if l.get("kind") in ("Instagram", "YouTube"):
+            if l.get("kind") in ("Instagram", "YouTube", "X"):
                 targets.append((c["id"], l["kind"], l["url"]))
     for ch, kind, url in [t for t in targets if t[1] == "YouTube"]:
         try:
@@ -146,13 +169,14 @@ def auto():
         except Exception as e:
             warn.append("%s YouTube: 失敗（%s）" % (ch, e))
     ig = [t for t in targets if t[1] == "Instagram"]
-    if ig:
+    xs = [t for t in targets if t[1] == "X"]
+    if ig or xs:
         try:
             from playwright.sync_api import sync_playwright
         except ImportError:
-            warn.append("Instagram: playwright が入っていない")
-            ig = []
-    if ig:
+            warn.append("Instagram・X: playwright が入っていない")
+            ig, xs = [], []
+    if ig or xs:
         with sync_playwright() as p:
             b = p.chromium.launch(headless=True)
             page = b.new_context(user_agent=UA, locale="en-US", viewport={"width": 1280, "height": 900}).new_page()
@@ -164,6 +188,21 @@ def auto():
                 except Exception as e:
                     warn.append("%s Instagram: 失敗（%s）" % (ch, e))
             b.close()
+            # X は画面なし専用の部品だと 403。Chromium 本体を新しい画面なしモードで動かすと読める（2026-10-15 確認）
+            if xs:
+                try:
+                    bx = p.chromium.launch(headless=True, channel="chromium", args=["--headless=new"])
+                    px = bx.new_context(user_agent=UA_X, locale="ko-KR", viewport={"width": 1280, "height": 1000}).new_page()
+                    for ch, kind, url in xs:
+                        try:
+                            got = x_posts(px, url)
+                            merge(data, ch + "|X", got, "auto")
+                            report.append("%s X: %d件" % (ch, len(got)))
+                        except Exception as e:
+                            warn.append("%s X: 失敗（%s）" % (ch, e))
+                    bx.close()
+                except Exception as e:
+                    warn.append("X: ブラウザを起動できない（%s）" % e)
     data["updated"] = now_iso()
     io.open(OUT, "w", encoding="utf-8", newline="\n").write(json.dumps(data, ensure_ascii=False, indent=1) + "\n")
     print("\n".join(report))
