@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- REMITECH HUB のアイコン（2026-10-15）。墨色の角丸に、生成りの R と、木の色の点（ハブ＝集まる場所） -->
+  <rect width="64" height="64" rx="14" fill="#231f1a"/>
+  <path d="M21 50V14h13a10 10 0 0 1 0 20H21M32 34l11 16" fill="none" stroke="#fbf9f4" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="50" cy="15" r="4.5" fill="#c99f74"/>
+</svg>
