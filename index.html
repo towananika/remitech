@@ -2781,8 +2781,15 @@
         var checkedAfter = a && pcDay(a.checkedAt) > dateStr && pcCovered(a) <= dateStr;
         return kd[0] + " (" + t(checkedAfter ? "tgNoPost" : "tgNoLink") + ")";
       }
+      if (pf === "X" && url.indexOf("?") < 0) url += "?s=20";   // X は共有用の形にそろえる（例の形）
       return kd[0] + " (" + url + ")";
     });
+    // 決まった行（posts.json の shareFixed）を Instagram の次に入れる（2026-10-15 REEL の IG Stories）
+    if (c.shareFixed && c.shareFixed.length) {
+      var at = -1;
+      lines.forEach(function (l, i) { if (l.indexOf("Instagram (") === 0) at = i; });
+      lines.splice(at >= 0 ? at + 1 : lines.length, 0, c.shareFixed.join("\n"));
+    }
     return c.name + " Uploaded " + md + "\n\n" + lines.join("\n");
   }
 
