@@ -1,6 +1,6 @@
 {
  "note": "投稿タブ用。tools/posts_fetch.py が書く",
- "updated": "2026-10-14T11:22:34+00:00",
+ "updated": "2026-10-15T03:03:43+00:00",
  "accounts": {
   "hiyoko|YT": {
    "posts": [
@@ -623,6 +623,56 @@
   "hiyoko|X": {
    "posts": [
     {
+     "url": "https://x.com/HiyokoGlobal/status/2110528486767219159",
+     "at": "2026-10-15T00:29:37.625Z",
+     "text": "what matters in HIYOKO\nisn't joining once. 🪄\n\nit's coming back.",
+     "likes": 0,
+     "views": 12,
+     "comments": 0,
+     "reposts": 0,
+     "seen": "2026-10-15T03:03:43+00:00"
+    },
+    {
+     "url": "https://x.com/HiyokoGlobal/status/2110327613613056408",
+     "at": "2026-10-14T11:11:25.733Z",
+     "text": "CheePoint is the point system\nof the HIYOKO ecosystem. 🪄",
+     "likes": 3,
+     "views": 35,
+     "comments": 0,
+     "reposts": 0,
+     "seen": "2026-10-15T03:03:43+00:00"
+    },
+    {
+     "url": "https://x.com/HiyokoGlobal/status/2110179655370330474",
+     "at": "2026-10-14T01:23:29.739Z",
+     "text": "HIYOKO official channels.\nall in one place. 🪄🐣",
+     "likes": 1,
+     "views": 43,
+     "comments": 1,
+     "reposts": 0,
+     "seen": "2026-10-15T03:03:43+00:00"
+    },
+    {
+     "url": "https://x.com/HiyokoGlobal/status/2109922321251398071",
+     "at": "2026-10-13T08:20:56.504Z",
+     "text": "HYK is live on Coinstore. 🪄🐣\n\ncurrent price: $0.040\n[verify on day of posting]\n\nsearch HYK on Coinstore. 😎",
+     "likes": 1,
+     "views": 32,
+     "comments": 0,
+     "reposts": 0,
+     "seen": "2026-10-15T03:03:43+00:00"
+    },
+    {
+     "url": "https://x.com/HiyokoGlobal/status/2109922279006285984",
+     "at": "2026-10-13T08:20:46.432Z",
+     "text": "HIYOKO starts with the user. 🪄\n\nnot tokens. not technology.\nuser experience comes first.",
+     "likes": 0,
+     "views": 30,
+     "comments": 0,
+     "reposts": 0,
+     "seen": "2026-10-15T03:03:43+00:00"
+    },
+    {
      "url": "https://x.com/HiyokoGlobal/status/2108828888373903731",
      "at": "2026-10-10T07:56:01.791Z",
      "text": "McKitty? Nah. McHiyoko. 🍟🐣\n\n#McHiyoko #HIYOKO #HYK #McKitty #Trend",
@@ -713,11 +763,61 @@
      "seen": "2026-10-08T06:10:35+00:00"
     }
    ],
-   "checkedAt": "2026-10-10T09:06:57+00:00",
+   "checkedAt": "2026-10-15T03:03:43+00:00",
    "source": "browser"
   },
   "nacha|X": {
    "posts": [
+    {
+     "url": "https://x.com/nacha_project/status/2110330049081815537",
+     "at": "2026-10-14T11:21:06.394Z",
+     "text": "🌙 A small deity. A golden temple. One token. 🪙",
+     "likes": 2,
+     "views": 22,
+     "comments": 0,
+     "reposts": 0,
+     "seen": "2026-10-15T03:03:43+00:00"
+    },
+    {
+     "url": "https://x.com/nacha_project/status/2110014936118448493",
+     "at": "2026-10-13T14:28:57.609Z",
+     "text": "🌙 $NACHA on Pionex — today's move. 🚀",
+     "likes": 0,
+     "views": 15,
+     "comments": 0,
+     "reposts": 0,
+     "seen": "2026-10-15T03:03:43+00:00"
+    },
+    {
+     "url": "https://x.com/nacha_project/status/2109630915223925055",
+     "at": "2026-10-12T13:02:59.893Z",
+     "text": "🌙 Who is Nacha?",
+     "likes": 2,
+     "views": 27,
+     "comments": 0,
+     "reposts": 0,
+     "seen": "2026-10-15T03:03:43+00:00"
+    },
+    {
+     "url": "https://x.com/nacha_project/status/2109237077942612207",
+     "at": "2026-10-11T10:58:01.768Z",
+     "text": "🌙 $NACHA Aftersale — step by step.",
+     "likes": 2,
+     "views": 12,
+     "comments": 1,
+     "reposts": 0,
+     "seen": "2026-10-15T03:03:43+00:00"
+    },
+    {
+     "url": "https://x.com/nacha_project/status/2109180792769585402",
+     "at": "2026-10-11T07:14:22.337Z",
+     "text": "🌙 Listed. Trading. Building. 🔨",
+     "likes": 2,
+     "views": 13,
+     "comments": 1,
+     "reposts": 0,
+     "seen": "2026-10-15T03:03:43+00:00"
+    },
     {
      "url": "https://x.com/nacha_project/status/2108512408746733705",
      "at": "2026-10-09T10:58:27.168Z",
@@ -789,11 +889,61 @@
      "seen": "2026-10-08T06:10:35+00:00"
     }
    ],
-   "checkedAt": "2026-10-10T09:15:10+00:00",
+   "checkedAt": "2026-10-15T03:03:43+00:00",
    "source": "browser"
   },
   "yuyu|X": {
    "posts": [
+    {
+     "url": "https://x.com/yuyukannondo/status/2110532735370768510",
+     "at": "2026-10-15T00:46:30.571Z",
+     "text": "Some things are worth carving, so they are not forgotten.\n\nMay your day be a peaceful one.\n#yuyukannondo",
+     "likes": 0,
+     "views": 3,
+     "comments": 0,
+     "reposts": 0,
+     "seen": "2026-10-15T03:03:43+00:00"
+    },
+    {
+     "url": "https://x.com/yuyukannondo/status/2110161412114764119",
+     "at": "2026-10-14T00:11:00.208Z",
+     "text": "Gratitude felt once is a feeling.\nPracticed daily, it becomes a way of living.\n\nMay your day be a peaceful one.\n#yuyukannondo",
+     "likes": 0,
+     "views": 6,
+     "comments": 0,
+     "reposts": 0,
+     "seen": "2026-10-15T03:03:43+00:00"
+    },
+    {
+     "url": "https://x.com/yuyukannondo/status/2109802547384893915",
+     "at": "2026-10-13T00:25:00.189Z",
+     "text": "After the gathering, the quiet returns.\nIt has its own kind of fullness.\n\nMay your day be a peaceful one.\n#yuyukannondo",
+     "likes": 0,
+     "views": 7,
+     "comments": 0,
+     "reposts": 0,
+     "seen": "2026-10-15T03:03:43+00:00"
+    },
+    {
+     "url": "https://x.com/yuyukannondo/status/2109439656379265279",
+     "at": "2026-10-12T00:23:00.231Z",
+     "text": "The days of Pchum Ben (ភ្ជុំបិណ្ឌ) close today.\nWhat was offered in memory stays with us.\n\nMay your day be a peaceful one.\n#yuyukannondo",
+     "likes": 0,
+     "views": 25,
+     "comments": 0,
+     "reposts": 0,
+     "seen": "2026-10-15T03:03:43+00:00"
+    },
+    {
+     "url": "https://x.com/yuyukannondo/status/2109071489144385769",
+     "at": "2026-10-11T00:00:02.322Z",
+     "text": "Those we remember live on in the way we treat each other.\n\nMay your day be a peaceful one.\n#yuyukannondo",
+     "likes": 1,
+     "views": 4,
+     "comments": 0,
+     "reposts": 0,
+     "seen": "2026-10-15T03:03:43+00:00"
+    },
     {
      "url": "https://x.com/yuyukannondo/status/2108709097126387904",
      "at": "2026-10-10T00:00:01.332Z",
@@ -875,20 +1025,50 @@
      "seen": "2026-10-08T06:10:35+00:00"
     }
    ],
-   "checkedAt": "2026-10-10T09:15:10+00:00",
+   "checkedAt": "2026-10-15T03:03:43+00:00",
    "source": "browser"
   },
   "reel|X": {
    "posts": [
     {
-     "url": "https://x.com/REEL_Experience/status/2108829957665546315",
-     "at": "2026-10-10T08:00:16.730Z",
-     "text": "Review bombing.\n\nThousands of negative reviews\nin hours.\n\nMost from people who never\neven launched the game.",
-     "likes": 0,
-     "views": 3,
+     "url": "https://x.com/REEL_Experience/status/2110332817548963904",
+     "at": "2026-10-14T11:32:06.448Z",
+     "text": "Nearly half of internet traffic\nis said to be bots.",
+     "likes": 1,
+     "views": 11,
      "comments": 1,
      "reposts": 0,
-     "seen": "2026-10-10T09:15:10+00:00"
+     "seen": "2026-10-15T03:03:43+00:00"
+    },
+    {
+     "url": "https://x.com/REEL_Experience/status/2109442676403634344",
+     "at": "2026-10-12T00:35:00.261Z",
+     "text": "Unverified trust\nis just hope.",
+     "likes": 0,
+     "views": 7,
+     "comments": 0,
+     "reposts": 0,
+     "seen": "2026-10-15T03:03:43+00:00"
+    },
+    {
+     "url": "https://x.com/REEL_Experience/status/2109079032067494214",
+     "at": "2026-10-11T00:30:00.695Z",
+     "text": "The backlog grew again.",
+     "likes": 0,
+     "views": 3,
+     "comments": 0,
+     "reposts": 0,
+     "seen": "2026-10-15T03:03:43+00:00"
+    },
+    {
+     "url": "https://x.com/REEL_Experience/status/2108829957665546315",
+     "at": "2026-10-10T08:00:16.730Z",
+     "text": "Review bombing.",
+     "likes": 0,
+     "views": 5,
+     "comments": 1,
+     "reposts": 0,
+     "seen": "2026-10-15T03:03:43+00:00"
     },
     {
      "url": "https://x.com/REEL_Experience/status/2108468263504195616",
@@ -951,7 +1131,7 @@
      "seen": "2026-10-08T06:10:35+00:00"
     }
    ],
-   "checkedAt": "2026-10-10T09:15:10+00:00",
+   "checkedAt": "2026-10-15T03:03:43+00:00",
    "source": "browser"
   }
  }
