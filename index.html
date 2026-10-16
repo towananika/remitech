@@ -289,7 +289,13 @@
   .pccmp{ display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:8px; }
   .pccmp pre{ margin:0; white-space:pre-wrap; word-break:break-word; font:inherit; font-size:13px; line-height:1.5; background:var(--bg); border:1px solid var(--line); border-radius:8px; padding:8px 10px; }
   @media (max-width:640px){ .pccmp{ grid-template-columns:1fr; } }
-  .tgsc{ margin-left:auto; }
+  .tgsnsrow{ margin-left:auto; display:inline-flex; flex-wrap:wrap; gap:4px; align-items:center; }
+  .tgsns{ display:inline-flex; align-items:center; gap:3px; padding:2px 7px; font-size:11.5px; border-radius:999px; border:1px solid var(--line); color:var(--muted); background:var(--bg); white-space:nowrap; }
+  .tgsns .pfi{ width:12px; height:12px; }
+  .tgsns[data-ok="true"]{ color:var(--sage); border-color:var(--sage); font-weight:700; background:color-mix(in srgb, var(--sage) 10%, var(--surface)); }
+  .tgsns[data-ok="false"]{ text-decoration:line-through; opacity:.75; }
+  .tgshares .tghead{ flex-wrap:wrap; }
+  @media (max-width:560px){ .tgsnsrow{ order:9; flex-basis:100%; margin-left:0; } .tgsc{ margin-left:auto; } }
   .bkfetch:disabled{ opacity:.55; cursor:wait; }
   .undobtn{ position:fixed; left:16px; bottom:16px; z-index:50; min-height:44px; padding:0 16px; font:inherit; font-size:14px; font-weight:700;
     border:1px solid var(--ink); border-radius:999px; background:var(--surface); color:var(--ink); box-shadow:0 4px 14px rgba(0,0,0,.15); cursor:pointer; }
@@ -2832,7 +2838,17 @@
       var late = !shared && Date.now() > due.getTime();
       var stxt = tgShareText(c, tgDate);
       copyBank["tgs_" + c.id] = { en: stxt, cur: stxt };
+      // 共有文に入る SNS ごとに、リンクが取れたか（緑）・取れていないか（灰）を、コピーのボタンの左に出す（2026-10-16 Hibiki指定）
+      var SNS_PF = { "X": "X", "Instagram": "IG", "Facebook": "FB", "TikTok": "TT", "YouTube": "YT", "IG Stories": "IGS" };
+      var chips = stxt.split("\n").slice(2).map(function (ln) {
+        var m = /^(.+?) \((.*)\)$/.exec(ln);
+        if (!m) return "";
+        var pf = SNS_PF[m[1]] || "", ok = /^https?:\/\//.test(m[2]);
+        return '<span class="tgsns" data-ok="' + ok + '" title="' + esc(m[1] + ": " + m[2]) + '">' + (pf ? pfIco(pf === "IGS" ? "IG" : pf) : "") +
+          esc(pf === "IGS" ? "Stories" : (pf || m[1])) + (ok ? " ✓" : "") + '</span>';
+      }).join("");
       return '<div class="tghead" style="--chc:' + esc(c.color || "var(--wood)") + '"><p class="plabel">' + esc(c.name) + '</p>' +
+        '<span class="tgsnsrow">' + chips + '</span>' +
         '<button class="cpy tgsc" data-ck="tgs_' + esc(c.id) + '" data-lg="en" title="' + esc(stxt) + '">' + esc(t("tgCopyShare")) + '</button>' +
         '<span class="tgdue" data-late="' + late + '">' + esc(dueTxt) + '</span>' +
         '<button class="tgshare" data-tk="' + esc(tk) + '" data-on="' + shared + '" data-late="' + late + '" title="' + esc(t("tgShareTip")) + '">' +
