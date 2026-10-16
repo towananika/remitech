@@ -2768,14 +2768,18 @@
       var sd = new Date(dateStr + "T00:00:00"); sd.setDate(sd.getDate() + c.shareDayOffset); dateStr = ymd(sd);
     }
     var d = new Date(dateStr + "T00:00:00"), md = (d.getMonth() + 1) + "/" + d.getDate();
-    var KINDS = [["X", "X"], ["Instagram", "IG"], ["Facebook", "FB"]];
+    // TikTok・YouTube は動画を出した日だけ（リンクが見つかったときだけ行を出す。2026-10-16 Hibiki指定）
+    var KINDS = [["X", "X"], ["Instagram", "IG"], ["Facebook", "FB"], ["TikTok", "TT", true], ["YouTube", "YT", true]];
     var items = (telegramItems(dateStr)[c.id] || []);
     var lines = KINDS.filter(function (kd) { return (c.links || []).some(function (l) { return l.kind === kd[0]; }); }).map(function (kd) {
       var pf = kd[1];
       var it = items.filter(function (x) { return x.pf === pf; }).pop();
       var url = it ? it.url : "";
       if (!url && schedule.links) {
-        var lk = Object.keys(schedule.links).filter(function (k) { return k.indexOf(dateStr + "|" + c.id + "|" + pf + "|") === 0 && /\|p$/.test(k); }).sort().pop();
+        // 予約タブのリンク。ふつうの行「日付|ch|SNS|時刻|p」と、動画投稿確認の行「日付|ch-tt」「日付|ch-yt」
+        var lk = Object.keys(schedule.links).filter(function (k) {
+          return (k.indexOf(dateStr + "|" + c.id + "|" + pf + "|") === 0 && /\|p$/.test(k)) || k === dateStr + "|" + c.id + "-" + pf.toLowerCase();
+        }).sort().pop();
         var lv = lk && schedule.links[lk];
         if (lv && lv.url) url = lv.url;
       }
@@ -2783,14 +2787,16 @@
         var ps = postsCheck ? pcOn(c.id, pf, dateStr) : [];
         if (ps.length) url = ps[ps.length - 1].url + (pf === "X" ? "?s=20" : "");
       }
+      if (!url && kd[2]) return null;   // 動画を出していない日は TikTok・YouTube の行を出さない
       if (!url) {
         var a = pcAcct(c.id, pf);
         var checkedAfter = a && pcDay(a.checkedAt) > dateStr && pcCovered(a) <= dateStr;
         return kd[0] + " (" + t(checkedAfter ? "tgNoPost" : "tgNoLink") + ")";
       }
+      if (pf === "IG" || pf === "TT") url = url.split("?")[0];   // 追跡用の ?dlrf=… などは外す
       if (pf === "X" && url.indexOf("?") < 0) url += "?s=20";   // X は共有用の形にそろえる（例の形）
       return kd[0] + " (" + url + ")";
-    });
+    }).filter(Boolean);
     // 決まった行（posts.json の shareFixed）を Instagram の次に入れる（2026-10-15 REEL の IG Stories）
     if (c.shareFixed && c.shareFixed.length) {
       var at = -1;
