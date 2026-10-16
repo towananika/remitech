@@ -120,6 +120,53 @@ def x_posts(page, url):
     return out
 
 
+FB_JS = """() => [...document.querySelectorAll('[role=article], div[aria-posinset]')].map(a => {
+  const links = [...a.querySelectorAll('a[href]')].map(x => x.href.split('&__cft__')[0].split('?__cft__')[0].split('&__tn__')[0])
+    .filter(h => /facebook\\.com\\/(reel\\/|photo\\/?\\?fbid=|[^/]+\\/posts\\/|permalink\\.php\\?story_fbid=|watch\\/?\\?v=|[^/]+\\/videos\\/)/.test(h));
+  const txt = (a.innerText || '');
+  const pinned = /고정|Pinned|固定/.test(txt.slice(0, 80));
+  return { url: links[0] || '', head: txt.split('\\n').slice(0, 6).join('|'), text: txt.slice(0, 400), pinned };
+}).filter(x => x.url)"""
+
+
+def fb_when(head, now):
+    """Facebook の「25분 전」「3시간」「어제」「10월 15일」「25m」「3h」「Yesterday」「October 15」などを日時にする（だいたい）"""
+    h = head.replace(" ", "")
+    m = re.search(r"(\d+)(분|m\b|mins?|분전)", h)
+    if m:
+        return now - datetime.timedelta(minutes=int(m.group(1)))
+    m = re.search(r"(\d+)(시간|h\b|hrs?)", h)
+    if m:
+        return now - datetime.timedelta(hours=int(m.group(1)))
+    if "어제" in h or "Yesterday" in head:
+        return now - datetime.timedelta(days=1)
+    m = re.search(r"(\d+)(일|d\b)", h)
+    if m and "월" not in h:
+        return now - datetime.timedelta(days=int(m.group(1)))
+    m = re.search(r"(\d+)월(\d+)일", h)
+    if m:
+        y = now.year if (int(m.group(1)), int(m.group(2))) <= (now.month, now.day) else now.year - 1
+        return now.replace(year=y, month=int(m.group(1)), day=int(m.group(2)), hour=12, minute=0)
+    return None
+
+
+def fb_posts(page, url):
+    """ログインなしで見える分（最新の投稿1〜2本）。日時は「○分前」などから計算するので、だいたいの時刻"""
+    page.goto(url, wait_until="domcontentloaded", timeout=40000)
+    page.wait_for_timeout(7000)
+    now = datetime.datetime.now().astimezone()
+    out = []
+    for x in page.evaluate(FB_JS):
+        if x.get("pinned"):
+            continue
+        when = fb_when(x.get("head", ""), now)
+        if not when:
+            continue
+        out.append({"url": x["url"], "at": when.astimezone(datetime.timezone.utc).isoformat(timespec="seconds"),
+                    "text": x.get("text", ""), "views": None, "likes": None, "comments": None, "approx": True})
+    return out
+
+
 def yt_get(u):
     req = urllib.request.Request(u, headers={"User-Agent": UA, "Accept-Language": "en-US,en;q=0.9"})
     return urllib.request.urlopen(req, timeout=30).read().decode("utf-8", "ignore")
@@ -159,7 +206,7 @@ def auto():
         if c.get("id") not in CHANNELS:
             continue
         for l in c.get("links", []):
-            if l.get("kind") in ("Instagram", "YouTube", "X"):
+            if l.get("kind") in ("Instagram", "YouTube", "X", "Facebook"):
                 targets.append((c["id"], l["kind"], l["url"]))
     for ch, kind, url in [t for t in targets if t[1] == "YouTube"]:
         try:
@@ -169,7 +216,7 @@ def auto():
         except Exception as e:
             warn.append("%s YouTube: 失敗（%s）" % (ch, e))
     ig = [t for t in targets if t[1] == "Instagram"]
-    xs = [t for t in targets if t[1] == "X"]
+    xs = [t for t in targets if t[1] in ("X", "Facebook")]   # Facebook も X と同じ Chromium 本体で読む（2026-10-16）
     if ig or xs:
         try:
             from playwright.sync_api import sync_playwright
@@ -194,12 +241,13 @@ def auto():
                     bx = p.chromium.launch(headless=True, channel="chromium", args=["--headless=new"])
                     px = bx.new_context(user_agent=UA_X, locale="ko-KR", viewport={"width": 1280, "height": 1000}).new_page()
                     for ch, kind, url in xs:
+                        pf = "FB" if kind == "Facebook" else "X"
                         try:
-                            got = x_posts(px, url)
-                            merge(data, ch + "|X", got, "auto")
-                            report.append("%s X: %d件" % (ch, len(got)))
+                            got = fb_posts(px, url) if pf == "FB" else x_posts(px, url)
+                            merge(data, ch + "|" + pf, got, "auto")
+                            report.append("%s %s: %d件" % (ch, kind, len(got)))
                         except Exception as e:
-                            warn.append("%s X: 失敗（%s）" % (ch, e))
+                            warn.append("%s %s: 失敗（%s）" % (ch, kind, e))
                     bx.close()
                 except Exception as e:
                     warn.append("X: ブラウザを起動できない（%s）" % e)
