@@ -82,6 +82,7 @@
       }
     },
     {
+      "shareDayOffset": -1,
       "id": "nacha",
       "name": "NACHA",
       "tagline": "",

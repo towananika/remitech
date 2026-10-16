@@ -2763,6 +2763,10 @@
   // リンクは ① その日の投稿に貼ったリンク ② 予約タブで行に付けたリンク ③ 投稿タブで見つけたその日の最後の投稿。
   // 見つからないときは、確認したあとなら「No post」、確かめようがないときは「Link not available」
   function tgShareText(c, dateStr) {
+    // 2026-10-16 Hibiki指定: NACHA は朝 10:30 に共有するので、前日の投稿のリンクを使う（posts.json の shareDayOffset: -1）
+    if (c.shareDayOffset) {
+      var sd = new Date(dateStr + "T00:00:00"); sd.setDate(sd.getDate() + c.shareDayOffset); dateStr = ymd(sd);
+    }
     var d = new Date(dateStr + "T00:00:00"), md = (d.getMonth() + 1) + "/" + d.getDate();
     var KINDS = [["X", "X"], ["Instagram", "IG"], ["Facebook", "FB"]];
     var items = (telegramItems(dateStr)[c.id] || []);
