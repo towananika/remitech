@@ -881,6 +881,71 @@
       "platform": "IG",
       "followers": 4,
       "source": "auto"
+    },
+    {
+      "date": "2026-10-17",
+      "channel": "hiyoko",
+      "platform": "IG",
+      "followers": 2900,
+      "source": "auto"
+    },
+    {
+      "date": "2026-10-17",
+      "channel": "hiyoko",
+      "platform": "TT",
+      "followers": 182,
+      "source": "auto"
+    },
+    {
+      "date": "2026-10-17",
+      "channel": "hiyoko",
+      "platform": "YT",
+      "followers": 96,
+      "videos": 213,
+      "source": "auto"
+    },
+    {
+      "date": "2026-10-17",
+      "channel": "nacha",
+      "platform": "IG",
+      "followers": 135,
+      "source": "auto"
+    },
+    {
+      "date": "2026-10-17",
+      "channel": "nacha",
+      "platform": "TT",
+      "followers": 43,
+      "source": "auto"
+    },
+    {
+      "date": "2026-10-17",
+      "channel": "nacha",
+      "platform": "YT",
+      "followers": 14,
+      "videos": 121,
+      "source": "auto"
+    },
+    {
+      "date": "2026-10-17",
+      "channel": "reel",
+      "platform": "IG",
+      "followers": 178,
+      "source": "auto"
+    },
+    {
+      "date": "2026-10-17",
+      "channel": "ret",
+      "platform": "IG",
+      "followers": 1117,
+      "source": "auto"
+    },
+    {
+      "date": "2026-10-17",
+      "channel": "yuyu",
+      "platform": "IG",
+      "followers": 4,
+      "source": "auto"
     }
   ]
 }
