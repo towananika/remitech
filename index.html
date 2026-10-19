@@ -4676,6 +4676,11 @@
             // 2026-10-07 Hibiki指定: 動画投稿の確認は、その日のIGフィードを「動画」にしてから押せる。
             // すでに✓・印・メモがある日は消さずにそのまま出す
             var lk0 = bkDateLinkKey(rk, k), rp0 = bkRepOf(lk0);
+            // 2026-10-19 Hibiki指定: 月間企画で動画の予定がない日（planDays に無い日）は灰色。印があれば消さずに出す
+            if (r.planDays && k >= (r.planFrom || "") && k <= (r.planTo || "9999") && r.planDays.indexOf(k) < 0 && !cOn && !rp0.st && !rp0.memo) {
+              h += '<td data-today="' + (k === today) + '" data-hol="' + isHol(k) + '"><span class="bkwait" title="' + esc(t("bkNoPlan")) + '"></span></td>';
+              return;
+            }
             if (igFeed && !cOn && !rp0.st && !rp0.memo && !rowSlots(g, igFeed, k).some(function (x) { return x.status === "video"; })) {
               h += '<td data-today="' + (k === today) + '" data-hol="' + isHol(k) + '"><span class="bkwait" title="' + esc(t("bkCkWait")) + '"></span></td>';
               return;

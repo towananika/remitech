@@ -1,5 +1,5 @@
 {
-  "note": "予約タブの行。2026-09-14 に Hibiki が指定。時間は hh:mm（HIYOKO X 午前は 09:30 で確定）。reply:true の行は、すぐ上の投稿に付く返信（予約ではなく、やったかどうか）。SNS は1行に1つ。check:\"id\" の行（2026-09-15 HIYOKO TikTok・YouTube）は予約ではなく、投稿されたかの確認と返信。動画は毎日ではないので月間企画で確かめる。押した印はサーバーの kind t に「日付|id」で置く。2026-10-08 悠悠観音堂（X・IG のみ）を追加：企画書では X は毎朝、IG・FB は火・木・金と祝日の朝。時刻の決まりはないので 09:00 にした。planDays（planFrom〜planTo の間で投稿する日）に無い日は灰色＝企画では投稿なし（10/6 から1日早めた分を反映）。2026-10-08 YUYU の IG と FB は同時に予約できるので1行にまとめた（platforms:[IG,FB]。押すと両方の枠ができ、両方そろって予約済み）",
+  "note": "予約タブの行。2026-09-14 に Hibiki が指定。時間は hh:mm（HIYOKO X 午前は 09:30 で確定）。reply:true の行は、すぐ上の投稿に付く返信（予約ではなく、やったかどうか）。SNS は1行に1つ。check:\"id\" の行（2026-09-15 HIYOKO TikTok・YouTube）は予約ではなく、投稿されたかの確認と返信。動画は毎日ではないので月間企画で確かめる。押した印はサーバーの kind t に「日付|id」で置く。2026-10-08 悠悠観音堂（X・IG のみ）を追加：企画書では X は毎朝、IG・FB は火・木・金と祝日の朝。時刻の決まりはないので 09:00 にした。planDays（planFrom〜planTo の間で投稿する日）に無い日は灰色＝企画では投稿なし（10/6 から1日早めた分を反映）。2026-10-08 YUYU の IG と FB は同時に予約できるので1行にまとめた（platforms:[IG,FB]。押すと両方の枠ができ、両方そろって予約済み）。2026-10-19 HIYOKO の TikTok・YouTube 動画投稿確認の行に、月間企画（2026년 SNS Marketing Chart の10月）で色のついた日を planDays として入れた（10/1・8・11・14・16・19・22・24・28・30）",
   "groups": [
     { "channel": "hiyoko", "rows": [
       { "platforms": ["X"],  "time": "09:30", "label": "投稿" },
@@ -10,10 +10,10 @@
       { "platforms": ["IG"], "time": "17:00", "label": "返信", "reply": true },
       { "platforms": ["FB"], "time": "17:00", "label": "フィード" },
       { "platforms": ["FB"], "time": "17:00", "label": "返信", "reply": true },
-      { "platforms": ["TT"], "time": "", "label": "TikTok 動画投稿確認", "check": "hiyoko-tt" },
-      { "platforms": ["TT"], "time": "", "label": "返信", "reply": true, "check": "hiyoko-tt-rep" },
-      { "platforms": ["YT"], "time": "", "label": "YouTube 動画投稿確認", "check": "hiyoko-yt" },
-      { "platforms": ["YT"], "time": "", "label": "返信", "reply": true, "check": "hiyoko-yt-rep" }
+      { "platforms": ["TT"], "time": "", "label": "TikTok 動画投稿確認", "check": "hiyoko-tt", "planFrom": "2026-10-01", "planTo": "2026-10-31", "planDays": ["2026-10-01","2026-10-08","2026-10-11","2026-10-14","2026-10-16","2026-10-19","2026-10-22","2026-10-24","2026-10-28","2026-10-30"] },
+      { "platforms": ["TT"], "time": "", "label": "返信", "reply": true, "check": "hiyoko-tt-rep", "planFrom": "2026-10-01", "planTo": "2026-10-31", "planDays": ["2026-10-01","2026-10-08","2026-10-11","2026-10-14","2026-10-16","2026-10-19","2026-10-22","2026-10-24","2026-10-28","2026-10-30"] },
+      { "platforms": ["YT"], "time": "", "label": "YouTube 動画投稿確認", "check": "hiyoko-yt", "planFrom": "2026-10-01", "planTo": "2026-10-31", "planDays": ["2026-10-01","2026-10-08","2026-10-11","2026-10-14","2026-10-16","2026-10-19","2026-10-22","2026-10-24","2026-10-28","2026-10-30"] },
+      { "platforms": ["YT"], "time": "", "label": "返信", "reply": true, "check": "hiyoko-yt-rep", "planFrom": "2026-10-01", "planTo": "2026-10-31", "planDays": ["2026-10-01","2026-10-08","2026-10-11","2026-10-14","2026-10-16","2026-10-19","2026-10-22","2026-10-24","2026-10-28","2026-10-30"] }
     ]},
     { "channel": "nacha", "rows": [
       { "platforms": ["X"],  "time": "10:30", "label": "X 長文" },
