@@ -2718,7 +2718,7 @@
           var sl = cell.sl, post = cell.post;
           // 出す予定だったか: 枠がある（空欄にしていない）、確認の行に✓、悠悠の企画日
           var expected = (sl && !sl.skip) || (r.check && schedule.telegram && schedule.telegram[k + "|" + r.check]) ||
-            (r.planDays && r.planDays.indexOf(k) >= 0);
+            (r.planDays && r.planDays.indexOf(k) >= 0) || (r.weekdays && r.weekdays.indexOf(d.getDay()) >= 0);
           if (post) {
             var sim = cell.plan ? pcSim(cell.plan, post.text) : null;
             var tag = sim === null ? "" : sim >= 0.95 ? "same" : sim >= 0.6 ? "near" : "diff";
@@ -4705,7 +4705,9 @@
           }
           var gi = (bookRows.groups || []).indexOf(g), ri = rIdx;
           // 2026-10-08: 企画で投稿しない日（行の planDays に無い日。planFrom〜planTo の間だけ）は灰色。枠を作ってあれば、いつもどおり出す
-          if (!sls.length && r.planDays && k >= (r.planFrom || "") && k <= (r.planTo || "9999") && r.planDays.indexOf(k) < 0) {
+          // 2026-10-19: weekdays（曜日の番号。0=日〜6=土）がある行は、その曜日のほかは灰色
+          var offDay = r.weekdays && r.weekdays.indexOf(d.getDay()) < 0;
+          if (!sls.length && (offDay || (r.planDays && k >= (r.planFrom || "") && k <= (r.planTo || "9999") && r.planDays.indexOf(k) < 0))) {
             h += '<td data-today="' + (k === today) + '" data-hol="' + isHol(k) + '"><span class="bkwait" title="' + esc(t("bkNoPlan")) + '"></span></td>';
             return;
           }
