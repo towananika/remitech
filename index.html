@@ -4707,6 +4707,11 @@
           // 2026-10-08: 企画で投稿しない日（行の planDays に無い日。planFrom〜planTo の間だけ）は灰色。枠を作ってあれば、いつもどおり出す
           // 2026-10-19: weekdays（曜日の番号。0=日〜6=土）がある行は、その曜日のほかは灰色
           var offDay = r.weekdays && r.weekdays.indexOf(d.getDay()) < 0;
+          // 2026-10-19 Hibiki指定: weekOnce の行（RET）は週末に1日だけ。土日の片方に枠があれば、もう片方は灰色
+          if (!offDay && r.weekOnce && (d.getDay() === 0 || d.getDay() === 6)) {
+            var od = new Date(d.getFullYear(), d.getMonth(), d.getDate() + (d.getDay() === 6 ? 1 : -1));
+            if (rowSlots(g, r, ymd(od)).some(function (x) { return !x.skip; })) offDay = true;
+          }
           if (!sls.length && (offDay || (r.planDays && k >= (r.planFrom || "") && k <= (r.planTo || "9999") && r.planDays.indexOf(k) < 0))) {
             h += '<td data-today="' + (k === today) + '" data-hol="' + isHol(k) + '"><span class="bkwait" title="' + esc(t("bkNoPlan")) + '"></span></td>';
             return;
