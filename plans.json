@@ -1,0 +1,771 @@
+{
+ "note": "企画の原本。enRev: 校閲後の英文。\"NA\" は校閲後なし（GPT版のまま）、空は未記入。status: notyet / done",
+ "plans": [
+  {
+   "id": "reel-ig-2026-10",
+   "channel": "reel",
+   "platform": "IG",
+   "month": "2026-10",
+   "title": "REEL IG Feed & Stories",
+   "theme": "記録 → レビュー → コミュニティ → 報酬",
+   "posts": [
+    {
+     "date": "2026-10-01",
+     "type": "Feed",
+     "ja": "「先週の水曜、何してた？」\n\n思い出せないよね。\nでも、スマホの写真を見れば一発でわかる。\n\n記憶は薄れる。記録は残る。\n\n全ては、遊びを報酬に変えるために。Web3トークンプロジェクト|REEL\nXは @REEL_Experience\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3ゲーム #ゲームのある生活 #ゲーマー",
+     "en": "\"What were you doing last Wednesday?\"\n\nCan't remember, right?\nBut one look at your camera roll, and it all comes back.\n\nMemory fades. Records remain.\n\nAll for turning play into reward. Web3 Token Project | REEL\nFind us on X @REEL_Experience\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3Gaming #GamerLife #Gaming",
+     "enRev": "NA",
+     "status": "notyet",
+     "memo": ""
+    },
+    {
+     "date": "2026-10-01",
+     "type": "Stories",
+     "ja": "記憶は薄れる。記録は残る。",
+     "en": "Memory fades. Records remain.",
+     "enRev": "NA",
+     "status": "notyet",
+     "memo": ""
+    },
+    {
+     "date": "2026-10-01",
+     "type": "Reply",
+     "ja": "思い出、どう残してる？\n\n① 写真\n② メモ・日記\n③ 頭の中だけ\n\n→ コメントで教えて",
+     "en": "How do you keep memories?\n\n① Photos\n② Notes / diary\n③ Just in my head\n\n→ Tell me in the comments",
+     "enRev": "NA",
+     "status": "notyet",
+     "memo": ""
+    },
+    {
+     "date": "2026-10-02",
+     "type": "Feed",
+     "ja": "ゲームでスクショを撮る瞬間って、\n「これは残したい」と思った瞬間だよね。\n\n初クリア。神引き。奇跡の一枚。\n\n撮った時点で、それはもう\n思い出じゃなくて、記録。\n\n全ては、遊びを報酬に変えるために。Web3トークンプロジェクト|REEL\n続きはプロフィールのリンクから。\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3ゲーム #ゲーム好きな人と繋がりたい #GamingCommunity",
+     "en": "The moment you take a screenshot in a game\nis the moment you thought \"I want to keep this.\"\n\nFirst clear. Lucky pull. The miracle shot.\n\nThe second you capture it,\nit's no longer a memory. It's a record.\n\nAll for turning play into reward. Web3 Token Project | REEL\nLink in bio.\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3Gaming #GamingCommunity #GamersUnite",
+     "enRev": "NA",
+     "status": "notyet",
+     "memo": ""
+    },
+    {
+     "date": "2026-10-02",
+     "type": "Stories",
+     "ja": "「残したい」と思った瞬間、それは記録になる。",
+     "en": "The moment you want to keep it, it becomes a record.",
+     "enRev": "NA",
+     "status": "notyet",
+     "memo": ""
+    },
+    {
+     "date": "2026-10-02",
+     "type": "Reply",
+     "ja": "ゲームのスクショ、何を撮る？\n\n① クリアの瞬間\n② 好きな景色\n③ バグ・面白い場面\n\n→ コメントで教えて",
+     "en": "What do you screenshot in games?\n\n① Clear moments\n② Beautiful views\n③ Bugs & funny scenes\n\n→ Tell me in the comments",
+     "enRev": "NA",
+     "status": "notyet",
+     "memo": ""
+    },
+    {
+     "date": "2026-10-03",
+     "type": "Feed",
+     "ja": "本棚を見れば、\nその人がどんな時間を過ごしてきたか、わかる。\n\n記録は、いつの間にか\nその人の一部になっている。\n\n全ては、遊びを報酬に変えるために。Web3トークンプロジェクト|REEL\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3ゲーム #ゲームのある生活 #ゲーマー",
+     "en": "Look at someone's bookshelf,\nand you can see the time they've lived.\n\nRecords quietly become\na part of who you are.\n\nAll for turning play into reward. Web3 Token Project | REEL\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3Gaming #GamerLife #Gaming",
+     "enRev": "Look at someone's bookshelf,\nand you can see how they've spent their time.\n\nRecords quietly become\na part of who you are.\n\nAll for turning play into reward. Web3 Token Project | REEL\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3Gaming #GamerLife #Gaming",
+     "status": "notyet",
+     "memo": ""
+    },
+    {
+     "date": "2026-10-03",
+     "type": "Stories",
+     "ja": "記録は、その人の一部になる。",
+     "en": "Records become part of who you are.",
+     "enRev": "NA",
+     "status": "notyet",
+     "memo": ""
+    },
+    {
+     "date": "2026-10-04",
+     "type": "Feed",
+     "ja": "走った距離が地図に残るから、\nまた走りたくなる。\n\n記録には、\n人を動かす力がある。\n\n全ては、遊びを報酬に変えるために。Web3トークンプロジェクト|REEL\nXは @REEL_Experience\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3ゲーム #ゲーマー #GamingCommunity",
+     "en": "The route stays on the map,\nso you want to run again.\n\nRecords have the power\nto move people.\n\nAll for turning play into reward. Web3 Token Project | REEL\nFind us on X @REEL_Experience\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3Gaming #Gamer #GamingCommunity",
+     "enRev": "NA",
+     "status": "notyet",
+     "memo": ""
+    },
+    {
+     "date": "2026-10-04",
+     "type": "Stories",
+     "ja": "記録には、人を動かす力がある。",
+     "en": "Records have the power to move you.",
+     "enRev": "NA",
+     "status": "notyet",
+     "memo": ""
+    },
+    {
+     "date": "2026-10-05",
+     "type": "Feed",
+     "ja": "何百時間も遊んだのに、\n残ってるのは「楽しかった」だけ。\n\nそれ、もったいなくない？\n\nプレイ時間。書いたレビュー。積み上げた信頼。\n全部が見える形で残るなら、\n遊んだ時間は、あなたの資産になる。\n\n全ては、遊びを報酬に変えるために。Web3トークンプロジェクト|REEL\n続きはプロフィールのリンクから。\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3ゲーム #GameFi #Web3Gaming",
+     "en": "Hundreds of hours played,\nand all that's left is \"it was fun.\"\n\nDoesn't that feel like a waste?\n\nHours played. Reviews written. Trust built.\nIf all of it stays visible,\nyour playtime becomes your asset.\n\nAll for turning play into reward. Web3 Token Project | REEL\nLink in bio.\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3Gaming #GameFi #PlayToEarn",
+     "enRev": "NA",
+     "status": "notyet",
+     "memo": ""
+    },
+    {
+     "date": "2026-10-05",
+     "type": "Stories",
+     "ja": "遊んだ時間が、資産になるとしたら。",
+     "en": "What if your playtime became your asset?",
+     "enRev": "NA",
+     "status": "notyet",
+     "memo": ""
+    },
+    {
+     "date": "2026-10-05",
+     "type": "Reply",
+     "ja": "ゲームの記録、何が残ってたら嬉しい？\n\n① プレイ時間\n② クリア実績\n③ 一緒に遊んだ人\n\n→ コメントで教えて",
+     "en": "What game records would you want kept?\n\n① Hours played\n② Achievements\n③ People you played with\n\n→ Tell me in the comments",
+     "enRev": "NA",
+     "status": "notyet",
+     "memo": ""
+    },
+    {
+     "date": "2026-10-06",
+     "type": "Feed",
+     "ja": "ノートは失くす。\nサービスは終了する。\nアカウントは消される。\n\n「消えない場所に残る」って、\nそれだけで価値だよね。\n\n消えない記録を、当たり前にする。\nそれが、REELの設計。\n\n全ては、遊びを報酬に変えるために。Web3トークンプロジェクト|REEL\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3ゲーム #ブロックチェーンゲーム #GameFi",
+     "en": "Notebooks get lost.\nServices shut down.\nAccounts get deleted.\n\nA record that can't disappear —\nthat alone is value.\n\nMaking permanent records the standard.\nThat's what REEL is built for.\n\nAll for turning play into reward. Web3 Token Project | REEL\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3Gaming #BlockchainGaming #GameFi",
+     "enRev": "NA",
+     "status": "notyet",
+     "memo": ""
+    },
+    {
+     "date": "2026-10-06",
+     "type": "Stories",
+     "ja": "消えない記録は、それだけで価値。",
+     "en": "A record that can't disappear is value itself.",
+     "enRev": "NA",
+     "status": "notyet",
+     "memo": ""
+    },
+    {
+     "date": "2026-10-06",
+     "type": "Reply",
+     "ja": "消えて悲しかったデータ、ある？\n\n① セーブデータ\n② 写真・動画\n③ 昔のブログ・SNS\n\n→ コメントで教えて",
+     "en": "Data you lost and miss?\n\n① Save files\n② Photos & videos\n③ Old blogs / SNS\n\n→ Tell me in the comments",
+     "enRev": "Ever lost data you wish you still had?\n\n① Save files\n② Photos & videos\n③ Old blogs / social media posts\n\n→ Tell me in the comments",
+     "status": "notyet",
+     "memo": ""
+    },
+    {
+     "date": "2026-10-07",
+     "type": "Feed",
+     "ja": "履歴書に「ゲーム1万時間」とは書けない。\nでも、その時間は確かにあなたの一部。\n\n記録は、\n自分がやってきたことの証明になる。\n\n来週は、「レビュー」の話。\n\n全ては、遊びを報酬に変えるために。Web3トークンプロジェクト|REEL\nXは @REEL_Experience\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3ゲーム #ゲーム好きな人と繋がりたい #GamingCommunity",
+     "en": "You can't put \"10,000 hours of gaming\" on a resume.\nBut that time is undeniably part of you.\n\nA record is proof\nof everything you've done.\n\nNext week: let's talk about reviews.\n\nAll for turning play into reward. Web3 Token Project | REEL\nFind us on X @REEL_Experience\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3Gaming #GamingCommunity #GamersUnite",
+     "enRev": "NA",
+     "status": "notyet",
+     "memo": ""
+    },
+    {
+     "date": "2026-10-07",
+     "type": "Stories",
+     "ja": "記録は、やってきたことの証明。",
+     "en": "Records are proof of what you've done.",
+     "enRev": "NA",
+     "status": "notyet",
+     "memo": ""
+    },
+    {
+     "date": "2026-10-07",
+     "type": "Reply",
+     "ja": "あなたが積み上げてきたものは？\n\n① ゲームの腕\n② 知識\n③ 仲間\n\n→ コメントで教えて",
+     "en": "What have you built up over time?\n\n① Skills\n② Knowledge\n③ Friends\n\n→ Tell me in the comments",
+     "enRev": "NA",
+     "status": "notyet",
+     "memo": ""
+    },
+    {
+     "date": "2026-10-08",
+     "type": "Feed",
+     "ja": "初めての店、入る前に何する？\nレビューを見る。ほぼ全員。\n\n知らない誰かの一言が、\nドアを開ける勇気になる。\n\n全ては、遊びを報酬に変えるために。Web3トークンプロジェクト|REEL\n続きはプロフィールのリンクから。\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3ゲーム #ゲーム好きな人と繋がりたい #GamingCommunity",
+     "en": "A new restaurant — what do you do before walking in?\nCheck the reviews. Almost everyone does.\n\nA few words from a stranger\nbecome the courage to open the door.\n\nAll for turning play into reward. Web3 Token Project | REEL\nLink in bio.\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3Gaming #GamingCommunity #GamersUnite",
+     "enRev": "A new restaurant — what do you do before walking in?\nCheck the reviews. Almost everyone does.\n\nA few words from a stranger can give you the confidence to open the door.\n\nAll for turning play into reward. Web3 Token Project | REEL\nLink in bio.\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3Gaming #GamingCommunity #GamersUnite",
+     "status": "notyet",
+     "memo": ""
+    },
+    {
+     "date": "2026-10-08",
+     "type": "Stories",
+     "ja": "知らない誰かの一言が、勇気になる。",
+     "en": "A stranger's words become your courage.",
+     "enRev": "A stranger's words can give you confidence.",
+     "status": "notyet",
+     "memo": ""
+    },
+    {
+     "date": "2026-10-08",
+     "type": "Reply",
+     "ja": "初めての店、何で決める？\n\n① レビュー\n② 写真\n③ 直感\n\n→ コメントで教えて",
+     "en": "How do you pick a new place?\n\n① Reviews\n② Photos\n③ Instinct\n\n→ Tell me in the comments",
+     "enRev": "NA",
+     "status": "notyet",
+     "memo": ""
+    },
+    {
+     "date": "2026-10-09",
+     "type": "Feed",
+     "ja": "星の数だけじゃ、決められない。\n結局読むのは、本文だよね。\n\n「何が良かったか」が書いてあると、\n自分に合うかどうかが、わかる。\n\n数字は入口。言葉が中身。\n\n全ては、遊びを報酬に変えるために。Web3トークンプロジェクト|REEL\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3ゲーム #ゲームのある生活 #ゲーマー",
+     "en": "Star ratings alone can't decide it.\nYou end up reading the words.\n\nWhen someone writes what was good,\nyou know if it's right for you.\n\nNumbers are the entrance. Words are the substance.\n\nAll for turning play into reward. Web3 Token Project | REEL\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3Gaming #GamerLife #Gaming",
+     "enRev": "NA",
+     "status": "notyet",
+     "memo": ""
+    },
+    {
+     "date": "2026-10-09",
+     "type": "Stories",
+     "ja": "数字は入口。言葉が中身。",
+     "en": "Numbers are the entrance. Words are the substance.",
+     "enRev": "NA",
+     "status": "notyet",
+     "memo": ""
+    },
+    {
+     "date": "2026-10-09",
+     "type": "Reply",
+     "ja": "レビューで一番見るのは？\n\n① 星の数\n② 本文\n③ 写真\n\n→ コメントで教えて",
+     "en": "What do you read first in a review?\n\n① Stars\n② The text\n③ Photos\n\n→ Tell me in the comments",
+     "enRev": "NA",
+     "status": "notyet",
+     "memo": ""
+    },
+    {
+     "date": "2026-10-10",
+     "type": "Feed",
+     "ja": "誰かの正直な一言が、\n誰かの一日を変えることがある。\n\nレビューって、そういうもの。\n\n全ては、遊びを報酬に変えるために。Web3トークンプロジェクト|REEL\nXは @REEL_Experience\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3ゲーム #ゲーマー #GamingCommunity",
+     "en": "One honest sentence from a stranger\ncan change someone's day.\n\nThat's what a review is.\n\nAll for turning play into reward. Web3 Token Project | REEL\nFind us on X @REEL_Experience\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3Gaming #Gamer #GamingCommunity",
+     "enRev": "NA",
+     "status": "notyet",
+     "memo": ""
+    },
+    {
+     "date": "2026-10-10",
+     "type": "Stories",
+     "ja": "正直な一言が、誰かの一日を変える。",
+     "en": "One honest sentence can change a day.",
+     "enRev": "NA",
+     "status": "notyet",
+     "memo": ""
+    },
+    {
+     "date": "2026-10-11",
+     "type": "Feed",
+     "ja": "書くことで、\n自分の体験がはっきりする。\n\n言葉にした瞬間、\n「楽しかった」に輪郭がつく。\n\n全ては、遊びを報酬に変えるために。Web3トークンプロジェクト|REEL\n続きはプロフィールのリンクから。\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3ゲーム #ゲームのある生活 #ゲーマー",
+     "en": "Writing makes your experience clearer.\n\nThe moment you put it into words,\n\"that was fun\" gets a shape.\n\nAll for turning play into reward. Web3 Token Project | REEL\nLink in bio.\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3Gaming #GamerLife #Gaming",
+     "enRev": "Writing makes your experience clearer.\n\nThe moment you put it into words,\n\"that was fun\" takes shape.\n\nAll for turning play into reward. Web3 Token Project | REEL\nLink in bio.\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3Gaming #GamerLife #Gaming",
+     "status": "notyet",
+     "memo": ""
+    },
+    {
+     "date": "2026-10-11",
+     "type": "Stories",
+     "ja": "言葉にすると、体験に輪郭がつく。",
+     "en": "Words give your experience a shape.",
+     "enRev": "Putting it into words gives the experience shape.",
+     "status": "notyet",
+     "memo": ""
+    },
+    {
+     "date": "2026-10-12",
+     "type": "Feed",
+     "ja": "やらせレビュー。ステマ。星の売買。\n「どれを信じればいいの？」が当たり前になった。\n\nだから、レビューに「誰が書いたか」を紐づける。\nプレイした証拠と一緒に残るレビューなら、信じられる。\n\nそれが、REELの答え。\n\n全ては、遊びを報酬に変えるために。Web3トークンプロジェクト|REEL\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3ゲーム #GameFi #Web3Gaming",
+     "en": "Fake reviews. Paid posts. Bought stars.\n\"Which one can I trust?\" became the norm.\n\nSo we tie every review to who wrote it.\nA review backed by proof of play is one you can trust.\n\nThat's REEL's answer.\n\nAll for turning play into reward. Web3 Token Project | REEL\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3Gaming #GameFi #PlayToEarn",
+     "enRev": "Fake reviews. Sponsored posts. Bought stars.\n\"Which one can I trust?\" became the norm.\n\nSo we tie every review to who wrote it.\nA review backed by proof of play is one you can trust.\n\nThat's REEL's answer.\n\nAll for turning play into reward. Web3 Token Project | REEL\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3Gaming #GameFi #PlayToEarn",
+     "status": "notyet",
+     "memo": ""
+    },
+    {
+     "date": "2026-10-12",
+     "type": "Stories",
+     "ja": "プレイの証拠つきレビューなら、信じられる。",
+     "en": "A review with proof of play is one you can trust.",
+     "enRev": "NA",
+     "status": "notyet",
+     "memo": ""
+    },
+    {
+     "date": "2026-10-12",
+     "type": "Reply",
+     "ja": "レビュー、信じてる？\n\n① だいたい信じる\n② 半分くらい\n③ 自分の目だけ\n\n→ コメントで教えて",
+     "en": "Do you trust reviews?\n\n① Mostly\n② About half\n③ Only my own eyes\n\n→ Tell me in the comments",
+     "enRev": "NA",
+     "status": "notyet",
+     "memo": ""
+    },
+    {
+     "date": "2026-10-13",
+     "type": "Feed",
+     "ja": "書いたレビューが、誰にも読まれず埋もれて終わる。\nそんな経験、ない？\n\n役に立ったレビューが、ちゃんと報われる。\n書く人が損しない仕組みが、\n良いレビューを増やしていく。\n\n全ては、遊びを報酬に変えるために。Web3トークンプロジェクト|REEL\nXは @REEL_Experience\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3ゲーム #ブロックチェーンゲーム #GameFi",
+     "en": "You wrote a review, and it sank without a trace.\nSound familiar?\n\nHelpful reviews deserve real returns.\nA system where writers don't lose out\nis what makes good reviews grow.\n\nAll for turning play into reward. Web3 Token Project | REEL\nFind us on X @REEL_Experience\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3Gaming #BlockchainGaming #GameFi",
+     "enRev": "You wrote a review, and it sank without a trace.\nSound familiar?\n\nHelpful reviews deserve to be rewarded.\nA system where writers don't lose out\nis what helps good reviews grow.\n\nAll for turning play into reward. Web3 Token Project | REEL\nFind us on X @REEL_Experience\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3Gaming #BlockchainGaming #GameFi",
+     "status": "notyet",
+     "memo": ""
+    },
+    {
+     "date": "2026-10-13",
+     "type": "Stories",
+     "ja": "良いレビューが、ちゃんと報われる仕組み。",
+     "en": "A system where good reviews are truly rewarded.",
+     "enRev": "NA",
+     "status": "notyet",
+     "memo": ""
+    },
+    {
+     "date": "2026-10-13",
+     "type": "Reply",
+     "ja": "レビュー、書いたことある？\n\n① よく書く\n② たまに\n③ 読む専門\n\n→ コメントで教えて",
+     "en": "Ever written a review?\n\n① Often\n② Sometimes\n③ Read-only\n\n→ Tell me in the comments",
+     "enRev": "Ever written a review?\n\n① Often\n② Sometimes\n③ I only read them\n\n→ Tell me in the comments",
+     "status": "notyet",
+     "memo": ""
+    },
+    {
+     "date": "2026-10-14",
+     "type": "Feed",
+     "ja": "攻略サイトより、\nフレンドの「これ買い」の一言で買ったゲーム、ある？\n\n信頼って、情報量じゃない。\n「誰が言ったか」なんだよね。\n\n全ては、遊びを報酬に変えるために。Web3トークンプロジェクト|REEL\n続きはプロフィールのリンクから。\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3ゲーム #ゲーム好きな人と繋がりたい #GamingCommunity",
+     "en": "Ever bought a game because a friend said \"trust me, get it\" —\nover any strategy site?\n\nTrust isn't about the amount of information.\nIt's about who said it.\n\nAll for turning play into reward. Web3 Token Project | REEL\nLink in bio.\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3Gaming #GamingCommunity #GamersUnite",
+     "enRev": "Ever bought a game because a friend said, \"Trust me, get it\" — instead of following a strategy guide?\n\nTrust isn't about the amount of information.\nIt's about who said it.\n\nAll for turning play into reward. Web3 Token Project | REEL\nLink in bio.\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3Gaming #GamingCommunity #GamersUnite",
+     "status": "notyet",
+     "memo": ""
+    },
+    {
+     "date": "2026-10-14",
+     "type": "Stories",
+     "ja": "信頼は、情報量じゃなく「誰が言ったか」。",
+     "en": "Trust isn't information. It's who said it.",
+     "enRev": "Trust isn't about how much information you have. It's about who said it.",
+     "status": "notyet",
+     "memo": ""
+    },
+    {
+     "date": "2026-10-14",
+     "type": "Reply",
+     "ja": "一番影響を受けるのは？\n\n① 友達の一言\n② レビュー\n③ ランキング\n\n→ コメントで教えて",
+     "en": "What influences you most?\n\n① A friend's word\n② Reviews\n③ Rankings\n\n→ Tell me in the comments",
+     "enRev": "What influences you most?\n\n① A friend's recommendation\n② Reviews\n③ Rankings\n\n→ Tell me in the comments",
+     "status": "notyet",
+     "memo": ""
+    },
+    {
+     "date": "2026-10-15",
+     "type": "Feed",
+     "ja": "遊んだ人の言葉には、\n遊んだ人にしか書けない体温がある。\n\nその体温が、次の人の入口になる。\n\n来週は、「コミュニティ」の話。\n\n全ては、遊びを報酬に変えるために。Web3トークンプロジェクト|REEL\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3ゲーム #ゲーマー #GamingCommunity",
+     "en": "The words of someone who actually played\ncarry a warmth only players can write.\n\nThat warmth becomes the next person's entrance.\n\nNext week: community.\n\nAll for turning play into reward. Web3 Token Project | REEL\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3Gaming #Gamer #GamingCommunity",
+     "enRev": "The words of someone who actually played\ncarry a warmth only a player can express.\n\nThat warmth becomes the next person's entrance.\n\nNext week: community.\n\nAll for turning play into reward. Web3 Token Project | REEL\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3Gaming #Gamer #GamingCommunity",
+     "status": "notyet",
+     "memo": ""
+    },
+    {
+     "date": "2026-10-15",
+     "type": "Stories",
+     "ja": "遊んだ人の言葉には、体温がある。",
+     "en": "Players' words carry warmth.",
+     "enRev": "NA",
+     "status": "notyet",
+     "memo": ""
+    },
+    {
+     "date": "2026-10-15",
+     "type": "Reply",
+     "ja": "良いレビューの条件は？\n\n① 正直さ\n② 詳しさ\n③ 書いた人の信頼\n\n→ コメントで教えて",
+     "en": "What makes a good review?\n\n① Honesty\n② Detail\n③ The writer's trust\n\n→ Tell me in the comments",
+     "enRev": "What makes a good review?\n\n① Honesty\n② Detail\n③ Trust in the writer\n\n→ Tell me in the comments",
+     "status": "notyet",
+     "memo": ""
+    },
+    {
+     "date": "2026-10-16",
+     "type": "Feed",
+     "ja": "ゲームをやめた理由、\n「飽きた」じゃなくて「友達がやめた」だった人、多くない？\n\n人は、ゲームじゃなくて\n人のところに帰ってくる。\n\n全ては、遊びを報酬に変えるために。Web3トークンプロジェクト|REEL\nXは @REEL_Experience\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3ゲーム #ゲーム好きな人と繋がりたい #GamingCommunity",
+     "en": "The reason you quit a game —\nwas it \"got bored,\" or \"my friends left\"?\n\nPeople don't return to games.\nThey return to people.\n\nAll for turning play into reward. Web3 Token Project | REEL\nFind us on X @REEL_Experience\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3Gaming #GamingCommunity #GamersUnite",
+     "enRev": "The reason you quit a game —\nwas it because you got bored, or because your friends left?\n\nPeople don't return to games.\nThey return to people.\n\nAll for turning play into reward. Web3 Token Project | REEL\nFind us on X @REEL_Experience\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3Gaming #GamingCommunity #GamersUnite",
+     "status": "notyet",
+     "memo": ""
+    },
+    {
+     "date": "2026-10-16",
+     "type": "Stories",
+     "ja": "人は、人のところに帰ってくる。",
+     "en": "People return to people.",
+     "enRev": "NA",
+     "status": "notyet",
+     "memo": ""
+    },
+    {
+     "date": "2026-10-16",
+     "type": "Reply",
+     "ja": "ゲームをやめた理由は？\n\n① 飽きた\n② 友達がやめた\n③ 忙しくなった\n\n→ コメントで教えて",
+     "en": "Why did you quit a game?\n\n① Got bored\n② Friends left\n③ Life got busy\n\n→ Tell me in the comments",
+     "enRev": "NA",
+     "status": "notyet",
+     "memo": ""
+    },
+    {
+     "date": "2026-10-17",
+     "type": "Feed",
+     "ja": "同じボスに全滅した仲間とは、\nなぜか一生の付き合いになる。\n\n全ては、遊びを報酬に変えるために。Web3トークンプロジェクト|REEL\n続きはプロフィールのリンクから。\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3ゲーム #ゲーマー #GamingCommunity",
+     "en": "Wipe on the same boss together,\nand somehow you're friends for life.\n\nAll for turning play into reward. Web3 Token Project | REEL\nLink in bio.\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3Gaming #Gamer #GamingCommunity",
+     "enRev": "Get wiped by the same boss together,\nand somehow you're friends for life.\n\nAll for turning play into reward. Web3 Token Project | REEL\nLink in bio.\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3Gaming #Gamer #GamingCommunity",
+     "status": "notyet",
+     "memo": ""
+    },
+    {
+     "date": "2026-10-17",
+     "type": "Stories",
+     "ja": "同じ全滅が、仲間をつくる。",
+     "en": "Shared defeats make real friends.",
+     "enRev": "NA",
+     "status": "notyet",
+     "memo": ""
+    },
+    {
+     "date": "2026-10-18",
+     "type": "Feed",
+     "ja": "名前も顔も知らないのに、\n毎晩同じ時間に集まる。\n\nそれも、立派な居場所。\n\n全ては、遊びを報酬に変えるために。Web3トークンプロジェクト|REEL\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3ゲーム #ゲームのある生活 #ゲーマー",
+     "en": "You don't know their names or faces,\nyet you gather at the same hour every night.\n\nThat, too, is a place to belong.\n\nAll for turning play into reward. Web3 Token Project | REEL\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3Gaming #GamerLife #Gaming",
+     "enRev": "NA",
+     "status": "notyet",
+     "memo": ""
+    },
+    {
+     "date": "2026-10-18",
+     "type": "Stories",
+     "ja": "それも、立派な居場所。",
+     "en": "That, too, is a place to belong.",
+     "enRev": "NA",
+     "status": "notyet",
+     "memo": ""
+    },
+    {
+     "date": "2026-10-19",
+     "type": "Feed",
+     "ja": "ゲーム内チャットの「ナイス」一言で、\nその日の疲れが消えたこと、ない？\n\n小さな反応が、\n続ける理由になったりする。\n\n全ては、遊びを報酬に変えるために。Web3トークンプロジェクト|REEL\nXは @REEL_Experience\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3ゲーム #ゲーム好きな人と繋がりたい #GamingCommunity",
+     "en": "One \"nice\" in the game chat,\nand the day's exhaustion disappears.\n\nSmall reactions can become\nthe reason you keep going.\n\nAll for turning play into reward. Web3 Token Project | REEL\nFind us on X @REEL_Experience\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3Gaming #GamingCommunity #GamersUnite",
+     "enRev": "One \"nice\" in the game chat,\nand the day's exhaustion fades away.\n\nSmall reactions can become\na reason to keep going.\n\nAll for turning play into reward. Web3 Token Project | REEL\nFind us on X @REEL_Experience\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3Gaming #GamingCommunity #GamersUnite",
+     "status": "notyet",
+     "memo": ""
+    },
+    {
+     "date": "2026-10-19",
+     "type": "Stories",
+     "ja": "小さな反応が、続ける理由になる。",
+     "en": "Small reactions become reasons to continue.",
+     "enRev": "NA",
+     "status": "notyet",
+     "memo": ""
+    },
+    {
+     "date": "2026-10-19",
+     "type": "Reply",
+     "ja": "ゲーム内で嬉しかった一言は？\n\n① ナイス\n② ありがとう\n③ また遊ぼう\n\n→ コメントで教えて",
+     "en": "Best word to get in-game?\n\n① Nice\n② Thanks\n③ Let's play again\n\n→ Tell me in the comments",
+     "enRev": "What's the best thing someone has said to you in-game?\n\n① Nice\n② Thanks\n③ Let's play again\n\n→ Tell me in the comments",
+     "status": "notyet",
+     "memo": ""
+    },
+    {
+     "date": "2026-10-20",
+     "type": "Feed",
+     "ja": "書いたレビューに「参考になった」がつく。\nそして、それが書いた人にちゃんと届く。\n\n読む人と書く人が、\nお互いを支え合う場所。\n\nREELが作りたいのは、そういうコミュニティ。\n\n全ては、遊びを報酬に変えるために。Web3トークンプロジェクト|REEL\n続きはプロフィールのリンクから。\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3ゲーム #GameFi #Web3Gaming",
+     "en": "Your review gets a \"this helped.\"\nAnd it actually reaches you.\n\nReaders and writers\nsupporting each other.\n\nThat's the community REEL wants to build.\n\nAll for turning play into reward. Web3 Token Project | REEL\nLink in bio.\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3Gaming #GameFi #PlayToEarn",
+     "enRev": "Your review gets a \"this helped.\"\nAnd that recognition actually reaches you.\n\nReaders and writers\nsupporting each other.\n\nThat's the community REEL wants to build.\n\nAll for turning play into reward. Web3 Token Project | REEL\nLink in bio.\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3Gaming #GameFi #PlayToEarn",
+     "status": "notyet",
+     "memo": ""
+    },
+    {
+     "date": "2026-10-20",
+     "type": "Stories",
+     "ja": "読む人と書く人が、支え合う場所。",
+     "en": "Where readers and writers support each other.",
+     "enRev": "NA",
+     "status": "notyet",
+     "memo": ""
+    },
+    {
+     "date": "2026-10-20",
+     "type": "Reply",
+     "ja": "コメントや「いいね」、もらうと？\n\n① めちゃ嬉しい\n② 少し嬉しい\n③ 気にしない\n\n→ コメントで教えて",
+     "en": "Getting likes and comments — how does it feel?\n\n① Amazing\n② A little happy\n③ Don't care\n\n→ Tell me in the comments",
+     "enRev": "How do you feel when you get likes and comments?\n\n① Really happy\n② A little happy\n③ Don't really care\n\n→ Tell me in the comments",
+     "status": "notyet",
+     "memo": ""
+    },
+    {
+     "date": "2026-10-21",
+     "type": "Feed",
+     "ja": "古参と新規の壁があるコミュニティ、\n息苦しくない？\n\nいいコミュニティは、\n新しい人の質問を歓迎する。\n\n「ようこそ」が自然に出る場所は、強い。\n\n全ては、遊びを報酬に変えるために。Web3トークンプロジェクト|REEL\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3ゲーム #ゲーム好きな人と繋がりたい #GamingCommunity",
+     "en": "Communities with walls between veterans and newcomers\nfeel suffocating, right?\n\nGood communities\nwelcome new questions.\n\nA place where \"welcome\" comes naturally is strong.\n\nAll for turning play into reward. Web3 Token Project | REEL\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3Gaming #GamingCommunity #GamersUnite",
+     "enRev": "NA",
+     "status": "notyet",
+     "memo": ""
+    },
+    {
+     "date": "2026-10-21",
+     "type": "Stories",
+     "ja": "「ようこそ」が自然に出る場所は、強い。",
+     "en": "A place where \"welcome\" comes naturally is strong.",
+     "enRev": "NA",
+     "status": "notyet",
+     "memo": ""
+    },
+    {
+     "date": "2026-10-21",
+     "type": "Reply",
+     "ja": "新しいコミュニティ、入りやすいのは？\n\n① 歓迎ムード\n② ルールが明確\n③ 少人数\n\n→ コメントで教えて",
+     "en": "What makes a community easy to join?\n\n① Welcoming vibe\n② Clear rules\n③ Small size\n\n→ Tell me in the comments",
+     "enRev": "NA",
+     "status": "notyet",
+     "memo": ""
+    },
+    {
+     "date": "2026-10-22",
+     "type": "Feed",
+     "ja": "貢献が見えないコミュニティでは、\n人は静かに離れていく。\n\n誰が場を温めてきたか、記録に残る。\n貢献が見える場所には、人が残る。\n\nそれも、REELの設計。\n\n全ては、遊びを報酬に変えるために。Web3トークンプロジェクト|REEL\nXは @REEL_Experience\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3ゲーム #ブロックチェーンゲーム #GameFi",
+     "en": "When contribution goes unseen,\npeople quietly drift away.\n\nWho warmed up the room — it stays on record.\nWhere contribution is visible, people stay.\n\nThat's also REEL's design.\n\nAll for turning play into reward. Web3 Token Project | REEL\nFind us on X @REEL_Experience\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3Gaming #BlockchainGaming #GameFi",
+     "enRev": "When contributions go unseen,\npeople quietly drift away.\n\nWho helped build the community — it stays on record.\nWhere contributions are visible, people stay.\n\nThat's also part of REEL's design.\n\nAll for turning play into reward. Web3 Token Project | REEL\nFind us on X @REEL_Experience\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3Gaming #BlockchainGaming #GameFi",
+     "status": "notyet",
+     "memo": ""
+    },
+    {
+     "date": "2026-10-22",
+     "type": "Stories",
+     "ja": "貢献が見える場所に、人は残る。",
+     "en": "People stay where contribution is visible.",
+     "enRev": "NA",
+     "status": "notyet",
+     "memo": ""
+    },
+    {
+     "date": "2026-10-22",
+     "type": "Reply",
+     "ja": "コミュニティに貢献してる実感、ある？\n\n① ある\n② 少しある\n③ ない\n\n→ コメントで教えて",
+     "en": "Feel like you contribute to a community?\n\n① Yes\n② A little\n③ Not really\n\n→ Tell me in the comments",
+     "enRev": "Do you feel like you contribute to a community?\n\n① Yes\n② A little\n③ Not really\n\n→ Tell me in the comments",
+     "status": "notyet",
+     "memo": ""
+    },
+    {
+     "date": "2026-10-23",
+     "type": "Feed",
+     "ja": "ゲームの記憶を思い出すと、\nだいたい隣に誰かがいる。\n\n遊びは、一人でも楽しい。\nでも、続くのは誰かとの間。\n\n来週は、「報酬」の話。\n\n全ては、遊びを報酬に変えるために。Web3トークンプロジェクト|REEL\n続きはプロフィールのリンクから。\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3ゲーム #ゲーマー #GamingCommunity",
+     "en": "Recall your favorite gaming memories —\nsomeone's usually right there beside you.\n\nPlay is fun alone.\nBut what lasts happens between people.\n\nNext week: rewards.\n\nAll for turning play into reward. Web3 Token Project | REEL\nLink in bio.\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3Gaming #Gamer #GamingCommunity",
+     "enRev": "NA",
+     "status": "notyet",
+     "memo": ""
+    },
+    {
+     "date": "2026-10-23",
+     "type": "Stories",
+     "ja": "続くのは、誰かとの間。",
+     "en": "What lasts happens between people.",
+     "enRev": "NA",
+     "status": "notyet",
+     "memo": ""
+    },
+    {
+     "date": "2026-10-23",
+     "type": "Reply",
+     "ja": "ゲームの思い出、誰といた？\n\n① 友達\n② ネットの仲間\n③ 一人\n\n→ コメントで教えて",
+     "en": "Your gaming memories — who was there?\n\n① Friends\n② Online crew\n③ Just me\n\n→ Tell me in the comments",
+     "enRev": "NA",
+     "status": "notyet",
+     "memo": ""
+    },
+    {
+     "date": "2026-10-24",
+     "type": "Feed",
+     "ja": "報酬って、お金だけじゃない。\n\n「ありがとう」も、\nレベルアップの音も、報酬。\n\n全ては、遊びを報酬に変えるために。Web3トークンプロジェクト|REEL\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3ゲーム #ゲームのある生活 #ゲーマー",
+     "en": "Rewards aren't only money.\n\nA \"thank you,\"\nthe level-up sound — those are rewards too.\n\nAll for turning play into reward. Web3 Token Project | REEL\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3Gaming #GamerLife #Gaming",
+     "enRev": "NA",
+     "status": "notyet",
+     "memo": ""
+    },
+    {
+     "date": "2026-10-24",
+     "type": "Stories",
+     "ja": "「ありがとう」も、報酬。",
+     "en": "A \"thank you\" is a reward too.",
+     "enRev": "NA",
+     "status": "notyet",
+     "memo": ""
+    },
+    {
+     "date": "2026-10-25",
+     "type": "Feed",
+     "ja": "頑張りが認められた日って、\n帰り道の景色が違って見える。\n\n全ては、遊びを報酬に変えるために。Web3トークンプロジェクト|REEL\nXは @REEL_Experience\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3ゲーム #ゲーマー #GamingCommunity",
+     "en": "On the day your effort gets recognized,\neven the walk home looks different.\n\nAll for turning play into reward. Web3 Token Project | REEL\nFind us on X @REEL_Experience\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3Gaming #Gamer #GamingCommunity",
+     "enRev": "NA",
+     "status": "notyet",
+     "memo": ""
+    },
+    {
+     "date": "2026-10-25",
+     "type": "Stories",
+     "ja": "認められた日は、帰り道が違って見える。",
+     "en": "Recognition changes how the walk home looks.",
+     "enRev": "NA",
+     "status": "notyet",
+     "memo": ""
+    },
+    {
+     "date": "2026-10-26",
+     "type": "Feed",
+     "ja": "スタンプカード、最後の1個が近づくと\nなぜかその店ばかり行っちゃう。\n\n報酬が見えると、人は動く。\n単純だけど、強い。\n\n全ては、遊びを報酬に変えるために。Web3トークンプロジェクト|REEL\n続きはプロフィールのリンクから。\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3ゲーム #ゲーム好きな人と繋がりたい #GamingCommunity",
+     "en": "One stamp away from a free coffee,\nand suddenly it's the only café you visit.\n\nWhen rewards are visible, people move.\nSimple, but powerful.\n\nAll for turning play into reward. Web3 Token Project | REEL\nLink in bio.\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3Gaming #GamingCommunity #GamersUnite",
+     "enRev": "",
+     "status": "notyet",
+     "memo": ""
+    },
+    {
+     "date": "2026-10-26",
+     "type": "Stories",
+     "ja": "報酬が見えると、人は動く。",
+     "en": "When rewards are visible, people move.",
+     "enRev": "",
+     "status": "notyet",
+     "memo": ""
+    },
+    {
+     "date": "2026-10-26",
+     "type": "Reply",
+     "ja": "ポイントやスタンプ、集めてる？\n\n① がっつり\n② ゆるく\n③ 興味ない\n\n→ コメントで教えて",
+     "en": "Do you collect points or stamps?\n\n① Seriously\n② Casually\n③ Not interested\n\n→ Tell me in the comments",
+     "enRev": "",
+     "status": "notyet",
+     "memo": ""
+    },
+    {
+     "date": "2026-10-27",
+     "type": "Feed",
+     "ja": "「稼げるゲーム」は、稼げなくなった瞬間に終わる。\n\n楽しさが先。報酬は後。\nこの順番を間違えないことが、\n長く続くための唯一の条件。\n\nPLAY -> REVIEW -> REWARD。\n順番に、意味がある。\n\n全ては、遊びを報酬に変えるために。Web3トークンプロジェクト|REEL\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3ゲーム #GameFi #Web3Gaming",
+     "en": "\"Earning games\" end the moment the earning ends.\n\nFun first. Reward after.\nGetting this order right is the only condition\nfor lasting long.\n\nPLAY -> REVIEW -> REWARD.\nThe order matters.\n\nAll for turning play into reward. Web3 Token Project | REEL\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3Gaming #GameFi #PlayToEarn",
+     "enRev": "",
+     "status": "notyet",
+     "memo": ""
+    },
+    {
+     "date": "2026-10-27",
+     "type": "Stories",
+     "ja": "楽しさが先。報酬は後。",
+     "en": "Fun first. Reward after.",
+     "enRev": "",
+     "status": "notyet",
+     "memo": ""
+    },
+    {
+     "date": "2026-10-27",
+     "type": "Reply",
+     "ja": "ゲームに求めるのは？\n\n① 楽しさ\n② 報酬\n③ 両方\n\n→ コメントで教えて",
+     "en": "What do you want from games?\n\n① Fun\n② Rewards\n③ Both\n\n→ Tell me in the comments",
+     "enRev": "",
+     "status": "notyet",
+     "memo": ""
+    },
+    {
+     "date": "2026-10-28",
+     "type": "Feed",
+     "ja": "給料日よりも、\n「あなたのおかげ」って言われた日の方が\n記憶に残ってたりする。\n\n報酬の形は、一つじゃない。\n\n全ては、遊びを報酬に変えるために。Web3トークンプロジェクト|REEL\nXは @REEL_Experience\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3ゲーム #ゲーム好きな人と繋がりたい #GamingCommunity",
+     "en": "More than payday,\nyou remember the day someone said\n\"it was thanks to you.\"\n\nRewards come in more than one shape.\n\nAll for turning play into reward. Web3 Token Project | REEL\nFind us on X @REEL_Experience\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3Gaming #GamingCommunity #GamersUnite",
+     "enRev": "",
+     "status": "notyet",
+     "memo": ""
+    },
+    {
+     "date": "2026-10-28",
+     "type": "Stories",
+     "ja": "報酬の形は、一つじゃない。",
+     "en": "Rewards come in more than one shape.",
+     "enRev": "",
+     "status": "notyet",
+     "memo": ""
+    },
+    {
+     "date": "2026-10-28",
+     "type": "Reply",
+     "ja": "一番嬉しい報酬は？\n\n① お金\n② 感謝の言葉\n③ 実績・称号\n\n→ コメントで教えて",
+     "en": "Best kind of reward?\n\n① Money\n② Words of thanks\n③ Titles & achievements\n\n→ Tell me in the comments",
+     "enRev": "",
+     "status": "notyet",
+     "memo": ""
+    },
+    {
+     "date": "2026-10-29",
+     "type": "Feed",
+     "ja": "遊んだ時間。書いたレビュー。誰かの役に立った回数。\n\n今まで消えていたものが、\n全部あなたの報酬に変わるとしたら。\n\nそれを当たり前にするのが、REEL。\n\n全ては、遊びを報酬に変えるために。Web3トークンプロジェクト|REEL\n続きはプロフィールのリンクから。\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3ゲーム #ブロックチェーンゲーム #GameFi",
+     "en": "Hours played. Reviews written. Times you helped someone.\n\nWhat used to vanish —\nwhat if all of it became your reward?\n\nMaking that the standard is REEL.\n\nAll for turning play into reward. Web3 Token Project | REEL\nLink in bio.\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3Gaming #BlockchainGaming #GameFi",
+     "enRev": "",
+     "status": "notyet",
+     "memo": ""
+    },
+    {
+     "date": "2026-10-29",
+     "type": "Stories",
+     "ja": "消えていたものが、報酬に変わる。",
+     "en": "What used to vanish becomes your reward.",
+     "enRev": "",
+     "status": "notyet",
+     "memo": ""
+    },
+    {
+     "date": "2026-10-29",
+     "type": "Reply",
+     "ja": "報酬になったら嬉しいのは？\n\n① プレイ時間\n② レビュー\n③ 貢献度\n\n→ コメントで教えて",
+     "en": "What should count as reward?\n\n① Playtime\n② Reviews\n③ Contribution\n\n→ Tell me in the comments",
+     "enRev": "",
+     "status": "notyet",
+     "memo": ""
+    },
+    {
+     "date": "2026-10-30",
+     "type": "Feed",
+     "ja": "ハロウィン前夜。\nお菓子をもらうにも、まず「トリック・オア・トリート」と言う。\n\n行動が先、報酬が後。\n昔から、世界はそうできてる。\n\n全ては、遊びを報酬に変えるために。Web3トークンプロジェクト|REEL\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3ゲーム #ゲームのある生活 #ゲーマー",
+     "en": "The night before Halloween.\nEven for candy, you say \"trick or treat\" first.\n\nAction first, reward after.\nThe world has always worked that way.\n\nAll for turning play into reward. Web3 Token Project | REEL\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3Gaming #GamerLife #Gaming",
+     "enRev": "",
+     "status": "notyet",
+     "memo": ""
+    },
+    {
+     "date": "2026-10-30",
+     "type": "Stories",
+     "ja": "行動が先、報酬が後。",
+     "en": "Action first, reward after.",
+     "enRev": "",
+     "status": "notyet",
+     "memo": ""
+    },
+    {
+     "date": "2026-10-30",
+     "type": "Reply",
+     "ja": "ハロウィン、何かする？\n\n① お菓子を用意する\n② ゲームのイベントに参加\n③ 何もしない\n\n→ コメントで教えて",
+     "en": "Halloween plans?\n\n① Candy\n② In-game events\n③ Nothing\n\n→ Tell me in the comments",
+     "enRev": "",
+     "status": "notyet",
+     "memo": ""
+    },
+    {
+     "date": "2026-10-31",
+     "type": "Feed",
+     "ja": "10月、ずっと「信頼」の話をしてきた。\n\n記録が信頼をつくり、\nレビューが信頼を運び、\nコミュニティが信頼を育て、\n報酬が信頼に応える。\n\n全部つながって、一つのループになる。\n\n全ては、遊びを報酬に変えるために。Web3トークンプロジェクト|REEL\nXは @REEL_Experience\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3ゲーム #GameFi #Web3Gaming",
+     "en": "This October, we talked about trust.\n\nRecords build trust.\nReviews carry it.\nCommunity grows it.\nRewards answer it.\n\nAll connected. One loop.\n\nAll for turning play into reward. Web3 Token Project | REEL\nFind us on X @REEL_Experience\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3Gaming #GameFi #PlayToEarn",
+     "enRev": "",
+     "status": "notyet",
+     "memo": ""
+    },
+    {
+     "date": "2026-10-31",
+     "type": "Stories",
+     "ja": "全部つながって、一つのループになる。",
+     "en": "All connected. One loop.",
+     "enRev": "",
+     "status": "notyet",
+     "memo": ""
+    }
+   ]
+  }
+ ]
+}

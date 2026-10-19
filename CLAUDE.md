@@ -4,13 +4,13 @@
 
 ## 構成（覚えておけば全文を読まなくていい）
 - `index.html`（約5500行）1枚に全部。IIFE、文言は `T={en,ko,ja}` と `t()`、状態は `tab` / `filter` / `schedule` / `chores` / `kpi`
-- データ: `posts.json`（チャンネル・docs・telegramAt）、`book_rows.json`（予約の行）、`chores.json`（いいね・フォロー）、`kpi.json`、`schedule.json`
+- データ: `posts.json`（チャンネル・docs・telegramAt）、`book_rows.json`（予約の行）、`chores.json`（いいね・フォロー）、`kpi.json`、`schedule.json`、`plans.json`（企画タブ。月ごとの投稿企画）
 - サーバー: `worker/chores-worker.js`（Cloudflare Worker + Durable Object `HubDO`。/chores /book /code /ws）
 - 公開: GitHub Pages https://towananika.github.io/remitech/ （service worker なし）
 
 ## トークン節約
 - **index.html を全文読まない。** 先に Grep で行を引き、`Read(offset, limit)` で 30〜150 行だけ読む
-  - タブの画面: `function render(Today|Likes|Book|Prep|Prep2|Kpi|Telegram|Guide|Overview)`
+  - タブの画面: `function render(Today|Likes|Book|Prep|Prep2|Kpi|Telegram|Guide|Overview|Plan)`
   - タブの切り替え: `function renderNav` / `if (tab === "`
   - 文言: `navTg:` のような key で3言語の行を一度に引く（`-o` で値だけ）
   - CSS: `^\s*\.クラス名`
