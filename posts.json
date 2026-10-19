@@ -83,6 +83,7 @@
     },
     {
       "shareDayOffset": -1,
+      "shareAlways": ["TikTok"],
       "id": "nacha",
       "name": "NACHA",
       "tagline": "",
@@ -156,20 +157,22 @@
             "Step into the temple",
             "Leave a wish today",
             "A small deity awaits",
-            "Dreams, hope, courage",
             "Pray with NACHA",
             "Enter Temple 2.0",
             "Say hi to NACHA 👋",
             "Find your lucky charm",
-            "Where faith meets fun",
             "Join the NACHA family",
             "Light a prayer today",
             "Good luck starts here",
-            "Your wish, our temple",
             "Open the temple gate",
             "See NACHA's world ✨",
             "Read NACHA's story",
-            "Visit nacha.club"
+            "Visit nacha.club",
+            "Where faith meets fun",
+            "Make a wish with NACHA",
+            "Your lucky day awaits",
+            "Ring the temple bell 🔔",
+            "Draw your fortune today"
           ]
         },
         {
@@ -179,15 +182,25 @@
           "url": "https://sale.nacha.vip/",
           "items": [
             "Aftersale is live!",
-            "Aftersale is now live!",
             "The aftersale is open!",
-            "Aftersale is ongoing!",
-            "Aftersale is underway!",
             "Join the aftersale now!",
             "Aftersale has started!",
             "Aftersale happening now!",
-            "Aftersale now open!",
-            "Don't miss the aftersale!"
+            "Don't miss the aftersale!",
+            "The aftersale is here!",
+            "Shop the NACHA aftersale",
+            "Tap to shop the aftersale",
+            "Get NACHA goods now",
+            "Missed it? Shop now!",
+            "Second chance is here!",
+            "Your second chance ✨",
+            "Still time to get yours!",
+            "Don't miss out this time",
+            "Shop before it's gone!",
+            "Grab yours before it ends",
+            "Last chance to grab NACHA",
+            "Limited stock, shop now",
+            "While supplies last!"
           ]
         }
       ],
