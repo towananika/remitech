@@ -2803,6 +2803,10 @@
         var ps = postsCheck ? pcOn(c.id, pf, dateStr) : [];
         if (ps.length) url = ps[ps.length - 1].url + (pf === "X" ? "?s=20" : "");
       }
+      // posts.json の shareAlways に入れた SNS は、その日の投稿リンクが無くてもアカウントのリンクで必ず行を出す（2026-10-19 NACHA の TikTok）
+      if (!url && (c.shareAlways || []).indexOf(kd[0]) >= 0) {
+        url = ((c.links || []).filter(function (l) { return l.kind === kd[0]; })[0] || {}).url || "";
+      }
       if (!url && kd[2]) return null;   // 動画を出していない日は TikTok・YouTube の行を出さない
       if (!url) {
         var a = pcAcct(c.id, pf);
