@@ -2337,6 +2337,16 @@
 
   // 文面の箱。コピーは箱の中の右上に置く（下に並べると場所を食う）
   var copyBank = {};
+  // 「どれか1つ」で前回引いた文。画面を描き直しても・開き直しても同じ文を2連続で出さない（2026-10-19）
+  function snLastGet(k) {
+    try { return (JSON.parse(localStorage.getItem("remitech-snlast") || "{}") || {})[k]; } catch (e) { return undefined; }
+  }
+  function snLastSet(k, v) {
+    try {
+      var m = JSON.parse(localStorage.getItem("remitech-snlast") || "{}") || {};
+      m[k] = v; localStorage.setItem("remitech-snlast", JSON.stringify(m));
+    } catch (e) {}
+  }
 
   // Nobo Check の文があれば、それを実投稿用の文にする。無ければ普段どおり
   function textBox(id, cur, en, mk, pid, nobo, reviewed) {
@@ -4019,7 +4029,7 @@
         // 「どれか1つ」は押すたびに選び直す。文字数の上限（max）を超える文は引かない（IGのリンクボタンは25字まで・2026-10-05）
         if (sn.items && sn.items.length) {
           var pool = sn.items.filter(function (it) { return !sn.max || it.length <= sn.max; });
-          copyBank["sn" + si + "r"] = { pick: pool.length ? pool : sn.items.slice(), max: sn.max || 0 };
+          copyBank["sn" + si + "r"] = { pick: pool.length ? pool : sn.items.slice(), max: sn.max || 0, lk: c.id + ":" + si };
         }
       });
     });
@@ -6835,10 +6845,13 @@
       var bank = copyBank[cp.getAttribute("data-ck")];
       var txt = "";
       if (bank && bank.pick) {
-        var tries = 0;
-        do { txt = bank.pick[Math.floor(Math.random() * bank.pick.length)]; }
-        while (bank.pick.length > 1 && txt === bank.last && ++tries < 10);
+        // 前回の文を候補から外してから引く（運しだいで続くことがない）
+        var last = bank.lk ? snLastGet(bank.lk) : bank.last;
+        var cand = bank.pick.filter(function (x) { return x !== last; });
+        if (!cand.length) cand = bank.pick;
+        txt = cand[Math.floor(Math.random() * cand.length)];
         bank.last = txt;
+        if (bank.lk) snLastSet(bank.lk, txt);
         var shown = cp.parentNode.querySelector(".snpicked");
         if (shown) shown.textContent = txt;   // \u6587\u5b57\u6570\u306f\u51fa\u3055\u306a\u3044\uff082026-10-07 Hibiki\u6307\u5b9a\uff09\u300225\u5b57\u306e\u4e0a\u9650\u306f posts.json \u306e max \u3067\u5b88\u308b
       } else if (bank) {
