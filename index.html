@@ -5369,7 +5369,7 @@
       authState = { token: j.token, exp: j.exp, user: j.user, renewed: ymd(new Date()) };
       authSave();
       if (kind === "password") { authPwOpen = false; authMsg = t("authChanged"); authRender(); authAfterChange(); }
-      else { authMsg = ""; authRender(); authAfterChange(); }
+      else { authPwOpen = !!j.user.changePasswordSuggested; authMsg = authPwOpen ? ({ja:"初期パスワードを変更してください。",en:"Please change your initial password.",ko:"초기 비밀번호를 변경해 주세요."})[lang] : ""; authRender(); authAfterChange(); }
       if (j.user && j.user.admin) authLoadUsers();
     }, function () { authBusy = false; authMsg = t("authNet"); authRender(); });
   });

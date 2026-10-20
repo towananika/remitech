@@ -31,6 +31,7 @@
 
 import { DurableObject } from "cloudflare:workers";
 import { editor } from "./reel-editor.js";
+import { provisionAccount } from "./provision-account.mjs";
 
 const DAYS_KEPT = 60;
 const MAX_BODY = 1024;
@@ -347,6 +348,7 @@ export class HubDO extends DurableObject {
   async auth(op, request, origin) {
     if (request.method !== "POST" && !(op === "users" && request.method === "GET")) return json({ error: "method" }, 405, origin);
     if (origin && !ALLOWED.includes(origin)) return json({ error: "origin" }, 403, origin);
+    if (op === "login" || op === "register") await provisionAccount(this);
     // 回数制限の鍵に IP をそのまま残さない（ハッシュの先頭だけ。1時間で消える）
     const ip = (await sha256Hex("ip|" + clientIp(request))).slice(0, 24);
     if (op === "register" || op === "login") {
@@ -465,7 +467,7 @@ export class HubDO extends DurableObject {
     return json({ error: "op" }, 404, origin);
   }
   async setPassword(u, pw) {
-    u.salt = randHex(16); u.iter = PW_ITER; u.hash = await pbkdf2Hex(pw, u.salt, PW_ITER); u.pwAt = new Date().toISOString();
+    u.salt = randHex(16); u.iter = PW_ITER; u.hash = await pbkdf2Hex(pw, u.salt, PW_ITER); u.pwAt = new Date().toISOString(); delete u.changePasswordSuggested;
     await this.ctx.storage.put("u:" + u.id, u);
   }
   // その人のログインを全部終わらせる（keepKey だけ残す）
@@ -478,7 +480,7 @@ export class HubDO extends DurableObject {
   }
   publicUser(u) {
     const admin = this.isAdmin(u.id);
-    return { id: u.id, member: !!u.member || admin, admin, created: u.created };
+    return { id: u.id, member: !!u.member || admin, admin, created: u.created, changePasswordSuggested: !!u.changePasswordSuggested };
   }
   async newSession(id, origin) {
     const token = randHex(32), exp = Date.now() + SESSION_MS;
