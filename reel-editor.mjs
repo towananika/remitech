@@ -10,7 +10,7 @@ const labels = {
   addDraft:['用意した日英原稿を登録','Add prepared JA / EN text','준비한 일·영 원고 등록'],manualMissing:['用意した日英原稿を登録してください。','Add your prepared Japanese and English text.','준비한 일본어·영어 원고를 등록하세요.'],theme:['週のテーマ','Weekly theme','주간 주제'],arc:['一週間の流れ','Weekly story','한 주의 흐름'],
   clickEdit:['クリックして編集','Click to edit','클릭하여 수정'],
   confirm:['確定','Confirm','확정'],revise:['修正','Edit','수정'],draftEnglish:['英文 · 草案','English · Draft','영어 · 초안'],revisedEnglish:['英文 · NOBO修正','English · Revised','영어 · 수정본'],
-  checkOverview:['NOBO CHECK · 今日から14日間','NOBO CHECK · Next 14 days','NOBO CHECK · 오늘부터 14일'],noDraft:['草案なし','No draft','초안 없음'],revised:['修正済み','Revised','수정 완료'],today:['今日','Today','오늘'],
+  checkOverview:['NOBO CALENDAR · 今日から14日間','NOBO CALENDAR · Next 14 days','NOBO CALENDAR · 오늘부터 14일'],noDraft:['草案なし','No draft','초안 없음'],revised:['修正済み','Revised','수정 완료'],today:['今日','Today','오늘'],
   scope:['今回の対象は11月1日までです。','The current scope ends on November 1.','현재 작업 범위는 11월 1일까지입니다.'],
   date:['日付','Date','날짜'],settings:['AIの投稿方針','AI writing brief','AI 게시물 작성 지침'],saveBrief:['方針を保存','Save brief','지침 저장'],
   brief:['ブランド・読者・語調・避けたい表現','Brand, audience, voice and constraints','브랜드·독자·말투·피할 표현'],
@@ -174,7 +174,7 @@ export function createEditor(a) {
           if(window.scrollY>100 && !edit && !settingsDirty && last<R.EDITOR_END_DATE){last=R.addDays(last,7)>R.EDITOR_END_DATE?R.EDITOR_END_DATE:R.addDays(last,7);const y=window.scrollY;render();window.scrollTo(0,y);}return;
         }
       }
-      const controlsBottom=(a.view.querySelector('.re-date-controls')?.getBoundingClientRect().bottom||168)+12;
+      const controlsBottom=Math.max(12,(a.view.querySelector('.re-date-controls')?.getBoundingClientRect().bottom||0)+12);
       const reading=[...a.view.querySelectorAll('[data-re-day]')].find(el=>{const r=el.getBoundingClientRect();return r.bottom>controlsBottom&&r.top<window.innerHeight;});
       if(reading){const day=reading.dataset.reDay,input=a.view.querySelector('#re-date');if(input)input.value=day;date=day;a.view.querySelectorAll('[data-re-check-date]').forEach(el=>el.setAttribute('aria-pressed',String(el.dataset.reCheckDate===date&&el.dataset.reCheckPlatform===pf)));a.navigate?.(date,pf);ensure(day);}
     },{threshold:[0,0.12,0.5]});

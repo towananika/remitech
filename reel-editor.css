@@ -88,10 +88,10 @@
 
 .re-nobo-field button[data-re-action="confirmPart"][aria-pressed="true"]{background:#215c99;color:white;border-color:#215c99}
 
-.re-date-controls{position:sticky;top:0;z-index:5;background:var(--bg);padding-bottom:1px}
+.re-date-controls{background:var(--bg);padding-bottom:1px}
 .re-date-controls .re-check-overview{margin-bottom:8px}
-.re-day{scroll-margin-top:280px}
-@media(max-width:650px){.re-day{scroll-margin-top:340px}}
+.re-day{scroll-margin-top:100px}
+
 
 .reel-editor .re-inline-text{display:block;width:100%;text-align:left;white-space:pre-wrap;padding:10px 8px;border:1px solid transparent;background:transparent;cursor:text;font:inherit;line-height:1.7}
 .reel-editor .re-inline-text:hover:not(:disabled){background:var(--surface);border-color:var(--line)}
