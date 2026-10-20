@@ -24,6 +24,10 @@ export function partReviews(post) {
 export function fullyReviewed(post) { return !!post && partReviews(post).every(Boolean); }
 export function english(post) { return post?.noboEn || post?.en || ''; }
 export function englishPart(post, i) { return post?.noboParts?.[i] || post?.parts?.[i]?.en || ''; }
+export function englishFeeds(post) {
+  if(!post?.parts?.length)return english(post);
+  return post.parts.map((part,i)=>({part,i})).filter(({part})=>part.label!=='Comment').map(({i})=>englishPart(post,i)).join('\n\n');
+}
 export function partLabels(date, platform='X') {
   const day=new Date(date+'T00:00:00Z').getUTCDay();
   return day===0||day===6?['Feed 1']:platform==='IG'?['Feed 1','Comment']:['Feed 1','Feed 2','Feed 3','Comment'];

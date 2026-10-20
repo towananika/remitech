@@ -178,3 +178,18 @@ test('inline Japanese edits preserve English revisions and invalidate only the e
   assert.equal((await c.request(action('edit-japanese',w,{partIndex:0,text:'古い修正',revision:w.revision-1}))).status,409);
   assert.equal((await c.request(action('edit-japanese',w,{partIndex:0,text:'一般会員'}),{id:'guest',member:false})).status,403);
 });
+
+
+test('bulk feed copy uses revised English and keeps the separate comment out',()=>{
+ const p={en:'Legacy',parts:[{label:'Feed 1',en:'First'},{label:'Feed 2',en:'Second'},{label:'Comment',en:'Comment only'}],noboParts:['First revised','Second revised','Comment revised']};
+ assert.equal(R.englishFeeds(p),'First revised\n\nSecond revised');
+ assert.equal(R.englishFeeds({parts:[{label:'Feed 1',en:'Weekend'}]}),'Weekend');
+ assert.equal(R.englishFeeds({en:'Legacy'}),'Legacy');
+});
+test('whole-day confirmation covers every feed and comment and can be undone',async()=>{
+ let w=week('2026-10-26');w.days[0].posts.X.parts=R.partLabels(w.days[0].date,'X').map(label=>({label,ja:'日本語',en:label}));
+ const c=context({seed:[w]});let r=await c.request(action('confirm-part',w,{partIndex:0}));w=r.week;
+ r=await c.request(action('review2',w));w=r.week;assert.equal(R.partReviews(w.days[0].posts.X).filter(Boolean).length,4);assert.equal(R.fullyReviewed(w.days[0].posts.X),true);
+ assert.equal(w.days[0].posts.IG.secondReview,null);
+ r=await c.request(action('review2',w));assert.equal(R.fullyReviewed(r.week.days[0].posts.X),false);
+});
