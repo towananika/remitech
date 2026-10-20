@@ -12,6 +12,7 @@ const labels = {
   clickEdit:['クリックして編集','Click to edit','클릭하여 수정'],
   confirm:['確定','Confirm','확정'],revise:['修正','Edit','수정'],draftEnglish:['英文 · 草案','English · Draft','영어 · 초안'],revisedEnglish:['英文 · NOBO修正','English · Revised','영어 · 수정본'],
   calendarPrev:['1週間前へ','Previous week','1주 전'],calendarNext:['1週間後へ','Next week','1주 후'],checkOverview:['NOBO CALENDAR','NOBO CALENDAR','NOBO CALENDAR'],noDraft:['草案なし','No draft','초안 없음'],revised:['修正済み','Revised','수정 완료'],today:['今日','Today','오늘'],
+  wellDone:['お疲れ様でした。','Thank you for your work.','수고하셨습니다.'],
   scope:['今回の対象は11月1日までです。','The current scope ends on November 1.','현재 작업 범위는 11월 1일까지입니다.'],
   date:['日付','Date','날짜'],settings:['AIの投稿方針','AI writing brief','AI 게시물 작성 지침'],saveBrief:['方針を保存','Save brief','지침 저장'],
   brief:['ブランド・読者・語調・避けたい表現','Brand, audience, voice and constraints','브랜드·독자·말투·피할 표현'],
@@ -19,7 +20,7 @@ const labels = {
   aiOff:['AIは未接続です。Workerの更新とWorkers AIの接続が必要です。','AI is not connected. Update the Worker and connect Workers AI.','AI 미연결: Worker 업데이트와 Workers AI 연결이 필요합니다.'],
   loading:['読み込み中…','Loading…','불러오는 중…'],generating:['草案を自動作成しています…','Preparing drafts automatically…','초안을 자동 생성하고 있습니다…'],
   refresh:['更新','Refresh','새로고침'],retry:['もう一度読み込む','Retry loading','다시 불러오기'],
-  copy:['英語をコピー','Copy English','영어 복사'],copied:['英語をコピーしました','English copied','영어를 복사했습니다'],
+  copy:['コピー','Copy','복사'],copied:['コピーしました','Copied','복사했습니다'],
   image:['画像プロンプトを生成してコピー','Generate & copy image prompt','이미지 프롬프트 생성·복사'],imageCopy:['画像プロンプトをコピー','Copy image prompt','이미지 프롬프트 복사'],imageCopied:['画像プロンプトをコピーしました','Image prompt copied','이미지 프롬프트를 복사했습니다'],
   imageRetry:['生成済みです。もう一度ボタンを押すとコピーできます。','Generated. Press the button again to copy.','생성했습니다. 버튼을 다시 눌러 복사하세요.'],
   deadline:['{date}（投稿日前日・韓国時間）からは、NOBO確認前でもコピーできます。','Copy available from {date} (day before posting, Korea time), even before NOBO checks it.','{date} (게시 전날·한국 시간)부터 NOBO 확인 전에도 복사할 수 있습니다.'],
@@ -131,7 +132,7 @@ export function createEditor(a) {
 
       <div class="re-actions">${p?button('confirmDay',pf+' · '+t(R.fullyReviewed(p)?'unconfirmDay':'confirmDay'),disabled||editing,`aria-pressed="${R.fullyReviewed(p)}"`):''}${button('copyFeeds',t('copyFeeds'),!can||editing||busy,'class="re-primary"')}
       ${button('book',pf+' · '+t(booked?'booked':'book'),disabled||editing||(!can&&!booked),`aria-pressed="${booked}"`)}
-      </div></article>`;
+      </div></article>${d.date===R.EDITOR_END_DATE?`<div class="re-weekend-end">${e(t('wellDone'))}</div>`:''}`;
   }
   function checkOverview(){
     const today=R.today(),start=R.addDays(today,calendarOffset*7),dates=Array.from({length:14},(_,i)=>R.addDays(start,i));

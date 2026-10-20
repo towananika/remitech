@@ -114,3 +114,8 @@
 .re-edit-footer>button{align-self:flex-end}
 
 .re-story-link,.re-story-random{margin-top:10px}
+
+.reel-editor button:is([data-re-action="confirmPart"],[data-re-action="confirmDay"]){background:#2d7b49;border-color:#2d7b49;color:white}
+.reel-editor button:is([data-re-action="confirmPart"],[data-re-action="confirmDay"])[aria-pressed="true"]{background:#205c36;border-color:#205c36;color:white}
+.reel-editor button:is([data-re-action="copy"],[data-re-action="copyPart"],[data-re-action="copyFeeds"],[data-re-action="storyUrl"],[data-re-action="storyRandom"],[data-re-action="storyItem"],[data-re-action="bookmark"]){background:#2e68a7;border-color:#2e68a7;color:white}
+.re-weekend-end{text-align:center;padding:32px 16px;margin:16px 0;border-top:1px solid var(--line);font-size:16px;color:var(--muted)}
