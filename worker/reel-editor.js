@@ -119,24 +119,37 @@ export async function editor(hub, request, origin, respond) {
         p={ja:next.ja.trim(),en:next.en.trim(),secondReview:null};
         if(next.parts)p.parts=next.parts;
         day.posts[b.platform]=p;
-      }else if(b.op==='review2' || b.op==='nobo-edit' || b.op==='nobo-reset'){
+      }else if(b.op==='review2' || b.op==='nobo-edit' || b.op==='nobo-reset' || b.op==='confirm-part'){
         if(!p)return fail('draft');
+        const scoped=b.partIndex!==undefined;
+        const index=b.partIndex;
+        if(scoped && (!Number.isInteger(index)||index<0||index>=(p.parts?.length||1)))return fail('part');
+        if(b.op==='confirm-part'&&!scoped)return fail('part');
+        const reviews=R.partReviews(p),stamp=kind=>({by:actor,at:new Date().toISOString(),kind});
         if(b.op==='nobo-edit'){
           if(await isBooked(tx,b.date,b.platform))return fail('already-booked',409);
           if(typeof b.en!=='string' || !b.en.trim() || b.en.length>(p.parts?.length?6000:b.platform==='X'?240:500))return fail('draft');
           if(p.parts?.length){
             if(!Array.isArray(b.parts) || b.parts.length!==p.parts.length || b.parts.some(s=>typeof s!=='string'||!s.trim()||s.length>(b.platform==='X'?240:500)))return fail('draft');
-            p.noboParts=b.parts.map(s=>s.trim());p.noboEn=p.noboParts.join('\n\n');
+            p.noboParts=p.parts.map((part,i)=>scoped&&i!==index?R.englishPart(p,i):b.parts[i].trim());p.noboEn=p.noboParts.join('\n\n');
             if(p.noboEn.length>6000)return fail('draft');
           }else p.noboEn=b.en.trim();
           delete p.imagePrompt;
-          p.secondReview={by:actor,at:new Date().toISOString(),kind:'corrected'};
+          p.partReviews=reviews.map((r,i)=>!scoped||i===index?stamp('corrected'):r);
         }else if(b.op==='nobo-reset'){
           if(await isBooked(tx,b.date,b.platform))return fail('already-booked',409);
-          delete p.noboEn;delete p.noboParts;delete p.imagePrompt;p.secondReview=null;
+          if(scoped&&p.parts?.length){
+            p.noboParts=p.parts.map((part,i)=>i===index?part.en:R.englishPart(p,i));p.noboEn=p.noboParts.join('\n\n');
+            if(p.noboParts.every((text,i)=>text===p.parts[i].en)){delete p.noboEn;delete p.noboParts;}
+            p.partReviews=reviews.map((r,i)=>i===index?null:r);
+          }else{delete p.noboEn;delete p.noboParts;p.partReviews=reviews.map(()=>null);}
+          delete p.imagePrompt;
+        }else if(b.op==='confirm-part'){
+          p.partReviews=reviews.map((r,i)=>i===index?(r?null:stamp(p.parts?.length&&R.englishPart(p,i)!==p.parts[i].en||!p.parts?.length&&p.noboEn?'corrected':'unchanged')):r);
         }else{
-          p.secondReview=p.secondReview?null:{by:actor,at:new Date().toISOString(),kind:p.noboEn?'corrected':'unchanged'};
+          p.partReviews=reviews.map(()=>p.secondReview?null:stamp(p.noboEn?'corrected':'unchanged'));
         }
+        p.secondReview=p.partReviews.every(Boolean)?stamp(p.partReviews.some(r=>r?.kind==='corrected')?'corrected':'unchanged'):null;
       }else if(b.op==='book'){
         if(!p || typeof b.scheduled!=='boolean')return fail('draft');
         if(b.scheduled && !R.ready({...p,date:day.date}))return fail('not-ready',409);

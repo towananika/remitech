@@ -148,3 +148,21 @@ test('review toggles off without discarding corrections and reset restores all o
   assert.equal((await c.request(action('nobo-reset',r.week))).status,409);
   assert.equal((await c.request(action('nobo-reset',r.week),{id:'guest',member:false})).status,403);
 });
+
+
+test('each feed confirms independently and scoped edits/reset preserve all other feeds',async()=>{
+  let w=week('2026-10-26');const p=w.days[0].posts.X;
+  p.parts=R.partLabels(w.days[0].date,'X').map((label,i)=>({label,ja:'日本語'+i,en:'Original '+i}));
+  const c=context({seed:[w]});
+  for(let i=0;i<4;i++){
+    const r=await c.request(action('confirm-part',w,{partIndex:i}));assert.equal(r.status,200);w=r.week;
+    assert.equal(R.partReviews(w.days[0].posts.X).filter(Boolean).length,i+1);
+    assert.equal(R.fullyReviewed(w.days[0].posts.X),i===3);
+  }
+  let r=await c.request(action('confirm-part',w,{partIndex:1}));w=r.week;assert.equal(R.fullyReviewed(w.days[0].posts.X),false);
+  r=await c.request(action('nobo-edit',w,{partIndex:1,en:'unused aggregate',parts:['Do not overwrite','Revised one','Do not overwrite','Do not overwrite']}));w=r.week;
+  assert.equal(R.englishPart(w.days[0].posts.X,0),'Original 0');assert.equal(R.englishPart(w.days[0].posts.X,1),'Revised one');assert.equal(R.fullyReviewed(w.days[0].posts.X),true);
+  r=await c.request(action('nobo-reset',w,{partIndex:1}));w=r.week;
+  assert.equal(R.englishPart(w.days[0].posts.X,1),'Original 1');assert.equal(R.partReviews(w.days[0].posts.X)[1],null);assert.ok(R.partReviews(w.days[0].posts.X)[0]);
+  assert.equal((await c.request(action('confirm-part',w,{partIndex:4}))).status,400);
+});

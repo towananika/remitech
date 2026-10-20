@@ -18,6 +18,10 @@ export function normalized(s) { return String(s || '').normalize('NFKC').toLower
 export function ready(day) {
   return !!(day && day.en && day.ja);
 }
+export function partReviews(post) {
+  return Array.from({length:post?.parts?.length||1},(_,i)=>Array.isArray(post?.partReviews)?post.partReviews[i]||null:post?.secondReview||null);
+}
+export function fullyReviewed(post) { return !!post && partReviews(post).every(Boolean); }
 export function english(post) { return post?.noboEn || post?.en || ''; }
 export function englishPart(post, i) { return post?.noboParts?.[i] || post?.parts?.[i]?.en || ''; }
 export function partLabels(date, platform='X') {

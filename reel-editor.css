@@ -11,7 +11,8 @@
 .re-top{justify-content:space-between;margin-bottom:20px}
 .re-eyebrow{font-size:11px;letter-spacing:.18em;color:var(--accent);font-weight:600}
 .re-status{font-size:12px;border:1px solid var(--line);border-radius:20px;padding:3px 10px;display:inline-block}
-.re-status[data-ready="true"]{color:var(--neon-ink);background:var(--neon);border-color:var(--neon)}
+.re-status[data-ready="true"]{color:#215c99;background:#dcecff;border-color:#86aad3}
+.re-status[data-ready="false"]{color:#845409;background:#fff1cb;border-color:#d8b658}
 .re-plan{padding:20px;background:var(--surface);border:1px solid var(--line);border-radius:14px;margin:16px 0}
 .re-plan summary{cursor:pointer;font-weight:500}
 .re-plan label,.re-field{display:block;font-size:12px;color:var(--muted);margin-top:12px}
@@ -76,7 +77,7 @@
 .re-check-grid .re-check-circle{width:32px;height:32px;min-height:0;padding:0;border-radius:50%;font-size:17px;line-height:1;display:flex;align-items:center;justify-content:center;border:1px solid transparent}
 .re-check-circle[data-status="empty"],.re-check-legend i[data-status="empty"]{background:#edf0f2;color:#59616a;border-color:#c9cfd5}
 .re-check-circle[data-status="pending"],.re-check-legend i[data-status="pending"]{background:#fff1cb;color:#845409;border-color:#d8b658}
-.re-check-circle[data-status="checked"],.re-check-legend i[data-status="checked"]{background:#daf1df;color:#216739;border-color:#7bb68b}
+.re-check-circle[data-status="checked"],.re-check-legend i[data-status="checked"]{background:#dcecff;color:#215c99;border-color:#86aad3}
 .re-check-circle[data-status="corrected"],.re-check-legend i[data-status="corrected"]{background:#dcecff;color:#215c99;border-color:#86aad3}
 .re-check-grid .re-check-circle[aria-pressed="true"]{outline:2px solid var(--ink);outline-offset:2px}
 .re-check-grid .re-check-circle:disabled{opacity:.45;cursor:default}
@@ -84,3 +85,5 @@
 .re-check-legend span{display:flex;align-items:center;gap:5px}
 .re-check-legend i{display:inline-flex;width:18px;height:18px;border:1px solid;border-radius:50%;align-items:center;justify-content:center;font-style:normal;font-size:12px}
 @media(max-width:650px){.re-check-overview{padding:12px}.re-check-scroll{scrollbar-width:thin}}
+
+.re-nobo-field button[data-re-action="confirmPart"][aria-pressed="true"]{background:#215c99;color:white;border-color:#215c99}
