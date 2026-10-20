@@ -1,7 +1,7 @@
 import * as R from './reel-workflow.mjs';
 
 const labels = {
-  title:['REEL','REEL','REEL'],subtitle:['準備 / REEL · 日付を開くと草案を表示','Prep / REEL · Open a date to see its drafts','준비 / REEL · 날짜를 열면 초안 표시'],
+  title:['REEL','REEL','REEL'],
   bookmark:['ページURLをコピー','Copy page link','페이지 주소 복사'],bookmarkCopied:['このURLをブックマークすると、同じ日付・SNSを直接開けます。','Bookmark this URL to open this date and channel directly.','이 주소를 북마크하면 같은 날짜·SNS를 바로 열 수 있습니다.'],
   tapCopy:['タップで英文をコピー','Tap to copy English','탭하여 영어 복사'],
   storyRandom:['ランダムにコピー','Copy a random phrase','랜덤 복사'],storyChoices:['候補を見る','Show phrases','문구 보기'],storyUrl:['リンク先URLをコピー','Copy destination URL','링크 주소 복사'],storyEmpty:['ストーリー用の定型文がありません。','No story phrases available.','스토리 문구가 없습니다.'],storyError:['定型文を読み込めませんでした。更新して再試行してください。','Could not load phrases. Refresh to retry.','문구를 불러오지 못했습니다. 새로고침해 다시 시도하세요.'],
@@ -10,7 +10,6 @@ const labels = {
   scope:['今回の対象は11月1日までです。','The current scope ends on November 1.','현재 작업 범위는 11월 1일까지입니다.'],
   date:['日付','Date','날짜'],settings:['AIの投稿方針','AI writing brief','AI 게시물 작성 지침'],saveBrief:['方針を保存','Save brief','지침 저장'],
   brief:['ブランド・読者・語調・避けたい表現','Brand, audience, voice and constraints','브랜드·독자·말투·피할 표현'],
-  rule:['毎週一つの流れ。連続4週間は別テーマ。再利用時も切り口と本文を変えます。','One story per week. Distinct themes for four consecutive weeks. Fresh angles and text when reused.','매주 하나의 흐름. 연속 4주는 다른 주제. 재사용 시 관점과 본문을 바꿉니다.'],
   login:['作成・編集・予約には社内アカウントでログインしてください。','Sign in with a team account to write, edit or book.','생성·편집·예약은 사내 계정으로 로그인하세요.'],loginBtn:['ログイン','Log in','로그인'],
   aiOff:['AIは未接続です。Workerの更新とWorkers AIの接続が必要です。','AI is not connected. Update the Worker and connect Workers AI.','AI 미연결: Worker 업데이트와 Workers AI 연결이 필요합니다.'],
   loading:['読み込み中…','Loading…','불러오는 중…'],generating:['草案を自動作成しています…','Preparing drafts automatically…','초안을 자동 생성하고 있습니다…'],
@@ -126,7 +125,7 @@ export function createEditor(a) {
     if(!a.active())return;observer?.disconnect();
     const days=[];for(let day=first;day<=last;day=R.addDays(day,1))days.push(day);
     const current=find(date).w;
-    a.view.innerHTML=`<section class="reel-editor"><header class="re-top"><div><span class="re-eyebrow">${e(t('subtitle'))}</span><h2>${e(t('title'))}</h2></div><div class="re-toolbar"><button data-re-action="bookmark">${e(t('bookmark'))}</button><button data-re-action="refresh" ${busy?'disabled':''}>${e(t('refresh'))}</button></div></header><p>${e(t('rule'))}</p>
+    a.view.innerHTML=`<section class="reel-editor"><header class="re-top"><div><h2>${e(t('title'))}</h2></div><div class="re-toolbar"><button data-re-action="bookmark">${e(t('bookmark'))}</button><button data-re-action="refresh" ${busy?'disabled':''}>${e(t('refresh'))}</button></div></header>
       <div class="re-toolbar re-datebar"><label for="re-date">${e(t('date'))}</label><input type="date" id="re-date" value="${date}" max="${R.EDITOR_END_DATE}" ${busy?'disabled':''}><div class="re-toolbar" role="group" aria-label="SNS">${['X','IG','IGS'].map(p=>`<button data-re-platform="${p}" aria-pressed="${pf===p}" ${busy?'disabled':''}>${p==='IGS'?'IG Story':p}</button>`).join('')}</div><button data-re-action="previous" ${busy?'disabled':''}>← ${e(t('previous'))}</button></div>
       <div data-re-notice class="re-notice" aria-live="polite" role="status" ${noticeText?'':'hidden'}>${e(noticeText)}</div>
       ${a.preview?'<div class="re-notice">デザイン確認用のサンプルです。日付・X／IG／IG Storyの切り替えを試せます。実際の投稿や会員情報は含まず、編集・保存はできません。</div>':!member()?`<div class="re-notice">${e(t('login'))} <button data-re-action="login">${e(t('loginBtn'))}</button></div>`:!online&&attempted?'<p><a href="./posts-compare.html">デザイン比較を見る ↗</a></p>':''}

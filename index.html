@@ -6515,7 +6515,7 @@
       '<button data-tab="import" aria-pressed="' + (tab === "import") + '">' + esc(t("navImport")) + '</button>' +
       '<button data-tab="guide" aria-pressed="' + (tab === "guide") + '">' + esc(t("navGuide")) + '</button>';
     var tip = document.getElementById("navtip");
-    if (tip) tip.textContent = isReelPage() ? ({ja:"準備 / REEL · 草案・監修・予約",en:"Prep / REEL · Drafts, reviews and booking",ko:"준비 / REEL · 초안·검수·예약"})[lang] : t(TIPS[tab] || "tipDash");
+    if (tip) { tip.hidden = isReelPage(); tip.textContent = isReelPage() ? "" : t(TIPS[tab] || "tipDash"); }
   }
 
   navEl.addEventListener("click", function (e) {
