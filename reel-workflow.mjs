@@ -15,8 +15,8 @@ export function today(now = new Date()) {
   const v = Object.fromEntries(parts.map(p => [p.type, p.value])); return `${v.year}-${v.month}-${v.day}`;
 }
 export function normalized(s) { return String(s || '').normalize('NFKC').toLowerCase().replace(/[\s\p{P}]+/gu, ''); }
-export function ready(day, now = new Date()) {
-  return !!(day && day.en && day.ja && (day.secondReview || today(now) >= addDays(day.date, -1)));
+export function ready(day) {
+  return !!(day && day.en && day.ja);
 }
 export function english(post) { return post?.noboEn || post?.en || ''; }
 export function englishPart(post, i) { return post?.noboParts?.[i] || post?.parts?.[i]?.en || ''; }

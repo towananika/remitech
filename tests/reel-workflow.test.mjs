@@ -28,9 +28,9 @@ function context({user={id:'hibiki',member:true},seed=[],ai}={}){
 }
 const action=(op,w,extra={})=>({op,start:w.start,date:w.days[0].date,platform:'X',revision:w.revision,...extra});
 
-test('Seoul deadline crosses at midnight and NOBO completion releases early',()=>{
+test('drafts can be copied before NOBO review regardless of posting date',()=>{
   const p={date:'2026-11-03',ja:'草案',en:'Draft'};
-  assert.equal(R.ready(p,new Date('2026-11-01T14:59:59Z')),false);
+  assert.equal(R.ready(p,new Date('2026-11-01T14:59:59Z')),true);
   assert.equal(R.ready(p,new Date('2026-11-01T15:00:00Z')),true);
   assert.equal(R.ready({...p,secondReview:{kind:'unchanged'}},new Date('2026-10-20T00:00:00Z')),true);
   assert.equal(R.monday('2026-11-01'),'2026-10-26');
@@ -128,4 +128,23 @@ test('malformed prepared manuscripts never partially import',async()=>{
   const c=context();c.hub.env.CHORES.get=async()=>({version:1,weeks:[{start:'2026-10-26',theme:'Theme',arc:'Arc',days:[{date:'2026-11-02',posts:{}}]}]});
   await assert.rejects(c.request(),/prepared-date/);
   assert.equal((await c.storage.list({prefix:'reel:week:'})).size,0);
+});
+
+
+test('review toggles off without discarding corrections and reset restores all original parts',async()=>{
+  let w=week('2026-10-26');const d=w.days[0],p=d.posts.X;
+  p.parts=[{label:'Feed 1',ja:'一',en:'Original one'},{label:'Feed 2',ja:'二',en:'Original two'}];
+  const c=context({seed:[w]});
+  let r=await c.request(action('nobo-edit',w,{en:'Fixed one\n\nFixed two',parts:['Fixed one','Fixed two']}));w=r.week;
+  r=await c.request(action('review2',w));w=r.week;
+  assert.equal(w.days[0].posts.X.secondReview,null);assert.equal(R.englishPart(w.days[0].posts.X,0),'Fixed one');
+  r=await c.request(action('review2',w));w=r.week;assert.equal(w.days[0].posts.X.secondReview.kind,'corrected');
+  const stale=w.revision;
+  r=await c.request(action('nobo-reset',w));w=r.week;assert.equal(r.status,200);
+  assert.equal(w.days[0].posts.X.secondReview,null);assert.equal(w.days[0].posts.X.noboEn,undefined);
+  assert.equal(w.days[0].posts.X.noboParts,undefined);assert.equal(R.englishPart(w.days[0].posts.X,0),'Original one');
+  assert.equal((await c.request(action('nobo-reset',w,{revision:stale}))).status,409);
+  r=await c.request(action('book',w,{scheduled:true}));assert.equal(r.status,200);
+  assert.equal((await c.request(action('nobo-reset',r.week))).status,409);
+  assert.equal((await c.request(action('nobo-reset',r.week),{id:'guest',member:false})).status,403);
 });

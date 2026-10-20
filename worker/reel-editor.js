@@ -119,7 +119,7 @@ export async function editor(hub, request, origin, respond) {
         p={ja:next.ja.trim(),en:next.en.trim(),secondReview:null};
         if(next.parts)p.parts=next.parts;
         day.posts[b.platform]=p;
-      }else if(b.op==='review2' || b.op==='nobo-edit'){
+      }else if(b.op==='review2' || b.op==='nobo-edit' || b.op==='nobo-reset'){
         if(!p)return fail('draft');
         if(b.op==='nobo-edit'){
           if(await isBooked(tx,b.date,b.platform))return fail('already-booked',409);
@@ -130,8 +130,13 @@ export async function editor(hub, request, origin, respond) {
             if(p.noboEn.length>6000)return fail('draft');
           }else p.noboEn=b.en.trim();
           delete p.imagePrompt;
-        }else{if(p.noboEn && await isBooked(tx,b.date,b.platform))return fail('already-booked',409);delete p.noboEn;delete p.noboParts;delete p.imagePrompt;}
-        p.secondReview={by:actor,at:new Date().toISOString(),kind:b.op==='nobo-edit'?'corrected':'unchanged'};
+          p.secondReview={by:actor,at:new Date().toISOString(),kind:'corrected'};
+        }else if(b.op==='nobo-reset'){
+          if(await isBooked(tx,b.date,b.platform))return fail('already-booked',409);
+          delete p.noboEn;delete p.noboParts;delete p.imagePrompt;p.secondReview=null;
+        }else{
+          p.secondReview=p.secondReview?null:{by:actor,at:new Date().toISOString(),kind:p.noboEn?'corrected':'unchanged'};
+        }
       }else if(b.op==='book'){
         if(!p || typeof b.scheduled!=='boolean')return fail('draft');
         if(b.scheduled && !R.ready({...p,date:day.date}))return fail('not-ready',409);

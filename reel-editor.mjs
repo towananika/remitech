@@ -3,6 +3,7 @@ import * as R from './reel-workflow.mjs';
 const labels = {
   title:['REEL','REEL','REEL'],
   bookmark:['ページURLをコピー','Copy page link','페이지 주소 복사'],bookmarkCopied:['このURLをブックマークすると、同じ日付・SNSを直接開けます。','Bookmark this URL to open this date and channel directly.','이 주소를 북마크하면 같은 날짜·SNS를 바로 열 수 있습니다.'],
+  noboReset:['元の英文にリセット','Reset to original English','원래 영어로 초기화'],resetConfirm:['もう一度押すとリセット','Press again to reset','한 번 더 누르면 초기화'],resetHelp:['修正分を取り消し、元の英文に戻します。2回押すと共有保存にも反映します。','Undo revisions and restore the original. Press twice to reset shared text.','수정 내용을 취소하고 원래 영어로 되돌립니다. 두 번 누르면 공유 내용에도 반영됩니다.'],
   tapCopy:['タップで英文をコピー','Tap to copy English','탭하여 영어 복사'],
   storyRandom:['ランダムにコピー','Copy a random phrase','랜덤 복사'],storyChoices:['候補を見る','Show phrases','문구 보기'],storyUrl:['リンク先URLをコピー','Copy destination URL','링크 주소 복사'],storyEmpty:['ストーリー用の定型文がありません。','No story phrases available.','스토리 문구가 없습니다.'],storyError:['定型文を読み込めませんでした。更新して再試行してください。','Could not load phrases. Refresh to retry.','문구를 불러오지 못했습니다. 새로고침해 다시 시도하세요.'],
   serverPending:['共有保存機能は本番にまだ反映されていません。作成・共有保存は現在利用できません。デザインは比較ページで確認できます。','Shared saving has not been deployed yet. Creation and shared saving are currently unavailable. Use the comparison page to review the design.','공유 저장 기능이 아직 배포되지 않았습니다. 생성·공유 저장은 현재 사용할 수 없습니다. 비교 페이지에서 디자인을 확인할 수 있습니다.'],
@@ -44,7 +45,7 @@ export function createEditor(a) {
   let date=R.today()<'2026-10-27'?'2026-10-27':R.today(),first=date,last=R.addDays(R.monday(date),6),pf='X',brief='',observer=null,failedKey='',pendingRemote=false,instructions={};
   const initial=a.selection?.();if(initial){if(R.dateOK(initial.date))date=initial.date;if(['X','IG','IGS'].includes(initial.platform))pf=initial.platform;first=date;last=R.addDays(R.monday(date),6);}
   if(date>R.EDITOR_END_DATE){date=R.EDITOR_END_DATE;first=date;last=date;}
-  let stories=null,storyLoading=false,storyError=false,lastStory={};
+  let stories=null,storyLoading=false,storyError=false,lastStory={},resetArmed='';
   async function loadStories(){
     if(storyLoading)return;storyLoading=true;
     try{let list=a.stories?.();if(!Array.isArray(list)){const r=await fetch('./posts.json');if(!r.ok)throw Error();const j=await r.json();list=(j.channels.find(c=>c.id==='reel')||{}).snippets||[];}
@@ -105,7 +106,7 @@ export function createEditor(a) {
     let content='';
     if(editing && editMode==='nobo'){
       const fields=p.parts?.length?p.parts.map((part,i)=>`<label for="re-nobo-${i}">${e(part.label)}</label><textarea id="re-nobo-${i}" data-re-nobo="${i}" maxlength="6000">${e(buffer.parts[i])}</textarea>`).join(''):`<label for="re-nobo-en">ENGLISH · NOBO</label><textarea id="re-nobo-en" data-re-nobo-en maxlength="6000">${e(buffer.en)}</textarea>`;
-      content=`<dialog class="re-nobo-dialog"><h3>${e(t('noboEdit'))} · ${d.date} · ${pf}</h3><p class="re-text">${e(p.ja)}</p><details><summary>${e(t('original'))}</summary><div class="re-text">${e(p.en)}</div></details><div class="re-nobo">${fields}</div><p data-re-draft-status role="status" aria-live="polite">${e(buffer.revision!==w.revision?t('conflict'):t('localDraft'))}</p><div class="re-toolbar">${buffer.revision!==w.revision?button('latest',t('useLatest'),busy):''}${button('save',t('shareSave'),busy,'class="re-primary"')}${button('localClose',t('localClose'),busy)}${button('cancel',t('cancel'),busy)}</div></dialog>`;
+      content=`<dialog class="re-nobo-dialog"><h3>${e(t('noboEdit'))} · ${d.date} · ${pf}</h3><p class="re-text">${e(p.ja)}</p><details><summary>${e(t('original'))}</summary><div class="re-text">${e(p.en)}</div></details><div class="re-nobo">${fields}</div><p data-re-draft-status role="status" aria-live="polite">${e(buffer.revision!==w.revision?t('conflict'):t('localDraft'))}</p><div class="re-toolbar">${buffer.revision!==w.revision?button('latest',t('useLatest'),busy):''}${button('save',t('shareSave'),busy,'class="re-primary"')}${button('localClose',t('localClose'),busy)}${button('cancel',t('cancel'),busy)}${button('noboReset',t('noboReset'),busy)}</div><small>${e(t('resetHelp'))}</small></dialog>`;
     }else if(editing){
       const fields=buffer.authorParts.map((part,i)=>`<section class="re-part"><strong>${e(part.label)}</strong><div class="re-drafts"><div><label for="re-author-ja-${i}">日本語 · JA</label><textarea id="re-author-ja-${i}" data-author-ja="${i}" maxlength="6000">${e(part.ja)}</textarea></div><div><label for="re-author-en-${i}">ENGLISH · EN</label><textarea id="re-author-en-${i}" data-author-en="${i}" maxlength="${pf==='X'?240:500}">${e(part.en)}</textarea></div></div></section>`).join('');
       content=`${!w?`<label>${e(t('theme'))}<input data-re-theme value="${e(buffer.theme||'')}" maxlength="120"></label><label>${e(t('arc'))}<input data-re-arc value="${e(buffer.arc||'')}" maxlength="600"></label>`:''}${fields}<p>${e(t('editWarning'))}</p><div class="re-toolbar">${button('save',t('save'),busy,'class="re-primary"')}${button('cancel',t('cancel'),busy)}</div>`;
@@ -115,8 +116,8 @@ export function createEditor(a) {
       content=p.parts?.length?p.parts.map((part,i)=>`<section class="re-part"><div class="re-toolbar"><strong>${e(part.label)}</strong>${part.nobo?`<small>${e(t('noboApplied'))}</small>`:''}</div>${pair(part.ja,part.en,'-'+i,i)}</section>`).join(''):pair(p.ja,p.en);
       content+=`<div class="re-toolbar">${button('edit',t('edit'),disabled||booked)}</div>`;
     }
-    return `<article class="re-day" data-re-day="${d.date}"><header class="re-dayhead"><div><span class="re-eyebrow">${d.date} · ${pf}</span><h3>${e(d.focus)}</h3>${p?.source?`<small>${e(t('supplied'))}</small>`:''}</div><span class="re-status" data-ready="${can}">${e(p?.secondReview?t('checked'):can?t('due'):t('pending'))}</span></header>${content}
-      ${p?`<div class="re-review">${button('review2',t('check'),disabled||editing||!!p.secondReview)}<span>${p.secondReview?e((p.secondReview.kind==='corrected'?t('correction'):t('checked'))+' · '+p.secondReview.by):e(t('pending'))}</span></div>${!p.secondReview?`<p>${e(t('deadline').replace('{date}',R.addDays(d.date,-1)))}</p>`:''}`:''}
+    return `<article class="re-day" data-re-day="${d.date}"><header class="re-dayhead"><div><span class="re-eyebrow">${d.date} · ${pf}</span><h3>${e(d.focus)}</h3>${p?.source?`<small>${e(t('supplied'))}</small>`:''}</div><span class="re-status" data-ready="${can}">${e(p?.secondReview?t('checked'):t('pending'))}</span></header>${content}
+      ${p?`<div class="re-review">${button('review2',t('check'),disabled||editing,`aria-pressed="${!!p.secondReview}"`)}<span>${p.secondReview?e((p.secondReview.kind==='corrected'?t('correction'):t('checked'))+' · '+p.secondReview.by):e(t('pending'))}</span></div>`:''}
       <div class="re-actions">${button('copy',t('copy'),!can||editing||busy,'class="re-primary"')}
       ${button('book',pf+' · '+t(booked?'booked':'book'),disabled||editing||(!can&&!booked),`aria-pressed="${booked}"`)}<p>${e(t('bookHelp'))}</p>
       </div></article>`;
@@ -155,7 +156,7 @@ export function createEditor(a) {
     a.view.querySelectorAll('[data-re-day],.re-more').forEach(el=>observer.observe(el));
   }
   async function mutate(body,success='saved',automatic=false){
-    if(edit && !['draft','edit','nobo-edit'].includes(body.op)){notice(t('unsaved'));return null;}
+    if(edit && !['draft','edit','nobo-edit','nobo-reset'].includes(body.op)){notice(t('unsaved'));return null;}
     busy=true;const y=window.scrollY;
     a.view.querySelectorAll('[data-re-action],[data-re-platform],#re-date').forEach(el=>el.disabled=true);
     try{
@@ -163,17 +164,18 @@ export function createEditor(a) {
       if(j.weeks)weeks=j.weeks;
       if(j.week){if(weeks.some(w=>w.start===j.week.start))weeks=weeks.map(w=>w.start===j.week.start?j.week:w);else{weeks.push(j.week);weeks.sort((a,b)=>a.start.localeCompare(b.start));}}
       if(j.settings){brief=j.settings.brief;settingsDirty=false;}
-      if(edit && ['draft','edit','nobo-edit'].includes(body.op)){try{localStorage.removeItem(draftKey(edit,editMode));}catch{}}
+      if(edit && ['draft','edit','nobo-edit','nobo-reset'].includes(body.op)){try{localStorage.removeItem(draftKey(edit,editMode));}catch{}}
       edit='';buffer={};noticeText=automatic?'':t(success);pendingRemote=false;
       if(body.op==='book')await a.pullBookings();
       busy=false;render();window.scrollTo(0,y);return j;
     }catch(error){
       busy=false;
-      if(!edit)render();else a.view.querySelectorAll('[data-re-action="save"],[data-re-action="cancel"],[data-re-action="localClose"],[data-re-action="refresh"]').forEach(el=>el.disabled=false);
+      if(!edit)render();else a.view.querySelectorAll('[data-re-action="save"],[data-re-action="cancel"],[data-re-action="localClose"],[data-re-action="refresh"],[data-re-action="noboReset"]').forEach(el=>el.disabled=false);
       notice(errorText(error.message),true);const status=a.view.querySelector('[data-re-draft-status]');if(status)status.textContent=errorText(error.message)+' '+t('localDraft');return null;
     }
   }
   a.view.addEventListener('input',ev=>{
+    resetArmed='';const reset=a.view.querySelector('[data-re-action="noboReset"]');if(reset)reset.textContent=t('noboReset');
     if(ev.target.id==='re-brief'){brief=ev.target.value;settingsDirty=true;}
     if(ev.target.matches('[data-re-ja]'))buffer.ja=ev.target.value;
     if(ev.target.matches('[data-re-en]'))buffer.en=ev.target.value;
@@ -193,6 +195,7 @@ export function createEditor(a) {
     if(btn.dataset.reOpen){await open(btn.dataset.reOpen);return;}
     if(btn.dataset.rePlatform){if(!canLeave())return;pf=btn.dataset.rePlatform;if(pf==='IGS')noticeText='';failedKey='';a.navigate?.(date,pf);render();await ensure(date);return;}
     const op=btn.dataset.reAction;if(!op)return;
+    if(op!=='noboReset'){resetArmed='';const reset=a.view.querySelector('[data-re-action="noboReset"]');if(reset)reset.textContent=t('noboReset');}
     if(['storyRandom','storyItem','storyUrl'].includes(op)){
       const i=Number(btn.dataset.story),sn=stories?.[i];if(!sn)return;
       const choices=sn.items.filter(s=>s!==lastStory[i]);
@@ -223,9 +226,14 @@ export function createEditor(a) {
       try{await navigator.clipboard.writeText(prompt);notice(t('imageCopied'));}catch{notice(t('copyError'),true);}return;
     }
     if(op==='save'){stash();body.op=editMode==='nobo'?'nobo-edit':p?'edit':'draft';body.theme=buffer.theme;body.arc=buffer.arc;body.revision=buffer.revision??w?.revision??0;body.ja=buffer.ja;body.en=buffer.parts&&editMode==='nobo'?buffer.parts.join('\n\n'):buffer.en;if(editMode==='nobo'&&buffer.parts)body.parts=buffer.parts;if(editMode==='author'){body.parts=buffer.authorParts;body.ja=body.parts.map(p=>p.ja).join('\n\n');body.en=body.parts.map(p=>p.en).join('\n\n');}}
+    if(op==='noboReset'){
+      if(editMode!=='nobo'||edit!==day)return;
+      if(resetArmed!==day){resetArmed=day;btn.textContent=t('resetConfirm');return;}
+      resetArmed='';body.op='nobo-reset';body.revision=buffer.revision??w.revision;
+    }
     if(op==='book')body.scheduled=!a.booked(day,pf);
     if(op==='regenerate')body.instructions=card.querySelector('[data-re-instructions]').value;
-    if(['save','review2','book','regenerate'].includes(op))await mutate(body);
+    if(['save','review2','book','regenerate','noboReset'].includes(op))await mutate(body);
   });
   window.addEventListener('beforeunload',ev=>{if(edit||busy||settingsDirty){ev.preventDefault();ev.returnValue='';}});
   // Refresh availability at the Seoul date boundary without losing edits.

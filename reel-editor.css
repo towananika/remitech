@@ -63,3 +63,5 @@
 .re-more{text-align:center;padding:24px}
 .re-empty{text-align:center;padding:45px 15px;border:1px dashed var(--line);border-radius:14px}
 @media(max-width:650px){.re-weeks{display:flex;overflow-x:auto;scroll-snap-type:x proximity;padding-bottom:6px}.re-weeks button{flex:0 0 75%;scroll-snap-align:start}.re-weeks button small:last-child{display:none}.re-drafts{grid-template-columns:1fr}.re-day{padding:16px}.re-top h2{font-size:21px}.re-book{align-items:stretch}.re-book button{flex:1}.re-plan{padding:16px}.re-week{margin:16px 0}.re-week h3{font-size:17px}}
+
+.re-review button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:white}
