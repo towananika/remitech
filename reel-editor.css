@@ -38,7 +38,6 @@
 .reel-editor .re-nobo-copy{display:block;width:100%;text-align:left;border:0;background:transparent;padding:10px 0;white-space:normal}
 .reel-editor .re-nobo-copy:disabled{opacity:1;cursor:default}
 .re-nobo-copy .re-text{display:block;margin-bottom:0}
-.re-copy-hint{display:block;font-size:11px;color:var(--muted)}
 .re-story .re-toolbar{margin:18px 0}.re-story-choices{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.re-story [data-story-result]{white-space:pre-wrap;color:var(--ink)}
 .re-drafts label{font-size:11px;letter-spacing:.1em;color:var(--muted)}
 .re-text{white-space:pre-wrap;line-height:1.8;font-size:14px;margin:8px 0 16px}
@@ -109,3 +108,7 @@
 .re-check-range{display:block;font-size:11px;color:var(--muted)}
 .re-check-header .re-toolbar{flex-wrap:nowrap;gap:6px}
 .re-check-header button{min-width:36px;padding:6px 10px}
+
+.re-edit-footer{display:flex;justify-content:space-between;align-items:flex-end;gap:10px;margin-top:10px}
+.re-edit-footer>.re-toolbar{justify-content:flex-end;flex:1}
+.re-edit-footer>button{align-self:flex-end}

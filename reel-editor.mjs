@@ -4,10 +4,10 @@ const labels = {
   title:['REEL','REEL','REEL'],
   bookmark:['ページURLをコピー','Copy page link','페이지 주소 복사'],bookmarkCopied:['このURLをブックマークすると、同じ日付・SNSを直接開けます。','Bookmark this URL to open this date and channel directly.','이 주소를 북마크하면 같은 날짜·SNS를 바로 열 수 있습니다.'],
   noboReset:['元の英文にリセット','Reset to original English','원래 영어로 초기화'],resetConfirm:['もう一度押すとリセット','Press again to reset','한 번 더 누르면 초기화'],resetHelp:['修正分を取り消し、元の英文に戻します。2回押すと共有保存にも反映します。','Undo revisions and restore the original. Press twice to reset shared text.','수정 내용을 취소하고 원래 영어로 되돌립니다. 두 번 누르면 공유 내용에도 반영됩니다.'],
-  tapCopy:['タップで英文をコピー','Tap to copy English','탭하여 영어 복사'],
   storyRandom:['ランダムにコピー','Copy a random phrase','랜덤 복사'],storyChoices:['候補を見る','Show phrases','문구 보기'],storyUrl:['リンク先URLをコピー','Copy destination URL','링크 주소 복사'],storyEmpty:['ストーリー用の定型文がありません。','No story phrases available.','스토리 문구가 없습니다.'],storyError:['定型文を読み込めませんでした。更新して再試行してください。','Could not load phrases. Refresh to retry.','문구를 불러오지 못했습니다. 새로고침해 다시 시도하세요.'],
   serverPending:['共有保存機能は本番にまだ反映されていません。作成・共有保存は現在利用できません。デザインは比較ページで確認できます。','Shared saving has not been deployed yet. Creation and shared saving are currently unavailable. Use the comparison page to review the design.','공유 저장 기능이 아직 배포되지 않았습니다. 생성·공유 저장은 현재 사용할 수 없습니다. 비교 페이지에서 디자인을 확인할 수 있습니다.'],
   addDraft:['用意した日英原稿を登録','Add prepared JA / EN text','준비한 일·영 원고 등록'],manualMissing:['用意した日英原稿を登録してください。','Add your prepared Japanese and English text.','준비한 일본어·영어 원고를 등록하세요.'],theme:['週のテーマ','Weekly theme','주간 주제'],arc:['一週間の流れ','Weekly story','한 주의 흐름'],
+  resetShort:['リセット','Reset','초기화'],cancelConfirm:['もう一度押すとキャンセル','Press again to cancel','한 번 더 누르면 취소'],
   clickEdit:['クリックして編集','Click to edit','클릭하여 수정'],
   confirm:['確定','Confirm','확정'],revise:['修正','Edit','수정'],draftEnglish:['英文 · 草案','English · Draft','영어 · 초안'],revisedEnglish:['英文 · NOBO修正','English · Revised','영어 · 수정본'],
   calendarPrev:['1週間前へ','Previous week','1주 전'],calendarNext:['1週間後へ','Next week','1주 후'],checkOverview:['NOBO CALENDAR','NOBO CALENDAR','NOBO CALENDAR'],noDraft:['草案なし','No draft','초안 없음'],revised:['修正済み','Revised','수정 완료'],today:['今日','Today','오늘'],
@@ -48,7 +48,7 @@ export function createEditor(a) {
   let date=R.today()<'2026-10-27'?'2026-10-27':R.today(),first=date,last=R.addDays(R.monday(date),6),pf='X',brief='',observer=null,failedKey='',pendingRemote=false,instructions={};
   const initial=a.selection?.();if(initial){if(R.dateOK(initial.date))date=initial.date;if(['X','IG','IGS'].includes(initial.platform))pf=initial.platform;first=date;last=R.addDays(R.monday(date),6);}
   if(date>R.EDITOR_END_DATE){date=R.EDITOR_END_DATE;first=date;last=date;}
-  let stories=null,storyLoading=false,storyError=false,lastStory={},resetArmed='',calendarOffset=0;
+  let stories=null,storyLoading=false,storyError=false,lastStory={},resetArmed='',cancelArmed='',calendarOffset=0;
   async function loadStories(){
     if(storyLoading)return;storyLoading=true;
     try{let list=a.stories?.();if(!Array.isArray(list)){const r=await fetch('./posts.json');if(!r.ok)throw Error();const j=await r.json();list=(j.channels.find(c=>c.id==='reel')||{}).snippets||[];}
@@ -108,10 +108,10 @@ export function createEditor(a) {
       const extra=`data-part="${index}"`;
       const activeInline=editing&&buffer.partIndex===index;
       const editorField=(language,value)=>{
-        if(activeInline&&editMode==='inline-'+language)return `<textarea data-re-inline maxlength="${language==='ja'?6000:pf==='X'?240:500}" aria-label="${language==='ja'?'日本語':'English'}">${e(buffer.text)}</textarea><p data-re-draft-status role="status">${e(t('localDraft'))}</p><div class="re-toolbar">${button('save',t('shareSave'),busy,'class="re-primary"')}${button('cancel',t('cancel'),busy)}</div>`;
+        if(activeInline&&editMode==='inline-'+language)return `<textarea data-re-inline maxlength="${language==='ja'?6000:pf==='X'?240:500}" aria-label="${language==='ja'?'日本語':'English'}">${e(buffer.text)}</textarea><p data-re-draft-status role="status">${e(t('localDraft'))}</p><div class="re-edit-footer">${button('noboReset',t('resetShort'),busy)}<div class="re-toolbar">${button('save',t('save'),busy,'class="re-primary"')}${button('cancel',t('cancel'),busy)}</div></div>`;
         return `<button class="re-inline-text re-text" data-re-action="inline${language==='ja'?'Ja':'En'}" ${extra} ${disabled||editing||booked?'disabled':''} aria-label="${language==='ja'?'日本語':'English'} · ${e(t('clickEdit'))}">${e(value)}</button>`;
       };
-      return `<div class="re-drafts"><div><label for="re-ja-${d.date}${suffix}">日本語 · JA</label>${editorField('ja',ja)}</div><section class="re-nobo-field"><div class="re-toolbar"><span class="re-field-label">${e(t(revised?'revisedEnglish':'draftEnglish'))}</span>${button('confirmPart',t('confirm'),disabled||editing,`${extra} aria-pressed="${!!review}"`)}${button('nobo',t('revise'),disabled||editing||booked,extra)}</div>${editorField('en',copy)}<button class="re-part-copy" data-re-action="${partIndex===null?'copy':'copyPart'}" ${extra} ${!can||editing||busy?'disabled':''}>${e(t('copy'))}</button></section></div>`;
+      return `<div class="re-drafts"><div><label for="re-ja-${d.date}${suffix}">日本語 · JA</label>${editorField('ja',ja)}</div><section class="re-nobo-field"><div class="re-toolbar"><span class="re-field-label">${e(t(revised?'revisedEnglish':'draftEnglish'))}</span>${button(partIndex===null?'copy':'copyPart',t('copy'),!can||editing||busy,extra)}${button('confirmPart',t('confirm'),disabled||editing,`${extra} aria-pressed="${!!review}"`)}</div>${editorField('en',copy)}</section></div>`;
     };
     let content='';
     if(editing && editMode==='nobo'){
@@ -124,7 +124,7 @@ export function createEditor(a) {
       content=`<p>${e(t('manualMissing'))}</p>${button('newDraft',t('addDraft'),disabled)}`;
     }else{
       content=p.parts?.length?p.parts.map((part,i)=>`<section class="re-part"><div class="re-toolbar"><strong>${e(part.label)}</strong>${part.nobo?`<small>${e(t('noboApplied'))}</small>`:''}</div>${pair(part.ja,part.en,'-'+i,i)}</section>`).join(''):pair(p.ja,p.en);
-      content+=`<div class="re-toolbar">${button('edit',t('edit'),disabled||booked)}</div>`;
+
     }
     return `<article class="re-day" data-re-day="${d.date}"><header class="re-dayhead"><div><span class="re-eyebrow">${d.date} · ${pf}</span><h3>${e(d.focus)}</h3>${p?.source?`<small>${e(t('supplied'))}</small>`:''}</div><span class="re-status" data-ready="${R.fullyReviewed(p)}">${e(R.fullyReviewed(p)?t('checked'):t('pending'))}</span></header>${content}
 
@@ -200,7 +200,8 @@ export function createEditor(a) {
     }
   }
   a.view.addEventListener('input',ev=>{
-    resetArmed='';const reset=a.view.querySelector('[data-re-action="noboReset"]');if(reset)reset.textContent=t('noboReset');
+    cancelArmed='';const cancel=a.view.querySelector('[data-re-action="cancel"]');if(cancel)cancel.textContent=t('cancel');
+    resetArmed='';const reset=a.view.querySelector('[data-re-action="noboReset"]');if(reset)reset.textContent=t(editMode.startsWith('inline-')?'resetShort':'noboReset');
     if(ev.target.id==='re-brief'){brief=ev.target.value;settingsDirty=true;}
     if(ev.target.matches('[data-re-inline]'))buffer.text=ev.target.value;
     if(ev.target.matches('[data-re-ja]'))buffer.ja=ev.target.value;
@@ -222,7 +223,8 @@ export function createEditor(a) {
     if(btn.dataset.reOpen){await open(btn.dataset.reOpen);return;}
     if(btn.dataset.rePlatform){if(!canLeave())return;pf=btn.dataset.rePlatform;if(pf==='IGS')noticeText='';failedKey='';a.navigate?.(date,pf);render();await ensure(date);return;}
     const op=btn.dataset.reAction;if(!op)return;
-    if(op!=='noboReset'){resetArmed='';const reset=a.view.querySelector('[data-re-action="noboReset"]');if(reset)reset.textContent=t('noboReset');}
+    if(op!=='cancel'){cancelArmed='';const cancel=a.view.querySelector('[data-re-action="cancel"]');if(cancel)cancel.textContent=t('cancel');}
+    if(op!=='noboReset'){resetArmed='';const reset=a.view.querySelector('[data-re-action="noboReset"]');if(reset)reset.textContent=t(editMode.startsWith('inline-')?'resetShort':'noboReset');}
     if(['storyRandom','storyItem','storyUrl'].includes(op)){
       const i=Number(btn.dataset.story),sn=stories?.[i];if(!sn)return;
       const choices=sn.items.filter(s=>s!==lastStory[i]);
@@ -248,7 +250,11 @@ export function createEditor(a) {
     if(op==='edit'||op==='nobo'){if(!canLeave())return;edit=day;editMode=op==='nobo'?'nobo':'author';buffer=readDraft(day,editMode,Number(btn.dataset.part||0))||{ja:p.ja,en:op==='nobo'?R.english(p):p.en,parts:p.parts?.map((part,i)=>R.englishPart(p,i)),revision:w.revision};if(editMode==='nobo')buffer.partIndex=Number(btn.dataset.part||0);if(editMode==='author')buffer.authorParts=buffer.authorParts||authorParts(day,p);stash();render();a.view.querySelector('textarea[data-author-ja],.re-nobo textarea')?.focus();return;}
     if(op==='localClose'){if(stash()){edit='';buffer={};render();}return;}
     if(op==='latest'){buffer.revision=w.revision;stash();render();return;}
-    if(op==='cancel'){edit='';buffer={};render();if(pendingRemote)load();return;}
+    if(op==='cancel'){
+      if(cancelArmed!==day){cancelArmed=day;btn.textContent=t('cancelConfirm');return;}
+      cancelArmed='';try{localStorage.removeItem(draftKey(edit,editMode));}catch{}
+      edit='';buffer={};render();if(pendingRemote)load();return;
+    }
     if(op==='copy'||op==='copyPart'){
       if(!ready(d))return;const value=op==='copyPart'?R.englishPart(p,Number(btn.dataset.part)):R.english(p);
       try{await navigator.clipboard.writeText(value);notice(t('copied'));}catch{notice(t('copyError'),true);}return;
@@ -267,8 +273,9 @@ export function createEditor(a) {
     }
     if(op==='save'){stash();body.op=editMode==='nobo'?'nobo-edit':p?'edit':'draft';body.theme=buffer.theme;body.arc=buffer.arc;body.revision=buffer.revision??w?.revision??0;body.ja=buffer.ja;body.en=buffer.parts&&editMode==='nobo'?buffer.parts.join('\n\n'):buffer.en;if(editMode==='nobo'){body.partIndex=buffer.partIndex??0;if(buffer.parts)body.parts=buffer.parts;}if(editMode==='author'){body.parts=buffer.authorParts;body.ja=body.parts.map(p=>p.ja).join('\n\n');body.en=body.parts.map(p=>p.en).join('\n\n');}}
     if(op==='noboReset'){
-      if(editMode!=='nobo'||edit!==day)return;
+      if(!['nobo','inline-en','inline-ja'].includes(editMode)||edit!==day)return;
       if(resetArmed!==day){resetArmed=day;btn.textContent=t('resetConfirm');return;}
+      if(editMode==='inline-ja'){resetArmed='';buffer.text=p.parts?.[buffer.partIndex]?.ja||p.ja;stash();render();a.view.querySelector('[data-re-inline]')?.focus();return;}
       resetArmed='';body.op='nobo-reset';body.partIndex=buffer.partIndex??0;body.revision=buffer.revision??w.revision;
     }
     if(op==='confirmPart'){body.op='confirm-part';body.partIndex=Number(btn.dataset.part);}
