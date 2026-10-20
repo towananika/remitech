@@ -7,9 +7,10 @@ const labels = {
   storyRandom:['ランダムにコピー','Copy a random phrase','랜덤 복사'],storyChoices:['候補を見る','Show phrases','문구 보기'],storyUrl:['リンク先URLをコピー','Copy destination URL','링크 주소 복사'],storyEmpty:['ストーリー用の定型文がありません。','No story phrases available.','스토리 문구가 없습니다.'],storyError:['定型文を読み込めませんでした。更新して再試行してください。','Could not load phrases. Refresh to retry.','문구를 불러오지 못했습니다. 새로고침해 다시 시도하세요.'],
   serverPending:['共有保存機能は本番にまだ反映されていません。作成・共有保存は現在利用できません。デザインは比較ページで確認できます。','Shared saving has not been deployed yet. Creation and shared saving are currently unavailable. Use the comparison page to review the design.','공유 저장 기능이 아직 배포되지 않았습니다. 생성·공유 저장은 현재 사용할 수 없습니다. 비교 페이지에서 디자인을 확인할 수 있습니다.'],
   addDraft:['用意した日英原稿を登録','Add prepared JA / EN text','준비한 일·영 원고 등록'],manualMissing:['用意した日英原稿を登録してください。','Add your prepared Japanese and English text.','준비한 일본어·영어 원고를 등록하세요.'],theme:['週のテーマ','Weekly theme','주간 주제'],arc:['一週間の流れ','Weekly story','한 주의 흐름'],
-  confirmDay:['日付を確定','Confirm this day','이 날짜 확정'],unconfirmDay:['日付の確定を解除','Unconfirm this day','이 날짜 확정 해제'],copyFeeds:['全フィードをコピー','Copy all feeds','피드 전체 복사'],
+  confirmDay:['{sns}の投稿文を確定','Confirm {sns} posts','{sns} 게시문 확정'],unconfirmDay:['{sns}の投稿文の確定を解除','Unconfirm {sns} posts','{sns} 게시문 확정 해제'],copyFeeds:['全フィードをコピー','Copy all feeds','피드 전체 복사'],
   resetShort:['リセット','Reset','초기화'],cancelConfirm:['もう一度押すとキャンセル','Press again to cancel','한 번 더 누르면 취소'],
   clickEdit:['クリックして編集','Click to edit','클릭하여 수정'],
+  confirmed:['✓ 確定済み','✓ Confirmed','✓ 확정 완료'],undoConfirm:['確定を解除','Unconfirm','확정 해제'],allConfirmed:['✓ 投稿文すべて確定','✓ All text confirmed','✓ 게시문 전체 확정'],confirmedProgress:['{count}/{total} 確定','{count}/{total} confirmed','{count}/{total} 확정'],
   confirm:['確定','Confirm','확정'],revise:['修正','Edit','수정'],draftEnglish:['英文 · 草案','English · Draft','영어 · 초안'],revisedEnglish:['英文 · NOBO修正','English · Revised','영어 · 수정본'],
   calendarPrev:['1週間前へ','Previous week','1주 전'],calendarNext:['1週間後へ','Next week','1주 후'],checkOverview:['NOBO CALENDAR','NOBO CALENDAR','NOBO CALENDAR'],noDraft:['草案なし','No draft','초안 없음'],revised:['修正済み','Revised','수정 완료'],today:['今日','Today','오늘'],
   externalReview:['別文書でNOBO確認済み。本文はこのページには登録されていません。','Checked by NOBO in another document. The text is not stored on this page.','다른 문서에서 NOBO 확인 완료. 본문은 이 페이지에 등록되어 있지 않습니다.'],
@@ -120,7 +121,7 @@ export function createEditor(a) {
         if(activeInline&&editMode==='inline-'+language)return `<textarea data-re-inline maxlength="${language==='ja'?6000:pf==='X'?240:500}" aria-label="${language==='ja'?'日本語':'English'}">${e(buffer.text)}</textarea><p data-re-draft-status role="status">${e(t('localDraft'))}</p><div class="re-edit-footer">${button('noboReset',t('resetShort'),busy)}<div class="re-toolbar">${button('save',t('save'),busy,'class="re-primary"')}${button('cancel',t('cancel'),busy)}</div></div>`;
         return `<button class="re-inline-text re-text" data-re-action="inline${language==='ja'?'Ja':'En'}" ${extra} ${disabled||editing||booked||review?'disabled':''} aria-label="${language==='ja'?'日本語':'English'} · ${e(t('clickEdit'))}">${e(value)}</button>`;
       };
-      return `<div class="re-drafts"><div><label for="re-ja-${d.date}${suffix}">日本語 · JA</label>${editorField('ja',ja)}</div><section class="re-nobo-field"><div class="re-toolbar"><span class="re-field-label">${e(t(revised?'revisedEnglish':'draftEnglish'))}</span>${button(partIndex===null?'copy':'copyPart',t('copy'),!can||editing||busy,extra)}${button('confirmPart',t('confirm'),disabled||editing,`${extra} aria-pressed="${!!review}"`)}</div>${editorField('en',copy)}</section></div>`;
+      return `<div class="re-drafts" data-confirmed="${!!review}"><div><label for="re-ja-${d.date}${suffix}">日本語 · JA</label>${editorField('ja',ja)}</div><section class="re-nobo-field"><div class="re-toolbar"><span class="re-field-label">${review?`<span class="re-confirmed-badge">${e(t('confirmed'))}</span>`:''}${e(t(revised?'revisedEnglish':'draftEnglish'))}</span>${button(partIndex===null?'copy':'copyPart',t('copy'),!can||editing||busy,extra)}${button('confirmPart',t(review?'undoConfirm':'confirm'),disabled||editing,`${extra} aria-pressed="${!!review}"`)}</div>${editorField('en',copy)}</section></div>`;
     };
     let content='';
     if(editing && editMode==='nobo'){
@@ -135,9 +136,9 @@ export function createEditor(a) {
       content=p.parts?.length?p.parts.map((part,i)=>`<section class="re-part"><div class="re-toolbar"><strong>${e(part.label)}</strong>${part.nobo?`<small>${e(t('noboApplied'))}</small>`:''}</div>${pair(part.ja,part.en,'-'+i,i)}</section>`).join(''):pair(p.ja,p.en);
 
     }
-    return `<article class="re-day" data-re-day="${d.date}"><header class="re-dayhead"><div><span class="re-eyebrow">${d.date} · ${pf}</span><h3>${e(d.focus)}</h3>${p?.source?`<small>${e(t('supplied'))}</small>`:''}</div><span class="re-status" data-ready="${R.fullyReviewed(p)}">${e(R.fullyReviewed(p)?t('checked'):t('pending'))}</span></header>${content}
+    return `<article class="re-day" data-re-day="${d.date}"><header class="re-dayhead"><div><span class="re-eyebrow">${d.date} · ${pf}</span><h3>${e(d.focus)}</h3>${p?.source?`<small>${e(t('supplied'))}</small>`:''}</div><span class="re-status" data-ready="${R.fullyReviewed(p)}">${e(R.fullyReviewed(p)?t('allConfirmed'):p?t('confirmedProgress').replace('{count}',R.partReviews(p).filter(Boolean).length).replace('{total}',R.partReviews(p).length):t('pending'))}</span></header>${content}
 
-      <div class="re-actions">${p?button('confirmDay',pf+' · '+t(R.fullyReviewed(p)?'unconfirmDay':'confirmDay'),disabled||editing,`aria-pressed="${R.fullyReviewed(p)}"`):''}${button('copyFeeds',t('copyFeeds'),!can||editing||busy,'class="re-primary"')}
+      <div class="re-actions">${p?button('confirmDay',t(R.fullyReviewed(p)?'unconfirmDay':'confirmDay').replace('{sns}',pf),disabled||editing,`aria-pressed="${R.fullyReviewed(p)}"`):''}${button('copyFeeds',t('copyFeeds'),!can||editing||busy,'class="re-primary"')}
       ${button('book',pf+' · '+t(booked?'booked':'book'),disabled||editing||(!can&&!booked),`aria-pressed="${booked}"`)}
       </div></article>${d.date===R.EDITOR_END_DATE?`<div class="re-weekend-end">${e(t('wellDone'))}</div>`:''}`;
   }
