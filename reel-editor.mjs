@@ -1,4 +1,4 @@
-import * as R from './reel-workflow.mjs?v=20261020-korean-holidays';
+import * as R from './reel-workflow.mjs?v=20261020-copy-all';
 
 const labels = {
   title:['REEL','REEL','REEL'],
@@ -7,7 +7,7 @@ const labels = {
   storyRandom:['ランダムにコピー','Copy a random phrase','랜덤 복사'],storyChoices:['候補を見る','Show phrases','문구 보기'],storyUrl:['リンク先URLをコピー','Copy destination URL','링크 주소 복사'],storyEmpty:['ストーリー用の定型文がありません。','No story phrases available.','스토리 문구가 없습니다.'],storyError:['定型文を読み込めませんでした。更新して再試行してください。','Could not load phrases. Refresh to retry.','문구를 불러오지 못했습니다. 새로고침해 다시 시도하세요.'],
   serverPending:['共有保存機能は本番にまだ反映されていません。作成・共有保存は現在利用できません。デザインは比較ページで確認できます。','Shared saving has not been deployed yet. Creation and shared saving are currently unavailable. Use the comparison page to review the design.','공유 저장 기능이 아직 배포되지 않았습니다. 생성·공유 저장은 현재 사용할 수 없습니다. 비교 페이지에서 디자인을 확인할 수 있습니다.'],
   addDraft:['用意した日英原稿を登録','Add prepared JA / EN text','준비한 일·영 원고 등록'],manualMissing:['用意した日英原稿を登録してください。','Add your prepared Japanese and English text.','준비한 일본어·영어 원고를 등록하세요.'],theme:['週のテーマ','Weekly theme','주간 주제'],arc:['一週間の流れ','Weekly story','한 주의 흐름'],
-  confirmDay:['{sns}の投稿文を確定','Confirm {sns} posts','{sns} 게시문 확정'],unconfirmDay:['{sns}の投稿文の確定を解除','Unconfirm {sns} posts','{sns} 게시문 확정 해제'],copyFeeds:['全フィードをコピー','Copy all feeds','피드 전체 복사'],
+  confirmDay:['{sns}の投稿文を確定','Confirm {sns} posts','{sns} 게시문 확정'],unconfirmDay:['{sns}の投稿文の確定を解除','Unconfirm {sns} posts','{sns} 게시문 확정 해제'],copyFeeds:['すべてコピー','Copy all','전체 복사'],
   resetShort:['リセット','Reset','초기화'],cancelConfirm:['もう一度押すとキャンセル','Press again to cancel','한 번 더 누르면 취소'],
   clickEdit:['クリックして編集','Click to edit','클릭하여 수정'],
   adminConfirm:['管理者確定','Admin confirm','관리자 확정'],adminUndoConfirm:['管理者確定を解除','Undo admin confirmation','관리자 확정 해제'],reviewerOnly:['確定できるのは管理者またはNOBOです。','Only admins or NOBO can confirm.','관리자 또는 NOBO만 확정할 수 있습니다.'],
@@ -279,7 +279,7 @@ export function createEditor(a) {
       edit='';buffer={};render();if(pendingRemote)load();return;
     }
     if(op==='copy'||op==='copyPart'||op==='copyFeeds'){
-      if(!ready(d))return;const value=op==='copyFeeds'?R.englishFeeds(p):op==='copyPart'?R.englishPart(p,Number(btn.dataset.part)):R.english(p);
+      if(!ready(d))return;const value=op==='copyFeeds'?R.copyPostText(p,d.date,pf):op==='copyPart'?R.englishPart(p,Number(btn.dataset.part)):R.english(p);
       try{await navigator.clipboard.writeText(value);notice(t('copied'));autoRefresh();}catch{notice(t('copyError'),true);}return;
     }
     if(!w&&op!=='save')return;

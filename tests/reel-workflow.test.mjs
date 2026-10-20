@@ -180,11 +180,15 @@ test('inline Japanese edits preserve English revisions and invalidate only the e
 });
 
 
-test('bulk feed copy uses revised English and keeps the separate comment out',()=>{
- const p={en:'Legacy',parts:[{label:'Feed 1',en:'First'},{label:'Feed 2',en:'Second'},{label:'Comment',en:'Comment only'}],noboParts:['First revised','Second revised','Comment revised']};
- assert.equal(R.englishFeeds(p),'First revised\n\nSecond revised');
- assert.equal(R.englishFeeds({parts:[{label:'Feed 1',en:'Weekend'}]}),'Weekend');
- assert.equal(R.englishFeeds({en:'Legacy'}),'Legacy');
+test('bulk copy includes posting date, all Japanese/English feeds and corrected comment',()=>{
+ const p={parts:[{label:'Feed 1',ja:'本文一',en:'Original first'},{label:'Feed 2',ja:'本文二',en:'Second'},{label:'Comment',ja:'コメント',en:'Original comment'}],noboParts:['First revised','Second revised','Comment revised']};
+ const text=R.copyPostText(p,'2026-10-27','X');
+ assert.ok(text.startsWith('投稿日: 2026-10-27\nSNS: X\n'));
+ for(const value of ['【Feed 1】','本文一','【Feed 2】','本文二','【Comment】','コメント','First revised','Second revised','Comment revised'])assert.ok(text.includes(value),value);
+ assert.ok(!text.includes('Original first'));assert.ok(!text.includes('Original comment'));
+ const weekend=R.copyPostText({parts:[{label:'Feed 1',ja:'週末',en:'Weekend'}]},'2026-11-01','IG');
+ assert.ok(weekend.includes('週末'));assert.ok(weekend.includes('Weekend'));assert.ok(!weekend.includes('Comment'));
+ assert.ok(R.copyPostText({ja:'旧形式',en:'Legacy',noboEn:'Revised legacy'},'2026-10-31','IG').includes('Revised legacy'));
 });
 test('whole-day confirmation covers every feed and comment and can be undone',async()=>{
  let w=week('2026-10-26');w.days[0].posts.X.parts=R.partLabels(w.days[0].date,'X').map(label=>({label,ja:'日本語',en:label}));

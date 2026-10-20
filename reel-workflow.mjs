@@ -25,9 +25,11 @@ export function partReviews(post) {
 export function fullyReviewed(post) { return !!post && partReviews(post).every(Boolean); }
 export function english(post) { return post?.noboEn || post?.en || ''; }
 export function englishPart(post, i) { return post?.noboParts?.[i] || post?.parts?.[i]?.en || ''; }
-export function englishFeeds(post) {
-  if(!post?.parts?.length)return english(post);
-  return post.parts.map((part,i)=>({part,i})).filter(({part})=>part.label!=='Comment').map(({i})=>englishPart(post,i)).join('\n\n');
+export function copyPostText(post, date, platform) {
+  if(!post)return '';
+  const parts=post.parts?.length?post.parts:[{label:'Feed 1',ja:post.ja}];
+  const body=parts.map((part,i)=>`【${part.label}】\nJA:\n${part.ja||''}\n\nEN:\n${post.parts?.length?englishPart(post,i):english(post)}`).join('\n\n');
+  return `投稿日: ${date}\nSNS: ${platform}\n\n${body}`;
 }
 export function partLabels(date, platform='X') {
   const day=new Date(date+'T00:00:00Z').getUTCDay();
