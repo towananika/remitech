@@ -112,3 +112,5 @@
 .re-edit-footer{display:flex;justify-content:space-between;align-items:flex-end;gap:10px;margin-top:10px}
 .re-edit-footer>.re-toolbar{justify-content:flex-end;flex:1}
 .re-edit-footer>button{align-self:flex-end}
+
+.re-story-link,.re-story-random{margin-top:10px}
