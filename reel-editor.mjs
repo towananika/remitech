@@ -10,6 +10,7 @@ const labels = {
   confirmDay:['{sns}の投稿文を確定','Confirm {sns} posts','{sns} 게시문 확정'],unconfirmDay:['{sns}の投稿文の確定を解除','Unconfirm {sns} posts','{sns} 게시문 확정 해제'],copyFeeds:['全フィードをコピー','Copy all feeds','피드 전체 복사'],
   resetShort:['リセット','Reset','초기화'],cancelConfirm:['もう一度押すとキャンセル','Press again to cancel','한 번 더 누르면 취소'],
   clickEdit:['クリックして編集','Click to edit','클릭하여 수정'],
+  adminConfirm:['管理者確定','Admin confirm','관리자 확정'],adminUndoConfirm:['管理者確定を解除','Undo admin confirmation','관리자 확정 해제'],reviewerOnly:['確定できるのは管理者またはNOBOです。','Only admins or NOBO can confirm.','관리자 또는 NOBO만 확정할 수 있습니다.'],
   undoConfirm:['確定を解除','Unconfirm','확정 해제'],allConfirmed:['✓ 投稿文すべて確定','✓ All text confirmed','✓ 게시문 전체 확정'],confirmedProgress:['{count}/{total} 確定','{count}/{total} confirmed','{count}/{total} 확정'],
   confirm:['確定','Confirm','확정'],revise:['修正','Edit','수정'],draftEnglish:['英文 · 草案','English · Draft','영어 · 초안'],revisedEnglish:['英文 · NOBO修正','English · Revised','영어 · 수정본'],
   calendarPrev:['1週間前へ','Previous week','1주 전'],calendarNext:['1週間後へ','Next week','1주 후'],checkOverview:['NOBO CALENDAR','NOBO CALENDAR','NOBO CALENDAR'],noDraft:['草案なし','No draft','초안 없음'],revised:['修正済み','Revised','수정 완료'],today:['今日','Today','오늘'],
@@ -65,6 +66,7 @@ export function createEditor(a) {
     return stories.map((sn,i)=>`<section class="re-day re-story"><span class="re-eyebrow">IG Story</span><h3>${e(sn.title)}</h3>${sn.url?`<div class="re-toolbar re-story-link"><button data-re-action="storyUrl" data-story="${i}">${e(t('storyUrl'))}</button></div>`:''}<div class="re-toolbar re-story-random"><button class="re-primary" data-re-action="storyRandom" data-story="${i}" ${sn.items.length?'':'disabled'}>${e(t('storyRandom'))}</button></div><p data-story-result="${i}" role="status" aria-live="polite">${e(lastStory[i]||'')}</p><details><summary>${e(t('storyChoices'))}</summary><div class="re-story-choices">${sn.items.map((s,j)=>`<button data-re-action="storyItem" data-story="${i}" data-item="${j}">${e(s)}</button>`).join('')}</div></details></section>`).join('');
   }
   const member=()=>!!(a.user() && (a.user().member || a.user().admin));
+  const canConfirm=()=>member()&&!!(a.user()?.admin||String(a.user()?.id||'').trim().toLowerCase()==='nobo');
   const find=day=>{const w=weeks.find(w=>w.start===R.monday(day));return {w,d:w?.days.find(d=>d.date===day)};};
   const ready=d=>!!d && R.ready({...d.posts[pf],date:d.date});
   const key=day=>day+'|'+pf;
@@ -76,7 +78,7 @@ export function createEditor(a) {
     catch{const el=a.view.querySelector('[data-re-draft-status]');if(el)el.textContent=t('localError');notice(t('localError'),true);return false;}
   }
   function notice(s,alert=false){noticeText=s;const el=a.view.querySelector('[data-re-notice]');if(el){el.textContent=s;el.hidden=!s;el.setAttribute('role',alert?'alert':'status');}}
-  const errorText=code=>t(({conflict:'conflict','member-required':'login',reviewer:'role',brief:'briefError','ai-unavailable':'aiOff','generation-failed':'genError','ai-busy':'busy','already-booked':'already','not-ready':'notReady','theme-overlap':'overlap','duplicate-text':'overlap','angle-reused':'overlap'})[code]||'error');
+  const errorText=code=>t(({conflict:'conflict','member-required':'login',reviewer:'role','reviewer-required':'reviewerOnly',brief:'briefError','ai-unavailable':'aiOff','generation-failed':'genError','ai-busy':'busy','already-booked':'already','not-ready':'notReady','theme-overlap':'overlap','duplicate-text':'overlap','angle-reused':'overlap'})[code]||'error');
   async function call(body){
     if(a.preview){if(body)throw Error('preview');return structuredClone(a.preview);}
     const r=await fetch(a.api(),{method:body?'POST':'GET',cache:'no-store',headers:{'Content-Type':'application/json',...a.headers()},body:body?JSON.stringify(body):undefined});
@@ -115,13 +117,14 @@ export function createEditor(a) {
     const pair=(ja,en,suffix='',partIndex=null)=>{
       const copy=partIndex===null?R.english(p):R.englishPart(p,partIndex);
       const index=partIndex??0,review=R.partReviews(p)[index],revised=copy!==en;
+      const adminButton=!!(a.user()?.admin||review?.admin);
       const extra=`data-part="${index}"`;
       const activeInline=editing&&buffer.partIndex===index;
       const editorField=(language,value)=>{
         if(activeInline&&editMode==='inline-'+language)return `<textarea data-re-inline maxlength="${language==='ja'?6000:pf==='X'?240:500}" aria-label="${language==='ja'?'日本語':'English'}">${e(buffer.text)}</textarea><p data-re-draft-status role="status">${e(t('localDraft'))}</p><div class="re-edit-footer">${button('noboReset',t('resetShort'),busy)}<div class="re-toolbar">${button('save',t('save'),busy,'class="re-primary"')}${button('cancel',t('cancel'),busy)}</div></div>`;
         return `<button class="re-inline-text re-text" data-re-action="inline${language==='ja'?'Ja':'En'}" ${extra} ${disabled||editing||booked||review?'disabled':''} aria-label="${language==='ja'?'日本語':'English'} · ${e(t('clickEdit'))}">${e(value)}</button>`;
       };
-      return `<div class="re-drafts" data-confirmed="${!!review}"><div><label for="re-ja-${d.date}${suffix}">日本語 · JA</label>${editorField('ja',ja)}</div><section class="re-nobo-field"><div class="re-toolbar"><span class="re-field-label">${e(t(revised?'revisedEnglish':'draftEnglish'))}</span>${button(partIndex===null?'copy':'copyPart',t('copy'),!can||editing||busy,extra)}${button('confirmPart',t(review?'undoConfirm':'confirm'),disabled||editing,`${extra} aria-pressed="${!!review}"`)}</div>${editorField('en',copy)}</section></div>`;
+      return `<div class="re-drafts" data-confirmed="${!!review}"><div><label for="re-ja-${d.date}${suffix}">日本語 · JA</label>${editorField('ja',ja)}</div><section class="re-nobo-field"><div class="re-toolbar"><span class="re-field-label">${e(t(revised?'revisedEnglish':'draftEnglish'))}</span>${button(partIndex===null?'copy':'copyPart',t('copy'),!can||editing||busy,extra)}${button('confirmPart',t(adminButton?(review?'adminUndoConfirm':'adminConfirm'):(review?'undoConfirm':'confirm')),disabled||editing||!canConfirm(),`${extra} data-admin-confirm="${adminButton}" aria-pressed="${!!review}"`)}</div>${editorField('en',copy)}</section></div>`;
     };
     let content='';
     if(editing && editMode==='nobo'){
@@ -138,7 +141,7 @@ export function createEditor(a) {
     }
     return `<article class="re-day" data-re-day="${d.date}"><header class="re-dayhead"><div><span class="re-eyebrow">${d.date} · ${pf}</span><h3>${e(d.focus)}</h3>${p?.source?`<small>${e(t('supplied'))}</small>`:''}</div><span class="re-status" data-ready="${R.fullyReviewed(p)}">${e(R.fullyReviewed(p)?t('allConfirmed'):p?t('confirmedProgress').replace('{count}',R.partReviews(p).filter(Boolean).length).replace('{total}',R.partReviews(p).length):t('pending'))}</span></header>${content}
 
-      <div class="re-actions">${p?button('confirmDay',t(R.fullyReviewed(p)?'unconfirmDay':'confirmDay').replace('{sns}',pf),disabled||editing,`aria-pressed="${R.fullyReviewed(p)}"`):''}${button('copyFeeds',t('copyFeeds'),!can||editing||busy,'class="re-primary"')}
+      <div class="re-actions">${p?button('confirmDay',(a.user()?.admin||p.secondReview?.admin)?pf+' · '+t(R.fullyReviewed(p)?'adminUndoConfirm':'adminConfirm'):t(R.fullyReviewed(p)?'unconfirmDay':'confirmDay').replace('{sns}',pf),disabled||editing||!canConfirm(),`data-admin-confirm="${!!(a.user()?.admin||p.secondReview?.admin)}" aria-pressed="${R.fullyReviewed(p)}"`):''}${button('copyFeeds',t('copyFeeds'),!can||editing||busy,'class="re-primary"')}
       ${button('book',pf+' · '+t(booked?'booked':'book'),disabled||editing||(!can&&!booked),`aria-pressed="${booked}"`)}
       </div></article>${d.date===R.EDITOR_END_DATE?`<div class="re-weekend-end">${e(t('wellDone'))}</div>`:''}`;
   }
@@ -290,6 +293,7 @@ export function createEditor(a) {
       if(editMode==='inline-ja'){resetArmed='';buffer.text=p.parts?.[buffer.partIndex]?.ja||p.ja;stash();render();a.view.querySelector('[data-re-inline]')?.focus();return;}
       resetArmed='';body.op='nobo-reset';body.partIndex=buffer.partIndex??0;body.revision=buffer.revision??w.revision;
     }
+    if(['confirmDay','confirmPart','review2'].includes(op)&&!canConfirm()){notice(t('reviewerOnly'),true);return;}
     if(op==='confirmDay')body.op='review2';
     if(op==='confirmPart'){body.op='confirm-part';body.partIndex=Number(btn.dataset.part);}
     if(op==='book')body.scheduled=!a.booked(day,pf);

@@ -77,6 +77,8 @@ export async function editor(hub, request, origin, respond) {
   let b;try{b=JSON.parse(raw);}catch{return send({error:'bad-json'},400);}
   if(!b || typeof b!=='object')return send({error:'bad-json'},400);
   const actor=session.user.id;
+  const admin=hub.isAdmin(actor),reviewer=admin||String(actor).trim().toLowerCase()==='nobo';
+  if(['review2','confirm-part'].includes(b.op)&&!reviewer)return send({error:'reviewer-required'},403);
   if(b.op==='settings'){
     if(typeof b.brief!=='string' || b.brief.trim().length<10 || b.brief.length>3000)return send({error:'brief'},400);
     await hub.ctx.storage.put('reel:settings',{brief:b.brief.trim()});hub.broadcast('reel');return send({ok:true,settings:await settings()});
@@ -116,6 +118,10 @@ export async function editor(hub, request, origin, respond) {
       if(w.revision!==b.revision)return fail('conflict',409);
       let day=w.days.find(d=>d.date===b.date);
       let p=day.posts[b.platform];
+      if(!reviewer&&p&&['edit','edit-japanese','nobo-edit','nobo-reset'].includes(b.op)){
+        const reviews=R.partReviews(p);
+        if(b.partIndex===undefined?reviews.some(Boolean):reviews[b.partIndex])return fail('reviewer-required',403);
+      }
       if(b.op==='edit'){
         const next=b.parts?prepared(b,b.date,b.platform):b;if(!next||!postOK(next,b.platform)||p?.parts&&!b.parts)return fail('draft');
         if(await isBooked(tx,b.date,b.platform))return fail('already-booked',409);
@@ -137,7 +143,7 @@ export async function editor(hub, request, origin, respond) {
         const index=b.partIndex;
         if(scoped && (!Number.isInteger(index)||index<0||index>=(p.parts?.length||1)))return fail('part');
         if(b.op==='confirm-part'&&!scoped)return fail('part');
-        const reviews=R.partReviews(p),stamp=kind=>({by:actor,at:new Date().toISOString(),kind});
+        const reviews=R.partReviews(p),stamp=kind=>({by:actor,at:new Date().toISOString(),kind,admin});
         if(b.op==='nobo-edit'){
           if(await isBooked(tx,b.date,b.platform))return fail('already-booked',409);
           if(typeof b.en!=='string' || !b.en.trim() || b.en.length>(p.parts?.length?6000:b.platform==='X'?240:500))return fail('draft');
@@ -147,7 +153,7 @@ export async function editor(hub, request, origin, respond) {
             if(p.noboEn.length>6000)return fail('draft');
           }else p.noboEn=b.en.trim();
           delete p.imagePrompt;
-          p.partReviews=reviews.map((r,i)=>!scoped||i===index?stamp('corrected'):r);
+          p.partReviews=reviews.map((r,i)=>!scoped||i===index?(reviewer?stamp('corrected'):null):r);
         }else if(b.op==='nobo-reset'){
           if(await isBooked(tx,b.date,b.platform))return fail('already-booked',409);
           if(scoped&&p.parts?.length){

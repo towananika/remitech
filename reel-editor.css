@@ -123,3 +123,6 @@
 .re-drafts[data-confirmed]{border:2px solid transparent;border-radius:12px;padding:10px}
 .re-drafts[data-confirmed="true"]{border-color:#2d7b49;background:color-mix(in srgb,#2d7b49 10%,var(--surface,#fff))}
 .re-dayhead .re-status[data-ready="true"]{color:#205c36;background:#daf1df;border-color:#7bb68b;font-weight:700}
+
+.reel-editor button:is([data-re-action="confirmPart"],[data-re-action="confirmDay"])[data-admin-confirm="true"]{background:#b43232;border-color:#b43232;color:white}
+.reel-editor button:is([data-re-action="confirmPart"],[data-re-action="confirmDay"])[data-admin-confirm="true"][aria-pressed="true"]{background:#8f2525;border-color:#8f2525}

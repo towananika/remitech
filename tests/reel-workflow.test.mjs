@@ -15,7 +15,7 @@ class Store{
   async list({prefix}){return new Map([...this.map].filter(([k])=>k.startsWith(prefix)).map(([k,v])=>[k,structuredClone(v)]));}
   transaction(fn){const run=this.queue.then(async()=>{const tx=new Store(structuredClone(this.map));const result=await fn(tx);this.map=tx.map;return result;});this.queue=run.catch(()=>{});return run;}
 }
-function context({user={id:'hibiki',member:true},seed=[],ai}={}){
+function context({user={id:'admin',member:true},seed=[],ai}={}){
   const storage=new Store();const broadcasts=[];
   for(const w of seed)storage.map.set('reel:week:'+w.start,structuredClone(w));
   const hub={ctx:{storage},env:{CHORES:{get:async()=>({weeks:seed,brief:'A real brand brief with explicit constraints'})},...(ai?{AI:{run:ai}}:{})},
@@ -69,7 +69,7 @@ test('NOBO thread corrections keep part boundaries and original copy',async()=>{
   assert.equal(r.status,200);const saved=r.week.days[0].posts.X;
   assert.equal(saved.parts[0].en,'One');assert.equal(R.englishPart(saved,1),'Two fixed');
 });
-test('employees can review while general members cannot; stale revisions do not overwrite',async()=>{
+test('general members cannot write and stale revisions do not overwrite',async()=>{
   const w=week(),c=context({seed:[w]});assert.equal((await c.request(action('review2',w),{id:'guest',member:false})).status,403);await c.request(null,{id:'hibiki',member:true});
   let r=await c.request(action('edit',w,{ja:'修正',en:'Edited'}));assert.equal(r.status,200);
   r=await c.request(action('edit',w,{ja:'古い編集',en:'Stale'}));assert.equal(r.status,409);
@@ -213,4 +213,25 @@ test('Oct 26 IG supplement imports pending without replacing later manuscripts',
  const r=await c.request();const d=r.weeks[0].days.find(d=>d.date==='2026-10-26');
  assert.equal(r.weeks[0].days.length,7);assert.equal(d.posts.X,undefined);assert.equal(d.posts.IG.secondReview,null);assert.equal(d.posts.IG.parts.length,2);
  assert.equal(r.weeks[0].days[1].posts.X.en,w.days[0].posts.X.en);
+});
+
+
+test('only NOBO or configured admins may confirm; staff edits cannot implicitly confirm',async()=>{
+ const w=week('2026-10-26'),c=context({seed:[w],user:{id:'editor',member:true}});
+ assert.equal((await c.request(action('review2',w))).status,403);
+ assert.equal((await c.request(action('confirm-part',w,{partIndex:0}))).status,403);
+ const edited=await c.request(action('nobo-edit',w,{en:'Employee edited English'}));assert.equal(edited.status,200);
+ assert.equal(edited.week.days[0].posts.X.secondReview,null);assert.deepEqual(R.partReviews(edited.week.days[0].posts.X),[null]);
+ const confirmed=await c.request(action('confirm-part',edited.week,{partIndex:0}),{id:'NoBo',member:true});assert.equal(confirmed.status,200);
+ assert.equal(confirmed.week.days[0].posts.X.partReviews[0].admin,false);
+ assert.equal((await c.request(action('confirm-part',confirmed.week,{partIndex:0}),{id:'editor',member:true,admin:true})).status,403);
+ assert.equal((await c.request(action('nobo-reset',confirmed.week),{id:'editor',member:true})).status,403);
+ assert.equal((await c.request(action('edit',confirmed.week,{ja:'上書き',en:'Overwrite'}))).status,403);
+});
+test('admin confirmation is recorded by the server and NOBO can subsequently replace it',async()=>{
+ const w=week('2026-10-26'),c=context({seed:[w],user:{id:'admin',member:true}});
+ let r=await c.request(action('review2',w,{admin:false}));assert.equal(r.status,200);
+ assert.equal(r.week.days[0].posts.X.partReviews[0].admin,true);assert.equal(r.week.days[0].posts.X.secondReview.admin,true);
+ r=await c.request(action('review2',r.week),{id:'NOBO',member:true});assert.equal(r.week.days[0].posts.X.secondReview,null);
+ r=await c.request(action('review2',r.week,{admin:true}));assert.equal(r.week.days[0].posts.X.secondReview.admin,false);
 });
