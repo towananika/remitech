@@ -12,6 +12,7 @@ const labels = {
   clickEdit:['クリックして編集','Click to edit','클릭하여 수정'],
   confirm:['確定','Confirm','확정'],revise:['修正','Edit','수정'],draftEnglish:['英文 · 草案','English · Draft','영어 · 초안'],revisedEnglish:['英文 · NOBO修正','English · Revised','영어 · 수정본'],
   calendarPrev:['1週間前へ','Previous week','1주 전'],calendarNext:['1週間後へ','Next week','1주 후'],checkOverview:['NOBO CALENDAR','NOBO CALENDAR','NOBO CALENDAR'],noDraft:['草案なし','No draft','초안 없음'],revised:['修正済み','Revised','수정 완료'],today:['今日','Today','오늘'],
+  externalReview:['別文書でNOBO確認済み。本文はこのページには登録されていません。','Checked by NOBO in another document. The text is not stored on this page.','다른 문서에서 NOBO 확인 완료. 본문은 이 페이지에 등록되어 있지 않습니다.'],
   wellDone:['お疲れ様でした。','Thank you for your work.','수고하셨습니다.'],
   scope:['今回の対象は11月1日までです。','The current scope ends on November 1.','현재 작업 범위는 11월 1일까지입니다.'],
   date:['日付','Date','날짜'],settings:['AIの投稿方針','AI writing brief','AI 게시물 작성 지침'],saveBrief:['方針を保存','Save brief','지침 저장'],
@@ -46,7 +47,7 @@ const labels = {
 
 export function createEditor(a) {
   const t=k=>labels[k][({ja:0,en:1,ko:2})[a.lang()] ?? 0], e=a.esc;
-  let weeks=[],loaded=false,online=false,loading=false,attempted=false,busy=false,ai=false,noticeText='',edit='',editMode='',buffer={},settingsDirty=false;
+  let weeks=[],externalReviews=[],loaded=false,online=false,loading=false,attempted=false,busy=false,ai=false,noticeText='',edit='',editMode='',buffer={},settingsDirty=false;
   let date=R.today()<'2026-10-27'?'2026-10-27':R.today(),first=date,last=R.addDays(R.monday(date),6),pf='X',brief='',observer=null,failedKey='',pendingRemote=false,instructions={};
   const initial=a.selection?.();if(initial){if(R.dateOK(initial.date))date=initial.date;if(['X','IG','IGS'].includes(initial.platform))pf=initial.platform;first=date;last=R.addDays(R.monday(date),6);}
   if(date>R.EDITOR_END_DATE){date=R.EDITOR_END_DATE;first=date;last=date;}
@@ -86,7 +87,7 @@ export function createEditor(a) {
     if(loading||busy)return;
     if(edit||settingsDirty){pendingRemote=true;notice(t('remote'));return;}
     loading=true;attempted=true;let changed=!loaded;
-    try{const j=await call();if(edit||settingsDirty||busy){pendingRemote=true;notice(t('remote'));return;}changed=changed||JSON.stringify(j.weeks)!==JSON.stringify(weeks)||j.ai!==ai||!online;weeks=j.weeks;brief=j.settings.brief;ai=j.ai;online=true;loaded=true;if(force)noticeText='';}
+    try{const j=await call();if(edit||settingsDirty||busy){pendingRemote=true;notice(t('remote'));return;}changed=changed||JSON.stringify(j.weeks)!==JSON.stringify(weeks)||JSON.stringify(j.externalReviews||[])!==JSON.stringify(externalReviews)||j.ai!==ai||!online;weeks=j.weeks;externalReviews=j.externalReviews||[];brief=j.settings.brief;ai=j.ai;online=true;loaded=true;if(force)noticeText='';}
     catch(error){
       online=false;ai=false;
       // Drafts are served only by the authenticated Worker, never public assets.
@@ -141,9 +142,10 @@ export function createEditor(a) {
     const head=`<span class="re-check-corner">SNS</span>${dates.map(day=>{const weekday=new Date(day+'T00:00:00Z').getUTCDay();return `<span class="re-check-date" data-weekday="${weekday}" ${day===today?'data-today="true"':''}><span>${day.slice(5).replace('-','/')}</span><small>${e(weekdays[weekday])}</small></span>`;}).join('')}`;
     const rows=['X','IG'].map(channel=>`<strong class="re-check-channel">${channel}</strong>${dates.map(day=>{
       const post=find(day).d?.posts[channel];
-      const status=!post?statuses[0]:!R.fullyReviewed(post)?statuses[1]:statuses[2];
-      const name=`${day} · ${channel} · ${status[1]}`;
-      return `<button class="re-check-circle" data-re-check-date="${day}" data-re-check-platform="${channel}" data-status="${status[0]}" aria-label="${e(name)}" title="${e(name)}" aria-pressed="${day===date&&pf===channel}" ${busy||day>R.EDITOR_END_DATE?'disabled':''}>${status[2]}</button>`;
+      const external=!post&&externalReviews.some(r=>r.date===day&&r.platform===channel);
+      const status=external?statuses[2]:!post?statuses[0]:!R.fullyReviewed(post)?statuses[1]:statuses[2];
+      const name=`${day} · ${channel} · ${external?t('externalReview'):status[1]}`;
+      return `<button class="re-check-circle" data-re-check-date="${day}" data-re-check-platform="${channel}" data-external-review="${external}" data-status="${status[0]}" aria-label="${e(name)}" title="${e(name)}" aria-pressed="${day===date&&pf===channel}" ${busy||day>R.EDITOR_END_DATE?'disabled':''}>${status[2]}</button>`;
     }).join('')}`).join('');
     return `<section class="re-check-overview" aria-label="${e(t('checkOverview'))}"><header class="re-check-header"><div><strong class="re-check-title">${e(t('checkOverview'))}</strong><small class="re-check-range">${dates[0]} — ${dates[13]}</small></div><div class="re-toolbar"><button data-re-action="calendarPrevious" aria-label="${e(t('calendarPrev'))}" title="${e(t('calendarPrev'))}" ${busy?'disabled':''}>←</button><button data-re-action="calendarNext" aria-label="${e(t('calendarNext'))}" title="${e(t('calendarNext'))}" ${busy?'disabled':''}>→</button></div></header><div class="re-check-scroll" tabindex="0" role="region" aria-label="${e(t('checkOverview'))}"><div class="re-check-grid">${head}${rows}</div></div><div class="re-check-legend">${statuses.map(([state,label,symbol])=>`<span><i data-status="${state}" aria-hidden="true">${symbol}</i>${e(label)}</span>`).join('')}</div></section>`;
   }
@@ -221,7 +223,7 @@ export function createEditor(a) {
   a.view.addEventListener('cancel',ev=>{if(ev.target.matches('.re-nobo-dialog')){ev.preventDefault();if(!busy&&stash()){edit='';buffer={};render();}}},true);
   a.view.addEventListener('click',async ev=>{
     if(!a.active()||busy)return;const btn=ev.target.closest('button');if(!btn)return;
-    if(btn.dataset.reCheckDate){if(!canLeave())return;pf=btn.dataset.reCheckPlatform;await open(btn.dataset.reCheckDate);return;}
+    if(btn.dataset.reCheckDate){if(btn.dataset.externalReview==='true'){notice(t('externalReview'));return;}if(!canLeave())return;pf=btn.dataset.reCheckPlatform;await open(btn.dataset.reCheckDate);return;}
     if(btn.dataset.reOpen){await open(btn.dataset.reOpen);return;}
     if(btn.dataset.rePlatform){if(!canLeave())return;pf=btn.dataset.rePlatform;if(pf==='IGS')noticeText='';failedKey='';a.navigate?.(date,pf);render();await ensure(date);return;}
     const op=btn.dataset.reAction;if(!op)return;
@@ -290,5 +292,5 @@ export function createEditor(a) {
   window.addEventListener('beforeunload',ev=>{if(edit||busy||settingsDirty){ev.preventDefault();ev.returnValue='';}});
   // Refresh availability at the Seoul date boundary without losing edits.
   let calendar=R.today();setInterval(()=>{if(R.today()!==calendar){calendar=R.today();if(!edit&&!busy&&!settingsDirty)render();}},30000);
-  return{render,load,canLeave,renderLocation:()=>{const s=a.selection?.();if(s&&R.dateOK(s.date)&&(s.date!==date||s.platform!==pf)){if(canLeave()){if(['X','IG','IGS'].includes(s.platform))pf=s.platform;open(s.date);}return;}render();},lock:()=>{observer?.disconnect();weeks=[];loaded=false;online=false;edit='';buffer={};settingsDirty=false;},refresh:()=>{if(a.active())load();},authChanged:()=>{if(a.active()&&!edit){render();ensure(date);}}};
+  return{render,load,canLeave,renderLocation:()=>{const s=a.selection?.();if(s&&R.dateOK(s.date)&&(s.date!==date||s.platform!==pf)){if(canLeave()){if(['X','IG','IGS'].includes(s.platform))pf=s.platform;open(s.date);}return;}render();},lock:()=>{observer?.disconnect();weeks=[];externalReviews=[];loaded=false;online=false;edit='';buffer={};settingsDirty=false;},refresh:()=>{if(a.active())load();},authChanged:()=>{if(a.active()&&!edit){render();ensure(date);}}};
 }

@@ -16,17 +16,17 @@ function prepared(p,date,pf){
 }
 // Prepared manuscripts stay in private KV; import only missing posts into shared storage.
 const PREPARED_KEY = 'reel:prepared:2026-10-27-11-01:v1';
-async function importPrepared(hub) {
+async function importPrepared(hub,preparedKey=PREPARED_KEY,firstDate='2026-10-27') {
   const storage=hub.ctx.storage;
-  if(await storage.get(PREPARED_KEY))return;
-  const source=await hub.env.CHORES.get(PREPARED_KEY,'json');
+  if(await storage.get(preparedKey))return;
+  const source=await hub.env.CHORES.get(preparedKey,'json');
   if(!source || source.version!==1)return;
   if(!Array.isArray(source.weeks)||source.weeks.length>8)throw new Error('prepared-weeks');
   const weeks=source.weeks.map(w=>{
     if(!R.dateOK(w.start)||R.monday(w.start)!==w.start||typeof w.theme!=='string'||!w.theme.trim()||typeof w.arc!=='string'||!w.arc.trim()||!Array.isArray(w.days))throw new Error('prepared-week');
     const dates=new Set();
     const days=w.days.map(d=>{
-      if(!R.dateOK(d.date)||d.date<'2026-10-27'||d.date>R.EDITOR_END_DATE||R.monday(d.date)!==w.start||dates.has(d.date))throw new Error('prepared-date');
+      if(!R.dateOK(d.date)||d.date<firstDate||d.date>R.EDITOR_END_DATE||R.monday(d.date)!==w.start||dates.has(d.date))throw new Error('prepared-date');
       dates.add(d.date);
       const posts={};
       for(const [pf,p] of Object.entries(d.posts||{})){
@@ -39,7 +39,7 @@ async function importPrepared(hub) {
     return {start:w.start,theme:w.theme,themeId:'prepared-'+w.start,angle:w.arc,arc:w.arc,revision:0,days};
   });
   await storage.transaction(async tx=>{
-    if(await tx.get(PREPARED_KEY))return;
+    if(await tx.get(preparedKey))return;
     for(const sourceWeek of weeks){
       const key='reel:week:'+sourceWeek.start;
       const w=await tx.get(key)||{...sourceWeek,days:[]};let changed=false;
@@ -52,7 +52,7 @@ async function importPrepared(hub) {
       }
       if(changed){w.days.sort((a,b)=>a.date.localeCompare(b.date));w.revision++;w.updatedAt=new Date().toISOString();w.updatedBy='prepared-import';await tx.put(key,w);}
     }
-    await tx.put(PREPARED_KEY,{importedAt:new Date().toISOString()});
+    await tx.put(preparedKey,{importedAt:new Date().toISOString()});
   });
   hub.broadcast('reel');
 }
@@ -62,10 +62,15 @@ export async function editor(hub, request, origin, respond) {
   if(!session)return send({error:'member-required'},401);
   if(!(session.user.member || hub.isAdmin(session.user.id)))return send({error:'member-required'},403);
   await importPrepared(hub);
+  await importPrepared(hub,'reel:prepared:2026-10-26-ig:v1','2026-10-26');
   const read=storage=>allWeeks(storage);
   const getWeek=async (storage,start)=>await storage.get('reel:week:'+start);
   const settings = async () => await hub.ctx.storage.get('reel:settings') || {brief:R.DEFAULT_BRIEF};
-  if (request.method==='GET') return send({weeks:await read(hub.ctx.storage),settings:await settings(),timezone:R.TIMEZONE,ai:false});
+  if (request.method==='GET') {
+    const source=await hub.env.CHORES.get('reel:external-reviews:2026-10-20-26:v1','json');
+    const externalReviews=Array.isArray(source?.reviews)?source.reviews.filter(r=>R.dateOK(r.date)&&r.date>='2026-10-20'&&r.date<='2026-10-26'&&['X','IG'].includes(r.platform)).map(r=>({date:r.date,platform:r.platform,by:'NOBO',external:true})):[];
+    return send({weeks:await read(hub.ctx.storage),externalReviews,settings:await settings(),timezone:R.TIMEZONE,ai:false});
+  }
   if (request.method!=='POST') return send({error:'method'},405);
   if (origin && !['https://towananika.github.io','http://localhost:8899','http://127.0.0.1:8899'].includes(origin)) return send({error:'origin'},403);
   const raw=await request.text();if(raw.length>200000)return send({error:'too-large'},413);

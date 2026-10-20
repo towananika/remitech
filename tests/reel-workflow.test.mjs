@@ -114,7 +114,7 @@ test('private prepared manuscripts import once for employees and preserve existi
   const source={version:1,weeks:[{start,theme:'Records and trust',arc:'Address, connection, trust',days:[{date,posts:Object.fromEntries(['X','IG'].map(pf=>[pf,{parts:R.partLabels(date,pf).map(label=>({label,ja:'日本語 '+label,en:'English '+label}))}]))}]}]};
   const existing={start,theme:'Existing theme',arc:'Existing arc',revision:4,days:[{date,posts:{X:{ja:'既存',en:'Existing original',noboEn:'NOBO correction',secondReview:{by:'nobo'}}}}]};
   const c=context({seed:[existing]});let reads=0;
-  c.hub.env.CHORES.get=async key=>{reads++;return source;};
+  c.hub.env.CHORES.get=async key=>{if(key!=='reel:prepared:2026-10-27-11-01:v1')return null;reads++;return source;};
   assert.equal((await c.request(null,null)).status,401);assert.equal(reads,0);
   assert.equal((await c.request(null,{id:'guest',member:false})).status,403);assert.equal(reads,0);
   let r=await c.request(null,{id:'hibiki',member:true});assert.equal(r.status,200);
@@ -192,4 +192,25 @@ test('whole-day confirmation covers every feed and comment and can be undone',as
  r=await c.request(action('review2',w));w=r.week;assert.equal(R.partReviews(w.days[0].posts.X).filter(Boolean).length,4);assert.equal(R.fullyReviewed(w.days[0].posts.X),true);
  assert.equal(w.days[0].posts.IG.secondReview,null);
  r=await c.request(action('review2',w));assert.equal(R.fullyReviewed(r.week.days[0].posts.X),false);
+});
+
+
+test('external NOBO checks are employee-only metadata without draft text',async()=>{
+ const c=context();let reads=0;
+ c.hub.env.CHORES.get=async key=>{
+  if(key!=='reel:external-reviews:2026-10-20-26:v1')return null;
+  reads++;return{reviews:[{date:'2026-10-20',platform:'X',text:'Must not leak'}, {date:'2026-10-26',platform:'IG'}, {date:'2026-10-27',platform:'X'}, {date:'2026-10-20',platform:'IGS'}]};
+ };
+ assert.equal((await c.request(null,null)).status,401);assert.equal(reads,0);
+ const r=await c.request(null,{id:'nobo',member:true});assert.equal(r.status,200);assert.equal(r.externalReviews.length,2);
+ assert.deepEqual(r.externalReviews[0],{date:'2026-10-20',platform:'X',by:'NOBO',external:true});assert.equal(r.weeks.length,0);
+});
+
+
+test('Oct 26 IG supplement imports pending without replacing later manuscripts',async()=>{
+ const w=week('2026-10-26');w.days=w.days.slice(1);const c=context({seed:[w]});
+ c.hub.env.CHORES.get=async key=>key==='reel:prepared:2026-10-26-ig:v1'?{version:1,weeks:[{start:'2026-10-26',theme:'Theme',arc:'Arc',days:[{date:'2026-10-26',posts:{IG:{parts:[{ja:'スタンプ',en:'One stamp left.'},{ja:'質問',en:'What do you collect?'}]}}}]}]}:null;
+ const r=await c.request();const d=r.weeks[0].days.find(d=>d.date==='2026-10-26');
+ assert.equal(r.weeks[0].days.length,7);assert.equal(d.posts.X,undefined);assert.equal(d.posts.IG.secondReview,null);assert.equal(d.posts.IG.parts.length,2);
+ assert.equal(r.weeks[0].days[1].posts.X.en,w.days[0].posts.X.en);
 });
