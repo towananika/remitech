@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>既存版と改善版の比較 · REEL</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f5f1e9;color:#231f1a;font:14px/1.7 system-ui,sans-serif}header{padding:20px 24px;border-bottom:1px solid #e2dac8}h1{margin:0;font-size:21px}p{margin:6px 0;color:#645c4e}.controls{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}button,a{font:inherit}button{padding:8px 18px;border:1px solid #c8bcaa;border-radius:8px;background:#fbf9f4;color:#231f1a;cursor:pointer}button[aria-pressed="true"]{background:#4a72a8;color:white;border-color:#4a72a8}main{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:12px}section{min-width:0;border:1px solid #e2dac8;border-radius:10px;overflow:hidden;background:#fbf9f4}.heading{padding:10px 16px;display:flex;justify-content:space-between;gap:8px;align-items:center}.heading a{font-size:12px;color:#4a72a8}iframe{display:block;border:0;width:100%;height:calc(100vh - 235px);min-height:500px}body[data-mode="existing"] main,body[data-mode="improved"] main{grid-template-columns:1fr}body[data-mode="existing"] #improved,body[data-mode="improved"] #existing{display:none}@media(max-width:750px){header{padding:16px}main{padding:8px;gap:8px}body[data-mode="both"] main{grid-template-columns:1fr}iframe{height:75vh}.heading{padding:8px 12px}}
+</style>
+</head>
+<body data-mode="both">
+<header><h1>REEL · 既存版と改善版</h1><p>同じサンプル原稿で比較できます。改善版は「EN NOBO」欄を追加し、重複するコピー操作と説明文を整理。IG Storyには以前のランダムコピーを追加しています。</p><p>比較用ページだけの変更です。実データ・会員情報は含みません。</p><div class="controls" role="group" aria-label="比較表示"><button data-mode="both" aria-pressed="true">並べて比較</button><button data-mode="existing" aria-pressed="false">既存版</button><button data-mode="improved" aria-pressed="false">改善版</button></div></header>
+<main><section id="existing"><div class="heading"><strong>既存版</strong><a href="./posts-preview-existing.html" target="_blank" rel="noopener">大きく開く ↗</a></div><iframe title="既存版のREELページ" src="./posts-preview-existing.html"></iframe></section><section id="improved"><div class="heading"><strong>改善版 · EN NOBO＋表示の整理</strong><a href="./posts-preview.html" target="_blank" rel="noopener">大きく開く ↗</a></div><iframe title="改善版のREELページ" src="./posts-preview.html"></iframe></section></main>
+<script>
+function mode(value){document.body.dataset.mode=value;document.querySelectorAll('button[data-mode]').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.mode===value)));}
+document.querySelectorAll('button[data-mode]').forEach(button=>button.addEventListener('click',()=>mode(button.dataset.mode)));
+if(matchMedia('(max-width:750px)').matches)mode('improved');
+</script>
+</body>
+</html>

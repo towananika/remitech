@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <title>既存版 · REEL デザイン確認 · REMITECH</title>
+  <link rel="stylesheet" href="./preview-existing/reel-editor.css">
+  <style>
+    :root{--bg:#f5f1e9;--surface:#fbf9f4;--line:#e2dac8;--ink:#231f1a;--muted:#645c4e;--wood:#93704b;--todaybg:#f3ebdd;--neon:#2bff88;--neon-ink:#07361b}
+    *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.8 "Hiragino Sans","Yu Gothic",system-ui,sans-serif}
+    .page{max-width:1180px;margin:auto;padding:32px 20px 70px}.preview-top{display:flex;gap:16px;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);padding-bottom:20px;margin-bottom:24px}.preview-top b{letter-spacing:.2em}.preview-top a{color:var(--muted);font-size:13px}.reel-editor h2{font-size:24px}
+  </style>
+</head>
+<body>
+  <main class="page"><header class="preview-top"><b>REMITECH</b><a href="./">HUBへ戻る</a></header><div id="preview"></div></main>
+  <script type="module">
+    import {createEditor} from './preview-existing/reel-editor.mjs';
+    import {addDays} from './reel-workflow.mjs';
+    const themes=[['プレイした人の気づき','自分の体験を、自分の言葉で'],['レビューがつなぐ出会い','次のプレイヤーの選択につなげる'],['貢献を続ける理由','小さな気づきの積み重ね'],['信頼が育つコミュニティ','違う視点から新しい発見へ']];
+    const examples=[
+      ['遊んで初めて気づくこと','レビューには、プレイした人だけの気づきがある。\n最近、誰かにすすめたゲームは？','A good review starts with a real experience.\nWhat made you recommend the last game you played?'],
+      ['小さな発見を伝える','大きな評価より、小さな発見が役立つこともある。\nそのゲームで最初に心が動いた瞬間は？','Sometimes a small detail says more than a score.\nWhat was the first moment that stayed with you?'],
+      ['次の人の視点で考える','自分には当たり前でも、初めての人には大切なヒント。\n遊ぶ前に知りたかったことは？','What felt obvious after playing might help a newcomer.\nWhat do you wish you had known before starting?'],
+      ['具体的な一場面から','「面白い」の先にある、一つの場面。\nその瞬間を言葉にしてみよう。','Go one moment beyond “it was fun.”\nWhich scene would you tell a friend about?'],
+      ['違う楽しみ方を見つける','同じゲームでも、楽しみ方は一つじゃない。\n誰かのレビューで見つけた発見は？','Same game, different ways to enjoy it.\nHas another player’s review helped you see something new?'],
+      ['気づきを持ち寄る','小さな気づきが集まると、ゲームの見え方が少し広がる。','A few small observations can open up a new way to see a game.'],
+      ['一週間を振り返る','今週のプレイから、一つだけ残すなら。\nどんな気づきを伝えたい？','One week of play. One thing worth sharing.\nWhat would you pass on?']
+    ];
+    const weeks=themes.slice(0,1).map(([theme,angle],i)=>({start:addDays('2026-10-26',i*7),theme,angle,arc:'気づき → 具体例 → 相手の視点 → 伝える工夫 → 振り返り',revision:1,
+      days:examples.map(([focus,ja,en],j)=>({date:addDays('2026-10-26',i*7+j),focus,posts:{X:{ja,en,secondReview:j===1?{by:'NOBO',kind:'unchanged'}:null},IG:{ja:ja+'\n\nその発見を、一枚と一言で。',en:en+'\n\nOne image. One honest observation.',secondReview:null}}}))}));
+    const esc=s=>{const d=document.createElement('div');d.textContent=s??'';return d.innerHTML;};
+    const editor=createEditor({view:document.getElementById('preview'),esc,lang:()=> 'ja',active:()=>true,user:()=>null,booked:()=>false,headers:()=>({}),login:()=>{},pullBookings:async()=>{},preview:{weeks,settings:{brief:'REELの体験・レビュー・信頼を、短く具体的な日英の文章で伝える。'},ai:false}});
+    editor.render();
+  </script>
+</body>
+</html>

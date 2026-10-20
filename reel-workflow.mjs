@@ -1,5 +1,6 @@
 // Shared rules for the editor, Worker and tests. Dates use the existing Seoul calendar.
 export const TIMEZONE = 'Asia/Seoul';
+export const EDITOR_END_DATE = '2026-11-01';
 export const MODEL = '@cf/meta/llama-3.3-70b-instruct-fp8-fast';
 export const DEFAULT_BRIEF = 'REEL公式（X: @REEL_Experience / IG: @reelofficialch）。ゲームのプレイ・レビュー・信頼・貢献・報酬を軸に、短く具体的に伝える。PLAY → REVIEW → REWARD。提供された2026年10月原稿は語調とブランド理解の参考のみ。原文を転載・保存せず、10月27日以降は新しい文章にする。Xは英語240文字以内、IGは英語500文字以内。最初の一文で話題を明確にし、役立つ気づきや答えやすい自然な問いかけを添える。露骨な反応稼ぎ、同じ質問・ハッシュタグの反復、誇張を避ける。アルゴリズムの評価向上を保証しない。未確認の実装・統計・収益は断定しない。XとIGはそれぞれに適した別の短文にする。';
 export function dateOK(s) {
@@ -19,6 +20,10 @@ export function ready(day, now = new Date()) {
 }
 export function english(post) { return post?.noboEn || post?.en || ''; }
 export function englishPart(post, i) { return post?.noboParts?.[i] || post?.parts?.[i]?.en || ''; }
+export function partLabels(date, platform='X') {
+  const day=new Date(date+'T00:00:00Z').getUTCDay();
+  return day===0||day===6?['Feed 1']:platform==='IG'?['Feed 1','Comment']:['Feed 1','Feed 2','Feed 3','Comment'];
+}
 function text(s, max) { return typeof s === 'string' && s.trim().length > 0 && s.length <= max; }
 export function validateWeek(w, history = []) {
   if (!w || !dateOK(w.start) || monday(w.start) !== w.start) return 'week';

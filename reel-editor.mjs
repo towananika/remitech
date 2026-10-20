@@ -3,6 +3,11 @@ import * as R from './reel-workflow.mjs';
 const labels = {
   title:['REEL','REEL','REEL'],subtitle:['準備 / REEL · 日付を開くと草案を表示','Prep / REEL · Open a date to see its drafts','준비 / REEL · 날짜를 열면 초안 표시'],
   bookmark:['ページURLをコピー','Copy page link','페이지 주소 복사'],bookmarkCopied:['このURLをブックマークすると、同じ日付・SNSを直接開けます。','Bookmark this URL to open this date and channel directly.','이 주소를 북마크하면 같은 날짜·SNS를 바로 열 수 있습니다.'],
+  tapCopy:['タップで英文をコピー','Tap to copy English','탭하여 영어 복사'],
+  storyRandom:['ランダムにコピー','Copy a random phrase','랜덤 복사'],storyChoices:['候補を見る','Show phrases','문구 보기'],storyUrl:['リンク先URLをコピー','Copy destination URL','링크 주소 복사'],storyEmpty:['ストーリー用の定型文がありません。','No story phrases available.','스토리 문구가 없습니다.'],storyError:['定型文を読み込めませんでした。更新して再試行してください。','Could not load phrases. Refresh to retry.','문구를 불러오지 못했습니다. 새로고침해 다시 시도하세요.'],
+  serverPending:['共有保存機能は本番にまだ反映されていません。作成・共有保存は現在利用できません。デザインは比較ページで確認できます。','Shared saving has not been deployed yet. Creation and shared saving are currently unavailable. Use the comparison page to review the design.','공유 저장 기능이 아직 배포되지 않았습니다. 생성·공유 저장은 현재 사용할 수 없습니다. 비교 페이지에서 디자인을 확인할 수 있습니다.'],
+  addDraft:['用意した日英原稿を登録','Add prepared JA / EN text','준비한 일·영 원고 등록'],manualMissing:['用意した日英原稿を登録してください。','Add your prepared Japanese and English text.','준비한 일본어·영어 원고를 등록하세요.'],theme:['週のテーマ','Weekly theme','주간 주제'],arc:['一週間の流れ','Weekly story','한 주의 흐름'],
+  scope:['今回の対象は11月1日までです。','The current scope ends on November 1.','현재 작업 범위는 11월 1일까지입니다.'],
   date:['日付','Date','날짜'],settings:['AIの投稿方針','AI writing brief','AI 게시물 작성 지침'],saveBrief:['方針を保存','Save brief','지침 저장'],
   brief:['ブランド・読者・語調・避けたい表現','Brand, audience, voice and constraints','브랜드·독자·말투·피할 표현'],
   rule:['毎週一つの流れ。連続4週間は別テーマ。再利用時も切り口と本文を変えます。','One story per week. Distinct themes for four consecutive weeks. Fresh angles and text when reused.','매주 하나의 흐름. 연속 4주는 다른 주제. 재사용 시 관점과 본문을 바꿉니다.'],
@@ -36,9 +41,22 @@ const labels = {
 
 export function createEditor(a) {
   const t=k=>labels[k][({ja:0,en:1,ko:2})[a.lang()] ?? 0], e=a.esc;
-  let weeks=[],loaded=false,online=false,loading=false,busy=false,ai=false,noticeText='',edit='',editMode='',buffer={},settingsDirty=false;
+  let weeks=[],loaded=false,online=false,loading=false,attempted=false,busy=false,ai=false,noticeText='',edit='',editMode='',buffer={},settingsDirty=false;
   let date=R.today()<'2026-10-27'?'2026-10-27':R.today(),first=date,last=R.addDays(R.monday(date),6),pf='X',brief='',observer=null,failedKey='',pendingRemote=false,instructions={};
-  const initial=a.selection?.();if(initial){if(R.dateOK(initial.date))date=initial.date;if(['X','IG'].includes(initial.platform))pf=initial.platform;first=date;last=R.addDays(R.monday(date),6);}
+  const initial=a.selection?.();if(initial){if(R.dateOK(initial.date))date=initial.date;if(['X','IG','IGS'].includes(initial.platform))pf=initial.platform;first=date;last=R.addDays(R.monday(date),6);}
+  if(date>R.EDITOR_END_DATE){date=R.EDITOR_END_DATE;first=date;last=date;}
+  let stories=null,storyLoading=false,storyError=false,lastStory={};
+  async function loadStories(){
+    if(storyLoading)return;storyLoading=true;
+    try{let list=a.stories?.();if(!Array.isArray(list)){const r=await fetch('./posts.json');if(!r.ok)throw Error();const j=await r.json();list=(j.channels.find(c=>c.id==='reel')||{}).snippets||[];}
+      stories=list.map(sn=>({...sn,items:(sn.items||[]).filter(s=>typeof s==='string'&&s.trim()&&s.length<=Math.min(sn.max||25,25))}));storyError=false;
+    }catch{stories=[];storyError=true;}finally{storyLoading=false;if(a.active()&&pf==='IGS')render();}
+  }
+  function storyHTML(){
+    if(stories===null){loadStories();return `<p>${e(t('loading'))}</p>`;}
+    if(storyError||!stories.length)return `<p>${e(t(storyError?'storyError':'storyEmpty'))}</p>`;
+    return stories.map((sn,i)=>`<section class="re-day re-story"><span class="re-eyebrow">IG Story</span><h3>${e(sn.title)}</h3><div class="re-toolbar"><button class="re-primary" data-re-action="storyRandom" data-story="${i}" ${sn.items.length?'':'disabled'}>${e(t('storyRandom'))}</button>${sn.url?`<button data-re-action="storyUrl" data-story="${i}">${e(t('storyUrl'))}</button>`:''}</div><p data-story-result="${i}" role="status" aria-live="polite">${e(lastStory[i]||'')}</p><details><summary>${e(t('storyChoices'))}</summary><div class="re-story-choices">${sn.items.map((s,j)=>`<button data-re-action="storyItem" data-story="${i}" data-item="${j}">${e(s)}</button>`).join('')}</div></details></section>`).join('');
+  }
   const member=()=>!!(a.user() && (a.user().member || a.user().admin));
   const find=day=>{const w=weeks.find(w=>w.start===R.monday(day));return {w,d:w?.days.find(d=>d.date===day)};};
   const ready=d=>!!d && R.ready({...d.posts[pf],date:d.date});
@@ -55,71 +73,72 @@ export function createEditor(a) {
   async function call(body){
     if(a.preview){if(body)throw Error('preview');return structuredClone(a.preview);}
     const r=await fetch(a.api(),{method:body?'POST':'GET',cache:'no-store',headers:{'Content-Type':'application/json',...a.headers()},body:body?JSON.stringify(body):undefined});
-    const j=await r.json();if(!r.ok)throw Error(j.error||'network');if(!body && !Array.isArray(j.weeks))throw Error('network');
+    const j=await r.json();if(!r.ok)throw Error(j.error||'network');if(!body && !Array.isArray(j.weeks))throw Error('server-update-required');
     if(body && (!j.ok || (body.op==='generate'?!Array.isArray(j.weeks):body.op==='settings'?!j.settings:!j.week)))throw Error('network');
     return j;
   }
   async function load(force=false){
     if(loading||busy)return;
     if(edit||settingsDirty){pendingRemote=true;notice(t('remote'));return;}
-    loading=true;let changed=!loaded;
+    loading=true;attempted=true;let changed=!loaded;
     try{const j=await call();if(edit||settingsDirty||busy){pendingRemote=true;notice(t('remote'));return;}changed=changed||JSON.stringify(j.weeks)!==JSON.stringify(weeks)||j.ai!==ai||!online;weeks=j.weeks;brief=j.settings.brief;ai=j.ai;online=true;loaded=true;if(force)noticeText='';}
-    catch{
+    catch(error){
       online=false;ai=false;
       // Drafts are served only by the authenticated Worker, never public assets.
-      noticeText=t('unavailable');
+      noticeText=pf==='IGS'?'':t(error.message==='server-update-required'?'serverPending':'unavailable');
     }finally{loading=false;if(a.active()&&!edit&&!busy&&!settingsDirty){if(changed||force||!online)render();ensure(date);}}
   }
   function canLeave(){if(edit||busy||settingsDirty){notice(t('unsaved'));return false;}return true;}
   function scrollToDay(day){requestAnimationFrame(()=>a.view.querySelector(`[data-re-day="${day}"]`)?.scrollIntoView({block:'start'}));}
   async function open(day){
-    if(!R.dateOK(day)||!canLeave())return;
+    if(!R.dateOK(day)||!canLeave())return;if(day>R.EDITOR_END_DATE){notice(t('scope'));return;}
     date=day;first=day;last=R.addDays(R.monday(day),6);failedKey='';a.navigate?.(date,pf);render();scrollToDay(day);await ensure(day);
   }
-  async function ensure(day){
-    if(!loaded||!online||!ai||!member()||busy||edit||settingsDirty||failedKey===key(day)||!a.active())return;
-    const {w,d}=find(day);if(d?.posts[pf])return;
-    failedKey=key(day);notice(t('generating'));
-    const body=w?{op:'regenerate',start:w.start,date:day,platform:pf,revision:w.revision}:{op:'generate',start:R.monday(day)};
-    await mutate(body,undefined,true);
-  }
+  async function ensure(day) { /* Drafts are supplied by the author; never generate text on navigation. */ }
+  function authorParts(day,p){return p?.parts?.map(part=>({...part}))||R.partLabels(day,pf).map((label,i)=>({label,ja:i===0?p?.ja||'':'',en:i===0?p?.en||'':''}));}
   function postHTML(d,w){
     const p=d.posts[pf],editing=edit===d.date,booked=a.booked(d.date,pf),can=ready(d),disabled=busy||!online||!member();
     const button=(action,text,disabled=false,extra='')=>`<button data-re-action="${action}" ${disabled?'disabled':''} ${extra}>${e(text)}</button>`;
-    const pair=(ja,en,suffix='')=>`<div class="re-drafts"><div><label for="re-ja-${d.date}${suffix}">日本語 · JA</label><div class="re-text" id="re-ja-${d.date}${suffix}">${e(ja)}</div></div><div><label for="re-en-${d.date}${suffix}">ENGLISH · EN</label><div class="re-text" id="re-en-${d.date}${suffix}">${e(en)}</div></div></div>`;
+    const pair=(ja,en,suffix='',partIndex=null)=>{
+      const copy=partIndex===null?R.english(p):R.englishPart(p,partIndex);
+      return `<div class="re-drafts re-three"><div><label for="re-ja-${d.date}${suffix}">日本語 · JA</label><div class="re-text" id="re-ja-${d.date}${suffix}">${e(ja)}</div></div><div><label for="re-en-${d.date}${suffix}">ENGLISH · EN</label><div class="re-text" id="re-en-${d.date}${suffix}">${e(en)}</div></div><section class="re-nobo-field"><div class="re-toolbar"><span class="re-field-label">EN NOBO</span>${button('nobo',t(readDraft(d.date,'nobo')?'resume':'noboEdit'),disabled||editing||booked)}</div><button class="re-nobo-copy" data-re-action="${partIndex===null?'copy':'copyPart'}" ${partIndex===null?'':`data-part="${partIndex}"`} ${!can||busy?'disabled':''} aria-label="EN NOBO · ${e(t('tapCopy'))}"><span class="re-copy-hint">${e(t('tapCopy'))}</span><span class="re-text">${e(copy)}</span></button></section></div>`;
+    };
     let content='';
-    if(!p)content=`<p>${e(t('missing'))}</p>`;
-    else if(editing && editMode==='nobo'){
+    if(editing && editMode==='nobo'){
       const fields=p.parts?.length?p.parts.map((part,i)=>`<label for="re-nobo-${i}">${e(part.label)}</label><textarea id="re-nobo-${i}" data-re-nobo="${i}" maxlength="6000">${e(buffer.parts[i])}</textarea>`).join(''):`<label for="re-nobo-en">ENGLISH · NOBO</label><textarea id="re-nobo-en" data-re-nobo-en maxlength="6000">${e(buffer.en)}</textarea>`;
       content=`<dialog class="re-nobo-dialog"><h3>${e(t('noboEdit'))} · ${d.date} · ${pf}</h3><p class="re-text">${e(p.ja)}</p><details><summary>${e(t('original'))}</summary><div class="re-text">${e(p.en)}</div></details><div class="re-nobo">${fields}</div><p data-re-draft-status role="status" aria-live="polite">${e(buffer.revision!==w.revision?t('conflict'):t('localDraft'))}</p><div class="re-toolbar">${buffer.revision!==w.revision?button('latest',t('useLatest'),busy):''}${button('save',t('shareSave'),busy,'class="re-primary"')}${button('localClose',t('localClose'),busy)}${button('cancel',t('cancel'),busy)}</div></dialog>`;
     }else if(editing){
-      content=`<div class="re-drafts"><div><label for="re-ja-${d.date}">日本語 · JA</label><textarea id="re-ja-${d.date}" data-re-ja maxlength="6000">${e(buffer.ja)}</textarea></div><div><label for="re-en-${d.date}">ENGLISH · EN</label><textarea id="re-en-${d.date}" data-re-en maxlength="6000">${e(buffer.en)}</textarea></div></div><p>${e(t('editWarning'))}</p><div class="re-toolbar">${button('save',t('save'),busy,'class="re-primary"')}${button('cancel',t('cancel'),busy)}</div>`;
+      const fields=buffer.authorParts.map((part,i)=>`<section class="re-part"><strong>${e(part.label)}</strong><div class="re-drafts"><div><label for="re-author-ja-${i}">日本語 · JA</label><textarea id="re-author-ja-${i}" data-author-ja="${i}" maxlength="6000">${e(part.ja)}</textarea></div><div><label for="re-author-en-${i}">ENGLISH · EN</label><textarea id="re-author-en-${i}" data-author-en="${i}" maxlength="${pf==='X'?240:500}">${e(part.en)}</textarea></div></div></section>`).join('');
+      content=`${!w?`<label>${e(t('theme'))}<input data-re-theme value="${e(buffer.theme||'')}" maxlength="120"></label><label>${e(t('arc'))}<input data-re-arc value="${e(buffer.arc||'')}" maxlength="600"></label>`:''}${fields}<p>${e(t('editWarning'))}</p><div class="re-toolbar">${button('save',t('save'),busy,'class="re-primary"')}${button('cancel',t('cancel'),busy)}</div>`;
+    }else if(!p){
+      content=`<p>${e(t('manualMissing'))}</p>${button('newDraft',t('addDraft'),disabled)}`;
     }else{
-      content=p.parts?.length?p.parts.map((part,i)=>`<section class="re-part"><div class="re-toolbar"><strong>${e(part.label)}</strong>${part.nobo?`<small>${e(t('noboApplied'))}</small>`:''}${button('copyPart',t('copy'),!can,`data-part="${i}"`)}</div>${pair(part.ja,R.englishPart(p,i),'-'+i)}</section>`).join(''):pair(p.ja,R.english(p));
-      if(p.noboEn)content+=`<details><summary>${e(t('original'))}</summary><div class="re-text">${e(p.en)}</div></details>`;
+      content=p.parts?.length?p.parts.map((part,i)=>`<section class="re-part"><div class="re-toolbar"><strong>${e(part.label)}</strong>${part.nobo?`<small>${e(t('noboApplied'))}</small>`:''}</div>${pair(part.ja,part.en,'-'+i,i)}</section>`).join(''):pair(p.ja,p.en);
       content+=`<div class="re-toolbar">${button('edit',t('edit'),disabled||booked)}</div>`;
     }
     return `<article class="re-day" data-re-day="${d.date}"><header class="re-dayhead"><div><span class="re-eyebrow">${d.date} · ${pf}</span><h3>${e(d.focus)}</h3>${p?.source?`<small>${e(t('supplied'))}</small>`:''}</div><span class="re-status" data-ready="${can}">${e(p?.secondReview?t('checked'):can?t('due'):t('pending'))}</span></header>${content}
-      ${p?`<div class="re-review">${button('review2',t('check'),disabled||editing||!!p.secondReview)}${button('nobo',t(readDraft(d.date,'nobo')?'resume':'noboEdit'),disabled||editing||booked)}<span>${p.secondReview?e((p.secondReview.kind==='corrected'?t('correction'):t('checked'))+' · '+p.secondReview.by):e(t('pending'))}</span></div>${!p.secondReview?`<p>${e(t('deadline').replace('{date}',R.addDays(d.date,-1)))}</p>`:''}`:''}
+      ${p?`<div class="re-review">${button('review2',t('check'),disabled||editing||!!p.secondReview)}<span>${p.secondReview?e((p.secondReview.kind==='corrected'?t('correction'):t('checked'))+' · '+p.secondReview.by):e(t('pending'))}</span></div>${!p.secondReview?`<p>${e(t('deadline').replace('{date}',R.addDays(d.date,-1)))}</p>`:''}`:''}
       <div class="re-actions">${button('copy',t('copy'),!can||editing||busy,'class="re-primary"')}
       ${button('book',pf+' · '+t(booked?'booked':'book'),disabled||editing||(!can&&!booked),`aria-pressed="${booked}"`)}<p>${e(t('bookHelp'))}</p>
-      ${button('image',t(p?.imagePrompt?'imageCopy':'image'),disabled||editing||!p||!ai)}
-      <details class="re-regenerate"><summary>${e(t('regenerate'))}</summary><label for="re-change-${d.date}">${e(t('instructions'))}</label><input id="re-change-${d.date}" data-re-instructions maxlength="2000" value="${e(instructions[key(d.date)]||'')}">${button('regenerate',t('regenerate'),disabled||editing||booked||!ai)}<p>${e(t('editWarning'))}</p></details></div></article>`;
+      </div></article>`;
   }
   function render(){
     if(!a.active())return;observer?.disconnect();
     const days=[];for(let day=first;day<=last;day=R.addDays(day,1))days.push(day);
     const current=find(date).w;
     a.view.innerHTML=`<section class="reel-editor"><header class="re-top"><div><span class="re-eyebrow">${e(t('subtitle'))}</span><h2>${e(t('title'))}</h2></div><div class="re-toolbar"><button data-re-action="bookmark">${e(t('bookmark'))}</button><button data-re-action="refresh" ${busy?'disabled':''}>${e(t('refresh'))}</button></div></header><p>${e(t('rule'))}</p>
-      <div class="re-toolbar re-datebar"><label for="re-date">${e(t('date'))}</label><input type="date" id="re-date" value="${date}" ${busy?'disabled':''}><div class="re-toolbar" role="group" aria-label="SNS">${['X','IG'].map(p=>`<button data-re-platform="${p}" aria-pressed="${pf===p}" ${busy?'disabled':''}>${p}</button>`).join('')}</div><button data-re-action="previous" ${busy?'disabled':''}>← ${e(t('previous'))}</button></div>
+      <div class="re-toolbar re-datebar"><label for="re-date">${e(t('date'))}</label><input type="date" id="re-date" value="${date}" max="${R.EDITOR_END_DATE}" ${busy?'disabled':''}><div class="re-toolbar" role="group" aria-label="SNS">${['X','IG','IGS'].map(p=>`<button data-re-platform="${p}" aria-pressed="${pf===p}" ${busy?'disabled':''}>${p==='IGS'?'IG Story':p}</button>`).join('')}</div><button data-re-action="previous" ${busy?'disabled':''}>← ${e(t('previous'))}</button></div>
       <div data-re-notice class="re-notice" aria-live="polite" role="status" ${noticeText?'':'hidden'}>${e(noticeText)}</div>
-      ${a.preview?'<div class="re-notice">デザイン確認用のサンプルです。日付・X／IGの切り替えを試せます。実際の投稿や会員情報は含まず、編集・保存はできません。</div>':!member()?`<div class="re-notice">${e(t('login'))} <button data-re-action="login">${e(t('loginBtn'))}</button></div>`:''}${!ai&&loaded&&!a.preview?`<p>${e(t('aiOff'))}</p>`:''}
+      ${a.preview?'<div class="re-notice">デザイン確認用のサンプルです。日付・X／IG／IG Storyの切り替えを試せます。実際の投稿や会員情報は含まず、編集・保存はできません。</div>':!member()?`<div class="re-notice">${e(t('login'))} <button data-re-action="login">${e(t('loginBtn'))}</button></div>`:!online&&attempted?'<p><a href="./posts-compare.html">デザイン比較を見る ↗</a></p>':''}
       <details class="re-plan"><summary>${e(t('settings'))}</summary><label for="re-brief">${e(t('brief'))}</label><textarea id="re-brief" maxlength="3000">${e(brief)}</textarea><button data-re-action="settings" ${busy||!member()||!online?'disabled':''}>${e(t('saveBrief'))}</button><button data-re-action="cancelSettings" ${busy?'disabled':''}>${e(t('cancel'))}</button></details>
-      ${weeks.length?`<nav class="re-weeks" aria-label="4 weeks">${weeks.filter(w=>w.start>=R.monday(first)).slice(0,4).map(w=>`<button data-re-open="${w.start}" aria-pressed="${R.monday(date)===w.start}" ${busy?'disabled':''}><small>${w.start} — ${R.addDays(w.start,6)}</small><b>${e(w.theme)}</b><small>${e(w.angle)}</small></button>`).join('')}</nav>`:''}
+      ${weeks.length?`<nav class="re-weeks" aria-label="4 weeks">${weeks.filter(w=>w.start>=R.monday(first)&&w.start<=R.EDITOR_END_DATE).slice(0,4).map(w=>`<button data-re-open="${w.start}" aria-pressed="${R.monday(date)===w.start}" ${busy?'disabled':''}><small>${w.start} — ${R.addDays(w.start,6)}</small><b>${e(w.theme)}</b><small>${e(w.angle)}</small></button>`).join('')}</nav>`:''}
       ${current?`<div class="re-week"><span class="re-eyebrow">${current.start} — ${R.addDays(current.start,6)}</span><h3>${e(current.theme)}</h3><p>${e(current.arc)}</p></div>`:''}
-      ${!loaded?`<p>${e(t('loading'))}</p>`:days.map(day=>{const {w,d}=find(day);return postHTML(d||{date:day,focus:w?.theme||t('empty'),posts:{}},w);}).join('')}
+      ${pf==='IGS'?storyHTML():!loaded?`<p>${e(t(loading?'loading':'manualMissing'))}</p>`:days.map(day=>{const {w,d}=find(day);return postHTML(d||{date:day,focus:w?.theme||t('empty'),posts:{}},w);}).join('')}
       <div class="re-more"><button data-re-action="more" ${busy?'disabled':''}>${e(t('next'))} ↓</button></div></section>`;
-    a.view.querySelector('.re-nobo-dialog')?.showModal();observe();if(!loaded&&!loading)load();
+    if(pf==='IGS')a.view.querySelectorAll('.re-weeks,.re-week,.re-plan,.re-more').forEach(el=>el.hidden=true);
+    if(last>=R.EDITOR_END_DATE)a.view.querySelector('.re-more').hidden=true;
+    a.view.querySelectorAll('.re-plan').forEach(el=>el.hidden=true);
+    a.view.querySelector('.re-nobo-dialog')?.showModal();observe();if(pf!=='IGS'&&!loaded&&!loading&&!attempted)load();
   }
   function observe(){
     observer=new IntersectionObserver(entries=>{
@@ -128,7 +147,7 @@ export function createEditor(a) {
         if(!entry.isIntersecting)continue;
         if(entry.target.classList.contains('re-more')){
           // Only extend once the reader reaches the bottom, not during initial layout.
-          if(window.scrollY>100 && !edit && !settingsDirty){last=R.addDays(last,7);const y=window.scrollY;render();window.scrollTo(0,y);}return;
+          if(window.scrollY>100 && !edit && !settingsDirty && last<R.EDITOR_END_DATE){last=R.addDays(last,7)>R.EDITOR_END_DATE?R.EDITOR_END_DATE:R.addDays(last,7);const y=window.scrollY;render();window.scrollTo(0,y);}return;
         }
       }
       const reading=[...a.view.querySelectorAll('[data-re-day]')].find(el=>{const r=el.getBoundingClientRect();return r.bottom>180&&r.top<window.innerHeight;});
@@ -137,15 +156,15 @@ export function createEditor(a) {
     a.view.querySelectorAll('[data-re-day],.re-more').forEach(el=>observer.observe(el));
   }
   async function mutate(body,success='saved',automatic=false){
-    if(edit && !['edit','nobo-edit'].includes(body.op)){notice(t('unsaved'));return null;}
+    if(edit && !['draft','edit','nobo-edit'].includes(body.op)){notice(t('unsaved'));return null;}
     busy=true;const y=window.scrollY;
     a.view.querySelectorAll('[data-re-action],[data-re-platform],#re-date').forEach(el=>el.disabled=true);
     try{
       const j=await call(body);
       if(j.weeks)weeks=j.weeks;
-      if(j.week)weeks=weeks.map(w=>w.start===j.week.start?j.week:w);
+      if(j.week){if(weeks.some(w=>w.start===j.week.start))weeks=weeks.map(w=>w.start===j.week.start?j.week:w);else{weeks.push(j.week);weeks.sort((a,b)=>a.start.localeCompare(b.start));}}
       if(j.settings){brief=j.settings.brief;settingsDirty=false;}
-      if(edit && ['edit','nobo-edit'].includes(body.op)){try{localStorage.removeItem(draftKey(edit,editMode));}catch{}}
+      if(edit && ['draft','edit','nobo-edit'].includes(body.op)){try{localStorage.removeItem(draftKey(edit,editMode));}catch{}}
       edit='';buffer={};noticeText=automatic?'':t(success);pendingRemote=false;
       if(body.op==='book')await a.pullBookings();
       busy=false;render();window.scrollTo(0,y);return j;
@@ -161,25 +180,36 @@ export function createEditor(a) {
     if(ev.target.matches('[data-re-en]'))buffer.en=ev.target.value;
     if(ev.target.matches('[data-re-nobo-en]'))buffer.en=ev.target.value;
     if(ev.target.matches('[data-re-nobo]'))buffer.parts[Number(ev.target.dataset.reNobo)]=ev.target.value;
+    if(ev.target.matches('[data-re-theme]'))buffer.theme=ev.target.value;
+    if(ev.target.matches('[data-re-arc]'))buffer.arc=ev.target.value;
+    if(ev.target.matches('[data-author-ja]'))buffer.authorParts[Number(ev.target.dataset.authorJa)].ja=ev.target.value;
+    if(ev.target.matches('[data-author-en]'))buffer.authorParts[Number(ev.target.dataset.authorEn)].en=ev.target.value;
     if(ev.target.matches('[data-re-instructions]'))instructions[key(ev.target.closest('[data-re-day]').dataset.reDay)]=ev.target.value;
-    if(edit && ev.target.matches('[data-re-ja],[data-re-en],[data-re-nobo],[data-re-nobo-en]'))stash();
+    if(edit && ev.target.matches('[data-re-ja],[data-re-en],[data-re-nobo],[data-re-nobo-en],[data-re-theme],[data-re-arc],[data-author-ja],[data-author-en]'))stash();
   });
   a.view.addEventListener('change',ev=>{if(ev.target.id==='re-date')open(ev.target.value);});
   a.view.addEventListener('cancel',ev=>{if(ev.target.matches('.re-nobo-dialog')){ev.preventDefault();if(!busy&&stash()){edit='';buffer={};render();}}},true);
   a.view.addEventListener('click',async ev=>{
     if(!a.active()||busy)return;const btn=ev.target.closest('button');if(!btn)return;
     if(btn.dataset.reOpen){await open(btn.dataset.reOpen);return;}
-    if(btn.dataset.rePlatform){if(!canLeave())return;pf=btn.dataset.rePlatform;failedKey='';a.navigate?.(date,pf);render();await ensure(date);return;}
+    if(btn.dataset.rePlatform){if(!canLeave())return;pf=btn.dataset.rePlatform;if(pf==='IGS')noticeText='';failedKey='';a.navigate?.(date,pf);render();await ensure(date);return;}
     const op=btn.dataset.reAction;if(!op)return;
+    if(['storyRandom','storyItem','storyUrl'].includes(op)){
+      const i=Number(btn.dataset.story),sn=stories?.[i];if(!sn)return;
+      const choices=sn.items.filter(s=>s!==lastStory[i]);
+      const value=op==='storyUrl'?sn.url:op==='storyItem'?sn.items[Number(btn.dataset.item)]:(choices.length?choices:sn.items)[Math.floor(Math.random()*(choices.length||sn.items.length))];if(!value)return;
+      try{await navigator.clipboard.writeText(value);if(op!=='storyUrl'){lastStory[i]=value;const result=a.view.querySelector(`[data-story-result="${i}"]`);if(result)result.textContent=value;}notice(t('copied'));}catch{notice(t('copyError'),true);}return;
+    }
     if(op==='bookmark'){try{await navigator.clipboard.writeText(window.location.href);notice(t('bookmarkCopied'));}catch{notice(t('copyError'),true);}return;}
     if(op==='login'){a.login();return;}
     if(op==='cancelSettings'){settingsDirty=false;await load(true);return;}
-    if(op==='refresh'){if(!canLeave())return;failedKey='';await load(true);return;}
+    if(op==='refresh'){if(!canLeave())return;failedKey='';if(pf==='IGS'){stories=null;await loadStories();}else await load(true);return;}
     if(op==='previous'){await open(R.addDays(first,-7));return;}
-    if(op==='more'){if(!canLeave())return;last=R.addDays(last,7);render();return;}
+    if(op==='more'){if(!canLeave())return;last=R.addDays(last,7)>R.EDITOR_END_DATE?R.EDITOR_END_DATE:R.addDays(last,7);render();return;}
     if(op==='settings'){if(brief.trim().length<10){notice(t('briefError'),true);return;}await mutate({op:'settings',brief});await ensure(date);return;}
     const card=btn.closest('[data-re-day]');if(!card)return;const day=card.dataset.reDay,{w,d}=find(day),p=d?.posts[pf];
-    if(op==='edit'||op==='nobo'){if(!canLeave())return;edit=day;editMode=op==='nobo'?'nobo':'author';buffer=readDraft(day,editMode)||{ja:p.ja,en:op==='nobo'?R.english(p):p.en,parts:p.parts?.map((part,i)=>R.englishPart(p,i)),revision:w.revision};stash();render();a.view.querySelector('textarea[data-re-ja],.re-nobo textarea')?.focus();return;}
+    if(op==='newDraft'){if(!canLeave())return;edit=day;editMode='author';buffer=readDraft(day,'author')||{ja:'',en:'',revision:w?.revision||0,theme:'',arc:''};buffer.authorParts=buffer.authorParts||authorParts(day);stash();render();return;}
+    if(op==='edit'||op==='nobo'){if(!canLeave())return;edit=day;editMode=op==='nobo'?'nobo':'author';buffer=readDraft(day,editMode)||{ja:p.ja,en:op==='nobo'?R.english(p):p.en,parts:p.parts?.map((part,i)=>R.englishPart(p,i)),revision:w.revision};if(editMode==='author')buffer.authorParts=buffer.authorParts||authorParts(day,p);stash();render();a.view.querySelector('textarea[data-author-ja],.re-nobo textarea')?.focus();return;}
     if(op==='localClose'){if(stash()){edit='';buffer={};render();}return;}
     if(op==='latest'){buffer.revision=w.revision;stash();render();return;}
     if(op==='cancel'){edit='';buffer={};render();if(pendingRemote)load();return;}
@@ -187,21 +217,13 @@ export function createEditor(a) {
       if(!ready(d))return;const value=op==='copyPart'?R.englishPart(p,Number(btn.dataset.part)):R.english(p);
       try{await navigator.clipboard.writeText(value);notice(t('copied'));}catch{notice(t('copyError'),true);}return;
     }
-    if(!w)return;
-    const body={op,start:w.start,date:day,platform:pf,revision:w.revision};
+    if(!w&&op!=='save')return;
+    const body={op,start:w?.start||R.monday(day),date:day,platform:pf,revision:w?.revision||0};
     if(op==='image'){
-      if(p.imagePrompt){try{await navigator.clipboard.writeText(p.imagePrompt);notice(t('imageCopied'));}catch{notice(t('imageRetry'),true);}return;}
-      // ClipboardItem's promise keeps clipboard permission tied to the original click.
-      const generation=mutate(body);
-      try{
-        if(navigator.clipboard.write && globalThis.ClipboardItem){
-          const text=generation.then(j=>{if(!j?.prompt)throw Error('image');return new Blob([j.prompt],{type:'text/plain'});});
-          await navigator.clipboard.write([new ClipboardItem({'text/plain':text})]);
-        }else{const j=await generation;if(!j?.prompt)return;await navigator.clipboard.writeText(j.prompt);}
-        notice(t('imageCopied'));
-      }catch{if((await generation)?.prompt)notice(t('imageRetry'),true);}return;
+      const prompt=`Create a 4:5 editorial image for REEL's ${pf} post. Communicate the core idea with one clear visual metaphor, thoughtful composition and natural lighting. Keep it grounded in gaming and real player experience. Do not include visible text, logos, charts or invented product features. Post message: ${R.english(p)}`;
+      try{await navigator.clipboard.writeText(prompt);notice(t('imageCopied'));}catch{notice(t('copyError'),true);}return;
     }
-    if(op==='save'){stash();body.op=editMode==='nobo'?'nobo-edit':'edit';body.revision=buffer.revision??w.revision;body.ja=buffer.ja;body.en=buffer.parts&&editMode==='nobo'?buffer.parts.join('\n\n'):buffer.en;if(editMode==='nobo'&&buffer.parts)body.parts=buffer.parts;}
+    if(op==='save'){stash();body.op=editMode==='nobo'?'nobo-edit':p?'edit':'draft';body.theme=buffer.theme;body.arc=buffer.arc;body.revision=buffer.revision??w?.revision??0;body.ja=buffer.ja;body.en=buffer.parts&&editMode==='nobo'?buffer.parts.join('\n\n'):buffer.en;if(editMode==='nobo'&&buffer.parts)body.parts=buffer.parts;if(editMode==='author'){body.parts=buffer.authorParts;body.ja=body.parts.map(p=>p.ja).join('\n\n');body.en=body.parts.map(p=>p.en).join('\n\n');}}
     if(op==='book')body.scheduled=!a.booked(day,pf);
     if(op==='regenerate')body.instructions=card.querySelector('[data-re-instructions]').value;
     if(['save','review2','book','regenerate'].includes(op))await mutate(body);
@@ -209,5 +231,5 @@ export function createEditor(a) {
   window.addEventListener('beforeunload',ev=>{if(edit||busy||settingsDirty){ev.preventDefault();ev.returnValue='';}});
   // Refresh availability at the Seoul date boundary without losing edits.
   let calendar=R.today();setInterval(()=>{if(R.today()!==calendar){calendar=R.today();if(!edit&&!busy&&!settingsDirty)render();}},30000);
-  return{render,load,canLeave,renderLocation:()=>{const s=a.selection?.();if(s&&R.dateOK(s.date)&&(s.date!==date||s.platform!==pf)){if(canLeave()){if(['X','IG'].includes(s.platform))pf=s.platform;open(s.date);}return;}render();},lock:()=>{observer?.disconnect();weeks=[];loaded=false;online=false;edit='';buffer={};settingsDirty=false;},refresh:()=>{if(a.active())load();},authChanged:()=>{if(a.active()&&!edit){render();ensure(date);}}};
+  return{render,load,canLeave,renderLocation:()=>{const s=a.selection?.();if(s&&R.dateOK(s.date)&&(s.date!==date||s.platform!==pf)){if(canLeave()){if(['X','IG','IGS'].includes(s.platform))pf=s.platform;open(s.date);}return;}render();},lock:()=>{observer?.disconnect();weeks=[];loaded=false;online=false;edit='';buffer={};settingsDirty=false;},refresh:()=>{if(a.active())load();},authChanged:()=>{if(a.active()&&!edit){render();ensure(date);}}};
 }

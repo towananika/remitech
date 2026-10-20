@@ -1,0 +1,54 @@
+.reel-editor{--accent:#4a72a8;max-width:1100px;margin:24px auto;overflow-wrap:anywhere}
+.reel-editor h2,.reel-editor h3{margin:0;font-weight:500;letter-spacing:.02em}
+.reel-editor p{margin:8px 0;color:var(--muted);font-size:13px}
+.reel-editor button,.reel-editor input,.reel-editor textarea{font:inherit;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:9px 12px;max-width:100%}
+.reel-editor button{cursor:pointer;font-size:13px;min-height:40px}
+.reel-editor button:hover:not(:disabled){border-color:var(--accent)}
+.reel-editor button:focus-visible,.reel-editor textarea:focus-visible,.reel-editor input:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.reel-editor button:disabled{opacity:.45;cursor:not-allowed}
+.reel-editor .re-primary{background:var(--accent);color:white;border-color:var(--accent)}
+.re-top,.re-toolbar,.re-review,.re-book{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.re-top{justify-content:space-between;margin-bottom:20px}
+.re-eyebrow{font-size:11px;letter-spacing:.18em;color:var(--accent);font-weight:600}
+.re-status{font-size:12px;border:1px solid var(--line);border-radius:20px;padding:3px 10px;display:inline-block}
+.re-status[data-ready="true"]{color:var(--neon-ink);background:var(--neon);border-color:var(--neon)}
+.re-plan{padding:20px;background:var(--surface);border:1px solid var(--line);border-radius:14px;margin:16px 0}
+.re-plan summary{cursor:pointer;font-weight:500}
+.re-plan label,.re-field{display:block;font-size:12px;color:var(--muted);margin-top:12px}
+.re-plan textarea{display:block;width:100%;min-height:90px;margin:6px 0 12px}
+.re-weeks{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:20px 0}
+.re-weeks button{text-align:left;padding:15px;min-width:0}
+.re-weeks button[aria-pressed="true"]{border:2px solid var(--accent);padding:14px;background:var(--todaybg)}
+.re-weeks b,.re-weeks small{display:block}
+.re-weeks small{color:var(--muted);font-size:11px}
+.re-week{border-left:3px solid var(--accent);padding:6px 18px;margin:24px 0}
+.re-week h3{font-size:19px}
+.re-day{border:1px solid var(--line);border-radius:14px;background:var(--surface);padding:20px;margin:14px 0}
+.re-dayhead{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:14px;flex-wrap:wrap}
+.re-dayhead h3{font-size:15px}
+.re-drafts{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.re-drafts>div{min-width:0}
+.re-drafts label{font-size:11px;letter-spacing:.1em;color:var(--muted)}
+.re-text{white-space:pre-wrap;line-height:1.8;font-size:14px;margin:8px 0 16px}
+.re-drafts textarea{width:100%;min-height:200px;resize:vertical;line-height:1.7}
+.re-review{padding:12px 0;border-top:1px solid var(--line);font-size:12px}
+.re-review span{color:var(--muted)}
+.re-actions{display:grid;grid-template-columns:minmax(0,1fr);gap:10px;margin-top:10px}
+.re-book button[aria-pressed="true"]{background:var(--neon);border-color:var(--neon);color:var(--neon-ink)}
+.re-notice{padding:12px 16px;background:var(--todaybg);border-radius:8px;font-size:13px;margin:12px 0}
+.re-notice[role="alert"]{border:1px solid var(--wood)}
+.re-datebar{position:sticky;top:0;z-index:5;background:var(--bg);padding:10px 0;border-bottom:1px solid var(--line)}
+.re-datebar button[aria-pressed="true"]{border-color:var(--accent);background:var(--accent);color:white}
+.re-day{scroll-margin-top:100px}
+.re-part{border-top:1px solid var(--line);padding-top:16px;margin-top:16px}
+.re-part small{color:var(--muted);font-size:11px}
+.re-regenerate{border-top:1px solid var(--line);padding-top:12px}
+.re-regenerate summary{cursor:pointer;font-size:13px}
+.re-regenerate input{display:block;width:100%;margin:8px 0}
+.re-nobo label{display:block;margin-top:12px}
+.re-nobo textarea{width:100%;min-height:160px;display:block;margin:8px 0}
+.re-nobo-dialog{width:min(760px,94vw);max-height:90vh;overflow:auto;background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:16px;padding:24px}
+.re-nobo-dialog::backdrop{background:rgb(0 0 0 / .4)}
+.re-more{text-align:center;padding:24px}
+.re-empty{text-align:center;padding:45px 15px;border:1px dashed var(--line);border-radius:14px}
+@media(max-width:650px){.re-weeks{display:flex;overflow-x:auto;scroll-snap-type:x proximity;padding-bottom:6px}.re-weeks button{flex:0 0 75%;scroll-snap-align:start}.re-weeks button small:last-child{display:none}.re-drafts{grid-template-columns:1fr}.re-day{padding:16px}.re-top h2{font-size:21px}.re-book{align-items:stretch}.re-book button{flex:1}.re-plan{padding:16px}.re-week{margin:16px 0}.re-week h3{font-size:17px}}

@@ -28,6 +28,17 @@
 .re-dayhead h3{font-size:15px}
 .re-drafts{display:grid;grid-template-columns:1fr 1fr;gap:18px}
 .re-drafts>div{min-width:0}
+.re-three{grid-template-columns:1fr 1fr 1.15fr}
+.re-three>section{min-width:0}
+.re-nobo-field{padding:14px;border:1px solid var(--accent);border-radius:10px;background:var(--todaybg)}
+.re-field-label{font-size:11px;letter-spacing:.1em;color:var(--accent);font-weight:600}
+.re-nobo-field .re-toolbar{justify-content:space-between;gap:6px}
+.re-nobo-field .re-toolbar button{font-size:11px;padding:5px 8px}
+.reel-editor .re-nobo-copy{display:block;width:100%;text-align:left;border:0;background:transparent;padding:10px 0;white-space:normal}
+.reel-editor .re-nobo-copy:disabled{opacity:1;cursor:default}
+.re-nobo-copy .re-text{display:block;margin-bottom:0}
+.re-copy-hint{display:block;font-size:11px;color:var(--muted)}
+.re-story .re-toolbar{margin:18px 0}.re-story-choices{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.re-story [data-story-result]{white-space:pre-wrap;color:var(--ink)}
 .re-drafts label{font-size:11px;letter-spacing:.1em;color:var(--muted)}
 .re-text{white-space:pre-wrap;line-height:1.8;font-size:14px;margin:8px 0 16px}
 .re-drafts textarea{width:100%;min-height:200px;resize:vertical;line-height:1.7}

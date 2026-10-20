@@ -69,8 +69,8 @@ test('NOBO thread corrections keep part boundaries and original copy',async()=>{
   assert.equal(r.status,200);const saved=r.week.days[0].posts.X;
   assert.equal(saved.parts[0].en,'One');assert.equal(R.englishPart(saved,1),'Two fixed');
 });
-test('other employees cannot record NOBO checks; stale revisions do not overwrite',async()=>{
-  const w=week(),c=context({seed:[w]});assert.equal((await c.request(action('review2',w))).status,403);
+test('employees can review while general members cannot; stale revisions do not overwrite',async()=>{
+  const w=week(),c=context({seed:[w]});assert.equal((await c.request(action('review2',w),{id:'guest',member:false})).status,403);await c.request(null,{id:'hibiki',member:true});
   let r=await c.request(action('edit',w,{ja:'修正',en:'Edited'}));assert.equal(r.status,200);
   r=await c.request(action('edit',w,{ja:'古い編集',en:'Stale'}));assert.equal(r.status,409);
 });
@@ -83,22 +83,27 @@ test('booking uses the existing slot key, keeps public /book free of draft text 
   r=await c.request(action('book',r.week,{scheduled:false}));assert.equal(r.status,200);
   assert.equal((await c.request(action('edit',r.week,{ja:'変更',en:'Changed'}))).status,200);
 });
-test('AI creates four distinct weeks atomically; repeat opening preserves existing drafts',async()=>{
-  let calls=0;const c=context({ai:async(model,input)=>{
-    assert.equal(model,R.MODEL);const start=input.messages[1].content.match(/月曜 (\d{4}-\d{2}-\d{2})/)[1];calls++;return{response:JSON.stringify({weeks:[week(start)]})};
-  }});
-  let r=await c.request({op:'generate',start:'2026-11-02'});assert.equal(r.status,200);assert.equal(r.weeks.length,4);assert.equal(calls,4);
-  r=await c.request({op:'generate',start:'2026-11-02'});assert.equal(r.status,200);assert.equal(calls,4);
+test('prepared text creates a week without AI and never overwrites an existing post',async()=>{
+  const c=context();
+  const body={op:'draft',start:'2026-10-26',date:'2026-10-27',platform:'X',revision:0,theme:'Player discoveries',arc:'Notice, share, reflect',ja:'遊んだ人の気づき',en:'A discovery from real play.'};
+  body.parts=R.partLabels(body.date,'X').map((label,i)=>({label,ja:body.ja+i,en:body.en+i}));const r=await c.request(body);assert.equal(r.status,200);assert.equal(r.week.days[0].posts.X.parts[0].en,body.en+'0');
+  assert.equal(r.week.days[0].posts.X.secondReview,null);
+  assert.equal((await c.request({...body,revision:r.week.revision})).status,409);
 });
-test('invalid AI output saves nothing and releases generation lease',async()=>{
-  const c=context({ai:async()=>({response:'not JSON'})});const r=await c.request({op:'generate',start:'2026-11-02'});
-  assert.equal(r.status,502);assert.equal((await c.storage.list({prefix:'reel:week:'})).size,0);assert.equal(await c.storage.get('reel:ai-lock'),undefined);
+test('manual drafts add IG independently and reject overlapping week themes',async()=>{
+  const c=context();const body={op:'draft',start:'2026-10-26',date:'2026-10-27',platform:'X',revision:0,theme:'Player discoveries',arc:'Notice, share, reflect',ja:'気づき',en:'A discovery.'};
+  body.parts=R.partLabels(body.date,'X').map((label,i)=>({label,ja:body.ja+i,en:body.en+i}));const first=await c.request(body);
+  const ig=await c.request({...body,platform:'IG',revision:first.week.revision,en:'A separate IG caption.',parts:[{ja:'IG本文',en:'IG caption'},{ja:'コメント',en:'Your thought?'}]});assert.equal(ig.status,200);assert.equal(ig.week.days[0].posts.X.parts[0].en,'A discovery.0');
+  const past=week('2026-10-19');past.theme=body.theme;await c.storage.put('reel:week:'+past.start,past);const clash=await c.request({...body,date:'2026-10-28',revision:0,start:'2026-10-26'});assert.equal(clash.status,409);
+  const future=await c.request({...body,start:'2026-11-02',date:'2026-11-03'});assert.equal(future.status,400);
 });
-test('regeneration clears check/image; image generation stores no visible text field',async()=>{
-  let w=week();w.days[0].posts.X.secondReview={by:'nobo'};w.days[0].posts.X.imagePrompt='old';
-  let image=false;const c=context({seed:[w],ai:async()=>({response:JSON.stringify(image?{prompt:'A fresh image prompt'}:{ja:'再生成した草案',en:'A regenerated draft'})})});
-  let r=await c.request(action('regenerate',w));assert.equal(r.status,200);w=r.week;
-  assert.equal(w.days[0].posts.X.secondReview,null);assert.equal(w.days[0].posts.X.imagePrompt,undefined);
-  image=true;r=await c.request(action('image',w));assert.equal(r.prompt,'A fresh image prompt');
-  assert.equal(r.week.days[0].posts.X.en,'A regenerated draft');
+
+test('weekday/weekend structures match each channel and non-staff cannot edit',async()=>{
+  assert.deepEqual(R.partLabels('2026-10-27','X'),['Feed 1','Feed 2','Feed 3','Comment']);
+  assert.deepEqual(R.partLabels('2026-10-27','IG'),['Feed 1','Comment']);
+  assert.deepEqual(R.partLabels('2026-10-31','X'),['Feed 1']);
+  assert.deepEqual(R.partLabels('2026-11-01','IG'),['Feed 1']);
+  const w=week(),c=context({seed:[w]});
+  assert.equal((await c.request(action('nobo-edit',w,{en:'No access'}),{id:'guest',member:false})).status,403);
+  const r=await c.request(action('nobo-edit',w,{en:'Employee revision'}),{id:'editor',member:true});assert.equal(r.status,200);assert.equal(r.week.days[0].posts.X.noboEn,'Employee revision');
 });
