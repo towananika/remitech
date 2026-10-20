@@ -1,7 +1,8 @@
 import * as R from './reel-workflow.mjs';
 
 const labels = {
-  title:['投稿','Posts','게시물'],subtitle:['REEL · 日付を開くと草案を表示','REEL · Open a date to see its drafts','REEL · 날짜를 열면 초안 표시'],
+  title:['REEL','REEL','REEL'],subtitle:['準備 / REEL · 日付を開くと草案を表示','Prep / REEL · Open a date to see its drafts','준비 / REEL · 날짜를 열면 초안 표시'],
+  bookmark:['ページURLをコピー','Copy page link','페이지 주소 복사'],bookmarkCopied:['このURLをブックマークすると、同じ日付・SNSを直接開けます。','Bookmark this URL to open this date and channel directly.','이 주소를 북마크하면 같은 날짜·SNS를 바로 열 수 있습니다.'],
   date:['日付','Date','날짜'],settings:['AIの投稿方針','AI writing brief','AI 게시물 작성 지침'],saveBrief:['方針を保存','Save brief','지침 저장'],
   brief:['ブランド・読者・語調・避けたい表現','Brand, audience, voice and constraints','브랜드·독자·말투·피할 표현'],
   rule:['毎週一つの流れ。連続4週間は別テーマ。再利用時も切り口と本文を変えます。','One story per week. Distinct themes for four consecutive weeks. Fresh angles and text when reused.','매주 하나의 흐름. 연속 4주는 다른 주제. 재사용 시 관점과 본문을 바꿉니다.'],
@@ -37,6 +38,7 @@ export function createEditor(a) {
   const t=k=>labels[k][({ja:0,en:1,ko:2})[a.lang()] ?? 0], e=a.esc;
   let weeks=[],loaded=false,online=false,loading=false,busy=false,ai=false,noticeText='',edit='',editMode='',buffer={},settingsDirty=false;
   let date=R.today()<'2026-10-27'?'2026-10-27':R.today(),first=date,last=R.addDays(R.monday(date),6),pf='X',brief='',observer=null,failedKey='',pendingRemote=false,instructions={};
+  const initial=a.selection?.();if(initial){if(R.dateOK(initial.date))date=initial.date;if(['X','IG'].includes(initial.platform))pf=initial.platform;first=date;last=R.addDays(R.monday(date),6);}
   const member=()=>!!(a.user() && (a.user().member || a.user().admin));
   const find=day=>{const w=weeks.find(w=>w.start===R.monday(day));return {w,d:w?.days.find(d=>d.date===day)};};
   const ready=d=>!!d && R.ready({...d.posts[pf],date:d.date});
@@ -72,7 +74,7 @@ export function createEditor(a) {
   function scrollToDay(day){requestAnimationFrame(()=>a.view.querySelector(`[data-re-day="${day}"]`)?.scrollIntoView({block:'start'}));}
   async function open(day){
     if(!R.dateOK(day)||!canLeave())return;
-    date=day;first=day;last=R.addDays(R.monday(day),6);failedKey='';render();scrollToDay(day);await ensure(day);
+    date=day;first=day;last=R.addDays(R.monday(day),6);failedKey='';a.navigate?.(date,pf);render();scrollToDay(day);await ensure(day);
   }
   async function ensure(day){
     if(!loaded||!online||!ai||!member()||busy||edit||settingsDirty||failedKey===key(day)||!a.active())return;
@@ -108,7 +110,7 @@ export function createEditor(a) {
     if(!a.active())return;observer?.disconnect();
     const days=[];for(let day=first;day<=last;day=R.addDays(day,1))days.push(day);
     const current=find(date).w;
-    a.view.innerHTML=`<section class="reel-editor"><header class="re-top"><div><span class="re-eyebrow">${e(t('subtitle'))}</span><h2>${e(t('title'))}</h2></div><button data-re-action="refresh" ${busy?'disabled':''}>${e(t('refresh'))}</button></header><p>${e(t('rule'))}</p>
+    a.view.innerHTML=`<section class="reel-editor"><header class="re-top"><div><span class="re-eyebrow">${e(t('subtitle'))}</span><h2>${e(t('title'))}</h2></div><div class="re-toolbar"><button data-re-action="bookmark">${e(t('bookmark'))}</button><button data-re-action="refresh" ${busy?'disabled':''}>${e(t('refresh'))}</button></div></header><p>${e(t('rule'))}</p>
       <div class="re-toolbar re-datebar"><label for="re-date">${e(t('date'))}</label><input type="date" id="re-date" value="${date}" ${busy?'disabled':''}><div class="re-toolbar" role="group" aria-label="SNS">${['X','IG'].map(p=>`<button data-re-platform="${p}" aria-pressed="${pf===p}" ${busy?'disabled':''}>${p}</button>`).join('')}</div><button data-re-action="previous" ${busy?'disabled':''}>← ${e(t('previous'))}</button></div>
       <div data-re-notice class="re-notice" aria-live="polite" role="status" ${noticeText?'':'hidden'}>${e(noticeText)}</div>
       ${a.preview?'<div class="re-notice">デザイン確認用のサンプルです。日付・X／IGの切り替えを試せます。実際の投稿や会員情報は含まず、編集・保存はできません。</div>':!member()?`<div class="re-notice">${e(t('login'))} <button data-re-action="login">${e(t('loginBtn'))}</button></div>`:''}${!ai&&loaded&&!a.preview?`<p>${e(t('aiOff'))}</p>`:''}
@@ -121,16 +123,17 @@ export function createEditor(a) {
   }
   function observe(){
     observer=new IntersectionObserver(entries=>{
-      if(busy||!a.active())return;
+      if(busy||edit||!a.active())return;
       for(const entry of entries){
         if(!entry.isIntersecting)continue;
         if(entry.target.classList.contains('re-more')){
           // Only extend once the reader reaches the bottom, not during initial layout.
           if(window.scrollY>100 && !edit && !settingsDirty){last=R.addDays(last,7);const y=window.scrollY;render();window.scrollTo(0,y);}return;
         }
-        const day=entry.target.dataset.reDay;if(day){const input=a.view.querySelector('#re-date');if(input)input.value=day;date=day;ensure(day);}
       }
-    },{threshold:0.12});
+      const reading=[...a.view.querySelectorAll('[data-re-day]')].find(el=>{const r=el.getBoundingClientRect();return r.bottom>180&&r.top<window.innerHeight;});
+      if(reading){const day=reading.dataset.reDay,input=a.view.querySelector('#re-date');if(input)input.value=day;date=day;a.navigate?.(date,pf);ensure(day);}
+    },{threshold:[0,0.12,0.5]});
     a.view.querySelectorAll('[data-re-day],.re-more').forEach(el=>observer.observe(el));
   }
   async function mutate(body,success='saved',automatic=false){
@@ -166,8 +169,9 @@ export function createEditor(a) {
   a.view.addEventListener('click',async ev=>{
     if(!a.active()||busy)return;const btn=ev.target.closest('button');if(!btn)return;
     if(btn.dataset.reOpen){await open(btn.dataset.reOpen);return;}
-    if(btn.dataset.rePlatform){if(!canLeave())return;pf=btn.dataset.rePlatform;failedKey='';render();await ensure(date);return;}
+    if(btn.dataset.rePlatform){if(!canLeave())return;pf=btn.dataset.rePlatform;failedKey='';a.navigate?.(date,pf);render();await ensure(date);return;}
     const op=btn.dataset.reAction;if(!op)return;
+    if(op==='bookmark'){try{await navigator.clipboard.writeText(window.location.href);notice(t('bookmarkCopied'));}catch{notice(t('copyError'),true);}return;}
     if(op==='login'){a.login();return;}
     if(op==='cancelSettings'){settingsDirty=false;await load(true);return;}
     if(op==='refresh'){if(!canLeave())return;failedKey='';await load(true);return;}
@@ -205,5 +209,5 @@ export function createEditor(a) {
   window.addEventListener('beforeunload',ev=>{if(edit||busy||settingsDirty){ev.preventDefault();ev.returnValue='';}});
   // Refresh availability at the Seoul date boundary without losing edits.
   let calendar=R.today();setInterval(()=>{if(R.today()!==calendar){calendar=R.today();if(!edit&&!busy&&!settingsDirty)render();}},30000);
-  return{render,load,canLeave,lock:()=>{observer?.disconnect();weeks=[];loaded=false;online=false;edit='';buffer={};settingsDirty=false;},refresh:()=>{if(a.active())load();},authChanged:()=>{if(a.active()&&!edit){render();ensure(date);}}};
+  return{render,load,canLeave,renderLocation:()=>{const s=a.selection?.();if(s&&R.dateOK(s.date)&&(s.date!==date||s.platform!==pf)){if(canLeave()){if(['X','IG'].includes(s.platform))pf=s.platform;open(s.date);}return;}render();},lock:()=>{observer?.disconnect();weeks=[];loaded=false;online=false;edit='';buffer={};settingsDirty=false;},refresh:()=>{if(a.active())load();},authChanged:()=>{if(a.active()&&!edit){render();ensure(date);}}};
 }
