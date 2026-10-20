@@ -65,3 +65,22 @@
 @media(max-width:650px){.re-weeks{display:flex;overflow-x:auto;scroll-snap-type:x proximity;padding-bottom:6px}.re-weeks button{flex:0 0 75%;scroll-snap-align:start}.re-weeks button small:last-child{display:none}.re-drafts{grid-template-columns:1fr}.re-day{padding:16px}.re-top h2{font-size:21px}.re-book{align-items:stretch}.re-book button{flex:1}.re-plan{padding:16px}.re-week{margin:16px 0}.re-week h3{font-size:17px}}
 
 .re-review button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:white}
+
+.re-check-overview{border:1px solid var(--line);border-radius:12px;padding:16px;margin:12px 0 20px;background:var(--surface)}
+.re-check-title{display:block;font-size:13px;margin-bottom:12px}
+.re-check-scroll{overflow-x:auto;padding:3px 3px 8px}
+.re-check-grid{display:grid;grid-template-columns:32px repeat(14,minmax(36px,1fr));gap:10px 6px;align-items:center;justify-items:center;min-width:640px}
+.re-check-corner,.re-check-date{font-size:11px;color:var(--muted);white-space:nowrap}
+.re-check-date[data-today="true"]{font-weight:700;color:var(--ink);border-bottom:2px solid var(--accent)}
+.re-check-channel{font-size:12px;justify-self:start}
+.re-check-grid .re-check-circle{width:32px;height:32px;min-height:0;padding:0;border-radius:50%;font-size:17px;line-height:1;display:flex;align-items:center;justify-content:center;border:1px solid transparent}
+.re-check-circle[data-status="empty"],.re-check-legend i[data-status="empty"]{background:#edf0f2;color:#59616a;border-color:#c9cfd5}
+.re-check-circle[data-status="pending"],.re-check-legend i[data-status="pending"]{background:#fff1cb;color:#845409;border-color:#d8b658}
+.re-check-circle[data-status="checked"],.re-check-legend i[data-status="checked"]{background:#daf1df;color:#216739;border-color:#7bb68b}
+.re-check-circle[data-status="corrected"],.re-check-legend i[data-status="corrected"]{background:#dcecff;color:#215c99;border-color:#86aad3}
+.re-check-grid .re-check-circle[aria-pressed="true"]{outline:2px solid var(--ink);outline-offset:2px}
+.re-check-grid .re-check-circle:disabled{opacity:.45;cursor:default}
+.re-check-legend{display:flex;gap:8px 16px;flex-wrap:wrap;margin-top:10px;font-size:11px;color:var(--muted)}
+.re-check-legend span{display:flex;align-items:center;gap:5px}
+.re-check-legend i{display:inline-flex;width:18px;height:18px;border:1px solid;border-radius:50%;align-items:center;justify-content:center;font-style:normal;font-size:12px}
+@media(max-width:650px){.re-check-overview{padding:12px}.re-check-scroll{scrollbar-width:thin}}
