@@ -122,5 +122,4 @@
 
 .re-drafts[data-confirmed]{border:2px solid transparent;border-radius:12px;padding:10px}
 .re-drafts[data-confirmed="true"]{border-color:#2d7b49;background:color-mix(in srgb,#2d7b49 10%,var(--surface,#fff))}
-.re-confirmed-badge{display:block;width:fit-content;padding:3px 8px;border-radius:6px;background:#daf1df;color:#205c36;font-weight:700;font-size:13px;margin-bottom:4px}
 .re-dayhead .re-status[data-ready="true"]{color:#205c36;background:#daf1df;border-color:#7bb68b;font-weight:700}
