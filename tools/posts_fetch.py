@@ -20,6 +20,10 @@ import pathlib
 import re
 import sys
 import urllib.request
+try:
+    from .post_links import post_url
+except ImportError:
+    from post_links import post_url
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 OUT = ROOT / "posts_check.json"
@@ -63,10 +67,10 @@ def merge(data, key, posts, source):
     # リンクの書き方をそろえてから重ねる（instagram.com/ユーザー名/p/… と instagram.com/p/… を同じ投稿として扱う）
     for p in list(acct.get("posts", [])) + list(posts):
         if p.get("url"):
-            p["url"] = re.sub(r"instagram\.com/[^/]+/(p|reel)/", r"instagram.com/\1/", p["url"].split("?")[0])
+            p["url"] = post_url(p["url"], key.rsplit("|", 1)[-1])
     by = {}
     for p in acct.get("posts", []):
-        by.setdefault(p["url"], p)
+        if p.get("url"): by.setdefault(p["url"], p)
     for p in posts:
         if not p.get("url"):
             continue
@@ -121,8 +125,8 @@ def x_posts(page, url):
 
 
 FB_JS = """() => [...document.querySelectorAll('[role=article], div[aria-posinset]')].map(a => {
-  const links = [...a.querySelectorAll('a[href]')].map(x => x.href.split('&__cft__')[0].split('?__cft__')[0].split('&__tn__')[0])
-    .filter(h => /facebook\\.com\\/(reel\\/|photo\\/?\\?fbid=|[^/]+\\/posts\\/|permalink\\.php\\?story_fbid=|watch\\/?\\?v=|[^/]+\\/videos\\/)/.test(h));
+  const links = [...a.querySelectorAll('a[href]')].map(x => x.href)
+    .filter(h => /facebook\\.com\\/(reel\\/|photo\\/?\\?fbid=|[^/]+\\/posts\\/|permalink\\.php\\?|watch\\/?\\?v=|[^/]+\\/videos\\/)/.test(h));
   const txt = (a.innerText || '');
   const pinned = /고정|Pinned|固定/.test(txt.slice(0, 80));
   return { url: links[0] || '', head: txt.split('\\n').slice(0, 6).join('|'), text: txt.slice(0, 400), pinned };
@@ -150,20 +154,64 @@ def fb_when(head, now):
     return None
 
 
+def fb_check_link(page, candidate):
+    """Require a readable individual post with the same canonical identity and post text.
+
+    A login wall, HTTP error, profile redirect, or ambiguous page is unverified.
+    This check is not a claim that a previously readable page stays public forever.
+    """
+    url = post_url(candidate.get("url", ""), "FB")
+    check = {"url": url, "checkedAt": now_iso(), "state": "unverified"}
+    if not url:
+        check["state"] = "invalid"
+        return check
+    try:
+        response = page.goto(url, wait_until="domcontentloaded", timeout=30000)
+        page.wait_for_timeout(2000)
+        if not response or response.status >= 400:
+            check["state"] = "unavailable"
+            return check
+        if post_url(page.url, "FB") != url:
+            return check
+        body = page.locator('body').inner_text(timeout=5000)
+        if re.search(r"content (?:isn't|is not) available|page isn't available|콘텐츠를 이용할 수 없|페이지를 사용할 수 없|このコンテンツは.*利用できません|このページは.*利用できません", body, re.I):
+            check["state"] = "unavailable"
+            return check
+        canonical = page.locator('link[rel="canonical"]').first.get_attribute('href') if page.locator('link[rel="canonical"]').count() else ''
+        if post_url(canonical, "FB") != url:
+            return check
+        # Do not accept a login screen merely because it echoes the requested URL.
+        content = page.locator('[role="article"]').all_inner_texts()
+        description = page.locator('meta[property="og:description"]').first.get_attribute('content') if page.locator('meta[property="og:description"]').count() else ''
+        rendered = re.sub(r'\s+', '', '\n'.join(content) + (description or '')).lower()
+        snippets = [re.sub(r'\s+', '', line).lower() for line in candidate.get('text', '').splitlines() if len(line.strip()) >= 16]
+        if not snippets or not any(fragment in rendered for fragment in snippets):
+            return check
+        check["state"] = "ok"
+    except Exception:
+        pass
+    return check
+
+
 def fb_posts(page, url):
     """ログインなしで見える分（最新の投稿1〜2本）。日時は「○分前」などから計算するので、だいたいの時刻"""
     page.goto(url, wait_until="domcontentloaded", timeout=40000)
     page.wait_for_timeout(7000)
     now = datetime.datetime.now().astimezone()
     out = []
-    for x in page.evaluate(FB_JS):
+    candidates = page.evaluate(FB_JS)
+    for x in candidates:
         if x.get("pinned"):
             continue
         when = fb_when(x.get("head", ""), now)
         if not when:
             continue
-        out.append({"url": x["url"], "at": when.astimezone(datetime.timezone.utc).isoformat(timespec="seconds"),
-                    "text": x.get("text", ""), "views": None, "likes": None, "comments": None, "approx": True})
+        canonical = post_url(x.get("url", ""), "FB")
+        if not canonical:
+            continue
+        out.append({"url": canonical, "at": when.astimezone(datetime.timezone.utc).isoformat(timespec="seconds"),
+                    "text": x.get("text", ""), "views": None, "likes": None, "comments": None, "approx": True,
+                    "linkCheck": fb_check_link(page, {**x, "url": canonical})})
     return out
 
 
