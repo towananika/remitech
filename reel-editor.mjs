@@ -26,7 +26,7 @@ const labels = {
   noboEdit:['NOBO · 英文を修正','NOBO · Revise English','NOBO · 영어 수정'],original:['元の英文を表示','Show original English','원래 영어 보기'],correction:['NOBO修正版','NOBO revision','NOBO 수정본'],
   localDraft:['この端末に下書き保存済み','Draft saved on this device','이 기기에 초안 저장됨'],localError:['この端末に保存できません。閉じる前に入力をコピーしてください。','Cannot save on this device. Copy your input before closing.','이 기기에 저장하지 못했습니다. 닫기 전에 입력을 복사하세요.'],resume:['保存した下書きから再開','Resume saved draft','저장한 초안에서 계속'],localClose:['下書きを保存して閉じる','Save draft & close','초안 저장 후 닫기'],shareSave:['修正を共有保存','Save revision for the team','수정본 공유 저장'],
   useLatest:['表示中の原稿に修正を適用','Apply edits to the displayed version','표시된 원고에 수정 적용'],
-  book:['予約した','Mark scheduled','예약함'],booked:['予約済み · 解除','Scheduled · undo','예약 완료 · 해제'],bookHelp:['SNSで実際に予約したあとに押すと、予約タブにも反映されます。','Press after scheduling on the social network. Also updates Booking.','SNS에서 실제 예약을 마친 뒤 누르면 예약 탭에도 반영됩니다.'],
+  book:['予約した','Mark scheduled','예약함'],booked:['予約済み · 解除','Scheduled · undo','예약 완료 · 해제'],
   edit:['日英草案を編集','Edit JA / EN drafts','일·영 초안 편집'],save:['変更を保存','Save changes','변경 저장'],cancel:['キャンセル','Cancel','취소'],
   editWarning:['本文を変更・再生成するとNOBO確認と画像プロンプトをリセットします。予約済みの本文は先に予約解除してください。','Editing or regenerating resets the NOBO check and image prompt. Undo scheduled status before changing text.','편집·재생성하면 NOBO 확인과 이미지 프롬프트가 초기화됩니다. 본문 변경 전 예약을 해제하세요.'],
   regenerate:['本文を再生成','Regenerate text','본문 재생성'],instructions:['修正したい点（任意）','What to change (optional)','수정할 내용 (선택)'],
@@ -129,7 +129,7 @@ export function createEditor(a) {
     return `<article class="re-day" data-re-day="${d.date}"><header class="re-dayhead"><div><span class="re-eyebrow">${d.date} · ${pf}</span><h3>${e(d.focus)}</h3>${p?.source?`<small>${e(t('supplied'))}</small>`:''}</div><span class="re-status" data-ready="${R.fullyReviewed(p)}">${e(R.fullyReviewed(p)?t('checked'):t('pending'))}</span></header>${content}
 
       <div class="re-actions">${button('copy',t('copy'),!can||editing||busy,'class="re-primary"')}
-      ${button('book',pf+' · '+t(booked?'booked':'book'),disabled||editing||(!can&&!booked),`aria-pressed="${booked}"`)}<p>${e(t('bookHelp'))}</p>
+      ${button('book',pf+' · '+t(booked?'booked':'book'),disabled||editing||(!can&&!booked),`aria-pressed="${booked}"`)}
       </div></article>`;
   }
   function checkOverview(){
