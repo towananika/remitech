@@ -4,6 +4,7 @@ const labels = {
   title:['REEL','REEL','REEL'],
   bookmark:['ページURLをコピー','Copy page link','페이지 주소 복사'],bookmarkCopied:['このURLをブックマークすると、同じ日付・SNSを直接開けます。','Bookmark this URL to open this date and channel directly.','이 주소를 북마크하면 같은 날짜·SNS를 바로 열 수 있습니다.'],
   noboReset:['元の英文にリセット','Reset to original English','원래 영어로 초기화'],resetConfirm:['もう一度押すとリセット','Press again to reset','한 번 더 누르면 초기화'],resetHelp:['修正分を取り消し、元の英文に戻します。2回押すと共有保存にも反映します。','Undo revisions and restore the original. Press twice to reset shared text.','수정 내용을 취소하고 원래 영어로 되돌립니다. 두 번 누르면 공유 내용에도 반영됩니다.'],
+  copiedShort:['コピー済','Copied','복사완료'],
   storyRandom:['ランダムにコピー','Copy a random phrase','랜덤 복사'],storyChoices:['候補を見る','Show phrases','문구 보기'],storyUrl:['リンク先URLをコピー','Copy destination URL','링크 주소 복사'],storyEmpty:['ストーリー用の定型文がありません。','No story phrases available.','스토리 문구가 없습니다.'],storyError:['定型文を読み込めませんでした。更新して再試行してください。','Could not load phrases. Refresh to retry.','문구를 불러오지 못했습니다. 새로고침해 다시 시도하세요.'],
   serverPending:['共有保存機能は本番にまだ反映されていません。作成・共有保存は現在利用できません。デザインは比較ページで確認できます。','Shared saving has not been deployed yet. Creation and shared saving are currently unavailable. Use the comparison page to review the design.','공유 저장 기능이 아직 배포되지 않았습니다. 생성·공유 저장은 현재 사용할 수 없습니다. 비교 페이지에서 디자인을 확인할 수 있습니다.'],
   addDraft:['用意した日英原稿を登録','Add prepared JA / EN text','준비한 일·영 원고 등록'],manualMissing:['用意した日英原稿を登録してください。','Add your prepared Japanese and English text.','준비한 일본어·영어 원고를 등록하세요.'],theme:['週のテーマ','Weekly theme','주간 주제'],arc:['一週間の流れ','Weekly story','한 주의 흐름'],
@@ -88,7 +89,7 @@ export function createEditor(a) {
       state={text:button.textContent,width:button.style.width,height:button.style.height,boxSizing:button.style.boxSizing};
       button.style.boxSizing='border-box';button.style.width=rect.width+'px';button.style.height=rect.height+'px';
     }
-    button.dataset.copied='true';button.textContent=t('copied');button.setAttribute('aria-live','polite');
+    button.dataset.copied='true';button.textContent=t(button.closest('.re-field-actions')?'copiedShort':'copied');button.setAttribute('aria-live','polite');
     state.timer=setTimeout(()=>{button.textContent=state.text;delete button.dataset.copied;button.style.width=state.width;button.style.height=state.height;button.style.boxSizing=state.boxSizing;copyStates.delete(button);},1800);
     copyStates.set(button,state);
   }
