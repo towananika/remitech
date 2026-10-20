@@ -103,3 +103,9 @@
 .re-check-date small{font-size:10px;color:inherit}
 .re-check-date[data-weekday="6"],.re-check-date[data-weekday="6"][data-today="true"]{color:#2563b5}
 .re-check-date[data-weekday="0"],.re-check-date[data-weekday="0"][data-today="true"]{color:#c43c3c}
+
+.re-check-header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}
+.re-check-header .re-check-title{margin-bottom:3px}
+.re-check-range{display:block;font-size:11px;color:var(--muted)}
+.re-check-header .re-toolbar{flex-wrap:nowrap;gap:6px}
+.re-check-header button{min-width:36px;padding:6px 10px}

@@ -10,7 +10,7 @@ const labels = {
   addDraft:['用意した日英原稿を登録','Add prepared JA / EN text','준비한 일·영 원고 등록'],manualMissing:['用意した日英原稿を登録してください。','Add your prepared Japanese and English text.','준비한 일본어·영어 원고를 등록하세요.'],theme:['週のテーマ','Weekly theme','주간 주제'],arc:['一週間の流れ','Weekly story','한 주의 흐름'],
   clickEdit:['クリックして編集','Click to edit','클릭하여 수정'],
   confirm:['確定','Confirm','확정'],revise:['修正','Edit','수정'],draftEnglish:['英文 · 草案','English · Draft','영어 · 초안'],revisedEnglish:['英文 · NOBO修正','English · Revised','영어 · 수정본'],
-  checkOverview:['NOBO CALENDAR · 今日から14日間','NOBO CALENDAR · Next 14 days','NOBO CALENDAR · 오늘부터 14일'],noDraft:['草案なし','No draft','초안 없음'],revised:['修正済み','Revised','수정 완료'],today:['今日','Today','오늘'],
+  calendarPrev:['1週間前へ','Previous week','1주 전'],calendarNext:['1週間後へ','Next week','1주 후'],checkOverview:['NOBO CALENDAR','NOBO CALENDAR','NOBO CALENDAR'],noDraft:['草案なし','No draft','초안 없음'],revised:['修正済み','Revised','수정 완료'],today:['今日','Today','오늘'],
   scope:['今回の対象は11月1日までです。','The current scope ends on November 1.','현재 작업 범위는 11월 1일까지입니다.'],
   date:['日付','Date','날짜'],settings:['AIの投稿方針','AI writing brief','AI 게시물 작성 지침'],saveBrief:['方針を保存','Save brief','지침 저장'],
   brief:['ブランド・読者・語調・避けたい表現','Brand, audience, voice and constraints','브랜드·독자·말투·피할 표현'],
@@ -48,7 +48,7 @@ export function createEditor(a) {
   let date=R.today()<'2026-10-27'?'2026-10-27':R.today(),first=date,last=R.addDays(R.monday(date),6),pf='X',brief='',observer=null,failedKey='',pendingRemote=false,instructions={};
   const initial=a.selection?.();if(initial){if(R.dateOK(initial.date))date=initial.date;if(['X','IG','IGS'].includes(initial.platform))pf=initial.platform;first=date;last=R.addDays(R.monday(date),6);}
   if(date>R.EDITOR_END_DATE){date=R.EDITOR_END_DATE;first=date;last=date;}
-  let stories=null,storyLoading=false,storyError=false,lastStory={},resetArmed='';
+  let stories=null,storyLoading=false,storyError=false,lastStory={},resetArmed='',calendarOffset=0;
   async function loadStories(){
     if(storyLoading)return;storyLoading=true;
     try{let list=a.stories?.();if(!Array.isArray(list)){const r=await fetch('./posts.json');if(!r.ok)throw Error();const j=await r.json();list=(j.channels.find(c=>c.id==='reel')||{}).snippets||[];}
@@ -133,7 +133,7 @@ export function createEditor(a) {
       </div></article>`;
   }
   function checkOverview(){
-    const today=R.today(),dates=Array.from({length:14},(_,i)=>R.addDays(today,i));
+    const today=R.today(),start=R.addDays(today,calendarOffset*7),dates=Array.from({length:14},(_,i)=>R.addDays(start,i));
     const statuses=[['empty',t('noDraft'),'—'],['pending',t('pending'),'·'],['checked',t('checked'),'✓']];
     const weekdays=({ja:['日','月','火','水','木','金','土'],en:['Sun','Mon','Tue','Wed','Thu','Fri','Sat'],ko:['일','월','화','수','목','금','토']})[a.lang()]||['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
     const head=`<span class="re-check-corner">SNS</span>${dates.map(day=>{const weekday=new Date(day+'T00:00:00Z').getUTCDay();return `<span class="re-check-date" data-weekday="${weekday}" ${day===today?'data-today="true"':''}><span>${day.slice(5).replace('-','/')}</span><small>${e(weekdays[weekday])}</small></span>`;}).join('')}`;
@@ -143,7 +143,7 @@ export function createEditor(a) {
       const name=`${day} · ${channel} · ${status[1]}`;
       return `<button class="re-check-circle" data-re-check-date="${day}" data-re-check-platform="${channel}" data-status="${status[0]}" aria-label="${e(name)}" title="${e(name)}" aria-pressed="${day===date&&pf===channel}" ${busy||day>R.EDITOR_END_DATE?'disabled':''}>${status[2]}</button>`;
     }).join('')}`).join('');
-    return `<section class="re-check-overview" aria-label="${e(t('checkOverview'))}"><strong class="re-check-title">${e(t('checkOverview'))}</strong><div class="re-check-scroll" tabindex="0" role="region" aria-label="${e(t('checkOverview'))}"><div class="re-check-grid">${head}${rows}</div></div><div class="re-check-legend">${statuses.map(([state,label,symbol])=>`<span><i data-status="${state}" aria-hidden="true">${symbol}</i>${e(label)}</span>`).join('')}</div></section>`;
+    return `<section class="re-check-overview" aria-label="${e(t('checkOverview'))}"><header class="re-check-header"><div><strong class="re-check-title">${e(t('checkOverview'))}</strong><small class="re-check-range">${dates[0]} — ${dates[13]}</small></div><div class="re-toolbar"><button data-re-action="calendarPrevious" aria-label="${e(t('calendarPrev'))}" title="${e(t('calendarPrev'))}" ${busy?'disabled':''}>←</button><button data-re-action="calendarNext" aria-label="${e(t('calendarNext'))}" title="${e(t('calendarNext'))}" ${busy?'disabled':''}>→</button></div></header><div class="re-check-scroll" tabindex="0" role="region" aria-label="${e(t('checkOverview'))}"><div class="re-check-grid">${head}${rows}</div></div><div class="re-check-legend">${statuses.map(([state,label,symbol])=>`<span><i data-status="${state}" aria-hidden="true">${symbol}</i>${e(label)}</span>`).join('')}</div></section>`;
   }
   function render(){
     if(!a.active())return;observer?.disconnect();
@@ -233,6 +233,7 @@ export function createEditor(a) {
     if(op==='login'){a.login();return;}
     if(op==='cancelSettings'){settingsDirty=false;await load(true);return;}
     if(op==='refresh'){if(!canLeave())return;failedKey='';if(pf==='IGS'){stories=null;await loadStories();}else await load(true);return;}
+    if(op==='calendarPrevious'||op==='calendarNext'){if(!canLeave())return;calendarOffset+=op==='calendarPrevious'?-1:1;const y=window.scrollY;render();window.scrollTo(0,y);return;}
     if(op==='previous'){await open(R.addDays(first,-7));return;}
     if(op==='more'){if(!canLeave())return;last=R.addDays(last,7)>R.EDITOR_END_DATE?R.EDITOR_END_DATE:R.addDays(last,7);render();return;}
     if(op==='settings'){if(brief.trim().length<10){notice(t('briefError'),true);return;}await mutate({op:'settings',brief});await ensure(date);return;}
