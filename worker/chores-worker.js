@@ -47,7 +47,7 @@ export default {
     if (request.method === "OPTIONS") return new Response(null, { headers: cors(origin) });
     const url = new URL(request.url);
     if (!["/chores", "/book", "/code", "/ws", "/editor"].includes(url.pathname) &&
-        !/^\/(auth\/(register|login|renew|logout|logoutall|password|reset|resetcode|delete|users|member)|internal\/[a-z0-9_-]{1,30}|fetchreq(\/state)?)$/.test(url.pathname)) {
+        !/^\/(auth\/(register|login|renew|logout|logoutall|password|reset|resetcode|delete|users|member|suspend|revoke)|internal\/[a-z0-9_-]{1,30}|fetchreq(\/state)?)$/.test(url.pathname)) {
       return json({ ok: true, service: "remitech-chores" }, 200, origin);
     }
     const stub = env.HUB.get(env.HUB.idFromName("main"));
@@ -377,7 +377,7 @@ export class HubDO extends DurableObject {
       const u = await this.ctx.storage.get("u:" + id);
       // いない ID でも同じだけ時間をかける（返事の速さで ID の有無が分からないように）
       const h = await pbkdf2Hex(pw, u ? u.salt : "00", u ? u.iter || PW_ITER : PW_ITER);
-      const ok = !!u && safeEqual(h, u.hash);
+      const ok = !!u && !u.suspended && safeEqual(h, u.hash);
       if (!ok) { await this.bump("L:" + ip, 900); await this.bump("I:" + id, 3600); return json({ error: "wrong" }, 403, origin); }
       return this.newSession(id, origin);
     }
@@ -429,6 +429,20 @@ export class HubDO extends DurableObject {
       return this.newSession(s.user.id, origin);
     }
     if (!this.isAdmin(s.user.id)) return json({ error: "admin" }, 403, origin);
+    if (op === "suspend" || op === "revoke") {
+      const b = await readJson(request);
+      const id = typeof (b && b.id) === "string" ? b.id.trim().toLowerCase() : "";
+      const u = await this.ctx.storage.get("u:" + id);
+      if (!u) return json({ error: "no-user" }, 404, origin);
+      if (this.isAdmin(id)) return json({ error: "admin-user" }, 400, origin);
+      if (op === "suspend") {
+        if (typeof b.suspended !== "boolean") return json({ error: "bad-json" }, 400, origin);
+        u.suspended = b.suspended;
+        await this.ctx.storage.put("u:" + id, u);
+      }
+      await this.endSessions(id, null);
+      return json({ ok: true, user: this.publicUser(u) }, 200, origin);
+    }
     if (op === "resetcode") {
       // 管理者が、PW を忘れた人に再設定コードを出す。コードはこの返事で1回だけ見せ、サーバーにはハッシュで持つ
       const b = await readJson(request);
@@ -460,7 +474,9 @@ export class HubDO extends DurableObject {
       const id = typeof (b && b.id) === "string" ? b.id.toLowerCase() : "";
       const u = await this.ctx.storage.get("u:" + id);
       if (!u) return json({ error: "no-user" }, 404, origin);
-      u.member = !!b.member;
+      if (this.isAdmin(id)) return json({ error: "admin-user" }, 400, origin);
+      if (typeof b.member !== "boolean") return json({ error: "bad-json" }, 400, origin);
+      u.member = b.member;
       await this.ctx.storage.put("u:" + id, u);
       return json({ ok: true, user: this.publicUser(u) }, 200, origin);
     }
@@ -480,7 +496,7 @@ export class HubDO extends DurableObject {
   }
   publicUser(u) {
     const admin = this.isAdmin(u.id);
-    return { id: u.id, member: !!u.member || admin, admin, created: u.created, changePasswordSuggested: !!u.changePasswordSuggested };
+    return { id: u.id, member: !!u.member || admin, admin, created: u.created, changePasswordSuggested: !!u.changePasswordSuggested, suspended: !!u.suspended };
   }
   async newSession(id, origin) {
     const token = randHex(32), exp = Date.now() + SESSION_MS;
@@ -498,7 +514,7 @@ export class HubDO extends DurableObject {
     const val = await this.ctx.storage.get(key);
     if (!val || val.exp < Date.now()) { if (val) await this.ctx.storage.delete(key); return null; }
     const user = await this.ctx.storage.get("u:" + val.id);
-    if (!user) return null;
+    if (!user || user.suspended) return null;
     return { key, val, user };
   }
   async limited(k, max, win) {
