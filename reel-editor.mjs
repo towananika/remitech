@@ -112,20 +112,22 @@ export function createEditor(a) {
   }
   async function ensure(day) { /* Drafts are supplied by the author; never generate text on navigation. */ }
   function authorParts(day,p){return p?.parts?.map(part=>({...part}))||R.partLabels(day,pf).map((label,i)=>({label,ja:i===0?p?.ja||'':'',en:i===0?p?.en||'':''}));}
+  const nonNoboReview=review=>!!review&&String(review.by||'').trim().toLowerCase()!=='nobo';
   function postHTML(d,w){
     const p=d.posts[pf],editing=edit===d.date,booked=a.booked(d.date,pf),can=ready(d),disabled=busy||!online||!member();
+    const otherConfirmation=R.fullyReviewed(p)&&R.partReviews(p).some(nonNoboReview);
     const button=(action,text,disabled=false,extra='')=>`<button data-re-action="${action}" ${disabled?'disabled':''} ${extra}>${e(text)}</button>`;
     const pair=(ja,en,suffix='',partIndex=null)=>{
       const copy=partIndex===null?R.english(p):R.englishPart(p,partIndex);
       const index=partIndex??0,review=R.partReviews(p)[index],revised=copy!==en;
-      const adminButton=!!(a.user()?.admin||review?.admin);
+      const adminButton=nonNoboReview(review);
       const extra=`data-part="${index}"`;
       const activeInline=editing&&buffer.partIndex===index;
       const editorField=(language,value)=>{
         if(activeInline&&editMode==='inline-'+language)return `<textarea data-re-inline maxlength="${language==='ja'?6000:pf==='X'?240:500}" aria-label="${language==='ja'?'日本語':'English'}">${e(buffer.text)}</textarea><p data-re-draft-status role="status">${e(t('localDraft'))}</p><div class="re-edit-footer">${button('noboReset',t('resetShort'),busy)}<div class="re-toolbar">${button('save',t('save'),busy,'class="re-primary"')}${button('cancel',t('cancel'),busy)}</div></div>`;
         return `<button class="re-inline-text re-text" data-re-action="inline${language==='ja'?'Ja':'En'}" ${extra} ${disabled||editing||booked||review?'disabled':''} aria-label="${language==='ja'?'日本語':'English'} · ${e(t('clickEdit'))}">${e(value)}</button>`;
       };
-      return `<div class="re-drafts" data-confirmed="${!!review}"><div><label for="re-ja-${d.date}${suffix}">日本語 · JA</label>${editorField('ja',ja)}</div><section class="re-nobo-field"><div class="re-toolbar"><span class="re-field-label">${e(t(revised?'revisedEnglish':'draftEnglish'))}</span>${button(partIndex===null?'copy':'copyPart',t('copy'),!can||editing||busy,extra)}${button('confirmPart',t(adminButton?(review?'adminUndoConfirm':'adminConfirm'):(review?'undoConfirm':'confirm')),disabled||editing||!canConfirm(),`${extra} data-admin-confirm="${adminButton}" aria-pressed="${!!review}"`)}</div>${editorField('en',copy)}</section></div>`;
+      return `<div class="re-drafts" data-confirmed="${!!review}"><div><label for="re-ja-${d.date}${suffix}">日本語 · JA</label>${editorField('ja',ja)}</div><section class="re-nobo-field"><div class="re-toolbar"><span class="re-field-label">${e(t(revised?'revisedEnglish':'draftEnglish'))}</span>${button(partIndex===null?'copy':'copyPart',t('copy'),!can||editing||busy,extra)}${button('confirmPart',t(review?(adminButton&&review.admin?'adminUndoConfirm':'undoConfirm'):'confirm'),disabled||editing||!canConfirm(),`${extra} data-admin-confirm="${adminButton}" aria-pressed="${!!review}"`)}</div>${editorField('en',copy)}</section></div>`;
     };
     let content='';
     if(editing && editMode==='nobo'){
@@ -142,7 +144,7 @@ export function createEditor(a) {
     }
     return `<article class="re-day" data-re-day="${d.date}"><header class="re-dayhead"><div><span class="re-eyebrow">${d.date} · ${pf}</span><h3>${e(d.focus)}</h3>${p?.source?`<small>${e(t('supplied'))}</small>`:''}</div><span class="re-status" data-ready="${R.fullyReviewed(p)}">${e(R.fullyReviewed(p)?t('allConfirmed'):p?t('confirmedProgress').replace('{count}',R.partReviews(p).filter(Boolean).length).replace('{total}',R.partReviews(p).length):t('pending'))}</span></header>${content}
 
-      <div class="re-actions">${p?button('confirmDay',(a.user()?.admin||p.secondReview?.admin)?pf+' · '+t(R.fullyReviewed(p)?'adminUndoConfirm':'adminConfirm'):t(R.fullyReviewed(p)?'unconfirmDay':'confirmDay').replace('{sns}',pf),disabled||editing||!canConfirm(),`data-admin-confirm="${!!(a.user()?.admin||p.secondReview?.admin)}" aria-pressed="${R.fullyReviewed(p)}"`):''}${button('copyFeeds',t('copyFeeds'),!can||editing||busy,'class="re-primary"')}
+      <div class="re-actions">${p?button('confirmDay',(otherConfirmation&&p.secondReview?.admin)?pf+' · '+t('adminUndoConfirm'):t(R.fullyReviewed(p)?'unconfirmDay':'confirmDay').replace('{sns}',pf),disabled||editing||!canConfirm(),`data-admin-confirm="${otherConfirmation}" aria-pressed="${R.fullyReviewed(p)}"`):''}${button('copyFeeds',t('copyFeeds'),!can||editing||busy,'class="re-primary"')}
       ${button('book',pf+' · '+t(booked?'booked':'book'),disabled||editing||(!can&&!booked),`aria-pressed="${booked}"`)}
       </div></article>${d.date===R.EDITOR_END_DATE?`<div class="re-weekend-end">${e(t('wellDone'))}</div>`:''}`;
   }
