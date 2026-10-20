@@ -30,6 +30,7 @@
 // 知らせ: GET /ws（WebSocket）→ {"t":"chores"} / {"t":"book"}
 
 import { DurableObject } from "cloudflare:workers";
+import { editor } from "./reel-editor.js";
 
 const DAYS_KEPT = 60;
 const MAX_BODY = 1024;
@@ -44,7 +45,7 @@ export default {
     const origin = request.headers.get("Origin") || "";
     if (request.method === "OPTIONS") return new Response(null, { headers: cors(origin) });
     const url = new URL(request.url);
-    if (!["/chores", "/book", "/code", "/ws"].includes(url.pathname) &&
+    if (!["/chores", "/book", "/code", "/ws", "/editor"].includes(url.pathname) &&
         !/^\/(auth\/(register|login|renew|logout|logoutall|password|reset|resetcode|delete|users|member)|internal\/[a-z0-9_-]{1,30}|fetchreq(\/state)?)$/.test(url.pathname)) {
       return json({ ok: true, service: "remitech-chores" }, 200, origin);
     }
@@ -65,6 +66,8 @@ export class HubDO extends DurableObject {
     const origin = request.headers.get("Origin") || "";
     await this.migrateOnce();
     await this.seedOnce();
+
+    if (url.pathname === "/editor") return editor(this, request, origin, json);
 
     if (url.pathname === "/ws") {
       if (request.headers.get("Upgrade") !== "websocket") return json({ error: "websocket" }, 426, origin);

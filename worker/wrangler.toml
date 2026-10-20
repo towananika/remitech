@@ -2,6 +2,14 @@ name = "remitech-chores"
 main = "chores-worker.js"
 compatibility_date = "2026-09-14"
 
+# AI is invoked only by the authenticated 投稿-tab generation action.
+[ai]
+binding = "AI"
+
+# Reviewer account IDs (non-secret). Override if existing login IDs differ.
+[vars]
+REEL_SECONDARY_IDS = "nobo"
+
 # 以前の置き場（KV）。HubDO が最初に動いたときに中身を写すためだけに残す
 [[kv_namespaces]]
 binding = "CHORES"

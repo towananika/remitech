@@ -11,6 +11,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@300;400;500&family=Shippori+Mincho:wght@500&display=swap">
+<link rel="stylesheet" href="./reel-editor.css">
 <style>
   :root{
     --neon:#2bff88; --neon-ink:#07361b;
@@ -4567,7 +4568,8 @@
     hubWs.onmessage = function (ev) {
       var m; try { m = JSON.parse(ev.data); } catch (e) { return; }
       if (m && m.t === "chores") { choreEtag = null; pullChores(); }
-      if (m && m.t === "book") bookPull(true);
+      if (m && m.t === "book") bookPull(true).then(function () { if (reelEditor) reelEditor.refresh(); });
+      if (m && m.t === "reel" && reelEditor) reelEditor.refresh();
     };
     hubWs.onclose = function () { hubWsUp = false; clearInterval(hubWsPing); hubRetry(); };
     hubWs.onerror = function () { try { hubWs.close(); } catch (e) {} };
@@ -5193,7 +5195,7 @@
       body: method === "GET" ? undefined : JSON.stringify(body || {}),
     }).then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { j.status = r.status; return j; }); });
   }
-  function authAfterChange() { yuDoc = null; yuState = ""; renderLang(); if (tab === "prep") route(); }
+  function authAfterChange() { yuDoc = null; yuState = ""; renderLang(); renderNav(); if (tab === "prep" || tab === "reel") route(); if (reelEditor) reelEditor.authChanged(); }
   function authSignedOut() { authState = null; authSave(); authUsers = null; authAfterChange(); }
   function authRenew(force) {
     if (!authState) return Promise.resolve();
@@ -5365,7 +5367,7 @@
       if (kind === "reset") { authMode = "login"; authMsg = t("authResetDone"); authRender(); var f2 = document.getElementById("authId"); if (f2) f2.value = id; return; }
       authState = { token: j.token, exp: j.exp, user: j.user, renewed: ymd(new Date()) };
       authSave();
-      if (kind === "password") { authPwOpen = false; authMsg = t("authChanged"); authRender(); }
+      if (kind === "password") { authPwOpen = false; authMsg = t("authChanged"); authRender(); authAfterChange(); }
       else { authMsg = ""; authRender(); authAfterChange(); }
       if (j.user && j.user.admin) authLoadUsers();
     }, function () { authBusy = false; authMsg = t("authNet"); authRender(); });
@@ -6465,25 +6467,55 @@
   var TIPS = { posted:"tipPosted", guide:"tipGuide", follow:"tipFollow", likes:"tipLikes", today:"tipToday", dash:"tipDash", book:"tipBook", prep:"tipPrep", prep2:"tipPrep2",
                kpi:"tipKpi", posts:"tipPosts", "import":"tipImport" };
 
+  // REEL's editorial workflow shares the booking tab's exact slot identities.
+  var reelEditor = null, reelLoading = null;
+  function renderReel() {
+    var member = authUser();
+    if (!member || !(member.member || member.admin)) {
+      if (reelEditor) reelEditor.lock();
+      view.innerHTML = '<p class="empty">' + esc(t("yuNeedLogin")) + '</p><button class="authsub" id="reelLogin">' + esc(t("authLogin")) + '</button>';
+      return;
+    }
+    if (reelEditor) { reelEditor.render(); reelEditor.refresh(); return; }
+    view.innerHTML = '<p class="empty">' + esc(t("loading")) + '</p>';
+    if (!reelLoading) reelLoading = import('./reel-editor.mjs').then(function (mod) {
+      reelEditor = mod.createEditor({
+        view: view, esc: esc, lang: function () { return lang; },
+        active: function () { var u = authUser(); return tab === "reel" && !location.hash && !!(u && (u.member || u.admin)); },
+        api: function () { return String(CHORE_API).replace(/\/chores.*$/, "/editor"); },
+        headers: authHeaders, user: authUser, code: teamCode, login: authOpen,
+        booked: function (day, pf) {
+          return !!(schedule && (schedule.slots || []).some(function (s) {
+            return slotCh(s) === "reel" && s.date === day && (s.platform || "X") === pf && s.time === "17:00" && isSched(s) && !s.skip;
+          }));
+        },
+        pullBookings: function () { return bookPull(true); }
+      });
+      reelEditor.render();
+    }).catch(function () { reelLoading = null; if (tab === "reel") view.innerHTML = '<p class="empty">' + esc(t("fail")) + '</p>'; });
+  }
+  setInterval(function () { if (reelEditor && tab === "reel" && !document.hidden) { var u = authUser(); if (!u || !(u.member || u.admin)) { renderNav(); renderReel(); return; } bookPull(true); reelEditor.refresh(); } }, 30000);
+  view.addEventListener("click", function (e) { if (e.target.closest("#reelLogin")) authOpen(); });
+
   function renderNav() {
     navEl.innerHTML =
       '<button data-tab="today" aria-pressed="' + (tab === "today") + '">' + esc(t("navToday")) + '</button>' +
       '<button data-tab="ov" aria-pressed="' + (tab === "ov") + '">' + esc(t("navOv")) + '</button>' +
-      '<button data-tab="dash" aria-pressed="' + (tab === "dash") + '">' + esc(t("navDash")) + '</button>' +
       '<button data-tab="book" aria-pressed="' + (tab === "book") + '">' + esc(t("navBook")) + '</button>' +
-      // 投稿タブは出さない（2026-10-09 Hibiki「投稿タブはいれない」）。投稿の確認は予約タブの青いボタンで見る
+      (authUser() && (authUser().member || authUser().admin) ? '<button data-tab="reel" aria-pressed="' + (tab === "reel") + '">' + esc(({ja:"投稿",en:"Posts",ko:"게시물"})[lang]) + '</button>' : '') +
       '<button data-tab="prep" aria-pressed="' + (tab === "prep" || tab === "prep2") + '">' + esc(t("navPrep")) + '</button>' +
       '<button data-tab="kpi" aria-pressed="' + (tab === "kpi") + '">' + esc(t("navKpi")) + '</button>' +
       '<button class="navhot" data-tab="likes" aria-pressed="' + (tab === "likes") + '">' + esc(t("navLikes")) + '</button>' +
       '<button data-tab="import" aria-pressed="' + (tab === "import") + '">' + esc(t("navImport")) + '</button>' +
       '<button data-tab="guide" aria-pressed="' + (tab === "guide") + '">' + esc(t("navGuide")) + '</button>';
     var tip = document.getElementById("navtip");
-    if (tip) tip.textContent = t(TIPS[tab] || "tipDash");
+    if (tip) tip.textContent = tab === "reel" ? ({ja:"REELの草案・監修・投稿予約を一つの流れで",en:"REEL drafts, reviews and scheduling in one place",ko:"REEL 초안·검수·게시 예약을 한곳에서"})[lang] : t(TIPS[tab] || "tipDash");
   }
 
   navEl.addEventListener("click", function (e) {
     var b = e.target.closest("button[data-tab]");
     if (!b) return;
+    if (tab === "reel" && reelEditor && !reelEditor.canLeave()) return;
     tab = b.getAttribute("data-tab");
     if (tab === "prep") { try { if (localStorage.getItem("remitech-prepview") === "cal") tab = "prep2"; } catch (e0) {} }
     location.hash = "";
@@ -6551,11 +6583,12 @@
     var p = id && posts.filter(function (x) { return x.id === id; })[0];
     if (p) { renderPost(p); window.scrollTo(0, 0); return; }
     if (tab === "today") { renderToday(); return; }
-    if (tab === "dash") { renderDash(); return; }
+    if (tab === "dash") { tab = "book"; renderNav(); syncWide(); renderBook(); bookPull(true); return; }
     if (tab === "kpi") { renderKpi(); return; }
     if (tab === "likes") { lkMode = "likes"; renderLikes(); return; }
     if (tab === "follow") { lkMode = "likes"; renderLikes(); return; }   // フォロータブはいいねタブに統合（古いリンク用）
     if (tab === "book") { renderBook(); bookPull(true); return; }
+    if (tab === "reel") { renderReel(); return; }
     if (tab === "posted") { renderPosted(); pcLoad(true); return; }
     if (tab === "prep") { renderPrep(); return; }
     if (tab === "prep2") { renderPrep2(); return; }
@@ -7246,7 +7279,7 @@
 
   // 週表のときだけ枠を広げる
   function syncWide() {
-    document.body.setAttribute("data-wide", (tab === "dash" || tab === "kpi" || tab === "prep2" || tab === "likes" || tab === "follow" || tab === "book" || tab === "posted") ? "true" : "false");
+    document.body.setAttribute("data-wide", (tab === "reel" || tab === "dash" || tab === "kpi" || tab === "prep2" || tab === "likes" || tab === "follow" || tab === "book" || tab === "posted") ? "true" : "false");
   }
 
   // 更新のために読み直したときは、直前にいた画面・入力の場所に戻す（updateNow が残したもの。一度使ったら消す）

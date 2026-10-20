@@ -1,0 +1,19 @@
+# Local KV / Durable Object development without a Cloudflare account or paid AI.
+name = "remitech-chores-local"
+main = "chores-worker.js"
+compatibility_date = "2026-09-14"
+
+[vars]
+REEL_SECONDARY_IDS = "nobo"
+
+[[kv_namespaces]]
+binding = "CHORES"
+id = "ae0f234e8af148f693c88d4f0272c414"
+
+[[durable_objects.bindings]]
+name = "HUB"
+class_name = "HubDO"
+
+[[migrations]]
+tag = "v1"
+new_sqlite_classes = ["HubDO"]
