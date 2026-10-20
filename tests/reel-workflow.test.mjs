@@ -166,3 +166,15 @@ test('each feed confirms independently and scoped edits/reset preserve all other
   assert.equal(R.englishPart(w.days[0].posts.X,1),'Original 1');assert.equal(R.partReviews(w.days[0].posts.X)[1],null);assert.ok(R.partReviews(w.days[0].posts.X)[0]);
   assert.equal((await c.request(action('confirm-part',w,{partIndex:4}))).status,400);
 });
+
+
+test('inline Japanese edits preserve English revisions and invalidate only the edited feed',async()=>{
+  let w=week('2026-10-26');const p=w.days[0].posts.X;
+  p.parts=[{label:'Feed 1',ja:'一',en:'One'},{label:'Feed 2',ja:'二',en:'Two'}];p.noboParts=['One revised','Two revised'];p.noboEn=p.noboParts.join('\n\n');p.secondReview={by:'nobo',kind:'corrected'};
+  const c=context({seed:[w]});let r=await c.request(action('edit-japanese',w,{partIndex:0,text:'日本語の修正'}));w=r.week;
+  assert.equal(r.status,200);assert.equal(w.days[0].posts.X.parts[0].ja,'日本語の修正');assert.equal(w.days[0].posts.X.parts[1].ja,'二');
+  assert.equal(R.englishPart(w.days[0].posts.X,0),'One revised');assert.equal(R.englishPart(w.days[0].posts.X,1),'Two revised');
+  assert.equal(R.partReviews(w.days[0].posts.X)[0],null);assert.ok(R.partReviews(w.days[0].posts.X)[1]);
+  assert.equal((await c.request(action('edit-japanese',w,{partIndex:0,text:'古い修正',revision:w.revision-1}))).status,409);
+  assert.equal((await c.request(action('edit-japanese',w,{partIndex:0,text:'一般会員'}),{id:'guest',member:false})).status,403);
+});

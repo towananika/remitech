@@ -8,6 +8,7 @@ const labels = {
   storyRandom:['ランダムにコピー','Copy a random phrase','랜덤 복사'],storyChoices:['候補を見る','Show phrases','문구 보기'],storyUrl:['リンク先URLをコピー','Copy destination URL','링크 주소 복사'],storyEmpty:['ストーリー用の定型文がありません。','No story phrases available.','스토리 문구가 없습니다.'],storyError:['定型文を読み込めませんでした。更新して再試行してください。','Could not load phrases. Refresh to retry.','문구를 불러오지 못했습니다. 새로고침해 다시 시도하세요.'],
   serverPending:['共有保存機能は本番にまだ反映されていません。作成・共有保存は現在利用できません。デザインは比較ページで確認できます。','Shared saving has not been deployed yet. Creation and shared saving are currently unavailable. Use the comparison page to review the design.','공유 저장 기능이 아직 배포되지 않았습니다. 생성·공유 저장은 현재 사용할 수 없습니다. 비교 페이지에서 디자인을 확인할 수 있습니다.'],
   addDraft:['用意した日英原稿を登録','Add prepared JA / EN text','준비한 일·영 원고 등록'],manualMissing:['用意した日英原稿を登録してください。','Add your prepared Japanese and English text.','준비한 일본어·영어 원고를 등록하세요.'],theme:['週のテーマ','Weekly theme','주간 주제'],arc:['一週間の流れ','Weekly story','한 주의 흐름'],
+  clickEdit:['クリックして編集','Click to edit','클릭하여 수정'],
   confirm:['確定','Confirm','확정'],revise:['修正','Edit','수정'],draftEnglish:['英文 · 草案','English · Draft','영어 · 초안'],revisedEnglish:['英文 · NOBO修正','English · Revised','영어 · 수정본'],
   checkOverview:['NOBO CHECK · 今日から14日間','NOBO CHECK · Next 14 days','NOBO CHECK · 오늘부터 14일'],noDraft:['草案なし','No draft','초안 없음'],revised:['修正済み','Revised','수정 완료'],today:['今日','Today','오늘'],
   scope:['今回の対象は11月1日までです。','The current scope ends on November 1.','현재 작업 범위는 11월 1일까지입니다.'],
@@ -63,7 +64,7 @@ export function createEditor(a) {
   const find=day=>{const w=weeks.find(w=>w.start===R.monday(day));return {w,d:w?.days.find(d=>d.date===day)};};
   const ready=d=>!!d && R.ready({...d.posts[pf],date:d.date});
   const key=day=>day+'|'+pf;
-  const draftKey=(day,mode,partIndex=buffer.partIndex)=>'remitech-editor-draft-v1|'+(a.user()?.id||'')+'|'+key(day)+'|'+mode+(mode==='nobo'?'|'+(partIndex??0):'');
+  const draftKey=(day,mode,partIndex=buffer.partIndex)=>'remitech-editor-draft-v1|'+(a.user()?.id||'')+'|'+key(day)+'|'+mode+(mode==='nobo'||mode.startsWith('inline-')?'|'+(partIndex??0):'');
   function readDraft(day,mode,partIndex){try{const s=localStorage.getItem(draftKey(day,mode,partIndex));const d=s&&JSON.parse(s);return d&&typeof d.en==='string'&&typeof d.ja==='string'?d:null;}catch{return null;}}
   function stash(){
     if(!edit)return true;
@@ -105,13 +106,18 @@ export function createEditor(a) {
       const copy=partIndex===null?R.english(p):R.englishPart(p,partIndex);
       const index=partIndex??0,review=R.partReviews(p)[index],revised=copy!==en;
       const extra=`data-part="${index}"`;
-      return `<div class="re-drafts"><div><label for="re-ja-${d.date}${suffix}">日本語 · JA</label><div class="re-text" id="re-ja-${d.date}${suffix}">${e(ja)}</div></div><section class="re-nobo-field"><div class="re-toolbar"><span class="re-field-label">${e(t(revised?'revisedEnglish':'draftEnglish'))}</span>${button('confirmPart',t('confirm'),disabled||editing,`${extra} aria-pressed="${!!review}"`)}${button('nobo',t('revise'),disabled||editing||booked,extra)}</div><button class="re-nobo-copy" data-re-action="${partIndex===null?'copy':'copyPart'}" ${extra} ${!can||busy?'disabled':''} aria-label="${e(t('tapCopy'))}"><span class="re-copy-hint">${e(t('tapCopy'))}</span><span class="re-text">${e(copy)}</span></button></section></div>`;
+      const activeInline=editing&&buffer.partIndex===index;
+      const editorField=(language,value)=>{
+        if(activeInline&&editMode==='inline-'+language)return `<textarea data-re-inline maxlength="${language==='ja'?6000:pf==='X'?240:500}" aria-label="${language==='ja'?'日本語':'English'}">${e(buffer.text)}</textarea><p data-re-draft-status role="status">${e(t('localDraft'))}</p><div class="re-toolbar">${button('save',t('shareSave'),busy,'class="re-primary"')}${button('cancel',t('cancel'),busy)}</div>`;
+        return `<button class="re-inline-text re-text" data-re-action="inline${language==='ja'?'Ja':'En'}" ${extra} ${disabled||editing||booked?'disabled':''} aria-label="${language==='ja'?'日本語':'English'} · ${e(t('clickEdit'))}">${e(value)}</button>`;
+      };
+      return `<div class="re-drafts"><div><label for="re-ja-${d.date}${suffix}">日本語 · JA</label>${editorField('ja',ja)}</div><section class="re-nobo-field"><div class="re-toolbar"><span class="re-field-label">${e(t(revised?'revisedEnglish':'draftEnglish'))}</span>${button('confirmPart',t('confirm'),disabled||editing,`${extra} aria-pressed="${!!review}"`)}${button('nobo',t('revise'),disabled||editing||booked,extra)}</div>${editorField('en',copy)}<button class="re-part-copy" data-re-action="${partIndex===null?'copy':'copyPart'}" ${extra} ${!can||editing||busy?'disabled':''}>${e(t('copy'))}</button></section></div>`;
     };
     let content='';
     if(editing && editMode==='nobo'){
       const fields=p.parts?.length?p.parts.map((part,i)=>buffer.partIndex!==undefined&&buffer.partIndex!==i?'':`<label for="re-nobo-${i}">${e(part.label)}</label><textarea id="re-nobo-${i}" data-re-nobo="${i}" maxlength="6000">${e(buffer.parts[i])}</textarea>`).join(''):`<label for="re-nobo-en">ENGLISH · NOBO</label><textarea id="re-nobo-en" data-re-nobo-en maxlength="6000">${e(buffer.en)}</textarea>`;
       content=`<dialog class="re-nobo-dialog"><h3>${e(t('noboEdit'))} · ${d.date} · ${pf}</h3><p class="re-text">${e(p.parts?.[buffer.partIndex]?.ja||p.ja)}</p><details><summary>${e(t('original'))}</summary><div class="re-text">${e(p.parts?.[buffer.partIndex]?.en||p.en)}</div></details><div class="re-nobo">${fields}</div><p data-re-draft-status role="status" aria-live="polite">${e(buffer.revision!==w.revision?t('conflict'):t('localDraft'))}</p><div class="re-toolbar">${buffer.revision!==w.revision?button('latest',t('useLatest'),busy):''}${button('save',t('shareSave'),busy,'class="re-primary"')}${button('localClose',t('localClose'),busy)}${button('cancel',t('cancel'),busy)}${button('noboReset',t('noboReset'),busy)}</div><small>${e(t('resetHelp'))}</small></dialog>`;
-    }else if(editing){
+    }else if(editing&&editMode==='author'){
       const fields=buffer.authorParts.map((part,i)=>`<section class="re-part"><strong>${e(part.label)}</strong><div class="re-drafts"><div><label for="re-author-ja-${i}">日本語 · JA</label><textarea id="re-author-ja-${i}" data-author-ja="${i}" maxlength="6000">${e(part.ja)}</textarea></div><div><label for="re-author-en-${i}">ENGLISH · EN</label><textarea id="re-author-en-${i}" data-author-en="${i}" maxlength="${pf==='X'?240:500}">${e(part.en)}</textarea></div></div></section>`).join('');
       content=`${!w?`<label>${e(t('theme'))}<input data-re-theme value="${e(buffer.theme||'')}" maxlength="120"></label><label>${e(t('arc'))}<input data-re-arc value="${e(buffer.arc||'')}" maxlength="600"></label>`:''}${fields}<p>${e(t('editWarning'))}</p><div class="re-toolbar">${button('save',t('save'),busy,'class="re-primary"')}${button('cancel',t('cancel'),busy)}</div>`;
     }else if(!p){
@@ -129,7 +135,8 @@ export function createEditor(a) {
   function checkOverview(){
     const today=R.today(),dates=Array.from({length:14},(_,i)=>R.addDays(today,i));
     const statuses=[['empty',t('noDraft'),'—'],['pending',t('pending'),'·'],['checked',t('checked'),'✓']];
-    const head=`<span class="re-check-corner">SNS</span>${dates.map(day=>`<span class="re-check-date" ${day===today?'data-today="true"':''}>${day.slice(5).replace('-','/')}</span>`).join('')}`;
+    const weekdays=({ja:['日','月','火','水','木','金','土'],en:['Sun','Mon','Tue','Wed','Thu','Fri','Sat'],ko:['일','월','화','수','목','금','토']})[a.lang()]||['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+    const head=`<span class="re-check-corner">SNS</span>${dates.map(day=>{const weekday=new Date(day+'T00:00:00Z').getUTCDay();return `<span class="re-check-date" data-weekday="${weekday}" ${day===today?'data-today="true"':''}><span>${day.slice(5).replace('-','/')}</span><small>${e(weekdays[weekday])}</small></span>`;}).join('')}`;
     const rows=['X','IG'].map(channel=>`<strong class="re-check-channel">${channel}</strong>${dates.map(day=>{
       const post=find(day).d?.posts[channel];
       const status=!post?statuses[0]:!R.fullyReviewed(post)?statuses[1]:statuses[2];
@@ -174,7 +181,7 @@ export function createEditor(a) {
     a.view.querySelectorAll('[data-re-day],.re-more').forEach(el=>observer.observe(el));
   }
   async function mutate(body,success='saved',automatic=false){
-    if(edit && !['draft','edit','nobo-edit','nobo-reset'].includes(body.op)){notice(t('unsaved'));return null;}
+    if(edit && !['draft','edit','nobo-edit','nobo-reset','edit-japanese'].includes(body.op)){notice(t('unsaved'));return null;}
     busy=true;const y=window.scrollY;
     a.view.querySelectorAll('[data-re-action],[data-re-platform],[data-re-check-date],#re-date').forEach(el=>el.disabled=true);
     try{
@@ -182,7 +189,7 @@ export function createEditor(a) {
       if(j.weeks)weeks=j.weeks;
       if(j.week){if(weeks.some(w=>w.start===j.week.start))weeks=weeks.map(w=>w.start===j.week.start?j.week:w);else{weeks.push(j.week);weeks.sort((a,b)=>a.start.localeCompare(b.start));}}
       if(j.settings){brief=j.settings.brief;settingsDirty=false;}
-      if(edit && ['draft','edit','nobo-edit','nobo-reset'].includes(body.op)){try{localStorage.removeItem(draftKey(edit,editMode));}catch{}}
+      if(edit && ['draft','edit','nobo-edit','nobo-reset','edit-japanese'].includes(body.op)){try{localStorage.removeItem(draftKey(edit,editMode));}catch{}}
       edit='';buffer={};noticeText=automatic?'':t(success);pendingRemote=false;
       if(body.op==='book')await a.pullBookings();
       busy=false;render();window.scrollTo(0,y);return j;
@@ -195,6 +202,7 @@ export function createEditor(a) {
   a.view.addEventListener('input',ev=>{
     resetArmed='';const reset=a.view.querySelector('[data-re-action="noboReset"]');if(reset)reset.textContent=t('noboReset');
     if(ev.target.id==='re-brief'){brief=ev.target.value;settingsDirty=true;}
+    if(ev.target.matches('[data-re-inline]'))buffer.text=ev.target.value;
     if(ev.target.matches('[data-re-ja]'))buffer.ja=ev.target.value;
     if(ev.target.matches('[data-re-en]'))buffer.en=ev.target.value;
     if(ev.target.matches('[data-re-nobo-en]'))buffer.en=ev.target.value;
@@ -204,7 +212,7 @@ export function createEditor(a) {
     if(ev.target.matches('[data-author-ja]'))buffer.authorParts[Number(ev.target.dataset.authorJa)].ja=ev.target.value;
     if(ev.target.matches('[data-author-en]'))buffer.authorParts[Number(ev.target.dataset.authorEn)].en=ev.target.value;
     if(ev.target.matches('[data-re-instructions]'))instructions[key(ev.target.closest('[data-re-day]').dataset.reDay)]=ev.target.value;
-    if(edit && ev.target.matches('[data-re-ja],[data-re-en],[data-re-nobo],[data-re-nobo-en],[data-re-theme],[data-re-arc],[data-author-ja],[data-author-en]'))stash();
+    if(edit && ev.target.matches('[data-re-inline],[data-re-ja],[data-re-en],[data-re-nobo],[data-re-nobo-en],[data-re-theme],[data-re-arc],[data-author-ja],[data-author-en]'))stash();
   });
   a.view.addEventListener('change',ev=>{if(ev.target.id==='re-date')open(ev.target.value);});
   a.view.addEventListener('cancel',ev=>{if(ev.target.matches('.re-nobo-dialog')){ev.preventDefault();if(!busy&&stash()){edit='';buffer={};render();}}},true);
@@ -229,6 +237,12 @@ export function createEditor(a) {
     if(op==='more'){if(!canLeave())return;last=R.addDays(last,7)>R.EDITOR_END_DATE?R.EDITOR_END_DATE:R.addDays(last,7);render();return;}
     if(op==='settings'){if(brief.trim().length<10){notice(t('briefError'),true);return;}await mutate({op:'settings',brief});await ensure(date);return;}
     const card=btn.closest('[data-re-day]');if(!card)return;const day=card.dataset.reDay,{w,d}=find(day),p=d?.posts[pf];
+    if(op==='inlineJa'||op==='inlineEn'){
+      if(!member()||!online||a.booked(day,pf)||!canLeave())return;
+      const index=Number(btn.dataset.part||0),mode=op==='inlineJa'?'inline-ja':'inline-en';
+      edit=day;editMode=mode;buffer=readDraft(day,mode,index)||{ja:p.ja,en:p.en,text:op==='inlineJa'?(p.parts?.[index]?.ja||p.ja):(p.parts?.length?R.englishPart(p,index):R.english(p)),revision:w.revision,partIndex:index};
+      stash();render();a.view.querySelector('[data-re-inline]')?.focus();return;
+    }
     if(op==='newDraft'){if(!canLeave())return;edit=day;editMode='author';buffer=readDraft(day,'author')||{ja:'',en:'',revision:w?.revision||0,theme:'',arc:''};buffer.authorParts=buffer.authorParts||authorParts(day);stash();render();return;}
     if(op==='edit'||op==='nobo'){if(!canLeave())return;edit=day;editMode=op==='nobo'?'nobo':'author';buffer=readDraft(day,editMode,Number(btn.dataset.part||0))||{ja:p.ja,en:op==='nobo'?R.english(p):p.en,parts:p.parts?.map((part,i)=>R.englishPart(p,i)),revision:w.revision};if(editMode==='nobo')buffer.partIndex=Number(btn.dataset.part||0);if(editMode==='author')buffer.authorParts=buffer.authorParts||authorParts(day,p);stash();render();a.view.querySelector('textarea[data-author-ja],.re-nobo textarea')?.focus();return;}
     if(op==='localClose'){if(stash()){edit='';buffer={};render();}return;}
@@ -243,6 +257,12 @@ export function createEditor(a) {
     if(op==='image'){
       const prompt=`Create a 4:5 editorial image for REEL's ${pf} post. Communicate the core idea with one clear visual metaphor, thoughtful composition and natural lighting. Keep it grounded in gaming and real player experience. Do not include visible text, logos, charts or invented product features. Post message: ${R.english(p)}`;
       try{await navigator.clipboard.writeText(prompt);notice(t('imageCopied'));}catch{notice(t('copyError'),true);}return;
+    }
+    if(op==='save'&&editMode.startsWith('inline-')){
+      stash();body.revision=buffer.revision;body.partIndex=buffer.partIndex;
+      if(editMode==='inline-ja'){body.op='edit-japanese';body.text=buffer.text;}
+      else{body.op='nobo-edit';body.parts=p.parts?.map((part,i)=>i===buffer.partIndex?buffer.text:R.englishPart(p,i));body.en=body.parts?body.parts.join('\n\n'):buffer.text;}
+      await mutate(body);return;
     }
     if(op==='save'){stash();body.op=editMode==='nobo'?'nobo-edit':p?'edit':'draft';body.theme=buffer.theme;body.arc=buffer.arc;body.revision=buffer.revision??w?.revision??0;body.ja=buffer.ja;body.en=buffer.parts&&editMode==='nobo'?buffer.parts.join('\n\n'):buffer.en;if(editMode==='nobo'){body.partIndex=buffer.partIndex??0;if(buffer.parts)body.parts=buffer.parts;}if(editMode==='author'){body.parts=buffer.authorParts;body.ja=body.parts.map(p=>p.ja).join('\n\n');body.en=body.parts.map(p=>p.en).join('\n\n');}}
     if(op==='noboReset'){

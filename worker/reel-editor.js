@@ -119,6 +119,13 @@ export async function editor(hub, request, origin, respond) {
         p={ja:next.ja.trim(),en:next.en.trim(),secondReview:null};
         if(next.parts)p.parts=next.parts;
         day.posts[b.platform]=p;
+      }else if(b.op==='edit-japanese'){
+        if(!p||!Number.isInteger(b.partIndex)||b.partIndex<0||b.partIndex>=(p.parts?.length||1)||typeof b.text!=='string'||!b.text.trim()||b.text.length>6000)return fail('draft');
+        if(await isBooked(tx,b.date,b.platform))return fail('already-booked',409);
+        const reviews=R.partReviews(p);
+        if(p.parts?.length){p.parts[b.partIndex].ja=b.text.trim();p.ja=p.parts.map(part=>part.ja).join('\n\n');if(p.ja.length>6000)return fail('draft');}
+        else p.ja=b.text.trim();
+        p.partReviews=reviews.map((r,i)=>i===b.partIndex?null:r);p.secondReview=null;
       }else if(b.op==='review2' || b.op==='nobo-edit' || b.op==='nobo-reset' || b.op==='confirm-part'){
         if(!p)return fail('draft');
         const scoped=b.partIndex!==undefined;

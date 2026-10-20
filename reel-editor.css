@@ -92,3 +92,14 @@
 .re-date-controls .re-check-overview{margin-bottom:8px}
 .re-day{scroll-margin-top:280px}
 @media(max-width:650px){.re-day{scroll-margin-top:340px}}
+
+.reel-editor .re-inline-text{display:block;width:100%;text-align:left;white-space:pre-wrap;padding:10px 8px;border:1px solid transparent;background:transparent;cursor:text;font:inherit;line-height:1.7}
+.reel-editor .re-inline-text:hover:not(:disabled){background:var(--surface);border-color:var(--line)}
+.reel-editor .re-inline-text:disabled{opacity:1;cursor:default}
+.reel-editor [data-re-inline]{display:block;width:100%;min-height:150px;margin:8px 0;padding:10px;line-height:1.7;box-sizing:border-box}
+.reel-editor .re-part-copy{font-size:12px;min-height:32px;padding:5px 10px;margin-top:6px}
+
+.re-check-date{display:flex;flex-direction:column;align-items:center;gap:3px}
+.re-check-date small{font-size:10px;color:inherit}
+.re-check-date[data-weekday="6"],.re-check-date[data-weekday="6"][data-today="true"]{color:#2563b5}
+.re-check-date[data-weekday="0"],.re-check-date[data-weekday="0"][data-today="true"]{color:#c43c3c}
