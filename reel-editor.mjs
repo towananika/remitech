@@ -1,4 +1,4 @@
-import * as R from './reel-workflow.mjs?v=20261020-copy-feeds';
+import * as R from './reel-workflow.mjs?v=20261020-korean-holidays';
 
 const labels = {
   title:['REEL','REEL','REEL'],
@@ -14,6 +14,7 @@ const labels = {
   undoConfirm:['確定を解除','Unconfirm','확정 해제'],allConfirmed:['✓ 投稿文すべて確定','✓ All text confirmed','✓ 게시문 전체 확정'],confirmedProgress:['{count}/{total} 確定','{count}/{total} confirmed','{count}/{total} 확정'],
   confirm:['確定','Confirm','확정'],revise:['修正','Edit','수정'],draftEnglish:['英文 · 草案','English · Draft','영어 · 초안'],revisedEnglish:['英文 · NOBO修正','English · Revised','영어 · 수정본'],
   calendarPrev:['1週間前へ','Previous week','1주 전'],calendarNext:['1週間後へ','Next week','1주 후'],checkOverview:['NOBO CALENDAR','NOBO CALENDAR','NOBO CALENDAR'],noDraft:['草案なし','No draft','초안 없음'],revised:['修正済み','Revised','수정 완료'],today:['今日','Today','오늘'],
+  holidaySet:['休日に設定','Mark as a holiday','휴일로 설정'],holidayUnset:['休日（クリックで解除）','Holiday (click to remove)','휴일 (클릭하여 해제)'],koreanHoliday:['韓国の祝日：','Korean public holiday: ','한국 공휴일: '],sunday:['日曜日','Sunday','일요일'],
   externalReview:['別文書でNOBO確認済み。本文はこのページには登録されていません。','Checked by NOBO in another document. The text is not stored on this page.','다른 문서에서 NOBO 확인 완료. 본문은 이 페이지에 등록되어 있지 않습니다.'],
   wellDone:['お疲れ様でした。','Thank you for your work.','수고하셨습니다.'],
   scope:['今回の対象は11月1日までです。','The current scope ends on November 1.','현재 작업 범위는 11월 1일까지입니다.'],
@@ -49,7 +50,7 @@ const labels = {
 
 export function createEditor(a) {
   const t=k=>labels[k][({ja:0,en:1,ko:2})[a.lang()] ?? 0], e=a.esc;
-  let weeks=[],externalReviews=[],loaded=false,online=false,loading=false,attempted=false,busy=false,ai=false,noticeText='',edit='',editMode='',buffer={},settingsDirty=false,lastSync=0;
+  let weeks=[],externalReviews=[],holidays={},loaded=false,online=false,loading=false,attempted=false,busy=false,ai=false,noticeText='',edit='',editMode='',buffer={},settingsDirty=false,lastSync=0;
   let date=R.today()<'2026-10-27'?'2026-10-27':R.today(),first=date,last=R.addDays(R.monday(date),6),pf='X',brief='',observer=null,failedKey='',pendingRemote=false,instructions={};
   const initial=a.selection?.();if(initial){if(R.dateOK(initial.date))date=initial.date;if(['X','IG','IGS'].includes(initial.platform))pf=initial.platform;first=date;last=R.addDays(R.monday(date),6);}
   if(date>R.EDITOR_END_DATE){date=R.EDITOR_END_DATE;first=date;last=date;}
@@ -83,14 +84,14 @@ export function createEditor(a) {
     if(a.preview){if(body)throw Error('preview');return structuredClone(a.preview);}
     const r=await fetch(a.api(),{method:body?'POST':'GET',cache:'no-store',headers:{'Content-Type':'application/json',...a.headers()},body:body?JSON.stringify(body):undefined});
     const j=await r.json();if(!r.ok)throw Error(j.error||'network');if(!body && !Array.isArray(j.weeks))throw Error('server-update-required');
-    if(body && (!j.ok || (body.op==='generate'?!Array.isArray(j.weeks):body.op==='settings'?!j.settings:!j.week)))throw Error('network');
+    if(body && (!j.ok || (body.op==='generate'?!Array.isArray(j.weeks):body.op==='settings'?!j.settings:body.op==='holiday'?!j.holidays:!j.week)))throw Error('network');
     return j;
   }
   async function load(force=false){
     if(loading||busy)return;
     if(edit||settingsDirty){pendingRemote=true;return;}
     loading=true;attempted=true;let changed=!loaded;
-    try{const wasOffline=!online;const j=await call();if(edit||settingsDirty||busy){pendingRemote=true;notice(t('remote'));return;}changed=changed||JSON.stringify(j.weeks)!==JSON.stringify(weeks)||JSON.stringify(j.externalReviews||[])!==JSON.stringify(externalReviews)||j.ai!==ai||!online;weeks=j.weeks;externalReviews=j.externalReviews||[];brief=j.settings.brief;ai=j.ai;online=true;loaded=true;lastSync=Date.now();pendingRemote=false;if(force||wasOffline)noticeText='';}
+    try{const wasOffline=!online;const j=await call();if(edit||settingsDirty||busy){pendingRemote=true;notice(t('remote'));return;}changed=changed||JSON.stringify(j.weeks)!==JSON.stringify(weeks)||JSON.stringify(j.externalReviews||[])!==JSON.stringify(externalReviews)||JSON.stringify(j.holidays||{})!==JSON.stringify(holidays)||j.ai!==ai||!online;weeks=j.weeks;externalReviews=j.externalReviews||[];holidays=j.holidays||{};brief=j.settings.brief;ai=j.ai;online=true;loaded=true;lastSync=Date.now();pendingRemote=false;if(force||wasOffline)noticeText='';}
     catch(error){
       online=false;ai=false;
       // Drafts are served only by the authenticated Worker, never public assets.
@@ -149,7 +150,7 @@ export function createEditor(a) {
     const today=R.today(),start=R.addDays(today,calendarOffset*7),dates=Array.from({length:14},(_,i)=>R.addDays(start,i));
     const statuses=[['empty',t('noDraft'),'—'],['pending',t('pending'),'·'],['checked',t('checked'),'✓']];
     const weekdays=({ja:['日','月','火','水','木','金','土'],en:['Sun','Mon','Tue','Wed','Thu','Fri','Sat'],ko:['일','월','화','수','목','금','토']})[a.lang()]||['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
-    const head=`<span class="re-check-corner">SNS</span>${dates.map(day=>{const weekday=new Date(day+'T00:00:00Z').getUTCDay();return `<span class="re-check-date" data-weekday="${weekday}" ${day===today?'data-today="true"':''}><span>${day.slice(5).replace('-','/')}</span><small>${e(weekdays[weekday])}</small></span>`;}).join('')}`;
+    const head=`<span class="re-check-corner">SNS</span>${dates.map(day=>{const weekday=new Date(day+'T00:00:00Z').getUTCDay(),national=R.koreanHoliday(day,a.lang()),holiday=!!(national||holidays[day]),description=national?t('koreanHoliday')+national:holidays[day]?t('holidayUnset'):weekday===0?t('sunday')+' · '+t('holidaySet'):t('holidaySet');return `<button class="re-check-date" data-re-holiday="${day}" data-weekday="${weekday}" data-holiday="${holiday}" ${day===today?'data-today="true"':''} title="${e(description)}" aria-label="${day} · ${e(description)}" aria-pressed="${holiday}" ${busy||!member()||!online?'disabled':''}><span>${day.slice(5).replace('-','/')}</span><small>${e(weekdays[weekday])}</small></button>`;}).join('')}`;
     const rows=['X','IG'].map(channel=>`<strong class="re-check-channel">${channel}</strong>${dates.map(day=>{
       const post=find(day).d?.posts[channel];
       const external=!post&&externalReviews.some(r=>r.date===day&&r.platform===channel);
@@ -197,15 +198,16 @@ export function createEditor(a) {
   async function mutate(body,success='saved',automatic=false){
     if(edit && !['draft','edit','nobo-edit','nobo-reset','edit-japanese'].includes(body.op)){notice(t('unsaved'));return null;}
     busy=true;const y=window.scrollY;
-    a.view.querySelectorAll('[data-re-action],[data-re-platform],[data-re-check-date],#re-date').forEach(el=>el.disabled=true);
+    a.view.querySelectorAll('[data-re-action],[data-re-platform],[data-re-check-date],[data-re-holiday],#re-date').forEach(el=>el.disabled=true);
     try{
       const j=await call(body);
       if(j.weeks)weeks=j.weeks;
       if(j.week){if(weeks.some(w=>w.start===j.week.start))weeks=weeks.map(w=>w.start===j.week.start?j.week:w);else{weeks.push(j.week);weeks.sort((a,b)=>a.start.localeCompare(b.start));}}
+      if(j.holidays)holidays=j.holidays;
       if(j.settings){brief=j.settings.brief;settingsDirty=false;}
       if(edit && ['draft','edit','nobo-edit','nobo-reset','edit-japanese'].includes(body.op)){try{localStorage.removeItem(draftKey(edit,editMode));}catch{}}
       edit='';buffer={};noticeText=automatic?'':t(success);pendingRemote=false;
-      if(body.op==='book')await a.pullBookings();
+      if(body.op==='book'||body.op==='holiday')await a.pullBookings();
       busy=false;render();window.scrollTo(0,y);return j;
     }catch(error){
       busy=false;
@@ -233,6 +235,12 @@ export function createEditor(a) {
   a.view.addEventListener('cancel',ev=>{if(ev.target.matches('.re-nobo-dialog')){ev.preventDefault();if(!busy&&stash()){edit='';buffer={};render();}}},true);
   a.view.addEventListener('click',async ev=>{
     if(!a.active()||busy)return;const btn=ev.target.closest('button');if(!btn)return;
+    if(btn.dataset.reHoliday){
+      if(!member()||!online||!canLeave())return;
+      const day=btn.dataset.reHoliday,national=R.koreanHoliday(day,a.lang());
+      if(national){notice(t('koreanHoliday')+national);return;}
+      await mutate({op:'holiday',date:day,holiday:!holidays[day]});return;
+    }
     if(btn.dataset.reCheckDate){if(btn.dataset.externalReview==='true'){notice(t('externalReview'));return;}if(!canLeave())return;pf=btn.dataset.reCheckPlatform;await open(btn.dataset.reCheckDate);return;}
     if(btn.dataset.reOpen){await open(btn.dataset.reOpen);return;}
     if(btn.dataset.rePlatform){if(!canLeave())return;pf=btn.dataset.rePlatform;if(pf==='IGS')noticeText='';failedKey='';a.navigate?.(date,pf);render();await ensure(date);autoRefresh();return;}
@@ -306,5 +314,5 @@ export function createEditor(a) {
   window.addEventListener('beforeunload',ev=>{if(edit||busy||settingsDirty){ev.preventDefault();ev.returnValue='';}});
   // Refresh availability at the Seoul date boundary without losing edits.
   let calendar=R.today();setInterval(()=>{if(R.today()!==calendar){calendar=R.today();if(!edit&&!busy&&!settingsDirty)render();}},30000);
-  return{render,load,canLeave,renderLocation:()=>{const s=a.selection?.();if(s&&R.dateOK(s.date)&&(s.date!==date||s.platform!==pf)){if(canLeave()){if(['X','IG','IGS'].includes(s.platform))pf=s.platform;open(s.date);}return;}render();},lock:()=>{observer?.disconnect();weeks=[];externalReviews=[];loaded=false;online=false;edit='';buffer={};settingsDirty=false;},refresh:()=>{if(a.active())load();},authChanged:()=>{if(a.active()&&!edit){render();ensure(date);}}};
+  return{render,load,canLeave,renderLocation:()=>{const s=a.selection?.();if(s&&R.dateOK(s.date)&&(s.date!==date||s.platform!==pf)){if(canLeave()){if(['X','IG','IGS'].includes(s.platform))pf=s.platform;open(s.date);}return;}render();},lock:()=>{observer?.disconnect();weeks=[];externalReviews=[];holidays={};loaded=false;online=false;edit='';buffer={};settingsDirty=false;},refresh:()=>{if(a.active())load();},authChanged:()=>{if(a.active()&&!edit){render();ensure(date);}}};
 }

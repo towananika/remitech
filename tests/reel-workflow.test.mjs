@@ -235,3 +235,21 @@ test('admin confirmation is recorded by the server and NOBO can subsequently rep
  r=await c.request(action('review2',r.week),{id:'NOBO',member:true});assert.equal(r.week.days[0].posts.X.secondReview,null);
  r=await c.request(action('review2',r.week,{admin:true}));assert.equal(r.week.days[0].posts.X.secondReview.admin,false);
 });
+
+
+test('Korean public and substitute holidays differ from Japanese holidays',()=>{
+ assert.equal(R.koreanHoliday('2026-10-09'),'ハングルの日');
+ assert.equal(R.koreanHoliday('2026-10-05'),'振替休日：開天節');
+ assert.equal(R.koreanHoliday('2026-02-17','ko'),'설날');
+ assert.equal(R.koreanHoliday('2026-03-02','en'),'Alternative holiday for Independence Movement Day');
+ assert.equal(R.koreanHoliday('2026-10-12'),'');
+});
+test('employees share manual holidays with Booking without changing drafts or confirmations',async()=>{
+ const w=week('2026-10-26'),c=context({seed:[w],user:{id:'employee',member:true}});
+ let r=await c.request({op:'holiday',date:'2026-10-27',holiday:true});assert.equal(r.status,200);assert.equal(r.holidays['2026-10-27'],true);
+ assert.equal(await c.storage.get('bk:h:2026-10-27'),true);assert.deepEqual(await c.storage.get('reel:week:'+w.start),w);
+ r=await c.request(null,{id:'NOBO',member:true});assert.equal(r.holidays['2026-10-27'],true);
+ r=await c.request({op:'holiday',date:'2026-10-27',holiday:false});assert.equal(r.holidays['2026-10-27'],false);
+ assert.equal((await c.request({op:'holiday',date:'2026-10-27',holiday:true},{id:'guest',member:false})).status,403);
+ assert.equal((await c.request({op:'holiday',date:'2026-02-30',holiday:true},{id:'employee',member:true})).status,400);
+});

@@ -126,3 +126,9 @@
 
 .reel-editor button:is([data-re-action="confirmPart"],[data-re-action="confirmDay"])[data-admin-confirm="true"]{background:#b43232;border-color:#b43232;color:white}
 .reel-editor button:is([data-re-action="confirmPart"],[data-re-action="confirmDay"])[data-admin-confirm="true"][aria-pressed="true"]{background:#8f2525;border-color:#8f2525}
+
+.re-check-grid button.re-check-date{padding:3px 2px;min-height:40px;background:transparent;border:1px solid transparent;border-radius:6px;font-size:11px;color:var(--muted);width:100%}
+.re-check-grid button.re-check-date:hover:not(:disabled){border-color:var(--line)}
+.re-check-grid button.re-check-date[data-weekday="6"]{color:#2563b5}
+.re-check-grid button.re-check-date[data-weekday="0"],.re-check-grid button.re-check-date[data-holiday="true"]{color:#c43c3c}
+.re-check-grid button.re-check-date:is([data-weekday="0"],[data-holiday="true"]){background:color-mix(in srgb,#c43c3c 7%,transparent);font-weight:700}

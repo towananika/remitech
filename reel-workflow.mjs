@@ -1,3 +1,4 @@
+export {koreanHoliday} from './korean-holidays.mjs';
 // Shared rules for the editor, Worker and tests. Dates use the existing Seoul calendar.
 export const TIMEZONE = 'Asia/Seoul';
 export const EDITOR_END_DATE = '2026-11-01';

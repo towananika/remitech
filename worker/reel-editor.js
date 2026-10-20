@@ -65,11 +65,12 @@ export async function editor(hub, request, origin, respond) {
   await importPrepared(hub,'reel:prepared:2026-10-26-ig:v1','2026-10-26');
   const read=storage=>allWeeks(storage);
   const getWeek=async (storage,start)=>await storage.get('reel:week:'+start);
+  const holidaySettings=async()=>Object.fromEntries([...(await hub.ctx.storage.list({prefix:'bk:h:'}))].map(([key,value])=>[key.slice(5),!!value]));
   const settings = async () => await hub.ctx.storage.get('reel:settings') || {brief:R.DEFAULT_BRIEF};
   if (request.method==='GET') {
     const source=await hub.env.CHORES.get('reel:external-reviews:2026-10-20-26:v1','json');
     const externalReviews=Array.isArray(source?.reviews)?source.reviews.filter(r=>R.dateOK(r.date)&&r.date>='2026-10-20'&&r.date<='2026-10-26'&&['X','IG'].includes(r.platform)).map(r=>({date:r.date,platform:r.platform,by:'NOBO',external:true})):[];
-    return send({weeks:await read(hub.ctx.storage),externalReviews,settings:await settings(),timezone:R.TIMEZONE,ai:false});
+    return send({weeks:await read(hub.ctx.storage),externalReviews,holidays:await holidaySettings(),settings:await settings(),timezone:R.TIMEZONE,ai:false});
   }
   if (request.method!=='POST') return send({error:'method'},405);
   if (origin && !['https://towananika.github.io','http://localhost:8899','http://127.0.0.1:8899'].includes(origin)) return send({error:'origin'},403);
@@ -79,6 +80,12 @@ export async function editor(hub, request, origin, respond) {
   const actor=session.user.id;
   const admin=hub.isAdmin(actor),reviewer=admin||String(actor).trim().toLowerCase()==='nobo';
   if(['review2','confirm-part'].includes(b.op)&&!reviewer)return send({error:'reviewer-required'},403);
+  if(b.op==='holiday'){
+    if(!R.dateOK(b.date)||typeof b.holiday!=='boolean')return send({error:'holiday'},400);
+    await hub.ctx.storage.put('bk:h:'+b.date,b.holiday);
+    hub.broadcast('reel');hub.broadcast('book');
+    return send({ok:true,holidays:await holidaySettings()});
+  }
   if(b.op==='settings'){
     if(typeof b.brief!=='string' || b.brief.trim().length<10 || b.brief.length>3000)return send({error:'brief'},400);
     await hub.ctx.storage.put('reel:settings',{brief:b.brief.trim()});hub.broadcast('reel');return send({ok:true,settings:await settings()});
