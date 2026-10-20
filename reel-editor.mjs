@@ -47,7 +47,7 @@ const labels = {
 
 export function createEditor(a) {
   const t=k=>labels[k][({ja:0,en:1,ko:2})[a.lang()] ?? 0], e=a.esc;
-  let weeks=[],externalReviews=[],loaded=false,online=false,loading=false,attempted=false,busy=false,ai=false,noticeText='',edit='',editMode='',buffer={},settingsDirty=false;
+  let weeks=[],externalReviews=[],loaded=false,online=false,loading=false,attempted=false,busy=false,ai=false,noticeText='',edit='',editMode='',buffer={},settingsDirty=false,lastSync=0;
   let date=R.today()<'2026-10-27'?'2026-10-27':R.today(),first=date,last=R.addDays(R.monday(date),6),pf='X',brief='',observer=null,failedKey='',pendingRemote=false,instructions={};
   const initial=a.selection?.();if(initial){if(R.dateOK(initial.date))date=initial.date;if(['X','IG','IGS'].includes(initial.platform))pf=initial.platform;first=date;last=R.addDays(R.monday(date),6);}
   if(date>R.EDITOR_END_DATE){date=R.EDITOR_END_DATE;first=date;last=date;}
@@ -85,20 +85,26 @@ export function createEditor(a) {
   }
   async function load(force=false){
     if(loading||busy)return;
-    if(edit||settingsDirty){pendingRemote=true;notice(t('remote'));return;}
+    if(edit||settingsDirty){pendingRemote=true;return;}
     loading=true;attempted=true;let changed=!loaded;
-    try{const j=await call();if(edit||settingsDirty||busy){pendingRemote=true;notice(t('remote'));return;}changed=changed||JSON.stringify(j.weeks)!==JSON.stringify(weeks)||JSON.stringify(j.externalReviews||[])!==JSON.stringify(externalReviews)||j.ai!==ai||!online;weeks=j.weeks;externalReviews=j.externalReviews||[];brief=j.settings.brief;ai=j.ai;online=true;loaded=true;if(force)noticeText='';}
+    try{const wasOffline=!online;const j=await call();if(edit||settingsDirty||busy){pendingRemote=true;notice(t('remote'));return;}changed=changed||JSON.stringify(j.weeks)!==JSON.stringify(weeks)||JSON.stringify(j.externalReviews||[])!==JSON.stringify(externalReviews)||j.ai!==ai||!online;weeks=j.weeks;externalReviews=j.externalReviews||[];brief=j.settings.brief;ai=j.ai;online=true;loaded=true;lastSync=Date.now();pendingRemote=false;if(force||wasOffline)noticeText='';}
     catch(error){
       online=false;ai=false;
       // Drafts are served only by the authenticated Worker, never public assets.
       noticeText=pf==='IGS'?'':t(error.message==='server-update-required'?'serverPending':'unavailable');
     }finally{loading=false;if(a.active()&&!edit&&!busy&&!settingsDirty){if(changed||force||!online)render();ensure(date);}}
   }
+  function autoRefresh(){
+    if(!a.active()||a.preview||document.hidden)return;
+    if(edit||busy||settingsDirty){pendingRemote=true;return;}
+    if(Date.now()-lastSync<5000)return;
+    load();
+  }
   function canLeave(){if(edit||busy||settingsDirty){notice(t('unsaved'));return false;}return true;}
   function scrollToDay(day){requestAnimationFrame(()=>a.view.querySelector(`[data-re-day="${day}"]`)?.scrollIntoView({block:'start'}));}
   async function open(day){
     if(!R.dateOK(day)||!canLeave())return;if(day>R.EDITOR_END_DATE){notice(t('scope'));return;}
-    date=day;first=day;last=R.addDays(R.monday(day),6);failedKey='';a.navigate?.(date,pf);render();scrollToDay(day);await ensure(day);
+    date=day;first=day;last=R.addDays(R.monday(day),6);failedKey='';a.navigate?.(date,pf);render();scrollToDay(day);await ensure(day);autoRefresh();
   }
   async function ensure(day) { /* Drafts are supplied by the author; never generate text on navigation. */ }
   function authorParts(day,p){return p?.parts?.map(part=>({...part}))||R.partLabels(day,pf).map((label,i)=>({label,ja:i===0?p?.ja||'':'',en:i===0?p?.en||'':''}));}
@@ -153,7 +159,7 @@ export function createEditor(a) {
     if(!a.active())return;observer?.disconnect();
     const days=[];for(let day=first;day<=last;day=R.addDays(day,1))days.push(day);
     const current=find(date).w;
-    a.view.innerHTML=`<section class="reel-editor"><header class="re-top"><div><h2>${e(t('title'))}</h2></div><div class="re-toolbar"><button data-re-action="bookmark">${e(t('bookmark'))}</button><button data-re-action="refresh" ${busy?'disabled':''}>${e(t('refresh'))}</button></div></header>
+    a.view.innerHTML=`<section class="reel-editor"><header class="re-top"><div><h2>${e(t('title'))}</h2></div></header>
       <div class="re-date-controls"><div class="re-toolbar re-datebar"><label for="re-date">${e(t('date'))}</label><input type="date" id="re-date" value="${date}" max="${R.EDITOR_END_DATE}" ${busy?'disabled':''}><div class="re-toolbar" role="group" aria-label="SNS">${['X','IG','IGS'].map(p=>`<button data-re-platform="${p}" aria-pressed="${pf===p}" ${busy?'disabled':''}>${p==='IGS'?'IG Story':p}</button>`).join('')}</div><button data-re-action="previous" ${busy?'disabled':''}>← ${e(t('previous'))}</button></div>
       ${checkOverview()}</div>
       <div data-re-notice class="re-notice" aria-live="polite" role="status" ${noticeText?'':'hidden'}>${e(noticeText)}</div>
@@ -225,7 +231,7 @@ export function createEditor(a) {
     if(!a.active()||busy)return;const btn=ev.target.closest('button');if(!btn)return;
     if(btn.dataset.reCheckDate){if(btn.dataset.externalReview==='true'){notice(t('externalReview'));return;}if(!canLeave())return;pf=btn.dataset.reCheckPlatform;await open(btn.dataset.reCheckDate);return;}
     if(btn.dataset.reOpen){await open(btn.dataset.reOpen);return;}
-    if(btn.dataset.rePlatform){if(!canLeave())return;pf=btn.dataset.rePlatform;if(pf==='IGS')noticeText='';failedKey='';a.navigate?.(date,pf);render();await ensure(date);return;}
+    if(btn.dataset.rePlatform){if(!canLeave())return;pf=btn.dataset.rePlatform;if(pf==='IGS')noticeText='';failedKey='';a.navigate?.(date,pf);render();await ensure(date);autoRefresh();return;}
     const op=btn.dataset.reAction;if(!op)return;
     if(op!=='cancel'){cancelArmed='';const cancel=a.view.querySelector('[data-re-action="cancel"]');if(cancel)cancel.textContent=t('cancel');}
     if(op!=='noboReset'){resetArmed='';const reset=a.view.querySelector('[data-re-action="noboReset"]');if(reset)reset.textContent=t(editMode.startsWith('inline-')?'resetShort':'noboReset');}
@@ -239,7 +245,7 @@ export function createEditor(a) {
     if(op==='login'){a.login();return;}
     if(op==='cancelSettings'){settingsDirty=false;await load(true);return;}
     if(op==='refresh'){if(!canLeave())return;failedKey='';if(pf==='IGS'){stories=null;await loadStories();}else await load(true);return;}
-    if(op==='calendarPrevious'||op==='calendarNext'){if(!canLeave())return;calendarOffset+=op==='calendarPrevious'?-1:1;const y=window.scrollY;render();window.scrollTo(0,y);return;}
+    if(op==='calendarPrevious'||op==='calendarNext'){if(!canLeave())return;calendarOffset+=op==='calendarPrevious'?-1:1;const y=window.scrollY;render();window.scrollTo(0,y);autoRefresh();return;}
     if(op==='previous'){await open(R.addDays(first,-7));return;}
     if(op==='more'){if(!canLeave())return;last=R.addDays(last,7)>R.EDITOR_END_DATE?R.EDITOR_END_DATE:R.addDays(last,7);render();return;}
     if(op==='settings'){if(brief.trim().length<10){notice(t('briefError'),true);return;}await mutate({op:'settings',brief});await ensure(date);return;}
@@ -262,7 +268,7 @@ export function createEditor(a) {
     }
     if(op==='copy'||op==='copyPart'||op==='copyFeeds'){
       if(!ready(d))return;const value=op==='copyFeeds'?R.englishFeeds(p):op==='copyPart'?R.englishPart(p,Number(btn.dataset.part)):R.english(p);
-      try{await navigator.clipboard.writeText(value);notice(t('copied'));}catch{notice(t('copyError'),true);}return;
+      try{await navigator.clipboard.writeText(value);notice(t('copied'));autoRefresh();}catch{notice(t('copyError'),true);}return;
     }
     if(!w&&op!=='save')return;
     const body={op,start:w?.start||R.monday(day),date:day,platform:pf,revision:w?.revision||0};
@@ -289,6 +295,9 @@ export function createEditor(a) {
     if(op==='regenerate')body.instructions=card.querySelector('[data-re-instructions]').value;
     if(['save','review2','book','regenerate','noboReset','confirmPart','confirmDay'].includes(op))await mutate(body);
   });
+  window.addEventListener('focus',autoRefresh);
+  window.addEventListener('online',()=>{lastSync=0;autoRefresh();});
+  document.addEventListener('visibilitychange',()=>{if(!document.hidden)autoRefresh();});
   window.addEventListener('beforeunload',ev=>{if(edit||busy||settingsDirty){ev.preventDefault();ev.returnValue='';}});
   // Refresh availability at the Seoul date boundary without losing edits.
   let calendar=R.today();setInterval(()=>{if(R.today()!==calendar){calendar=R.today();if(!edit&&!busy&&!settingsDirty)render();}},30000);
