@@ -14,11 +14,54 @@ function prepared(p,date,pf){
   const out={ja:parts.map(p=>p.ja).join('\n\n'),en:parts.map(p=>p.en).join('\n\n'),parts,secondReview:null};
   return postOK(out,pf)?out:null;
 }
+// Prepared manuscripts stay in private KV; import only missing posts into shared storage.
+const PREPARED_KEY = 'reel:prepared:2026-10-27-11-01:v1';
+async function importPrepared(hub) {
+  const storage=hub.ctx.storage;
+  if(await storage.get(PREPARED_KEY))return;
+  const source=await hub.env.CHORES.get(PREPARED_KEY,'json');
+  if(!source || source.version!==1)return;
+  if(!Array.isArray(source.weeks)||source.weeks.length>8)throw new Error('prepared-weeks');
+  const weeks=source.weeks.map(w=>{
+    if(!R.dateOK(w.start)||R.monday(w.start)!==w.start||typeof w.theme!=='string'||!w.theme.trim()||typeof w.arc!=='string'||!w.arc.trim()||!Array.isArray(w.days))throw new Error('prepared-week');
+    const dates=new Set();
+    const days=w.days.map(d=>{
+      if(!R.dateOK(d.date)||d.date<'2026-10-27'||d.date>R.EDITOR_END_DATE||R.monday(d.date)!==w.start||dates.has(d.date))throw new Error('prepared-date');
+      dates.add(d.date);
+      const posts={};
+      for(const [pf,p] of Object.entries(d.posts||{})){
+        if(!['X','IG'].includes(pf))throw new Error('prepared-platform');
+        const content=prepared(p,d.date,pf);if(!content)throw new Error('prepared-structure');
+        posts[pf]=content;
+      }
+      return {date:d.date,focus:typeof d.focus==='string'?d.focus:w.theme,posts};
+    });
+    return {start:w.start,theme:w.theme,themeId:'prepared-'+w.start,angle:w.arc,arc:w.arc,revision:0,days};
+  });
+  await storage.transaction(async tx=>{
+    if(await tx.get(PREPARED_KEY))return;
+    for(const sourceWeek of weeks){
+      const key='reel:week:'+sourceWeek.start;
+      const w=await tx.get(key)||{...sourceWeek,days:[]};let changed=false;
+      for(const incoming of sourceWeek.days){
+        let day=w.days.find(d=>d.date===incoming.date);
+        if(!day){day={...incoming,posts:{}};w.days.push(day);}
+        for(const [pf,p] of Object.entries(incoming.posts)){
+          if(!day.posts[pf] && !await isBooked(tx,day.date,pf)){day.posts[pf]=p;changed=true;}
+        }
+      }
+      if(changed){w.days.sort((a,b)=>a.date.localeCompare(b.date));w.revision++;w.updatedAt=new Date().toISOString();w.updatedBy='prepared-import';await tx.put(key,w);}
+    }
+    await tx.put(PREPARED_KEY,{importedAt:new Date().toISOString()});
+  });
+  hub.broadcast('reel');
+}
 export async function editor(hub, request, origin, respond) {
   const send = (body,status=200) => respond(body,status,origin,{'Cache-Control':'no-store'});
   const session=await hub.session(request);
   if(!session)return send({error:'member-required'},401);
   if(!(session.user.member || hub.isAdmin(session.user.id)))return send({error:'member-required'},403);
+  await importPrepared(hub);
   const read=storage=>allWeeks(storage);
   const getWeek=async (storage,start)=>await storage.get('reel:week:'+start);
   const settings = async () => await hub.ctx.storage.get('reel:settings') || {brief:R.DEFAULT_BRIEF};

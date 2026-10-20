@@ -107,3 +107,25 @@ test('weekday/weekend structures match each channel and non-staff cannot edit',a
   assert.equal((await c.request(action('nobo-edit',w,{en:'No access'}),{id:'guest',member:false})).status,403);
   const r=await c.request(action('nobo-edit',w,{en:'Employee revision'}),{id:'editor',member:true});assert.equal(r.status,200);assert.equal(r.week.days[0].posts.X.noboEn,'Employee revision');
 });
+
+
+test('private prepared manuscripts import once for employees and preserve existing edits',async()=>{
+  const start='2026-10-26',date='2026-10-27';
+  const source={version:1,weeks:[{start,theme:'Records and trust',arc:'Address, connection, trust',days:[{date,posts:Object.fromEntries(['X','IG'].map(pf=>[pf,{parts:R.partLabels(date,pf).map(label=>({label,ja:'日本語 '+label,en:'English '+label}))}]))}]}]};
+  const existing={start,theme:'Existing theme',arc:'Existing arc',revision:4,days:[{date,posts:{X:{ja:'既存',en:'Existing original',noboEn:'NOBO correction',secondReview:{by:'nobo'}}}}]};
+  const c=context({seed:[existing]});let reads=0;
+  c.hub.env.CHORES.get=async key=>{reads++;return source;};
+  assert.equal((await c.request(null,null)).status,401);assert.equal(reads,0);
+  assert.equal((await c.request(null,{id:'guest',member:false})).status,403);assert.equal(reads,0);
+  let r=await c.request(null,{id:'hibiki',member:true});assert.equal(r.status,200);
+  assert.equal(r.weeks[0].days[0].posts.X.noboEn,'NOBO correction');
+  assert.equal(r.weeks[0].days[0].posts.IG.parts.length,2);
+  assert.equal(r.weeks[0].days[0].posts.IG.secondReview,null);
+  assert.equal(r.weeks[0].revision,5);
+  r=await c.request(null,{id:'nobo',member:true});assert.equal(r.weeks[0].days[0].posts.IG.parts.length,2);assert.equal(reads,1);
+});
+test('malformed prepared manuscripts never partially import',async()=>{
+  const c=context();c.hub.env.CHORES.get=async()=>({version:1,weeks:[{start:'2026-10-26',theme:'Theme',arc:'Arc',days:[{date:'2026-11-02',posts:{}}]}]});
+  await assert.rejects(c.request(),/prepared-date/);
+  assert.equal((await c.storage.list({prefix:'reel:week:'})).size,0);
+});
