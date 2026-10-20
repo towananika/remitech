@@ -79,6 +79,19 @@ export function createEditor(a) {
     catch{const el=a.view.querySelector('[data-re-draft-status]');if(el)el.textContent=t('localError');notice(t('localError'),true);return false;}
   }
   function notice(s,alert=false){noticeText=s;const el=a.view.querySelector('[data-re-notice]');if(el){el.textContent=s;el.hidden=!s;el.setAttribute('role',alert?'alert':'status');}}
+  const copyStates=new WeakMap();
+  function copiedFeedback(button){
+    let state=copyStates.get(button);
+    if(state)clearTimeout(state.timer);
+    else{
+      const rect=button.getBoundingClientRect();
+      state={text:button.textContent,width:button.style.width,height:button.style.height,boxSizing:button.style.boxSizing};
+      button.style.boxSizing='border-box';button.style.width=rect.width+'px';button.style.height=rect.height+'px';
+    }
+    button.dataset.copied='true';button.textContent=t('copied');button.setAttribute('aria-live','polite');
+    state.timer=setTimeout(()=>{button.textContent=state.text;delete button.dataset.copied;button.style.width=state.width;button.style.height=state.height;button.style.boxSizing=state.boxSizing;copyStates.delete(button);},1800);
+    copyStates.set(button,state);
+  }
   const errorText=code=>t(({conflict:'conflict','member-required':'login',reviewer:'role','reviewer-required':'reviewerOnly',brief:'briefError','ai-unavailable':'aiOff','generation-failed':'genError','ai-busy':'busy','already-booked':'already','not-ready':'notReady','theme-overlap':'overlap','duplicate-text':'overlap','angle-reused':'overlap'})[code]||'error');
   async function call(body){
     if(a.preview){if(body)throw Error('preview');return structuredClone(a.preview);}
@@ -127,7 +140,7 @@ export function createEditor(a) {
         if(activeInline&&editMode==='inline-'+language)return `<textarea data-re-inline maxlength="${language==='ja'?6000:pf==='X'?240:500}" aria-label="${language==='ja'?'日本語':'English'}">${e(buffer.text)}</textarea><p data-re-draft-status role="status">${e(t('localDraft'))}</p><div class="re-edit-footer">${button('noboReset',t('resetShort'),busy)}<div class="re-toolbar">${button('save',t('save'),busy,'class="re-primary"')}${button('cancel',t('cancel'),busy)}</div></div>`;
         return `<button class="re-inline-text re-text" data-re-action="inline${language==='ja'?'Ja':'En'}" ${extra} ${disabled||editing||booked||review?'disabled':''} aria-label="${language==='ja'?'日本語':'English'} · ${e(t('clickEdit'))}">${e(value)}</button>`;
       };
-      return `<div class="re-drafts" data-confirmed="${!!review}"><div><label for="re-ja-${d.date}${suffix}">日本語 · JA</label>${editorField('ja',ja)}</div><section class="re-nobo-field"><div class="re-toolbar"><span class="re-field-label">${e(t(revised?'revisedEnglish':'draftEnglish'))}</span>${button(partIndex===null?'copy':'copyPart',t('copy'),!can||editing||busy,extra)}${button('confirmPart',t(review?(adminButton&&review.admin?'adminUndoConfirm':'undoConfirm'):'confirm'),disabled||editing||!canConfirm(),`${extra} data-admin-confirm="${adminButton}" aria-pressed="${!!review}"`)}</div>${editorField('en',copy)}</section></div>`;
+      return `<div class="re-drafts" data-confirmed="${!!review}"><div><label for="re-ja-${d.date}${suffix}">日本語 · JA</label>${editorField('ja',ja)}</div><section class="re-nobo-field"><div class="re-field-header"><span class="re-field-label">${e(t(revised?'revisedEnglish':'draftEnglish'))}</span><div class="re-field-actions">${button(partIndex===null?'copy':'copyPart',t('copy'),!can||editing||busy,extra)}${button('confirmPart',t(review?(adminButton&&review.admin?'adminUndoConfirm':'undoConfirm'):'confirm'),disabled||editing||!canConfirm(),`${extra} data-admin-confirm="${adminButton}" aria-pressed="${!!review}"`)}</div></div>${editorField('en',copy)}</section></div>`;
     };
     let content='';
     if(editing && editMode==='nobo'){
@@ -253,7 +266,7 @@ export function createEditor(a) {
       const i=Number(btn.dataset.story),sn=stories?.[i];if(!sn)return;
       const choices=sn.items.filter(s=>s!==lastStory[i]);
       const value=op==='storyUrl'?sn.url:op==='storyItem'?sn.items[Number(btn.dataset.item)]:(choices.length?choices:sn.items)[Math.floor(Math.random()*(choices.length||sn.items.length))];if(!value)return;
-      try{await navigator.clipboard.writeText(value);if(op!=='storyUrl'){lastStory[i]=value;const result=a.view.querySelector(`[data-story-result="${i}"]`);if(result)result.textContent=value;}notice(t('copied'));}catch{notice(t('copyError'),true);}return;
+      try{await navigator.clipboard.writeText(value);if(op!=='storyUrl'){lastStory[i]=value;const result=a.view.querySelector(`[data-story-result="${i}"]`);if(result)result.textContent=value;}copiedFeedback(btn);}catch{notice(t('copyError'),true);}return;
     }
     if(op==='bookmark'){try{await navigator.clipboard.writeText(window.location.href);notice(t('bookmarkCopied'));}catch{notice(t('copyError'),true);}return;}
     if(op==='login'){a.login();return;}
@@ -282,7 +295,7 @@ export function createEditor(a) {
     }
     if(op==='copy'||op==='copyPart'||op==='copyFeeds'){
       if(!ready(d))return;const value=op==='copyFeeds'?R.copyPostText(p,d.date,pf):op==='copyPart'?R.englishPart(p,Number(btn.dataset.part)):R.english(p);
-      try{await navigator.clipboard.writeText(value);notice(t('copied'));autoRefresh();}catch{notice(t('copyError'),true);}return;
+      try{await navigator.clipboard.writeText(value);copiedFeedback(btn);autoRefresh();}catch{notice(t('copyError'),true);}return;
     }
     if(!w&&op!=='save')return;
     const body={op,start:w?.start||R.monday(day),date:day,platform:pf,revision:w?.revision||0};
