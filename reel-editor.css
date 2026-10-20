@@ -49,7 +49,7 @@
 .re-book button[aria-pressed="true"]{background:var(--neon);border-color:var(--neon);color:var(--neon-ink)}
 .re-notice{padding:12px 16px;background:var(--todaybg);border-radius:8px;font-size:13px;margin:12px 0}
 .re-notice[role="alert"]{border:1px solid var(--wood)}
-.re-datebar{position:sticky;top:0;z-index:5;background:var(--bg);padding:10px 0;border-bottom:1px solid var(--line)}
+.re-datebar{background:var(--bg);padding:10px 0;border-bottom:1px solid var(--line)}
 .re-datebar button[aria-pressed="true"]{border-color:var(--accent);background:var(--accent);color:white}
 .re-day{scroll-margin-top:100px}
 .re-part{border-top:1px solid var(--line);padding-top:16px;margin-top:16px}
@@ -87,3 +87,8 @@
 @media(max-width:650px){.re-check-overview{padding:12px}.re-check-scroll{scrollbar-width:thin}}
 
 .re-nobo-field button[data-re-action="confirmPart"][aria-pressed="true"]{background:#215c99;color:white;border-color:#215c99}
+
+.re-date-controls{position:sticky;top:0;z-index:5;background:var(--bg);padding-bottom:1px}
+.re-date-controls .re-check-overview{margin-bottom:8px}
+.re-day{scroll-margin-top:280px}
+@media(max-width:650px){.re-day{scroll-margin-top:340px}}

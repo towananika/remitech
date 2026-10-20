@@ -1,4 +1,4 @@
-import * as R from './reel-workflow.mjs';
+import * as R from './reel-workflow.mjs?v=20261020-review-parts';
 
 const labels = {
   title:['REEL','REEL','REEL'],
@@ -143,8 +143,8 @@ export function createEditor(a) {
     const days=[];for(let day=first;day<=last;day=R.addDays(day,1))days.push(day);
     const current=find(date).w;
     a.view.innerHTML=`<section class="reel-editor"><header class="re-top"><div><h2>${e(t('title'))}</h2></div><div class="re-toolbar"><button data-re-action="bookmark">${e(t('bookmark'))}</button><button data-re-action="refresh" ${busy?'disabled':''}>${e(t('refresh'))}</button></div></header>
-      <div class="re-toolbar re-datebar"><label for="re-date">${e(t('date'))}</label><input type="date" id="re-date" value="${date}" max="${R.EDITOR_END_DATE}" ${busy?'disabled':''}><div class="re-toolbar" role="group" aria-label="SNS">${['X','IG','IGS'].map(p=>`<button data-re-platform="${p}" aria-pressed="${pf===p}" ${busy?'disabled':''}>${p==='IGS'?'IG Story':p}</button>`).join('')}</div><button data-re-action="previous" ${busy?'disabled':''}>← ${e(t('previous'))}</button></div>
-      ${checkOverview()}
+      <div class="re-date-controls"><div class="re-toolbar re-datebar"><label for="re-date">${e(t('date'))}</label><input type="date" id="re-date" value="${date}" max="${R.EDITOR_END_DATE}" ${busy?'disabled':''}><div class="re-toolbar" role="group" aria-label="SNS">${['X','IG','IGS'].map(p=>`<button data-re-platform="${p}" aria-pressed="${pf===p}" ${busy?'disabled':''}>${p==='IGS'?'IG Story':p}</button>`).join('')}</div><button data-re-action="previous" ${busy?'disabled':''}>← ${e(t('previous'))}</button></div>
+      ${checkOverview()}</div>
       <div data-re-notice class="re-notice" aria-live="polite" role="status" ${noticeText?'':'hidden'}>${e(noticeText)}</div>
       ${a.preview?'<div class="re-notice">デザイン確認用のサンプルです。日付・X／IG／IG Storyの切り替えを試せます。実際の投稿や会員情報は含まず、編集・保存はできません。</div>':!member()?`<div class="re-notice">${e(t('login'))} <button data-re-action="login">${e(t('loginBtn'))}</button></div>`:!online&&attempted?'<p><a href="./posts-compare.html">デザイン比較を見る ↗</a></p>':''}
       <details class="re-plan"><summary>${e(t('settings'))}</summary><label for="re-brief">${e(t('brief'))}</label><textarea id="re-brief" maxlength="3000">${e(brief)}</textarea><button data-re-action="settings" ${busy||!member()||!online?'disabled':''}>${e(t('saveBrief'))}</button><button data-re-action="cancelSettings" ${busy?'disabled':''}>${e(t('cancel'))}</button></details>
@@ -167,8 +167,9 @@ export function createEditor(a) {
           if(window.scrollY>100 && !edit && !settingsDirty && last<R.EDITOR_END_DATE){last=R.addDays(last,7)>R.EDITOR_END_DATE?R.EDITOR_END_DATE:R.addDays(last,7);const y=window.scrollY;render();window.scrollTo(0,y);}return;
         }
       }
-      const reading=[...a.view.querySelectorAll('[data-re-day]')].find(el=>{const r=el.getBoundingClientRect();return r.bottom>180&&r.top<window.innerHeight;});
-      if(reading){const day=reading.dataset.reDay,input=a.view.querySelector('#re-date');if(input)input.value=day;date=day;a.navigate?.(date,pf);ensure(day);}
+      const controlsBottom=(a.view.querySelector('.re-date-controls')?.getBoundingClientRect().bottom||168)+12;
+      const reading=[...a.view.querySelectorAll('[data-re-day]')].find(el=>{const r=el.getBoundingClientRect();return r.bottom>controlsBottom&&r.top<window.innerHeight;});
+      if(reading){const day=reading.dataset.reDay,input=a.view.querySelector('#re-date');if(input)input.value=day;date=day;a.view.querySelectorAll('[data-re-check-date]').forEach(el=>el.setAttribute('aria-pressed',String(el.dataset.reCheckDate===date&&el.dataset.reCheckPlatform===pf)));a.navigate?.(date,pf);ensure(day);}
     },{threshold:[0,0.12,0.5]});
     a.view.querySelectorAll('[data-re-day],.re-more').forEach(el=>observer.observe(el));
   }
