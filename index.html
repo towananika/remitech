@@ -338,6 +338,7 @@
   .retplan .yuday{padding:18px;border:1px solid var(--line);border-radius:14px;}
   .retplan h3{margin:12px 0 18px;font-size:20px;}
   .retpair{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  .retpair-single{grid-template-columns:1fr;}
   .ret-field{min-width:0;padding:14px;border:1px solid var(--line);border-radius:12px;background:var(--surface);}
   .ret-field-en{background:color-mix(in srgb,#dfbd8a 12%,var(--surface));border-color:var(--ret-blue);}
   .ret-field-head{display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:28px;margin-bottom:12px;}
@@ -5637,6 +5638,9 @@
     } catch (e) { retBookMsg = e.message === "network" ? t("authNet") : (e.message || t("authNet")); }
     finally { retBookBusy = false; if (tab === "prep" && filter === "ret") route(); if (tab === "book") renderBookKeep(); }
   }
+  function retLocalized(post, field) {
+    return lang === "ja" ? (post[field] || "") : (post[field + (lang === "ko" ? "Ko" : "En")] || "");
+  }
   function retInternalHTML() {
     var h = '<section class="yuin retplan"><div class="yuhd"><b>' + esc(t("retTitle")) + '</b><span class="yulock">' + esc(t("yuTitle")) + '</span></div>', u = authUser();
     if (!u) return h + '<p>' + esc(t("yuNeedLogin")) + '</p><button class="authsub" id="yuLogin">' + esc(t("authLogin")) + '</button></section>';
@@ -5662,11 +5666,11 @@
     copyBank[key] = {en:post[retPlatform+"en"],cur:post[retPlatform+"en"]};
     var prompt = post[retPlatform === "x" ? "imagePromptX" : "imagePromptIG"];
     if (prompt) copyBank[promptKey] = {en:prompt,cur:prompt};
-    h += '<div class="ret-controls"><nav class="ret-dates" aria-label="Date">' + retDoc.posts.map(function (p) { return '<button data-ret-open="' + esc(p.date) + '" aria-pressed="' + (p.date === retDate) + '" title="' + esc(p.theme) + '">' + (+p.date.slice(5,7)) + '/' + (+p.date.slice(8)) + '</button>'; }).join("") + '</nav><div class="ret-platforms" role="group" aria-label="SNS">' + ["x","ig"].map(function (pf) { return '<button data-ret-platform="' + pf + '" aria-pressed="' + (pf === retPlatform) + '">' + pf.toUpperCase() + '</button>'; }).join("") + '</div></div>';
-    h += '<article class="yuday" data-ret-date="' + esc(post.date) + '"><div class="yudate"><b>' + esc(bookingDay) + ' · ' + retPlatform.toUpperCase() + '</b><small>' + '09:00 KST' + '</small></div><h3>' + esc(post.theme) + '</h3><div class="retpair">' +
-      '<div class="ret-field"><div class="ret-field-head"><span>日本語 · JA</span></div><pre>' + esc(post[retPlatform+"ja"]) + '</pre></div>' +
+    h += '<div class="ret-controls"><nav class="ret-dates" aria-label="Date">' + retDoc.posts.map(function (p) { return '<button data-ret-open="' + esc(p.date) + '" aria-pressed="' + (p.date === retDate) + '" title="' + esc(retLocalized(p,"theme")) + '">' + (+p.date.slice(5,7)) + '/' + (+p.date.slice(8)) + '</button>'; }).join("") + '</nav><div class="ret-platforms" role="group" aria-label="SNS">' + ["x","ig"].map(function (pf) { return '<button data-ret-platform="' + pf + '" aria-pressed="' + (pf === retPlatform) + '">' + pf.toUpperCase() + '</button>'; }).join("") + '</div></div>';
+    h += '<article class="yuday" data-ret-date="' + esc(post.date) + '"><div class="yudate"><b>' + esc(bookingDay) + ' · ' + retPlatform.toUpperCase() + '</b><small>' + '09:00 KST' + '</small></div><h3>' + esc(retLocalized(post,"theme")) + '</h3><div class="retpair' + (lang === "en" ? ' retpair-single' : '') + '">' +
+      (lang !== "en" ? '<div class="ret-field"><div class="ret-field-head"><span>' + (lang === "ko" ? '한국어 · KO' : '日本語 · JA') + '</span></div><pre>' + esc(post[retPlatform+lang] || "") + '</pre></div>' : '') +
       '<div class="ret-field ret-field-en"><div class="ret-field-head"><span>English · EN</span><button class="cpy retcopy" data-ck="' + key + '" data-lg="en">' + esc(t("copy")) + '</button></div><pre>' + esc(post[retPlatform+"en"]) + '</pre></div></div>' + booking +
-      '<section class="ret-image"><h4>' + esc(t("retImage")) + ' · ' + retPlatform.toUpperCase() + (prompt ? (retPlatform === "x" ? ' · 16:9' : ' · 4:5') : '') + '</h4><p>' + esc(post.image || "") + '</p>' + (prompt ? '<button class="cpy retcopy ret-prompt-copy" data-ck="' + promptKey + '" data-lg="en">' + esc(t("retPromptCopy")) + '</button>' : '') + '</section></article>';
+      '<section class="ret-image"><h4>' + esc(t("retImage")) + ' · ' + retPlatform.toUpperCase() + (prompt ? (retPlatform === "x" ? ' · 16:9' : ' · 4:5') : '') + '</h4><p>' + esc(retLocalized(post,"image")) + '</p>' + (prompt ? '<button class="cpy retcopy ret-prompt-copy" data-ck="' + promptKey + '" data-lg="en">' + esc(t("retPromptCopy")) + '</button>' : '') + '</section></article>';
     return h + '</section>';
   }
   view.addEventListener("click", function (e) {
