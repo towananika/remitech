@@ -5582,9 +5582,7 @@
   var yuPullOnce = false;
   function yuImagePrompt(text) {
     if (!text) return "";
-    var rule = "Create the image in a 4:5 portrait or 1:1 square aspect ratio.";
-    var prompt = String(text).trim();
-    return prompt.indexOf(rule) >= 0 ? prompt : prompt + "\n\n" + rule;
+    return String(text).trim();
   }
   function yuInternalHTML(c) {
     var h = '<div class="yuin" style="--chc:' + esc(c.color || "var(--wood)") + '"><div class="yuhd"><b>' + esc(c.name) + '</b>' +
