@@ -296,7 +296,8 @@
   a.tgsns:hover{ background:color-mix(in srgb,var(--sage) 18%,var(--surface)); box-shadow:0 1px 5px #0002; }
   a.tgsns:focus-visible{ outline:2px solid var(--sage); outline-offset:3px; }
   a.tgsns[data-fixed="true"]{ text-decoration:none; opacity:1; }
-  .tgsns .pfi{ width:12px; height:12px; }
+  .tgsns .pfi{ width:16px; height:16px; margin:0; }
+  .tgsns{ justify-content:center; min-width:30px; min-height:30px; padding:4px; box-sizing:border-box; }
   .tgsns[data-ok="true"]{ color:var(--sage); border-color:var(--sage); font-weight:700; background:color-mix(in srgb, var(--sage) 10%, var(--surface)); }
   .tgsns[data-ok="false"]{ text-decoration:line-through; opacity:.75; }
   .tgshares .tghead{ flex-wrap:wrap; }
@@ -2911,7 +2912,7 @@
         var pf = SNS_PF[m[1]] || "", link = /^https?:\/\/[^\s]+$/i.test(m[2]), fixed = pf === "IGS", ok = link && !fixed;
         var title = m[1] + ": " + m[2] + " · " + (ok ? t("tgPostDate") + ": " + tgTargetDate(c, tgDate) + " (KST)" : t("tgDateUnknown"));
         return '<' + (link ? 'a href="' + esc(m[2]) + '" target="_blank" rel="noopener noreferrer"' : 'span') + ' class="tgsns" data-ok="' + ok + '" data-fixed="' + fixed + '" title="' + esc(title) + '" aria-label="' + esc(title) + '">' + (pf ? pfIco(pf === "IGS" ? "IG" : pf) : "") +
-          esc(pf === "IGS" ? "Stories" : (pf || m[1])) + (!link && [t("tgInvalidLink"), t("tgAccessUnknown"), t("tgAccessDenied")].indexOf(m[2]) >= 0 ? ' · ' + esc(m[2]) : '') + (ok ? " ✓ ↗" : (link ? " ↗" : "")) + (link ? '</a>' : '</span>');
+          (link ? '</a>' : '</span>');
       }).join("");
       return '<div class="tghead" style="--chc:' + esc(c.color || "var(--wood)") + '"><p class="plabel">' + esc(c.name) + '</p>' +
         '<span class="tgsnsrow">' + chips + '</span>' +

@@ -1,5 +1,5 @@
 {
-  "note": "いいね作業のチェック。09:00・13:00・17:00。2026-10-08 Hiworks メールチェック（18:00、title と url を持つ作業）を追加。HIYOKO X 60、悠悠観音堂 X 20、ほかは40。3M・CSVは1つの作業。kind=follow のリストはフォロータブ（HIYOKO・NACHA の X と IG、毎日フォロー+5）",
+  "note": "いいね作業のチェック。09:00・13:00・17:00。2026-10-08 Hiworks メールチェック（17:00、title と url を持つ作業）を追加。HIYOKO X 60、悠悠観音堂 X 20、ほかは40。3M・CSVは1つの作業。kind=follow のリストはフォロータブ（HIYOKO・NACHA の X と IG、毎日フォロー+5）",
   "lists": [
     {
       "channel": "hiyoko",
@@ -139,7 +139,7 @@
       "tasks": [
         {
           "id": "mail|hiworks|18",
-          "time": "18:00",
+          "time": "17:00",
           "task": "Hiworks メールチェック"
         }
       ]
