@@ -31,3 +31,11 @@ test('Facebook needs a recent successful check for the exact post URL',()=>{
  p.linkCheck={state:'ok',url,checkedAt:new Date().toISOString()};assert.equal(scope.tgLinkChecked(p,'FB'),true);
  for(const check of [{...p.linkCheck,state:'unverified'},{...p.linkCheck,state:'unavailable'},{...p.linkCheck,url:'https://facebook.com/reel/123'},{...p.linkCheck,checkedAt:'2020-01-01T00:00:00Z'}])assert.equal(scope.tgLinkChecked({...p,linkCheck:check},'FB'),false);
 });
+
+test('NACHA notifications target yesterday across month/year boundaries; other channels target selected day',()=>{
+ const nacha={shareDayOffset:-1};
+ assert.equal(scope.tgTargetDate(nacha,'2026-10-21'),'2026-10-20');
+ assert.equal(scope.tgTargetDate(nacha,'2026-11-01'),'2026-10-31');
+ assert.equal(scope.tgTargetDate(nacha,'2027-01-01'),'2026-12-31');
+ assert.equal(scope.tgTargetDate({},'2026-10-21'),'2026-10-21');
+});

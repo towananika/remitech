@@ -2435,13 +2435,12 @@
   }
 
   function telegramBlocks(dateStr) {
-    var byCh = telegramItems(dateStr);
-    var d = new Date(dateStr + "T00:00:00");
-    var md = (d.getMonth() + 1) + "/" + d.getDate();
     var blocks = [];
     channels.forEach(function (c) {
-      var items = byCh[c.id];
+      var targetDate = tgTargetDate(c, dateStr);
+      var items = telegramItems(targetDate)[c.id];
       if (!items || !items.length) return;
+      var d = new Date(targetDate + "T00:00:00"), md = (d.getMonth() + 1) + "/" + d.getDate();
       items.sort(function (a, b) {
         var oa = PF_ORDER[a.pf], ob = PF_ORDER[b.pf];
         oa = oa === undefined ? 99 : oa; ob = ob === undefined ? 99 : ob;
@@ -2804,6 +2803,12 @@
     parts.forEach(function (p) { out[p.type] = p.value; });
     return out.year + "-" + out.month + "-" + out.day;
   }
+  function tgTargetDate(c, dateStr) {
+    var offset = Number.isInteger(c.shareDayOffset) ? c.shareDayOffset : 0;
+    var day = new Date(dateStr + "T00:00:00Z");
+    day.setUTCDate(day.getUTCDate() + offset);
+    return day.toISOString().slice(0, 10);
+  }
   function tgPostKey(value, pf) {
     try {
       var u = new URL(value), host = u.hostname.toLowerCase().replace(/^www\./, "").replace(/^m\./, ""), path = u.pathname.replace(/\/$/, ""), q = u.searchParams, query = "";
@@ -2843,6 +2848,7 @@
     }).sort(function (a, b) { return Date.parse(a.at) - Date.parse(b.at); });
   }
   function tgShareText(c, dateStr) {
+    dateStr = tgTargetDate(c, dateStr);
     var d = new Date(dateStr + "T00:00:00"), md = (d.getMonth() + 1) + "/" + d.getDate();
     var KINDS = [["X", "X"], ["Instagram", "IG"], ["Facebook", "FB"], ["TikTok", "TT", true], ["YouTube", "YT", true]];
     var lines = KINDS.filter(function (kd) { return (c.links || []).some(function (l) { return l.kind === kd[0]; }); }).map(function (kd) {
@@ -2903,7 +2909,7 @@
         var m = /^(.+?) \((.*)\)$/.exec(ln);
         if (!m) return "";
         var pf = SNS_PF[m[1]] || "", link = /^https?:\/\/[^\s]+$/i.test(m[2]), fixed = pf === "IGS", ok = link && !fixed;
-        var title = m[1] + ": " + m[2] + " · " + (ok ? t("tgPostDate") + ": " + tgDate + " (KST)" : t("tgDateUnknown"));
+        var title = m[1] + ": " + m[2] + " · " + (ok ? t("tgPostDate") + ": " + tgTargetDate(c, tgDate) + " (KST)" : t("tgDateUnknown"));
         return '<' + (link ? 'a href="' + esc(m[2]) + '" target="_blank" rel="noopener noreferrer"' : 'span') + ' class="tgsns" data-ok="' + ok + '" data-fixed="' + fixed + '" title="' + esc(title) + '" aria-label="' + esc(title) + '">' + (pf ? pfIco(pf === "IGS" ? "IG" : pf) : "") +
           esc(pf === "IGS" ? "Stories" : (pf || m[1])) + (!link && [t("tgInvalidLink"), t("tgAccessUnknown"), t("tgAccessDenied")].indexOf(m[2]) >= 0 ? ' · ' + esc(m[2]) : '') + (ok ? " ✓ ↗" : (link ? " ↗" : "")) + (link ? '</a>' : '</span>');
       }).join("");
