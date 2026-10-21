@@ -245,13 +245,28 @@ def yt_posts(url):
     return out
 
 
-def auto():
+def telegram_unshared(channels, day, shared):
+    # Keys use the notification date, including NACHA's previous-day post notifications.
+    datetime.date.fromisoformat(day)
+    return {c["id"] for c in channels if (c.get("telegramAt") or {}).get("time")
+            and not shared.get(day + "|" + c["id"])}
+
+
+def auto(telegram_date=None):
     posts = json.load(io.open(ROOT / "posts.json", encoding="utf-8"))
+    allowed = None
+    if telegram_date is not None:
+        request = urllib.request.Request("https://remitech-chores.jaykim-can.workers.dev/book",
+                                         headers={"User-Agent": UA, "Cache-Control": "no-cache"})
+        shared_book = json.loads(urllib.request.urlopen(request, timeout=20).read().decode("utf-8"))
+        if not isinstance(shared_book.get("telegram"), dict):
+            raise ValueError("共有状態を確認できません")
+        allowed = telegram_unshared(posts.get("channels", []), telegram_date, shared_book["telegram"])
     data = load()
     report, warn = [], []
     targets = []
     for c in posts.get("channels", []):
-        if c.get("id") not in CHANNELS:
+        if c.get("id") not in CHANNELS or (allowed is not None and c.get("id") not in allowed):
             continue
         for l in c.get("links", []):
             if l.get("kind") in ("Instagram", "YouTube", "X", "Facebook"):
@@ -325,4 +340,6 @@ if __name__ == "__main__":
     sys.stdout.reconfigure(encoding="utf-8")
     if len(sys.argv) >= 3 and sys.argv[1] == "--merge":
         sys.exit(merge_file(sys.argv[2], "browser"))
+    if len(sys.argv) == 3 and sys.argv[1] == "--telegram-date":
+        sys.exit(auto(sys.argv[2]))
     sys.exit(auto())

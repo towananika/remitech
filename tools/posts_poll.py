@@ -30,7 +30,7 @@ def main():
         return 0
     call("/state", {"state": "running", "msg": ""})
     try:
-        ok, summary = posts_daily.run("button")
+        ok, summary = posts_daily.run("button", telegram_date=cur.get("date") if cur.get("scope") == "telegram" else None)
     except Exception as e:
         call("/state", {"state": "error", "msg": "読み取りに失敗: %s" % str(e)[:200]})
         return 1

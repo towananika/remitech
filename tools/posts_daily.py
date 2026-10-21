@@ -29,7 +29,7 @@ def log(lines):
     open(LOG, "w", encoding="utf-8").write("\n".join((old + lines)[-200:]) + "\n")
 
 
-def run(why="daily"):
+def run(why="daily", telegram_date=None):
     """読んで push する。返す: (うまくいったか, 一言のまとめ)"""
     lines = ["==== %s (%s)" % (datetime.datetime.now().isoformat(timespec="seconds"), why)]
     env = dict(os.environ, PYTHONIOENCODING="utf-8")
@@ -38,8 +38,14 @@ def run(why="daily"):
     pw = os.path.join(os.path.expanduser("~"), ".ms-playwright")
     if os.path.isdir(pw):
         env["PLAYWRIGHT_BROWSERS_PATH"] = pw
-    pf = subprocess.run([sys.executable, os.path.join(ROOT, "tools", "posts_fetch.py")],
+    command = [sys.executable, os.path.join(ROOT, "tools", "posts_fetch.py")]
+    if telegram_date is not None:
+        command += ["--telegram-date", telegram_date]
+    pf = subprocess.run(command,
                         cwd=ROOT, env=env, capture_output=True, text=True, encoding="utf-8")
+    if pf.returncode != 0:
+        log(lines + ["fetch failed: " + pf.stderr.strip()[-300:]])
+        return False, "投稿取得に失敗しました"
     out = pf.stdout.strip()
     lines.append(out)
     if pf.stderr.strip():

@@ -2702,11 +2702,18 @@
   // サイトの posts_check.json が新しくなったら読み直し、予約の時刻 ±90分 の投稿のリンクを、空いている予約ボタンに入れる（pcAutoUrl）
   var bkFetch = { busy: false, msg: "", timer: 0, reqAt: "" };
   function fetchApi() { return String(CHORE_API).replace(/\/chores.*$/, "") + "/fetchreq"; }   // CHORE_API は後ろで決まるので、使うときに作る
-  function bkFetchShow(m) { bkFetch.msg = m; ["bkFetchOut", "tgFetchOut"].forEach(function (id) { var o = document.getElementById(id); if (o) o.textContent = m; }); ["bkFetchBtn", "tgFetchBtn"].forEach(function (id) { var b = document.getElementById(id); if (b) b.disabled = bkFetch.busy; }); }
-  function bkFetchStart() {
+  function bkFetchShow(m) { bkFetch.msg = m; ["bkFetchOut", "tgFetchOut"].forEach(function (id) { var o = document.getElementById(id); if (o) o.textContent = m; }); ["bkFetchBtn", "tgFetchBtn"].forEach(function (id) { var b = document.getElementById(id); if (b) b.disabled = bkFetch.busy || (id === "tgFetchBtn" && !tgPendingFetch().length); }); }
+  function tgPendingFetch() {
+    return channels.filter(function (c) { return c.telegramAt && c.telegramAt.time && !(schedule.telegram && schedule.telegram[tgDate + "|" + c.id]); });
+  }
+  function tgFetchStart() {
+    if (!tgPendingFetch().length) { bkFetchShow(t("tgShared")); return; }
+    bkFetchStart({scope:"telegram",date:tgDate});
+  }
+  function bkFetchStart(options) {
     if (bkFetch.busy) return;
     bkFetch.busy = true; bkFetchShow(t("bkFetchPending"));
-    fetch(fetchApi(), { method: "POST", headers: { "Content-Type": "application/json" }, body: "{}" })
+    fetch(fetchApi(), { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(options || {}) })
       .then(function (r) { if (!r.ok) throw new Error("fetch request failed"); return r.json(); })
       .then(function (j) { bkFetch.reqAt = j.reqAt || new Date().toISOString(); bkFetchPoll(0); },
             function () { bkFetch.busy = false; bkFetchShow(t("bkFetchErr") + t("authNet")); });
@@ -2971,7 +2978,7 @@
     var html = '<div class="tg">' +
       '<p class="tgsectitle">' + esc(t("navTg")) + '</p>' +
       '<div class="bar"><input type="date" id="tgDate" value="' + esc(tgDate) + '">' +
-      '<button class="bkrowsbtn bkfetch" id="tgFetchBtn" title="' + esc(t("bkFetchTip")) + '"' + (bkFetch.busy ? " disabled" : "") + '>↻ ' + esc(t("tgRefresh")) + '</button>' +
+      '<button class="bkrowsbtn bkfetch" id="tgFetchBtn" title="' + esc(t("bkFetchTip")) + '"' + (bkFetch.busy || !tgPendingFetch().length ? " disabled" : "") + '>↻ ' + esc(t("tgRefresh")) + '</button>' +
       (blocks.length ? '<button class="cpy strong" data-ck="tgAll" data-lg="en">' + esc(t("copyAll")) + '</button>' : "") +
       '</div>' +
       '<p class="tiny" id="tgFetchOut" role="status" aria-live="polite">' + esc(bkFetch.msg) + '</p>' +
@@ -2985,7 +2992,7 @@
   }
   view.addEventListener("click", function (e) {
     if (tab !== "likes" && tab !== "follow") return;
-    if (e.target.closest("#tgFetchBtn")) { bkFetchStart(); return; }
+    if (e.target.closest("#tgFetchBtn")) { tgFetchStart(); return; }
     var b = e.target.closest(".tgshare");
     if (!b) return;
     var k = b.getAttribute("data-tk");

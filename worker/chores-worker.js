@@ -118,7 +118,13 @@ export class HubDO extends DurableObject {
       // 待っている・読んでいる最中なら、それをそのまま返す（何度押しても1回分）。止まったまま15分たった依頼は置き直す
       const busy = (cur.state === "pending" || cur.state === "running") && now - Date.parse(cur.state === "running" ? cur.startAt : cur.reqAt) < 15 * 60 * 1000;
       if (busy) return json(cur, 200, origin);
+      let options;
+      try { options = await request.json(); } catch (_) { return json({error:"bad-json"},400,origin); }
+      if (!options || typeof options !== "object" || Array.isArray(options)) return json({error:"bad-json"},400,origin);
+      if (options.scope && options.scope !== "telegram") return json({error:"scope"},400,origin);
+      if (options.scope === "telegram" && !/^\d{4}-\d{2}-\d{2}$/.test(options.date || "")) return json({error:"date"},400,origin);
       const next = { state: "pending", reqAt: new Date(now).toISOString(), lastDoneAt: cur.doneAt || cur.lastDoneAt || "", msg: "" };
+      if (options.scope === "telegram") { next.scope = "telegram"; next.date = options.date; }
       await this.ctx.storage.put("cfg:fetchreq", next);
       this.broadcast("fetchreq");
       return json(next, 200, origin);
