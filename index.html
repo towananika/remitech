@@ -350,7 +350,8 @@
   .ret-booking{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:18px;padding-top:16px;border-top:1px solid var(--line);}
   .ret-booking button{min-height:36px;padding:6px 12px;border:1px solid var(--line);border-radius:9px;font:inherit;font-size:13px;background:var(--surface);color:var(--ink);cursor:pointer;}
   .ret-booking button[aria-pressed="true"]{border-color:var(--ret-blue);color:var(--ret-blue);font-weight:700;}
-  .ret-booking .ret-book-button{background:var(--ink);color:var(--surface);margin-left:auto;}
+  .ret-book-actions{display:flex;gap:8px;margin-left:auto;}
+  .ret-booking .ret-book-button{background:var(--ink);color:var(--surface);}
   .ret-booking .ret-book-button[data-on="true"]{background:#247246;color:white;}
   .ret-booking button:disabled{opacity:.45;cursor:default;}
   .ret-book-status{flex-basis:100%;font-size:12px;color:var(--muted);margin:0;}
@@ -5609,10 +5610,10 @@
       retBookLoading = false; if (tab === "prep" && filter === "ret") route();
     });
   }
-  async function retToggleBooking() {
+  async function retToggleBooking(platform) {
     if (retBookBusy || !retDoc || !(authUser() && (authUser().member || authUser().admin))) return;
-    var post = retDoc.posts.filter(function (p) { return p.date === retDate; })[0], pf = retPlatform.toUpperCase();
-    if (!post) return;
+    var post = retDoc.posts.filter(function (p) { return p.date === retDate; })[0], pf = platform || retPlatform.toUpperCase();
+    if (!post || ["X","IG"].indexOf(pf) < 0) return;
     var choice = post.date + "|" + pf, day = post.date;
     if (new Date(day + "T00:00:00Z").getUTCDay() !== 6) return;
     var wantBooked = !retBooked(day,pf);
@@ -5654,14 +5655,12 @@
     var post = retDoc.posts.filter(function (p) { return p.date === retDate; })[0] || retDoc.posts[0];
     retDate = post.date;
     if (!retBookReady && !retBookLoading && !retBookMsg) retLoadBookings();
-    var pf = retPlatform.toUpperCase(), choice = post.date + "|" + pf;
     var bookingDay = post.date;
-    var otherBooked = bkRetWeekendBlocked("ret",pf,bookingDay);
-    var bookingOn = retBooked(bookingDay,pf), legacyBooking = retBookingSlot(bookingDay,pf).legacy;
-    var booking = '<section class="ret-booking" aria-label="' + esc(t("retBookDate")) + '"><span>' + esc(t("retBookDate")) + '</span>' + [post.date].map(function (day) {
-      var blocked = bkRetWeekendBlocked("ret",pf,day);
-      return '<button data-ret-book-day="' + esc(day) + '" aria-pressed="' + (bookingDay === day) + '"' + (retBookBusy || !retBookReady || blocked ? ' disabled' : '') + ' title="' + esc(blocked ? t("bkWeekendBooked") + blocked : day) + '">' + esc(day.slice(5).replace('-','/')) + ' · 09:00</button>';
-    }).join("") + '<button id="retBook" class="ret-book-button" data-on="' + bookingOn + '" aria-pressed="' + bookingOn + '"' + (retBookBusy || !retBookReady || otherBooked || (!bookingOn && legacyBooking) ? ' disabled' : '') + ' title="' + esc(bookingOn ? t("retBookUndo") : t("yuBookTip")) + '">' + esc(retBookBusy ? t("svSaving") : bookingOn ? '✓ ' + t("yuBooked") : t("yuBook")) + '</button><p class="ret-book-status" role="status" aria-live="polite">' + esc(retBookLoading ? t("yuLoading") : retBookMsg || (legacyBooking ? t("retLegacyTime") + " · " + legacyBooking.time : "")) + '</p>' + (!retBookReady && !retBookLoading ? '<button id="retBookRetry">' + esc(t("yuRecheck")) + '</button>' : '') + '</section>';
+    var booking = '<section class="ret-booking" aria-label="' + esc(t("retBookDate")) + '"><span>' + esc(t("retBookDate")) + ' · ' + esc(bookingDay.slice(5).replace('-','/')) + ' · 09:00</span><div class="ret-book-actions">' + ["X","IG"].map(function (pf) {
+      var on = retBooked(bookingDay,pf), legacy = retBookingSlot(bookingDay,pf).legacy, blocked = bkRetWeekendBlocked("ret",pf,bookingDay);
+      var tip = blocked ? t("bkWeekendBooked") + blocked : legacy && !on ? t("retLegacyTime") + " · " + legacy.time : on ? t("retBookUndo") : t("yuBookTip");
+      return '<button class="ret-book-button" data-ret-book="' + pf + '" data-on="' + on + '" aria-pressed="' + on + '"' + (retBookBusy || !retBookReady || blocked || (!on && legacy) ? ' disabled' : '') + ' title="' + esc(tip) + '">' + esc(pf + ' ' + (on ? '✓ ' + t("yuBooked") : t("yuBook"))) + '</button>';
+    }).join("") + '</div><p class="ret-book-status" role="status" aria-live="polite">' + esc(retBookBusy ? t("svSaving") : retBookLoading ? t("yuLoading") : retBookMsg) + '</p>' + (!retBookReady && !retBookLoading ? '<button id="retBookRetry">' + esc(t("yuRecheck")) + '</button>' : '') + '</section>';
     var i = retDoc.posts.indexOf(post), key = "ret" + i + retPlatform + "en", promptKey = "ret" + i + retPlatform + "prompt";
     copyBank[key] = {en:post[retPlatform+"en"],cur:post[retPlatform+"en"]};
     var localKey = "ret" + i + retPlatform + lang;
@@ -5678,7 +5677,8 @@
   view.addEventListener("click", function (e) {
     if (e.target.closest("#retRetry")) { retState = ""; retLoad(); route(); return; }
     if (tab !== "prep" || filter !== "ret") return;
-    if (e.target.closest("#retBook")) { retToggleBooking(); return; }
+    var bookingButton = e.target.closest("[data-ret-book]");
+    if (bookingButton) { if (!bookingButton.disabled) retToggleBooking(bookingButton.getAttribute("data-ret-book")); return; }
     if (e.target.closest("#retBookRetry")) { retLoadBookings(); return; }
     var dayButton = e.target.closest("[data-ret-book-day]");
     if (dayButton) { if (!dayButton.disabled && !retBookBusy) { retBookChoices[retDate + "|" + retPlatform.toUpperCase()] = dayButton.getAttribute("data-ret-book-day"); route(); } return; }
