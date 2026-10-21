@@ -1,4 +1,4 @@
-import * as R from './reel-workflow.mjs?v=20261020-copy-all';
+import * as R from './reel-workflow.mjs?v=20261021-november';
 
 const labels = {
   title:['REEL','REEL','REEL'],
@@ -18,7 +18,7 @@ const labels = {
   holidaySet:['休日に設定','Mark as a holiday','휴일로 설정'],holidayUnset:['休日（クリックで解除）','Holiday (click to remove)','휴일 (클릭하여 해제)'],koreanHoliday:['韓国の祝日：','Korean public holiday: ','한국 공휴일: '],sunday:['日曜日','Sunday','일요일'],
   externalReview:['別文書でNOBO確認済み。本文はこのページには登録されていません。','Checked by NOBO in another document. The text is not stored on this page.','다른 문서에서 NOBO 확인 완료. 본문은 이 페이지에 등록되어 있지 않습니다.'],
   wellDone:['お疲れ様でした。','Thank you for your work.','수고하셨습니다.'],
-  scope:['今回の対象は11月1日までです。','The current scope ends on November 1.','현재 작업 범위는 11월 1일까지입니다.'],
+  scope:['今回の対象は2026年11月30日までです。','The current scope ends on November 30, 2026.','현재 작업 범위는 2026년 11월 30일까지입니다.'],
   date:['日付','Date','날짜'],settings:['AIの投稿方針','AI writing brief','AI 게시물 작성 지침'],saveBrief:['方針を保存','Save brief','지침 저장'],
   brief:['ブランド・読者・語調・避けたい表現','Brand, audience, voice and constraints','브랜드·독자·말투·피할 표현'],
   login:['作成・編集・予約には社内アカウントでログインしてください。','Sign in with a team account to write, edit or book.','생성·편집·예약은 사내 계정으로 로그인하세요.'],loginBtn:['ログイン','Log in','로그인'],

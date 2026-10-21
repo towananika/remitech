@@ -95,7 +95,7 @@ test('manual drafts add IG independently and reject overlapping week themes',asy
   body.parts=R.partLabels(body.date,'X').map((label,i)=>({label,ja:body.ja+i,en:body.en+i}));const first=await c.request(body);
   const ig=await c.request({...body,platform:'IG',revision:first.week.revision,en:'A separate IG caption.',parts:[{ja:'IG本文',en:'IG caption'},{ja:'コメント',en:'Your thought?'}]});assert.equal(ig.status,200);assert.equal(ig.week.days[0].posts.X.parts[0].en,'A discovery.0');
   const past=week('2026-10-19');past.theme=body.theme;await c.storage.put('reel:week:'+past.start,past);const clash=await c.request({...body,date:'2026-10-28',revision:0,start:'2026-10-26'});assert.equal(clash.status,409);
-  const future=await c.request({...body,start:'2026-11-02',date:'2026-11-03'});assert.equal(future.status,400);
+  const future=await c.request({...body,start:'2026-11-30',date:'2026-12-01'});assert.equal(future.status,400);
 });
 
 test('weekday/weekend structures match each channel and non-staff cannot edit',async()=>{
@@ -256,4 +256,18 @@ test('employees share manual holidays with Booking without changing drafts or co
  r=await c.request({op:'holiday',date:'2026-10-27',holiday:false});assert.equal(r.holidays['2026-10-27'],false);
  assert.equal((await c.request({op:'holiday',date:'2026-10-27',holiday:true},{id:'guest',member:false})).status,403);
  assert.equal((await c.request({op:'holiday',date:'2026-02-30',holiday:true},{id:'employee',member:true})).status,400);
+});
+
+
+test('November prepared manuscripts add a full month without overwriting NOBO edits or importing December',async()=>{
+ const c=context({seed:[{start:'2026-10-26',theme:'October',arc:'October arc',revision:8,days:[{date:'2026-11-01',posts:{X:{ja:'既存11月1日',en:'Existing November 1',noboEn:'NOBO November 1',secondReview:{by:'nobo'},partReviews:[{by:'nobo'}]}}}]}]});
+ let reads=0;
+ const source={version:1,weeks:[{start:'2026-10-26',theme:'October',arc:'October arc',days:[{date:'2026-11-01',posts:{X:{parts:[{ja:'新規',en:'Incoming'}]},IG:{parts:[{ja:'週末',en:'Weekend'}]}}}]},{start:'2026-11-30',theme:'A new step',arc:'Responses and next play',days:[{date:'2026-11-30',posts:Object.fromEntries(['X','IG'].map(pf=>[pf,{parts:R.partLabels('2026-11-30',pf).map(label=>({ja:'11月 '+label,en:'November '+label}))}]))}]}]};
+ c.hub.env.CHORES.get=async key=>{if(key==='reel:prepared:2026-11:v1'){reads++;return source;}return null;};
+ let r=await c.request(null,{id:'staff',member:true});assert.equal(r.status,200);
+ assert.equal(r.weeks.find(w=>w.start==='2026-10-26').days[0].posts.X.noboEn,'NOBO November 1');
+ const nov=r.weeks.find(w=>w.start==='2026-11-30').days[0];assert.equal(nov.posts.X.parts.length,4);assert.equal(nov.posts.IG.parts.length,2);assert.equal(nov.posts.X.secondReview,null);
+ await c.request();assert.equal(reads,1);assert.equal(R.EDITOR_END_DATE,'2026-11-30');
+ const bad=context();bad.hub.env.CHORES.get=async key=>key==='reel:prepared:2026-11:v1'?{version:1,weeks:[{start:'2026-11-30',theme:'Bad',arc:'Bad arc',days:[{date:'2026-12-01',posts:{}}]}]}:null;
+ await assert.rejects(bad.request(),/prepared-date/);assert.equal((await bad.storage.list({prefix:'reel:week:'})).size,0);
 });
