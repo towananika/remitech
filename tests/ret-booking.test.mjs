@@ -4,7 +4,7 @@ import vm from 'node:vm';
 import {readFile} from 'node:fs/promises';
 const source=await readFile(new URL('../index.html',import.meta.url),'utf8');
 const weekend=source.slice(source.indexOf('  function bkRetWeekendBlocked('),source.indexOf('  function bkSetSlotState('));
-const booking=source.slice(source.indexOf('  function retBookingSlot('),source.indexOf('  var retImageStates'));
+const booking=source.slice(source.indexOf('  function retBookingSlot('),source.indexOf('  function retInternalHTML('));
 function context({fail=false,other=false}={}){
  const data={newSlots:{},slots:{},memos:{}},writes=[];
  const c=vm.createContext({window:{scrollY:0,scrollTo:()=>{}},schedule:{slots:[]},bookRows:{groups:[{channel:'ret',rows:[{platforms:['X'],time:'09:00',label:'X'},{platforms:['IG'],time:'09:00',label:'IG'}]}]},
