@@ -704,87 +704,39 @@
   .tddate{ margin:0; font-size:22px; font-weight:700; }
   .tdleft{ font-size:13px; font-weight:700; padding:3px 10px; border-radius:999px; color:var(--surface); background:var(--ink); }
   .tdleft[data-zero="true"]{ background:var(--sage); }
-  .tdhead .savestat{ margin-left:auto; }
   .td7{ display:inline-flex; align-items:center; gap:5px; }
   .td7d{ width:14px; height:14px; border-radius:50%; border:1.5px solid var(--sage);
     background:conic-gradient(var(--sage) var(--p), transparent 0); }
   .td7d.td7now{ box-shadow:0 0 0 2px var(--surface), 0 0 0 3.5px var(--ink); }
-  .tdsec{ margin:0 0 18px; }
-  .tdsech{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin:0 0 8px; }
-  .tdsech > p{ margin:0; font-size:13px; font-weight:700; color:var(--muted); letter-spacing:.04em; }
-  .tdsech > p b{ color:var(--ink); margin-left:2px; }
-  .tdblocks{ display:flex; gap:6px; margin-left:auto; }
-  .tdblk{ font:inherit; font-size:12.5px; padding:5px 10px; min-height:32px; border-radius:999px; border:1px solid var(--line);
+  .tdcopy{ margin-left:auto; font:inherit; font-size:13px; padding:6px 14px; min-height:36px; border-radius:999px; border:1px solid var(--line);
     background:var(--surface); color:var(--ink); cursor:pointer; }
-  .tdblk i{ font-style:normal; color:var(--muted); font-size:11.5px; }
-  .tdblk[aria-pressed="true"]{ background:var(--ink); color:var(--surface); border-color:var(--ink); }
-  .tdblk[aria-pressed="true"] i{ color:var(--surface); opacity:.8; }
-  .tdblk[data-full="true"] i{ color:var(--sage); }
-  .tdstories{ display:flex; gap:14px; overflow-x:auto; padding:4px 2px 6px; scrollbar-width:none; }
-  .tdstories::-webkit-scrollbar{ display:none; }
-  .tdst{ flex:0 0 auto; display:flex; flex-direction:column; align-items:center; gap:5px; background:none; border:0; padding:0;
-    cursor:pointer; font:inherit; color:var(--ink); min-width:62px; }
-  .tdring{ width:58px; height:58px; border-radius:50%; padding:3px; display:grid; place-items:center;
-    background:conic-gradient(var(--chc), color-mix(in srgb, var(--chc) 45%, #f2b33d), var(--chc)); }
-  .tdring b{ width:100%; height:100%; border-radius:50%; display:grid; place-items:center; font-size:15px;
-    background:var(--surface); border:2px solid var(--surface); color:var(--chc); }
-  .tdst[data-on="true"] .tdring{ background:var(--line); }
-  .tdst[data-on="true"] .tdring b{ color:var(--muted); }
-  .tdring{ position:relative; }
-  .tdring em{ position:absolute; right:-2px; bottom:-2px; width:22px; height:22px; border-radius:50%; display:grid; place-items:center;
-    font-style:normal; font-size:12px; font-weight:700; background:var(--sage); color:#fff; border:2px solid var(--bg); }
-  .tdst i{ font-style:normal; font-size:11.5px; color:var(--muted); }
-  .tdc{ display:flex; gap:12px; padding:14px 2px; border-bottom:1px solid var(--line); }
-  .tdav{ flex:0 0 auto; width:40px; height:40px; border-radius:50%; display:grid; place-items:center; text-decoration:none;
-    font-size:13px; font-weight:700; color:#fff; background:var(--chc); }
-  .tdbody{ flex:1; min-width:0; }
-  .tdl1{ display:flex; align-items:baseline; gap:6px; flex-wrap:wrap; }
-  .tdname{ font-weight:700; color:var(--ink); text-decoration:none; }
-  .tdmeta{ font-size:13px; color:var(--muted); }
-  .tdkind{ margin-left:auto; font-style:normal; font-size:11.5px; font-weight:700; color:var(--chc); }
-  .tdc[data-kind="late"] .tdkind{ color:#b4553f; }
-  .tdtext{ margin:3px 0 0; font-size:14px; line-height:1.5; overflow-wrap:anywhere; }
-  .tdlog{ margin:6px 0 0; padding-left:10px; border-left:2px solid var(--line); }
-  .tdlog p{ margin:0; font-size:12.5px; color:var(--muted); line-height:1.5; overflow-wrap:anywhere; }
-  .tdq{ display:flex; gap:6px; flex-wrap:wrap; margin:10px 0 0; }
-  .tdchip{ font:inherit; font-size:12.5px; padding:5px 11px; min-height:32px; border-radius:999px; border:1px solid var(--line);
-    background:var(--bg); color:var(--ink); cursor:pointer; }
-  .tdrow{ display:flex; gap:8px; margin:8px 0 0; }
-  .tdin{ flex:1; min-width:0; font:inherit; font-size:15px; padding:9px 14px; min-height:44px; border-radius:999px;
-    border:1px solid var(--line); background:var(--surface); color:var(--ink); }
-  .tdin:focus{ outline:none; border-color:var(--chc); }
-  .tdgo{ flex:0 0 auto; font:inherit; font-size:14px; font-weight:700; padding:0 18px; min-height:44px; border-radius:999px;
-    border:0; background:var(--ink); color:var(--surface); cursor:pointer; }
-  .tdgo:disabled{ opacity:.3; cursor:default; }
-  .tdsub{ font:inherit; font-size:12.5px; margin:8px 0 0; padding:4px 0; background:none; border:0; color:var(--muted);
-    text-decoration:underline; cursor:pointer; }
-  .tdlink{ display:inline-block; margin:6px 0 0; font-size:13px; color:var(--chc); }
-  .tdout{ margin:4px 0 0; font-size:12.5px; color:#b4553f; min-height:0; }
-  .tdout:empty{ display:none; }
-  .tdweek{ margin-left:auto; display:flex; align-items:center; gap:4px; font-size:13px; }
-  .tdweek button{ font:inherit; font-size:18px; width:36px; height:36px; border-radius:50%; border:1px solid var(--line);
-    background:var(--surface); color:var(--ink); cursor:pointer; }
-  .tdweek span{ min-width:84px; text-align:center; }
-  .tdempty{ margin:4px 0; font-size:13.5px; color:var(--muted); }
-  .tdmore{ display:block; width:100%; margin:6px 0; padding:10px; font:inherit; font-size:13px; color:var(--muted);
-    background:none; border:1px dashed var(--line); border-radius:10px; cursor:pointer; }
-  .tdall{ text-align:center; padding:28px 0; }
-  .tdall span{ display:inline-grid; place-items:center; width:56px; height:56px; border-radius:50%; font-size:26px;
-    border:2px solid var(--sage); color:var(--sage); }
-  .tdall p{ margin:8px 0 0; font-weight:700; }
-  .tddone a{ display:block; padding:8px 2px; font-size:13px; color:var(--muted); text-decoration:none; border-bottom:1px solid var(--line); }
-  .tddone b{ color:var(--sage); }
-  .tdundo{ position:fixed; left:50%; transform:translateX(-50%); bottom:24px; z-index:50; display:flex; align-items:center; gap:14px;
-    padding:10px 12px 10px 18px; border-radius:10px; background:var(--ink); color:var(--surface); font-size:14px;
-    box-shadow:0 6px 20px rgba(0,0,0,.2); max-width:calc(100% - 24px); }
-  .tdundo button{ font:inherit; font-weight:700; background:none; border:0; color:#f2b33d; cursor:pointer; padding:6px; }
+  .tda{ padding:12px 14px; margin:0 0 10px; border:1px solid var(--line); border-left:4px solid var(--chc); border-radius:12px; background:var(--surface); }
+  .tdah{ display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
+  .tdan{ font-size:16px; }
+  .tdast{ font-size:12.5px; font-weight:700; padding:2px 10px; border-radius:999px; background:#f6e3c4; color:#8a5a12; }
+  .tda[data-st="full"] .tdast{ background:var(--sage); color:var(--surface); }
+  .tda[data-st="none"] .tdast{ background:var(--line); color:var(--muted); }
+  .tda[data-st="none"]{ opacity:.6; }
+  .tdwho{ margin-left:auto; font-size:13px; font-weight:700; color:var(--muted); }
+  .tdis{ display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tdi{ display:inline-flex; align-items:center; gap:6px; font-size:12.5px; padding:4px 10px; border-radius:999px; border:1px solid var(--line); }
+  .tdi i{ font-style:normal; }
+  .tdi small{ color:var(--muted); }
+  .tdi b{ font-size:11.5px; }
+  .tdi[data-s="sched"], .tdi[data-s="ckdone"]{ border-color:var(--sage); }
+  .tdi[data-s="sched"] b, .tdi[data-s="ckdone"] b{ color:var(--sage); }
+  .tdi[data-s="done"]{ border-color:#5b8fd6; }
+  .tdi[data-s="done"] b{ color:#5b8fd6; }
+  .tdi[data-s="todo"] b, .tdi[data-s="ck"] b{ color:#a8770f; }
+  .tdi[data-s="late"]{ border-color:#b4553f; }
+  .tdi[data-s="late"] b{ color:#b4553f; }
+  .tdtobook{ display:inline-block; margin:6px 0 0; font-size:13px; color:var(--muted); }
   /* スマホでは、タブを下に置く（Instagram・Xの形） */
   @media (max-width:700px){
     .nav{ position:fixed; left:0; right:0; bottom:0; z-index:40; margin:0; padding:0 4px env(safe-area-inset-bottom);
       background:var(--surface); border-top:1px solid var(--line); }
     .nav button{ padding-top:12px; padding-bottom:12px; }
     body{ padding-bottom:64px; }
-    .tdundo{ bottom:76px; }
   }
   /* ---- 投稿ページ ---- */
   .ppback{ display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
@@ -1642,7 +1594,7 @@
           navImport:"Import", impHelp:"Paste the plan from your spreadsheet (tab-separated, header row first).",
           navPrep2:"Prep (beta)", pvList:"List", pvCal:"Calendar", bkPrep:"prep", bkText:"Text", bkImg:"Image", bkHoliday:"Day off", tgShared:"Shared", tgNotShared:"Not shared yet", tgDue:"Share by", tgNextDay:"next day", tgLate:"Overdue", tgShareTip:"Tap after posting this to Telegram", bkShared:"Saved for everyone", bkOffline:"Server unreachable. Saved on this device only", bkNeedCode:"Enter the team passphrase to share with everyone", bkWhoTip:"Tap to change who is in charge", bkHolTip:"Tap to mark this day as a day off", bkNotYet:"Preparing", bkBookedShort:"Booked", bkReplyTip:"Reply to this post. Tap when done", bkLinkPrompt:"Paste the link (leave empty to remove)", bkFetchBtn:"Check posts", bkFetchPending:"Requested. Waiting for the PC (up to 2 min)…", bkFetchRunning:"Reading X, Instagram and YouTube…", bkFetchPublish:"Updating the site…", bkFetchDone:"Done: {n} link(s) added", bkFetchNone:"Done: no new links", bkFetchErr:"Failed: ", bkFetchTip:"Finds posts near each booked time (±90 min) on X, Instagram and YouTube, and puts their links on empty booking buttons. Facebook and TikTok are not read.", undoBtn:"Undo", undoDone:"Undone", undoTip:"Undo the last change (up to 3)", bkLinkBad:"Only links starting with http:// or https://", bkLinkWrongSns:"This box only takes {sns} links", bkVideo:"Video posted", navPosted:"Posted", tipPosted:"Did the booked posts go out? Tap a green box to see the link, numbers and text.", pcNoPost:"No post", pcOld:"Too old to check", pcUnchecked:"Not checked yet", pcNoData:"Not fetched", pcSame:"Text matches", pcNear:"Text almost matches", pcDiff:"Text differs", pcNoPlan:"No planned text", pcPlanText:"Planned text", pcPostText:"Posted text", pcOpen:"Open post", pcAt:"Posted at", pcChecked:"Checked", pcHow:"Instagram and YouTube are read automatically at 12:00. X is read when you ask Claude to \"check posts\". Facebook and TikTok cannot be read automatically (login required)", pcSimilar:"Similarity", tgCopyShare:"Copy share text", tgNoPost:"No post", tgNoLink:"Link not available", bkCkWait:"Set the IG feed to video first", bkVidPlan:"Video day", bkNoPlan:"No post planned this day", authLogin:"Log in", authRegister:"Sign up", authId:"ID (a–z, 0–9, 3–20)", authPw:"Password (8+ characters)", authPw2:"Password again", authMismatch:"The passwords do not match", authLogout:"Log out", authMember:"Staff", authAdmin:"Admin", authNone:"Waiting for staff access", authUsers:"Registered people", authClose:"Close", authWrong:"Wrong ID or password", authTaken:"This ID is already used", authBadId:"ID: 3–20 letters, numbers, _ . -", authBadPw:"Password: 8–64 characters", authMany:"Too many tries. Please wait and try again", authNet:"Could not connect", authFull:"No more sign-ups", authForgot:"Forgot password?", authResetTitle:"Reset password", authCode:"Reset code (from an admin)", authNewPw:"New password (8+ characters)", authNewPw2:"New password again", authResetGo:"Reset", authResetDone:"Done. Please log in with the new password", authResetHow:"Ask an admin for a reset code. It works once, for 24 hours", authCodeBad:"Wrong ID or code, or the code has expired", authPwId:"The password cannot be the same as the ID", authShowPw:"Show password", authChangePw:"Change password", authCurPw:"Current password", authChangeGo:"Change", authChanged:"Changed. Other devices were logged out", authLogoutAll:"Log out on all devices", authRoleGen:"General", authRoleStaff:"Staff", authIssue:"Reset code", authIssued:"Give this code to the person (once, 24 hours; it will not be shown again)", authDelete:"Delete", authDelConfirm:"Delete {id}? This cannot be undone", authBack:"Back", authKeep:"You stay logged in for 7 days (renewed each day you open the HUB)", yuTitle:"Staff only", yuNeedLogin:"Only staff can see this. Please log in", yuWait:"Waiting for staff access. Ask an admin", yuRecheck:"Check again", yuX:"X", yuIg:"IG / FB", yuPrompt:"Image prompt", yuRules:"Rules", yuPast:"Earlier posts", yuReserve:"Spare", yuFixed:"Fixed date", yuPlan:"Plan", yuLoading:"Loading…", yuNoImg:"Text only", bkCommentPrompt:"Comment (leave empty to remove)", bkLinkUpTip:"Link", bkCommentTip:"Comment", bkLabelsEdit:"Add labels", bkLabelAdd:"Add", bkLabelDel:"Delete", bkLabelPh:"e.g. On hold", bkBlank:"Blank", bkNoReply:"No reply", bkRowsBtn:"Rows", bkRowsTitle:"Which rows to show", bkRowsHidden:"hidden", bkRowsAll:"Show all", bkRowsDone:"Close", bkRowHide:"Hide this row", bkRowDel:"Delete this row", bkRowAdd:"+ Add a row", bkRowName:"Name", bkRowReply:"Add a reply row under it", bkRowSave:"Add", bkRowDup:"A row with the same SNS and time already exists", bkRowBad:"Enter a name and a time", bkRowDelAsk:"Delete this row? Marks already made stay.", gProjects:"Projects", gRecur:"Recurring", gRecurTitle:"Recurring slots", gAddRule:"Add", gClose:"Close", gMake:"Create this post", gRecurTag:"recurring", gView3:"3 days", gViewWeek:"Week", gViewMonth:"Month", bkVWeek:"By week", bkVRecent:"Last 2 weeks", bkVRecentTip:"Yesterday on the left, then 2 weeks from today", gNoRule:"No recurring slots yet.", calToday:"Today", calNone:"Nothing on this day", calMore:" more",
           navTg:"Telegram", retTitle:"RET posting plan", retWeekend:"Every Saturday at 09:00 (Korea time), for X and IG.", retAlternative:"Alternative date", retImage:"Image concept", retPromptCopy:"Copy image prompt", retBookDate:"Posting date", retLegacyTime:"Existing booking at previous time", retBookUndo:"Undo booking", retBookLoadError:"Could not load booking status",  retCopyEN:"Copy English", bkWeekendBooked:"Other weekend day booked: ", tgInvalidLink:"Invalid post link", tgAccessUnknown:"Access unverified", tgAccessDenied:"Post unavailable", tgPostDate:"Posted on", tgDateUnknown:"Post date not verified", navManage:"Management", mgIntro:"Manage members and access.", mgSearch:"Search by ID", mgAll:"All", mgActive:"Active", mgSuspended:"Suspended", mgSuspend:"Suspend", mgResume:"Resume", mgRevoke:"Force log out", mgConfirm:"Apply {action} to {id}?", mgSaved:"Saved", mgEmpty:"No matching members", mgAccess:"Access permissions", mgPolicy:"General: public pages. Staff: internal drafts and editing. Admin: member management. Only admins and NOBO can confirm REEL text.", mgProtected:"Admin accounts are protected. Admin IDs are configured on the server.", mgRefresh:"Refresh members", tgRefresh:"Refresh", navGuide:"Guide", tipGuide:"How each task is done.", copyAll:"Copy all", tgEmpty:"Nothing posted with a link on this day yet", tgLinks:"Links",
-          navOv:"Overview", navToday:"Today", tipToday:"Only what you can finish now: likes, scheduling, URLs, checks", tdLeft:"left", tdLikes:"Likes", tdNext:"next", tdAllDone:"All done for today", tdBook:"To schedule", tdLate:"Missed", tdUrl:"Paste URL", tdCheck:"Check", tdBooked:"Scheduled", tdPaste:"Paste", tdChecked:"Checked", tdMemoPh:"Write a note (required)", tdQ1:"No text", tdQ2:"No image", tdQ3:"All good", tdOlder:"Earlier days", tdDoneToday:"Done today", tdUndo:"Undo", tdOpen:"Open", tdNone:"Nothing to schedule this week", tdBadUrl:"URL must start with https://", tdThisWeek:"This week", tdPosted:"Posted", ovMeasureOnly:"Followers only, no posting", ovAccounts:"Accounts", ovDocs:"Plans",
+          navOv:"Overview", navToday:"Today", tipToday:"Today's booking status by account (same as the Book tab, today only)", tdAccDone:"Accounts done", tdCopy:"Copy text", tdCopied:"Copied", tdFull:"Booked", tdPart:"Booked", tdNoBook:"Nothing today", tdCkWait:"Check", tdOpenBook:"Open the Book tab", tdCopyHead:"Today's bookings", tdCopyAll:"Today's bookings done", tdLeftItems:"Not yet", ovMeasureOnly:"Followers only, no posting", ovAccounts:"Accounts", ovDocs:"Plans",
           impCols:"Columns: date (or day), time, platform, type, label, ja, en, ko, asset",
           impApply:"Apply on this device", impDownload:"Download schedule.json",
           impMonth:"Month", impMerge:"Keep what is already there",
@@ -1693,7 +1645,7 @@
           navImport:"불러오기", impHelp:"기획표를 붙여넣어. 탭으로 구분된 표(첫 줄은 제목).",
           navPrep2:"준비(시안)", pvList:"목록", pvCal:"캘린더", bkPrep:"준비", bkText:"텍스트", bkImg:"이미지", bkHoliday:"휴일", tgShared:"공유함", tgNotShared:"아직 공유 안 함", tgDue:"공유", tgNextDay:"다음 날", tgLate:"늦음", tgShareTip:"텔레그램에 올린 뒤 누르기", bkShared:"모두에게 저장됨", bkOffline:"서버에 연결 안 됨. 이 기기에만 저장", bkNeedCode:"팀 암호를 넣으면 모두와 공유돼", bkWhoTip:"누르면 담당자 변경", bkHolTip:"누르면 이 날을 휴일로", bkNotYet:"준비 중", bkBookedShort:"예약됨", bkReplyTip:"이 게시물에 대한 답글. 하면 누르기", bkLinkPrompt:"링크를 붙여 넣어 (비우면 삭제)", bkFetchBtn:"게시 확인", bkFetchPending:"요청했어요. PC가 가져갈 때까지 (최대 2분)…", bkFetchRunning:"X·Instagram·YouTube 읽는 중…", bkFetchPublish:"사이트에 반영 중…", bkFetchDone:"완료: 링크 {n}개 넣음", bkFetchNone:"완료: 새 링크 없음", bkFetchErr:"실패: ", bkFetchTip:"X·Instagram·YouTube에서 예약 시각(±90분)에 가까운 게시물을 찾아, 비어 있는 예약 버튼에 링크를 넣어요. Facebook·TikTok은 못 읽어요.", undoBtn:"되돌리기", undoDone:"되돌렸어요", undoTip:"방금 바꾼 것을 되돌려요 (3번까지)", bkLinkBad:"http:// 또는 https:// 로 시작하는 링크만 돼", bkLinkWrongSns:"이 칸에는 {sns} 링크만 넣을 수 있어", bkVideo:"영상 게시", navPosted:"게시 확인", tipPosted:"예약한 게시물이 올라갔는지. 초록 칸을 누르면 링크·숫자·문안을 볼 수 있어요.", pcNoPost:"게시 없음", pcOld:"오래돼서 확인 불가", pcUnchecked:"아직 확인 안 함", pcNoData:"가져올 수 없음", pcSame:"문안 일치", pcNear:"문안 거의 일치", pcDiff:"문안 다름", pcNoPlan:"기획 문안 없음", pcPlanText:"기획 문안", pcPostText:"게시된 문안", pcOpen:"게시물 열기", pcAt:"게시 시각", pcChecked:"확인", pcHow:"Instagram·YouTube는 매일 12시에 자동으로 읽어요. X는 Claude에게 \"게시 확인해\"라고 하면 읽어요. Facebook·TikTok은 로그인이 필요해서 자동으로 못 읽어요", pcSimilar:"유사도", tgCopyShare:"공유 문안 복사", tgNoPost:"No post", tgNoLink:"Link not available", bkCkWait:"IG 피드를 영상으로 하면 누를 수 있어", bkVidPlan:"영상 예정", bkNoPlan:"기획상 게시 없는 날", authLogin:"로그인", authRegister:"회원가입", authId:"ID (영문 소문자·숫자 3~20)", authPw:"비밀번호 (8자 이상)", authPw2:"비밀번호 확인", authMismatch:"비밀번호가 서로 달라요", authLogout:"로그아웃", authMember:"사내", authAdmin:"관리자", authNone:"사내 권한 대기 중", authUsers:"등록한 사람", authClose:"닫기", authWrong:"ID 또는 비밀번호가 틀려요", authTaken:"이미 쓰이는 ID예요", authBadId:"ID: 영문·숫자·_ . - 3~20자", authBadPw:"비밀번호: 8~64자", authMany:"너무 많이 시도했어요. 잠시 후 다시", authNet:"연결이 안 돼요", authFull:"더 이상 가입할 수 없어요", authForgot:"비밀번호를 잊었어요", authResetTitle:"비밀번호 재설정", authCode:"재설정 코드 (관리자에게 받기)", authNewPw:"새 비밀번호 (8자 이상)", authNewPw2:"새 비밀번호 확인", authResetGo:"재설정", authResetDone:"재설정했어요. 새 비밀번호로 로그인하세요", authResetHow:"관리자에게 재설정 코드를 받으세요. 24시간, 한 번만 쓸 수 있어요", authCodeBad:"ID나 코드가 틀렸거나 기한이 지났어요", authPwId:"ID와 같은 비밀번호는 쓸 수 없어요", authShowPw:"비밀번호 보기", authChangePw:"비밀번호 변경", authCurPw:"지금 비밀번호", authChangeGo:"변경", authChanged:"변경했어요. 다른 기기는 로그아웃됐어요", authLogoutAll:"모든 기기에서 로그아웃", authRoleGen:"일반", authRoleStaff:"사내", authIssue:"재설정 코드", authIssued:"이 코드를 본인에게 전하세요 (24시간·1회. 다시 표시되지 않아요)", authDelete:"삭제", authDelConfirm:"{id}을(를) 삭제할까요? 되돌릴 수 없어요", authBack:"돌아가기", authKeep:"로그인은 7일 유지 (HUB를 연 날마다 연장)", yuTitle:"사내 전용", yuNeedLogin:"사내 사람만 볼 수 있어요. 로그인해 주세요", yuWait:"사내 권한을 기다리는 중. 관리자에게 부탁하세요", yuRecheck:"다시 확인", yuX:"X", yuIg:"IG·FB", yuPrompt:"이미지 프롬프트", yuRules:"규칙", yuPast:"지난 게시물", yuReserve:"예비", yuFixed:"날짜 고정", yuPlan:"기획", yuLoading:"불러오는 중…", yuNoImg:"텍스트만", bkCommentPrompt:"코멘트 (비우면 삭제)", bkLinkUpTip:"링크", bkCommentTip:"코멘트", bkLabelsEdit:"라벨 등록", bkLabelAdd:"추가", bkLabelDel:"삭제", bkLabelPh:"예: 보류", bkBlank:"빈칸", bkNoReply:"답글 안 함", bkRowsBtn:"행", bkRowsTitle:"어떤 행을 볼지", bkRowsHidden:"숨김", bkRowsAll:"모두 보기", bkRowsDone:"닫기", bkRowHide:"이 행 숨기기", bkRowDel:"이 행 삭제", bkRowAdd:"+ 행 추가", bkRowName:"이름", bkRowReply:"아래에 답글 행도 추가", bkRowSave:"추가", bkRowDup:"같은 SNS·시간의 행이 이미 있어", bkRowBad:"이름과 시간을 넣어 줘", bkRowDelAsk:"이 행을 삭제할까? 이미 누른 표시는 남아.", gProjects:"프로젝트", gRecur:"정기 설정", gRecurTitle:"정기 게시 시간", gAddRule:"추가", gClose:"닫기", gMake:"이 게시물 만들기", gRecurTag:"정기", gView3:"3일", gViewWeek:"주", gViewMonth:"월", bkVWeek:"주별", bkVRecent:"최근 2주", bkVRecentTip:"왼쪽은 어제, 오른쪽은 오늘부터 2주", gNoRule:"정기 설정이 아직 없어.", calToday:"오늘", calNone:"이 날은 비어 있어", calMore:"개 더",
           navTg:"텔레그램", retTitle:"RET 게시 기획", retWeekend:"매주 토요일 오전 9시 (한국 시간), X·IG에 게시합니다.", retAlternative:"대체 날짜", retImage:"이미지 구상", retPromptCopy:"이미지 프롬프트 복사", retBookDate:"게시일", retLegacyTime:"기존 시간 예약", retBookUndo:"예약 취소", retBookLoadError:"예약 상태를 불러오지 못했습니다",  retCopyEN:"영어 복사", bkWeekendBooked:"주말의 다른 날 예약됨: ", tgInvalidLink:"잘못된 게시물 링크", tgAccessUnknown:"접근 미확인", tgAccessDenied:"접근 불가", tgPostDate:"게시일", tgDateUnknown:"게시일 미확인", navManage:"관리", mgIntro:"회원과 접근 권한을 관리합니다.", mgSearch:"ID 검색", mgAll:"전체", mgActive:"이용 중", mgSuspended:"이용 정지", mgSuspend:"이용 정지", mgResume:"이용 재개", mgRevoke:"강제 로그아웃", mgConfirm:"{id}에 {action}을 적용할까요?", mgSaved:"저장했습니다", mgEmpty:"해당 회원이 없습니다", mgAccess:"접근 권한", mgPolicy:"일반: 공개 페이지. 직원: 사내 초안 열람·편집. 관리자: 회원 관리. REEL 문안 확정은 관리자와 NOBO만 가능합니다.", mgProtected:"관리자 계정은 보호됩니다. 관리자 ID는 서버에서 설정합니다.", mgRefresh:"회원 새로고침", tgRefresh:"새로고침", navGuide:"설명", tipGuide:"작업을 어떻게 하는지.", copyAll:"전체 복사", tgEmpty:"이 날짜엔 링크가 있는 게시물이 아직 없어", tgLinks:"링크",
-          navOv:"개요", navToday:"오늘", tipToday:"지금 끝낼 수 있는 것만: 좋아요, 예약, URL, 확인", tdLeft:"남음", tdLikes:"좋아요", tdNext:"다음", tdAllDone:"오늘은 끝", tdBook:"예약하기", tdLate:"놓침", tdUrl:"URL 붙이기", tdCheck:"확인하기", tdBooked:"예약함", tdPaste:"붙이기", tdChecked:"확인함", tdMemoPh:"메모를 써야 누를 수 있어", tdQ1:"텍스트 없음", tdQ2:"이미지 없음", tdQ3:"문제 없음", tdOlder:"이전 날", tdDoneToday:"오늘 끝낸 것", tdUndo:"되돌리기", tdOpen:"열기", tdNone:"이번 주 예약할 것 없음", tdBadUrl:"URL은 https:// 로 시작해야 해", tdThisWeek:"이번 주", tdPosted:"게시됨", ovMeasureOnly:"팔로워만 추적, 게시는 안 함", ovAccounts:"계정", ovDocs:"기획서",
+          navOv:"개요", navToday:"오늘", tipToday:"오늘 예약 현황을 계정별로 (예약 탭의 오늘 하루만)", tdAccDone:"예약 완료 계정", tdCopy:"텍스트 복사", tdCopied:"복사됨", tdFull:"예약 완료", tdPart:"예약", tdNoBook:"오늘은 없음", tdCkWait:"확인", tdOpenBook:"예약 탭에서 열기", tdCopyHead:"금일 예약 현황", tdCopyAll:"금일 예약 완료", tdLeftItems:"미예약", ovMeasureOnly:"팔로워만 추적, 게시는 안 함", ovAccounts:"계정", ovDocs:"기획서",
           impCols:"열: date (또는 day), time, platform, type, label, ja, en, ko, asset",
           impApply:"이 기기에 적용", impDownload:"schedule.json 내려받기",
           impMonth:"월", impMerge:"기존 것 유지",
@@ -1744,7 +1696,7 @@
           navImport:"取り込み", impHelp:"表計算からコピーして貼る（タブ区切り・1行目は見出し）。",
           navPrep2:"準備（仮）", pvList:"一覧", pvCal:"カレンダー", bkPrep:"準備", bkText:"テキスト", bkImg:"イメージ", bkHoliday:"休日", tgShared:"共有済み", tgNotShared:"未共有", tgDue:"共有", tgNextDay:"翌日", tgLate:"遅れ", tgShareTip:"Telegramに投稿したら押す", bkShared:"全員に保存しました", bkOffline:"サーバーにつながりません。この端末にだけ残しました", bkNeedCode:"チームの合言葉を入れると、全員と共有されます", bkWhoTip:"押すと担当者が変わる", bkHolTip:"押すと、この日を休日にする", bkNotYet:"準備中", bkBookedShort:"予約済み", bkReplyTip:"すぐ上の投稿への返信。済んだら押す", bkLinkPrompt:"リンクを貼ってください（空にすると消えます）", bkFetchBtn:"投稿確認", bkFetchPending:"依頼しました。PCが受け取るまで（最大2分）…", bkFetchRunning:"X・Instagram・YouTube を読んでいます…", bkFetchPublish:"サイトに反映しています…", bkFetchDone:"完了：リンクを {n} 件入れました", bkFetchNone:"完了：新しく入れるリンクはありません", bkFetchErr:"失敗：", bkFetchTip:"X・Instagram・YouTube で、予約の時刻（±90分）に近い投稿を探し、空いている予約ボタンにリンクを入れます。Facebook・TikTok は読めません。", undoBtn:"元に戻す", undoDone:"元に戻しました", undoTip:"直前の変更を取り消します（3回まで）", bkLinkBad:"http:// か https:// で始まるリンクだけ置けます", bkLinkWrongSns:"このマスには {sns} のリンクだけ置けます", bkVideo:"動画投稿", navPosted:"投稿", tipPosted:"予約したものが出たか。緑のマスを押すと、リンク・数字・文が見られます。", pcNoPost:"投稿なし", pcOld:"古くて確認できない", pcUnchecked:"まだ確認していない", pcNoData:"取得できない", pcSame:"文が一致", pcNear:"文がほぼ一致", pcDiff:"文が違う", pcNoPlan:"企画の文なし", pcPlanText:"企画の文", pcPostText:"投稿された文", pcOpen:"投稿を開く", pcAt:"投稿時刻", pcChecked:"確認", pcHow:"Instagram・YouTube は毎日12時に自動で読みます。X は Claude に「投稿確認して」と言うと読みます。Facebook・TikTok はログインが必要なので自動では読めません", pcSimilar:"一致度", tgCopyShare:"共有文をコピー", tgNoPost:"No post", tgNoLink:"Link not available", bkCkWait:"IGフィードを動画にすると押せます", bkVidPlan:"動画予定", bkNoPlan:"企画では投稿のない日", authLogin:"ログイン", authRegister:"新規登録", authId:"ID（半角の英小文字・数字 3〜20）", authPw:"パスワード（8文字以上）", authPw2:"パスワード（確認のためもう一度）", authMismatch:"パスワードが一致しません", authLogout:"ログアウト", authMember:"社内", authAdmin:"管理者", authNone:"社内の付与待ち", authUsers:"登録した人", authClose:"閉じる", authWrong:"IDかパスワードが違います", authTaken:"このIDはもう使われています", authBadId:"ID は英数字と _ . - で3〜20文字", authBadPw:"パスワードは8〜64文字", authMany:"試した回数が多すぎます。しばらく待ってからもう一度", authNet:"つながりません", authFull:"これ以上登録できません", authForgot:"パスワードを忘れた", authResetTitle:"パスワードの再設定", authCode:"再設定コード（管理者からもらう）", authNewPw:"新しいパスワード（8文字以上）", authNewPw2:"新しいパスワード（もう一度）", authResetGo:"再設定する", authResetDone:"再設定しました。新しいパスワードでログインしてください", authResetHow:"管理者に「再設定コード」を出してもらってください。24時間・1回だけ使えます", authCodeBad:"IDかコードが違うか、期限が切れています", authPwId:"IDと同じパスワードは使えません", authShowPw:"パスワードを表示", authChangePw:"パスワード変更", authCurPw:"今のパスワード", authChangeGo:"変更する", authChanged:"変更しました。ほかの端末はログアウトしました", authLogoutAll:"すべての端末からログアウト", authRoleGen:"一般", authRoleStaff:"社内", authIssue:"再設定コード", authIssued:"このコードを本人に伝えてください（24時間・1回だけ。もう表示されません）", authDelete:"削除", authDelConfirm:"{id} を削除しますか？元に戻せません", authBack:"戻る", authKeep:"ログインは7日間続きます（HUBを開いた日ごとに延長）", yuTitle:"社内のみ", yuNeedLogin:"社内の人だけが見られます。ログインしてください", yuWait:"社内の付与を待っています。管理者に頼んでください", yuRecheck:"もう一度確かめる", yuX:"X", yuIg:"IG・FB", yuPrompt:"画像プロンプト", yuRules:"ルール", yuPast:"過去の投稿", yuReserve:"予備", yuFixed:"日付固定", yuPlan:"企画", yuLoading:"読み込み中…", yuNoImg:"文だけ", bkCommentPrompt:"コメント（空にすると消えます）", bkLinkUpTip:"リンク", bkCommentTip:"コメント", bkLabelsEdit:"ラベルを登録", bkLabelAdd:"追加", bkLabelDel:"削除", bkLabelPh:"例：保留", bkBlank:"空欄", bkNoReply:"返信しない", bkRowsBtn:"行", bkRowsTitle:"どの行を出すか", bkRowsHidden:"非表示", bkRowsAll:"全部出す", bkRowsDone:"閉じる", bkRowHide:"この行を隠す", bkRowDel:"この行を消す", bkRowAdd:"＋ 行を追加", bkRowName:"名前", bkRowReply:"下に返信の行もつける", bkRowSave:"追加", bkRowDup:"同じSNS・時刻の行がもうあります", bkRowBad:"名前と時刻を入れてください", bkRowDelAsk:"この行を消しますか？すでに押した印は残ります。", gProjects:"プロジェクト", gRecur:"定期の設定", gRecurTitle:"定期の投稿枠", gAddRule:"追加", gClose:"閉じる", gMake:"この企画を作る", gRecurTag:"定期", gView3:"3日", gViewWeek:"週", gViewMonth:"月", bkVWeek:"週別", bkVRecent:"直近2週", bkVRecentTip:"左に昨日、右に今日からの2週間", gNoRule:"定期の枠はまだない。", calToday:"今日", calNone:"この日は空", calMore:"件",
           navTg:"Telegram通知", retTitle:"RET投稿企画", retWeekend:"X・IGとも、毎週土曜日 9:00（韓国時間）に投稿します。", retAlternative:"日曜に変更する場合", retImage:"画像案", retPromptCopy:"画像プロンプトをコピー", retBookDate:"投稿日", retLegacyTime:"旧時刻の既存予約", retBookUndo:"予約を解除", retBookLoadError:"予約状態を取得できませんでした",  retCopyEN:"英語をコピー", bkWeekendBooked:"同じ週末の別日が予約済み：", tgInvalidLink:"リンク無効", tgAccessUnknown:"アクセス未確認", tgAccessDenied:"アクセス不可", tgPostDate:"投稿日", tgDateUnknown:"投稿日未確認", navManage:"管理", mgIntro:"会員とアクセス権限を管理します。", mgSearch:"IDで検索", mgAll:"すべて", mgActive:"利用中", mgSuspended:"利用停止中", mgSuspend:"利用停止", mgResume:"利用再開", mgRevoke:"強制ログアウト", mgConfirm:"{id} に「{action}」を実行しますか？", mgSaved:"保存しました", mgEmpty:"該当する会員はいません", mgAccess:"アクセス権限", mgPolicy:"一般：公開ページ。社員：社内草案の閲覧・編集。管理者：会員管理。REELの確定は管理者とNOBOのみ可能です。", mgProtected:"管理者アカウントは保護されています。管理者IDはサーバーで設定します。", mgRefresh:"会員一覧を更新", tgRefresh:"更新", navGuide:"説明", tipGuide:"作業のやり方。", copyAll:"全部コピー", tgEmpty:"この日はまだリンク付きの投稿がない", tgLinks:"リンク",
-          navOv:"概要", navToday:"今日", tipToday:"今終わらせられるものだけ：いいね・予約・URL・確認", tdLeft:"残り", tdLikes:"いいね", tdNext:"次", tdAllDone:"今日は済み", tdBook:"予約する", tdLate:"予約されずに過ぎた", tdUrl:"URLを貼る", tdCheck:"確認する", tdBooked:"予約した", tdPaste:"貼る", tdChecked:"確認した", tdMemoPh:"メモを書く（書くと押せます）", tdQ1:"テキストなし", tdQ2:"画像なし", tdQ3:"問題なし", tdOlder:"前の日の残り", tdDoneToday:"今日済んだもの", tdUndo:"元に戻す", tdOpen:"開く", tdNone:"今週、予約するものはありません", tdBadUrl:"URLは https:// で始めてください", tdThisWeek:"今週", tdPosted:"投稿", ovMeasureOnly:"フォロワーだけ追う。投稿はしない", ovAccounts:"運用アカウント", ovDocs:"企画書",
+          navOv:"概要", navToday:"今日", tipToday:"今日の予約状況をアカウントごとに（予約タブの今日1日分）", tdAccDone:"予約完了アカウント", tdCopy:"テキストをコピー", tdCopied:"コピーしました", tdFull:"予約完了", tdPart:"予約", tdNoBook:"今日はなし", tdCkWait:"確認", tdOpenBook:"予約タブで開く", tdCopyHead:"本日の予約状況", tdCopyAll:"本日の予約完了", tdLeftItems:"未予約", ovMeasureOnly:"フォロワーだけ追う。投稿はしない", ovAccounts:"運用アカウント", ovDocs:"企画書",
           impCols:"列: date（または day）, time, platform, type, label, ja, en, ko, asset",
           impApply:"この端末に反映", impDownload:"schedule.json を保存",
           impMonth:"月", impMerge:"いまの内容を残す",
@@ -2548,6 +2500,7 @@
       if (tab === "posted") renderPosted();
       if (tab === "likes") renderLikes();
       if (tab === "book") renderBook();
+      if (tab === "today" && !location.hash) renderToday();
     }, function () { pcState = "err"; if (!postsCheck) postsCheck = { accounts: {} }; });
   }
   function pcCovered(a) { var ps = (a && a.posts || []).filter(function (x) { return !x.pinned && x.at; }); return ps.length ? ps.map(function (x) { return pcDay(x.at); }).sort()[0] : "9999"; }
@@ -4665,6 +4618,7 @@
         if (o && o.links) { bkSeenServer = true; if (!pcAutoDone && pcAutoUrl() > 0) bkChanged = true; }
         if (bkChanged && (tab === "likes" || tab === "follow") && !/^#\//.test(location.hash)) { var ty = window.scrollY; renderLikes(); window.scrollTo(0, ty); }
         if (bkChanged && tab === "prep" && filter === "ret" && retDoc && !retBookBusy) { var ry = window.scrollY; route(); window.scrollTo(0,ry); }
+        if (bkChanged && tab === "today" && !/^#\//.test(location.hash)) { var tdy = window.scrollY; renderToday(); window.scrollTo(0, tdy); }
         if (bkChanged && tab === "book" && !/^#\//.test(location.hash)) {
           var w = document.getElementById("bkWrap"), sx = w ? w.scrollLeft : 0, sy = window.scrollY;
           renderBook();
@@ -4724,6 +4678,30 @@
     if (/^seohyun|서현|ソヒョン/.test(m)) return "Seohyun";
     return v ? String(v) : "";
   }
+  // 予約タブと今日タブで同じ判定を使う（2026-10-22 今日タブを作り直したときに外へ出した）
+  // その日の担当者: 予約タブの日付の下で選んだ人。選んでいなければ HIYOKO の枠の担当者
+  function bkWhoOf(k) {
+    if (schedule.assignees && Object.prototype.hasOwnProperty.call(schedule.assignees, k)) return schedule.assignees[k] || "";
+    var own = (schedule.slots || []).filter(function (x) { return slotCh(x) === "hiyoko" && x.date === k && x.owner; })[0];
+    return own ? bkWhoName(own.owner) : "";
+  }
+  function bkRowPlats(r) { return r.platforms || [r.platform || "X"]; }
+  function bkIsStory(x) { return /stor|ストーリー|스토리/i.test((x.label || "") + " " + (x.type || "")); }
+  function bkRowSlots(g, r, k) {
+    return bkRowPlats(r).map(function (pf) {
+      var cand = (schedule.slots || []).filter(function (x) {
+        return slotCh(x) === g.channel && x.date === k && (x.platform || "X") === pf && x.time === r.time;
+      });
+      // 同じ時間・同じSNSに2つある（フィードとストーリー）ときだけ、ラベルで選ぶ
+      if (cand.length > 1) cand = cand.filter(function (x) { return r.kind === "story" ? bkIsStory(x) : !bkIsStory(x); });
+      else if (cand.length === 1 && r.kind === "story" && !bkIsStory(cand[0])) cand = [];
+      else if (cand.length === 1 && r.kind !== "story" && bkIsStory(cand[0]) && pf === "IG") {
+        var hasStoryRow = (g.rows || []).some(function (o) { return o !== r && o.kind === "story" && o.time === r.time; });
+        if (hasStoryRow) cand = [];
+      }
+      return cand[0] || null;
+    }).filter(Boolean);
+  }
   function renderBook() {
     chansEl.hidden = true;
     if (!schedule || !bookRows) { view.innerHTML = '<p class="empty">' + esc(t("loading")) + '</p>'; return; }
@@ -4743,33 +4721,13 @@
     var total = 0, booked = 0;
     // 休日は schedule.holidays に日付で持つ（外したときは false を残し、他の端末と合わせたときに戻らないようにする）
     function isHol(k) { return bkIsHol(k); }
-    function whoOf(k) {
-      if (schedule.assignees && Object.prototype.hasOwnProperty.call(schedule.assignees, k)) return schedule.assignees[k] || "";
-      var own = (schedule.slots || []).filter(function (x) { return slotCh(x) === "hiyoko" && x.date === k && x.owner; })[0];
-      return own ? bkWhoName(own.owner) : "";
-    }
+    var whoOf = bkWhoOf;
     function whoHTML(k) {
       var w = whoOf(k);
       return '<button class="bkwho" data-who="' + k + '" data-name="' + (w ? w.toLowerCase() : "none") + '" title="' + esc(t("bkWhoTip")) + '">' +
         (w ? esc(w) : "—") + '</button>';
     }
-    function rowPlats(r) { return r.platforms || [r.platform || "X"]; }
-    function isStory(x) { return /stor|ストーリー|스토리/i.test((x.label || "") + " " + (x.type || "")); }
-    function rowSlots(g, r, k) {
-      return rowPlats(r).map(function (pf) {
-        var cand = (schedule.slots || []).filter(function (x) {
-          return slotCh(x) === g.channel && x.date === k && (x.platform || "X") === pf && x.time === r.time;
-        });
-        // 同じ時間・同じSNSに2つある（フィードとストーリー）ときだけ、ラベルで選ぶ
-        if (cand.length > 1) cand = cand.filter(function (x) { return r.kind === "story" ? isStory(x) : !isStory(x); });
-        else if (cand.length === 1 && r.kind === "story" && !isStory(cand[0])) cand = [];
-        else if (cand.length === 1 && r.kind !== "story" && isStory(cand[0]) && pf === "IG") {
-          var hasStoryRow = (g.rows || []).some(function (o) { return o !== r && o.kind === "story" && o.time === r.time; });
-          if (hasStoryRow) cand = [];
-        }
-        return cand[0] || null;
-      }).filter(Boolean);
-    }
+    var rowPlats = bkRowPlats, isStory = bkIsStory, rowSlots = bkRowSlots;
     var head = '<tr><th class="bkacc"></th>' + days.map(function (d) {
       var k = ymd(d);
       return '<th class="bkday" data-today="' + (k === today) + '" data-wknd="' + (d.getDay() === 0 || d.getDay() === 6) + '" data-hol="' + isHol(k) + '">' +
@@ -6006,71 +5964,6 @@
     }, function () { throw { reason: "offline" }; });
   }
 
-  /* ================= 今日 =================
-     開いたときに「今、何をすればいいか」だけを見せる。新しく入力するものは増やさず、
-     chores.json（いいね）と schedule.json（予約・URL・確認）から作る。
-     確認は、メモを書いたときだけ付く。書かなければ未確認のまま残る */
-  var tdWeek = 0, tdBlock = null, tdOldOpen = false, tdDoneOpen = false, tdUndo = null, tdUndoTimer = null;
-
-  function tdWhen(sl) {
-    var d = sl.date.split("-"), h = (sl.time || "00:00").split(":");
-    return new Date(+d[0], +d[1] - 1, +d[2], +h[0] || 0, +h[1] || 0);
-  }
-  function tdMonday(d) {
-    var x = new Date(d.getFullYear(), d.getMonth(), d.getDate());
-    x.setDate(x.getDate() - (x.getDay() + 6) % 7);          // 月曜はじまり
-    return x;
-  }
-  function tdDay(sl) {
-    var w = tdWhen(sl);
-    return (w.getMonth() + 1) + "/" + w.getDate() + "(" + DOW[lang][w.getDay()] + ")";
-  }
-  function tdLocalDay(iso) { if (!iso) return ""; var d = new Date(iso); return isNaN(d) ? "" : ymd(d); }
-  function tdStamp() { var d = new Date(); return (d.getMonth() + 1) + "/" + d.getDate() + " " + two(d.getHours()) + ":" + two(d.getMinutes()); }
-
-  // いいねの時間帯。chores.json の時間をそのまま使う
-  function tdLikeBlocks(today) {
-    var done = (chores && chores.done && chores.done[today]) || {}, by = {};
-    ((chores && chores.lists) || []).filter(function (li) { return li.kind !== "follow"; }).forEach(function (li) {
-      li.tasks.forEach(function (tk) {
-        (by[tk.time] = by[tk.time] || []).push({ li: li, tk: tk, on: !!done[tk.id] });
-      });
-    });
-    return Object.keys(by).sort(function (a, b) { return toMin(a) - toMin(b); })
-      .map(function (tm) { return { time: tm, items: by[tm] }; });
-  }
-
-  function tdCard(kind, sl) {
-    var c = chanOfSlot(sl) || { name: slotCh(sl), color: "var(--wood)" };
-    var key = slotKey(sl);
-    var body = tl(sl.label || "") || ((sl.text && (sl.text[lang] || sl.text.ja || sl.text.en || sl.text.ko)) || "");
-    var memo = (sl.memo || "").split("\n").filter(Boolean).slice(-2);
-    var kl = { book: "tdBook", late: "tdLate", url: "tdUrl", check: "tdCheck" }[kind];
-    var h = '<div class="tdc" data-k="' + esc(key) + '" data-kind="' + kind + '" style="--chc:' + esc(c.color || "var(--wood)") + '">' +
-      '<a class="tdav" href="#/prep/' + encodeURIComponent(key) + '">' + esc(chShort(slotCh(sl))) + '</a>' +
-      '<div class="tdbody">' +
-        '<div class="tdl1"><a class="tdname" href="#/prep/' + encodeURIComponent(key) + '">' + esc(c.name) + '</a>' +
-          '<span class="tdmeta">' + pfIco(sl.platform) + esc(pfn(sl.platform)) + ' · ' + esc(tdDay(sl)) + ' ' + esc(sl.time) + '</span>' +
-          '<em class="tdkind">' + esc(t(kl)) + '</em></div>' +
-        (body ? '<p class="tdtext">' + esc(body.slice(0, 80)) + '</p>' : "") +
-        (memo.length ? '<div class="tdlog">' + memo.map(function (m) { return '<p>' + esc(m) + '</p>'; }).join("") + '</div>' : "");
-    if (kind === "url" || kind === "late") {
-      h += '<div class="tdrow"><input class="tdin tdurl" type="url" inputmode="url" placeholder="https://">' +
-        '<button class="tdgo" data-act="url" disabled>' + esc(t("tdPaste")) + '</button></div>';
-      if (kind === "late") h += '<button class="tdsub" data-act="skip">' + esc(t("markSkip")) + '</button>';
-    } else {
-      if (kind === "check" && sl.url) {
-        h += '<a class="tdlink" href="' + esc(sl.url) + '" target="_blank" rel="noopener">' + esc(t("tdOpen")) + ' \u2197</a>';
-      }
-      h += '<div class="tdq">' + ["tdQ1", "tdQ2", "tdQ3"].map(function (q) {
-          return '<button class="tdchip" data-q="' + esc(t(q)) + '">' + esc(t(q)) + '</button>';
-        }).join("") + '</div>' +
-        '<div class="tdrow"><input class="tdin tdmemo" placeholder="' + esc(t("tdMemoPh")) + '">' +
-        '<button class="tdgo" data-act="' + kind + '" disabled>' + esc(t(kind === "book" ? "tdBooked" : "tdChecked")) + '</button></div>';
-    }
-    return h + '<p class="tdout"></p></div></div>';
-  }
-
   // 日付の右に、最近7日のいいねタスクの達成を円で（2026-10-06 Hibiki指定）。
   // 円の塗り＝その日に済ませた割合。タスクタブの「今日」と同じ並び（lkLists＝いいね＋フォロー）で数える。
   // 今の並びが基準なので、作業時刻を変えた前の日は少なめに出ることがある
@@ -6090,216 +5983,129 @@
     return h;
   }
 
+  /* ================= 今日 =================
+     2026-10-22 Hibiki指定: 予約タブの今日1日分だけを、アカウントごとに一行で見せる（今日できた予約状況）。
+     例「HIYOKO: 予約完了 - 혜정（X 09:30・13:00, IG フィード）」。前の今日タブ（いいね・URL・確認・週の予約）はやめた。
+     判定は予約タブと同じ（bkRowSlots・slotState・RET の週末1日・企画の日・投稿の照らし合わせ）。
+     ここでは押さない。予約を入れるのは予約タブ */
+  var tdCopyMsg = "", tdCopyTimer = null;
+  var TD_WHO = { Suha: { ko: "수하", ja: "スハ" }, Hyejeong: { ko: "혜정", ja: "ヘジョン" }, Seohyun: { ko: "서현", ja: "ソヒョン" } };
+  function tdWhoName(v) { var n = bkWhoName(v); return (TD_WHO[n] && TD_WHO[n][lang]) || n; }
+  // 行の名前。「投稿」「フィード」のように SNS の名前がない行は、前に SNS を付ける
+  function tdRowName(r) {
+    var pfs = bkRowPlats(r).map(function (pf) { return { IGS: "IG", TT: "TikTok", YT: "YouTube" }[pf] || pf; });
+    var lb = tl(r.label || "");
+    return pfs.some(function (n) { return lb.indexOf(n) === 0; }) ? lb : pfs.join("・") + " " + lb;
+  }
+  // 1行・1日の状態。返す: null（今日はやらない）か { st: "done"|"sched"|"todo"|"late"|"ck"|"ckdone", owners: [] }
+  function tdRowState(g, r, k, now, autoM, igFeed) {
+    var rk = bkRowKey(g, r);
+    if (r.check) {
+      var cOn = !!(schedule.telegram && schedule.telegram[k + "|" + r.check]);
+      var inPlan = r.planDays && k >= (r.planFrom || "") && k <= (r.planTo || "9999");
+      if (cOn) return { st: "ckdone", owners: [] };
+      if (inPlan ? r.planDays.indexOf(k) >= 0 : (igFeed && bkRowSlots(g, igFeed, k).some(function (x) { return x.status === "video"; }))) return { st: "ck", owners: [] };
+      return null;
+    }
+    var sls = bkRowSlots(g, r, k);
+    var owners = sls.map(function (x) { return x.owner; }).filter(Boolean);
+    if (r.legacy) return sls.some(function (x) { return x.scheduled && !x.skip; }) ? { st: "sched", owners: owners } : null;
+    if (g.channel === "ret" && (schedule.slots || []).some(function (x) { return slotCh(x) === "ret" && x.date === k && bkRowPlats(r).indexOf(x.platform || "X") >= 0 && x.time !== r.time && x.scheduled && !x.skip; })) return null;
+    if (bkRowPlats(r).some(function (pf) { return bkRetWeekendBlocked(g.channel, pf, k); })) return null;
+    var p = k.split("-"), d = new Date(+p[0], +p[1] - 1, +p[2]);
+    var hh = String(r.time || "23:59").split(":"), when = new Date(+p[0], +p[1] - 1, +p[2], +hh[0] || 0, +hh[1] || 0);
+    if (!sls.length) {
+      if ((r.weekdays && r.weekdays.indexOf(d.getDay()) < 0) || (r.planDays && k >= (r.planFrom || "") && k <= (r.planTo || "9999") && r.planDays.indexOf(k) < 0)) return null;
+      return { st: when < now ? "late" : "todo", owners: owners };
+    }
+    var states = sls.map(function (x) { return slotState(x, when, now); });
+    if (states.every(function (x) { return x === "skip"; })) return null;
+    var st = states.every(function (x) { return x === "done" || x === "skip"; }) ? "done"
+      : states.every(function (x) { return x === "sched" || x === "done" || x === "skip"; }) ? "sched"
+      : states.indexOf("late") >= 0 ? "late" : "todo";
+    var lv = schedule.links && schedule.links[bkDateLinkKey(rk, k)];
+    if (st !== "sched" && ((lv && typeof lv === "object" && /^https?:\/\//i.test(lv.url || "")) || autoM[rk + "|" + k])) st = "done";
+    return { st: st, owners: owners };
+  }
+  // アカウントごとの今日の分
+  function tdAccounts(k, now) {
+    if (!postsCheck) pcLoad(false);
+    return (bookRows.groups || []).map(function (g) {
+      var c = chanOf(g.channel) || { name: g.channel, color: "var(--wood)" };
+      var rows = bkGroupRows(g);
+      var igFeed = rows.filter(function (r) { return !r.reply && !r.check && bkRowPlats(r).indexOf("IG") >= 0 && /フィード/.test(r.label); })[0] || null;
+      var autoM = postsCheck ? pcOrdinal(g, [k]) : {};
+      var items = [], owners = [];
+      rows.forEach(function (r) {
+        if (r.reply || bkRowHidden(bkRowKey(g, r))) return;   // 返信は予約ではないので出さない
+        var s = tdRowState(g, r, k, now, autoM, igFeed);
+        if (!s) return;
+        owners = owners.concat(s.owners);
+        items.push({ name: tdRowName(r), time: r.time || "", st: s.st, check: !!r.check });
+      });
+      var bk = items.filter(function (x) { return !x.check; });
+      var ok = bk.filter(function (x) { return x.st === "sched" || x.st === "done"; }).length;
+      // 担当者: その日の枠に書いた人。HIYOKO は予約タブの日付の下の担当者も見る
+      var who = owners.map(bkWhoName).filter(function (v, i, a) { return v && a.indexOf(v) === i; });
+      if (!who.length && g.channel === "hiyoko" && bkWhoOf(k)) who = [bkWhoOf(k)];
+      return { g: g, c: c, items: items, total: bk.length, ok: ok, who: who.map(tdWhoName),
+               state: !bk.length ? "none" : ok === bk.length ? "full" : "part" };
+    });
+  }
+  // チャットに貼る文。例「* HIYOKO: 예약 완료 - 혜정(X 09:30, X 13:00, IG 피드)」
+  function tdCopyText(k, accs) {
+    var live = accs.filter(function (a) { return a.state !== "none"; });
+    var all = live.length && live.every(function (a) { return a.state === "full"; });
+    return t(all ? "tdCopyAll" : "tdCopyHead") + "\n\n" + live.map(function (a) {
+      var done = a.items.filter(function (x) { return !x.check && (x.st === "sched" || x.st === "done"); }).map(function (x) { return x.name + (x.time ? " " + x.time : ""); });
+      var left = a.items.filter(function (x) { return !x.check && x.st !== "sched" && x.st !== "done"; }).map(function (x) { return x.name + (x.time ? " " + x.time : ""); });
+      return "* " + a.c.name + ": " + (a.state === "full" ? t("tdFull") : t("tdPart") + " " + a.ok + "/" + a.total) +
+        (a.who.length ? " - " + a.who.join("・") : "") + (done.length ? "(" + done.join(", ") + ")" : "") +
+        (left.length ? " / " + t("tdLeftItems") + ": " + left.join(", ") : "");
+    }).join("\n");
+  }
   function renderToday() {
     chansEl.hidden = true;
-    if (!schedule) { view.innerHTML = '<p class="empty">' + esc(t("loading")) + '</p>'; return; }
-    var now = new Date(), today = ymd(now), nm = now.getHours() * 60 + now.getMinutes();
-    var DAY = 86400000;
-
-    // ---- いいね ----
-    var blocks = tdLikeBlocks(today), cur = null;
-    blocks.forEach(function (b) { if (toMin(b.time) <= nm) cur = b.time; });
-    var nextB = blocks.filter(function (b) { return toMin(b.time) > nm; })[0];
-    var show = tdBlock || cur || (nextB && nextB.time) || (blocks[0] && blocks[0].time);
-    var likeLeft = 0;
-    blocks.forEach(function (b) {
-      if (toMin(b.time) <= nm) b.items.forEach(function (it) { if (!it.on) likeLeft++; });
-    });
-
-    // ---- 投稿 ----
-    var ws = tdMonday(now); ws.setDate(ws.getDate() + tdWeek * 7);
-    var we = new Date(ws.getTime()); we.setDate(we.getDate() + 7);
-    var from = tdWeek === 0 ? new Date(ws.getTime() - 7 * DAY) : ws;   // 今週は、先週の残りも出す
-    var book = [], late = [], url = [], check = [], doneT = [];
-    (schedule.slots || []).forEach(function (sl) {
-      var w = tdWhen(sl);
-      if ([sl.bookedAt, sl.urlAt, sl.check && sl.check.at].some(function (x) { return tdLocalDay(x) === today; })) doneT.push(sl);
-      if (sl.skip) return;
-      var sched = isSched(sl), posted = isPosted(sl);
-      if (!sched && !posted && w >= from && w < we) { if (w >= now) book.push(sl); else if (now - w < 2 * DAY) late.push(sl); return; }
-      if ((sched || posted) && !sl.url && w <= now && now - w < 2 * DAY) { url.push(sl); return; }
-      if (sl.url && !isChecked(sl) && now - w < 3 * DAY) check.push(sl);
-    });
-    var byW = function (a, b) { return tdWhen(a) - tdWhen(b); };
-    [book, late, url, check].forEach(function (a) { a.sort(byW); });
-    if (tdWeek !== 0) late = [];
-    var left = likeLeft + book.length + late.length + url.length + check.length;
-
-    // ---- 画面 ----
-    var h = '<div class="td">' +
-      '<div class="tdhead"><p class="tddate">' + esc((now.getMonth() + 1) + "/" + now.getDate() + "(" + DOW[lang][now.getDay()] + ")") + '</p>' +
-        '<span class="tdleft" data-zero="' + (left === 0) + '">' + esc(t("tdLeft")) + ' ' + left + '</span>' +
-        '<span class="savestat" id="saveStat"></span></div>';
-
-    // いいね：時間帯のタブ＋ストーリーズ風の丸
-    h += '<section class="tdsec"><div class="tdsech"><p>' + esc(t("tdLikes")) + '</p><div class="tdblocks">' +
-      blocks.map(function (b) {
-        var n = b.items.filter(function (i) { return i.on; }).length, all = b.items.length;
-        var sub = n === all ? "\u2713" : (toMin(b.time) > nm ? t("tdNext") : n + "/" + all);
-        return '<button class="tdblk" data-t="' + esc(b.time) + '" aria-pressed="' + (b.time === show) + '" data-full="' + (n === all) + '">' +
-          esc(b.time) + ' <i>' + esc(sub) + '</i></button>';
-      }).join("") + '</div></div><div class="tdstories">';
-    var sb = blocks.filter(function (b) { return b.time === show; })[0];
-    (sb ? sb.items : []).forEach(function (it) {
-      var c = chanOf(it.li.channel) || { name: it.li.channel, color: "var(--wood)" };
-      var csv = /3M|csv/i.test(it.tk.task);
-      var n = (/(\d+)/.exec(it.tk.task) || [])[1];
-      h += '<button class="tdst" data-id="' + esc(it.tk.id) + '" data-on="' + it.on + '" style="--chc:' + esc(c.color || "var(--wood)") + '" title="' + esc(it.tk.task) + '">' +
-        '<span class="tdring"><b>' + esc(it.li.kind === "mail" ? "\u2709" : csv ? "3M" : chShort(it.li.channel)) + '</b>' + (it.on ? '<em>\u2713</em>' : '') + '</span>' +
-        '<i>' + (it.li.kind === "mail" ? esc(String(it.li.title || "Mail").split(" ")[0]) : (csv ? "" : pfIco(it.li.platform)) + esc(csv ? "CSV" : pfn(it.li.platform) + (n ? " " + n : ""))) + '</i></button>';
-    });
-    h += '</div></section>';
-
-    // URL・確認：今日の分を先に、前の日の分はたたむ
-    function listSec(titleKey, kind, arr) {
-      if (!arr.length) return "";
-      var tdy = arr.filter(function (x) { return x.date === today; }), old = arr.filter(function (x) { return x.date !== today; });
-      var o = '<section class="tdsec"><div class="tdsech"><p>' + esc(t(titleKey)) + ' <b>' + arr.length + '</b></p></div>' +
-        tdy.map(function (x) { return tdCard(kind, x); }).join("");
-      if (old.length) {
-        o += '<button class="tdmore" data-more="old">' + esc(t("tdOlder")) + ' ' + old.length + (tdOldOpen ? " \u25B4" : " \u25BE") + '</button>' +
-          (tdOldOpen ? old.map(function (x) { return tdCard(kind, x); }).join("") : "");
-      }
-      return o + '</section>';
-    }
-    h += listSec("tdUrl", "url", url);
-    h += listSec("tdCheck", "check", check);
-
-    // 予約：月〜日の1週間ずつ
-    var wl = tdMonday(now); wl.setDate(wl.getDate() + tdWeek * 7);
-    var wEnd = new Date(wl.getTime()); wEnd.setDate(wEnd.getDate() + 6);
-    h += '<section class="tdsec"><div class="tdsech"><p>' + esc(t("tdBook")) + ' <b>' + (book.length + late.length) + '</b></p>' +
-      '<div class="tdweek"><button id="tdPrev" aria-label="prev">\u2039</button>' +
-      '<span>' + esc(tdWeek === 0 ? t("tdThisWeek") : (wl.getMonth() + 1) + "/" + wl.getDate() + "\u2013" + (wEnd.getMonth() + 1) + "/" + wEnd.getDate()) + '</span>' +
-      '<button id="tdNext" aria-label="next">\u203A</button></div></div>' +
-      late.map(function (x) { return tdCard("late", x); }).join("") +
-      book.map(function (x) { return tdCard("book", x); }).join("") +
-      (book.length + late.length ? "" : '<p class="tdempty">' + esc(t("tdNone")) + '</p>') + '</section>';
-
-    if (left === 0) h += '<div class="tdall"><span>\u2713</span><p>' + esc(t("tdAllDone")) + '</p></div>';
-
-    // 今日済んだもの
-    if (doneT.length) {
-      h += '<button class="tdmore" data-more="done">' + esc(t("tdDoneToday")) + ' ' + doneT.length + (tdDoneOpen ? " \u25B4" : " \u25BE") + '</button>';
-      if (tdDoneOpen) {
-        h += '<div class="tddone">' + doneT.sort(byW).map(function (sl) {
-          var c = chanOfSlot(sl) || { name: slotCh(sl) };
-          var what = isChecked(sl) ? t("tdChecked") : sl.url ? t("tdPosted") : t("tdBooked");
-          return '<a href="#/prep/' + encodeURIComponent(slotKey(sl)) + '"><b>\u2713 ' + esc(what) + '</b> ' +
-            esc(c.name) + ' ' + pfIco(sl.platform) + esc(pfn(sl.platform)) + ' ' + esc(tdDay(sl)) + ' ' + esc(sl.time) + '</a>';
-        }).join("") + '</div>';
-      }
-    }
-    view.innerHTML = h + '</div>' + (tdUndo ? '<div class="tdundo"><span>' + esc(tdUndo.msg) + '</span><button id="tdUndoBtn">' + esc(t("tdUndo")) + '</button></div>' : "");
-    setSaveStat(savePending ? "pending" : (saveBusy ? "saving" : "idle"));
+    if (!schedule || !bookRows) { view.innerHTML = '<p class="empty">' + esc(t("loading")) + '</p>'; return; }
+    var now = new Date(), k = ymd(now);
+    var accs = tdAccounts(k, now), live = accs.filter(function (a) { return a.state !== "none"; });
+    var full = live.filter(function (a) { return a.state === "full"; }).length;
+    var stTxt = { done: t("stDone"), sched: "✓", todo: t("tdLeftItems"), late: "! " + t("tdLeftItems"), ck: t("tdCkWait"), ckdone: "✓" };
+    var h = '<div class="td"><div class="tdhead">' +
+      '<p class="tddate">' + esc((now.getMonth() + 1) + "/" + now.getDate() + "(" + DOW[lang][now.getDay()] + ")") + '</p>' +
+      '<span class="tdleft" data-zero="' + (live.length > 0 && full === live.length) + '">' + esc(t("tdAccDone")) + ' ' + full + "/" + live.length + '</span>' +
+      '<button class="tdcopy" id="tdCopy">' + esc(tdCopyMsg || t("tdCopy")) + '</button></div>';
+    h += accs.map(function (a) {
+      var badge = a.state === "full" ? t("tdFull") : a.state === "part" ? t("tdPart") + " " + a.ok + "/" + a.total : t("tdNoBook");
+      return '<section class="tda" data-st="' + a.state + '" style="--chc:' + esc(a.c.color || "var(--wood)") + '">' +
+        '<div class="tdah"><b class="tdan">' + esc(a.c.name) + '</b><span class="tdast">' + esc(badge) + '</span>' +
+          (a.who.length ? '<span class="tdwho">' + esc(a.who.join("・")) + '</span>' : "") + '</div>' +
+        (a.items.length ? '<div class="tdis">' + a.items.map(function (x) {
+          return '<span class="tdi" data-s="' + x.st + '"><i>' + esc(x.name) + (x.time ? ' <small>' + esc(x.time) + '</small>' : "") + '</i><b>' + esc(stTxt[x.st]) + '</b></span>';
+        }).join("") + '</div>' : "") + '</section>';
+    }).join("");
+    view.innerHTML = h + '<a class="tdtobook" href="#" data-gotab="book">' + esc(t("tdOpenBook")) + ' ›</a></div>';
   }
-
-  function tdSlot(el) {
-    var card = el.closest(".tdc");
-    if (!card) return null;
-    var k = card.getAttribute("data-k");
-    return { card: card, sl: (schedule.slots || []).filter(function (x) { return slotKey(x) === k; })[0] };
-  }
-  function tdRerender() { var y = window.scrollY; renderToday(); window.scrollTo(0, y); }
-
-  // 済ませたあと数秒だけ「元に戻す」を出す（Gmailの形）
-  function tdDid(sl, msg) {
-    clearTimeout(tdUndoTimer);
-    tdUndo.msg = msg;
-    tdUndoTimer = setTimeout(function () { tdUndo = null; tdRerender(); }, 6000);
-    tdRerender();
-  }
-  function tdSnap(sl) {
-    return { key: slotKey(sl), scheduled: isSched(sl), posted: isPosted(sl), url: sl.url || "", checked: isChecked(sl),
-             skip: !!sl.skip, memo: sl.memo || "", bookedAt: sl.bookedAt, urlAt: sl.urlAt };
-  }
-  function tdMemo(sl, kindKey, text) {
-    sl.memo = (sl.memo ? sl.memo + "\n" : "") + tdStamp() + " " + t(kindKey) + ": " + text;
-    bookMemoSoon(sl);
-  }
-
-  view.addEventListener("input", function (e) {
-    if (!e.target.classList || !e.target.classList.contains("tdin")) return;
-    var go = e.target.parentNode.querySelector(".tdgo");
-    if (go) go.disabled = !e.target.value.trim();
-  });
-  view.addEventListener("keydown", function (e) {
-    if (e.key !== "Enter" || !e.target.classList || !e.target.classList.contains("tdin")) return;
-    var go = e.target.parentNode.querySelector(".tdgo");
-    if (go && !go.disabled) go.click();
-  });
-
   view.addEventListener("click", function (e) {
     if (tab !== "today" || /^#\//.test(location.hash)) return;
-    var el;
-    if ((el = e.target.closest(".tdblk"))) { tdBlock = el.getAttribute("data-t"); tdRerender(); return; }
-    if (e.target.closest("#tdPrev")) { tdWeek--; tdRerender(); return; }
-    if (e.target.closest("#tdNext")) { tdWeek++; tdRerender(); return; }
-    if ((el = e.target.closest(".tdmore"))) {
-      if (el.getAttribute("data-more") === "old") tdOldOpen = !tdOldOpen; else tdDoneOpen = !tdDoneOpen;
-      tdRerender(); return;
-    }
-    if (e.target.closest("#tdUndoBtn") && tdUndo) {
-      var u = tdUndo; tdUndo = null; clearTimeout(tdUndoTimer);
-      var sl0 = (schedule.slots || []).filter(function (x) { return slotKey(x) === u.key; })[0];
-      if (sl0) {
-        ["scheduled", "posted", "url", "checked", "skip"].forEach(function (k) { markSave(sl0, k, u[k]); });
-        sl0.memo = u.memo; sl0.bookedAt = u.bookedAt; sl0.urlAt = u.urlAt; bookMemoSoon(sl0);
-      }
-      tdRerender(); return;
-    }
-    // いいね：押せば済み、もう一度押せば戻る
-    if ((el = e.target.closest(".tdst"))) {
-      var id = el.getAttribute("data-id"), on = el.getAttribute("data-on") !== "true";
-      el.setAttribute("data-on", on);
-      el.style.opacity = ".5";
-      choreBusy = true;
-      saveChore(ymd(new Date()), id, on).then(function () { choreBusy = false; choreEtag = null; tdRerender(); },
-        function () { choreBusy = false; setSaveStat("fail"); });
+    if (e.target.closest("#tdCopy")) {
+      var txt = tdCopyText(ymd(new Date()), tdAccounts(ymd(new Date()), new Date()));
+      if (!navigator.clipboard) return;
+      navigator.clipboard.writeText(txt).then(function () {
+        tdCopyMsg = "✓ " + t("tdCopied"); renderToday();
+        clearTimeout(tdCopyTimer);
+        tdCopyTimer = setTimeout(function () { tdCopyMsg = ""; if (tab === "today") renderToday(); }, 1600);
+      });
       return;
     }
-    // よく書く言葉：押すとメモに入る
-    if ((el = e.target.closest(".tdchip"))) {
-      var inp = el.closest(".tdbody").querySelector(".tdmemo");
-      if (inp) {
-        var q = el.getAttribute("data-q");
-        inp.value = inp.value.trim() ? inp.value.trim() + "、" + q : q;
-        inp.dispatchEvent(new Event("input", { bubbles: true }));
-        inp.focus();
-      }
-      return;
-    }
-    if ((el = e.target.closest(".tdgo, .tdsub"))) {
-      var ts = tdSlot(el);
-      if (!ts || !ts.sl) return;
-      var sl = ts.sl, act = el.getAttribute("data-act"), iso = new Date().toISOString();
-      var out = ts.card.querySelector(".tdout");
-      tdUndo = tdSnap(sl);
-      if (act === "url") {
-        var v = ts.card.querySelector(".tdurl").value.trim();
-        if (!/^https?:\/\/\S+$/.test(v)) { tdUndo = null; if (out) out.textContent = t("tdBadUrl"); return; }
-        markSave(sl, "url", v); markSave(sl, "posted", true); sl.urlAt = iso;
-        tdDid(sl, t("tdPosted") + " \u2713"); return;
-      }
-      if (act === "skip") { markSave(sl, "skip", true); tdDid(sl, t("markSkip")); return; }
-      var memo = ts.card.querySelector(".tdmemo").value.trim();
-      if (!memo) { tdUndo = null; return; }
-      if (act === "book") {
-        tdMemo(sl, "tdBooked", memo); sl.bookedAt = iso; markSave(sl, "scheduled", true);
-        tdDid(sl, t("tdBooked") + " \u2713"); return;
-      }
-      if (act === "check") {
-        tdMemo(sl, "tdChecked", memo); markSave(sl, "checked", true);
-        tdDid(sl, t("tdChecked") + " \u2713"); return;
-      }
-      tdUndo = null;
-    }
+    if (e.target.closest('[data-gotab="book"]')) { e.preventDefault(); tab = "book"; renderNav(); syncWide(); route(); }
   });
-
-  // 時間帯が変わったら並べ直す（入力中は触らない）
+  // 時刻を過ぎた「未予約」を出すため、1分ごとに描き直す
   setInterval(function () {
-    if (tab === "today" && !/^#\//.test(location.hash) && !typing() && !tdUndo && !document.hidden) tdRerender();
+    if (tab === "today" && !/^#\//.test(location.hash) && !document.hidden) { var y = window.scrollY; renderToday(); window.scrollTo(0, y); }
   }, 60000);
+  // ほかの端末の予約を拾う（予約タブと同じ読み直し）
+  setInterval(function () { if (tab === "today" && !document.hidden) bookPull(); }, 30000);
 
   /* ================= いいね（週のカレンダー） =================
      行＝アカウント、列＝月〜日。1マスに 09:00・13:00・17:00 の3つ（2026-09-30 に 9:30・13:30 から変更）。
@@ -7527,7 +7333,7 @@
         JSON.stringify(c.at || {}) === JSON.stringify(chores.at || {}) &&
         JSON.stringify(c.lists || []) === JSON.stringify(chores.lists || [])) return;
     chores = c;
-    if (tab === "today" && (typing() || tdUndo)) return;
+    if (tab === "today" && typing()) return;
     var y2 = window.scrollY; if (tab === "today") renderToday(); else if (tab === "likes" || tab === "follow") renderLikes(); else renderKpi(); window.scrollTo(0, y2);
   }
   function pullChores() {
@@ -7659,7 +7465,7 @@
         pcLoad(false);
         fetch("./book_rows.json", { cache: "no-cache" })
           .then(function (r) { return r.ok ? r.json() : null; })
-          .then(function (b) { bookRows = b || { groups: [] }; if (tab === "book") renderBook(); })
+          .then(function (b) { bookRows = b || { groups: [] }; if (tab === "book") renderBook(); if (tab === "today" && !location.hash) renderToday(); })
           .catch(function () { bookRows = { groups: [] }; });
         fetch("./chores.json", { cache: "no-cache" })
           .then(function (r) { return r.ok ? r.json() : null; })
