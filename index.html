@@ -7495,16 +7495,29 @@
     el.hidden = false;
   }
   // 今の入力・画面の場所を残してから読み直す。保存中のもの（saveSoon で待たせてあるもの）は先に確定させる
+  var reloadStateSaved = false;
+  function saveReloadState(fromNav) {
+    try {
+      sessionStorage.setItem("remitech-reload-state", JSON.stringify({
+        tab: tab, filter: filter, bkMon: bkMon, tgDate: tgDate,
+        lkWeek: lkWeek, lkMode: lkMode, lang: lang,
+        scrollY: fromNav === true ? 0 : window.scrollY, hash: location.hash,
+        prepSearch: prepSearch, prepPage: prepPage, retDate: retDate, retPlatform: retPlatform,
+        yuPastOpen: yuPastOpen, calView: calView, calAnchor: calAnchor,
+        calMonth: calMonth, calDay: calDay, calSel: calSel
+      }));
+    } catch (e) {}
+  }
+  window.addEventListener("pagehide", function () {
+    if (!reloadStateSaved) saveReloadState(false);
+  });
+  window.addEventListener("pageshow", function () { reloadStateSaved = false; });
   function updateNow(fromNav) {
     var go = document.getElementById("toastGo");
     go.disabled = true; go.textContent = t("updating");
     Promise.resolve().then(flushSave).catch(function () {}).then(function () {
-      try {
-        sessionStorage.setItem("remitech-reload-state", JSON.stringify({
-          tab: tab, filter: filter, bkMon: bkMon, tgDate: tgDate,
-          lkWeek: lkWeek, lkMode: lkMode, lang: lang, scrollY: fromNav === true ? 0 : window.scrollY, hash: location.hash
-        }));
-      } catch (e) {}
+      saveReloadState(fromNav);
+      reloadStateSaved = true;
       location.reload();
     });
   }
@@ -7604,7 +7617,7 @@
     document.body.setAttribute("data-wide", (isReelPage() || tab === "dash" || tab === "kpi" || tab === "prep2" || tab === "likes" || tab === "follow" || tab === "book" || tab === "posted") ? "true" : "false");
   }
 
-  // 更新のために読み直したときは、直前にいた画面・入力の場所に戻す（updateNow が残したもの。一度使ったら消す）
+  // 通常の再読み込みと更新の両方で、直前の画面に戻す（一度使ったら消す）
   var restoreScrollY = 0;
   (function restoreReloadState() {
     try {
@@ -7615,6 +7628,16 @@
       if (st.lang && T[st.lang]) lang = st.lang;
       if (st.tab) tab = st.tab;
       if (typeof st.filter === "string") filter = st.filter;
+      if (typeof st.prepSearch === "string") prepSearch = st.prepSearch;
+      if (Number.isInteger(st.prepPage) && st.prepPage > 0) prepPage = st.prepPage;
+      if (/^\d{4}-\d{2}-\d{2}$/.test(st.retDate || "")) retDate = st.retDate;
+      if (st.retPlatform === "x" || st.retPlatform === "ig") retPlatform = st.retPlatform;
+      if (typeof st.yuPastOpen === "boolean") yuPastOpen = st.yuPastOpen;
+      if (["3day", "week", "month"].indexOf(st.calView) >= 0) calView = st.calView;
+      if (/^\d{4}-\d{2}-\d{2}$/.test(st.calAnchor || "")) calAnchor = st.calAnchor;
+      if (/^\d{4}-\d{2}$/.test(st.calMonth || "")) calMonth = st.calMonth;
+      if (/^\d{4}-\d{2}-\d{2}$/.test(st.calDay || "")) calDay = st.calDay;
+      if (typeof st.calSel === "string") calSel = st.calSel;
       if (st.bkMon) bkMon = st.bkMon;
       if (st.tgDate) tgDate = st.tgDate;
       if (typeof st.lkWeek === "number") lkWeek = st.lkWeek;
