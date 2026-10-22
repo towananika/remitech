@@ -31,7 +31,6 @@
 
 import { DurableObject } from "cloudflare:workers";
 import { editor } from "./reel-editor.js";
-import { retWorkflow } from "./ret-workflow.mjs";
 import { provisionAccount } from "./provision-account.mjs";
 
 const DAYS_KEPT = 60;
@@ -540,13 +539,12 @@ export class HubDO extends DurableObject {
   // ---- 社内の文書 ----
   // 中身は KV（CHORES）の in:<名前> に、wrangler で直接入れる（リポジトリには置かない）。社内の人だけ読める
   async internal(name, request, origin) {
-    if (request.method !== "GET" && !(name === "ret" && request.method === "POST")) return json({ error: "method" }, 405, origin);
+    if (request.method !== "GET") return json({ error: "method" }, 405, origin);
     const s = await this.session(request);
     if (!s) return json({ error: "login" }, 401, origin);
     if (!this.publicUser(s.user).member) return json({ error: "member" }, 403, origin);
     const doc = this.env.CHORES ? await this.env.CHORES.get("in:" + name, "json") : null;
     if (!doc) return json({ error: "none" }, 404, origin);
-    if (name === "ret") return retWorkflow(this, request, origin, doc, json, s.user);
     return json(doc, 200, origin, { "Cache-Control": "private, no-store" });
   }
 
