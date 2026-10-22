@@ -361,7 +361,6 @@
   .ret-image p{margin:8px 0;}
   .retplan .ret-prompt-copy{width:208px;max-width:100%;min-height:34px;font-size:12px;}
   @media(max-width:700px){.retpair{grid-template-columns:1fr}.retplan .yuday{padding:12px}.retplan h3{font-size:18px;}.ret-field{padding:12px;}}
-  .ret-book-platform{display:flex;align-items:center;gap:6px;flex-wrap:wrap;}.ret-book-platform>b{font-size:12px;margin-right:2px;}
   @media(max-width:700px){.ret-book-actions{margin-left:0;}}
   .authbg{ position:fixed; inset:0; z-index:60; background:rgba(0,0,0,.35); display:flex; align-items:flex-start; justify-content:center; padding:72px 16px 16px; overflow:auto; }
   .authbg[hidden]{ display:none; }
@@ -4634,7 +4633,7 @@
     }
     if (o.memos) {
       var approvals = {};
-      Object.keys(o.memos).forEach(function (k) { if (/^ret-approval\|\d{4}-\d{2}-\d{2}\|(X|IG)$/.test(k) && o.memos[k] === "pending") approvals[k.slice(13)] = true; });
+      Object.keys(o.memos).forEach(function (k) { if (/^ret-approval\|\d{4}-\d{2}-\d{2}$/.test(k) && o.memos[k] === "pending") approvals[k.slice(13)] = true; });
       if (JSON.stringify(approvals) !== JSON.stringify(schedule.retApprovals || {})) { schedule.retApprovals = approvals; changed = true; }
     }
     Object.keys(o.memos || {}).forEach(function (k) {
@@ -5657,23 +5656,22 @@
   function retLocalized(post, field) {
     return lang === "ja" ? (post[field] || "") : (post[field + (lang === "ko" ? "Ko" : "En")] || "");
   }
-  function retApprovalPending(day, pf) { return !!(bkLast && bkLast.memos && bkLast.memos["ret-approval|" + day + "|" + pf] === "pending"); }
-  async function retToggleApproval(pf) {
+  function retApprovalPending(day) { return !!(bkLast && bkLast.memos && bkLast.memos["ret-approval|" + day] === "pending"); }
+  async function retToggleApproval() {
     if (retBookBusy || !retBookReady || !retDoc || !(authUser() && (authUser().member || authUser().admin))) return;
-    if (["X","IG"].indexOf(pf) < 0) return;
     var day = retDate;
     if (!retDoc.posts.some(function (p) { return p.date === day; })) return;
-    var wantPending = !retApprovalPending(day,pf), key = "ret-approval|" + day + "|" + pf;
+    var wantPending = !retApprovalPending(day), key = "ret-approval|" + day;
     retBookBusy = true; retBookMsg = ""; route();
     try {
       await retRefreshBookings();
-      if (retApprovalPending(day,pf) === wantPending) { retBookMsg = t("bkShared"); return; }
+      if (retApprovalPending(day) === wantPending) { retBookMsg = t("bkShared"); return; }
       var value = wantPending ? "pending" : "";
       var r = await fetch(bookApi(), {method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({kind:"m",key:key,value:value,code:teamCode()})});
       if (!r.ok) { if (r.status === 403) throw Error(t("lkCodeHint")); if (r.status === 429) throw Error(t("lkTooMany")); throw Error(t("authNet")); }
       var result = await r.json(); if (!result.ok) throw Error(t("authNet"));
       bkLast.memos = bkLast.memos || {}; bkLast.memos[key] = value;
-      schedule.retApprovals = schedule.retApprovals || {}; if (wantPending) schedule.retApprovals[day+"|"+pf] = true; else delete schedule.retApprovals[day+"|"+pf];
+      schedule.retApprovals = schedule.retApprovals || {}; if (wantPending) schedule.retApprovals[day] = true; else delete schedule.retApprovals[day];
       retBookMsg = t("bkShared");
     } catch (e) { retBookMsg = e.message === "network" ? t("authNet") : (e.message || t("authNet")); }
     finally { retBookBusy = false; if (tab === "prep" && filter === "ret") { var y = window.scrollY; route(); window.scrollTo(0,y); } }
@@ -5692,10 +5690,10 @@
     retDate = post.date;
     if (!retBookReady && !retBookLoading && !retBookMsg) retLoadBookings();
     var bookingDay = post.date;
-    var booking = '<section class="ret-booking" aria-label="' + esc(t("retBookDate")) + '"><span>' + esc(t("retBookDate")) + ' · ' + esc(bookingDay.slice(5).replace('-','/')) + ' · 09:00</span><div class="ret-book-actions">' + ["X","IG"].map(function (pf) {
+    var booking = '<section class="ret-booking" aria-label="' + esc(t("retBookDate")) + '"><span>' + esc(t("retBookDate")) + ' · ' + esc(bookingDay.slice(5).replace('-','/')) + ' · 09:00</span><div class="ret-book-actions"><button class="ret-approval" data-ret-approval aria-pressed="' + retApprovalPending(bookingDay) + '"' + (retBookBusy || !retBookReady ? ' disabled' : '') + '>' + esc(t("retApproval")) + '</button>' + ["X","IG"].map(function (pf) {
       var on = retBooked(bookingDay,pf), legacy = retBookingSlot(bookingDay,pf).legacy, blocked = bkRetWeekendBlocked("ret",pf,bookingDay);
       var tip = blocked ? t("bkWeekendBooked") + blocked : legacy && !on ? t("retLegacyTime") + " · " + legacy.time : on ? t("retBookUndo") : t("yuBookTip");
-      return '<div class="ret-book-platform" role="group" aria-label="'+pf+'"><b>'+pf+'</b><button class="ret-approval" data-ret-approval="'+pf+'" aria-pressed="' + retApprovalPending(bookingDay,pf) + '"' + (retBookBusy || !retBookReady ? ' disabled' : '') + '>' + esc(t("retApproval")) + '</button><button class="ret-book-button" data-ret-book="' + pf + '" data-on="' + on + '" aria-pressed="' + on + '"' + (retBookBusy || !retBookReady || blocked || (!on && legacy) ? ' disabled' : '') + ' title="' + esc(tip) + '">' + esc(on ? '✓ ' + t("yuBooked") : t("yuBook")) + '</button></div>';
+      return '<button class="ret-book-button" data-ret-book="' + pf + '" data-on="' + on + '" aria-pressed="' + on + '"' + (retBookBusy || !retBookReady || blocked || (!on && legacy) ? ' disabled' : '') + ' title="' + esc(tip) + '">' + esc(pf + ' ' + (on ? '✓ ' + t("yuBooked") : t("yuBook"))) + '</button>';
     }).join("") + '</div><p class="ret-book-status" role="status" aria-live="polite">' + esc(retBookBusy ? t("svSaving") : retBookLoading ? t("yuLoading") : retBookMsg) + '</p>' + (!retBookReady && !retBookLoading ? '<button id="retBookRetry">' + esc(t("yuRecheck")) + '</button>' : '') + '</section>';
     var i = retDoc.posts.indexOf(post), key = "ret" + i + "commonen", localKey = "ret" + i + "common" + lang;
     copyBank[key] = {en:post.xen,cur:post.xen};
@@ -5716,7 +5714,7 @@
     if (e.target.closest("#retRetry")) { retState = ""; retLoad(); route(); return; }
     if (tab !== "prep" || filter !== "ret") return;
     var approvalButton = e.target.closest("[data-ret-approval]");
-    if (approvalButton) { if (!approvalButton.disabled) retToggleApproval(approvalButton.getAttribute("data-ret-approval")); return; }
+    if (approvalButton) { if (!approvalButton.disabled) retToggleApproval(); return; }
     var bookingButton = e.target.closest("[data-ret-book]");
     if (bookingButton) { if (!bookingButton.disabled) retToggleBooking(bookingButton.getAttribute("data-ret-book")); return; }
     if (e.target.closest("#retBookRetry")) { retLoadBookings(); return; }
