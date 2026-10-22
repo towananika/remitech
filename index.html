@@ -360,6 +360,21 @@
   .ret-image p{margin:8px 0;}
   .retplan .ret-prompt-copy{width:208px;max-width:100%;min-height:34px;font-size:12px;}
   @media(max-width:700px){.retpair{grid-template-columns:1fr}.retplan .yuday{padding:12px}.retplan h3{font-size:18px;}.ret-field{padding:12px;}}
+  .ret-months{margin:18px 0;}
+  .ret-month-title{font-size:20px;margin:24px 0 12px;}
+  .ret-overview{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-bottom:26px;}
+  .ret-card{display:flex;flex-direction:column;gap:10px;min-width:0;text-align:left;padding:16px;border:1px solid var(--line);border-radius:12px;background:var(--surface);color:var(--ink);font:inherit;cursor:pointer;}
+  .ret-card[aria-pressed="true"]{border:2px solid #7625bd;padding:15px;background:color-mix(in srgb,#7625bd 5%,var(--surface));}
+  .ret-card strong{font-size:15px;}.ret-excerpt{font-size:13px;line-height:1.6;white-space:pre-line;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;}
+  .ret-badges{display:flex;gap:6px;flex-wrap:wrap;font-size:11px;}.ret-badges span{border-radius:6px;padding:4px 6px;background:var(--bg);border:1px solid var(--line);}
+  .ret-intent{padding:12px;background:var(--bg);border-radius:10px;margin:16px 0;font-size:13px;line-height:1.8;}.ret-intent h4{margin:0;}.ret-intent p{margin:8px 0;}
+  .ret-references{font-size:13px;margin:14px 0 24px;}.ret-references summary{cursor:pointer;}.ret-references a{overflow-wrap:anywhere;}
+  .ret-full{flex-basis:100%;}.ret-booking h4{margin:0;}.ret-book-actions{margin-left:0;}
+  .ret-preview{margin:12px 0;}.ret-preview img{display:block;width:auto;max-width:100%;max-height:480px;border-radius:12px;margin:auto;}.ret-preview img[hidden]{display:none;}.ret-preview figcaption{text-align:center;margin-top:8px;}
+  .ret-image-empty{border:1px dashed var(--line);border-radius:12px;padding:28px 16px;text-align:center;color:var(--muted);background:var(--bg);}
+  .ret-workflow{margin-top:24px;padding-top:16px;border-top:1px solid var(--line);}.ret-workflow label{display:block;font-size:13px;margin:14px 0;}.ret-workflow input[type=url],.ret-workflow select{display:block;width:100%;box-sizing:border-box;min-height:42px;margin-top:6px;border:1px solid var(--line);border-radius:8px;padding:8px;background:var(--surface);color:var(--ink);font:inherit;}
+  .ret-workflow .ret-check{display:flex;gap:8px;align-items:center;}.ret-workflow button{min-height:40px;border:0;border-radius:9px;padding:8px 14px;background:var(--ret-blue);color:white;font:inherit;cursor:pointer;}.ret-workflow button:disabled{opacity:.5;}.ret-workflow [role=status]{font-size:13px;}
+  @media(max-width:700px){.ret-overview{grid-template-columns:1fr;}.ret-workflow input[type=url]{font-size:16px;}}
   .authbg{ position:fixed; inset:0; z-index:60; background:rgba(0,0,0,.35); display:flex; align-items:flex-start; justify-content:center; padding:72px 16px 16px; overflow:auto; }
   .authbg[hidden]{ display:none; }
   .authbox{ width:100%; max-width:380px; background:var(--surface); color:var(--ink); border:1px solid var(--line); border-radius:16px; padding:18px; box-shadow:0 10px 30px rgba(0,0,0,.18); }
@@ -5330,7 +5345,7 @@
       body: method === "GET" ? undefined : JSON.stringify(body || {}),
     }).then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { j.status = r.status; return j; }); });
   }
-  function authAfterChange() { if (!(authUser() && authUser().admin)) { authUsers = null; authCodes = {}; if (tab === "manage") { tab = "today"; route(); } } yuDoc = null; yuState = ""; retDoc = null; retState = ""; retBookReady = false; retBookMsg = ""; renderLang(); renderNav(); if (tab === "prep" || tab === "reel") route(); if (reelEditor) reelEditor.authChanged(); }
+  function authAfterChange() { if (!(authUser() && authUser().admin)) { authUsers = null; authCodes = {}; if (tab === "manage") { tab = "today"; route(); } } yuDoc = null; yuState = ""; retDoc = null; retState = ""; retDrafts = {}; retBookReady = false; retBookMsg = ""; renderLang(); renderNav(); if (tab === "prep" || tab === "reel") route(); if (reelEditor) reelEditor.authChanged(); }
   function authSignedOut() { authState = null; authSave(); authUsers = null; authAfterChange(); }
   function authRenew(force) {
     if (!authState) return Promise.resolve();
@@ -5580,7 +5595,7 @@
     }, function () { yuState = "err"; if (tab === "prep" && filter === "yuyu") route(); });
   }
   // RET manuscripts are staff-only and loaded on demand from private KV.
-  var retDoc = null, retState = "", retDate = "", retPlatform = "x", retBookReady = false, retBookLoading = false, retBookBusy = false, retBookMsg = "", retBookChoices = {};
+  var retDoc = null, retState = "", retDate = "", retMonth = "", retPlatform = "x", retSaving = false, retSaveMsg = "", retDrafts = {}, retBookReady = false, retBookLoading = false, retBookBusy = false, retBookMsg = "", retBookChoices = {};
   function retLoad() {
     if (retState === "loading" || !(authUser() && (authUser().member || authUser().admin))) return;
     retState = "loading";
@@ -5649,50 +5664,84 @@
   function retLocalized(post, field) {
     return lang === "ja" ? (post[field] || "") : (post[field + (lang === "ko" ? "Ko" : "En")] || "");
   }
+  function retText(ja, en, ko) { return lang === "ja" ? ja : lang === "ko" ? ko : en; }
+  function retSafeURL(value, image) {
+    try { var u = new URL(value); return u.protocol === "https:" && !u.username && !u.password && (!image || value.length <= 2000) ? u.href : ""; } catch (e) { return ""; }
+  }
+  function retWorkflowOf(post) { return post.workflow || {revision:0,stage:"draft",images:{X:"",IG:""},snsConfirmed:{X:false,IG:false}}; }
+  function retStage(post) { return retWorkflowOf(post).stage === "reviewed" ? retText("原稿確認済み","Copy reviewed","원고 확인 완료") : retText("原稿草案","Copy draft","원고 초안"); }
+  function retImageStatus(post) {
+    var images = retWorkflowOf(post).images || {}, count = ["X","IG"].filter(function (pf) { return !!retSafeURL(images[pf],true); }).length;
+    return count === 2 ? retText("画像2点登録済み","2 images linked","이미지 2개 등록") : count ? retText("画像1点登録済み","1 image linked","이미지 1개 등록") : retText("画像未登録","Images not linked","이미지 미등록");
+  }
   function retInternalHTML() {
     var h = '<section class="yuin retplan"><div class="yuhd"><b>' + esc(t("retTitle")) + '</b><span class="yulock">' + esc(t("yuTitle")) + '</span></div>', u = authUser();
     if (!u) return h + '<p>' + esc(t("yuNeedLogin")) + '</p><button class="authsub" id="yuLogin">' + esc(t("authLogin")) + '</button></section>';
     if (!(u.member || u.admin)) return h + '<p>' + esc(t("yuWait")) + '</p><button class="authsub" id="yuRecheck">' + esc(t("yuRecheck")) + '</button></section>';
     if (!retDoc) {
       if (retState !== "loading" && retState !== "err") retLoad();
-      return h + '<p>' + esc(t(retState === "err" ? "authNet" : "yuLoading")) + '</p>' + (retState === "err" ? '<button class="authsub" id="retRetry">' + esc(t("yuRecheck")) + '</button>' : '') + '</section>';
+      return h + '<p>' + esc(t(retState === "err" ? "authNet" : "yuLoading")) + '</p>' + (retState === "err" ? '<button id="retRetry">' + esc(t("yuRecheck")) + '</button>' : '') + '</section>';
     }
-    h += '<p class="tiny">' + esc(t("retWeekend")) + '</p>';
     if (!retDoc.posts.length) return h + '<p>' + esc(t("prepEmpty")) + '</p></section>';
-    var post = retDoc.posts.filter(function (p) { return p.date === retDate; })[0] || retDoc.posts[0];
-    retDate = post.date;
+    var sorted = retDoc.posts.slice().sort(function (a,b) { return a.date.localeCompare(b.date); });
+    var months = sorted.map(function (p) { return p.date.slice(0,7); }).filter(function (m,i,a) { return a.indexOf(m) === i; });
+    if (months.indexOf(retMonth) < 0) { var current = ymd(new Date()).slice(0,7); retMonth = months.indexOf(current) >= 0 ? current : months[months.length-1]; }
+    var monthly = sorted.filter(function (p) { return p.date.slice(0,7) === retMonth; });
+    var post = monthly.filter(function (p) { return p.date === retDate; })[0] || monthly[0]; retDate = post.date;
     if (!retBookReady && !retBookLoading && !retBookMsg) retLoadBookings();
-    var bookingDay = post.date;
-    var booking = '<section class="ret-booking" aria-label="' + esc(t("retBookDate")) + '"><span>' + esc(t("retBookDate")) + ' · ' + esc(bookingDay.slice(5).replace('-','/')) + ' · 09:00</span><div class="ret-book-actions">' + ["X","IG"].map(function (pf) {
-      var on = retBooked(bookingDay,pf), legacy = retBookingSlot(bookingDay,pf).legacy, blocked = bkRetWeekendBlocked("ret",pf,bookingDay);
-      var tip = blocked ? t("bkWeekendBooked") + blocked : legacy && !on ? t("retLegacyTime") + " · " + legacy.time : on ? t("retBookUndo") : t("yuBookTip");
-      return '<button class="ret-book-button" data-ret-book="' + pf + '" data-on="' + on + '" aria-pressed="' + on + '"' + (retBookBusy || !retBookReady || blocked || (!on && legacy) ? ' disabled' : '') + ' title="' + esc(tip) + '">' + esc(pf + ' ' + (on ? '✓ ' + t("yuBooked") : t("yuBook"))) + '</button>';
-    }).join("") + '</div><p class="ret-book-status" role="status" aria-live="polite">' + esc(retBookBusy ? t("svSaving") : retBookLoading ? t("yuLoading") : retBookMsg) + '</p>' + (!retBookReady && !retBookLoading ? '<button id="retBookRetry">' + esc(t("yuRecheck")) + '</button>' : '') + '</section>';
-    var i = retDoc.posts.indexOf(post), key = "ret" + i + retPlatform + "en", promptKey = "ret" + i + retPlatform + "prompt";
-    copyBank[key] = {en:post[retPlatform+"en"],cur:post[retPlatform+"en"]};
-    var localKey = "ret" + i + retPlatform + lang;
-    if (lang !== "en") copyBank[localKey] = {cur:post[retPlatform+lang] || ""};
-    var prompt = post[retPlatform === "x" ? "imagePromptX" : "imagePromptIG"];
-    if (prompt) copyBank[promptKey] = {en:prompt,cur:prompt};
-    h += '<div class="ret-controls"><nav class="ret-dates" aria-label="Date">' + retDoc.posts.map(function (p) { return '<button data-ret-open="' + esc(p.date) + '" aria-pressed="' + (p.date === retDate) + '" title="' + esc(retLocalized(p,"theme")) + '">' + (+p.date.slice(5,7)) + '/' + (+p.date.slice(8)) + '</button>'; }).join("") + '</nav><div class="ret-platforms" role="group" aria-label="SNS">' + ["x","ig"].map(function (pf) { return '<button data-ret-platform="' + pf + '" aria-pressed="' + (pf === retPlatform) + '">' + pf.toUpperCase() + '</button>'; }).join("") + '</div></div>';
-    h += '<article class="yuday" data-ret-date="' + esc(post.date) + '"><div class="yudate"><b>' + esc(bookingDay) + ' · ' + retPlatform.toUpperCase() + '</b><small>' + '09:00 KST' + '</small></div><h3>' + esc(retLocalized(post,"theme")) + '</h3><div class="retpair' + (lang === "en" ? ' retpair-single' : '') + '">' +
-      (lang !== "en" ? '<div class="ret-field"><div class="ret-field-head"><span>' + (lang === "ko" ? '한국어 · KO' : '日本語 · JA') + '</span><button class="cpy retcopy" data-ck="' + localKey + '" data-lg="' + lang + '">' + esc(t("copy")) + '</button></div><pre>' + esc(post[retPlatform+lang] || "") + '</pre></div>' : '') +
-      '<div class="ret-field ret-field-en"><div class="ret-field-head"><span>English · EN</span><button class="cpy retcopy" data-ck="' + key + '" data-lg="en">' + esc(t("copy")) + '</button></div><pre>' + esc(post[retPlatform+"en"]) + '</pre></div></div>' + booking +
-      '<section class="ret-image"><h4>' + esc(t("retImage")) + ' · ' + retPlatform.toUpperCase() + (prompt ? (retPlatform === "x" ? ' · 16:9' : ' · 4:5') : '') + '</h4><p>' + esc(retLocalized(post,"image")) + '</p>' + (prompt ? '<button class="cpy retcopy ret-prompt-copy" data-ck="' + promptKey + '" data-lg="en">' + esc(t("retPromptCopy")) + '</button>' : '') + '</section></article>';
-    return h + '</section>';
+    h += '<p class="tiny">' + esc(t("retWeekend")) + '</p><nav class="ret-dates ret-months" aria-label="' + esc(retText("企画月","Planning month","기획 월")) + '">' + months.map(function (m) { return '<button data-ret-month="' + m + '" aria-pressed="' + (m===retMonth) + '">' + m.replace('-',' / ') + '</button>'; }).join('') + '</nav>';
+    h += '<h2 class="ret-month-title">' + esc(retMonth.replace('-',' / ') + ' · ' + retText("月間企画","Monthly plan","월간 기획")) + '</h2><div class="ret-overview">' + monthly.map(function (p) {
+      return '<button class="ret-card" data-ret-open="' + p.date + '" aria-pressed="' + (p.date===retDate) + '"><span class="tiny">' + p.date.slice(5).replace('-','/') + ' · 09:00</span><strong>' + esc(retLocalized(p,'theme')) + '</strong><span class="ret-excerpt">' + esc(p['x'+lang] || p.xen || '') + '</span><span class="ret-badges"><span>' + esc(retStage(p)) + '</span><span>' + esc(retImageStatus(p)) + '</span></span><span class="tiny">' + esc(retText("ハブ予約記録","Hub booking record","허브 예약 기록")) + ' · ' + ["X","IG"].map(function (pf) { return pf + ': ' + (retBookReady ? (retBooked(p.date,pf) ? '✓' : '—') : '?'); }).join(' / ') + '</span></button>';
+    }).join('') + '</div>';
+    var w = retWorkflowOf(post), draft = retDrafts[post.date] || w, images = w.images || {}, formImages = draft.images || {}, confirmed = draft.snsConfirmed || {};
+    var previous = sorted[sorted.indexOf(post)-1], refs = post.references || retDoc.styleReferences || ((retDoc.decemberStyleBasis || {}).references || []);
+    h += '<article class="yuday" data-ret-date="' + post.date + '"><div class="yudate"><b>' + post.date + ' · X + IG</b><small>09:00 KST / JST</small></div><h3>' + esc(retLocalized(post,'theme')) + '</h3><section class="ret-intent"><h4>' + esc(retText("企画の狙い・前回との違い","Purpose and progression","기획 의도·이전 기획과의 차이")) + '</h4><p>' + esc(retLocalized(post,'angle') || post.angle || '') + '</p>' + (previous ? '<p class="tiny">' + esc(retText("前回のテーマ：","Previous theme: ","이전 주제: ") + retLocalized(previous,'theme')) + '</p>' : '') + '</section>';
+    var safeRefs = refs.map(function (r) { return typeof r === 'string' ? {url:r,label:''} : r; }).filter(function (r) { return r && retSafeURL(r.url); });
+    h += '<details class="ret-references"><summary>' + esc(retText("参考投稿・文体の根拠","Reference posts and writing style","참고 게시물·문체 근거")) + '</summary>' + (safeRefs.length ? '<ul>' + safeRefs.map(function (r,i) { return '<li><a target="_blank" rel="noopener noreferrer" href="' + esc(retSafeURL(r.url)) + '">' + esc(r.label || retText("文体参考 ","Style reference ","문체 참고 ")+(i+1)) + '</a></li>'; }).join('') + '</ul>' : '<p class="tiny">' + esc(retText("この企画の参考投稿は未登録です。","No reference posts linked yet.","참고 게시물이 아직 등록되지 않았습니다.")) + '</p>') + '</details>';
+    var key = 'ret'+post.date+'en', localKey = 'ret'+post.date+lang;
+    copyBank[key] = {en:post.xen,cur:post.xen}; if (lang !== 'en') copyBank[localKey] = {cur:post['x'+lang] || ''};
+    h += '<h4>' + esc(retText("X・IG共通本文","Shared copy · X + IG","X·IG 공통 본문")) + '</h4><div class="retpair' + (lang==='en' ? ' retpair-single' : '') + '">' + (lang!=='en' ? '<div class="ret-field"><div class="ret-field-head"><span>' + (lang==='ko' ? '한국어 · KO' : '日本語 · JA') + '</span><button class="cpy retcopy" data-ck="' + localKey + '" data-lg="' + lang + '">' + esc(t('copy')) + '</button></div><pre>' + esc(post['x'+lang] || '') + '</pre></div>' : '') + '<div class="ret-field ret-field-en"><div class="ret-field-head"><span>English · EN</span><button class="cpy retcopy" data-ck="' + key + '" data-lg="en">' + esc(t('copy')) + '</button></div><pre>' + esc(post.xen || '') + '</pre></div></div>';
+    h += '<section class="ret-booking"><h4>' + esc(retText("ハブの予約記録","Hub booking records","허브 예약 기록")) + '</h4><p class="tiny ret-full">' + esc(retText("このボタンはハブへの記録です。SNSへの予約・投稿は実行しません。SNS側の確認は下のチェックで別途記録してください。","These buttons update hub records only. They do not schedule or publish on social media. Record your manual SNS check below.","이 버튼은 허브에만 기록합니다. SNS 예약·게시를 실행하지 않습니다. SNS 확인은 아래에서 별도로 기록하세요.")) + '</p><div class="ret-book-actions">' + ['X','IG'].map(function (pf) {
+      var on=retBooked(post.date,pf), legacy=retBookingSlot(post.date,pf).legacy, blocked=bkRetWeekendBlocked('ret',pf,post.date);
+      return '<button class="ret-book-button" data-ret-book="'+pf+'" data-on="'+on+'" aria-pressed="'+on+'"' + (retBookBusy || !retBookReady || blocked || (!on && legacy) ? ' disabled' : '') + ' title="'+esc(blocked ? t('bkWeekendBooked')+blocked : legacy && !on ? t('retLegacyTime')+' · '+legacy.time : '')+'">'+esc(pf+' · '+(on ? retText('記録あり','Recorded','기록 있음') : retText('記録する','Record','기록하기')))+'</button>';
+    }).join('') + '</div><p class="ret-book-status" role="status">' + esc(retBookBusy ? t('svSaving') : retBookLoading ? t('yuLoading') : retBookMsg) + '</p>' + (!retBookReady&&!retBookLoading ? '<button id="retBookRetry">'+esc(t('yuRecheck'))+'</button>' : '')+'</section>';
+    var prompt=post[retPlatform==='x' ? 'imagePromptX' : 'imagePromptIG'], promptKey='ret'+post.date+retPlatform+'prompt'; if(prompt)copyBank[promptKey]={en:prompt,cur:prompt};
+    var imageURL=retSafeURL(images[retPlatform.toUpperCase()],true);
+    h += '<section class="ret-image"><div class="ret-controls"><h4>'+esc(t('retImage'))+'</h4><div class="ret-platforms" role="group" aria-label="'+esc(retText('画像のSNS','Image platform','이미지 SNS'))+'">'+['x','ig'].map(function(pf){return '<button data-ret-platform="'+pf+'" aria-pressed="'+(pf===retPlatform)+'">'+pf.toUpperCase()+' · '+(pf==='x'?'16:9':'4:5')+'</button>';}).join('')+'</div></div>'+(imageURL?'<figure class="ret-preview"><img src="'+esc(imageURL)+'" alt="'+esc(retLocalized(post,'theme'))+'" referrerpolicy="no-referrer"><figcaption class="tiny">'+esc(retText('登録画像プレビュー','Linked image preview','등록 이미지 미리보기'))+'</figcaption></figure>':'<div class="ret-image-empty">'+esc(retText('制作画像は未登録です。下の欄に画像URLを保存すると、ここに表示します。','No image linked. Save an image URL below to preview it here.','제작 이미지가 미등록 상태입니다. 아래에 이미지 URL을 저장하면 여기에 표시됩니다.'))+'</div>')+'<p>'+esc(retLocalized(post,'image'))+'</p>'+(prompt?'<button class="cpy retcopy ret-prompt-copy" data-ck="'+promptKey+'" data-lg="en">'+esc(t('retPromptCopy'))+'</button>':'')+'</section>';
+    h += '<form id="retWorkflowForm" class="ret-workflow" data-date="'+post.date+'"><h4>'+esc(retText('準備状況を共有保存','Save shared preparation status','준비 상태 공유 저장'))+'</h4><label>'+esc(retText('原稿の状態','Copy status','원고 상태'))+'<select name="stage"><option value="draft"'+(draft.stage!=='reviewed'?' selected':'')+'>'+esc(retText('草案','Draft','초안'))+'</option><option value="reviewed"'+(draft.stage==='reviewed'?' selected':'')+'>'+esc(retText('確認済み','Reviewed','확인 완료'))+'</option></select></label>'+['X','IG'].map(function(pf){return '<label>'+pf+' · '+esc(retText('制作画像URL（HTTPS）','Image URL (HTTPS)','제작 이미지 URL (HTTPS)'))+'<input type="url" name="image'+pf+'" value="'+esc(formImages[pf]||'')+'" maxlength="2000" placeholder="https://…"></label><label class="ret-check"><input type="checkbox" name="sns'+pf+'"'+(confirmed[pf]?' checked':'')+'>'+esc(pf+' · '+retText('SNS側の予約を確認した（手動）','I checked the booking on SNS (manual)','SNS 예약을 확인했습니다 (수동)'))+'</label>';}).join('')+'<p class="tiny">'+esc(retText('SNSのチェックは人による確認記録です。SNSとの自動照合は行いません。','SNS checks are manual records, not automatic verification.','SNS 체크는 수동 확인 기록이며 자동 대조가 아닙니다.'))+'</p><button type="submit"'+(retSaving?' disabled':'')+'>'+esc(retSaving?t('svSaving'):retText('準備状況を保存','Save preparation status','준비 상태 저장'))+'</button><p id="retSaveStatus" role="status">'+esc(retSaveMsg)+'</p></form></article></section>';
+    return h;
   }
+  view.addEventListener('input',function(e){
+    var form=e.target.closest('#retWorkflowForm');if(!form)return;
+    var d={stage:form.elements.stage.value,images:{},snsConfirmed:{}};
+    ['X','IG'].forEach(function(pf){d.images[pf]=form.elements['image'+pf].value;d.snsConfirmed[pf]=form.elements['sns'+pf].checked;});retDrafts[form.dataset.date]=d;
+  });
+  view.addEventListener('submit',async function(e){
+    if(e.target.id!=='retWorkflowForm')return; e.preventDefault(); if(retSaving)return;
+    var form=e.target, post=retDoc.posts.filter(function(p){return p.date===form.dataset.date;})[0]; if(!post)return;
+    var body={date:post.date,revision:retWorkflowOf(post).revision,stage:form.elements.stage.value,images:{},snsConfirmed:{}};
+    for(var pf of ['X','IG']) { var value=form.elements['image'+pf].value.trim(); if(value&&!retSafeURL(value,true)){document.getElementById('retSaveStatus').textContent=retText('HTTPSの画像URLを入力してください。','Enter an HTTPS image URL.','HTTPS 이미지 URL을 입력하세요.');return;} body.images[pf]=value;body.snsConfirmed[pf]=form.elements['sns'+pf].checked; }
+    retSaving=true;var button=form.querySelector('[type="submit"]');button.disabled=true;
+    try {
+      var response=await fetch(AUTH_API+'/internal/ret',{method:'POST',headers:Object.assign({'Content-Type':'application/json'},authHeaders()),body:JSON.stringify(body)});
+      if(response.status===409)throw Error(retText('他の人が更新しました。入力内容を控えてページを再読み込みしてください。','Someone else updated this post. Keep your input and reload before saving.','다른 사람이 수정했습니다. 입력 내용을 보관하고 새로고침하세요.'));
+      if(!response.ok)throw Error(t('authNet'));var result=await response.json();if(!result.ok||!result.workflow)throw Error(t('authNet'));
+      post.workflow=result.workflow;delete retDrafts[post.date];retSaveMsg=retText('共有保存しました。','Saved for the team.','공유 저장했습니다.');
+      if(retDate===post.date){var y=window.scrollY;route();window.scrollTo(0,y);}
+    } catch(err){var status=document.getElementById('retSaveStatus');if(status)status.textContent=err.message;}
+    finally{retSaving=false;if(button.isConnected)button.disabled=false;var active=view.querySelector('#retWorkflowForm [type="submit"]');if(active){active.disabled=false;active.textContent=retText('準備状況を保存','Save preparation status','준비 상태 저장');}}
+  });
+  view.addEventListener('error',function(e){if(e.target.matches('.ret-preview img')){e.target.hidden=true;e.target.parentElement.querySelector('figcaption').textContent=retText('画像を読み込めません。URLや閲覧権限を確認してください。','Image unavailable. Check its URL and access permissions.','이미지를 불러올 수 없습니다. URL과 접근 권한을 확인하세요.');}},true);
   view.addEventListener("click", function (e) {
     if (e.target.closest("#retRetry")) { retState = ""; retLoad(); route(); return; }
     if (tab !== "prep" || filter !== "ret") return;
-    var bookingButton = e.target.closest("[data-ret-book]");
-    if (bookingButton) { if (!bookingButton.disabled) retToggleBooking(bookingButton.getAttribute("data-ret-book")); return; }
-    if (e.target.closest("#retBookRetry")) { retLoadBookings(); return; }
-    var dayButton = e.target.closest("[data-ret-book-day]");
-    if (dayButton) { if (!dayButton.disabled && !retBookBusy) { retBookChoices[retDate + "|" + retPlatform.toUpperCase()] = dayButton.getAttribute("data-ret-book-day"); route(); } return; }
-    var dateButton = e.target.closest("[data-ret-open]"), platformButton = e.target.closest("[data-ret-platform]");
-    if (dateButton) retDate = dateButton.getAttribute("data-ret-open");
-    if (platformButton) retPlatform = platformButton.getAttribute("data-ret-platform");
-    if (dateButton || platformButton) { var y = window.scrollY; route(); window.scrollTo(0,y); }
+    var bookingButton=e.target.closest('[data-ret-book]');if(bookingButton){if(!bookingButton.disabled)retToggleBooking(bookingButton.dataset.retBook);return;}
+    if(e.target.closest('#retBookRetry')){retLoadBookings();return;}
+    var monthButton=e.target.closest('[data-ret-month]'),dateButton=e.target.closest('[data-ret-open]'),platformButton=e.target.closest('[data-ret-platform]');
+    if(monthButton) {retMonth=monthButton.dataset.retMonth;retDate='';}
+    if(dateButton)retDate=dateButton.dataset.retOpen;
+    if(platformButton)retPlatform=platformButton.dataset.retPlatform;
+    if(monthButton||dateButton||platformButton){retSaveMsg='';var y=window.scrollY;route();window.scrollTo(0,y);}
   });
   // 使う写真のファイル名をコピーできるようにする（2026-10-08）。企画書の番号 6737 → DSC06737.JPG
   // 「9/4 に使っていたら 6752」のような予備の番号も出す（写真フォルダで探すときにそのまま貼れる）
@@ -7502,7 +7551,7 @@
         tab: tab, filter: filter, bkMon: bkMon, tgDate: tgDate,
         lkWeek: lkWeek, lkMode: lkMode, lang: lang,
         scrollY: fromNav === true ? 0 : window.scrollY, hash: location.hash,
-        prepSearch: prepSearch, prepPage: prepPage, retDate: retDate, retPlatform: retPlatform,
+        prepSearch: prepSearch, prepPage: prepPage, retMonth: retMonth, retDate: retDate, retPlatform: retPlatform,
         yuPastOpen: yuPastOpen, calView: calView, calAnchor: calAnchor,
         calMonth: calMonth, calDay: calDay, calSel: calSel
       }));
@@ -7630,6 +7679,7 @@
       if (typeof st.filter === "string") filter = st.filter;
       if (typeof st.prepSearch === "string") prepSearch = st.prepSearch;
       if (Number.isInteger(st.prepPage) && st.prepPage > 0) prepPage = st.prepPage;
+      if (/^\d{4}-\d{2}$/.test(st.retMonth || "")) retMonth = st.retMonth;
       if (/^\d{4}-\d{2}-\d{2}$/.test(st.retDate || "")) retDate = st.retDate;
       if (st.retPlatform === "x" || st.retPlatform === "ig") retPlatform = st.retPlatform;
       if (typeof st.yuPastOpen === "boolean") yuPastOpen = st.yuPastOpen;
