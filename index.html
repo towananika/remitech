@@ -2894,7 +2894,7 @@
     var lines = KINDS.filter(function (kd) { return (c.links || []).some(function (l) { return l.kind === kd[0]; }); }).map(function (kd) {
       var pf = kd[1], a = pcAcct(c.id, pf), ps = tgVerifiedPosts(a, dateStr, pf);
       var url = ps.length ? ps[ps.length - 1].url : "";
-      if (!url && kd[2]) return null;
+      if (!url && kd[2] && !(c.id === "nacha" && pf === "TT")) return null;
       if (!url) {
         var candidates = (a && a.posts || []).filter(function (p) { return !p.pinned && tgPostDay(p.at) === dateStr; });
         if (candidates.length) {

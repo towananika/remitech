@@ -39,3 +39,26 @@ test('NACHA notifications target yesterday across month/year boundaries; other c
  assert.equal(scope.tgTargetDate(nacha,'2027-01-01'),'2026-12-31');
  assert.equal(scope.tgTargetDate({},'2026-10-21'),'2026-10-21');
 });
+
+const shareStart=source.indexOf('  function tgShareText('),shareEnd=source.indexOf('  // 旧Telegram通知',shareStart);
+const posts=JSON.parse(await readFile(new URL('../posts.json',import.meta.url),'utf8'));
+const nacha=posts.channels.find(c=>c.id==='nacha');
+let ttAccount=null;
+scope.pcAcct=(id,pf)=>pf==='TT'?ttAccount:null;
+scope.t=k=>k;
+vm.runInContext(source.slice(shareStart,shareEnd),scope);
+test('NACHA always includes TikTok even before its post link is available',()=>{
+ ttAccount=null;
+ const text=scope.tgShareText(nacha,'2026-10-22');
+ assert.ok(text.includes('NACHA Uploaded 10/21'));
+ assert.ok(text.includes('TikTok (tgNoLink)'));
+ assert.ok(!text.includes('YouTube ('));
+});
+test('NACHA TikTok accepts only the previous-day actual video link',()=>{
+ ttAccount={posts:[{url:'https://www.tiktok.com/@nacha_project/video/123456789?s=1',at:'2026-10-21T05:00:00Z'},{url:'https://www.tiktok.com/@nacha_project/video/999999999',at:'2026-10-22T05:00:00Z'}]};
+ const text=scope.tgShareText(nacha,'2026-10-22');
+ assert.ok(text.includes('TikTok (https://www.tiktok.com/@nacha_project/video/123456789)'));
+ assert.ok(!text.includes('999999999'));
+ ttAccount={posts:[{url:'https://www.tiktok.com/@nacha_project',at:'2026-10-21T05:00:00Z'}]};
+ assert.ok(scope.tgShareText(nacha,'2026-10-22').includes('TikTok (tgInvalidLink)'));
+});
