@@ -361,6 +361,9 @@
   .ret-image p{margin:8px 0;}
   .retplan .ret-prompt-copy{width:208px;max-width:100%;min-height:34px;font-size:12px;}
   @media(max-width:700px){.retpair{grid-template-columns:1fr}.retplan .yuday{padding:12px}.retplan h3{font-size:18px;}.ret-field{padding:12px;}}
+  .ret-book-platform{display:flex;align-items:center;gap:6px;flex-wrap:wrap;}.ret-book-platform>b{font-size:12px;margin-right:2px;}
+  .ret-uploads{margin-top:24px;border-top:1px solid var(--line);padding-top:18px;}.ret-upload-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:14px;}.ret-upload{border:1px solid var(--line);border-radius:10px;padding:12px;min-width:0;overflow-wrap:anywhere;}.ret-upload img{max-width:100%;max-height:320px;display:block;margin:12px auto;border-radius:8px;}.ret-uploads button{min-height:34px;padding:5px 10px;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:8px;font:inherit;font-size:12px;cursor:pointer;}.ret-uploads button:disabled{opacity:.5;cursor:default;}.ret-upload-label{display:block;margin-top:14px;font-size:12px;}.ret-upload input{display:block;max-width:100%;width:100%;font:inherit;font-size:12px;margin-top:6px;}.ret-upload [role=status]{font-size:12px;}.ret-download{font-size:12px;}
+  @media(max-width:700px){.ret-upload-grid{grid-template-columns:1fr;}.ret-book-actions{margin-left:0;}}
   .authbg{ position:fixed; inset:0; z-index:60; background:rgba(0,0,0,.35); display:flex; align-items:flex-start; justify-content:center; padding:72px 16px 16px; overflow:auto; }
   .authbg[hidden]{ display:none; }
   .authbox{ width:100%; max-width:380px; background:var(--surface); color:var(--ink); border:1px solid var(--line); border-radius:16px; padding:18px; box-shadow:0 10px 30px rgba(0,0,0,.18); }
@@ -4632,7 +4635,7 @@
     }
     if (o.memos) {
       var approvals = {};
-      Object.keys(o.memos).forEach(function (k) { if (/^ret-approval\|\d{4}-\d{2}-\d{2}$/.test(k) && o.memos[k] === "pending") approvals[k.slice(13)] = true; });
+      Object.keys(o.memos).forEach(function (k) { if (/^ret-approval\|\d{4}-\d{2}-\d{2}\|(X|IG)$/.test(k) && o.memos[k] === "pending") approvals[k.slice(13)] = true; });
       if (JSON.stringify(approvals) !== JSON.stringify(schedule.retApprovals || {})) { schedule.retApprovals = approvals; changed = true; }
     }
     Object.keys(o.memos || {}).forEach(function (k) {
@@ -4700,6 +4703,7 @@
       var m; try { m = JSON.parse(ev.data); } catch (e) { return; }
       if (m && m.t === "chores") { choreEtag = null; pullChores(); }
       if (m && m.t === "book") bookPull(true).then(function () { if (reelEditor) reelEditor.refresh(); });
+      if (m && m.t === "ret-image" && !retImageBusy) { retClearImages(); retImageRender(); }
       if (m && m.t === "reel" && reelEditor) reelEditor.refresh();
     };
     hubWs.onclose = function () { hubWsUp = false; clearInterval(hubWsPing); hubRetry(); };
@@ -5336,7 +5340,7 @@
       body: method === "GET" ? undefined : JSON.stringify(body || {}),
     }).then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { j.status = r.status; return j; }); });
   }
-  function authAfterChange() { if (!(authUser() && authUser().admin)) { authUsers = null; authCodes = {}; if (tab === "manage") { tab = "today"; route(); } } yuDoc = null; yuState = ""; retDoc = null; retState = ""; retBookReady = false; retBookMsg = ""; renderLang(); renderNav(); if (tab === "prep" || tab === "reel") route(); if (reelEditor) reelEditor.authChanged(); }
+  function authAfterChange() { if (!(authUser() && authUser().admin)) { authUsers = null; authCodes = {}; if (tab === "manage") { tab = "today"; route(); } } retClearImages(); retImageFiles = {}; yuDoc = null; yuState = ""; retDoc = null; retState = ""; retBookReady = false; retBookMsg = ""; renderLang(); renderNav(); if (tab === "prep" || tab === "reel") route(); if (reelEditor) reelEditor.authChanged(); }
   function authSignedOut() { authState = null; authSave(); authUsers = null; authAfterChange(); }
   function authRenew(force) {
     if (!authState) return Promise.resolve();
@@ -5655,26 +5659,95 @@
   function retLocalized(post, field) {
     return lang === "ja" ? (post[field] || "") : (post[field + (lang === "ko" ? "Ko" : "En")] || "");
   }
-  function retApprovalPending(day) { return !!(bkLast && bkLast.memos && bkLast.memos["ret-approval|" + day] === "pending"); }
-  async function retToggleApproval() {
+  function retApprovalPending(day, pf) { return !!(bkLast && bkLast.memos && bkLast.memos["ret-approval|" + day + "|" + pf] === "pending"); }
+  async function retToggleApproval(pf) {
     if (retBookBusy || !retBookReady || !retDoc || !(authUser() && (authUser().member || authUser().admin))) return;
+    if (["X","IG"].indexOf(pf) < 0) return;
     var day = retDate;
     if (!retDoc.posts.some(function (p) { return p.date === day; })) return;
-    var wantPending = !retApprovalPending(day), key = "ret-approval|" + day;
+    var wantPending = !retApprovalPending(day,pf), key = "ret-approval|" + day + "|" + pf;
     retBookBusy = true; retBookMsg = ""; route();
     try {
       await retRefreshBookings();
-      if (retApprovalPending(day) === wantPending) { retBookMsg = t("bkShared"); return; }
+      if (retApprovalPending(day,pf) === wantPending) { retBookMsg = t("bkShared"); return; }
       var value = wantPending ? "pending" : "";
       var r = await fetch(bookApi(), {method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({kind:"m",key:key,value:value,code:teamCode()})});
       if (!r.ok) { if (r.status === 403) throw Error(t("lkCodeHint")); if (r.status === 429) throw Error(t("lkTooMany")); throw Error(t("authNet")); }
       var result = await r.json(); if (!result.ok) throw Error(t("authNet"));
       bkLast.memos = bkLast.memos || {}; bkLast.memos[key] = value;
-      schedule.retApprovals = schedule.retApprovals || {}; if (wantPending) schedule.retApprovals[day] = true; else delete schedule.retApprovals[day];
+      schedule.retApprovals = schedule.retApprovals || {}; if (wantPending) schedule.retApprovals[day+"|"+pf] = true; else delete schedule.retApprovals[day+"|"+pf];
       retBookMsg = t("bkShared");
     } catch (e) { retBookMsg = e.message === "network" ? t("authNet") : (e.message || t("authNet")); }
     finally { retBookBusy = false; if (tab === "prep" && filter === "ret") { var y = window.scrollY; route(); window.scrollTo(0,y); } }
   }
+  var retImageStates = {}, retImageFiles = {}, retImageBusy = false, retImageEpoch = 0;
+  function retImageText(ja,en,ko) { return lang === "ja" ? ja : lang === "ko" ? ko : en; }
+  function retClearImages() {
+    retImageEpoch++;
+    Object.keys(retImageStates).forEach(function(day){Object.values(retImageStates[day].previews || {}).forEach(function(url){URL.revokeObjectURL(url);});});
+    retImageStates = {};
+  }
+  function retImageAPI(day,pf) { return AUTH_API+"/internal/ret-image?date="+encodeURIComponent(day)+(pf ? "&platform="+pf : ""); }
+  function retImageRender() { if(tab === "prep" && filter === "ret") { var y=window.scrollY;route();window.scrollTo(0,y); } }
+  async function retLoadImages(day) {
+    var state=retImageStates[day];if(state && state.state === "loading")return;
+    var epoch=retImageEpoch;
+    if(!state)state=retImageStates[day]={images:{},previews:{},messages:{}};
+    state.state="loading";
+    try {
+      var r=await fetch(retImageAPI(day),{headers:authHeaders(),cache:"no-store"});
+      if(r.status===401){authSignedOut();return;}
+      if(!r.ok)throw Error(retImageText("画像を取得できません。再試行してください。","Images unavailable. Please retry.","이미지를 불러올 수 없습니다. 다시 시도하세요."));
+      var data=await r.json();if(epoch!==retImageEpoch)return;
+      if(!data.images)throw Error(t("authNet"));state.images=data.images;
+      for(var pf of ["X","IG"]) {
+        if(!state.images[pf] || !state.images[pf].name || state.previews[pf])continue;
+        var image=await fetch(retImageAPI(day,pf),{headers:authHeaders(),cache:"no-store"});
+        if(epoch!==retImageEpoch)return;
+        if(!image.ok){state.messages[pf]=retImageText("画像の読み込みに失敗しました。","Image could not be loaded.","이미지를 불러오지 못했습니다.");continue;}
+        var blob=await image.blob();if(epoch!==retImageEpoch)return;
+        state.previews[pf]=URL.createObjectURL(blob);
+      }
+      state.state="ok";
+    } catch(e) {if(epoch!==retImageEpoch)return;state.state="err";state.error=e.message;}
+    finally {if(epoch===retImageEpoch)retImageRender();}
+  }
+  async function retUploadImage(day,pf,file) {
+    if(retImageBusy || !file)return;
+    var state=retImageStates[day];if(!state || state.state!=="ok")return;
+    retImageFiles[day+"|"+pf]=file;
+    if(["image/png","image/jpeg","image/webp"].indexOf(file.type)<0 || file.size>10*1024*1024 || !file.size) {
+      state.messages[pf]=retImageText("PNG・JPEG・WebPの画像を10MB以内で選んでください。","Choose a PNG, JPEG or WebP image up to 10 MB.","10MB 이하의 PNG·JPEG·WebP 이미지를 선택하세요.");retImageRender();return;
+    }
+    var epoch=retImageEpoch;retImageBusy=true;state.messages[pf]=t("svSaving");retImageRender();
+    try {
+      var bitmap=await createImageBitmap(file);bitmap.close();
+      var form=new FormData();form.append("file",file);
+      var revision=(state.images[pf] || {}).revision || 0;
+      var r=await fetch(retImageAPI(day,pf)+"&revision="+revision,{method:"POST",headers:authHeaders(),body:form});
+      if(r.status===409)throw Error(retImageText("別の人が画像を更新しました。「画像を再読込」で確認してから再試行してください。","Someone else replaced this image. Reload images before retrying.","다른 사람이 이미지를 변경했습니다. 이미지를 새로고침한 뒤 다시 시도하세요."));
+      if(r.status===401){authSignedOut();return;}
+      if(!r.ok)throw Error(retImageText("アップロードできませんでした。画像を保持しています。再試行してください。","Upload failed. Your selected file is kept; retry when ready.","업로드하지 못했습니다. 선택한 파일을 보관하고 있으니 다시 시도하세요."));
+      var result=await r.json();if(!result.ok)throw Error(t("authNet"));if(epoch!==retImageEpoch)return;
+      if(state.previews[pf])URL.revokeObjectURL(state.previews[pf]);state.previews[pf]=URL.createObjectURL(file);state.images[pf]=result.image;
+      state.messages[pf]=retImageText("画像を共有しました。","Image shared with the team.","이미지를 공유했습니다.");delete retImageFiles[day+"|"+pf];
+    } catch(e) {if(epoch===retImageEpoch)state.messages[pf]=e.message;}
+    finally {retImageBusy=false;retImageRender();}
+  }
+  function retImagesHTML(day) {
+    var state=retImageStates[day];if(!state){retLoadImages(day);state=retImageStates[day];}
+    var ready=state && state.state==="ok";
+    return '<section class="ret-uploads"><h4>'+esc(retImageText("投稿用画像を共有","Share posting images","게시 이미지 공유"))+'</h4><p class="tiny">'+esc(retImageText("PNG・JPEG・WebP / 1枚10MBまで。社員のみ閲覧・ダウンロードできます。","PNG, JPEG or WebP / up to 10 MB each. Only staff can view and download.","PNG·JPEG·WebP / 장당 최대 10MB. 직원만 열람·다운로드할 수 있습니다."))+'</p><button type="button" data-ret-images-reload="'+day+'"'+(retImageBusy || state.state==="loading"?' disabled':'')+'>'+esc(retImageText("画像を再読込","Reload images","이미지 새로고침"))+'</button>'+(state.state==="err"?'<p role="status">'+esc(state.error)+'</p>':'')+'<div class="ret-upload-grid">'+["X","IG"].map(function(pf){
+      var meta=state.images[pf] || {},url=state.previews[pf],pending=retImageFiles[day+"|"+pf];
+      return '<div class="ret-upload"><b>'+pf+' · '+(pf==="X"?'16:9':'4:5')+'</b>'+(url?'<a href="'+esc(url)+'" download="'+esc(meta.name || 'ret-image')+'"><img src="'+esc(url)+'" alt="'+esc(meta.name || pf)+'"></a><p class="tiny">'+esc(meta.name || '')+'</p><a class="ret-download" href="'+esc(url)+'" download="'+esc(meta.name || 'ret-image')+'">'+esc(retImageText("画像をダウンロード","Download image","이미지 다운로드"))+'</a>':'<p class="tiny">'+esc(state.state==="loading"?t("yuLoading"):retImageText("画像未登録","No image uploaded","이미지 미등록"))+'</p>')+'<label class="ret-upload-label">'+esc(meta.name?retImageText("画像を差し替え","Replace image","이미지 교체"):retImageText("画像をアップロード","Upload image","이미지 업로드"))+'<input type="file" accept="image/png,image/jpeg,image/webp" data-ret-image-upload="'+pf+'" data-ret-image-date="'+day+'"'+(!ready||retImageBusy?' disabled':'')+'></label>'+(pending?'<button data-ret-image-retry="'+pf+'" data-ret-image-date="'+day+'"'+(!ready||retImageBusy?' disabled':'')+'>'+esc(retImageText("選択画像を再送","Retry selected image","선택 이미지 재전송"))+'</button>':'')+'<p role="status">'+esc(state.messages[pf] || '')+'</p></div>';
+    }).join('')+'</div></section>';
+  }
+  view.addEventListener("change",function(e){var input=e.target;if(input.matches('[data-ret-image-upload]'))retUploadImage(input.dataset.retImageDate,input.dataset.retImageUpload,input.files[0]);});
+  view.addEventListener("click",function(e){
+    var reload=e.target.closest('[data-ret-images-reload]'), retry=e.target.closest('[data-ret-image-retry]');
+    if(reload && !reload.disabled){var day=reload.dataset.retImagesReload,old=retImageStates[day];if(old){Object.values(old.previews).forEach(function(url){URL.revokeObjectURL(url);});old.previews={};}retLoadImages(day);retImageRender();}
+    if(retry && !retry.disabled){var pf=retry.dataset.retImageRetry,day=retry.dataset.retImageDate;retUploadImage(day,pf,retImageFiles[day+"|"+pf]);}
+  });
   function retInternalHTML() {
     var h = '<section class="yuin retplan"><div class="yuhd"><b>' + esc(t("retTitle")) + '</b><span class="yulock">' + esc(t("yuTitle")) + '</span></div>', u = authUser();
     if (!u) return h + '<p>' + esc(t("yuNeedLogin")) + '</p><button class="authsub" id="yuLogin">' + esc(t("authLogin")) + '</button></section>';
@@ -5689,38 +5762,36 @@
     retDate = post.date;
     if (!retBookReady && !retBookLoading && !retBookMsg) retLoadBookings();
     var bookingDay = post.date;
-    var booking = '<section class="ret-booking" aria-label="' + esc(t("retBookDate")) + '"><span>' + esc(t("retBookDate")) + ' · ' + esc(bookingDay.slice(5).replace('-','/')) + ' · 09:00</span><div class="ret-book-actions"><button class="ret-approval" data-ret-approval aria-pressed="' + retApprovalPending(bookingDay) + '"' + (retBookBusy || !retBookReady ? ' disabled' : '') + '>' + esc(t("retApproval")) + '</button>' + ["X","IG"].map(function (pf) {
+    var booking = '<section class="ret-booking" aria-label="' + esc(t("retBookDate")) + '"><span>' + esc(t("retBookDate")) + ' · ' + esc(bookingDay.slice(5).replace('-','/')) + ' · 09:00</span><div class="ret-book-actions">' + ["X","IG"].map(function (pf) {
       var on = retBooked(bookingDay,pf), legacy = retBookingSlot(bookingDay,pf).legacy, blocked = bkRetWeekendBlocked("ret",pf,bookingDay);
       var tip = blocked ? t("bkWeekendBooked") + blocked : legacy && !on ? t("retLegacyTime") + " · " + legacy.time : on ? t("retBookUndo") : t("yuBookTip");
-      return '<button class="ret-book-button" data-ret-book="' + pf + '" data-on="' + on + '" aria-pressed="' + on + '"' + (retBookBusy || !retBookReady || blocked || (!on && legacy) ? ' disabled' : '') + ' title="' + esc(tip) + '">' + esc(pf + ' ' + (on ? '✓ ' + t("yuBooked") : t("yuBook"))) + '</button>';
+      return '<div class="ret-book-platform" role="group" aria-label="'+pf+'"><b>'+pf+'</b><button class="ret-approval" data-ret-approval="'+pf+'" aria-pressed="' + retApprovalPending(bookingDay,pf) + '"' + (retBookBusy || !retBookReady ? ' disabled' : '') + '>' + esc(t("retApproval")) + '</button><button class="ret-book-button" data-ret-book="' + pf + '" data-on="' + on + '" aria-pressed="' + on + '"' + (retBookBusy || !retBookReady || blocked || (!on && legacy) ? ' disabled' : '') + ' title="' + esc(tip) + '">' + esc(on ? '✓ ' + t("yuBooked") : t("yuBook")) + '</button></div>';
     }).join("") + '</div><p class="ret-book-status" role="status" aria-live="polite">' + esc(retBookBusy ? t("svSaving") : retBookLoading ? t("yuLoading") : retBookMsg) + '</p>' + (!retBookReady && !retBookLoading ? '<button id="retBookRetry">' + esc(t("yuRecheck")) + '</button>' : '') + '</section>';
-    var i = retDoc.posts.indexOf(post), key = "ret" + i + retPlatform + "en", promptKey = "ret" + i + retPlatform + "prompt";
-    copyBank[key] = {en:post[retPlatform+"en"],cur:post[retPlatform+"en"]};
-    var localKey = "ret" + i + retPlatform + lang;
-    if (lang !== "en") copyBank[localKey] = {cur:post[retPlatform+lang] || ""};
-    var prompt = post[retPlatform === "x" ? "imagePromptX" : "imagePromptIG"];
-    if (prompt) copyBank[promptKey] = {en:prompt,cur:prompt};
-    h += '<div class="ret-controls"><nav class="ret-dates" aria-label="Date">' + retDoc.posts.map(function (p) { return '<button data-ret-open="' + esc(p.date) + '" aria-pressed="' + (p.date === retDate) + '" title="' + esc(retLocalized(p,"theme")) + '">' + (+p.date.slice(5,7)) + '/' + (+p.date.slice(8)) + '</button>'; }).join("") + '</nav><div class="ret-platforms" role="group" aria-label="SNS">' + ["x","ig"].map(function (pf) { return '<button data-ret-platform="' + pf + '" aria-pressed="' + (pf === retPlatform) + '">' + pf.toUpperCase() + '</button>'; }).join("") + '</div></div>';
-    h += '<article class="yuday" data-ret-date="' + esc(post.date) + '"><div class="yudate"><b>' + esc(bookingDay) + ' · ' + retPlatform.toUpperCase() + '</b><small>' + '09:00 KST' + '</small></div><h3>' + esc(retLocalized(post,"theme")) + '</h3><div class="retpair' + (lang === "en" ? ' retpair-single' : '') + '">' +
-      (lang !== "en" ? '<div class="ret-field"><div class="ret-field-head"><span>' + (lang === "ko" ? '한국어 · KO' : '日本語 · JA') + '</span><button class="cpy retcopy" data-ck="' + localKey + '" data-lg="' + lang + '">' + esc(t("copy")) + '</button></div><pre>' + esc(post[retPlatform+lang] || "") + '</pre></div>' : '') +
-      '<div class="ret-field ret-field-en"><div class="ret-field-head"><span>English · EN</span><button class="cpy retcopy" data-ck="' + key + '" data-lg="en">' + esc(t("copy")) + '</button></div><pre>' + esc(post[retPlatform+"en"]) + '</pre></div></div>' + booking +
-      '<section class="ret-image"><h4>' + esc(t("retImage")) + ' · ' + retPlatform.toUpperCase() + (prompt ? (retPlatform === "x" ? ' · 16:9' : ' · 4:5') : '') + '</h4><p>' + esc(retLocalized(post,"image")) + '</p>' + (prompt ? '<button class="cpy retcopy ret-prompt-copy" data-ck="' + promptKey + '" data-lg="en">' + esc(t("retPromptCopy")) + '</button>' : '') + '</section></article>';
+    var i = retDoc.posts.indexOf(post), key = "ret" + i + "commonen", localKey = "ret" + i + "common" + lang;
+    copyBank[key] = {en:post.xen,cur:post.xen};
+    if (lang !== "en") copyBank[localKey] = {cur:post["x"+lang] || ""};
+    var imageButtons = ["X","IG"].map(function(pf) {
+      var prompt = post["imagePrompt"+pf], promptKey = "ret"+i+pf+"prompt";
+      if (!prompt) return ""; copyBank[promptKey] = {en:prompt,cur:prompt};
+      return '<button class="cpy retcopy ret-prompt-copy" data-ck="' + promptKey + '" data-lg="en">' + esc(t("retPromptCopy")) + ' · ' + (pf === "X" ? "16:9" : "4:5") + '</button>';
+    }).join(" ");
+    h += '<div class="ret-controls"><nav class="ret-dates" aria-label="Date">' + retDoc.posts.map(function (p) { return '<button data-ret-open="' + esc(p.date) + '" aria-pressed="' + (p.date === retDate) + '" title="' + esc(retLocalized(p,"theme")) + '">' + (+p.date.slice(5,7)) + '/' + (+p.date.slice(8)) + '</button>'; }).join("") + '</nav></div>';
+    h += '<article class="yuday" data-ret-date="' + esc(post.date) + '"><div class="yudate"><b>' + esc(bookingDay) + ' · X / IG</b><small>09:00 KST</small></div><h3>' + esc(retLocalized(post,"theme")) + '</h3><div class="retpair' + (lang === "en" ? ' retpair-single' : '') + '">' +
+      (lang !== "en" ? '<div class="ret-field"><div class="ret-field-head"><span>' + (lang === "ko" ? '한국어 · KO' : '日本語 · JA') + '</span><button class="cpy retcopy" data-ck="' + localKey + '" data-lg="' + lang + '">' + esc(t("copy")) + '</button></div><pre>' + esc(post["x"+lang] || "") + '</pre></div>' : '') +
+      '<div class="ret-field ret-field-en"><div class="ret-field-head"><span>English · EN</span><button class="cpy retcopy" data-ck="' + key + '" data-lg="en">' + esc(t("copy")) + '</button></div><pre>' + esc(post.xen || "") + '</pre></div></div>' + booking +
+      '<section class="ret-image"><h4>' + esc(t("retImage")) + '</h4><p>' + esc(retLocalized(post,"image")) + '</p>' + imageButtons + retImagesHTML(post.date) + '</section></article>';
     return h + '</section>';
   }
   view.addEventListener("click", function (e) {
     if (e.target.closest("#retRetry")) { retState = ""; retLoad(); route(); return; }
     if (tab !== "prep" || filter !== "ret") return;
     var approvalButton = e.target.closest("[data-ret-approval]");
-    if (approvalButton) { if (!approvalButton.disabled) retToggleApproval(); return; }
+    if (approvalButton) { if (!approvalButton.disabled) retToggleApproval(approvalButton.getAttribute("data-ret-approval")); return; }
     var bookingButton = e.target.closest("[data-ret-book]");
     if (bookingButton) { if (!bookingButton.disabled) retToggleBooking(bookingButton.getAttribute("data-ret-book")); return; }
     if (e.target.closest("#retBookRetry")) { retLoadBookings(); return; }
-    var dayButton = e.target.closest("[data-ret-book-day]");
-    if (dayButton) { if (!dayButton.disabled && !retBookBusy) { retBookChoices[retDate + "|" + retPlatform.toUpperCase()] = dayButton.getAttribute("data-ret-book-day"); route(); } return; }
-    var dateButton = e.target.closest("[data-ret-open]"), platformButton = e.target.closest("[data-ret-platform]");
-    if (dateButton) retDate = dateButton.getAttribute("data-ret-open");
-    if (platformButton) retPlatform = platformButton.getAttribute("data-ret-platform");
-    if (dateButton || platformButton) { var y = window.scrollY; route(); window.scrollTo(0,y); }
+    var dateButton = e.target.closest("[data-ret-open]");
+    if (dateButton) { retDate = dateButton.getAttribute("data-ret-open"); var y = window.scrollY; route(); window.scrollTo(0,y); }
   });
   // 使う写真のファイル名をコピーできるようにする（2026-10-08）。企画書の番号 6737 → DSC06737.JPG
   // 「9/4 に使っていたら 6752」のような予備の番号も出す（写真フォルダで探すときにそのまま貼れる）

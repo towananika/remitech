@@ -4,7 +4,7 @@ import vm from 'node:vm';
 import {readFile} from 'node:fs/promises';
 const source=await readFile(new URL('../index.html',import.meta.url),'utf8');
 const weekend=source.slice(source.indexOf('  function bkRetWeekendBlocked('),source.indexOf('  function bkSetSlotState('));
-const booking=source.slice(source.indexOf('  function retBookingSlot('),source.indexOf('  function retInternalHTML('));
+const booking=source.slice(source.indexOf('  function retBookingSlot('),source.indexOf('  var retImageStates'));
 function context({fail=false,other=false}={}){
  const data={newSlots:{},slots:{},memos:{}},writes=[];
  const c=vm.createContext({window:{scrollY:0,scrollTo:()=>{}},schedule:{slots:[]},bookRows:{groups:[{channel:'ret',rows:[{platforms:['X'],time:'09:00',label:'X'},{platforms:['IG'],time:'09:00',label:'IG'}]}]},
@@ -38,15 +38,15 @@ test('legacy bookings at 12:00 are preserved and cannot be silently duplicated a
  await c.retToggleBooking();assert.equal(writes.length,0);assert.equal(c.retBookingSlot('2026-10-31','X').legacy.time,'12:00');assert.equal(c.retBooked('2026-10-31','X'),false);
 });
 
-test('approval waiting is shared per date, toggles off, and never changes booking slots',async()=>{
+test('approval waiting is independent per date/platform and never changes booking slots',async()=>{
  const {c,data,writes}=context();c.retBookReady=true;
- await c.retToggleApproval();assert.equal(c.retApprovalPending('2026-10-31'),true);assert.equal(c.retApprovalPending('2026-11-07'),false);assert.equal(c.schedule.slots.length,0);
- assert.equal(writes[0].kind,'m');assert.equal(writes[0].key,'ret-approval|2026-10-31');assert.equal(data.memos[writes[0].key],'pending');
- c.retPlatform='ig';assert.equal(c.retApprovalPending('2026-10-31'),true);
- await c.retToggleApproval();assert.equal(c.retApprovalPending('2026-10-31'),false);assert.equal(writes[1].value,'');
+ await c.retToggleApproval('X');assert.equal(c.retApprovalPending('2026-10-31','X'),true);assert.equal(c.retApprovalPending('2026-11-07','X'),false);assert.equal(c.schedule.slots.length,0);
+ assert.equal(writes[0].kind,'m');assert.equal(writes[0].key,'ret-approval|2026-10-31|X');assert.equal(data.memos[writes[0].key],'pending');
+ assert.equal(c.retApprovalPending('2026-10-31','IG'),false);await c.retToggleApproval('IG');assert.equal(c.retApprovalPending('2026-10-31','IG'),true);
+ await c.retToggleApproval('X');assert.equal(c.retApprovalPending('2026-10-31','X'),false);assert.equal(writes[2].value,'');assert.equal(c.retApprovalPending('2026-10-31','IG'),true);
 });
 test('approval save failure preserves state, duplicate clicks and nonstaff cannot write',async()=>{
- const failed=context({fail:true});failed.c.retBookReady=true;await failed.c.retToggleApproval();assert.equal(failed.c.retApprovalPending('2026-10-31'),false);assert.equal(failed.c.retBookBusy,false);
- const {c,writes}=context();c.retBookReady=true;await Promise.all([c.retToggleApproval(),c.retToggleApproval()]);assert.equal(writes.length,1);
- c.authUser=()=>({member:false});await c.retToggleApproval();assert.equal(writes.length,1);
+ const failed=context({fail:true});failed.c.retBookReady=true;await failed.c.retToggleApproval('X');assert.equal(failed.c.retApprovalPending('2026-10-31','X'),false);assert.equal(failed.c.retBookBusy,false);
+ const {c,writes}=context();c.retBookReady=true;await Promise.all([c.retToggleApproval('X'),c.retToggleApproval('X')]);assert.equal(writes.length,1);
+ c.authUser=()=>({member:false});await c.retToggleApproval('X');assert.equal(writes.length,1);
 });
