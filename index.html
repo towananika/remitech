@@ -359,7 +359,7 @@
   .ret-image{margin-top:18px;padding-top:16px;border-top:1px solid var(--line);font-size:13px;line-height:1.8;}
   .ret-image h4{margin:0 0 6px;}
   .ret-image p{margin:8px 0;}
-  .retplan .ret-prompt-copy{width:208px;max-width:100%;min-height:34px;font-size:12px;}
+  .retplan .ret-prompt-copy{width:auto;max-width:100%;min-height:34px;font-size:12px;}
   @media(max-width:700px){.retpair{grid-template-columns:1fr}.retplan .yuday{padding:12px}.retplan h3{font-size:18px;}.ret-field{padding:12px;}}
   @media(max-width:700px){.ret-book-actions{margin-left:0;}}
   .authbg{ position:fixed; inset:0; z-index:60; background:rgba(0,0,0,.35); display:flex; align-items:flex-start; justify-content:center; padding:72px 16px 16px; overflow:auto; }
@@ -5681,6 +5681,19 @@
     } catch (e) { retBookMsg = e.message === "network" ? t("authNet") : (e.message || t("authNet")); }
     finally { retBookBusy = false; if (tab === "prep" && filter === "ret") { var y = window.scrollY; route(); window.scrollTo(0,y); } }
   }
+  function retImagePrompt(post) {
+    var wide = post.imagePromptX || "", portrait = post.imagePromptIG || "";
+    if (!wide && !portrait) return "";
+    if (!wide) wide = portrait.replace(/4\s*:\s*5/g, "16:9");
+    if (!portrait) portrait = wide.replace(/16\s*:\s*9/g, "4:5");
+    return "Create TWO separate finished images of the same RET campaign: one 16:9 landscape image for X and one 4:5 portrait image for Instagram. " +
+      "Return both as separate image files, never as a collage or split-screen. Keep the same headline, objects, colors and materials across both. " +
+      "Recompose each image for its own aspect ratio; do not crop the headline or stretch the landscape image into portrait. " +
+      "The instructions below describe each individual deliverable. Complete BOTH.\n\n" +
+      "IMAGE 1 — X / 16:9 landscape\n" + wide + "\n\n" +
+      "IMAGE 2 — Instagram / 4:5 portrait\n" + portrait + "\n\n" +
+      "Final delivery: exactly two separate image files, 16:9 and 4:5. For the portrait, place the headline at the top and the main object group below, with generous safe margins.";
+  }
   function retInternalHTML() {
     var h = '<section class="yuin retplan"><div class="yuhd"><b>' + esc(t("retTitle")) + '</b><span class="yulock">' + esc(t("yuTitle")) + '</span></div>', u = authUser();
     if (!u) return h + '<p>' + esc(t("yuNeedLogin")) + '</p><button class="authsub" id="yuLogin">' + esc(t("authLogin")) + '</button></section>';
@@ -5703,11 +5716,11 @@
     var i = retDoc.posts.indexOf(post), key = "ret" + i + "commonen", localKey = "ret" + i + "common" + lang;
     copyBank[key] = {en:post.xen,cur:post.xen};
     if (lang !== "en") copyBank[localKey] = {cur:post["x"+lang] || ""};
-    var imageButtons = ["X","IG"].map(function(pf) {
-      var prompt = post["imagePrompt"+pf], promptKey = "ret"+i+pf+"prompt";
-      if (!prompt) return ""; copyBank[promptKey] = {en:prompt,cur:prompt};
-      return '<button class="cpy retcopy ret-prompt-copy" data-ck="' + promptKey + '" data-lg="en">' + esc(t("retPromptCopy")) + ' · ' + (pf === "X" ? "16:9" : "4:5") + '</button>';
-    }).join(" ");
+    var prompt = retImagePrompt(post), promptKey = "ret" + i + "bothprompt", imageButtons = "";
+    if (prompt) {
+      copyBank[promptKey] = {en:prompt,cur:prompt};
+      imageButtons = '<button class="cpy retcopy ret-prompt-copy" data-ck="' + promptKey + '" data-lg="en">' + esc(t("retPromptCopy")) + ' · 16:9 / 4:5</button>';
+    }
     h += '<div class="ret-controls"><nav class="ret-dates" aria-label="Date">' + retDoc.posts.map(function (p) { return '<button data-ret-open="' + esc(p.date) + '" aria-pressed="' + (p.date === retDate) + '" title="' + esc(retLocalized(p,"theme")) + '">' + (+p.date.slice(5,7)) + '/' + (+p.date.slice(8)) + '</button>'; }).join("") + '</nav></div>';
     h += '<article class="yuday" data-ret-date="' + esc(post.date) + '"><div class="yudate"><b>' + esc(bookingDay) + ' · X / IG</b><small>09:00 KST</small></div><h3>' + esc(retLocalized(post,"theme")) + '</h3><div class="retpair' + (lang === "en" ? ' retpair-single' : '') + '">' +
       (lang !== "en" ? '<div class="ret-field"><div class="ret-field-head"><span>' + (lang === "ko" ? '한국어 · KO' : '日本語 · JA') + '</span><button class="cpy retcopy" data-ck="' + localKey + '" data-lg="' + lang + '">' + esc(t("copy")) + '</button></div><pre>' + esc(post["x"+lang] || "") + '</pre></div>' : '') +
