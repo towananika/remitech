@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-"""KPIの自動取得。毎日12:00にこのPCの定期実行から呼ばれる。
+"""KPIの手動取得。HUBの更新ボタンから --manual を付けて呼ぶ。
+引数なしの旧定時実行は何も取得・保存しない。
 
 取れるもの / 取れないもの（2026-09-16 にPlaywright（ブラウザを実際に動かす方式）で試した結果）
   YouTube    : 公開ページ（HTMLだけ）に登録者数・動画数が書いてある → 自動（urllib）
@@ -23,7 +24,7 @@
   初回だけ: pip install playwright && python -m playwright install chromium が要る
   （このPCでは2026-09-16に実施済み）。
 """
-import io, json, re, sys, datetime, urllib.request
+import argparse, io, json, re, sys, datetime, urllib.request
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -99,10 +100,18 @@ def try_write(rows, today, ch_id, platform, value, warn, report, label):
     report.append("%s: フォロワー %s%s" % (label, value, diff))
 
 
-def main():
+def main(argv=None):
+    parser = argparse.ArgumentParser(description="KPIをボタン操作で更新")
+    parser.add_argument("--manual", action="store_true")
+    parser.add_argument("--root", type=Path, default=ROOT)
+    args = parser.parse_args(argv)
+    if not args.manual:
+        print("KPIの定時取得は停止しました。HUBの更新ボタンを使ってください。")
+        return 0
+    root = args.root
     today = datetime.date.today().isoformat()
-    posts = json.load(io.open(ROOT / "posts.json", encoding="utf-8"))
-    kpi_path = ROOT / "kpi.json"
+    posts = json.load(io.open(root / "posts.json", encoding="utf-8"))
+    kpi_path = root / "kpi.json"
     kpi = json.load(io.open(kpi_path, encoding="utf-8"))
     rows = kpi.setdefault("rows", [])
     report, warn = [], []
@@ -157,11 +166,16 @@ def main():
         except Exception as e:
             warn.append("Instagram・TikTok: ヘッドレスブラウザの起動に失敗（%s）" % e)
 
+    if not report:
+        print("取得できたアカウントがありません。記録は変更していません。")
+        return 1
     rows.sort(key=lambda r: (r["date"], r["channel"], r["platform"]))
+    kpi["updated"] = datetime.datetime.now(datetime.timezone.utc).isoformat()
+    kpi["refreshSummary"] = {"updated": len(report), "warnings": len(warn), "manualPlatforms": ["X", "FB"]}
     io.open(kpi_path, "w", encoding="utf-8", newline="").write(json.dumps(kpi, ensure_ascii=False, indent=2) + "\n")
     manual = "手入力が要るもの（自動化できない）: X（HIYOKO・NACHA・悠悠観音堂・REEL、ヘッドレスブラウザが403で弾かれる）、Facebook（HIYOKO、ログインが要る）"
-    print("\n".join(["[%s] KPI 自動取得" % today] + report + warn + [manual]))
-    return 1 if warn else 0
+    print("\n".join(["[%s] KPI 手動取得" % today] + report + warn + [manual]))
+    return 0
 
 
 if __name__ == "__main__":

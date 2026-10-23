@@ -109,7 +109,10 @@ export class HubDO extends DurableObject {
   // 各 SNS を読んで push し、POST /fetchreq/state で 進行中・済み を知らせる。読むだけの依頼なので合言葉は要らない（回数は絞る）
   //   cfg:fetchreq  { state: "pending"|"running"|"done"|"error", reqAt, startAt, doneAt, msg }
   async fetchReq(path, request, origin) {
-    const cur = (await this.ctx.storage.get("cfg:fetchreq")) || { state: "idle" };
+    const scope = new URL(request.url).searchParams.get("scope");
+    if (scope && scope !== "kpi") return json({error:"scope"},400,origin);
+    const key = scope === "kpi" ? "cfg:kpireq" : "cfg:fetchreq";
+    const cur = (await this.ctx.storage.get(key)) || { state: "idle" };
     if (request.method === "GET") return json(cur, 200, origin, { "Cache-Control": "no-store" });
     if (request.method !== "POST") return json({ error: "method" }, 405, origin);
     const now = Date.now();
@@ -121,11 +124,12 @@ export class HubDO extends DurableObject {
       let options;
       try { options = await request.json(); } catch (_) { return json({error:"bad-json"},400,origin); }
       if (!options || typeof options !== "object" || Array.isArray(options)) return json({error:"bad-json"},400,origin);
-      if (options.scope && options.scope !== "telegram") return json({error:"scope"},400,origin);
+      if (options.scope && options.scope !== (scope === "kpi" ? "kpi" : "telegram")) return json({error:"scope"},400,origin);
       if (options.scope === "telegram" && !/^\d{4}-\d{2}-\d{2}$/.test(options.date || "")) return json({error:"date"},400,origin);
       const next = { state: "pending", reqAt: new Date(now).toISOString(), lastDoneAt: cur.doneAt || cur.lastDoneAt || "", msg: "" };
+      if (scope === "kpi") next.scope = "kpi";
       if (options.scope === "telegram") { next.scope = "telegram"; next.date = options.date; }
-      await this.ctx.storage.put("cfg:fetchreq", next);
+      await this.ctx.storage.put(key, next);
       this.broadcast("fetchreq");
       return json(next, 200, origin);
     }
@@ -138,7 +142,7 @@ export class HubDO extends DurableObject {
     const next = Object.assign({}, cur, { state: st, msg: typeof b.msg === "string" ? b.msg.slice(0, 300) : "" });
     if (st === "running") next.startAt = new Date(now).toISOString();
     else next.doneAt = new Date(now).toISOString();
-    await this.ctx.storage.put("cfg:fetchreq", next);
+    await this.ctx.storage.put(key, next);
     this.broadcast("fetchreq");
     return json(next, 200, origin);
   }
