@@ -1,4 +1,4 @@
-import * as R from './reel-workflow.mjs?v=20261023-copy-status';
+import * as R from './reel-workflow.mjs?v=20261023-post-layout';
 
 const labels = {
   title:['REEL','REEL','REEL'],
@@ -144,7 +144,8 @@ export function createEditor(a) {
       const activeInline=editing&&buffer.partIndex===index;
       const editorField=(language,value)=>{
         if(activeInline&&editMode==='inline-'+language)return `<textarea data-re-inline maxlength="${language==='ja'?6000:pf==='X'?240:500}" aria-label="${language==='ja'?'日本語':'English'}">${e(buffer.text)}</textarea><p data-re-draft-status role="status">${e(t('localDraft'))}</p><div class="re-edit-footer">${button('noboReset',t('resetShort'),busy)}<div class="re-toolbar">${button('save',t('save'),busy,'class="re-primary"')}${button('cancel',t('cancel'),busy)}</div></div>`;
-        return `<button class="re-inline-text re-text" data-re-action="inline${language==='ja'?'Ja':'En'}" ${extra} ${disabled||editing||booked||review?'disabled':''} aria-label="${language==='ja'?'日本語':'English'} · ${e(t('clickEdit'))}">${e(value)}</button>`;
+        const display=language==='en'?R.formatEnglishPost(value,d.date,pf):value;
+        return `<button class="re-inline-text re-text" data-re-action="inline${language==='ja'?'Ja':'En'}" ${extra} ${disabled||editing||booked||review?'disabled':''} aria-label="${language==='ja'?'日本語':'English'} · ${e(t('clickEdit'))}">${e(display)}</button>`;
       };
       return `<div class="re-drafts" data-confirmed="${!!review}"><div><label for="re-ja-${d.date}${suffix}">日本語 · JA</label>${editorField('ja',ja)}</div><section class="re-nobo-field"><div class="re-field-header"><span class="re-field-label">${e(t(revised?'revisedEnglish':'draftEnglish'))}</span><div class="re-field-actions">${button(partIndex===null?'copy':'copyPart',t('copy'),!can||editing||busy,extra)}${button('confirmPart',t(review?(adminButton&&review.admin?'adminUndoConfirm':'undoConfirm'):'confirm'),disabled||editing||!canConfirm(),`${extra} data-admin-confirm="${adminButton}" aria-pressed="${!!review}"`)}</div></div>${editorField('en',copy)}</section></div>`;
     };
@@ -302,7 +303,7 @@ export function createEditor(a) {
       edit='';buffer={};render();if(pendingRemote)load();return;
     }
     if(op==='copy'||op==='copyPart'||op==='copyFeeds'){
-      if(!ready(d))return;const value=op==='copyFeeds'?R.copyPostText(p,d.date,pf):R.formatForCopy(op==='copyPart'?R.englishPart(p,Number(btn.dataset.part)):R.english(p));
+      if(!ready(d))return;const value=op==='copyFeeds'?R.copyPostText(p,d.date,pf):R.formatEnglishPost(op==='copyPart'?R.englishPart(p,Number(btn.dataset.part)):R.english(p),d.date,pf);
       try{await navigator.clipboard.writeText(value);copiedFeedback(btn);autoRefresh();}catch{notice(t('copyError'),true);}return;
     }
     if(!w&&op!=='save')return;

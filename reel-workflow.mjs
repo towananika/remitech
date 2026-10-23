@@ -42,10 +42,26 @@ export function formatForCopy(value, locale='en') {
     return joined.join('\n\n');
   }).join('');
 }
+export function formatEnglishPost(value, date, platform) {
+  const text=String(value||'');
+  const from=platform==='IG'?'2026-10-26':platform==='X'?'2026-11-01':null;
+  if(!from||!dateOK(date)||date<from)return text;
+  const units=formatForCopy(text).split(/\n+/).map(line=>line.trim()).filter(Boolean);
+  if(platform==='X')return units.join('\n\n');
+  if(units.length<2)return units.join('');
+  // IGは導入を独立させ、説明を2文ずつまとめる。質問・リンク・タグ・ブランド文は別段落。
+  const paragraphs=[units.shift()];let body=[];
+  const flush=()=>{if(body.length){paragraphs.push(body.join('\n'));body=[];}};
+  for(const unit of units){
+    if(/[?？]["”’')]*$/.test(unit)||/^(?:#|https?:\/\/|REEL\b|PLAY\s*→)/i.test(unit)){flush();paragraphs.push(unit);}
+    else{body.push(unit);if(body.length===2)flush();}
+  }
+  flush();return paragraphs.join('\n\n');
+}
 export function copyPostText(post, date, platform) {
   if(!post)return '';
   const parts=post.parts?.length?post.parts:[{label:'Feed 1',ja:post.ja}];
-  const body=parts.map((part,i)=>`【${part.label}】\nJA:\n${formatForCopy(part.ja,'ja')}\n\nEN:\n${formatForCopy(post.parts?.length?englishPart(post,i):english(post))}`).join('\n\n');
+  const body=parts.map((part,i)=>`【${part.label}】\nJA:\n${formatForCopy(part.ja,'ja')}\n\nEN:\n${formatEnglishPost(post.parts?.length?englishPart(post,i):english(post),date,platform)}`).join('\n\n');
   return `投稿日: ${date}\nSNS: ${platform}\n\n${body}`;
 }
 export function partLabels(date, platform='X') {

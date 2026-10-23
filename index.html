@@ -6911,7 +6911,7 @@
     }
     if (reelEditor) { reelEditor.renderLocation(); reelEditor.refresh(); return; }
     view.innerHTML = '<p class="empty">' + esc(t("loading")) + '</p>';
-    if (!reelLoading) reelLoading = import('./reel-editor.mjs?v=20261023-weekday').then(function (mod) {
+    if (!reelLoading) reelLoading = import('./reel-editor.mjs?v=20261023-post-layout').then(function (mod) {
       reelEditor = mod.createEditor({
         view: view, esc: esc, lang: function () { return lang; },
         active: function () { var u = authUser(); return isReelPage() && !!(u && (u.member || u.admin)); },

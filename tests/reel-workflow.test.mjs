@@ -201,11 +201,26 @@ test('copy formatting separates sentences while preserving URLs, decimals, abbre
 });
 test('bulk copy formats reviewed English per feed without changing stored or displayed text',()=>{
  const p={parts:[{label:'Feed 1',ja:'一文です。二文です。',en:'Original. Keep stored.'},{label:'Comment',ja:'コメント',en:'Original comment.'}],noboParts:['Reviewed sentence. Another sentence.','A useful link: https://example.com/v1.2. Read this.']};
- const before=JSON.stringify(p),copy=R.copyPostText(p,'2026-10-27','X');
+ const before=JSON.stringify(p),copy=R.copyPostText(p,'2026-11-02','X');
  assert.ok(copy.includes('Reviewed sentence.\n\nAnother sentence.'));
  assert.ok(copy.includes('https://example.com/v1.2.\n\nRead this.'));
  assert.equal(JSON.stringify(p),before);
  assert.equal(R.englishPart(p,0),'Reviewed sentence. Another sentence.');
+});
+test('English layout starts on Oct 26 for IG and Nov 1 for X, preserving all earlier drafts',()=>{
+ const text='Start here. Learn from real play. Share a useful review. What helped you?';
+ assert.equal(R.formatEnglishPost(text,'2026-10-25','IG'),text);
+ assert.equal(R.formatEnglishPost(text,'2026-10-31','X'),text);
+ assert.equal(R.formatEnglishPost(text,'2026-10-26','IG'),'Start here.\n\nLearn from real play.\nShare a useful review.\n\nWhat helped you?');
+ assert.equal(R.formatEnglishPost(text,'2026-11-01','X'),'Start here.\n\nLearn from real play.\n\nShare a useful review.\n\nWhat helped you?');
+ for(const pf of ['X','IG']){
+  const date=pf==='X'?'2026-11-01':'2026-10-26';
+  const formatted=R.formatEnglishPost(text,date,pf);
+  assert.equal(formatted.replace(/\s+/g,' '),text);
+  assert.equal(R.formatEnglishPost(formatted,date,pf),formatted);
+ }
+ assert.equal(R.copyPostText({ja:'日本語',en:text},'2026-10-25','IG').split('EN:\n')[1],text);
+ assert.equal(R.copyPostText({ja:'日本語',en:text},'2026-10-31','X').split('EN:\n')[1],text);
 });
 test('whole-day confirmation covers every feed and comment and can be undone',async()=>{
  let w=week('2026-10-26');w.days[0].posts.X.parts=R.partLabels(w.days[0].date,'X').map(label=>({label,ja:'日本語',en:label}));
