@@ -1,4 +1,4 @@
-import * as R from './reel-workflow.mjs?v=20261021-november';
+import * as R from './reel-workflow.mjs?v=20261023-copy-status';
 
 const labels = {
   title:['REEL','REEL','REEL'],
@@ -34,6 +34,7 @@ const labels = {
   localDraft:['この端末に下書き保存済み','Draft saved on this device','이 기기에 초안 저장됨'],localError:['この端末に保存できません。閉じる前に入力をコピーしてください。','Cannot save on this device. Copy your input before closing.','이 기기에 저장하지 못했습니다. 닫기 전에 입력을 복사하세요.'],resume:['保存した下書きから再開','Resume saved draft','저장한 초안에서 계속'],localClose:['下書きを保存して閉じる','Save draft & close','초안 저장 후 닫기'],shareSave:['修正を共有保存','Save revision for the team','수정본 공유 저장'],
   useLatest:['表示中の原稿に修正を適用','Apply edits to the displayed version','표시된 원고에 수정 적용'],
   book:['予約した','Mark scheduled','예약함'],booked:['予約済み · 解除','Scheduled · undo','예약 완료 · 해제'],
+  scheduledStatus:['予約済み','Scheduled','예약 완료'],postedStatus:['投稿済み','Posted','게시 완료'],
   edit:['日英草案を編集','Edit JA / EN drafts','일·영 초안 편집'],save:['変更を保存','Save changes','변경 저장'],cancel:['キャンセル','Cancel','취소'],
   editWarning:['本文を変更・再生成するとNOBO確認と画像プロンプトをリセットします。予約済みの本文は先に予約解除してください。','Editing or regenerating resets the NOBO check and image prompt. Undo scheduled status before changing text.','편집·재생성하면 NOBO 확인과 이미지 프롬프트가 초기화됩니다. 본문 변경 전 예약을 해제하세요.'],
   regenerate:['本文を再生成','Regenerate text','본문 재생성'],instructions:['修正したい点（任意）','What to change (optional)','수정할 내용 (선택)'],
@@ -128,7 +129,7 @@ export function createEditor(a) {
   function authorParts(day,p){return p?.parts?.map(part=>({...part}))||R.partLabels(day,pf).map((label,i)=>({label,ja:i===0?p?.ja||'':'',en:i===0?p?.en||'':''}));}
   const nonNoboReview=review=>!!review&&String(review.by||'').trim().toLowerCase()!=='nobo';
   function postHTML(d,w){
-    const p=d.posts[pf],editing=edit===d.date,booked=a.booked(d.date,pf),can=ready(d),disabled=busy||!online||!member();
+    const p=d.posts[pf],editing=edit===d.date,booked=a.booked(d.date,pf),posted=!!a.posted?.(d.date,pf),can=ready(d),disabled=busy||!online||!member();
     const otherConfirmation=R.fullyReviewed(p)&&R.partReviews(p).some(nonNoboReview);
     const button=(action,text,disabled=false,extra='')=>`<button data-re-action="${action}" ${disabled?'disabled':''} ${extra}>${e(text)}</button>`;
     const pair=(ja,en,suffix='',partIndex=null)=>{
@@ -156,23 +157,25 @@ export function createEditor(a) {
       content=p.parts?.length?p.parts.map((part,i)=>`<section class="re-part"><div class="re-toolbar"><strong>${e(part.label)}</strong>${part.nobo?`<small>${e(t('noboApplied'))}</small>`:''}</div>${pair(part.ja,part.en,'-'+i,i)}</section>`).join(''):pair(p.ja,p.en);
 
     }
-    return `<article class="re-day" data-re-day="${d.date}"><header class="re-dayhead"><div><span class="re-eyebrow">${d.date} · ${pf}</span><h3>${e(d.focus)}</h3>${p?.source?`<small>${e(t('supplied'))}</small>`:''}</div><span class="re-status" data-ready="${R.fullyReviewed(p)}">${e(R.fullyReviewed(p)?t('allConfirmed'):p?t('confirmedProgress').replace('{count}',R.partReviews(p).filter(Boolean).length).replace('{total}',R.partReviews(p).length):t('pending'))}</span></header>${content}
+    return `<article class="re-day" data-re-day="${d.date}"><header class="re-dayhead"><div><span class="re-eyebrow">${d.date} · ${pf}</span><h3>${e(d.focus)}</h3>${p?.source?`<small>${e(t('supplied'))}</small>`:''}</div><div class="re-day-statuses">${posted||booked?`<span class="re-publication" data-state="${posted?'posted':'scheduled'}">✓ ${e(t(posted?'postedStatus':'scheduledStatus'))}</span>`:''}<span class="re-status" data-ready="${R.fullyReviewed(p)}">${e(R.fullyReviewed(p)?t('allConfirmed'):p?t('confirmedProgress').replace('{count}',R.partReviews(p).filter(Boolean).length).replace('{total}',R.partReviews(p).length):t('pending'))}</span></div></header>${content}
 
       <div class="re-actions">${p?button('confirmDay',(otherConfirmation&&p.secondReview?.admin)?pf+' · '+t('adminUndoConfirm'):t(R.fullyReviewed(p)?'unconfirmDay':'confirmDay').replace('{sns}',pf),disabled||editing||!canConfirm(),`data-admin-confirm="${otherConfirmation}" aria-pressed="${R.fullyReviewed(p)}"`):''}${button('copyFeeds',t('copyFeeds'),!can||editing||busy,'class="re-primary"')}
-      ${button('book',pf+' · '+t(booked?'booked':'book'),disabled||editing||(!can&&!booked),`aria-pressed="${booked}"`)}
+      ${button('book',(booked?'✓ ':'')+pf+' · '+t(booked?'booked':'book'),disabled||editing||(!can&&!booked),`class="re-book-button" data-booked="${booked}" aria-pressed="${booked}"`)}
       </div></article>${d.date===R.EDITOR_END_DATE?`<div class="re-weekend-end">${e(t('wellDone'))}</div>`:''}`;
   }
   function checkOverview(){
     const today=R.today(),start=R.addDays(today,calendarOffset*7),dates=Array.from({length:14},(_,i)=>R.addDays(start,i));
-    const statuses=[['empty',t('noDraft'),'—'],['pending',t('pending'),'·'],['checked',t('checked'),'✓']];
+    const statuses=[['empty',t('noDraft'),'—'],['pending',t('pending'),'·'],['checked',t('checked'),'✓'],['scheduled',t('scheduledStatus'),'✓'],['posted',t('postedStatus'),'✓']];
     const weekdays=({ja:['日','月','火','水','木','金','土'],en:['Sun','Mon','Tue','Wed','Thu','Fri','Sat'],ko:['일','월','화','수','목','금','토']})[a.lang()]||['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
     const head=`<span class="re-check-corner">SNS</span>${dates.map(day=>{const weekday=new Date(day+'T00:00:00Z').getUTCDay(),national=R.koreanHoliday(day,a.lang()),holiday=!!(national||holidays[day]),description=national?t('koreanHoliday')+national:holidays[day]?t('holidayUnset'):weekday===0?t('sunday')+' · '+t('holidaySet'):t('holidaySet');return `<button class="re-check-date" data-re-holiday="${day}" data-weekday="${weekday}" data-holiday="${holiday}" ${day===today?'data-today="true"':''} title="${e(description)}" aria-label="${day} · ${e(description)}" aria-pressed="${holiday}" ${busy||!member()||!online?'disabled':''}><span>${day.slice(5).replace('-','/')}</span><small>${e(weekdays[weekday])}</small></button>`;}).join('')}`;
     const rows=['X','IG'].map(channel=>`<strong class="re-check-channel">${channel}</strong>${dates.map(day=>{
       const post=find(day).d?.posts[channel];
       const external=!post&&externalReviews.some(r=>r.date===day&&r.platform===channel);
       const status=external?statuses[2]:!post?statuses[0]:!R.fullyReviewed(post)?statuses[1]:statuses[2];
-      const name=`${day} · ${channel} · ${external?t('externalReview'):status[1]}`;
-      return `<button class="re-check-circle" data-re-check-date="${day}" data-re-check-platform="${channel}" data-external-review="${external}" data-status="${status[0]}" aria-label="${e(name)}" title="${e(name)}" aria-pressed="${day===date&&pf===channel}" ${busy||day>R.EDITOR_END_DATE?'disabled':''}>${status[2]}</button>`;
+      const posted=!!a.posted?.(day,channel),booked=a.booked(day,channel),publication=posted?'posted':booked?'scheduled':'';
+      const publicationLabel=publication?t(posted?'postedStatus':'scheduledStatus'):'';
+      const name=`${day} · ${channel} · ${external?t('externalReview'):status[1]}${publication?' · '+publicationLabel:''}`;
+      return `<div class="re-check-cell"><button class="re-check-circle" data-re-check-date="${day}" data-re-check-platform="${channel}" data-external-review="${external}" data-status="${status[0]}" data-publication="${publication}" aria-label="${e(name)}" title="${e(name)}" aria-pressed="${day===date&&pf===channel}" ${busy||day>R.EDITOR_END_DATE?'disabled':''}>${status[2]}</button>${publication?`<span class="re-calendar-publication" data-state="${publication}">${e(publicationLabel)}</span>`:''}</div>`;
     }).join('')}`).join('');
     return `<section class="re-check-overview" aria-label="${e(t('checkOverview'))}"><header class="re-check-header"><div><strong class="re-check-title">${e(t('checkOverview'))}</strong><small class="re-check-range">${dates[0]} — ${dates[13]}</small></div><div class="re-toolbar"><button data-re-action="calendarPrevious" aria-label="${e(t('calendarPrev'))}" title="${e(t('calendarPrev'))}" ${busy?'disabled':''}>←</button><button data-re-action="calendarNext" aria-label="${e(t('calendarNext'))}" title="${e(t('calendarNext'))}" ${busy?'disabled':''}>→</button></div></header><div class="re-check-scroll" tabindex="0" role="region" aria-label="${e(t('checkOverview'))}"><div class="re-check-grid">${head}${rows}</div></div><div class="re-check-legend">${statuses.map(([state,label,symbol])=>`<span><i data-status="${state}" aria-hidden="true">${symbol}</i>${e(label)}</span>`).join('')}</div></section>`;
   }
@@ -295,7 +298,7 @@ export function createEditor(a) {
       edit='';buffer={};render();if(pendingRemote)load();return;
     }
     if(op==='copy'||op==='copyPart'||op==='copyFeeds'){
-      if(!ready(d))return;const value=op==='copyFeeds'?R.copyPostText(p,d.date,pf):op==='copyPart'?R.englishPart(p,Number(btn.dataset.part)):R.english(p);
+      if(!ready(d))return;const value=op==='copyFeeds'?R.copyPostText(p,d.date,pf):R.formatForCopy(op==='copyPart'?R.englishPart(p,Number(btn.dataset.part)):R.english(p));
       try{await navigator.clipboard.writeText(value);copiedFeedback(btn);autoRefresh();}catch{notice(t('copyError'),true);}return;
     }
     if(!w&&op!=='save')return;

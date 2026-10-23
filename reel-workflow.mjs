@@ -25,10 +25,27 @@ export function partReviews(post) {
 export function fullyReviewed(post) { return !!post && partReviews(post).every(Boolean); }
 export function english(post) { return post?.noboEn || post?.en || ''; }
 export function englishPart(post, i) { return post?.noboParts?.[i] || post?.parts?.[i]?.en || ''; }
+// 投稿用のコピー時だけ整形する。保存原稿・画面表示は変更しない。
+export function formatForCopy(value, locale='en') {
+  const text=String(value||'').replace(/\r\n?/g,'\n');
+  const segmenter=typeof Intl.Segmenter==='function'?new Intl.Segmenter(locale,{granularity:'sentence'}):null;
+  return text.split(/(\n+)/).map(line=>{
+    if(!line||/^\n+$/.test(line))return line;
+    const sentences=segmenter?Array.from(segmenter.segment(line),x=>x.segment.trim()):line.split(/(?<=[.!?。！？])\s+(?=[A-Z\p{Script=Han}\p{Script=Hiragana}])/u);
+    const joined=[];
+    sentences.forEach(sentence=>{
+      if(!sentence)return;
+      const prev=joined[joined.length-1];
+      if(prev&&(/(?:\b(?:Mr|Mrs|Ms|Dr|Prof|Sr|Jr|St|vs|etc)|\b(?:e\.g|i\.e))\.$/i.test(prev)||/^(?:\d+|[A-Z])\.$/.test(prev)))joined[joined.length-1]+=' '+sentence;
+      else joined.push(sentence);
+    });
+    return joined.join('\n\n');
+  }).join('');
+}
 export function copyPostText(post, date, platform) {
   if(!post)return '';
   const parts=post.parts?.length?post.parts:[{label:'Feed 1',ja:post.ja}];
-  const body=parts.map((part,i)=>`【${part.label}】\nJA:\n${part.ja||''}\n\nEN:\n${post.parts?.length?englishPart(post,i):english(post)}`).join('\n\n');
+  const body=parts.map((part,i)=>`【${part.label}】\nJA:\n${formatForCopy(part.ja,'ja')}\n\nEN:\n${formatForCopy(post.parts?.length?englishPart(post,i):english(post))}`).join('\n\n');
   return `投稿日: ${date}\nSNS: ${platform}\n\n${body}`;
 }
 export function partLabels(date, platform='X') {

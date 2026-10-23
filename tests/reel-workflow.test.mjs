@@ -190,6 +190,23 @@ test('bulk copy includes posting date, all Japanese/English feeds and corrected 
  assert.ok(weekend.includes('週末'));assert.ok(weekend.includes('Weekend'));assert.ok(!weekend.includes('Comment'));
  assert.ok(R.copyPostText({ja:'旧形式',en:'Legacy',noboEn:'Revised legacy'},'2026-10-31','IG').includes('Revised legacy'));
 });
+test('copy formatting separates sentences while preserving URLs, decimals, abbreviations and existing paragraphs',()=>{
+ const input='Dr. Smith earned $3.50. Visit https://example.com/v1.2 for details. Ready?\n\n#REEL #GameFi';
+ const expected='Dr. Smith earned $3.50.\n\nVisit https://example.com/v1.2 for details.\n\nReady?\n\n#REEL #GameFi';
+ assert.equal(R.formatForCopy(input),expected);
+ assert.equal(R.formatForCopy(expected),expected);
+ assert.equal(R.formatForCopy('The U.S. market grew. We played, e.g. a demo. Then we wrote a review.'),'The U.S. market grew.\n\nWe played, e.g. a demo.\n\nThen we wrote a review.');
+ assert.equal(R.formatForCopy('一つ目の文です。次の文です。','ja'),'一つ目の文です。\n\n次の文です。');
+ assert.equal(R.formatForCopy('1. Play the game. 2. Write a review.'),'1. Play the game.\n\n2. Write a review.');
+});
+test('bulk copy formats reviewed English per feed without changing stored or displayed text',()=>{
+ const p={parts:[{label:'Feed 1',ja:'一文です。二文です。',en:'Original. Keep stored.'},{label:'Comment',ja:'コメント',en:'Original comment.'}],noboParts:['Reviewed sentence. Another sentence.','A useful link: https://example.com/v1.2. Read this.']};
+ const before=JSON.stringify(p),copy=R.copyPostText(p,'2026-10-27','X');
+ assert.ok(copy.includes('Reviewed sentence.\n\nAnother sentence.'));
+ assert.ok(copy.includes('https://example.com/v1.2.\n\nRead this.'));
+ assert.equal(JSON.stringify(p),before);
+ assert.equal(R.englishPart(p,0),'Reviewed sentence. Another sentence.');
+});
 test('whole-day confirmation covers every feed and comment and can be undone',async()=>{
  let w=week('2026-10-26');w.days[0].posts.X.parts=R.partLabels(w.days[0].date,'X').map(label=>({label,ja:'日本語',en:label}));
  const c=context({seed:[w]});let r=await c.request(action('confirm-part',w,{partIndex:0}));w=r.week;

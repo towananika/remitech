@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@300;400;500&family=Shippori+Mincho:wght@500&display=swap">
-<link rel="stylesheet" href="./reel-editor.css?v=20261020-compact-actions">
+<link rel="stylesheet" href="./reel-editor.css?v=20261023-copy-status">
 <style>
   :root{
     --neon:#2bff88; --neon-ink:#07361b;
@@ -6911,7 +6911,7 @@
     }
     if (reelEditor) { reelEditor.renderLocation(); reelEditor.refresh(); return; }
     view.innerHTML = '<p class="empty">' + esc(t("loading")) + '</p>';
-    if (!reelLoading) reelLoading = import('./reel-editor.mjs?v=20261021-november').then(function (mod) {
+    if (!reelLoading) reelLoading = import('./reel-editor.mjs?v=20261023-copy-status').then(function (mod) {
       reelEditor = mod.createEditor({
         view: view, esc: esc, lang: function () { return lang; },
         active: function () { var u = authUser(); return isReelPage() && !!(u && (u.member || u.admin)); },
@@ -6924,6 +6924,11 @@
           return !!(schedule && (schedule.slots || []).some(function (s) {
             return slotCh(s) === "reel" && s.date === day && (s.platform || "X") === pf && s.time === "17:00" && isSched(s) && !s.skip;
           }));
+        },
+        posted: function (day, pf) {
+          return !!(schedule && (schedule.slots || []).some(function (s) {
+            return slotCh(s) === "reel" && s.date === day && (s.platform || "X") === pf && isPosted(s);
+          })) || tgVerifiedPosts(pcAcct("reel", pf), day, pf).length > 0;
         },
         pullBookings: function () { return bookPull(true); }
       });
