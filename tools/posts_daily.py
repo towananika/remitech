@@ -2,8 +2,8 @@
 Windows のタスクスケジューラから:
   ・毎日 17:20（HIYOKO・REEL の17時の投稿のあと）と 20:20（NACHA の20時の投稿のあと）
   ・HUB の「投稿確認」ボタンの依頼を見たとき（tools/posts_poll.py から run() を呼ぶ）
-Instagram・YouTube・X の最近の投稿を posts_check.json に集め → それだけをコミット → push してサイトに出す。
-（Facebook・TikTok はログインしないと読めない）
+Instagram・YouTube・X・TikTokの最近の投稿を posts_check.json に集め → それだけをコミット → push してサイトに出す。
+TikTokは公開埋め込みと個別動画から投稿日時を確認する。Facebookは公開状態を確認できた投稿のみ。
 ログ: tools/posts_daily.log（最後の 200 行だけ残す）
 """
 import datetime

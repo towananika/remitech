@@ -4,8 +4,8 @@
   自動（毎日 12:00、kpi_daily.py から）:
     Instagram : ヘッドレスブラウザでプロフィール → 投稿ページの og:description（いいね・コメント・日付・本文）と time
     YouTube   : 動画ページの HTML（公開日時・再生数・いいね。コメント数は取れない）
-  頼んだとき（「投稿確認して」）: X・Facebook・TikTok はアプリ内ブラウザで読み、--merge で足す
-    （X はヘッドレスだと 403、TikTok はヘッドレスだと動画の一覧が出ない）
+  TikTok : 公開埋め込み一覧で動画IDを取得し、個別動画で投稿者・公開日時を確認する
+    通常の一覧がエラーでも、公開埋め込みを読める場合は取得できる。
 
 どの投稿が予約のどの枠かは、画面（index.html の投稿タブ）が日付・時刻・本文で照らし合わせる。ここは集めるだけ。
 
@@ -22,8 +22,10 @@ import sys
 import urllib.request
 try:
     from .post_links import post_url
+    from .tiktok_posts import tiktok_posts
 except ImportError:
     from post_links import post_url
+    from tiktok_posts import tiktok_posts
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 OUT = ROOT / "posts_check.json"
@@ -269,7 +271,7 @@ def auto(telegram_date=None):
         if c.get("id") not in CHANNELS or (allowed is not None and c.get("id") not in allowed):
             continue
         for l in c.get("links", []):
-            if l.get("kind") in ("Instagram", "YouTube", "X", "Facebook"):
+            if l.get("kind") in ("Instagram", "YouTube", "X", "Facebook", "TikTok"):
                 targets.append((c["id"], l["kind"], l["url"]))
     for ch, kind, url in [t for t in targets if t[1] == "YouTube"]:
         try:
@@ -279,14 +281,15 @@ def auto(telegram_date=None):
         except Exception as e:
             warn.append("%s YouTube: 失敗（%s）" % (ch, e))
     ig = [t for t in targets if t[1] == "Instagram"]
+    tt = [t for t in targets if t[1] == "TikTok"]
     xs = [t for t in targets if t[1] in ("X", "Facebook")]   # Facebook も X と同じ Chromium 本体で読む（2026-10-16）
-    if ig or xs:
+    if ig or tt or xs:
         try:
             from playwright.sync_api import sync_playwright
         except ImportError:
-            warn.append("Instagram・X: playwright が入っていない")
-            ig, xs = [], []
-    if ig or xs:
+            warn.append("Instagram・TikTok・X: playwright が入っていない")
+            ig, tt, xs = [], [], []
+    if ig or tt or xs:
         with sync_playwright() as p:
             b = p.chromium.launch(headless=True)
             page = b.new_context(user_agent=UA, locale="en-US", viewport={"width": 1280, "height": 900}).new_page()
@@ -297,6 +300,13 @@ def auto(telegram_date=None):
                     report.append("%s Instagram: %d件" % (ch, len(got)))
                 except Exception as e:
                     warn.append("%s Instagram: 失敗（%s）" % (ch, e))
+            for ch, kind, url in tt:
+                try:
+                    got = tiktok_posts(page, url)
+                    merge(data, ch + "|TT", got, "auto")
+                    report.append("%s TikTok: %d件" % (ch, len(got)))
+                except Exception as e:
+                    warn.append("%s TikTok: 失敗（%s）" % (ch, e))
             b.close()
             # X は画面なし専用の部品だと 403。Chromium 本体を新しい画面なしモードで動かすと読める（2026-10-15 確認）
             if xs:
