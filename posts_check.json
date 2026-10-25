@@ -1,6 +1,6 @@
 {
  "note": "投稿タブ用。tools/posts_fetch.py が書く",
- "updated": "2026-10-25T03:13:59+00:00",
+ "updated": "2026-10-25T08:24:10+00:00",
  "accounts": {
   "hiyoko|YT": {
    "posts": [
@@ -9,47 +9,47 @@
      "at": "2026-10-24T02:47:39-07:00",
      "text": "what's your shower song? 🐣🎤",
      "views": 3,
-     "seen": "2026-10-25T03:11:42+00:00"
+     "seen": "2026-10-25T08:20:08+00:00"
     },
     {
      "url": "https://youtube.com/shorts/gY3Ol-RTv1U",
      "at": "2026-10-22T01:00:10-07:00",
      "text": "cutest doodle just came to life 🐣✏️   #fyp #hiyoko #cute",
-     "views": 3337,
+     "views": 3449,
      "likes": 13,
-     "seen": "2026-10-25T03:11:42+00:00"
+     "seen": "2026-10-25T08:20:08+00:00"
     },
     {
      "url": "https://youtube.com/shorts/5l3E360YpWY",
      "at": "2026-10-16T01:40:28-07:00",
      "text": "Confidence: 100. Balance: 0. 💀🐣 #fyp #fail #hiyoko",
-     "views": 23,
+     "views": 26,
      "likes": 1,
-     "seen": "2026-10-25T03:11:42+00:00"
+     "seen": "2026-10-25T08:20:08+00:00"
     },
     {
      "url": "https://youtube.com/shorts/neDFtduoJko",
      "at": "2026-10-14T04:46:38-07:00",
      "text": "SOUND ON!!",
-     "views": 109,
+     "views": 110,
      "likes": 1,
-     "seen": "2026-10-25T03:11:42+00:00"
+     "seen": "2026-10-25T08:20:08+00:00"
     },
     {
      "url": "https://youtube.com/shorts/7wWK1Y3ersA",
      "at": "2026-10-11T09:55:26-07:00",
      "text": "Sailor-yoko — transformation complete! 🌙✨💖 #Saileryoko #SailorMoon #HIYOKO",
-     "views": 219,
+     "views": 220,
      "likes": 1,
-     "seen": "2026-10-25T03:11:42+00:00"
+     "seen": "2026-10-25T08:20:08+00:00"
     },
     {
      "url": "https://youtube.com/shorts/dBMhodR9Guw",
      "at": "2026-10-08T01:00:38-07:00",
      "text": "look into my eyes👀 #chick",
-     "views": 360,
+     "views": 361,
      "likes": 6,
-     "seen": "2026-10-25T03:11:42+00:00"
+     "seen": "2026-10-25T08:20:08+00:00"
     },
     {
      "url": "https://youtube.com/shorts/dh3IHu7T8q8",
@@ -60,11 +60,20 @@
      "seen": "2026-10-23T11:20:08+00:00"
     }
    ],
-   "checkedAt": "2026-10-25T03:11:42+00:00",
+   "checkedAt": "2026-10-25T08:20:08+00:00",
    "source": "auto"
   },
   "hiyoko|IG": {
    "posts": [
+    {
+     "url": "https://instagram.com/p/De6OnNcD4Tg",
+     "at": "2026-10-25T08:00:12.000Z",
+     "text": "HIYOKO's essentials. 🐣👜\n\n#HIYOKO #HYK #fyp",
+     "likes": 0,
+     "comments": 0,
+     "kind": "post",
+     "seen": "2026-10-25T08:20:58+00:00"
+    },
     {
      "url": "https://instagram.com/reel/De31fA2yySN",
      "at": "2026-10-24T09:42:10.000Z",
@@ -72,7 +81,7 @@
      "likes": 29,
      "comments": 2,
      "kind": "reel",
-     "seen": "2026-10-25T03:12:21+00:00"
+     "seen": "2026-10-25T08:20:58+00:00"
     },
     {
      "url": "https://instagram.com/p/De1FD_ukh23",
@@ -81,7 +90,7 @@
      "likes": 10,
      "comments": 0,
      "kind": "post",
-     "seen": "2026-10-25T03:12:21+00:00"
+     "seen": "2026-10-25T08:20:58+00:00"
     },
     {
      "url": "https://instagram.com/reel/DeygT89BpBu",
@@ -90,19 +99,19 @@
      "likes": 23,
      "comments": 0,
      "kind": "reel",
-     "seen": "2026-10-25T03:12:21+00:00"
+     "seen": "2026-10-25T08:20:58+00:00"
     },
     {
      "url": "https://instagram.com/p/Dev7gjfCcAw",
      "at": "2026-10-21T08:00:51.000Z",
      "kind": "post",
-     "seen": "2026-10-25T03:12:21+00:00"
+     "seen": "2026-10-25T08:20:58+00:00"
     },
     {
      "url": "https://instagram.com/p/DetWphvD0Z3",
      "at": "2026-10-20T08:00:17.000Z",
      "kind": "post",
-     "seen": "2026-10-25T03:12:21+00:00"
+     "seen": "2026-10-25T08:20:58+00:00"
     },
     {
      "url": "https://instagram.com/p/DeoNEflD4QF",
@@ -111,7 +120,7 @@
      "likes": 10,
      "comments": 1,
      "kind": "post",
-     "seen": "2026-10-25T03:12:21+00:00"
+     "seen": "2026-10-25T08:20:58+00:00"
     },
     {
      "url": "https://instagram.com/p/DeloTR_Ept6",
@@ -120,7 +129,7 @@
      "likes": 9,
      "comments": 0,
      "kind": "post",
-     "seen": "2026-10-25T03:12:21+00:00"
+     "seen": "2026-10-25T08:20:58+00:00"
     },
     {
      "url": "https://instagram.com/reel/DejDgSnh61W",
@@ -141,11 +150,20 @@
      "seen": "2026-10-23T11:20:55+00:00"
     }
    ],
-   "checkedAt": "2026-10-25T03:12:21+00:00",
+   "checkedAt": "2026-10-25T08:20:58+00:00",
    "source": "auto"
   },
   "reel|IG": {
    "posts": [
+    {
+     "url": "https://instagram.com/p/De6OnftDGyq",
+     "at": "2026-10-25T08:00:14.000Z",
+     "text": "On the day your effort gets recognized,\neven the walk home looks different.\n\nAll for turning play into reward. Web3 Token Project | REEL\nFind us on X @REEL_Experience\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3Gaming #Gamer #GamingCommunity",
+     "likes": 0,
+     "comments": 0,
+     "kind": "post",
+     "seen": "2026-10-25T08:22:18+00:00"
+    },
     {
      "url": "https://instagram.com/p/De3p4HRjczR",
      "at": "2026-10-24T08:00:42.000Z",
@@ -153,7 +171,7 @@
      "likes": 0,
      "comments": 0,
      "kind": "post",
-     "seen": "2026-10-25T03:13:37+00:00"
+     "seen": "2026-10-25T08:22:18+00:00"
     },
     {
      "url": "https://instagram.com/p/De1FDN-D3UT",
@@ -162,7 +180,7 @@
      "likes": 4,
      "comments": 0,
      "kind": "post",
-     "seen": "2026-10-25T03:13:37+00:00"
+     "seen": "2026-10-25T08:22:18+00:00"
     },
     {
      "url": "https://instagram.com/p/DeygOjFketK",
@@ -171,7 +189,7 @@
      "likes": 1,
      "comments": 0,
      "kind": "post",
-     "seen": "2026-10-25T03:13:37+00:00"
+     "seen": "2026-10-25T08:22:18+00:00"
     },
     {
      "url": "https://instagram.com/p/Dev7gKFCpMZ",
@@ -180,7 +198,7 @@
      "likes": 2,
      "comments": 0,
      "kind": "post",
-     "seen": "2026-10-25T03:13:37+00:00"
+     "seen": "2026-10-25T08:22:18+00:00"
     },
     {
      "url": "https://instagram.com/p/DetWuBciFqI",
@@ -189,7 +207,7 @@
      "likes": 4,
      "comments": 0,
      "kind": "post",
-     "seen": "2026-10-25T03:13:37+00:00"
+     "seen": "2026-10-25T08:22:18+00:00"
     },
     {
      "url": "https://instagram.com/p/Deqx2kGH54-",
@@ -198,7 +216,7 @@
      "likes": 3,
      "comments": 1,
      "kind": "post",
-     "seen": "2026-10-25T03:13:37+00:00"
+     "seen": "2026-10-25T08:22:18+00:00"
     },
     {
      "url": "https://instagram.com/p/DeoNFL_AfaZ",
@@ -207,7 +225,7 @@
      "likes": 2,
      "comments": 0,
      "kind": "post",
-     "seen": "2026-10-25T03:13:37+00:00"
+     "seen": "2026-10-25T08:22:18+00:00"
     },
     {
      "url": "https://instagram.com/p/DeloVgwDxF3",
@@ -228,7 +246,7 @@
      "seen": "2026-10-23T11:22:12+00:00"
     }
    ],
-   "checkedAt": "2026-10-25T03:13:37+00:00",
+   "checkedAt": "2026-10-25T08:22:18+00:00",
    "source": "auto"
   },
   "hiyoko|TT": {
@@ -237,16 +255,16 @@
      "url": "https://tiktok.com/@hiyoko_global/video/7700168775940853044",
      "at": "2026-10-24T09:47:42+00:00",
      "text": "what's your shower song? 🐣🎤",
-     "likes": 0,
+     "likes": 5,
      "comments": 0,
-     "views": 20,
+     "views": 330,
      "reposts": 0,
      "pinned": false,
      "linkCheck": {
       "state": "ok",
-      "checkedAt": "2026-10-24T11:22:15.854709+00:00"
+      "checkedAt": "2026-10-25T08:22:25.044583+00:00"
      },
-     "seen": "2026-10-24T11:22:28+00:00"
+     "seen": "2026-10-25T08:22:37+00:00"
     },
     {
      "url": "https://tiktok.com/@hiyoko_global/video/7699287016223165716",
@@ -254,14 +272,14 @@
      "text": "cutest doodle just came to life 🐣✏️   #fyp #hiyoko #cute",
      "likes": 3,
      "comments": 1,
-     "views": 251,
+     "views": 256,
      "reposts": 0,
      "pinned": false,
      "linkCheck": {
       "state": "ok",
-      "checkedAt": "2026-10-24T11:22:17.621357+00:00"
+      "checkedAt": "2026-10-25T08:22:26.556792+00:00"
      },
-     "seen": "2026-10-24T11:22:28+00:00"
+     "seen": "2026-10-25T08:22:37+00:00"
     },
     {
      "url": "https://tiktok.com/@hiyoko_global/video/7697086620087897364",
@@ -269,14 +287,14 @@
      "text": "Confidence: 100. Balance: 0. 📷📷  #fyp #fail #HIYOKO",
      "likes": 1,
      "comments": 0,
-     "views": 21,
+     "views": 23,
      "reposts": 0,
      "pinned": false,
      "linkCheck": {
       "state": "ok",
-      "checkedAt": "2026-10-24T11:22:19.286854+00:00"
+      "checkedAt": "2026-10-25T08:22:27.804036+00:00"
      },
-     "seen": "2026-10-24T11:22:28+00:00"
+     "seen": "2026-10-25T08:22:37+00:00"
     },
     {
      "url": "https://tiktok.com/@hiyoko_global/video/7696488509820898581",
@@ -284,14 +302,14 @@
      "text": "SOUND ON!! dance dance~ we vibin’! 🐣🎶 #HIYOKO #shortsviral ",
      "likes": 2,
      "comments": 0,
-     "views": 151,
+     "views": 155,
      "reposts": 0,
      "pinned": false,
      "linkCheck": {
       "state": "ok",
-      "checkedAt": "2026-10-24T11:22:21.117516+00:00"
+      "checkedAt": "2026-10-25T08:22:29.108369+00:00"
      },
-     "seen": "2026-10-24T11:22:28+00:00"
+     "seen": "2026-10-25T08:22:37+00:00"
     },
     {
      "url": "https://tiktok.com/@hiyoko_global/video/7695454561661717767",
@@ -299,14 +317,14 @@
      "text": "Sailor-yoko — transformation complete! 🌙✨💖 #HIYOKO #Saileryoko #SailorMoon",
      "likes": 13,
      "comments": 0,
-     "views": 467,
+     "views": 469,
      "reposts": 0,
      "pinned": false,
      "linkCheck": {
       "state": "ok",
-      "checkedAt": "2026-10-24T11:22:22.287340+00:00"
+      "checkedAt": "2026-10-25T08:22:30.360622+00:00"
      },
-     "seen": "2026-10-24T11:22:28+00:00"
+     "seen": "2026-10-25T08:22:37+00:00"
     },
     {
      "url": "https://tiktok.com/@hiyoko_global/video/7694202753165380884",
@@ -314,14 +332,14 @@
      "text": "look into my eyes👀 #chick ",
      "likes": 6,
      "comments": 0,
-     "views": 334,
+     "views": 335,
      "reposts": 0,
      "pinned": false,
      "linkCheck": {
       "state": "ok",
-      "checkedAt": "2026-10-24T11:22:23.553091+00:00"
+      "checkedAt": "2026-10-25T08:22:31.795155+00:00"
      },
-     "seen": "2026-10-24T11:22:28+00:00"
+     "seen": "2026-10-25T08:22:37+00:00"
     },
     {
      "url": "https://tiktok.com/@hiyoko_global/video/7691680077129469192",
@@ -334,9 +352,9 @@
      "pinned": false,
      "linkCheck": {
       "state": "ok",
-      "checkedAt": "2026-10-24T11:22:24.720107+00:00"
+      "checkedAt": "2026-10-25T08:22:33.146329+00:00"
      },
-     "seen": "2026-10-24T11:22:28+00:00"
+     "seen": "2026-10-25T08:22:37+00:00"
     },
     {
      "url": "https://tiktok.com/@hiyoko_global/video/7688664905721040136",
@@ -349,9 +367,9 @@
      "pinned": false,
      "linkCheck": {
       "state": "ok",
-      "checkedAt": "2026-10-24T11:22:26.016233+00:00"
+      "checkedAt": "2026-10-25T08:22:34.553794+00:00"
      },
-     "seen": "2026-10-24T11:22:28+00:00"
+     "seen": "2026-10-25T08:22:37+00:00"
     },
     {
      "url": "https://tiktok.com/@hiyoko_global/video/7686701899915087124",
@@ -359,14 +377,14 @@
      "text": "payday came and went.💸#fyp #payday #kawaii",
      "likes": 3,
      "comments": 1,
-     "views": 255,
+     "views": 256,
      "reposts": 0,
      "pinned": false,
      "linkCheck": {
       "state": "ok",
-      "checkedAt": "2026-10-24T11:22:27.306191+00:00"
+      "checkedAt": "2026-10-25T08:22:36.004558+00:00"
      },
-     "seen": "2026-10-24T11:22:28+00:00"
+     "seen": "2026-10-25T08:22:37+00:00"
     },
     {
      "url": "https://tiktok.com/@hiyoko_global/video/7686407864147021074",
@@ -379,9 +397,9 @@
      "pinned": false,
      "linkCheck": {
       "state": "ok",
-      "checkedAt": "2026-10-24T11:22:28.574054+00:00"
+      "checkedAt": "2026-10-25T08:22:37.505393+00:00"
      },
-     "seen": "2026-10-24T11:22:28+00:00"
+     "seen": "2026-10-25T08:22:37+00:00"
     },
     {
      "url": "https://tiktok.com/@hiyoko_global/video/7685192027440532756",
@@ -399,40 +417,60 @@
      "seen": "2026-10-23T08:32:48+00:00"
     }
    ],
-   "checkedAt": "2026-10-24T11:22:28+00:00",
+   "checkedAt": "2026-10-25T08:22:37+00:00",
    "source": "auto"
   },
   "hiyoko|X": {
    "posts": [
     {
+     "url": "https://x.com/HiyokoGlobal/status/2114265723719897481",
+     "at": "2026-10-25T08:00:04.349Z",
+     "text": "loading web3... 🐣\n\n▓▓▓▓▓▓▓▓▓▓ 100%\n\nhiyoko is ready.\n\n#HIYOKO #HYK #Web3",
+     "likes": 0,
+     "views": 9,
+     "comments": 0,
+     "reposts": 0,
+     "seen": "2026-10-25T08:23:14+00:00"
+    },
+    {
+     "url": "https://x.com/HiyokoGlobal/status/2114153474846048381",
+     "at": "2026-10-25T00:34:02.132Z",
+     "text": "hiyoko this week 🐣\n\n✅ season 1 started — hyk $0.040\n✅ invisible web3 — web3 without knowing it\n✅ network effect — you change things when you join\n✅ tokenomics — burn / buyback / treasury\n✅ hiyoko world — 🎮💊⭐🪙\n\ndidn't stop for a second.\n\n#HIYOKO #HYK #Web3",
+     "likes": 0,
+     "views": 33,
+     "comments": 0,
+     "reposts": 0,
+     "seen": "2026-10-25T08:23:14+00:00"
+    },
+    {
      "url": "https://x.com/HiyokoGlobal/status/2113904332601167886",
      "at": "2026-10-24T08:04:01.992Z",
      "text": "150,000,000 downloads. 🐣\n\nthe numbers speak.\nhiyoko is already proven.\n\n10,000+ free games.\ncome play now.\n\n#HIYOKO #HappyChick #Web3",
-     "likes": 1,
-     "views": 18,
+     "likes": 2,
+     "views": 50,
      "comments": 0,
      "reposts": 0,
-     "seen": "2026-10-24T11:22:56+00:00"
+     "seen": "2026-10-25T08:23:14+00:00"
     },
     {
      "url": "https://x.com/HiyokoGlobal/status/2113790583252930688",
      "at": "2026-10-24T00:32:02.034Z",
      "text": "your health data,\nnow you can actually read it. 🐣\n\nvitalis — ai decodes it for you.\n68,000+ already waiting.\n\nnot complicated numbers.\nwords you understand.\n\n#HIYOKO #Vitalis #Web3",
-     "likes": 0,
-     "views": 29,
+     "likes": 1,
+     "views": 49,
      "comments": 0,
      "reposts": 0,
-     "seen": "2026-10-24T11:22:56+00:00"
+     "seen": "2026-10-25T08:23:14+00:00"
     },
     {
      "url": "https://x.com/HiyokoGlobal/status/2113541692511154434",
      "at": "2026-10-23T08:03:01.857Z",
      "text": "hyk isn't just a token. 🐣\n\n🔥 burn — reduce supply\n💰 buyback — buy it back\n🏦 treasury — protect the ecosystem\n\nall three move together.\n\n#HIYOKO #HYK #Tokenomics",
      "likes": 5,
-     "views": 71,
+     "views": 79,
      "comments": 0,
      "reposts": 0,
-     "seen": "2026-10-24T11:22:56+00:00"
+     "seen": "2026-10-25T08:23:14+00:00"
     },
     {
      "url": "https://x.com/HiyokoGlobal/status/2113446999727214966",
@@ -475,11 +513,23 @@
      "seen": "2026-10-23T11:22:59+00:00"
     }
    ],
-   "checkedAt": "2026-10-24T11:22:56+00:00",
+   "checkedAt": "2026-10-25T08:23:14+00:00",
    "source": "auto"
   },
   "hiyoko|FB": {
    "posts": [
+    {
+     "url": "https://facebook.com/permalink.php?story_fbid=pfbid021sL9NSfVbAq3nLsZSPrj44Q2yf4pwDp1wd59TGL9i6yu7ZXjKoY1XxV3g5rVs7zrl&id=100090532489960",
+     "at": "2026-10-25T08:00:25+00:00",
+     "text": "Hiyoko Xiaoji\n23분 전\n23분\n \n·\nHIYOKO's essentials. \n#… 더 보기\n모든 공감:\n1\n좋아요\n댓글",
+     "approx": true,
+     "linkCheck": {
+      "url": "https://facebook.com/permalink.php?story_fbid=pfbid021sL9NSfVbAq3nLsZSPrj44Q2yf4pwDp1wd59TGL9i6yu7ZXjKoY1XxV3g5rVs7zrl&id=100090532489960",
+      "checkedAt": "2026-10-25T08:23:31+00:00",
+      "state": "unverified"
+     },
+     "seen": "2026-10-25T08:23:34+00:00"
+    },
     {
      "url": "https://facebook.com/reel/1425168946492782",
      "at": "2026-10-24T10:23:04+00:00",
@@ -517,20 +567,30 @@
      "seen": "2026-10-23T08:41:14+00:00"
     }
    ],
-   "checkedAt": "2026-10-24T11:23:11+00:00",
+   "checkedAt": "2026-10-25T08:23:34+00:00",
    "source": "auto"
   },
   "reel|X": {
    "posts": [
     {
+     "url": "https://x.com/REEL_Experience/status/2114265706481004884",
+     "at": "2026-10-25T08:00:00.239Z",
+     "text": "Sunday night.\n\nGreen dots on the friends list.\n\nThat's already a good night.",
+     "likes": 0,
+     "views": 1,
+     "comments": 0,
+     "reposts": 0,
+     "seen": "2026-10-25T08:24:08+00:00"
+    },
+    {
      "url": "https://x.com/REEL_Experience/status/2113903325573722516",
      "at": "2026-10-24T08:00:01.898Z",
      "text": "A credit score.\n\nDecades of behavior,\none number.\n\nYour home. Your car. Your interest rate.\nThat number can shape them all.\n\nRecords became power.\n\nBut power for the banks.",
      "likes": 0,
-     "views": 6,
-     "comments": 0,
+     "views": 7,
+     "comments": 1,
      "reposts": 0,
-     "seen": "2026-10-24T11:23:33+00:00"
+     "seen": "2026-10-25T08:24:08+00:00"
     },
     {
      "url": "https://x.com/REEL_Experience/status/2113540942385099156",
@@ -540,7 +600,7 @@
      "views": 15,
      "comments": 1,
      "reposts": 0,
-     "seen": "2026-10-24T11:23:33+00:00"
+     "seen": "2026-10-25T08:24:08+00:00"
     },
     {
      "url": "https://x.com/REEL_Experience/status/2113178542876074460",
@@ -550,7 +610,7 @@
      "views": 16,
      "comments": 3,
      "reposts": 0,
-     "seen": "2026-10-24T11:23:33+00:00"
+     "seen": "2026-10-25T08:24:08+00:00"
     },
     {
      "url": "https://x.com/REEL_Experience/status/2112816160529928684",
@@ -573,7 +633,7 @@
      "seen": "2026-10-23T11:23:39+00:00"
     }
    ],
-   "checkedAt": "2026-10-24T11:23:33+00:00",
+   "checkedAt": "2026-10-25T08:24:08+00:00",
    "source": "auto"
   },
   "nacha|YT": {
@@ -583,28 +643,28 @@
      "at": "2026-10-24T07:03:25-07:00",
      "text": "🏮 Goma-gi: a wooden tablet for your wish. 🪵",
      "views": 0,
-     "seen": "2026-10-25T03:11:47+00:00"
+     "seen": "2026-10-25T08:20:15+00:00"
     },
     {
      "url": "https://youtube.com/shorts/t_MsyyJgFJw",
      "at": "2026-10-23T06:43:08-07:00",
      "text": "🏮 Slow beads. Slow smoke. Slow heart. 📿🙏",
      "views": 0,
-     "seen": "2026-10-25T03:11:47+00:00"
+     "seen": "2026-10-25T08:20:15+00:00"
     },
     {
      "url": "https://youtube.com/shorts/ohU67oqahVA",
      "at": "2026-10-22T04:00:20-07:00",
      "text": "Out of the whole world, the story starts right here\n🏮 Out of the whole world, the story starts right here. 🌏\n\n#NACHA #那茶 #Temple2 #Cambodia #fyp",
      "views": 0,
-     "seen": "2026-10-25T03:11:47+00:00"
+     "seen": "2026-10-25T08:20:15+00:00"
     },
     {
      "url": "https://youtube.com/shorts/U_mRLtI48aQ",
      "at": "2026-10-21T04:00:39-07:00",
      "text": "When the world sleeps, someone keeps the light on\n🏮 When the world sleeps, someone keeps the light on. 🌙\n\n#NACHA #那茶 #Temple2 #NightTemple #fyp",
      "views": 14,
-     "seen": "2026-10-25T03:11:47+00:00"
+     "seen": "2026-10-25T08:20:15+00:00"
     },
     {
      "url": "https://youtube.com/shorts/epKsTZd4fF4",
@@ -612,14 +672,14 @@
      "text": "One shirt, one fold, one breath. The laundry has never been this calm. — Nacha\nHey, it's Nacha.\nOne shirt, one fold, one breath.\nThe laundry has never been this calm.\nTry it — it's peaceful.\n\n📌 Listed on Pionex · After② $0.035 through Oct 31 → After③ $0.040 from Nov 1\n\nNacha Ecosystem / Temple 2.0\n#Nacha #Temple20 #W2R #NachaToken #Shorts",
      "views": 9,
      "likes": 1,
-     "seen": "2026-10-25T03:11:47+00:00"
+     "seen": "2026-10-25T08:20:15+00:00"
     },
     {
      "url": "https://youtube.com/shorts/-OW4MH_6rd4",
      "at": "2026-10-17T05:29:31-07:00",
      "text": "# Nacha\nHey, it's Nacha.\nA little spinning top for the kids tomorrow.\nSmall gifts make big evenings.\nGood night — dream something kind.\n\n📌 Listed on Pionex · After② $0.035 through Oct 31 → After③ $0.040 from Nov 1\n🛒 Aftersale: https://sale.nacha.vip/\n\nNacha Ecosystem / Temple 2.0\n#Nacha #Temple20 #W2R #NachaToken #Shorts",
      "views": 5,
-     "seen": "2026-10-25T03:11:47+00:00"
+     "seen": "2026-10-25T08:20:15+00:00"
     },
     {
      "url": "https://youtube.com/shorts/ssD6yhE_4yY",
@@ -637,7 +697,7 @@
      "seen": "2026-10-23T11:20:15+00:00"
     }
    ],
-   "checkedAt": "2026-10-25T03:11:47+00:00",
+   "checkedAt": "2026-10-25T08:20:15+00:00",
    "source": "auto"
   },
   "nacha|IG": {
@@ -646,10 +706,10 @@
      "url": "https://instagram.com/reel/De4TGkhAEDq",
      "at": "2026-10-24T14:01:07.000Z",
      "text": "🏮 Goma-gi: a wooden tablet for your wish. 🪵\nNow you can hold it as an NFT — then offer it to the sacred fire. 🔥\n\n#NACHA #那茶 #NFT",
-     "likes": 1,
-     "comments": 0,
+     "likes": 2,
+     "comments": 1,
      "kind": "reel",
-     "seen": "2026-10-25T03:12:47+00:00"
+     "seen": "2026-10-25T08:21:29+00:00"
     },
     {
      "url": "https://instagram.com/p/De3-bSNjCKP",
@@ -658,7 +718,7 @@
      "likes": 1,
      "comments": 1,
      "kind": "post",
-     "seen": "2026-10-25T03:12:47+00:00"
+     "seen": "2026-10-25T08:21:29+00:00"
     },
     {
      "url": "https://instagram.com/reel/De1sMRxgAs9",
@@ -667,7 +727,7 @@
      "likes": 5,
      "comments": 8,
      "kind": "reel",
-     "seen": "2026-10-25T03:12:47+00:00"
+     "seen": "2026-10-25T08:21:29+00:00"
     },
     {
      "url": "https://instagram.com/p/De1ZoK0DUHU",
@@ -676,7 +736,7 @@
      "likes": 1,
      "comments": 0,
      "kind": "post",
-     "seen": "2026-10-25T03:12:47+00:00"
+     "seen": "2026-10-25T08:21:29+00:00"
     },
     {
      "url": "https://instagram.com/reel/Dey1-63j9KO",
@@ -685,7 +745,7 @@
      "likes": 15,
      "comments": 1,
      "kind": "reel",
-     "seen": "2026-10-25T03:12:47+00:00"
+     "seen": "2026-10-25T08:21:29+00:00"
     },
     {
      "url": "https://instagram.com/p/Dey0006ASGG",
@@ -694,13 +754,13 @@
      "likes": 2,
      "comments": 0,
      "kind": "post",
-     "seen": "2026-10-25T03:12:47+00:00"
+     "seen": "2026-10-25T08:21:29+00:00"
     },
     {
      "url": "https://instagram.com/reel/DewRNU6gcyd",
      "at": "2026-10-21T11:10:57.000Z",
      "kind": "reel",
-     "seen": "2026-10-25T03:12:47+00:00"
+     "seen": "2026-10-25T08:21:29+00:00"
     },
     {
      "url": "https://instagram.com/p/DewQDaVjLEV",
@@ -709,7 +769,7 @@
      "likes": 3,
      "comments": 0,
      "kind": "post",
-     "seen": "2026-10-25T03:12:47+00:00"
+     "seen": "2026-10-25T08:21:29+00:00"
     },
     {
      "url": "https://instagram.com/p/DetrQnljFW6",
@@ -739,7 +799,7 @@
      "seen": "2026-10-23T11:21:21+00:00"
     }
    ],
-   "checkedAt": "2026-10-25T03:12:47+00:00",
+   "checkedAt": "2026-10-25T08:21:29+00:00",
    "source": "auto"
   },
   "yuyu|IG": {
@@ -751,7 +811,7 @@
      "likes": 1,
      "comments": 0,
      "kind": "post",
-     "seen": "2026-10-25T03:13:12+00:00"
+     "seen": "2026-10-25T08:21:53+00:00"
     },
     {
      "url": "https://instagram.com/p/DexpTX4D3OI",
@@ -760,7 +820,7 @@
      "likes": 1,
      "comments": 0,
      "kind": "post",
-     "seen": "2026-10-25T03:13:12+00:00"
+     "seen": "2026-10-25T08:21:53+00:00"
     },
     {
      "url": "https://instagram.com/p/Desh_LdmzeF",
@@ -769,7 +829,7 @@
      "likes": 2,
      "comments": 0,
      "kind": "post",
-     "seen": "2026-10-25T03:13:12+00:00"
+     "seen": "2026-10-25T08:21:53+00:00"
     },
     {
      "url": "https://instagram.com/p/Deje8hRgVKV",
@@ -778,7 +838,7 @@
      "likes": 1,
      "comments": 0,
      "kind": "post",
-     "seen": "2026-10-25T03:13:12+00:00"
+     "seen": "2026-10-25T08:21:53+00:00"
     },
     {
      "url": "https://instagram.com/p/DeftX-mgXK1",
@@ -787,7 +847,7 @@
      "likes": 2,
      "comments": 0,
      "kind": "post",
-     "seen": "2026-10-25T03:13:12+00:00"
+     "seen": "2026-10-25T08:21:53+00:00"
     },
     {
      "url": "https://instagram.com/p/DeWgLJPj9VQ",
@@ -796,7 +856,7 @@
      "likes": 1,
      "comments": 0,
      "kind": "post",
-     "seen": "2026-10-25T03:13:12+00:00"
+     "seen": "2026-10-25T08:21:53+00:00"
     },
     {
      "url": "https://instagram.com/p/DeSvzEmAVyT",
@@ -805,7 +865,7 @@
      "likes": 1,
      "comments": 0,
      "kind": "post",
-     "seen": "2026-10-25T03:13:12+00:00"
+     "seen": "2026-10-25T08:21:53+00:00"
     },
     {
      "url": "https://instagram.com/p/DeO7mVmjzhV",
@@ -814,28 +874,43 @@
      "likes": 2,
      "comments": 0,
      "kind": "post",
-     "seen": "2026-10-25T03:13:12+00:00"
+     "seen": "2026-10-25T08:21:53+00:00"
     }
    ],
-   "checkedAt": "2026-10-25T03:13:12+00:00",
+   "checkedAt": "2026-10-25T08:21:53+00:00",
    "source": "auto"
   },
   "nacha|TT": {
    "posts": [
     {
-     "url": "https://tiktok.com/@nacha_project/video/7699858555091815701",
-     "at": "2026-10-23T13:43:46+00:00",
-     "text": "🏮 Slow beads. Slow smoke. Slow heart. 📿🙏",
-     "likes": 14,
+     "url": "https://tiktok.com/@nacha_project/video/7700234421869317428",
+     "at": "2026-10-24T14:02:22+00:00",
+     "text": "🏮 Goma-gi: a wooden tablet for your wish. 🪵",
+     "likes": 9,
      "comments": 0,
-     "views": 167,
+     "views": 149,
      "reposts": 0,
      "pinned": false,
      "linkCheck": {
       "state": "ok",
-      "checkedAt": "2026-10-24T11:22:34.970054+00:00"
+      "checkedAt": "2026-10-25T08:22:47.459641+00:00"
      },
-     "seen": "2026-10-24T11:22:46+00:00"
+     "seen": "2026-10-25T08:23:02+00:00"
+    },
+    {
+     "url": "https://tiktok.com/@nacha_project/video/7699858555091815701",
+     "at": "2026-10-23T13:43:46+00:00",
+     "text": "🏮 Slow beads. Slow smoke. Slow heart. 📿🙏",
+     "likes": 16,
+     "comments": 0,
+     "views": 191,
+     "reposts": 0,
+     "pinned": false,
+     "linkCheck": {
+      "state": "ok",
+      "checkedAt": "2026-10-25T08:22:48.954304+00:00"
+     },
+     "seen": "2026-10-25T08:23:02+00:00"
     },
     {
      "url": "https://tiktok.com/@nacha_project/video/7698949687394471189",
@@ -843,14 +918,14 @@
      "text": "🏮 Out of the whole world, the story starts right here. 🌏 #NACHA #那茶 #Temple2 #Cambodia #fyp",
      "likes": 15,
      "comments": 0,
-     "views": 230,
+     "views": 233,
      "reposts": 0,
      "pinned": false,
      "linkCheck": {
       "state": "ok",
-      "checkedAt": "2026-10-24T11:22:36.302291+00:00"
+      "checkedAt": "2026-10-25T08:22:50.373955+00:00"
      },
-     "seen": "2026-10-24T11:22:46+00:00"
+     "seen": "2026-10-25T08:23:02+00:00"
     },
     {
      "url": "https://tiktok.com/@nacha_project/video/7698947232329911573",
@@ -863,9 +938,9 @@
      "pinned": false,
      "linkCheck": {
       "state": "ok",
-      "checkedAt": "2026-10-24T11:22:37.670065+00:00"
+      "checkedAt": "2026-10-25T08:22:52.025867+00:00"
      },
-     "seen": "2026-10-24T11:22:46+00:00"
+     "seen": "2026-10-25T08:23:02+00:00"
     },
     {
      "url": "https://tiktok.com/@nacha_project/video/7698377441185746197",
@@ -878,9 +953,9 @@
      "pinned": false,
      "linkCheck": {
       "state": "ok",
-      "checkedAt": "2026-10-24T11:22:38.883692+00:00"
+      "checkedAt": "2026-10-25T08:22:53.724213+00:00"
      },
-     "seen": "2026-10-24T11:22:46+00:00"
+     "seen": "2026-10-25T08:23:02+00:00"
     },
     {
      "url": "https://tiktok.com/@nacha_project/video/7697882170903350529",
@@ -893,9 +968,9 @@
      "pinned": false,
      "linkCheck": {
       "state": "ok",
-      "checkedAt": "2026-10-24T11:22:40.124342+00:00"
+      "checkedAt": "2026-10-25T08:22:55.693937+00:00"
      },
-     "seen": "2026-10-24T11:22:46+00:00"
+     "seen": "2026-10-25T08:23:02+00:00"
     },
     {
      "url": "https://tiktok.com/@nacha_project/video/7697612693494058241",
@@ -908,9 +983,9 @@
      "pinned": false,
      "linkCheck": {
       "state": "ok",
-      "checkedAt": "2026-10-24T11:22:41.301634+00:00"
+      "checkedAt": "2026-10-25T08:22:57.156814+00:00"
      },
-     "seen": "2026-10-24T11:22:46+00:00"
+     "seen": "2026-10-25T08:23:02+00:00"
     },
     {
      "url": "https://tiktok.com/@nacha_project/video/7697177816839818497",
@@ -923,9 +998,9 @@
      "pinned": false,
      "linkCheck": {
       "state": "ok",
-      "checkedAt": "2026-10-24T11:22:42.543418+00:00"
+      "checkedAt": "2026-10-25T08:22:58.731653+00:00"
      },
-     "seen": "2026-10-24T11:22:46+00:00"
+     "seen": "2026-10-25T08:23:02+00:00"
     },
     {
      "url": "https://tiktok.com/@nacha_project/video/7696810253970722069",
@@ -938,9 +1013,9 @@
      "pinned": false,
      "linkCheck": {
       "state": "ok",
-      "checkedAt": "2026-10-24T11:22:43.870416+00:00"
+      "checkedAt": "2026-10-25T08:23:00.257512+00:00"
      },
-     "seen": "2026-10-24T11:22:46+00:00"
+     "seen": "2026-10-25T08:23:02+00:00"
     },
     {
      "url": "https://tiktok.com/@nacha_project/video/7696484116228754708",
@@ -953,9 +1028,9 @@
      "pinned": false,
      "linkCheck": {
       "state": "ok",
-      "checkedAt": "2026-10-24T11:22:45.225481+00:00"
+      "checkedAt": "2026-10-25T08:23:02.043435+00:00"
      },
-     "seen": "2026-10-24T11:22:46+00:00"
+     "seen": "2026-10-25T08:23:02+00:00"
     },
     {
      "url": "https://tiktok.com/@nacha_project/video/7696162097800973589",
@@ -988,7 +1063,7 @@
      "seen": "2026-10-23T11:22:47+00:00"
     }
    ],
-   "checkedAt": "2026-10-24T11:22:46+00:00",
+   "checkedAt": "2026-10-25T08:23:02+00:00",
    "source": "auto"
   },
   "nacha|X": {
@@ -997,11 +1072,11 @@
      "url": "https://x.com/nacha_project/status/2113948372772274279",
      "at": "2026-10-24T10:59:01.987Z",
      "text": "🌙 One year to find this place. 🧭\n\n🗺️ Searched\n⛰️ Climbed\n🧭 Measured the wind & water\n🛕 Found it — Phnom Penh\n\nA real temple, built on the right ground. 🏮\n\n$NACHA #Temple2",
-     "likes": 0,
-     "views": 3,
-     "comments": 0,
+     "likes": 1,
+     "views": 7,
+     "comments": 1,
      "reposts": 0,
-     "seen": "2026-10-24T11:23:18+00:00"
+     "seen": "2026-10-25T08:23:42+00:00"
     },
     {
      "url": "https://x.com/nacha_project/status/2113585481707622714",
@@ -1010,8 +1085,8 @@
      "likes": 1,
      "comments": 1,
      "reposts": 0,
-     "seen": "2026-10-24T11:23:18+00:00",
-     "views": 12
+     "seen": "2026-10-25T08:23:42+00:00",
+     "views": 13
     },
     {
      "url": "https://x.com/nacha_project/status/2113224103163474122",
@@ -1021,7 +1096,7 @@
      "views": 28,
      "comments": 1,
      "reposts": 0,
-     "seen": "2026-10-24T11:23:18+00:00"
+     "seen": "2026-10-25T08:23:42+00:00"
     },
     {
      "url": "https://x.com/nacha_project/status/2112861713464983894",
@@ -1031,7 +1106,7 @@
      "views": 21,
      "comments": 1,
      "reposts": 0,
-     "seen": "2026-10-24T11:23:18+00:00"
+     "seen": "2026-10-25T08:23:42+00:00"
     },
     {
      "url": "https://x.com/nacha_project/status/2112498569135702403",
@@ -1041,7 +1116,7 @@
      "views": 30,
      "comments": 1,
      "reposts": 0,
-     "seen": "2026-10-24T11:23:18+00:00"
+     "seen": "2026-10-25T08:23:42+00:00"
     },
     {
      "url": "https://x.com/nacha_project/status/2112180472361173393",
@@ -1054,11 +1129,20 @@
      "seen": "2026-10-24T10:40:50+00:00"
     }
    ],
-   "checkedAt": "2026-10-24T11:23:18+00:00",
+   "checkedAt": "2026-10-25T08:23:42+00:00",
    "source": "auto"
   },
   "yuyu|X": {
    "posts": [
+    {
+     "url": "https://x.com/yuyukannondo/status/2114152462235885969",
+     "at": "2026-10-25T00:30:00.707Z",
+     "text": "Three months of the rains retreat are nearly complete.\nEndings, too, deserve attention.\n\nMay your day be a peaceful one.\n#yuyukannondo",
+     "likes": 0,
+     "comments": 0,
+     "reposts": 0,
+     "seen": "2026-10-25T08:23:50+00:00"
+    },
     {
      "url": "https://x.com/yuyukannondo/status/2113790074122842464",
      "at": "2026-10-24T00:30:00.648Z",
@@ -1066,7 +1150,8 @@
      "likes": 0,
      "comments": 0,
      "reposts": 0,
-     "seen": "2026-10-24T11:23:26+00:00"
+     "seen": "2026-10-25T08:23:50+00:00",
+     "views": 2
     },
     {
      "url": "https://x.com/yuyukannondo/status/2113420137818943933",
@@ -1076,7 +1161,7 @@
      "views": 19,
      "comments": 0,
      "reposts": 0,
-     "seen": "2026-10-24T11:23:26+00:00"
+     "seen": "2026-10-25T08:23:50+00:00"
     },
     {
      "url": "https://x.com/yuyukannondo/status/2113057749257048291",
@@ -1086,7 +1171,7 @@
      "views": 22,
      "comments": 0,
      "reposts": 0,
-     "seen": "2026-10-24T11:23:26+00:00"
+     "seen": "2026-10-25T08:23:50+00:00"
     },
     {
      "url": "https://x.com/yuyukannondo/status/2112695363480228284",
@@ -1096,7 +1181,7 @@
      "views": 20,
      "comments": 0,
      "reposts": 0,
-     "seen": "2026-10-24T11:23:26+00:00"
+     "seen": "2026-10-25T08:23:50+00:00"
     },
     {
      "url": "https://x.com/yuyukannondo/status/2112332974796476673",
@@ -1119,7 +1204,7 @@
      "seen": "2026-10-23T11:23:31+00:00"
     }
    ],
-   "checkedAt": "2026-10-24T11:23:26+00:00",
+   "checkedAt": "2026-10-25T08:23:50+00:00",
    "source": "auto"
   }
  }
