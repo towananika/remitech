@@ -5842,6 +5842,16 @@
   var yuPullOnce = false;
   // IG フィードに載る大きさで出す（2026-10-26 remitech「IG投稿できるサイズの規格を守るように」）。原稿の「元の比率のまま」を差し替える
   var YU_IG_SIZE = "Output a vertical 4:5 image at exactly 1080 x 1350 pixels (Instagram feed portrait size). To fit 4:5, trim the edges of the photo evenly and keep the main subject fully in frame; do not stretch, squash, or extend the scene.";
+  // サーバーの原稿にプロンプトがない日は、企画タブ（plans.json）の YUYU の同じ日のプロンプトを出す（2026-10-26 remitech「ハブにプロンプトも表示して」）
+  function yuPlanPrompt(day) {
+    if (!plState) plLoad();
+    var pl = (plans || []).filter(function (x) { return x.kind === "yuyu"; });
+    for (var i = 0; i < pl.length; i++) {
+      var q = (pl[i].posts || []).filter(function (p) { return p.date === day && p.prompt; })[0];
+      if (q) return q.prompt;
+    }
+    return "";
+  }
   function yuImagePrompt(text) {
     if (!text) return "";
     var s = String(text).trim();
@@ -5897,9 +5907,9 @@
         // 企画書と違う日に動かした投稿は「企画 M/D」を出す（plan＝企画書の日付）
         (function () { var pl = it.plan || it.date; return pl !== x.day ? '<span class="yutag">' + esc(t("yuPlan")) + " " + (+pl.slice(5, 7)) + "/" + (+pl.slice(8)) + '</span>' : ''; })() + '</div>' +
         '<p class="yuimg">' + esc(it.image || t("yuNoImg")) + '</p>' + yuPhotos(it.image, "yu" + x.i + "f") +
-        row("yu" + x.i + "x", t("yuX"), yuNoDate(it.x), x.day, "X") + row("yu" + x.i + "i", t("yuIg"), yuNoDate(it.ig), x.day, "IG") + row("yu" + x.i + "p", t("yuPrompt"), yuImagePrompt(it.prompt)) +
+        row("yu" + x.i + "x", t("yuX"), yuNoDate(it.x), x.day, "X") + row("yu" + x.i + "i", t("yuIg"), yuNoDate(it.ig), x.day, "IG") + row("yu" + x.i + "p", t("yuPrompt"), yuImagePrompt(it.prompt || yuPlanPrompt(x.day))) +
         // 実写の日はプロンプトがないことを書いておく（2026-10-26 remitech「分かりづらいので説明を」）
-        (!it.prompt && it.image && !/없음|텍스트만|text only/i.test(it.image) ? '<p class="yunote">' + esc(t("yuRealPhoto")) + '</p>' : '') +
+        (!it.prompt && !yuPlanPrompt(x.day) && it.image && !/없음|텍스트만|text only/i.test(it.image) ? '<p class="yunote">' + esc(t("yuRealPhoto")) + '</p>' : '') +
         (it.note ? '<p class="yunote">' + esc(it.note) + '</p>' : '') + '</div>';
     }
     h += '<details><summary>' + esc(t("yuRules")) + '</summary><ul>' + (yuDoc.rules || []).map(function (r) { return '<li>' + esc(r) + '</li>'; }).join("") +
@@ -6988,7 +6998,7 @@
     if (plState) return;
     plState = "loading";
     fetch("./plans.json", { cache: "no-cache" }).then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
-      .then(function (j) { plans = (j && j.plans) || []; plState = "ok"; if (tab === "plan") renderPlan(); },
+      .then(function (j) { plans = (j && j.plans) || []; plState = "ok"; if (tab === "plan") renderPlan(); if (tab === "prep" && filter === "yuyu") route(); },
             function () { plState = "err"; if (tab === "plan") renderPlan(); });
   }
   // YUYUKANNONDO（2026-10-26 remitech指定）: 文案は原本から一字も変えずに出す。X と IG・FB は同じ日に別の文
@@ -7013,7 +7023,7 @@
     if (p.memo) h += '<p class="plimg">' + plMd(p.memo) + '</p>';
     if (p.prompt) {
       var iP = plCopy.push(p.prompt) - 1;
-      h += '<details class="plgpt"><summary>' + esc(g.yPrompt) + '</summary><p class="plabel"><button class="plcpy" data-pi="' + iP + '">' + esc(g.copy) + '</button></p>' +
+      h += '<details class="plgpt" open><summary>' + esc(g.yPrompt) + '</summary><p class="plabel"><button class="plcpy" data-pi="' + iP + '">' + esc(g.copy) + '</button></p>' +
         '<pre class="pltxt" lang="en">' + esc(p.prompt) + '</pre></details>';
     }
     return h + '</div>';
