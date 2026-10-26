@@ -5803,10 +5803,10 @@
     var r = s.replace(/\s*Keep the original aspect ratio\.?/i, "");
     return r + (/[.!?]$/.test(r) ? " " : ". ") + YU_IG_SIZE;
   }
-  // 2026-11 からは文の先頭に日付の行を付けない（2026-10-26 remitech「11月投稿テキストの前に日付テキストは不要」）。
+  // 文の先頭に日付の行を付けない（2026-10-26 remitech「準備タブのYUYUの各日のXで日付テキストは削除」）。全日が対象
   // サーバーの原稿に残っている日付だけの1行目（例 "11/1 (Sun)" "2026.11.01" "November 1"）を表示とコピーから外す
-  function yuNoDate(text, day) {
-    if (!text || day < "2026-11-01") return text;
+  function yuNoDate(text) {
+    if (!text) return text;
     var m = String(text).match(/^\s*([^\n]*)\n+/);
     if (!m || m[1].length > 40) return text;
     var re = /^[\[(]?\s*(?:\d{4}\s*[.\/年-]\s*)?\d{1,2}\s*[.\/月-]\s*\d{1,2}\s*日?|^[\[(]?\s*(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\.?\s+\d{1,2}\b|^[\[(]?\s*\d{1,2}\s+(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)/i;
@@ -5851,7 +5851,7 @@
         // 企画書と違う日に動かした投稿は「企画 M/D」を出す（plan＝企画書の日付）
         (function () { var pl = it.plan || it.date; return pl !== x.day ? '<span class="yutag">' + esc(t("yuPlan")) + " " + (+pl.slice(5, 7)) + "/" + (+pl.slice(8)) + '</span>' : ''; })() + '</div>' +
         '<p class="yuimg">' + esc(it.image || t("yuNoImg")) + '</p>' + yuPhotos(it.image, "yu" + x.i + "f") +
-        row("yu" + x.i + "x", t("yuX"), yuNoDate(it.x, x.day), x.day, "X") + row("yu" + x.i + "i", t("yuIg"), yuNoDate(it.ig, x.day), x.day, "IG") + row("yu" + x.i + "p", t("yuPrompt"), yuImagePrompt(it.prompt)) +
+        row("yu" + x.i + "x", t("yuX"), yuNoDate(it.x), x.day, "X") + row("yu" + x.i + "i", t("yuIg"), yuNoDate(it.ig), x.day, "IG") + row("yu" + x.i + "p", t("yuPrompt"), yuImagePrompt(it.prompt)) +
         // 実写の日はプロンプトがないことを書いておく（2026-10-26 remitech「分かりづらいので説明を」）
         (!it.prompt && it.image && !/없음|텍스트만|text only/i.test(it.image) ? '<p class="yunote">' + esc(t("yuRealPhoto")) + '</p>' : '') +
         (it.note ? '<p class="yunote">' + esc(it.note) + '</p>' : '') + '</div>';
