@@ -828,7 +828,7 @@
      "text": "The temple pond, in pastel. Rendered from our own photograph.\n\nMay your day be a peaceful one.\n#yuyukannondo",
      "image": "🎨 파스텔 (원본 6757) → 제작본을 `생성한 사진/` 폴더에 저장해 사용 (원본 `사진원본_20260724/DSC06757.JPG`, 프롬프트 I-3)",
      "img": "style",
-     "prompt": "Transform this photograph into a soft chalk pastel drawing on toned paper: powdery texture, gently blended colors, visible pastel strokes, light and airy mood. It must clearly read as a pastel drawing, not a photo. Keep the exact composition, framing, and every object in the scene unchanged — do not add, remove, or invent anything. No text, no watermark, no signature, no people. Keep the original aspect ratio."
+     "prompt": "Transform this photograph into a soft chalk pastel drawing on toned paper: powdery texture, gently blended colors, visible pastel strokes, light and airy mood. It must clearly read as a pastel drawing, not a photo. Keep the exact composition, framing, and every object in the scene unchanged — do not add, remove, or invent anything. No text, no watermark, no signature, no people. Output a vertical 4:5 image at exactly 1080 x 1350 pixels (Instagram feed portrait size). To fit 4:5, trim the edges of the photo evenly and keep the main subject fully in frame; do not stretch, squash, or extend the scene."
     },
     {
      "date": "2026-11-06",
@@ -843,7 +843,7 @@
      "text": "A dragonfly in the garden, in colored pencil. Rendered from our own photograph.\n\nMay your day be a peaceful one.\n#yuyukannondo",
      "image": "🎨 색연필 (원본 6768) → 제작본을 `생성한 사진/` 폴더에 저장해 사용 (원본 `사진원본_20260724/DSC06768.JPG`, 프롬프트 I-3)",
      "img": "style",
-     "prompt": "Transform this photograph into a colored pencil drawing on white paper: layered pencil strokes, soft cross-hatching, gentle natural colors, visible paper grain. It must clearly read as a colored pencil drawing, not a photo. Keep the exact composition, framing, and every object in the scene unchanged — do not add, remove, or invent anything. No text, no watermark, no signature, no people. Keep the original aspect ratio."
+     "prompt": "Transform this photograph into a colored pencil drawing on white paper: layered pencil strokes, soft cross-hatching, gentle natural colors, visible paper grain. It must clearly read as a colored pencil drawing, not a photo. Keep the exact composition, framing, and every object in the scene unchanged — do not add, remove, or invent anything. No text, no watermark, no signature, no people. Output a vertical 4:5 image at exactly 1080 x 1350 pixels (Instagram feed portrait size). To fit 4:5, trim the edges of the photo evenly and keep the main subject fully in frame; do not stretch, squash, or extend the scene."
     },
     {
      "date": "2026-11-07",
@@ -900,7 +900,7 @@
      "text": "The temple garden, in pen and wash. Rendered from our own photograph.\n\nMay your day be a peaceful one.\n#yuyukannondo",
      "image": "🎨 펜화 담채 (원본 6781) → 제작본을 `생성한 사진/` 폴더에 저장해 사용 (원본 `사진원본_20260724/DSC06781.JPG`, 프롬프트 I-3)",
      "img": "style",
-     "prompt": "Transform this photograph into a pen-and-ink line drawing with a light watercolor wash: fine sepia ink lines, loose transparent color, the feel of a page from a travel sketchbook. It must clearly read as a hand-drawn sketch, not a photo. Keep the exact composition, framing, and every object in the scene unchanged — do not add, remove, or invent anything. No text, no watermark, no signature, no people. Keep the original aspect ratio."
+     "prompt": "Transform this photograph into a pen-and-ink line drawing with a light watercolor wash: fine sepia ink lines, loose transparent color, the feel of a page from a travel sketchbook. It must clearly read as a hand-drawn sketch, not a photo. Keep the exact composition, framing, and every object in the scene unchanged — do not add, remove, or invent anything. No text, no watermark, no signature, no people. Output a vertical 4:5 image at exactly 1080 x 1350 pixels (Instagram feed portrait size). To fit 4:5, trim the edges of the photo evenly and keep the main subject fully in frame; do not stretch, squash, or extend the scene."
     },
     {
      "date": "2026-11-13",
@@ -982,7 +982,7 @@
      "text": "Water lilies, as a paper collage. Rendered from our own photograph.\n\nMay your day be a peaceful one.\n#yuyukannondo",
      "image": "🎨 종이 콜라주 (원본 6763) → 제작본을 `생성한 사진/` 폴더에 저장해 사용 (원본 `사진원본_20260724/DSC06763.JPG`, 프롬프트 I-3)",
      "img": "style",
-     "prompt": "Transform this photograph into a cut-paper collage: the scene built from layered pieces of colored paper, visible cut edges, subtle shadows between the layers, handmade texture. It must clearly read as a paper collage, not a photo. Keep the exact composition, framing, and every object in the scene unchanged — do not add, remove, or invent anything. No text, no watermark, no signature, no people. Keep the original aspect ratio."
+     "prompt": "Transform this photograph into a cut-paper collage: the scene built from layered pieces of colored paper, visible cut edges, subtle shadows between the layers, handmade texture. It must clearly read as a paper collage, not a photo. Keep the exact composition, framing, and every object in the scene unchanged — do not add, remove, or invent anything. No text, no watermark, no signature, no people. Output a vertical 4:5 image at exactly 1080 x 1350 pixels (Instagram feed portrait size). To fit 4:5, trim the edges of the photo evenly and keep the main subject fully in frame; do not stretch, squash, or extend the scene."
     },
     {
      "date": "2026-11-20",
@@ -997,7 +997,7 @@
      "text": "Incense at the main hall, as an etching. Rendered from our own photograph.\n\nMay your day be a peaceful one.\n#yuyukannondo",
      "image": "🎨 동판화 (원본 6733) → 제작본을 `생성한 사진/` 폴더에 저장해 사용 (원본 `사진원본_20260724/DSC06733.JPG`, 프롬프트 I-3)",
      "img": "style",
-     "prompt": "Transform this photograph into a fine copperplate etching print: delicate engraved lines, cross-hatching for shadows, monochrome sepia ink on cream paper, slight plate tone. It must clearly read as a printed etching, not a photo. Keep the exact composition, framing, and every object in the scene unchanged — do not add, remove, or invent anything. No text, no watermark, no signature, no people. Keep the original aspect ratio."
+     "prompt": "Transform this photograph into a fine copperplate etching print: delicate engraved lines, cross-hatching for shadows, monochrome sepia ink on cream paper, slight plate tone. It must clearly read as a printed etching, not a photo. Keep the exact composition, framing, and every object in the scene unchanged — do not add, remove, or invent anything. No text, no watermark, no signature, no people. Output a vertical 4:5 image at exactly 1080 x 1350 pixels (Instagram feed portrait size). To fit 4:5, trim the edges of the photo evenly and keep the main subject fully in frame; do not stretch, squash, or extend the scene."
     },
     {
      "date": "2026-11-21",
@@ -1063,7 +1063,7 @@
      "text": "Green leaves by the pond, as embroidery. Rendered from our own photograph.\n\nMay your day be a peaceful one.\n#yuyukannondo",
      "image": "🎨 자수 (원본 6786) → 제작본을 `생성한 사진/` 폴더에 저장해 사용 (원본 `사진원본_20260724/DSC06786.JPG`, 프롬프트 I-3)",
      "img": "style",
-     "prompt": "Transform this photograph into hand embroidery on linen fabric: the whole scene stitched with colored thread, visible individual stitches and fabric weave, soft textile texture. It must clearly read as embroidery, not a photo. Keep the exact composition, framing, and every object in the scene unchanged — do not add, remove, or invent anything. No text, no watermark, no signature, no people. Keep the original aspect ratio."
+     "prompt": "Transform this photograph into hand embroidery on linen fabric: the whole scene stitched with colored thread, visible individual stitches and fabric weave, soft textile texture. It must clearly read as embroidery, not a photo. Keep the exact composition, framing, and every object in the scene unchanged — do not add, remove, or invent anything. No text, no watermark, no signature, no people. Output a vertical 4:5 image at exactly 1080 x 1350 pixels (Instagram feed portrait size). To fit 4:5, trim the edges of the photo evenly and keep the main subject fully in frame; do not stretch, squash, or extend the scene."
     },
     {
      "date": "2026-11-27",
@@ -1078,7 +1078,7 @@
      "text": "The garden falls, in pointillism. Rendered from our own photograph.\n\nMay your day be a peaceful one.\n#yuyukannondo",
      "image": "🎨 점묘화 (원본 6770) → 제작본을 `생성한 사진/` 폴더에 저장해 사용 (원본 `사진원본_20260724/DSC06770.JPG`, 프롬프트 I-3)",
      "img": "style",
-     "prompt": "Transform this photograph into a pointillist painting: the image built entirely from small distinct dots of pure color, in the Neo-Impressionist style, with luminous light. It must clearly read as a dot painting, not a photo. Keep the exact composition, framing, and every object in the scene unchanged — do not add, remove, or invent anything. No text, no watermark, no signature, no people. Keep the original aspect ratio."
+     "prompt": "Transform this photograph into a pointillist painting: the image built entirely from small distinct dots of pure color, in the Neo-Impressionist style, with luminous light. It must clearly read as a dot painting, not a photo. Keep the exact composition, framing, and every object in the scene unchanged — do not add, remove, or invent anything. No text, no watermark, no signature, no people. Output a vertical 4:5 image at exactly 1080 x 1350 pixels (Instagram feed portrait size). To fit 4:5, trim the edges of the photo evenly and keep the main subject fully in frame; do not stretch, squash, or extend the scene."
     },
     {
      "date": "2026-11-28",
