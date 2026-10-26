@@ -1,6 +1,6 @@
 {
  "note": "投稿タブ用。tools/posts_fetch.py が書く",
- "updated": "2026-10-26T08:26:59+00:00",
+ "updated": "2026-10-26T08:57:25+00:00",
  "accounts": {
   "hiyoko|YT": {
    "posts": [
@@ -9,7 +9,7 @@
      "at": "2026-10-24T02:47:39-07:00",
      "text": "what's your shower song? 🐣🎤",
      "views": 4,
-     "seen": "2026-10-26T08:20:16+00:00"
+     "seen": "2026-10-26T08:53:32+00:00"
     },
     {
      "url": "https://youtube.com/shorts/gY3Ol-RTv1U",
@@ -17,7 +17,7 @@
      "text": "cutest doodle just came to life 🐣✏️   #fyp #hiyoko #cute",
      "views": 3671,
      "likes": 14,
-     "seen": "2026-10-26T08:20:16+00:00"
+     "seen": "2026-10-26T08:53:32+00:00"
     },
     {
      "url": "https://youtube.com/shorts/5l3E360YpWY",
@@ -25,7 +25,7 @@
      "text": "Confidence: 100. Balance: 0. 💀🐣 #fyp #fail #hiyoko",
      "views": 26,
      "likes": 1,
-     "seen": "2026-10-26T08:20:16+00:00"
+     "seen": "2026-10-26T08:53:32+00:00"
     },
     {
      "url": "https://youtube.com/shorts/neDFtduoJko",
@@ -33,7 +33,7 @@
      "text": "SOUND ON!!",
      "views": 110,
      "likes": 1,
-     "seen": "2026-10-26T08:20:16+00:00"
+     "seen": "2026-10-26T08:53:32+00:00"
     },
     {
      "url": "https://youtube.com/shorts/7wWK1Y3ersA",
@@ -41,7 +41,7 @@
      "text": "Sailor-yoko — transformation complete! 🌙✨💖 #Saileryoko #SailorMoon #HIYOKO",
      "views": 220,
      "likes": 1,
-     "seen": "2026-10-26T08:20:16+00:00"
+     "seen": "2026-10-26T08:53:32+00:00"
     },
     {
      "url": "https://youtube.com/shorts/dBMhodR9Guw",
@@ -49,7 +49,7 @@
      "text": "look into my eyes👀 #chick",
      "views": 361,
      "likes": 6,
-     "seen": "2026-10-26T08:20:16+00:00"
+     "seen": "2026-10-26T08:53:32+00:00"
     },
     {
      "url": "https://youtube.com/shorts/dh3IHu7T8q8",
@@ -60,19 +60,28 @@
      "seen": "2026-10-23T11:20:08+00:00"
     }
    ],
-   "checkedAt": "2026-10-26T08:20:16+00:00",
+   "checkedAt": "2026-10-26T08:53:32+00:00",
    "source": "auto"
   },
   "hiyoko|IG": {
    "posts": [
     {
+     "url": "https://instagram.com/p/De8zfWajCT4",
+     "at": "2026-10-26T08:00:54.000Z",
+     "text": "hiyoko on the way to work 🐣\n\n#HIYOKO #Monday #MondayBlues #MondayMorning",
+     "likes": 2,
+     "comments": 0,
+     "kind": "post",
+     "seen": "2026-10-26T08:54:11+00:00"
+    },
+    {
      "url": "https://instagram.com/p/De6OnNcD4Tg",
      "at": "2026-10-25T08:00:12.000Z",
      "text": "HIYOKO's essentials. 🐣👜\n\n#HIYOKO #HYK #fyp",
-     "likes": 4,
+     "likes": 5,
      "comments": 1,
      "kind": "post",
-     "seen": "2026-10-26T03:13:10+00:00"
+     "seen": "2026-10-26T08:54:11+00:00"
     },
     {
      "url": "https://instagram.com/reel/De31fA2yySN",
@@ -81,7 +90,7 @@
      "likes": 30,
      "comments": 3,
      "kind": "reel",
-     "seen": "2026-10-26T03:13:10+00:00"
+     "seen": "2026-10-26T08:54:11+00:00"
     },
     {
      "url": "https://instagram.com/p/De1FD_ukh23",
@@ -90,7 +99,7 @@
      "likes": 11,
      "comments": 0,
      "kind": "post",
-     "seen": "2026-10-26T03:13:10+00:00"
+     "seen": "2026-10-26T08:54:11+00:00"
     },
     {
      "url": "https://instagram.com/reel/DeygT89BpBu",
@@ -99,19 +108,19 @@
      "likes": 23,
      "comments": 0,
      "kind": "reel",
-     "seen": "2026-10-26T03:13:10+00:00"
+     "seen": "2026-10-26T08:54:11+00:00"
     },
     {
      "url": "https://instagram.com/p/Dev7gjfCcAw",
      "at": "2026-10-21T08:00:51.000Z",
      "kind": "post",
-     "seen": "2026-10-26T03:13:10+00:00"
+     "seen": "2026-10-26T08:54:11+00:00"
     },
     {
      "url": "https://instagram.com/p/DetWphvD0Z3",
      "at": "2026-10-20T08:00:17.000Z",
      "kind": "post",
-     "seen": "2026-10-26T03:13:10+00:00"
+     "seen": "2026-10-26T08:54:11+00:00"
     },
     {
      "url": "https://instagram.com/p/DeoNEflD4QF",
@@ -120,7 +129,7 @@
      "likes": 10,
      "comments": 1,
      "kind": "post",
-     "seen": "2026-10-26T03:13:10+00:00"
+     "seen": "2026-10-26T08:54:11+00:00"
     },
     {
      "url": "https://instagram.com/p/DeloTR_Ept6",
@@ -150,7 +159,7 @@
      "seen": "2026-10-23T11:20:55+00:00"
     }
    ],
-   "checkedAt": "2026-10-26T03:13:10+00:00",
+   "checkedAt": "2026-10-26T08:54:11+00:00",
    "source": "auto"
   },
   "reel|IG": {
@@ -162,7 +171,7 @@
      "likes": 1,
      "comments": 0,
      "kind": "post",
-     "seen": "2026-10-26T08:24:24+00:00"
+     "seen": "2026-10-26T08:54:45+00:00"
     },
     {
      "url": "https://instagram.com/p/De6OnftDGyq",
@@ -171,7 +180,7 @@
      "likes": 1,
      "comments": 0,
      "kind": "post",
-     "seen": "2026-10-26T08:24:24+00:00"
+     "seen": "2026-10-26T08:54:45+00:00"
     },
     {
      "url": "https://instagram.com/p/De3p4HRjczR",
@@ -180,7 +189,7 @@
      "likes": 1,
      "comments": 0,
      "kind": "post",
-     "seen": "2026-10-26T08:24:24+00:00"
+     "seen": "2026-10-26T08:54:45+00:00"
     },
     {
      "url": "https://instagram.com/p/De1FDN-D3UT",
@@ -189,7 +198,7 @@
      "likes": 4,
      "comments": 0,
      "kind": "post",
-     "seen": "2026-10-26T08:24:24+00:00"
+     "seen": "2026-10-26T08:54:45+00:00"
     },
     {
      "url": "https://instagram.com/p/DeygOjFketK",
@@ -198,7 +207,7 @@
      "likes": 2,
      "comments": 0,
      "kind": "post",
-     "seen": "2026-10-26T08:24:24+00:00"
+     "seen": "2026-10-26T08:54:45+00:00"
     },
     {
      "url": "https://instagram.com/p/Dev7gKFCpMZ",
@@ -207,7 +216,7 @@
      "likes": 2,
      "comments": 0,
      "kind": "post",
-     "seen": "2026-10-26T08:24:24+00:00"
+     "seen": "2026-10-26T08:54:45+00:00"
     },
     {
      "url": "https://instagram.com/p/DetWuBciFqI",
@@ -216,7 +225,7 @@
      "likes": 4,
      "comments": 0,
      "kind": "post",
-     "seen": "2026-10-26T08:24:24+00:00"
+     "seen": "2026-10-26T08:54:45+00:00"
     },
     {
      "url": "https://instagram.com/p/Deqx2kGH54-",
@@ -225,7 +234,7 @@
      "likes": 3,
      "comments": 1,
      "kind": "post",
-     "seen": "2026-10-26T08:24:24+00:00"
+     "seen": "2026-10-26T08:54:45+00:00"
     },
     {
      "url": "https://instagram.com/p/DeoNFL_AfaZ",
@@ -255,7 +264,7 @@
      "seen": "2026-10-23T11:22:12+00:00"
     }
    ],
-   "checkedAt": "2026-10-26T08:24:24+00:00",
+   "checkedAt": "2026-10-26T08:54:45+00:00",
    "source": "auto"
   },
   "hiyoko|TT": {
@@ -435,51 +444,51 @@
      "url": "https://x.com/HiyokoGlobal/status/2114627346439491825",
      "at": "2026-10-26T07:57:01.924Z",
      "text": "hyk isn't just a token. 🐣\n\nplay games. earn.\nstay healthy. earn.\nshow up. earn.\n\na token that means more the more you use it.\n\n#HIYOKO #HYK #Web3",
-     "likes": 1,
-     "views": 5,
+     "likes": 2,
+     "views": 15,
      "comments": 0,
      "reposts": 0,
-     "seen": "2026-10-26T08:26:15+00:00"
+     "seen": "2026-10-26T08:56:00+00:00"
     },
     {
      "url": "https://x.com/HiyokoGlobal/status/2114514603019575760",
      "at": "2026-10-26T00:29:01.798Z",
      "text": "select your chick. 🐣\n\nplay. collect. explore.\n\nwhich one are you picking?\n\n#HIYOKO #HYK #Web3",
      "likes": 5,
-     "views": 30,
+     "views": 37,
      "comments": 0,
      "reposts": 0,
-     "seen": "2026-10-26T08:26:15+00:00"
+     "seen": "2026-10-26T08:56:00+00:00"
     },
     {
      "url": "https://x.com/HiyokoGlobal/status/2114265723719897481",
      "at": "2026-10-25T08:00:04.349Z",
      "text": "loading web3... 🐣\n\n▓▓▓▓▓▓▓▓▓▓ 100%\n\nhiyoko is ready.\n\n#HIYOKO #HYK #Web3",
      "likes": 2,
-     "views": 50,
+     "views": 55,
      "comments": 1,
      "reposts": 0,
-     "seen": "2026-10-26T08:26:15+00:00"
+     "seen": "2026-10-26T08:56:00+00:00"
     },
     {
      "url": "https://x.com/HiyokoGlobal/status/2114153474846048381",
      "at": "2026-10-25T00:34:02.132Z",
      "text": "hiyoko this week 🐣\n\n✅ season 1 started — hyk $0.040\n✅ invisible web3 — web3 without knowing it\n✅ network effect — you change things when you join\n✅ tokenomics — burn / buyback / treasury\n✅ hiyoko world — 🎮💊⭐🪙\n\ndidn't stop for a second.\n\n#HIYOKO #HYK #Web3",
      "likes": 2,
-     "views": 47,
+     "views": 50,
      "comments": 0,
      "reposts": 0,
-     "seen": "2026-10-26T08:26:15+00:00"
+     "seen": "2026-10-26T08:56:00+00:00"
     },
     {
      "url": "https://x.com/HiyokoGlobal/status/2113904332601167886",
      "at": "2026-10-24T08:04:01.992Z",
      "text": "150,000,000 downloads. 🐣\n\nthe numbers speak.\nhiyoko is already proven.\n\n10,000+ free games.\ncome play now.\n\n#HIYOKO #HappyChick #Web3",
      "likes": 4,
-     "views": 57,
+     "views": 59,
      "comments": 0,
      "reposts": 0,
-     "seen": "2026-10-26T08:26:15+00:00"
+     "seen": "2026-10-26T08:56:00+00:00"
     },
     {
      "url": "https://x.com/HiyokoGlobal/status/2113790583252930688",
@@ -542,22 +551,22 @@
      "seen": "2026-10-23T11:22:59+00:00"
     }
    ],
-   "checkedAt": "2026-10-26T08:26:15+00:00",
+   "checkedAt": "2026-10-26T08:56:00+00:00",
    "source": "auto"
   },
   "hiyoko|FB": {
    "posts": [
     {
      "url": "https://facebook.com/permalink.php?story_fbid=pfbid0RkSiPLWMNVndk4REU6N2NcH12R6NMx5uTiZussEKzr5FPDqnPxssexwnZLEef5DNl&id=100090532489960",
-     "at": "2026-10-26T08:00:26+00:00",
-     "text": "Hiyoko Xiaoji\n26분 전\n26분\n \n·\nhiyoko on the way to work \n… 더 보기\n좋아요\n댓글",
+     "at": "2026-10-26T08:00:14+00:00",
+     "text": "Hiyoko Xiaoji\n56분 전\n56분\n \n·\nhiyoko on the way to work \n… 더 보기\n좋아요\n댓글",
      "approx": true,
      "linkCheck": {
       "url": "https://facebook.com/permalink.php?story_fbid=pfbid0RkSiPLWMNVndk4REU6N2NcH12R6NMx5uTiZussEKzr5FPDqnPxssexwnZLEef5DNl&id=100090532489960",
-      "checkedAt": "2026-10-26T08:26:30+00:00",
+      "checkedAt": "2026-10-26T08:56:31+00:00",
       "state": "unverified"
      },
-     "seen": "2026-10-26T08:26:34+00:00"
+     "seen": "2026-10-26T08:56:37+00:00"
     },
     {
      "url": "https://facebook.com/permalink.php?story_fbid=pfbid035imrZ7bKSTTCNH77nyMqQQZQStxKMPxKi7e35sAvSoJue5YSzkwPdTjzoxjz2gbal&id=100090532489960",
@@ -620,7 +629,7 @@
      "seen": "2026-10-23T08:41:14+00:00"
     }
    ],
-   "checkedAt": "2026-10-26T08:26:34+00:00",
+   "checkedAt": "2026-10-26T08:56:37+00:00",
    "source": "auto"
   },
   "reel|X": {
@@ -629,11 +638,11 @@
      "url": "https://x.com/REEL_Experience/status/2114628098125709590",
      "at": "2026-10-26T08:00:01.140Z",
      "text": "An asset is something\nthat works for you over time.",
-     "likes": 1,
-     "views": 4,
+     "likes": 2,
+     "views": 5,
      "comments": 0,
      "reposts": 0,
-     "seen": "2026-10-26T08:26:58+00:00"
+     "seen": "2026-10-26T08:57:02+00:00"
     },
     {
      "url": "https://x.com/REEL_Experience/status/2114265706481004884",
@@ -643,7 +652,7 @@
      "views": 11,
      "comments": 0,
      "reposts": 0,
-     "seen": "2026-10-26T08:26:58+00:00"
+     "seen": "2026-10-26T08:57:02+00:00"
     },
     {
      "url": "https://x.com/REEL_Experience/status/2113903325573722516",
@@ -653,7 +662,7 @@
      "views": 9,
      "comments": 1,
      "reposts": 0,
-     "seen": "2026-10-26T08:26:58+00:00"
+     "seen": "2026-10-26T08:57:02+00:00"
     },
     {
      "url": "https://x.com/REEL_Experience/status/2113540942385099156",
@@ -663,7 +672,7 @@
      "views": 19,
      "comments": 1,
      "reposts": 0,
-     "seen": "2026-10-26T08:26:58+00:00"
+     "seen": "2026-10-26T08:57:02+00:00"
     },
     {
      "url": "https://x.com/REEL_Experience/status/2113178542876074460",
@@ -696,7 +705,7 @@
      "seen": "2026-10-23T11:23:39+00:00"
     }
    ],
-   "checkedAt": "2026-10-26T08:26:58+00:00",
+   "checkedAt": "2026-10-26T08:57:02+00:00",
    "source": "auto"
   },
   "nacha|YT": {
