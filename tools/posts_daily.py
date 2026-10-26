@@ -11,6 +11,8 @@ import os
 import subprocess
 import sys
 
+import git_heal
+
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 LOG = os.path.join(ROOT, "tools", "posts_daily.log")
 TRAILER = "Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>"
@@ -32,6 +34,7 @@ def log(lines):
 def run(why="daily", telegram_date=None):
     """読んで push する。返す: (うまくいったか, 一言のまとめ)"""
     lines = ["==== %s (%s)" % (datetime.datetime.now().isoformat(timespec="seconds"), why)]
+    lines += git_heal.heal()
     env = dict(os.environ, PYTHONIOENCODING="utf-8")
     # Claude のアプリの中から入れた Playwright のブラウザは、アプリ専用の AppData に入っていて、
     # タスクスケジューラからは見えない（2026-10-10 判明）。アプリの外から見える ~/.ms-playwright に写したものを使う
@@ -64,6 +67,8 @@ def run(why="daily", telegram_date=None):
         # サーバーの方が新しいときは、こちらのコミットを上に載せ直してからもう一度
         r = git("pull", "--rebase", "--autostash")
         lines.append("pull: " + ("ok" if r.returncode == 0 else r.stderr.strip()[-300:]))
+        # pull が途中で止まったら、リベースの途中のまま残さない（次の実行がまた止まるため）
+        lines += git_heal.heal()
         p = git("push")
     lines.append("push: " + ("ok" if p.returncode == 0 else p.stderr.strip()[-300:]))
     log(lines)
