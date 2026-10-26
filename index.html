@@ -5907,9 +5907,9 @@
         // 企画書と違う日に動かした投稿は「企画 M/D」を出す（plan＝企画書の日付）
         (function () { var pl = it.plan || it.date; return pl !== x.day ? '<span class="yutag">' + esc(t("yuPlan")) + " " + (+pl.slice(5, 7)) + "/" + (+pl.slice(8)) + '</span>' : ''; })() + '</div>' +
         '<p class="yuimg">' + esc(it.image || t("yuNoImg")) + '</p>' + yuPhotos(it.image, "yu" + x.i + "f") +
-        row("yu" + x.i + "x", t("yuX"), yuNoDate(it.x), x.day, "X") + row("yu" + x.i + "i", t("yuIg"), yuNoDate(it.ig), x.day, "IG") + row("yu" + x.i + "p", t("yuPrompt"), yuImagePrompt(it.prompt || yuPlanPrompt(x.day))) +
+        row("yu" + x.i + "x", t("yuX"), yuNoDate(it.x), x.day, "X") + row("yu" + x.i + "i", t("yuIg"), yuNoDate(it.ig), x.day, "IG") + row("yu" + x.i + "p", t("yuPrompt"), yuImagePrompt(it.prompt || yuPlanPrompt(it.plan || it.date))) +
         // 実写の日はプロンプトがないことを書いておく（2026-10-26 remitech「分かりづらいので説明を」）
-        (!it.prompt && !yuPlanPrompt(x.day) && it.image && !/없음|텍스트만|text only/i.test(it.image) ? '<p class="yunote">' + esc(t("yuRealPhoto")) + '</p>' : '') +
+        (!it.prompt && !yuPlanPrompt(it.plan || it.date) && it.image && !/없음|텍스트만|text only/i.test(it.image) ? '<p class="yunote">' + esc(t("yuRealPhoto")) + '</p>' : '') +
         (it.note ? '<p class="yunote">' + esc(it.note) + '</p>' : '') + '</div>';
     }
     h += '<details><summary>' + esc(t("yuRules")) + '</summary><ul>' + (yuDoc.rules || []).map(function (r) { return '<li>' + esc(r) + '</li>'; }).join("") +
