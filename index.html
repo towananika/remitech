@@ -6950,19 +6950,19 @@
           reply: "Reply（30分後）", today: "今日", posts: "件", empty: "企画はまだありません", err: "企画を読めませんでした",
           wd: ["日", "月", "火", "水", "木", "金", "土"],
           yImg: "画像", yNone: "テキストのみ", yPhoto: "実写", yStyle: "スタイル化", yHoliday: "祝日", yPrompt: "スタイル化プロンプト",
-          yChecks: "投稿前の確認", yNote: "確認", yX: "X", yIg: "IG・FB" },
+          yChecks: "投稿前の確認", yNote: "確認", yStory: "ストーリー", yVideo: "動画", yX: "X", yIg: "IG・FB" },
     en: { all: "All", ja: "Japanese", en: "English", rev: "reviewed", gpt: "GPT", showGpt: "Show GPT version", copy: "Copy",
           edited: "Edited in review", na: "GPT as is", pending: "Not reviewed", notyet: "Not yet", done: "Posted",
           reply: "Reply (30 min later)", today: "Today", posts: " posts", empty: "No plans yet", err: "Could not load plans",
           wd: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
           yImg: "Image", yNone: "Text only", yPhoto: "Photo", yStyle: "Stylized", yHoliday: "Holiday", yPrompt: "Stylizing prompt",
-          yChecks: "Check before posting", yNote: "Check", yX: "X", yIg: "IG · FB" },
+          yChecks: "Check before posting", yNote: "Check", yStory: "Story", yVideo: "Video", yX: "X", yIg: "IG · FB" },
     ko: { all: "전체", ja: "일본어", en: "영어", rev: "교열 후", gpt: "GPT", showGpt: "GPT 버전 보기", copy: "복사",
           edited: "교열로 수정", na: "GPT 그대로", pending: "교열 전", notyet: "미게시", done: "게시 완료",
           reply: "Reply (30분 후)", today: "오늘", posts: "건", empty: "기획이 아직 없어", err: "기획을 읽지 못했어",
           wd: ["일", "월", "화", "수", "목", "금", "토"],
           yImg: "이미지", yNone: "텍스트만", yPhoto: "실사", yStyle: "스타일화", yHoliday: "명절", yPrompt: "스타일화 프롬프트",
-          yChecks: "게시 전 확인", yNote: "확인", yX: "X", yIg: "IG · FB" }
+          yChecks: "게시 전 확인", yNote: "확인", yStory: "스토리", yVideo: "영상", yX: "X", yIg: "IG · FB" }
   };
   function plReview(p) {
     var r = (p.enRev || "").trim();
@@ -6979,21 +6979,22 @@
   function plMd(t) { return esc(t).replace(/\*\*(.+?)\*\*/g, "<b>$1</b>").replace(/`(.+?)`/g, "<code>$1</code>"); }
   function plYuyuHead(cur, g) {
     var all = cur.posts || [], nx = 0, ni = 0;
-    all.forEach(function (p) { if (p.type === "X") nx++; else ni++; });
+    all.forEach(function (p) { if (p.type === "X") nx++; else if (!p.story) ni++; });
     return '<div class="plsum"><span>' + esc(g.yX) + ' ' + nx + esc(g.posts) + '</span><span>' + esc(g.yIg) + ' ' + ni + esc(g.posts) + '</span></div>' +
       (cur.checks && cur.checks.length ? '<details class="plchecks"><summary>' + esc(g.yChecks) + ' (' + cur.checks.length + ')</summary><ol>' +
         cur.checks.map(function (c) { return '<li>' + plMd(c) + '</li>'; }).join("") + '</ol></details>' : "");
   }
   function plYuyuPost(p, g) {
     var iT = plCopy.push(p.text) - 1;
-    var ik = p.img === "photo" ? g.yPhoto : p.img === "style" ? g.yStyle : g.yNone;
+    var ik = p.img === "photo" ? g.yPhoto : p.img === "style" ? g.yStyle : p.img === "video" ? g.yVideo : g.yNone;
     var h = '<div class="plpost"><div class="plptop">' +
-      '<i class="pltype" data-t="' + esc(p.type) + '">' + esc(p.type === "X" ? g.yX : g.yIg) + '</i>' +
+      '<i class="pltype" data-t="' + esc(p.type) + '">' + esc(p.type === "X" ? g.yX : g.yIg + (p.story ? " " + g.yStory : "")) + '</i>' +
       '<span class="pltag" data-k="' + esc(p.img) + '">' + esc(ik) + '</span>' +
       (p.holiday ? '<span class="pltag" data-k="holiday">★ ' + esc(g.yHoliday) + '</span>' : "") + '</div>';
     h += '<p class="plabel"><button class="plcpy" data-pi="' + iT + '">' + esc(g.copy) + '</button></p>' +
       '<pre class="pltxt" lang="en">' + esc(p.text) + '</pre>';
-    if (p.img !== "none") h += '<p class="plimg">' + esc(g.yImg) + ': ' + plMd(p.image) + '</p>';
+    if (p.img !== "none") h += '<p class="plimg">' + esc(p.img === "video" ? g.yVideo : g.yImg) + ': ' + plMd(p.image) + '</p>';
+    if (p.memo) h += '<p class="plimg">' + plMd(p.memo) + '</p>';
     if (p.prompt) {
       var iP = plCopy.push(p.prompt) - 1;
       h += '<details class="plgpt"><summary>' + esc(g.yPrompt) + '</summary><p class="plabel"><button class="plcpy" data-pi="' + iP + '">' + esc(g.copy) + '</button></p>' +

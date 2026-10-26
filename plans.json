@@ -775,13 +775,9 @@
    "month": "2026-11",
    "title": "YUYU KANNONDO X・IG・FB",
    "theme": "毎日 9:00（韓国時間）= カンボジア 7:00",
-   "source": "게시물_2026-11_완성본.md",
+   "source": "게시물_드래프트_2026-11_v1.2.md（YUYU_11월_게시용 フォルダ）",
    "checks": [
-    "**11/24 (화) 사진**: \"6759 또는 6760 (10/30에 안 쓴 쪽)\"으로 돼 있지만, 9/29에 둘 중 하나, 10/30에 나머지 하나를 이미 썼다면 **두 장 모두 사용 완료**입니다. 9/29·10/30 게시물을 열어 확인하고, 둘 다 썼다면 **같은 사진 재게시가 되므로 담당자(경재)에게 대체 컷을 받아주세요.** 문안은 그대로 둡니다.",
-    "**11/17 (화) 사진**: 6764 또는 6765. 9/1(수련 6763~66 중)에 둘 중 하나를 썼다면 **안 쓴 쪽**을 고르세요.",
-    "**11/3 (화) 사진**: 9/18에 6780·6781·6788 중 무엇을 썼는지 확인 후 **안 쓴 쪽**(6780/6788). 6781은 11/12 스타일화 원본이라 실사로 쓰지 않습니다.",
-    "**스타일화 8건 이미지**는 11/4까지 미리 만들어 `생성한 사진/`에 저장해두면 매주 목·금 작업이 끊기지 않습니다 (프롬프트는 맨 아래 📝 장).",
-    "날짜·요일 30일 전부 대조 완료. 문안에 Nacha·토큰 등 금지어 없음 확인."
+    "**11/17 (화) 사진**: 6764 또는 6765. 9/1(수련 6763~66 중)에 둘 중 하나를 썼다면 **안 쓴 쪽**을 고르세요."
    ],
    "posts": [
     {
@@ -802,17 +798,15 @@
      "date": "2026-11-03",
      "type": "X",
      "text": "A garden kept through the rains stays green into the dry months.\n\nMay your day be a peaceful one.\n#yuyukannondo",
-     "image": "📸 6780 또는 6788 (정원 — 9/18에 안 쓴 쪽) → `사진원본_20260724/DSC06780.JPG` 또는 `사진원본_20260724/DSC06788.JPG`",
-     "img": "photo",
-     "note": "**11/3 (화) 사진**: 9/18에 6780·6781·6788 중 무엇을 썼는지 확인 후 **안 쓴 쪽**(6780/6788). 6781은 11/12 스타일화 원본이라 실사로 쓰지 않습니다."
+     "image": "📸 P5 정원 파노라마 (photo_2026-10-23_14-23-24.jpg) — IG는 양옆이 잘림 → `사진원본_20260724/photo_2026-10-23_14-23-24.jpg`",
+     "img": "photo"
     },
     {
      "date": "2026-11-03",
      "type": "IG・FB",
-     "text": "Garden beds around the temple buildings.\n\nMay your day be a peaceful one.\n#yuyukannondo",
-     "image": "📸 6780 또는 6788 (정원 — 9/18에 안 쓴 쪽) → `사진원본_20260724/DSC06780.JPG` 또는 `사진원본_20260724/DSC06788.JPG`",
-     "img": "photo",
-     "note": "**11/3 (화) 사진**: 9/18에 6780·6781·6788 중 무엇을 썼는지 확인 후 **안 쓴 쪽**(6780/6788). 6781은 11/12 스타일화 원본이라 실사로 쓰지 않습니다."
+     "text": "The temple garden, with its stepping stones and young trees.\n\nMay your day be a peaceful one.\n#yuyukannondo",
+     "image": "📸 P5 정원 파노라마 (photo_2026-10-23_14-23-24.jpg) — IG는 양옆이 잘림 → `사진원본_20260724/photo_2026-10-23_14-23-24.jpg`",
+     "img": "photo"
     },
     {
      "date": "2026-11-04",
@@ -911,17 +905,25 @@
     {
      "date": "2026-11-13",
      "type": "X",
-     "text": "White flowers ask for no attention, and receive it anyway.\n\nMay your day be a peaceful one.\n#yuyukannondo",
-     "image": "🎨 구아슈 (원본 6774) → 제작본을 `생성한 사진/` 폴더에 저장해 사용 (원본 `사진원본_20260724/DSC06774.JPG`, 프롬프트 I-3)",
-     "img": "style"
+     "text": "Work done with patience does not need to announce itself.\n\nMay your day be a peaceful one.\n#yuyukannondo",
+     "image": "📸 그때와 지금 2장, 이 순서로: 6761 (7월) → P2 (photo_2026-10-23_14-23-16.jpg) → ① `사진원본_20260724/DSC06761.JPG` ② `사진원본_20260724/photo_2026-10-23_14-23-16.jpg`",
+     "img": "photo"
     },
     {
      "date": "2026-11-13",
      "type": "IG・FB",
-     "text": "White flowers among the rocks, in gouache. Rendered from our own photograph.\n\nMay your day be a peaceful one.\n#yuyukannondo",
-     "image": "🎨 구아슈 (원본 6774) → 제작본을 `생성한 사진/` 폴더에 저장해 사용 (원본 `사진원본_20260724/DSC06774.JPG`, 프롬프트 I-3)",
-     "img": "style",
-     "prompt": "Transform this photograph into a gouache painting: opaque matte colors, simplified flat shapes, soft brush edges, a calm poster-like palette. It must clearly read as a painting, not a photo. Keep the exact composition, framing, and every object in the scene unchanged — do not add, remove, or invent anything. No text, no watermark, no signature, no people. Keep the original aspect ratio."
+     "text": "In July, scaffolding still stood behind the pond. Now the work is done, and the lotus are blooming.\n\nMay your day be a peaceful one.\n#yuyukannondo",
+     "image": "📸 그때와 지금 2장, 이 순서로: 6761 (7월) → P2 (photo_2026-10-23_14-23-16.jpg) → ① `사진원본_20260724/DSC06761.JPG` ② `사진원본_20260724/photo_2026-10-23_14-23-16.jpg`",
+     "img": "photo"
+    },
+    {
+     "date": "2026-11-13",
+     "type": "IG・FB",
+     "story": true,
+     "text": "A walk around the temple grounds.",
+     "image": "영상 `사진원본_20260724/IMG_7216.MP4` — 소리 그대로, 화면 문구 한 줄",
+     "img": "video",
+     "memo": "→ 올린 뒤 IG 하이라이트 \"Grounds\"에 저장"
     },
     {
      "date": "2026-11-14",
@@ -1015,7 +1017,7 @@
      "date": "2026-11-23",
      "type": "X",
      "text": "The Water Festival, Bon Om Touk (បុណ្យអុំទូក), begins today across Cambodia.\n\nMay your day be a peaceful one.\n#yuyukannondo",
-     "image": "📸 6771 (연못 전경, 차량 크롭) → `사진원본_20260724/DSC06771.JPG`",
+     "image": "📸 P1 연못과 경내 전경 (photo_2026-10-23_14-23-14.jpg) → `사진원본_20260724/photo_2026-10-23_14-23-14.jpg`",
      "img": "photo",
      "holiday": true
     },
@@ -1023,7 +1025,7 @@
      "date": "2026-11-23",
      "type": "IG・FB",
      "text": "The Water Festival, Bon Om Touk (បុណ្យអុំទូក), begins today across Cambodia.\n\nMay your day be a peaceful one.\n#yuyukannondo",
-     "image": "📸 6771 (연못 전경, 차량 크롭) → `사진원본_20260724/DSC06771.JPG`",
+     "image": "📸 P1 연못과 경내 전경 (photo_2026-10-23_14-23-14.jpg) → `사진원본_20260724/photo_2026-10-23_14-23-14.jpg`",
      "img": "photo",
      "holiday": true
     },
@@ -1031,17 +1033,15 @@
      "date": "2026-11-24",
      "type": "X",
      "text": "The full moon rises tonight.\nLook up for a moment; it is enough.\n\nMay your day be a peaceful one.\n#yuyukannondo",
-     "image": "📸 6759 또는 6760 (돌 정원 — 10/30에 안 쓴 쪽) → `사진원본_20260724/DSC06759.JPG` 또는 `사진원본_20260724/DSC06760.JPG`",
-     "img": "photo",
-     "note": "**11/24 (화) 사진**: \"6759 또는 6760 (10/30에 안 쓴 쪽)\"으로 돼 있지만, 9/29에 둘 중 하나, 10/30에 나머지 하나를 이미 썼다면 **두 장 모두 사용 완료**입니다. 9/29·10/30 게시물을 열어 확인하고, 둘 다 썼다면 **같은 사진 재게시가 되므로 담당자(경재)에게 대체 컷을 받아주세요.** 문안은 그대로 둡니다."
+     "image": "📸 P3 건물과 하늘 (photo_2026-10-23_14-23-20.jpg) → `사진원본_20260724/photo_2026-10-23_14-23-20.jpg`",
+     "img": "photo"
     },
     {
      "date": "2026-11-24",
      "type": "IG・FB",
-     "text": "Sunlight on the stone garden.\n\nMay your day be a peaceful one.\n#yuyukannondo",
-     "image": "📸 6759 또는 6760 (돌 정원 — 10/30에 안 쓴 쪽) → `사진원본_20260724/DSC06759.JPG` 또는 `사진원본_20260724/DSC06760.JPG`",
-     "img": "photo",
-     "note": "**11/24 (화) 사진**: \"6759 또는 6760 (10/30에 안 쓴 쪽)\"으로 돼 있지만, 9/29에 둘 중 하나, 10/30에 나머지 하나를 이미 썼다면 **두 장 모두 사용 완료**입니다. 9/29·10/30 게시물을 열어 확인하고, 둘 다 썼다면 **같은 사진 재게시가 되므로 담당자(경재)에게 대체 컷을 받아주세요.** 문안은 그대로 둡니다."
+     "text": "Open sky over the temple grounds.\n\nMay your day be a peaceful one.\n#yuyukannondo",
+     "image": "📸 P3 건물과 하늘 (photo_2026-10-23_14-23-20.jpg) → `사진원본_20260724/photo_2026-10-23_14-23-20.jpg`",
+     "img": "photo"
     },
     {
      "date": "2026-11-25",
