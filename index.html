@@ -5794,9 +5794,14 @@
     return true;
   }
   var yuPullOnce = false;
+  // IG フィードに載る大きさで出す（2026-10-26 remitech「IG投稿できるサイズの規格を守るように」）。原稿の「元の比率のまま」を差し替える
+  var YU_IG_SIZE = "Output a vertical 4:5 image at exactly 1080 x 1350 pixels (Instagram feed portrait size). To fit 4:5, trim the edges of the photo evenly and keep the main subject fully in frame; do not stretch, squash, or extend the scene.";
   function yuImagePrompt(text) {
     if (!text) return "";
-    return String(text).trim();
+    var s = String(text).trim();
+    if (/1080\s*[x×]\s*1350/.test(s)) return s;
+    var r = s.replace(/\s*Keep the original aspect ratio\.?/i, "");
+    return r + (/[.!?]$/.test(r) ? " " : ". ") + YU_IG_SIZE;
   }
   // 2026-11 からは文の先頭に日付の行を付けない（2026-10-26 remitech「11月投稿テキストの前に日付テキストは不要」）。
   // サーバーの原稿に残っている日付だけの1行目（例 "11/1 (Sun)" "2026.11.01" "November 1"）を表示とコピーから外す
