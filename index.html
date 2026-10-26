@@ -7010,7 +7010,7 @@
       (cur.checks && cur.checks.length ? '<details class="plchecks"><summary>' + esc(g.yChecks) + ' (' + cur.checks.length + ')</summary><ol>' +
         cur.checks.map(function (c) { return '<li>' + plMd(c) + '</li>'; }).join("") + '</ol></details>' : "");
   }
-  function plYuyuPost(p, g) {
+  function plYuyuPost(p, g, all) {
     var iT = plCopy.push(p.text) - 1;
     var ik = p.img === "photo" ? g.yPhoto : p.img === "style" ? g.yStyle : p.img === "video" ? g.yVideo : g.yNone;
     var h = '<div class="plpost"><div class="plptop">' +
@@ -7021,10 +7021,12 @@
       '<pre class="pltxt" lang="en">' + esc(p.text) + '</pre>';
     if (p.img !== "none") h += '<p class="plimg">' + esc(p.img === "video" ? g.yVideo : g.yImg) + ': ' + plMd(p.image) + '</p>';
     if (p.memo) h += '<p class="plimg">' + plMd(p.memo) + '</p>';
-    if (p.prompt) {
-      var iP = plCopy.push(p.prompt) - 1;
+    // X にも同じ日の画像を付けるので、プロンプトが IG・FB 側にしかない日は X のカードにも出す（2026-10-26 remitech）
+    var pr = p.prompt || (p.img === "style" && (all || []).filter(function (q) { return q.date === p.date && q.prompt; }).map(function (q) { return q.prompt; })[0]) || "";
+    if (pr) {
+      var iP = plCopy.push(pr) - 1;
       h += '<details class="plgpt" open><summary>' + esc(g.yPrompt) + '</summary><p class="plabel"><button class="plcpy" data-pi="' + iP + '">' + esc(g.copy) + '</button></p>' +
-        '<pre class="pltxt" lang="en">' + esc(p.prompt) + '</pre></details>';
+        '<pre class="pltxt" lang="en">' + esc(pr) + '</pre></details>';
     }
     return h + '</div>';
   }
@@ -7079,7 +7081,7 @@
       var dn = yuyu && byDate[d].filter(function (p) { return p.note; })[0];
       if (dn) html += '<p class="plnote"><b>' + esc(g.yNote) + '</b> ' + plMd(dn.note) + '</p>';
       byDate[d].forEach(function (p) {
-        if (yuyu) { html += plYuyuPost(p, g); return; }
+        if (yuyu) { html += plYuyuPost(p, g, cur.posts || []); return; }
         var rv = plReview(p), enShow = rv === "edited" ? p.enRev : p.en;
         var iJa = plCopy.push(p.ja) - 1, iEn = plCopy.push(enShow) - 1;
         html += '<div class="plpost"><div class="plptop">' +
@@ -7171,7 +7173,7 @@
       '<button data-tab="ov" aria-pressed="' + (tab === "ov") + '">' + esc(t("navOv")) + '</button>' +
       '<button data-tab="book" aria-pressed="' + (tab === "book") + '">' + esc(t("navBook")) + '</button>' +
       '<button data-tab="prep" aria-pressed="' + (tab === "prep" || tab === "prep2") + '">' + esc(t("navPrep")) + '</button>' +
-      '<button data-tab="plan" aria-pressed="' + (tab === "plan") + '">' + esc(t("navPlan")) + '</button>' +
+      // 企画タブは非表示（2026-10-26 remitech「企画タブ非表示」）。plans.json は準備タブの YUYU のプロンプトに使う
       '<button data-tab="kpi" aria-pressed="' + (tab === "kpi") + '">' + esc(t("navKpi")) + '</button>' +
       '<button class="navhot" data-tab="likes" aria-pressed="' + (tab === "likes") + '">' + esc(t("navLikes")) + '</button>' +
       '<button data-tab="import" aria-pressed="' + (tab === "import") + '">' + esc(t("navImport")) + '</button>' +
