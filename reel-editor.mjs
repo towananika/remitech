@@ -53,7 +53,7 @@ export function createEditor(a) {
   let date=R.today()<'2026-10-27'?'2026-10-27':R.today(),first=date,last=R.addDays(R.monday(date),6),pf='X',brief='',observer=null,failedKey='',pendingRemote=false,instructions={};
   const initial=a.selection?.();if(initial){if(R.dateOK(initial.date))date=initial.date;if(['X','IG','IGS'].includes(initial.platform))pf=initial.platform;first=date;last=R.addDays(R.monday(date),6);}
   if(date>R.EDITOR_END_DATE){date=R.EDITOR_END_DATE;first=date;last=date;}
-  let stories=null,storyLoading=false,storyError=false,lastStory={},resetArmed='',cancelArmed='',calendarOffset=0;
+  let stories=null,storyLoading=false,storyError=false,lastStory={},resetArmed='',cancelArmed='',calendarOffset=0,lastBookingState='';
   async function loadStories(){
     if(storyLoading)return;storyLoading=true;
     try{let list=a.stories?.();if(!Array.isArray(list)){const r=await fetch('./posts.json');if(!r.ok)throw Error();const j=await r.json();list=(j.channels.find(c=>c.id==='reel')||{}).snippets||[];}
@@ -101,7 +101,9 @@ export function createEditor(a) {
   async function load(force=false){
     if(loading||busy)return;
     if(edit||settingsDirty){pendingRemote=true;return;}
-    loading=true;attempted=true;let changed=!loaded;
+    loading=true;attempted=true;let changed=!loaded;let bookingState='';
+    for(let i=0;i<14;i++){const day=R.addDays(R.today(),calendarOffset*7+i);for(const channel of ['X','IG','IGS'])bookingState+=String(a.booked(day,channel))+String(!!a.posted?.(day,channel));}
+    if(bookingState!==lastBookingState){lastBookingState=bookingState;changed=true;}
     try{const wasOffline=!online;const j=await call();if(edit||settingsDirty||busy){pendingRemote=true;notice(t('remote'));return;}changed=changed||JSON.stringify(j.weeks)!==JSON.stringify(weeks)||JSON.stringify(j.holidays||{})!==JSON.stringify(holidays)||j.ai!==ai||!online;weeks=j.weeks;holidays=j.holidays||{};brief=j.settings.brief;ai=j.ai;online=true;loaded=true;lastSync=Date.now();pendingRemote=false;if(force||wasOffline)noticeText='';}
     catch(error){
       online=false;ai=false;
@@ -113,7 +115,7 @@ export function createEditor(a) {
     if(!a.active()||a.preview||document.hidden)return;
     if(edit||busy||settingsDirty){pendingRemote=true;return;}
     if(Date.now()-lastSync<5000)return;
-    load();
+    Promise.resolve(a.pullBookings()).then(()=>load(true));
   }
   function canLeave(){if(edit||busy||settingsDirty){notice(t('unsaved'));return false;}return true;}
   function scrollToDay(day){requestAnimationFrame(()=>a.view.querySelector(`[data-re-day="${day}"]`)?.scrollIntoView({block:'start'}));}
@@ -166,9 +168,9 @@ export function createEditor(a) {
     const statuses=[['empty',t('noDraft'),'—'],['ready',t('hasDraft'),'✓'],['scheduled',t('scheduledStatus'),'✓'],['posted',t('postedStatus'),'✓']];
     const weekdays=({ja:['日','月','火','水','木','金','土'],en:['Sun','Mon','Tue','Wed','Thu','Fri','Sat'],ko:['일','월','화','수','목','금','토']})[a.lang()]||['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
     const head=`<span class="re-check-corner">SNS</span>${dates.map(day=>{const weekday=new Date(day+'T00:00:00Z').getUTCDay(),national=R.koreanHoliday(day,a.lang()),holiday=!!(national||holidays[day]),description=national?t('koreanHoliday')+national:holidays[day]?t('holidayUnset'):weekday===0?t('sunday')+' · '+t('holidaySet'):t('holidaySet');return `<button class="re-check-date" data-re-holiday="${day}" data-weekday="${weekday}" data-holiday="${holiday}" ${day===today?'data-today="true"':''} title="${e(description)}" aria-label="${day} · ${e(description)}" aria-pressed="${holiday}" ${busy||!member()||!online?'disabled':''}><span>${day.slice(5).replace('-','/')}</span><small>${e(weekdays[weekday])}</small></button>`;}).join('')}`;
-    const rows=['X','IG'].map(channel=>`<strong class="re-check-channel">${channel}</strong>${dates.map(day=>{
+    const rows=['X','IG','IGS'].map(channel=>`<strong class="re-check-channel">${channel==='IGS'?'IG Story':channel}</strong>${dates.map(day=>{
       const post=find(day).d?.posts[channel];
-      const status=post?statuses[1]:statuses[0];
+      const status=channel==='IGS'?['empty','IG Story','—']:post?statuses[1]:statuses[0];
       const posted=!!a.posted?.(day,channel),booked=a.booked(day,channel),publication=posted?'posted':booked?'scheduled':'';
       const publicationLabel=publication?t(posted?'postedStatus':'scheduledStatus'):'';
       const name=`${day} · ${channel} · ${status[1]}${publication?' · '+publicationLabel:''}`;

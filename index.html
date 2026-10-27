@@ -4754,6 +4754,7 @@
       .then(function (o) {
         if (o) bkLast = o;
         var bkChanged = bookApply(o);
+        if (bkChanged && reelEditor && isReelPage()) reelEditor.refresh();
         // サーバーの予約状態（人が入れたリンクを含む）を読んでから、見つかった投稿のリンクを入れる
         if (o && o.links) { bkSeenServer = true; if (!pcAutoDone && pcAutoUrl() > 0) bkChanged = true; }
         if (bkChanged && (tab === "likes" || tab === "follow") && !/^#\//.test(location.hash)) { var ty = window.scrollY; renderLikes(); window.scrollTo(0, ty); }
@@ -7231,7 +7232,7 @@
     }
     if (reelEditor) { reelEditor.renderLocation(); reelEditor.refresh(); return; }
     view.innerHTML = '<p class="empty">' + esc(t("loading")) + '</p>';
-    if (!reelLoading) reelLoading = import('./reel-editor.mjs?v=20261027-no-confirm').then(function (mod) {
+    if (!reelLoading) reelLoading = import('./reel-editor.mjs?v=20261027-calendar-story').then(function (mod) {
       reelEditor = mod.createEditor({
         view: view, esc: esc, lang: function () { return lang; },
         active: function () { var u = authUser(); return isReelPage() && !!(u && (u.member || u.admin)); },
@@ -7253,6 +7254,7 @@
         pullBookings: function () { return bookPull(true); }
       });
       reelEditor.render();
+      bookPull(true).then(function () { if (isReelPage()) reelEditor.refresh(); });
     }).catch(function () { reelLoading = null; if (isReelPage()) view.innerHTML = '<p class="empty">' + esc(t("fail")) + '</p>'; });
   }
   setInterval(function () { if (reelEditor && isReelPage() && !document.hidden) { var u = authUser(); if (!u || !(u.member || u.admin)) { renderNav(); renderReel(); return; } bookPull(true); reelEditor.refresh(); } }, 30000);
