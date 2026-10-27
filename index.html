@@ -666,6 +666,8 @@
   .lkc.lkbig{ width:66px; min-height:44px; margin:0; font-size:13px; border-radius:10px; }
   .lkbtns{ flex-wrap:wrap; justify-content:flex-end; }
   .lkc.lkbig.lkwide{ width:auto; padding:0 10px; }
+  .lkbtns.lkgrid{ display:grid; grid-template-columns:var(--lkcols); justify-content:end; }
+  .lkgrid .lkc.lkbig{ width:100%; padding:0 6px; }
   .lkc.lkbig[data-now="true"]{ border-color:var(--ink); border-width:2px; font-weight:700; }
   .lkpast{ display:block; width:100%; max-width:720px; margin:16px 0 12px; padding:12px; font:inherit; font-size:14px;
     color:var(--muted); background:none; border:1px dashed var(--line); border-radius:12px; cursor:pointer; }
@@ -675,6 +677,7 @@
     .lkc.lkbig{ flex:1 1 28%; width:auto; }
     /* 5つ並ぶ行は2段に折り返す。文字は1行のまま */
     .lkc.lkbig.lkwide{ flex:1 1 40%; white-space:nowrap; }
+    .lkbtns.lkgrid{ grid-template-columns:repeat(3, minmax(0, 1fr)); }
   }
   /* ---- いいね（週のカレンダー） ---- */
   .lk{ max-width:1100px; }
@@ -6516,6 +6519,17 @@
     var w = new Date(k + "T00:00:00").getDay();
     return w !== 0 && w !== 6;
   }
+  // 今日の表の列：fm=フォロー解除、fp=フォロー、fc=フォロワー確認、t+時刻、reply
+  function lkSlot(tk) {
+    var m = /follow\s*([+-])/i.exec(tk.task);
+    if (m) return m[1] === "-" ? "fm" : "fp";
+    if (/フォロワー確認/.test(tk.task)) return "fc";
+    if (/^REPLY/i.test(tk.task)) return "reply";
+    return "t" + tk.time;
+  }
+  function lkSlotRank(k) {
+    return k === "fm" ? -3 : k === "fp" ? -2 : k === "fc" ? -1 : k === "reply" ? 10000 : toMin(k.slice(1));
+  }
   // 並び：フォロー+5 を先頭、あとは時間順
   function lkSorted(tasks) {
     return tasks.slice().sort(function (a, b) {
@@ -6602,6 +6616,11 @@
     var cur = null;
     Object.keys(times).sort(function (a, b) { return toMin(a) - toMin(b); }).forEach(function (tm) { if (toMin(tm) <= nm) cur = tm; });
     var tAll = 0, tDone = 0;
+    // 列をそろえる：フォロー解除・フォロー・時間・リプライの列を全行で共通にし、ない作業は空きにする
+    var cols = [];
+    lkLists().forEach(function (li) { li.tasks.forEach(function (tk) { var k = lkSlot(tk); if (lkDue(tk, today) && cols.indexOf(k) < 0) cols.push(k); }); });
+    cols.sort(function (a, b) { return lkSlotRank(a) - lkSlotRank(b); });
+    var colTpl = cols.map(function (k) { return /^t/.test(k) ? "66px" : k === "reply" ? "86px" : "104px"; }).join(" ");
     var todayRows = lkLists().map(function (li) {
       var due = li.tasks.filter(function (tk) { return lkDue(tk, today); });
       if (!due.length) return "";
@@ -6611,7 +6630,9 @@
       var n = csv ? "" : ((/(\d+)/.exec(((li.tasks.filter(function (tk) { return /like/i.test(tk.task); })[0] || li.tasks[0] || {}).task) || "") || [])[1] || "");
       return '<div class="lkrow" style="--chc:' + esc(c.color || "var(--wood)") + '">' +
         '<div class="lkname">' + lkHeadHTML(li, c, csv, n, true) + '</div>' +
-        '<div class="lkbtns">' + lkSorted(li.tasks).map(function (tk) {
+        '<div class="lkbtns lkgrid" style="--lkcols:' + colTpl + '">' + cols.map(function (k) {
+          var tk = li.tasks.filter(function (x) { return lkSlot(x) === k; })[0];
+          if (!tk) return '<span class="lkgap" aria-hidden="true"></span>';
           var on = !!td[tk.id]; tAll++; if (on) tDone++;
           return '<button class="lkc lkbig' + (lkLabel(tk) ? " lkwide" : "") + '" data-d="' + today + '" data-id="' + esc(tk.id) + '" data-on="' + on + '" data-now="' + (tk.time === cur && !on) + '" title="' + esc(tk.task + (on && lkAtText(today, tk.id) ? "\n\u2713 " + lkAtText(today, tk.id) : "")) + '">' +
             (on ? "\u2713 " : "") + esc(lkLabel(tk) || tk.time) + (on ? lkAtSmall(today, tk.id) : "") + '</button>';
