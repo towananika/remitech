@@ -47,6 +47,7 @@ check:['問題なし','No changes needed','문제없음'],due:['前日解禁 · 
   search:['投稿文を検索','Search posts','게시문 검색'],searchPlaceholder:['日付・テーマ・本文で検索','Search by date, theme or text','날짜·주제·본문으로 검색'],
   allStatus:['すべての状態','All statuses','모든 상태'],upcoming:['今日以降','From today','오늘 이후'],past:['過去','Past','지난 게시물'],allDates:['全期間','All dates','전체 기간'],
   results:['{n}件','{n} posts','{n}건'],noResults:['該当する投稿はありません。','No matching posts.','해당하는 게시물이 없습니다.'],pageLabel:['ページ','Pages','페이지'],
+  autoNext:['自動で次へ','Auto-advance','자동으로 다음'],autoNextHelp:['予約したあと次の日を開きます','Open the next day after marking scheduled','예약 후 다음 날을 엽니다'],
   backToList:['← 一覧へ','← Back to list','← 목록으로'],prevPost:['‹ 前の日','‹ Previous day','‹ 이전 날'],nextPost:['次の日 ›','Next day ›','다음 날 ›'],
   next:['次の日付へ','Next dates','다음 날짜로'],previous:['前の週','Previous week','이전 주'],empty:['草案はまだありません','No drafts yet','아직 초안이 없습니다'],
 };
@@ -54,9 +55,10 @@ check:['問題なし','No changes needed','문제없음'],due:['前日解禁 · 
 export function createEditor(a) {
   const t=k=>labels[k][({ja:0,en:1,ko:2})[a.lang()] ?? 0], e=a.esc;
   let weeks=[],holidays={},loaded=false,online=false,loading=false,attempted=false,busy=false,ai=false,noticeText='',edit='',editMode='',buffer={},settingsDirty=false,lastSync=0;
-  let date=R.today()<'2026-10-27'?'2026-10-27':R.today(),first=date,last=R.addDays(R.monday(date),6),pf='X',brief='',observer=null,failedKey='',pendingRemote=false,instructions={};
-  let board=true,query='',statusFilter='all',period='upcoming',page=1;
-  const initial=a.selection?.();if(initial){board=!R.dateOK(initial.date);if(R.dateOK(initial.date))date=initial.date;if(['X','IG','IGS'].includes(initial.platform))pf=initial.platform;first=date;last=R.addDays(R.monday(date),6);}
+  let date=R.today()<'2026-10-27'?'2026-10-27':R.today(),first=date,last=date,pf='X',brief='',observer=null,failedKey='',pendingRemote=false,instructions={};
+  let board=true,query='',statusFilter='all',period='upcoming',page=1,autoNext=false;
+  try{autoNext=localStorage.getItem('remitech-reel-auto-next')==='1';}catch{}
+  const initial=a.selection?.();if(initial){board=!R.dateOK(initial.date);if(R.dateOK(initial.date))date=initial.date;if(['X','IG','IGS'].includes(initial.platform))pf=initial.platform;first=date;last=date;}
   if(date>R.EDITOR_END_DATE){date=R.EDITOR_END_DATE;first=date;last=date;}
   let stories=null,storyLoading=false,storyError=false,lastStory={},resetArmed='',cancelArmed='',calendarOffset=0,lastBookingState='';
   async function loadStories(){
@@ -166,6 +168,7 @@ export function createEditor(a) {
 
       <div class="re-actions">${button('copyFeeds',t('copyFeeds'),!can||editing||busy,'class="re-primary"')}
       ${button('book',(booked?'✓ ':'')+pf+' · '+t(booked?'booked':'book'),disabled||editing||(!can&&!booked),`class="re-book-button" data-booked="${booked}" aria-pressed="${booked}"`)}
+      <label class="re-auto-next" title="${e(t('autoNextHelp'))}"><input type="checkbox" data-re-auto-next ${autoNext?'checked':''}> ${e(t('autoNext'))}</label>
       </div></article>${d.date===R.EDITOR_END_DATE?`<div class="re-weekend-end">${e(t('wellDone'))}</div>`:''}`;
   }
   function checkOverview(){
@@ -276,7 +279,7 @@ export function createEditor(a) {
     if(ev.target.matches('[data-re-instructions]'))instructions[key(ev.target.closest('[data-re-day]').dataset.reDay)]=ev.target.value;
     if(edit && ev.target.matches('[data-re-inline],[data-re-ja],[data-re-en],[data-re-nobo],[data-re-nobo-en],[data-re-theme],[data-re-arc],[data-author-ja],[data-author-en]'))stash();
   });
-  a.view.addEventListener('change',ev=>{if(ev.target.id==='re-date')open(ev.target.value);if(ev.target.matches('[data-re-period]')){period=ev.target.value;page=1;refreshBoard();}if(ev.target.matches('[data-re-status]')){statusFilter=ev.target.value;page=1;refreshBoard();}});
+  a.view.addEventListener('change',ev=>{if(ev.target.id==='re-date')open(ev.target.value);if(ev.target.matches('[data-re-period]')){period=ev.target.value;page=1;refreshBoard();}if(ev.target.matches('[data-re-status]')){statusFilter=ev.target.value;page=1;refreshBoard();}if(ev.target.matches('[data-re-auto-next]')){autoNext=ev.target.checked;a.view.querySelectorAll('[data-re-auto-next]').forEach(el=>el.checked=autoNext);try{localStorage.setItem('remitech-reel-auto-next',autoNext?'1':'0');}catch{}}});
   a.view.addEventListener('submit',ev=>{if(ev.target.matches('[data-re-search]'))ev.preventDefault();});
   a.view.addEventListener('cancel',ev=>{if(ev.target.matches('.re-nobo-dialog')){ev.preventDefault();if(!busy&&stash()){edit='';buffer={};render();}}},true);
   a.view.addEventListener('click',async ev=>{
@@ -350,7 +353,11 @@ export function createEditor(a) {
     }
     if(op==='book')body.scheduled=!a.booked(day,pf);
     if(op==='regenerate')body.instructions=card.querySelector('[data-re-instructions]').value;
-    if(['save','book','regenerate','noboReset'].includes(op))await mutate(body);
+    if(['save','book','regenerate','noboReset'].includes(op)){
+      const done=await mutate(body);
+      // 「自動で次へ」: 予約したら次の日を開く（解除のときは移動しない）。
+      if(done&&op==='book'&&body.scheduled&&autoNext&&!board&&day<R.EDITOR_END_DATE)await open(R.addDays(day,1));
+    }
   });
   window.addEventListener('focus',autoRefresh);
   window.addEventListener('online',()=>{lastSync=0;autoRefresh();});

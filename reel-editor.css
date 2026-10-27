@@ -177,3 +177,5 @@
   .re-board-main{grid-column:1 / -1}
   .re-board-search select{flex:1 1 40%}
 }
+.re-auto-next{display:inline-flex;align-items:center;gap:8px;justify-self:start;font-size:13px;color:var(--muted);cursor:pointer;padding:2px 0}
+.re-auto-next input{width:18px;height:18px;margin:0;accent-color:var(--accent)}
