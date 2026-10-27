@@ -142,3 +142,38 @@
   .reel-editor button:not(.re-inline-text):not(:disabled):not([data-copied="true"]):hover{filter:brightness(.9)}
 }
 @media(prefers-reduced-motion:reduce){.reel-editor button{transition:none}}
+/* 一覧（掲示板形式）: 検索・絞り込み・10件ずつのページ */
+.re-board{margin:20px 0}
+.re-board-search{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.re-board-search input[type="search"]{flex:1 1 260px;min-width:0}
+.reel-editor select{font:inherit;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:9px 10px;max-width:100%}
+.re-board-count{margin:14px 0 6px}
+.re-board-list{list-style:none;margin:0;padding:0;border:1px solid var(--line);border-radius:12px;background:var(--surface);overflow:hidden}
+.re-board-list li+li{border-top:1px solid var(--line)}
+.reel-editor .re-board-row{display:grid;grid-template-columns:160px minmax(0,1fr) auto;gap:14px;align-items:center;width:100%;text-align:left;border:0;border-radius:0;padding:12px 16px;background:transparent}
+.reel-editor .re-board-row:hover:not(:disabled){background:var(--todaybg,#f3f6fa)}
+.re-board-date{white-space:nowrap;font-size:13px;font-variant-numeric:tabular-nums;color:var(--muted)}
+.re-board-date small{color:var(--accent);font-weight:700}
+.re-board-main{min-width:0;display:grid;gap:3px}
+.re-board-main b{font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.re-board-snippet{display:grid;gap:2px;font-size:12px;color:var(--muted)}
+.re-board-snippet span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.re-board mark{background:#ffe58a;color:inherit;border-radius:2px}
+.re-board-status{font-size:12px;border:1px solid var(--line);border-radius:20px;padding:3px 10px;white-space:nowrap}
+.re-board-status[data-status="empty"]{background:#edf0f2;color:#59616a;border-color:#c9cfd5}
+.re-board-status[data-status="ready"]{background:#daf1df;color:#216739;border-color:#7bb68b}
+.re-board-status[data-status="scheduled"]{background:#dcecff;color:#174e83;border-color:#86aad3}
+.re-board-status[data-status="posted"]{background:#2d7b49;color:white;border-color:#2d7b49}
+.re-board-empty{padding:24px;text-align:center;border:1px dashed var(--line);border-radius:12px}
+.re-pager{display:flex;justify-content:center;align-items:center;gap:6px;flex-wrap:wrap;margin:16px 0}
+.re-pager button{min-width:38px;padding:7px 10px}
+.re-pager button[aria-current="page"]{background:var(--accent);border-color:var(--accent);color:white}
+.re-pager span{color:var(--muted);padding:0 2px}
+.re-detail-nav{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin:20px 0 0}
+@media(max-width:650px){
+  .reel-editor .re-board-row{grid-template-columns:minmax(0,1fr) auto;gap:4px 10px;padding:12px}
+  .re-board-date{grid-column:1}
+  .re-board-status{grid-column:2;grid-row:1}
+  .re-board-main{grid-column:1 / -1}
+  .re-board-search select{flex:1 1 40%}
+}

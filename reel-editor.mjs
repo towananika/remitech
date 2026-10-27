@@ -1,4 +1,4 @@
-import * as R from './reel-workflow.mjs?v=20261027-no-confirm';
+import * as R from './reel-workflow.mjs?v=20261027-board';
 
 const labels = {
   title:['REEL','REEL','REEL'],
@@ -44,6 +44,10 @@ check:['問題なし','No changes needed','문제없음'],due:['前日解禁 · 
   genError:['AI応答の取得または検証に失敗しました。既存の文章は変更していません。「もう一度読み込む」か再生成で再試行できます。','Could not retrieve or validate AI output. Existing text is preserved. Retry loading or regenerate.','AI 응답을 가져오거나 검증하지 못했습니다. 기존 본문은 유지됩니다. 다시 불러오거나 재생성하세요.'],
   busy:['他の生成処理が進行中です。少し待って再試行してください。','Another generation is running. Wait briefly and retry.','다른 생성이 진행 중입니다. 잠시 후 다시 시도하세요.'],already:['本文を変更する前に予約を解除してください。','Undo scheduled status before changing the text.','본문 변경 전에 예약을 해제하세요.'],notReady:['NOBO確認完了または投稿日前日までお待ちください。','Wait for NOBO or the day before posting.','NOBO 확인 완료 또는 게시 전날까지 기다리세요.'],overlap:['テーマ・切り口・本文が履歴と重複しています。再試行してください。','Theme, angle or text overlaps history. Please retry.','주제·관점·본문이 기록과 중복됩니다. 다시 시도하세요.'],
   copyError:['コピーできませんでした。英語本文を選択してコピーしてください。','Copy failed. Select and copy the English text manually.','복사하지 못했습니다. 영어 본문을 선택해 복사하세요.'],unsaved:['編集中です。保存またはキャンセルしてください。','Save or cancel your edits first.','편집 내용을 저장하거나 취소하세요.'],
+  search:['投稿文を検索','Search posts','게시문 검색'],searchPlaceholder:['日付・テーマ・本文で検索','Search by date, theme or text','날짜·주제·본문으로 검색'],
+  allStatus:['すべての状態','All statuses','모든 상태'],upcoming:['今日以降','From today','오늘 이후'],past:['過去','Past','지난 게시물'],allDates:['全期間','All dates','전체 기간'],
+  results:['{n}件','{n} posts','{n}건'],noResults:['該当する投稿はありません。','No matching posts.','해당하는 게시물이 없습니다.'],pageLabel:['ページ','Pages','페이지'],
+  backToList:['← 一覧へ','← Back to list','← 목록으로'],prevPost:['‹ 前の日','‹ Previous day','‹ 이전 날'],nextPost:['次の日 ›','Next day ›','다음 날 ›'],
   next:['次の日付へ','Next dates','다음 날짜로'],previous:['前の週','Previous week','이전 주'],empty:['草案はまだありません','No drafts yet','아직 초안이 없습니다'],
 };
 
@@ -51,7 +55,8 @@ export function createEditor(a) {
   const t=k=>labels[k][({ja:0,en:1,ko:2})[a.lang()] ?? 0], e=a.esc;
   let weeks=[],holidays={},loaded=false,online=false,loading=false,attempted=false,busy=false,ai=false,noticeText='',edit='',editMode='',buffer={},settingsDirty=false,lastSync=0;
   let date=R.today()<'2026-10-27'?'2026-10-27':R.today(),first=date,last=R.addDays(R.monday(date),6),pf='X',brief='',observer=null,failedKey='',pendingRemote=false,instructions={};
-  const initial=a.selection?.();if(initial){if(R.dateOK(initial.date))date=initial.date;if(['X','IG','IGS'].includes(initial.platform))pf=initial.platform;first=date;last=R.addDays(R.monday(date),6);}
+  let board=true,query='',statusFilter='all',period='upcoming',page=1;
+  const initial=a.selection?.();if(initial){board=!R.dateOK(initial.date);if(R.dateOK(initial.date))date=initial.date;if(['X','IG','IGS'].includes(initial.platform))pf=initial.platform;first=date;last=R.addDays(R.monday(date),6);}
   if(date>R.EDITOR_END_DATE){date=R.EDITOR_END_DATE;first=date;last=date;}
   let stories=null,storyLoading=false,storyError=false,lastStory={},resetArmed='',cancelArmed='',calendarOffset=0,lastBookingState='';
   async function loadStories(){
@@ -121,7 +126,7 @@ export function createEditor(a) {
   function scrollToDay(day){requestAnimationFrame(()=>a.view.querySelector(`[data-re-day="${day}"]`)?.scrollIntoView({block:'start'}));}
   async function open(day){
     if(!R.dateOK(day)||!canLeave())return;if(day>R.EDITOR_END_DATE){notice(t('scope'));return;}
-    date=day;first=day;last=R.addDays(R.monday(day),6);failedKey='';a.navigate?.(date,pf);render();scrollToDay(day);await ensure(day);autoRefresh();
+    board=false;date=day;first=day;last=day;failedKey='';a.navigate?.(date,pf);render();scrollToDay(day);await ensure(day);autoRefresh();
   }
   async function ensure(day) { /* Drafts are supplied by the author; never generate text on navigation. */ }
   function authorParts(day,p){return p?.parts?.map(part=>({...part}))||R.partLabels(day,pf).map((label,i)=>({label,ja:i===0?p?.ja||'':'',en:i===0?p?.en||'':''}));}
@@ -183,36 +188,57 @@ export function createEditor(a) {
     const days=[];for(let day=first;day<=last;day=R.addDays(day,1))days.push(day);
     const current=find(date).w;
     a.view.innerHTML=`<section class="reel-editor"><header class="re-top"><div><h2>${e(t('title'))}</h2></div></header>
-      <div class="re-date-controls"><div class="re-toolbar re-datebar"><label for="re-date">${e(t('date'))}</label><input type="date" id="re-date" value="${date}" max="${R.EDITOR_END_DATE}" ${busy?'disabled':''}><div class="re-toolbar" role="group" aria-label="SNS">${['X','IG','IGS'].map(p=>`<button data-re-platform="${p}" aria-pressed="${pf===p}" ${busy?'disabled':''}>${p==='IGS'?'IG Story':p}</button>`).join('')}</div><button data-re-action="previous" ${busy?'disabled':''}>← ${e(t('previous'))}</button></div>
+      <div class="re-date-controls"><div class="re-toolbar re-datebar"><label for="re-date">${e(t('date'))}</label><input type="date" id="re-date" value="${date}" max="${R.EDITOR_END_DATE}" ${busy?'disabled':''}><div class="re-toolbar" role="group" aria-label="SNS">${['X','IG','IGS'].map(p=>`<button data-re-platform="${p}" aria-pressed="${pf===p}" ${busy?'disabled':''}>${p==='IGS'?'IG Story':p}</button>`).join('')}</div></div>
       ${checkOverview()}</div>
       <div data-re-notice class="re-notice" aria-live="polite" role="status" ${noticeText?'':'hidden'}>${e(noticeText)}</div>
       ${a.preview?'<div class="re-notice">デザイン確認用のサンプルです。日付・X／IG／IG Storyの切り替えを試せます。実際の投稿や会員情報は含まず、編集・保存はできません。</div>':!member()?`<div class="re-notice">${e(t('login'))} <button data-re-action="login">${e(t('loginBtn'))}</button></div>`:!online&&attempted?'<p><a href="./posts-compare.html">デザイン比較を見る ↗</a></p>':''}
       <details class="re-plan"><summary>${e(t('settings'))}</summary><label for="re-brief">${e(t('brief'))}</label><textarea id="re-brief" maxlength="3000">${e(brief)}</textarea><button data-re-action="settings" ${busy||!member()||!online?'disabled':''}>${e(t('saveBrief'))}</button><button data-re-action="cancelSettings" ${busy?'disabled':''}>${e(t('cancel'))}</button></details>
-      ${weeks.length?`<nav class="re-weeks" aria-label="4 weeks">${weeks.filter(w=>w.start>=R.monday(first)&&w.start<=R.EDITOR_END_DATE).slice(0,4).map(w=>`<button data-re-open="${w.start}" aria-pressed="${R.monday(date)===w.start}" ${busy?'disabled':''}><small>${w.start} — ${R.addDays(w.start,6)}</small><b>${e(w.theme)}</b><small>${e(w.angle)}</small></button>`).join('')}</nav>`:''}
+      ${pf==='IGS'?storyHTML():board?boardHTML():`<nav class="re-detail-nav"><button data-re-action="board" ${busy?'disabled':''}>${e(t('backToList'))}</button><div class="re-toolbar"><button data-re-action="prevPost" ${busy?'disabled':''}>${e(t('prevPost'))}</button><button data-re-action="nextPost" ${busy||date>=R.EDITOR_END_DATE?'disabled':''}>${e(t('nextPost'))}</button></div></nav>
       ${current?`<div class="re-week"><span class="re-eyebrow">${current.start} — ${R.addDays(current.start,6)}</span><h3>${e(current.theme)}</h3><p>${e(current.arc)}</p></div>`:''}
-      ${pf==='IGS'?storyHTML():!loaded?`<p>${e(t(loading?'loading':'manualMissing'))}</p>`:days.map(day=>{const {w,d}=find(day);return postHTML(d||{date:day,focus:w?.theme||t('empty'),posts:{}},w);}).join('')}
-      <div class="re-more"><button data-re-action="more" ${busy?'disabled':''}>${e(t('next'))} ↓</button></div></section>`;
-    if(pf==='IGS')a.view.querySelectorAll('.re-weeks,.re-week,.re-plan,.re-more').forEach(el=>el.hidden=true);
-    if(last>=R.EDITOR_END_DATE)a.view.querySelector('.re-more').hidden=true;
+      ${!loaded?`<p>${e(t(loading?'loading':'manualMissing'))}</p>`:days.map(day=>{const {w,d}=find(day);return postHTML(d||{date:day,focus:w?.theme||t('empty'),posts:{}},w);}).join('')}`}</section>`;
     a.view.querySelectorAll('.re-plan').forEach(el=>el.hidden=true);
-    a.view.querySelector('.re-nobo-dialog')?.showModal();observe();if(pf!=='IGS'&&!loaded&&!loading&&!attempted)load();
+    a.view.querySelector('.re-nobo-dialog')?.showModal();if(pf!=='IGS'&&!loaded&&!loading&&!attempted)load();
   }
-  function observe(){
-    observer=new IntersectionObserver(entries=>{
-      if(busy||edit||!a.active())return;
-      for(const entry of entries){
-        if(!entry.isIntersecting)continue;
-        if(entry.target.classList.contains('re-more')){
-          // Only extend once the reader reaches the bottom, not during initial layout.
-          if(window.scrollY>100 && !edit && !settingsDirty && last<R.EDITOR_END_DATE){last=R.addDays(last,7)>R.EDITOR_END_DATE?R.EDITOR_END_DATE:R.addDays(last,7);const y=window.scrollY;render();window.scrollTo(0,y);}return;
-        }
-      }
-      const controlsBottom=Math.max(12,(a.view.querySelector('.re-date-controls')?.getBoundingClientRect().bottom||0)+12);
-      const reading=[...a.view.querySelectorAll('[data-re-day]')].find(el=>{const r=el.getBoundingClientRect();return r.bottom>controlsBottom&&r.top<window.innerHeight;});
-      if(reading){const day=reading.dataset.reDay,input=a.view.querySelector('#re-date');if(input)input.value=day;date=day;a.view.querySelectorAll('[data-re-check-date]').forEach(el=>el.setAttribute('aria-pressed',String(el.dataset.reCheckDate===date&&el.dataset.reCheckPlatform===pf)));a.navigate?.(date,pf);ensure(day);}
-    },{threshold:[0,0.12,0.5]});
-    a.view.querySelectorAll('[data-re-day],.re-more').forEach(el=>observer.observe(el));
+  function rowStatus(day,post){return a.posted?.(day,pf)?'posted':a.booked(day,pf)?'scheduled':post?'ready':'empty';}
+  function boardRows(){
+    if(!weeks.length)return [];
+    const today=R.today(),rows=[];
+    for(let day=weeks[0].start;day<=R.EDITOR_END_DATE;day=R.addDays(day,1)){
+      if(period==='upcoming'&&day<today||period==='past'&&day>=today)continue;
+      const {w,d}=find(day),post=d?.posts?.[pf],status=rowStatus(day,post);
+      if(statusFilter!=='all'&&status!==statusFilter)continue;
+      const focus=d?.focus||w?.theme||'';
+      if(query.trim()&&!R.matchesQuery(R.postSearchText(post,[day,dateLabel(day),focus,w?.theme]),query))continue;
+      rows.push({day,focus,post,status});
+    }
+    return period==='past'?rows.reverse():rows;
   }
+  function highlight(text){
+    const terms=R.queryTerms(query).map(s=>s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'));
+    if(!terms.length)return e(text);
+    return String(text).split(new RegExp(`(${terms.join('|')})`,'gi')).map((s,i)=>i%2?`<mark>${e(s)}</mark>`:e(s)).join('');
+  }
+  function rowSnippet(post){
+    if(!post)return '';
+    const lines=R.postSearchText(post).split('\n').map(s=>s.trim()).filter(Boolean),terms=R.queryTerms(query);
+    const hit=terms.length&&lines.find(line=>terms.some(term=>line.normalize('NFKC').toLowerCase().includes(term)));
+    const ja=post.parts?.[0]?.ja||post.ja||'',en=post.parts?.length?R.englishPart(post,0):R.english(post);
+    return hit?`<span>${highlight(hit)}</span>`:`<span>${highlight(ja.split('\n')[0])}</span><span lang="en">${highlight(en.split('\n')[0])}</span>`;
+  }
+  function boardResults(){
+    const all=boardRows(),view=R.pageOf(all,page);page=view.page;
+    const labelOf={ready:t('hasDraft'),empty:t('noDraft'),scheduled:t('scheduledStatus'),posted:t('postedStatus')};
+    const rows=view.items.map(r=>`<li><button class="re-board-row" data-re-row="${r.day}" ${busy?'disabled':''}><span class="re-board-date">${e(dateLabel(r.day))}${r.day===R.today()?` <small>${e(t('today'))}</small>`:''}</span><span class="re-board-main"><b>${highlight(r.focus)}</b><span class="re-board-snippet">${rowSnippet(r.post)}</span></span><span class="re-board-status" data-status="${r.status}">${e(labelOf[r.status])}</span></button></li>`).join('');
+    const pager=view.pages>1?`<nav class="re-pager" aria-label="${e(t('pageLabel'))}"><button data-re-page="${view.page-1}" ${view.page<=1?'disabled':''} aria-label="${e(t('pageLabel'))} ${view.page-1}">‹</button>${R.pageNumbers(view.page,view.pages).map(n=>n===null?'<span aria-hidden="true">…</span>':`<button data-re-page="${n}" aria-current="${n===view.page?'page':'false'}">${n}</button>`).join('')}<button data-re-page="${view.page+1}" ${view.page>=view.pages?'disabled':''} aria-label="${e(t('pageLabel'))} ${view.page+1}">›</button></nav>`:'';
+    return `<p class="re-board-count" role="status">${e(t('results').replace('{n}',all.length))}${view.pages>1?` · ${view.page}/${view.pages}`:''}</p>${rows?`<ol class="re-board-list">${rows}</ol>`:`<p class="re-board-empty">${e(t('noResults'))}</p>`}${pager}`;
+  }
+  function boardHTML(){
+    if(!loaded)return `<p>${e(t(loading?'loading':'manualMissing'))}</p>`;
+    const option=(value,label,current)=>`<option value="${value}" ${value===current?'selected':''}>${e(label)}</option>`;
+    return `<section class="re-board"><form class="re-board-search" role="search" data-re-search><input type="search" data-re-query value="${e(query)}" placeholder="${e(t('searchPlaceholder'))}" aria-label="${e(t('search'))}"><select data-re-period aria-label="${e(t('date'))}">${[['upcoming',t('upcoming')],['past',t('past')],['all',t('allDates')]].map(([v,l])=>option(v,l,period)).join('')}</select><select data-re-status aria-label="${e(t('allStatus'))}">${[['all',t('allStatus')],['ready',t('hasDraft')],['empty',t('noDraft')],['scheduled',t('scheduledStatus')],['posted',t('postedStatus')]].map(([v,l])=>option(v,l,statusFilter)).join('')}</select></form><div data-re-board-results>${boardResults()}</div></section>`;
+  }
+  function refreshBoard(){const el=a.view.querySelector('[data-re-board-results]');if(el)el.innerHTML=boardResults();else render();}
+  function showBoard(){if(!canLeave())return;board=true;a.navigate?.(null,pf);render();a.view.querySelector('.re-board')?.scrollIntoView({block:'start'});}
   async function mutate(body,success='saved',automatic=false){
     if(edit && !['draft','edit','nobo-edit','nobo-reset','edit-japanese'].includes(body.op)){notice(t('unsaved'));return null;}
     busy=true;const y=window.scrollY;
@@ -234,6 +260,7 @@ export function createEditor(a) {
     }
   }
   a.view.addEventListener('input',ev=>{
+    if(ev.target.matches('[data-re-query]')){query=ev.target.value;page=1;refreshBoard();return;}
     cancelArmed='';const cancel=a.view.querySelector('[data-re-action="cancel"]');if(cancel)cancel.textContent=t('cancel');
     resetArmed='';const reset=a.view.querySelector('[data-re-action="noboReset"]');if(reset)reset.textContent=t(editMode.startsWith('inline-')?'resetShort':'noboReset');
     if(ev.target.id==='re-brief'){brief=ev.target.value;settingsDirty=true;}
@@ -249,7 +276,8 @@ export function createEditor(a) {
     if(ev.target.matches('[data-re-instructions]'))instructions[key(ev.target.closest('[data-re-day]').dataset.reDay)]=ev.target.value;
     if(edit && ev.target.matches('[data-re-inline],[data-re-ja],[data-re-en],[data-re-nobo],[data-re-nobo-en],[data-re-theme],[data-re-arc],[data-author-ja],[data-author-en]'))stash();
   });
-  a.view.addEventListener('change',ev=>{if(ev.target.id==='re-date')open(ev.target.value);});
+  a.view.addEventListener('change',ev=>{if(ev.target.id==='re-date')open(ev.target.value);if(ev.target.matches('[data-re-period]')){period=ev.target.value;page=1;refreshBoard();}if(ev.target.matches('[data-re-status]')){statusFilter=ev.target.value;page=1;refreshBoard();}});
+  a.view.addEventListener('submit',ev=>{if(ev.target.matches('[data-re-search]'))ev.preventDefault();});
   a.view.addEventListener('cancel',ev=>{if(ev.target.matches('.re-nobo-dialog')){ev.preventDefault();if(!busy&&stash()){edit='';buffer={};render();}}},true);
   a.view.addEventListener('click',async ev=>{
     if(!a.active()||busy)return;const btn=ev.target.closest('button');if(!btn)return;
@@ -261,7 +289,9 @@ export function createEditor(a) {
     }
     if(btn.dataset.reCheckDate){if(!canLeave())return;pf=btn.dataset.reCheckPlatform;await open(btn.dataset.reCheckDate);return;}
     if(btn.dataset.reOpen){await open(btn.dataset.reOpen);return;}
-    if(btn.dataset.rePlatform){if(!canLeave())return;pf=btn.dataset.rePlatform;if(pf==='IGS')noticeText='';failedKey='';a.navigate?.(date,pf);render();await ensure(date);autoRefresh();return;}
+    if(btn.dataset.reRow){await open(btn.dataset.reRow);return;}
+    if(btn.dataset.rePage){page=Number(btn.dataset.rePage);refreshBoard();a.view.querySelector('.re-board')?.scrollIntoView({block:'start'});return;}
+    if(btn.dataset.rePlatform){if(!canLeave())return;pf=btn.dataset.rePlatform;if(pf==='IGS')noticeText='';failedKey='';page=1;a.navigate?.(board?null:date,pf);render();await ensure(date);autoRefresh();return;}
     const op=btn.dataset.reAction;if(!op)return;
     if(op!=='cancel'){cancelArmed='';const cancel=a.view.querySelector('[data-re-action="cancel"]');if(cancel)cancel.textContent=t('cancel');}
     if(op!=='noboReset'){resetArmed='';const reset=a.view.querySelector('[data-re-action="noboReset"]');if(reset)reset.textContent=t(editMode.startsWith('inline-')?'resetShort':'noboReset');}
@@ -276,8 +306,8 @@ export function createEditor(a) {
     if(op==='cancelSettings'){settingsDirty=false;await load(true);return;}
     if(op==='refresh'){if(!canLeave())return;failedKey='';if(pf==='IGS'){stories=null;await loadStories();}else await load(true);return;}
     if(op==='calendarPrevious'||op==='calendarNext'){if(!canLeave())return;calendarOffset+=op==='calendarPrevious'?-1:1;const y=window.scrollY;render();window.scrollTo(0,y);autoRefresh();return;}
-    if(op==='previous'){await open(R.addDays(first,-7));return;}
-    if(op==='more'){if(!canLeave())return;last=R.addDays(last,7)>R.EDITOR_END_DATE?R.EDITOR_END_DATE:R.addDays(last,7);render();return;}
+    if(op==='board'){showBoard();return;}
+    if(op==='prevPost'||op==='nextPost'){await open(R.addDays(date,op==='prevPost'?-1:1));return;}
     if(op==='settings'){if(brief.trim().length<10){notice(t('briefError'),true);return;}await mutate({op:'settings',brief});await ensure(date);return;}
     const card=btn.closest('[data-re-day]');if(!card)return;const day=card.dataset.reDay,{w,d}=find(day),p=d?.posts[pf];
     if(op==='inlineJa'||op==='inlineEn'){
@@ -328,5 +358,5 @@ export function createEditor(a) {
   window.addEventListener('beforeunload',ev=>{if(edit||busy||settingsDirty){ev.preventDefault();ev.returnValue='';}});
   // Refresh availability at the Seoul date boundary without losing edits.
   let calendar=R.today();setInterval(()=>{if(R.today()!==calendar){calendar=R.today();if(!edit&&!busy&&!settingsDirty)render();}},30000);
-  return{render,load,canLeave,renderLocation:()=>{const s=a.selection?.();if(s&&R.dateOK(s.date)&&(s.date!==date||s.platform!==pf)){if(canLeave()){if(['X','IG','IGS'].includes(s.platform))pf=s.platform;open(s.date);}return;}render();},lock:()=>{observer?.disconnect();weeks=[];holidays={};loaded=false;online=false;edit='';buffer={};settingsDirty=false;},refresh:()=>{if(a.active())load();},authChanged:()=>{if(a.active()&&!edit){render();ensure(date);}}};
+  return{render,load,canLeave,renderLocation:()=>{const s=a.selection?.();if(s&&R.dateOK(s.date)&&(board||s.date!==date||s.platform!==pf)){if(canLeave()){if(['X','IG','IGS'].includes(s.platform))pf=s.platform;open(s.date);}return;}if(s&&!s.date&&!board&&canLeave()){board=true;if(['X','IG','IGS'].includes(s.platform))pf=s.platform;}render();},lock:()=>{observer?.disconnect();weeks=[];holidays={};loaded=false;online=false;edit='';buffer={};settingsDirty=false;},refresh:()=>{if(a.active())load();},authChanged:()=>{if(a.active()&&!edit){render();ensure(date);}}};
 }
