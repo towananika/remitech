@@ -254,6 +254,49 @@ def telegram_unshared(channels, day, shared):
             and not shared.get(day + "|" + c["id"])}
 
 
+KST = datetime.timezone(datetime.timedelta(hours=9))
+
+
+def kst_day(iso):
+    try:
+        d = datetime.datetime.fromisoformat(str(iso).replace("Z", "+00:00"))
+    except ValueError:
+        return ""
+    return d.astimezone(KST).date().isoformat() if d.tzinfo else ""
+
+
+def telegram_targets(channels, day, shared, data, now=None):
+    """Telegram 通知の更新ボタンで読むもの {チャンネル: {略号,...}}（2026-10-27 Hibiki指定。index.html の tgPendingFetch と同じ決まり）
+    共有時刻（韓国時間）を過ぎ、まだ共有しておらず、必須のSNSで対象日の投稿がまだ取れていないチャンネルだけ。取れたSNSは読み直さない"""
+    now = now or datetime.datetime.now(datetime.timezone.utc)
+    out = {}
+    for c in channels:
+        if c["id"] not in telegram_unshared([c], day, shared):
+            continue
+        ta = c["telegramAt"]
+        hh, mm = (int(x) for x in ta["time"].split(":"))
+        due = datetime.datetime.combine(datetime.date.fromisoformat(day) + datetime.timedelta(days=ta.get("days") or 0),
+                                        datetime.time(hh, mm), KST)
+        if now < due:
+            continue
+        offset = c.get("shareDayOffset") if isinstance(c.get("shareDayOffset"), int) else 0
+        target = (datetime.date.fromisoformat(day) + datetime.timedelta(days=offset)).isoformat()
+        kinds = []
+        for l in c.get("links", []):
+            pf = KIND.get(l.get("kind"))
+            if pf and pf not in [k[0] for k in kinds]:
+                kinds.append((pf, not (pf == "YT" or (pf == "TT" and c["id"] != "nacha"))))
+
+        def fetched(pf):
+            posts = (data.get("accounts", {}).get(c["id"] + "|" + pf) or {}).get("posts", [])
+            return any(not p.get("pinned") and p.get("url") and kst_day(p.get("at")) == target
+                       and (pf != "FB" or (p.get("linkCheck") or {}).get("state") == "ok") for p in posts)
+        missing = {pf for pf, required in kinds if not fetched(pf)}
+        if any(required and pf in missing for pf, required in kinds):
+            out[c["id"]] = missing
+    return out
+
+
 def auto(telegram_date=None):
     posts = json.load(io.open(ROOT / "posts.json", encoding="utf-8"))
     allowed = None
@@ -263,15 +306,16 @@ def auto(telegram_date=None):
         shared_book = json.loads(urllib.request.urlopen(request, timeout=20).read().decode("utf-8"))
         if not isinstance(shared_book.get("telegram"), dict):
             raise ValueError("共有状態を確認できません")
-        allowed = telegram_unshared(posts.get("channels", []), telegram_date, shared_book["telegram"])
     data = load()
+    if telegram_date is not None:
+        allowed = telegram_targets(posts.get("channels", []), telegram_date, shared_book["telegram"], data)
     report, warn = [], []
     targets = []
     for c in posts.get("channels", []):
         if c.get("id") not in CHANNELS or (allowed is not None and c.get("id") not in allowed):
             continue
         for l in c.get("links", []):
-            if l.get("kind") in ("Instagram", "YouTube", "X", "Facebook", "TikTok"):
+            if l.get("kind") in ("Instagram", "YouTube", "X", "Facebook", "TikTok") and (allowed is None or KIND[l["kind"]] in allowed[c["id"]]):
                 targets.append((c["id"], l["kind"], l["url"]))
     for ch, kind, url in [t for t in targets if t[1] == "YouTube"]:
         try:
