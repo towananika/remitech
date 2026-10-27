@@ -19,10 +19,6 @@ export function normalized(s) { return String(s || '').normalize('NFKC').toLower
 export function ready(day) {
   return !!(day && day.en && day.ja);
 }
-export function partReviews(post) {
-  return Array.from({length:post?.parts?.length||1},(_,i)=>Array.isArray(post?.partReviews)?post.partReviews[i]||null:post?.secondReview||null);
-}
-export function fullyReviewed(post) { return !!post && partReviews(post).every(Boolean); }
 export function english(post) { return post?.noboEn || post?.en || ''; }
 export function englishPart(post, i) { return post?.noboParts?.[i] || post?.parts?.[i]?.en || ''; }
 // 投稿用のコピー時だけ整形する。保存原稿・画面表示は変更しない。
@@ -93,7 +89,7 @@ export function validateWeek(w, history = []) {
 }
 export function cleanWeek(w) {
   return { start: w.start, themeId: w.themeId.trim(), theme: w.theme.trim(), angle: w.angle.trim(), arc: w.arc.trim(),
-    days: w.days.map(d => ({ date: d.date, focus: d.focus.trim(), posts:Object.fromEntries(['X','IG'].map(pf => [pf,{ja:d.posts[pf].ja.trim(),en:d.posts[pf].en.trim(),secondReview:null}])) })) };
+    days: w.days.map(d => ({ date: d.date, focus: d.focus.trim(), posts:Object.fromEntries(['X','IG'].map(pf => [pf,{ja:d.posts[pf].ja.trim(),en:d.posts[pf].en.trim()}])) })) };
 }
 export function prompt(start, history, brief, count = 4) {
   return `REEL (@REEL_Experience / @reelofficialch) のSNS投稿を日本語・英語で作成してください。

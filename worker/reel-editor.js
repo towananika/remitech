@@ -11,7 +11,7 @@ const postOK = (p,pf) => p && typeof p.ja === 'string' && p.ja.trim() && p.ja.le
 function prepared(p,date,pf){
   if(!Array.isArray(p.parts)||p.parts.length!==R.partLabels(date,pf).length)return null;
   const parts=p.parts.map((part,i)=>({label:R.partLabels(date,pf)[i],ja:typeof part.ja==='string'?part.ja.trim():'',en:typeof part.en==='string'?part.en.trim():''}));
-  const out={ja:parts.map(p=>p.ja).join('\n\n'),en:parts.map(p=>p.en).join('\n\n'),parts,secondReview:null};
+  const out={ja:parts.map(p=>p.ja).join('\n\n'),en:parts.map(p=>p.en).join('\n\n'),parts};
   return postOK(out,pf)?out:null;
 }
 // Prepared manuscripts stay in private KV; import only missing posts into shared storage.
@@ -69,9 +69,7 @@ export async function editor(hub, request, origin, respond) {
   const holidaySettings=async()=>Object.fromEntries([...(await hub.ctx.storage.list({prefix:'bk:h:'}))].map(([key,value])=>[key.slice(5),!!value]));
   const settings = async () => await hub.ctx.storage.get('reel:settings') || {brief:R.DEFAULT_BRIEF};
   if (request.method==='GET') {
-    const source=await hub.env.CHORES.get('reel:external-reviews:2026-10-20-26:v1','json');
-    const externalReviews=Array.isArray(source?.reviews)?source.reviews.filter(r=>R.dateOK(r.date)&&r.date>='2026-10-20'&&r.date<='2026-10-26'&&['X','IG'].includes(r.platform)).map(r=>({date:r.date,platform:r.platform,by:'NOBO',external:true})):[];
-    return send({weeks:await read(hub.ctx.storage),externalReviews,holidays:await holidaySettings(),settings:await settings(),timezone:R.TIMEZONE,ai:false});
+    return send({weeks:await read(hub.ctx.storage),holidays:await holidaySettings(),settings:await settings(),timezone:R.TIMEZONE,ai:false});
   }
   if (request.method!=='POST') return send({error:'method'},405);
   if (origin && !['https://towananika.github.io','http://localhost:8899','http://127.0.0.1:8899'].includes(origin)) return send({error:'origin'},403);
@@ -79,8 +77,6 @@ export async function editor(hub, request, origin, respond) {
   let b;try{b=JSON.parse(raw);}catch{return send({error:'bad-json'},400);}
   if(!b || typeof b!=='object')return send({error:'bad-json'},400);
   const actor=session.user.id;
-  const admin=hub.isAdmin(actor),reviewer=admin||String(actor).trim().toLowerCase()==='nobo';
-  if(['review2','confirm-part'].includes(b.op)&&!reviewer)return send({error:'reviewer-required'},403);
   if(b.op==='holiday'){
     if(!R.dateOK(b.date)||typeof b.holiday!=='boolean')return send({error:'holiday'},400);
     await hub.ctx.storage.put('bk:h:'+b.date,b.holiday);
@@ -126,32 +122,24 @@ export async function editor(hub, request, origin, respond) {
       if(w.revision!==b.revision)return fail('conflict',409);
       let day=w.days.find(d=>d.date===b.date);
       let p=day.posts[b.platform];
-      if(!reviewer&&p&&['edit','edit-japanese','nobo-edit','nobo-reset'].includes(b.op)){
-        const reviews=R.partReviews(p);
-        if(b.partIndex===undefined?reviews.some(Boolean):reviews[b.partIndex])return fail('reviewer-required',403);
-      }
       if(b.op==='edit'){
         const next=b.parts?prepared(b,b.date,b.platform):b;if(!next||!postOK(next,b.platform)||p?.parts&&!b.parts)return fail('draft');
         if(await isBooked(tx,b.date,b.platform))return fail('already-booked',409);
         const texts=new Set((await read(tx)).flatMap(w=>w.days.filter(d=>d.date!==b.date).map(d=>R.normalized(R.english(d.posts[b.platform])))));
         if(texts.has(R.normalized(next.en)))return fail('duplicate-text');
-        p={ja:next.ja.trim(),en:next.en.trim(),secondReview:null};
+        p={ja:next.ja.trim(),en:next.en.trim()};
         if(next.parts)p.parts=next.parts;
         day.posts[b.platform]=p;
       }else if(b.op==='edit-japanese'){
         if(!p||!Number.isInteger(b.partIndex)||b.partIndex<0||b.partIndex>=(p.parts?.length||1)||typeof b.text!=='string'||!b.text.trim()||b.text.length>6000)return fail('draft');
         if(await isBooked(tx,b.date,b.platform))return fail('already-booked',409);
-        const reviews=R.partReviews(p);
         if(p.parts?.length){p.parts[b.partIndex].ja=b.text.trim();p.ja=p.parts.map(part=>part.ja).join('\n\n');if(p.ja.length>6000)return fail('draft');}
         else p.ja=b.text.trim();
-        p.partReviews=reviews.map((r,i)=>i===b.partIndex?null:r);p.secondReview=null;
-      }else if(b.op==='review2' || b.op==='nobo-edit' || b.op==='nobo-reset' || b.op==='confirm-part'){
+      }else if(b.op==='nobo-edit' || b.op==='nobo-reset'){
         if(!p)return fail('draft');
         const scoped=b.partIndex!==undefined;
         const index=b.partIndex;
         if(scoped && (!Number.isInteger(index)||index<0||index>=(p.parts?.length||1)))return fail('part');
-        if(b.op==='confirm-part'&&!scoped)return fail('part');
-        const reviews=R.partReviews(p),stamp=kind=>({by:actor,at:new Date().toISOString(),kind,admin});
         if(b.op==='nobo-edit'){
           if(await isBooked(tx,b.date,b.platform))return fail('already-booked',409);
           if(typeof b.en!=='string' || !b.en.trim() || b.en.length>(p.parts?.length?6000:b.platform==='X'?240:500))return fail('draft');
@@ -161,21 +149,14 @@ export async function editor(hub, request, origin, respond) {
             if(p.noboEn.length>6000)return fail('draft');
           }else p.noboEn=b.en.trim();
           delete p.imagePrompt;
-          p.partReviews=reviews.map((r,i)=>!scoped||i===index?(reviewer?stamp('corrected'):null):r);
-        }else if(b.op==='nobo-reset'){
+        }else{
           if(await isBooked(tx,b.date,b.platform))return fail('already-booked',409);
           if(scoped&&p.parts?.length){
             p.noboParts=p.parts.map((part,i)=>i===index?part.en:R.englishPart(p,i));p.noboEn=p.noboParts.join('\n\n');
             if(p.noboParts.every((text,i)=>text===p.parts[i].en)){delete p.noboEn;delete p.noboParts;}
-            p.partReviews=reviews.map((r,i)=>i===index?null:r);
-          }else{delete p.noboEn;delete p.noboParts;p.partReviews=reviews.map(()=>null);}
+          }else{delete p.noboEn;delete p.noboParts;}
           delete p.imagePrompt;
-        }else if(b.op==='confirm-part'){
-          p.partReviews=reviews.map((r,i)=>i===index?(r?null:stamp(p.parts?.length&&R.englishPart(p,i)!==p.parts[i].en||!p.parts?.length&&p.noboEn?'corrected':'unchanged')):r);
-        }else{
-          p.partReviews=reviews.map(()=>p.secondReview?null:stamp(p.noboEn?'corrected':'unchanged'));
         }
-        p.secondReview=p.partReviews.every(Boolean)?stamp(p.partReviews.some(r=>r?.kind==='corrected')?'corrected':'unchanged'):null;
       }else if(b.op==='book'){
         if(!p || typeof b.scheduled!=='boolean')return fail('draft');
         if(b.scheduled && !R.ready({...p,date:day.date}))return fail('not-ready',409);

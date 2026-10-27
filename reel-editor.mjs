@@ -1,4 +1,4 @@
-import * as R from './reel-workflow.mjs?v=20261023-post-layout';
+import * as R from './reel-workflow.mjs?v=20261027-no-confirm';
 
 const labels = {
   title:['REEL','REEL','REEL'],
@@ -8,15 +8,12 @@ const labels = {
   storyRandom:['ランダムにコピー','Copy a random phrase','랜덤 복사'],storyChoices:['候補を見る','Show phrases','문구 보기'],storyUrl:['リンク先URLをコピー','Copy destination URL','링크 주소 복사'],storyEmpty:['ストーリー用の定型文がありません。','No story phrases available.','스토리 문구가 없습니다.'],storyError:['定型文を読み込めませんでした。更新して再試行してください。','Could not load phrases. Refresh to retry.','문구를 불러오지 못했습니다. 새로고침해 다시 시도하세요.'],
   serverPending:['共有保存機能は本番にまだ反映されていません。作成・共有保存は現在利用できません。デザインは比較ページで確認できます。','Shared saving has not been deployed yet. Creation and shared saving are currently unavailable. Use the comparison page to review the design.','공유 저장 기능이 아직 배포되지 않았습니다. 생성·공유 저장은 현재 사용할 수 없습니다. 비교 페이지에서 디자인을 확인할 수 있습니다.'],
   addDraft:['用意した日英原稿を登録','Add prepared JA / EN text','준비한 일·영 원고 등록'],manualMissing:['用意した日英原稿を登録してください。','Add your prepared Japanese and English text.','준비한 일본어·영어 원고를 등록하세요.'],theme:['週のテーマ','Weekly theme','주간 주제'],arc:['一週間の流れ','Weekly story','한 주의 흐름'],
-  confirmDay:['{sns}の投稿文を確定','Confirm {sns} posts','{sns} 게시문 확정'],unconfirmDay:['{sns}の投稿文の確定を解除','Unconfirm {sns} posts','{sns} 게시문 확정 해제'],copyFeeds:['すべてコピー','Copy all','전체 복사'],
+  copyFeeds:['すべてコピー','Copy all','전체 복사'],
   resetShort:['リセット','Reset','초기화'],cancelConfirm:['もう一度押すとキャンセル','Press again to cancel','한 번 더 누르면 취소'],
   clickEdit:['クリックして編集','Click to edit','클릭하여 수정'],
-  adminConfirm:['管理者確定','Admin confirm','관리자 확정'],adminUndoConfirm:['管理者確定を解除','Undo admin confirmation','관리자 확정 해제'],reviewerOnly:['確定できるのは管理者またはNOBOです。','Only admins or NOBO can confirm.','관리자 또는 NOBO만 확정할 수 있습니다.'],
-  undoConfirm:['確定を解除','Unconfirm','확정 해제'],allConfirmed:['✓ 投稿文すべて確定','✓ All text confirmed','✓ 게시문 전체 확정'],confirmedProgress:['{count}/{total} 確定','{count}/{total} confirmed','{count}/{total} 확정'],
-  confirm:['確定','Confirm','확정'],revise:['修正','Edit','수정'],draftEnglish:['英文 · 草案','English · Draft','영어 · 초안'],revisedEnglish:['英文 · NOBO修正','English · Revised','영어 · 수정본'],
-  calendarPrev:['1週間前へ','Previous week','1주 전'],calendarNext:['1週間後へ','Next week','1주 후'],checkOverview:['NOBO CALENDAR','NOBO CALENDAR','NOBO CALENDAR'],noDraft:['草案なし','No draft','초안 없음'],revised:['修正済み','Revised','수정 완료'],today:['今日','Today','오늘'],
+  revise:['修正','Edit','수정'],draftEnglish:['英文 · 草案','English · Draft','영어 · 초안'],revisedEnglish:['英文 · NOBO修正','English · Revised','영어 · 수정본'],
+  calendarPrev:['1週間前へ','Previous week','1주 전'],calendarNext:['1週間後へ','Next week','1주 후'],checkOverview:['NOBO CALENDAR','NOBO CALENDAR','NOBO CALENDAR'],noDraft:['草案なし','No draft','초안 없음'],hasDraft:['原稿あり','Draft ready','원고 있음'],revised:['修正済み','Revised','수정 완료'],today:['今日','Today','오늘'],
   holidaySet:['休日に設定','Mark as a holiday','휴일로 설정'],holidayUnset:['休日（クリックで解除）','Holiday (click to remove)','휴일 (클릭하여 해제)'],koreanHoliday:['韓国の祝日：','Korean public holiday: ','한국 공휴일: '],sunday:['日曜日','Sunday','일요일'],
-  externalReview:['別文書でNOBO確認済み。本文はこのページには登録されていません。','Checked by NOBO in another document. The text is not stored on this page.','다른 문서에서 NOBO 확인 완료. 본문은 이 페이지에 등록되어 있지 않습니다.'],
   wellDone:['お疲れ様でした。','Thank you for your work.','수고하셨습니다.'],
   scope:['今回の対象は2026年11月30日までです。','The current scope ends on November 30, 2026.','현재 작업 범위는 2026년 11월 30일까지입니다.'],
   date:['日付','Date','날짜'],settings:['AIの投稿方針','AI writing brief','AI 게시물 작성 지침'],saveBrief:['方針を保存','Save brief','지침 저장'],
@@ -29,14 +26,14 @@ const labels = {
   image:['画像プロンプトを生成してコピー','Generate & copy image prompt','이미지 프롬프트 생성·복사'],imageCopy:['画像プロンプトをコピー','Copy image prompt','이미지 프롬프트 복사'],imageCopied:['画像プロンプトをコピーしました','Image prompt copied','이미지 프롬프트를 복사했습니다'],
   imageRetry:['生成済みです。もう一度ボタンを押すとコピーできます。','Generated. Press the button again to copy.','생성했습니다. 버튼을 다시 눌러 복사하세요.'],
   deadline:['{date}（投稿日前日・韓国時間）からは、NOBO確認前でもコピーできます。','Copy available from {date} (day before posting, Korea time), even before NOBO checks it.','{date} (게시 전날·한국 시간)부터 NOBO 확인 전에도 복사할 수 있습니다.'],
-  pending:['NOBO確認待ち','Awaiting NOBO','NOBO 확인 대기'],checked:['NOBO確認済み','Checked by NOBO','NOBO 확인 완료'],check:['問題なし','No changes needed','문제없음'],due:['前日解禁 · 確認待ち','Available · check pending','복사 가능 · 확인 대기'],
+check:['問題なし','No changes needed','문제없음'],due:['前日解禁 · 確認待ち','Available · check pending','복사 가능 · 확인 대기'],
   noboEdit:['NOBO · 英文を修正','NOBO · Revise English','NOBO · 영어 수정'],original:['元の英文を表示','Show original English','원래 영어 보기'],correction:['NOBO修正版','NOBO revision','NOBO 수정본'],
   localDraft:['この端末に下書き保存済み','Draft saved on this device','이 기기에 초안 저장됨'],localError:['この端末に保存できません。閉じる前に入力をコピーしてください。','Cannot save on this device. Copy your input before closing.','이 기기에 저장하지 못했습니다. 닫기 전에 입력을 복사하세요.'],resume:['保存した下書きから再開','Resume saved draft','저장한 초안에서 계속'],localClose:['下書きを保存して閉じる','Save draft & close','초안 저장 후 닫기'],shareSave:['修正を共有保存','Save revision for the team','수정본 공유 저장'],
   useLatest:['表示中の原稿に修正を適用','Apply edits to the displayed version','표시된 원고에 수정 적용'],
   book:['予約した','Mark scheduled','예약함'],booked:['予約済み · 解除','Scheduled · undo','예약 완료 · 해제'],
   scheduledStatus:['予約済み','Scheduled','예약 완료'],postedStatus:['投稿済み','Posted','게시 완료'],
   edit:['日英草案を編集','Edit JA / EN drafts','일·영 초안 편집'],save:['変更を保存','Save changes','변경 저장'],cancel:['キャンセル','Cancel','취소'],
-  editWarning:['本文を変更・再生成するとNOBO確認と画像プロンプトをリセットします。予約済みの本文は先に予約解除してください。','Editing or regenerating resets the NOBO check and image prompt. Undo scheduled status before changing text.','편집·재생성하면 NOBO 확인과 이미지 프롬프트가 초기화됩니다. 본문 변경 전 예약을 해제하세요.'],
+  editWarning:['本文を変更・再生成すると画像プロンプトをリセットします。予約済みの本文は先に予約解除してください。','Editing or regenerating resets the image prompt. Undo scheduled status before changing text.','편집·재생성하면 이미지 프롬프트가 초기화됩니다. 본문 변경 전 예약을 해제하세요.'],
   regenerate:['本文を再生成','Regenerate text','본문 재생성'],instructions:['修正したい点（任意）','What to change (optional)','수정할 내용 (선택)'],
   missing:['このSNSの草案は未作成です。日付を開くと自動作成します。','This channel has no draft yet. It will be created when opened.','이 SNS의 초안은 아직 없습니다. 날짜를 열면 자동 생성합니다.'],
   supplied:['10月の提供原稿 · X','Supplied October draft · X','제공된 10월 원고 · X'],noboApplied:['NOBO修正文を反映','NOBO wording applied','NOBO 수정문 반영'],
@@ -52,7 +49,7 @@ const labels = {
 
 export function createEditor(a) {
   const t=k=>labels[k][({ja:0,en:1,ko:2})[a.lang()] ?? 0], e=a.esc;
-  let weeks=[],externalReviews=[],holidays={},loaded=false,online=false,loading=false,attempted=false,busy=false,ai=false,noticeText='',edit='',editMode='',buffer={},settingsDirty=false,lastSync=0;
+  let weeks=[],holidays={},loaded=false,online=false,loading=false,attempted=false,busy=false,ai=false,noticeText='',edit='',editMode='',buffer={},settingsDirty=false,lastSync=0;
   let date=R.today()<'2026-10-27'?'2026-10-27':R.today(),first=date,last=R.addDays(R.monday(date),6),pf='X',brief='',observer=null,failedKey='',pendingRemote=false,instructions={};
   const initial=a.selection?.();if(initial){if(R.dateOK(initial.date))date=initial.date;if(['X','IG','IGS'].includes(initial.platform))pf=initial.platform;first=date;last=R.addDays(R.monday(date),6);}
   if(date>R.EDITOR_END_DATE){date=R.EDITOR_END_DATE;first=date;last=date;}
@@ -69,7 +66,6 @@ export function createEditor(a) {
     return stories.map((sn,i)=>`<section class="re-day re-story"><span class="re-eyebrow">IG Story</span><h3>${e(sn.title)}</h3>${sn.url?`<div class="re-toolbar re-story-link"><button data-re-action="storyUrl" data-story="${i}">${e(t('storyUrl'))}</button></div>`:''}<div class="re-toolbar re-story-random"><button class="re-primary" data-re-action="storyRandom" data-story="${i}" ${sn.items.length?'':'disabled'}>${e(t('storyRandom'))}</button></div><p data-story-result="${i}" role="status" aria-live="polite">${e(lastStory[i]||'')}</p><details><summary>${e(t('storyChoices'))}</summary><div class="re-story-choices">${sn.items.map((s,j)=>`<button data-re-action="storyItem" data-story="${i}" data-item="${j}">${e(s)}</button>`).join('')}</div></details></section>`).join('');
   }
   const member=()=>!!(a.user() && (a.user().member || a.user().admin));
-  const canConfirm=()=>member()&&!!(a.user()?.admin||String(a.user()?.id||'').trim().toLowerCase()==='nobo');
   const find=day=>{const w=weeks.find(w=>w.start===R.monday(day));return {w,d:w?.days.find(d=>d.date===day)};};
   const ready=d=>!!d && R.ready({...d.posts[pf],date:d.date});
   const key=day=>day+'|'+pf;
@@ -94,7 +90,7 @@ export function createEditor(a) {
     state.timer=setTimeout(()=>{button.textContent=state.text;delete button.dataset.copied;button.style.width=state.width;button.style.height=state.height;button.style.boxSizing=state.boxSizing;copyStates.delete(button);},1800);
     copyStates.set(button,state);
   }
-  const errorText=code=>t(({conflict:'conflict','member-required':'login',reviewer:'role','reviewer-required':'reviewerOnly',brief:'briefError','ai-unavailable':'aiOff','generation-failed':'genError','ai-busy':'busy','already-booked':'already','not-ready':'notReady','theme-overlap':'overlap','duplicate-text':'overlap','angle-reused':'overlap'})[code]||'error');
+  const errorText=code=>t(({conflict:'conflict','member-required':'login',reviewer:'role',brief:'briefError','ai-unavailable':'aiOff','generation-failed':'genError','ai-busy':'busy','already-booked':'already','not-ready':'notReady','theme-overlap':'overlap','duplicate-text':'overlap','angle-reused':'overlap'})[code]||'error');
   async function call(body){
     if(a.preview){if(body)throw Error('preview');return structuredClone(a.preview);}
     const r=await fetch(a.api(),{method:body?'POST':'GET',cache:'no-store',headers:{'Content-Type':'application/json',...a.headers()},body:body?JSON.stringify(body):undefined});
@@ -106,7 +102,7 @@ export function createEditor(a) {
     if(loading||busy)return;
     if(edit||settingsDirty){pendingRemote=true;return;}
     loading=true;attempted=true;let changed=!loaded;
-    try{const wasOffline=!online;const j=await call();if(edit||settingsDirty||busy){pendingRemote=true;notice(t('remote'));return;}changed=changed||JSON.stringify(j.weeks)!==JSON.stringify(weeks)||JSON.stringify(j.externalReviews||[])!==JSON.stringify(externalReviews)||JSON.stringify(j.holidays||{})!==JSON.stringify(holidays)||j.ai!==ai||!online;weeks=j.weeks;externalReviews=j.externalReviews||[];holidays=j.holidays||{};brief=j.settings.brief;ai=j.ai;online=true;loaded=true;lastSync=Date.now();pendingRemote=false;if(force||wasOffline)noticeText='';}
+    try{const wasOffline=!online;const j=await call();if(edit||settingsDirty||busy){pendingRemote=true;notice(t('remote'));return;}changed=changed||JSON.stringify(j.weeks)!==JSON.stringify(weeks)||JSON.stringify(j.holidays||{})!==JSON.stringify(holidays)||j.ai!==ai||!online;weeks=j.weeks;holidays=j.holidays||{};brief=j.settings.brief;ai=j.ai;online=true;loaded=true;lastSync=Date.now();pendingRemote=false;if(force||wasOffline)noticeText='';}
     catch(error){
       online=false;ai=false;
       // Drafts are served only by the authenticated Worker, never public assets.
@@ -127,27 +123,24 @@ export function createEditor(a) {
   }
   async function ensure(day) { /* Drafts are supplied by the author; never generate text on navigation. */ }
   function authorParts(day,p){return p?.parts?.map(part=>({...part}))||R.partLabels(day,pf).map((label,i)=>({label,ja:i===0?p?.ja||'':'',en:i===0?p?.en||'':''}));}
-  const nonNoboReview=review=>!!review&&String(review.by||'').trim().toLowerCase()!=='nobo';
   function dateLabel(day){
     const weekday=new Intl.DateTimeFormat(a.lang(),{weekday:'short',timeZone:'UTC'}).format(new Date(day+'T00:00:00Z'));
     return day+' ('+weekday+')';
   }
   function postHTML(d,w){
     const p=d.posts[pf],editing=edit===d.date,booked=a.booked(d.date,pf),posted=!!a.posted?.(d.date,pf),can=ready(d),disabled=busy||!online||!member();
-    const otherConfirmation=R.fullyReviewed(p)&&R.partReviews(p).some(nonNoboReview);
     const button=(action,text,disabled=false,extra='')=>`<button data-re-action="${action}" ${disabled?'disabled':''} ${extra}>${e(text)}</button>`;
     const pair=(ja,en,suffix='',partIndex=null)=>{
       const copy=partIndex===null?R.english(p):R.englishPart(p,partIndex);
-      const index=partIndex??0,review=R.partReviews(p)[index],revised=copy!==en;
-      const adminButton=nonNoboReview(review);
+      const index=partIndex??0,revised=copy!==en;
       const extra=`data-part="${index}"`;
       const activeInline=editing&&buffer.partIndex===index;
       const editorField=(language,value)=>{
         if(activeInline&&editMode==='inline-'+language)return `<textarea data-re-inline maxlength="${language==='ja'?6000:pf==='X'?240:500}" aria-label="${language==='ja'?'日本語':'English'}">${e(buffer.text)}</textarea><p data-re-draft-status role="status">${e(t('localDraft'))}</p><div class="re-edit-footer">${button('noboReset',t('resetShort'),busy)}<div class="re-toolbar">${button('save',t('save'),busy,'class="re-primary"')}${button('cancel',t('cancel'),busy)}</div></div>`;
         const display=language==='en'?R.formatEnglishPost(value,d.date,pf):value;
-        return `<button class="re-inline-text re-text" data-re-action="inline${language==='ja'?'Ja':'En'}" ${extra} ${disabled||editing||booked||review?'disabled':''} aria-label="${language==='ja'?'日本語':'English'} · ${e(t('clickEdit'))}">${e(display)}</button>`;
+        return `<button class="re-inline-text re-text" data-re-action="inline${language==='ja'?'Ja':'En'}" ${extra} ${disabled||editing||booked?'disabled':''} aria-label="${language==='ja'?'日本語':'English'} · ${e(t('clickEdit'))}">${e(display)}</button>`;
       };
-      return `<div class="re-drafts" data-confirmed="${!!review}"><div><label for="re-ja-${d.date}${suffix}">日本語 · JA</label>${editorField('ja',ja)}</div><section class="re-nobo-field"><div class="re-field-header"><span class="re-field-label">${e(t(revised?'revisedEnglish':'draftEnglish'))}</span><div class="re-field-actions">${button(partIndex===null?'copy':'copyPart',t('copy'),!can||editing||busy,extra)}${button('confirmPart',t(review?(adminButton&&review.admin?'adminUndoConfirm':'undoConfirm'):'confirm'),disabled||editing||!canConfirm(),`${extra} data-admin-confirm="${adminButton}" aria-pressed="${!!review}"`)}</div></div>${editorField('en',copy)}</section></div>`;
+      return `<div class="re-drafts"><div><label for="re-ja-${d.date}${suffix}">日本語 · JA</label>${editorField('ja',ja)}</div><section class="re-nobo-field"><div class="re-field-header"><span class="re-field-label">${e(t(revised?'revisedEnglish':'draftEnglish'))}</span><div class="re-field-actions">${button(partIndex===null?'copy':'copyPart',t('copy'),!can||editing||busy,extra)}</div></div>${editorField('en',copy)}</section></div>`;
     };
     let content='';
     if(editing && editMode==='nobo'){
@@ -162,25 +155,24 @@ export function createEditor(a) {
       content=p.parts?.length?p.parts.map((part,i)=>`<section class="re-part"><div class="re-toolbar"><strong>${e(part.label)}</strong>${part.nobo?`<small>${e(t('noboApplied'))}</small>`:''}</div>${pair(part.ja,part.en,'-'+i,i)}</section>`).join(''):pair(p.ja,p.en);
 
     }
-    return `<article class="re-day" data-re-day="${d.date}"><header class="re-dayhead"><div><span class="re-eyebrow">${e(dateLabel(d.date))} · ${pf}</span><h3>${e(d.focus)}</h3>${p?.source?`<small>${e(t('supplied'))}</small>`:''}</div><div class="re-day-statuses">${posted||booked?`<span class="re-publication" data-state="${posted?'posted':'scheduled'}">✓ ${e(t(posted?'postedStatus':'scheduledStatus'))}</span>`:''}<span class="re-status" data-ready="${R.fullyReviewed(p)}">${e(R.fullyReviewed(p)?t('allConfirmed'):p?t('confirmedProgress').replace('{count}',R.partReviews(p).filter(Boolean).length).replace('{total}',R.partReviews(p).length):t('pending'))}</span></div></header>${content}
+    return `<article class="re-day" data-re-day="${d.date}"><header class="re-dayhead"><div><span class="re-eyebrow">${e(dateLabel(d.date))} · ${pf}</span><h3>${e(d.focus)}</h3>${p?.source?`<small>${e(t('supplied'))}</small>`:''}</div><div class="re-day-statuses">${posted||booked?`<span class="re-publication" data-state="${posted?'posted':'scheduled'}">✓ ${e(t(posted?'postedStatus':'scheduledStatus'))}</span>`:''}</div></header>${content}
 
-      <div class="re-actions">${p?button('confirmDay',(otherConfirmation&&p.secondReview?.admin)?pf+' · '+t('adminUndoConfirm'):t(R.fullyReviewed(p)?'unconfirmDay':'confirmDay').replace('{sns}',pf),disabled||editing||!canConfirm(),`data-admin-confirm="${otherConfirmation}" aria-pressed="${R.fullyReviewed(p)}"`):''}${button('copyFeeds',t('copyFeeds'),!can||editing||busy,'class="re-primary"')}
+      <div class="re-actions">${button('copyFeeds',t('copyFeeds'),!can||editing||busy,'class="re-primary"')}
       ${button('book',(booked?'✓ ':'')+pf+' · '+t(booked?'booked':'book'),disabled||editing||(!can&&!booked),`class="re-book-button" data-booked="${booked}" aria-pressed="${booked}"`)}
       </div></article>${d.date===R.EDITOR_END_DATE?`<div class="re-weekend-end">${e(t('wellDone'))}</div>`:''}`;
   }
   function checkOverview(){
     const today=R.today(),start=R.addDays(today,calendarOffset*7),dates=Array.from({length:14},(_,i)=>R.addDays(start,i));
-    const statuses=[['empty',t('noDraft'),'—'],['pending',t('pending'),'·'],['checked',t('checked'),'✓'],['scheduled',t('scheduledStatus'),'✓'],['posted',t('postedStatus'),'✓']];
+    const statuses=[['empty',t('noDraft'),'—'],['ready',t('hasDraft'),'✓'],['scheduled',t('scheduledStatus'),'✓'],['posted',t('postedStatus'),'✓']];
     const weekdays=({ja:['日','月','火','水','木','金','土'],en:['Sun','Mon','Tue','Wed','Thu','Fri','Sat'],ko:['일','월','화','수','목','금','토']})[a.lang()]||['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
     const head=`<span class="re-check-corner">SNS</span>${dates.map(day=>{const weekday=new Date(day+'T00:00:00Z').getUTCDay(),national=R.koreanHoliday(day,a.lang()),holiday=!!(national||holidays[day]),description=national?t('koreanHoliday')+national:holidays[day]?t('holidayUnset'):weekday===0?t('sunday')+' · '+t('holidaySet'):t('holidaySet');return `<button class="re-check-date" data-re-holiday="${day}" data-weekday="${weekday}" data-holiday="${holiday}" ${day===today?'data-today="true"':''} title="${e(description)}" aria-label="${day} · ${e(description)}" aria-pressed="${holiday}" ${busy||!member()||!online?'disabled':''}><span>${day.slice(5).replace('-','/')}</span><small>${e(weekdays[weekday])}</small></button>`;}).join('')}`;
     const rows=['X','IG'].map(channel=>`<strong class="re-check-channel">${channel}</strong>${dates.map(day=>{
       const post=find(day).d?.posts[channel];
-      const external=!post&&externalReviews.some(r=>r.date===day&&r.platform===channel);
-      const status=external?statuses[2]:!post?statuses[0]:!R.fullyReviewed(post)?statuses[1]:statuses[2];
+      const status=post?statuses[1]:statuses[0];
       const posted=!!a.posted?.(day,channel),booked=a.booked(day,channel),publication=posted?'posted':booked?'scheduled':'';
       const publicationLabel=publication?t(posted?'postedStatus':'scheduledStatus'):'';
-      const name=`${day} · ${channel} · ${external?t('externalReview'):status[1]}${publication?' · '+publicationLabel:''}`;
-      return `<div class="re-check-cell"><button class="re-check-circle" data-re-check-date="${day}" data-re-check-platform="${channel}" data-external-review="${external}" data-status="${status[0]}" data-publication="${publication}" aria-label="${e(name)}" title="${e(name)}" aria-pressed="${day===date&&pf===channel}" ${busy||day>R.EDITOR_END_DATE?'disabled':''}>${status[2]}</button>${publication?`<span class="re-calendar-publication" data-state="${publication}">${e(publicationLabel)}</span>`:''}</div>`;
+      const name=`${day} · ${channel} · ${status[1]}${publication?' · '+publicationLabel:''}`;
+      return `<div class="re-check-cell"><button class="re-check-circle" data-re-check-date="${day}" data-re-check-platform="${channel}" data-status="${status[0]}" data-publication="${publication}" aria-label="${e(name)}" title="${e(name)}" aria-pressed="${day===date&&pf===channel}" ${busy||day>R.EDITOR_END_DATE?'disabled':''}>${status[2]}</button>${publication?`<span class="re-calendar-publication" data-state="${publication}">${e(publicationLabel)}</span>`:''}</div>`;
     }).join('')}`).join('');
     return `<section class="re-check-overview" aria-label="${e(t('checkOverview'))}"><header class="re-check-header"><div><strong class="re-check-title">${e(t('checkOverview'))}</strong><small class="re-check-range">${dates[0]} — ${dates[13]}</small></div><div class="re-toolbar"><button data-re-action="calendarPrevious" aria-label="${e(t('calendarPrev'))}" title="${e(t('calendarPrev'))}" ${busy?'disabled':''}>←</button><button data-re-action="calendarNext" aria-label="${e(t('calendarNext'))}" title="${e(t('calendarNext'))}" ${busy?'disabled':''}>→</button></div></header><div class="re-check-scroll" tabindex="0" role="region" aria-label="${e(t('checkOverview'))}"><div class="re-check-grid">${head}${rows}</div></div><div class="re-check-legend">${statuses.map(([state,label,symbol])=>`<span><i data-status="${state}" aria-hidden="true">${symbol}</i>${e(label)}</span>`).join('')}</div></section>`;
   }
@@ -265,7 +257,7 @@ export function createEditor(a) {
       if(national){notice(t('koreanHoliday')+national);return;}
       await mutate({op:'holiday',date:day,holiday:!holidays[day]});return;
     }
-    if(btn.dataset.reCheckDate){if(btn.dataset.externalReview==='true'){notice(t('externalReview'));return;}if(!canLeave())return;pf=btn.dataset.reCheckPlatform;await open(btn.dataset.reCheckDate);return;}
+    if(btn.dataset.reCheckDate){if(!canLeave())return;pf=btn.dataset.reCheckPlatform;await open(btn.dataset.reCheckDate);return;}
     if(btn.dataset.reOpen){await open(btn.dataset.reOpen);return;}
     if(btn.dataset.rePlatform){if(!canLeave())return;pf=btn.dataset.rePlatform;if(pf==='IGS')noticeText='';failedKey='';a.navigate?.(date,pf);render();await ensure(date);autoRefresh();return;}
     const op=btn.dataset.reAction;if(!op)return;
@@ -289,7 +281,6 @@ export function createEditor(a) {
     if(op==='inlineJa'||op==='inlineEn'){
       if(!member()||!online||a.booked(day,pf)||!canLeave())return;
       const index=Number(btn.dataset.part||0),mode=op==='inlineJa'?'inline-ja':'inline-en';
-      if(R.partReviews(p)[index])return;
       edit=day;editMode=mode;buffer=readDraft(day,mode,index)||{ja:p.ja,en:p.en,text:op==='inlineJa'?(p.parts?.[index]?.ja||p.ja):(p.parts?.length?R.englishPart(p,index):R.english(p)),revision:w.revision,partIndex:index};
       stash();render();a.view.querySelector('[data-re-inline]')?.focus();return;
     }
@@ -325,12 +316,9 @@ export function createEditor(a) {
       if(editMode==='inline-ja'){resetArmed='';buffer.text=p.parts?.[buffer.partIndex]?.ja||p.ja;stash();render();a.view.querySelector('[data-re-inline]')?.focus();return;}
       resetArmed='';body.op='nobo-reset';body.partIndex=buffer.partIndex??0;body.revision=buffer.revision??w.revision;
     }
-    if(['confirmDay','confirmPart','review2'].includes(op)&&!canConfirm()){notice(t('reviewerOnly'),true);return;}
-    if(op==='confirmDay')body.op='review2';
-    if(op==='confirmPart'){body.op='confirm-part';body.partIndex=Number(btn.dataset.part);}
     if(op==='book')body.scheduled=!a.booked(day,pf);
     if(op==='regenerate')body.instructions=card.querySelector('[data-re-instructions]').value;
-    if(['save','review2','book','regenerate','noboReset','confirmPart','confirmDay'].includes(op))await mutate(body);
+    if(['save','book','regenerate','noboReset'].includes(op))await mutate(body);
   });
   window.addEventListener('focus',autoRefresh);
   window.addEventListener('online',()=>{lastSync=0;autoRefresh();});
@@ -338,5 +326,5 @@ export function createEditor(a) {
   window.addEventListener('beforeunload',ev=>{if(edit||busy||settingsDirty){ev.preventDefault();ev.returnValue='';}});
   // Refresh availability at the Seoul date boundary without losing edits.
   let calendar=R.today();setInterval(()=>{if(R.today()!==calendar){calendar=R.today();if(!edit&&!busy&&!settingsDirty)render();}},30000);
-  return{render,load,canLeave,renderLocation:()=>{const s=a.selection?.();if(s&&R.dateOK(s.date)&&(s.date!==date||s.platform!==pf)){if(canLeave()){if(['X','IG','IGS'].includes(s.platform))pf=s.platform;open(s.date);}return;}render();},lock:()=>{observer?.disconnect();weeks=[];externalReviews=[];holidays={};loaded=false;online=false;edit='';buffer={};settingsDirty=false;},refresh:()=>{if(a.active())load();},authChanged:()=>{if(a.active()&&!edit){render();ensure(date);}}};
+  return{render,load,canLeave,renderLocation:()=>{const s=a.selection?.();if(s&&R.dateOK(s.date)&&(s.date!==date||s.platform!==pf)){if(canLeave()){if(['X','IG','IGS'].includes(s.platform))pf=s.platform;open(s.date);}return;}render();},lock:()=>{observer?.disconnect();weeks=[];holidays={};loaded=false;online=false;edit='';buffer={};settingsDirty=false;},refresh:()=>{if(a.active())load();},authChanged:()=>{if(a.active()&&!edit){render();ensure(date);}}};
 }
