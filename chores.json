@@ -1,5 +1,5 @@
 {
-  "note": "いいね作業のチェック。09:00・13:00・17:00。2026-10-08 Hiworks メールチェック（17:00、title と url を持つ作業）を追加。HIYOKO X 60、悠悠観音堂 X 20、ほかは40。3M・CSVは1つの作業。kind=follow のリストはフォロータブ（HIYOKO・NACHA の X と IG、毎日フォロー+5）",
+  "note": "いいね作業のチェック。09:00・13:00・17:00。2026-10-08 Hiworks メールチェック（17:00、title と url を持つ作業）を追加。HIYOKO X 60、悠悠観音堂 X 20、ほかは40。3M・CSVは1つの作業。kind=follow のリストはフォロータブ（HIYOKO・NACHA の X と IG、毎日フォロー+5）。2026-10-27 リプライ作業（kind=reply、平日だけ・17:30）: HIYOKO X午後・IGフィード、REEL X・IG。NACHAはTypefullyの自動リプライなので作業なし",
   "lists": [
     {
       "channel": "hiyoko",
@@ -209,6 +209,58 @@
           "id": "nacha|IG|f5",
           "time": "12:00",
           "task": "FOLLOW+5"
+        }
+      ]
+    },
+    {
+      "channel": "hiyoko",
+      "platform": "X",
+      "kind": "reply",
+      "tasks": [
+        {
+          "id": "hiyoko|X|reply",
+          "time": "17:30",
+          "task": "REPLY（午後のXスレッドにリプライ）",
+          "weekdays": true
+        }
+      ]
+    },
+    {
+      "channel": "hiyoko",
+      "platform": "IG",
+      "kind": "reply",
+      "tasks": [
+        {
+          "id": "hiyoko|IG|reply",
+          "time": "17:30",
+          "task": "REPLY（IGフィードにリプライ）",
+          "weekdays": true
+        }
+      ]
+    },
+    {
+      "channel": "reel",
+      "platform": "X",
+      "kind": "reply",
+      "tasks": [
+        {
+          "id": "reel|X|reply",
+          "time": "17:30",
+          "task": "REPLY（Xにリプライ）",
+          "weekdays": true
+        }
+      ]
+    },
+    {
+      "channel": "reel",
+      "platform": "IG",
+      "kind": "reply",
+      "tasks": [
+        {
+          "id": "reel|IG|reply",
+          "time": "17:30",
+          "task": "REPLY（IGにリプライ）",
+          "weekdays": true
         }
       ]
     }

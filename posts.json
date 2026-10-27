@@ -147,6 +147,31 @@
       "color": "#c0503f",
       "snippets": [
         {
+          "title": "IG ストーリー リンクボタン（Linktree）",
+          "note": "押すとコピーできます",
+          "max": 25,
+          "url": "https://linktr.ee/Nacha_Project",
+          "items": [
+            "All NACHA links here 🏮",
+            "Find NACHA everywhere",
+            "Explore NACHA's world ✨",
+            "Meet NACHA 🏮",
+            "Tap for all NACHA links",
+            "Everything NACHA, here",
+            "Join the NACHA family",
+            "Step into the temple",
+            "Say hi to NACHA 👋",
+            "Follow NACHA's journey",
+            "Your link to NACHA",
+            "Find your lucky charm",
+            "Discover NACHA today",
+            "Leave a wish today",
+            "NACHA, all in one place",
+            "Where faith meets fun"
+          ]
+        },
+        {
+          "hidden": true,
           "title": "nacha.club",
           "note": "押すとコピーできます",
           "max": 25,
@@ -173,6 +198,7 @@
           ]
         },
         {
+          "hidden": true,
           "title": "IG ストーリー リンクボタン（アフターセール）",
           "note": "押すとコピーできます",
           "max": 25,
