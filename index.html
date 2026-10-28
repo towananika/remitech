@@ -1120,6 +1120,7 @@
   .strat-taskhead{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:6px 12px}.strat-limit{font-size:12px;font-weight:600;color:var(--muted)}
   .strat-tasks p,.strat-phases p{font-size:13px;line-height:1.7;margin:7px 0 0}
   .strat-metrics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.strat-metrics>div{border:1px solid var(--line);border-radius:12px;padding:16px;min-width:0}.strat-metrics dt{font-weight:600;font-size:14px}.strat-metrics dd{margin:8px 0 0;font-size:13px;line-height:1.7;color:var(--muted)}
+  .strat-metrics>.strat-core{grid-column:1/-1;background:var(--bg);border:2px solid var(--wood)}
   .strat-copy button{white-space:normal;min-height:44px;text-align:left}
   .strat-phases{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.strat-phases li{padding:15px;border-left:3px solid var(--wood);background:var(--surface);border-radius:0 10px 10px 0;min-width:0}.strat-phases h4{margin:7px 0 0}
   .strat-details{border-top:1px solid var(--line);padding:16px 0}.strat-details summary{font-weight:600;font-size:14px;cursor:pointer}.strat-details[open] summary{margin-bottom:16px}.strat-sources a{font-size:12px;color:var(--muted)}
@@ -7144,28 +7145,24 @@
     "rule": "いいね件数のノルマは設けない。共感した投稿に自然に押す範囲にする。",
     "keywords": "検索語の出発点",
     "keywordHint": "まずはこの3つから。人気順位や高いフォローバック率が検証済みのタグではありません。",
-    "metricsTitle": "記録する4つの数字",
+    "metricsTitle": "成果を見る3つのKPI",
     "metrics": [
       [
-        "7日後のフォローバック率",
-        "フォローから7日経過した相手のうち、返ってきた人数 ÷ その対象人数。対象0人なら未算出。"
+        "フォロワー数（コアKPI）",
+        "最重要の指標。現在の総数と、7日間の純増（終了時 − 開始時）を確認する。"
       ],
       [
-        "検索語別の成果",
-        "同じ7日後の条件で、検索語ごとの対象人数・返ってきた人数・率を比べる。"
+        "いいね数",
+        "投稿への好意的な反応。投稿から7日後のいいね数を記録し、投稿単位で比べる。"
       ],
       [
-        "フォロワー純増",
-        "終了時点のフォロワー数 − 開始時点のフォロワー数。"
-      ],
-      [
-        "作業効率",
-        "作業時間と7日後のフォローバック人数をセットで比較する。"
+        "ビュー数",
+        "投稿が見られた回数。投稿から7日後の表示回数を記録する。人数とは異なり、重複表示を含む。"
       ]
     ],
-    "attribution": "純増には既存投稿や外部要因の影響も含まれます。運用作業だけの効果とは扱いません。",
+    "attribution": "フォロワー増加を最優先に、いいね・ビューの変化も確認。いいね・ビューは同じ経過日数の投稿同士で比べる。未取得は0にせず空欄にする。増減には既存投稿や外部要因の影響も含まれます。",
     "record": "記録用ひな形",
-    "recordHint": "スプレッドシート等に貼り付けて使います。候補全員の記録は不要。実際にフォローした相手を残します。この画面に記録を保存する機能はありません。",
+    "recordHint": "スプレッドシート等に貼り付けて使います。日次のフォロワー数と、各投稿の7日後のいいね・ビューを記録。候補全員の記録は不要です。この画面に記録を保存する機能はありません。",
     "dailyCopy": "日次集計のひな形をコピー",
     "peopleCopy": "7日後確認のひな形をコピー",
     "dailyHeader": [
@@ -7213,7 +7210,36 @@
       "Xのフォロー運用について"
     ],
     "longTerm": "長期計画を見る",
-    "longNote": "以前の3年計画は目標案として保持。実績予測や、この運用だけで達成できるという保証ではありません。"
+    "longNote": "以前の3年計画は目標案として保持。実績予測や、この運用だけで達成できるという保証ではありません。",
+    "supportMetrics": [
+      [
+        "7日後のフォローバック率",
+        "フォローから7日経過した相手のうち、返ってきた人数 ÷ その対象人数。対象0人なら未算出。"
+      ],
+      [
+        "検索語別の成果",
+        "同じ7日後の条件で、検索語ごとの対象人数・返ってきた人数・率を比べる。"
+      ],
+      [
+        "フォロワー純増",
+        "終了時点のフォロワー数 − 開始時点のフォロワー数。"
+      ],
+      [
+        "作業効率",
+        "作業時間と7日後のフォローバック人数をセットで比較する。"
+      ]
+    ],
+    "supportTitle": "補助記録を見る",
+    "supportNote": "作業量・フォローバック率・検索語別の成果は、作業を改善するための補助記録です。主要KPIとは分けて扱います。",
+    "postCopy": "投稿KPIのひな形をコピー",
+    "postHeader": [
+      "投稿日",
+      "投稿URL",
+      "計測日時（投稿7日後）",
+      "いいね数",
+      "ビュー数",
+      "メモ"
+    ]
   },
   "en": {
     "title": "NACHA · Test X account operations",
@@ -7256,28 +7282,24 @@
     "rule": "No like quotas. Like posts only when you actually appreciate them.",
     "keywords": "Starting search terms",
     "keywordHint": "Start with these three. Their popularity ranking and follow-back performance have not been established.",
-    "metricsTitle": "Four numbers to record",
+    "metricsTitle": "Three outcome KPIs",
     "metrics": [
       [
-        "7-day follow-back rate",
-        "Among accounts followed at least 7 days ago: follow-backs ÷ accounts checked at that same point. Zero eligible accounts means no rate yet."
+        "Followers (core KPI)",
+        "The primary measure. Track the current total and net growth over 7 days (ending minus starting count)."
       ],
       [
-        "Results by search term",
-        "Compare eligible accounts, follow-backs and rates using the same 7-day window."
+        "Likes",
+        "Positive reactions to posts. Record likes 7 days after publication and compare individual posts."
       ],
       [
-        "Net follower change",
-        "Follower count at the end minus follower count at the start."
-      ],
-      [
-        "Work efficiency",
-        "Compare work time alongside the number of follow-backs after 7 days."
+        "Views",
+        "Record post views 7 days after publication. Views can include repeats and are not unique people."
       ]
     ],
-    "attribution": "Net growth also reflects existing posts and outside influences. Do not attribute all of it to these tasks.",
+    "attribution": "Prioritize follower growth; also review likes and views. Compare posts at the same age. Leave unavailable data blank, not zero. Changes also reflect existing posts and outside influences.",
     "record": "Recording templates",
-    "recordHint": "Paste into a spreadsheet. Log people actually followed, not every candidate. This screen does not save records.",
+    "recordHint": "Paste into a spreadsheet. Record daily follower totals and likes/views for each post after 7 days. There is no need to log every candidate. This screen does not save records.",
     "dailyCopy": "Copy daily summary template",
     "peopleCopy": "Copy 7-day check template",
     "dailyHeader": [
@@ -7325,7 +7347,36 @@
       "X guidance on following"
     ],
     "longTerm": "View the longer-term plan",
-    "longNote": "The earlier 3-year plan remains a proposed goal, not a forecast or a promise that these tasks will achieve it."
+    "longNote": "The earlier 3-year plan remains a proposed goal, not a forecast or a promise that these tasks will achieve it.",
+    "supportMetrics": [
+      [
+        "7-day follow-back rate",
+        "Among accounts followed at least 7 days ago: follow-backs ÷ accounts checked at that same point. Zero eligible accounts means no rate yet."
+      ],
+      [
+        "Results by search term",
+        "Compare eligible accounts, follow-backs and rates using the same 7-day window."
+      ],
+      [
+        "Net follower change",
+        "Follower count at the end minus follower count at the start."
+      ],
+      [
+        "Work efficiency",
+        "Compare work time alongside the number of follow-backs after 7 days."
+      ]
+    ],
+    "supportTitle": "View supporting records",
+    "supportNote": "Work volume, follow-back rates and results by search term help improve the tasks. Keep these separate from the main KPIs.",
+    "postCopy": "Copy post KPI template",
+    "postHeader": [
+      "Publication date",
+      "Post URL",
+      "Measured at (7 days after publication)",
+      "Likes",
+      "Views",
+      "Notes"
+    ]
   },
   "ko": {
     "title": "NACHA · X 운영 검증",
@@ -7368,28 +7419,24 @@
     "rule": "좋아요 횟수 할당량은 두지 않는다. 실제로 공감하는 게시물에 자연스럽게 누른다.",
     "keywords": "처음 사용할 검색어",
     "keywordHint": "우선 아래 3개로 시작한다. 인기 순위나 높은 맞팔률이 검증된 태그는 아니다.",
-    "metricsTitle": "기록할 숫자 4개",
+    "metricsTitle": "성과를 보는 KPI 3개",
     "metrics": [
       [
-        "7일 후 맞팔률",
-        "팔로우 후 7일 지난 대상 중 맞팔한 인원 ÷ 해당 대상 인원. 대상이 0명이면 계산하지 않는다."
+        "팔로워 수 (핵심 KPI)",
+        "가장 중요한 지표. 현재 총수와 7일간 순증(종료 수 − 시작 수)을 확인한다."
       ],
       [
-        "검색어별 성과",
-        "같은 7일 조건으로 검색어별 대상 수·맞팔 수·비율을 비교한다."
+        "좋아요 수",
+        "게시물에 대한 긍정적 반응. 게시 7일 후 좋아요 수를 기록하고 게시물별로 비교한다."
       ],
       [
-        "팔로워 순증",
-        "종료 시점 팔로워 수 − 시작 시점 팔로워 수."
-      ],
-      [
-        "작업 효율",
-        "작업 시간과 7일 후 맞팔 수를 함께 비교한다."
+        "조회 수",
+        "게시 7일 후 조회 수를 기록한다. 중복 조회가 포함될 수 있으며 사람 수와 다르다."
       ]
     ],
-    "attribution": "순증에는 기존 게시물과 외부 요인의 영향도 포함된다. 작업만의 효과로 해석하지 않는다.",
+    "attribution": "팔로워 증가를 최우선으로 보고 좋아요·조회 변화도 확인한다. 게시 후 같은 기간이 지난 게시물끼리 비교한다. 미수집은 0이 아닌 빈칸으로 둔다. 기존 게시물과 외부 요인도 증감에 영향을 준다.",
     "record": "기록 양식",
-    "recordHint": "스프레드시트 등에 붙여넣어 사용한다. 모든 후보가 아니라 실제 팔로우한 사람을 기록한다. 이 화면에 기록을 저장하는 기능은 없다.",
+    "recordHint": "스프레드시트 등에 붙여넣는다. 일별 팔로워 수와 각 게시물의 7일 후 좋아요·조회 수를 기록한다. 모든 후보를 기록할 필요는 없다. 이 화면에 기록을 저장하는 기능은 없다.",
     "dailyCopy": "일일 집계 양식 복사",
     "peopleCopy": "7일 후 확인 양식 복사",
     "dailyHeader": [
@@ -7437,24 +7484,56 @@
       "X 팔로우 운영 안내"
     ],
     "longTerm": "장기 계획 보기",
-    "longNote": "기존 3년 계획은 목표안으로 유지한다. 실적 예측이나 이 작업만으로 달성한다는 보장이 아니다."
+    "longNote": "기존 3년 계획은 목표안으로 유지한다. 실적 예측이나 이 작업만으로 달성한다는 보장이 아니다.",
+    "supportMetrics": [
+      [
+        "7일 후 맞팔률",
+        "팔로우 후 7일 지난 대상 중 맞팔한 인원 ÷ 해당 대상 인원. 대상이 0명이면 계산하지 않는다."
+      ],
+      [
+        "검색어별 성과",
+        "같은 7일 조건으로 검색어별 대상 수·맞팔 수·비율을 비교한다."
+      ],
+      [
+        "팔로워 순증",
+        "종료 시점 팔로워 수 − 시작 시점 팔로워 수."
+      ],
+      [
+        "작업 효율",
+        "작업 시간과 7일 후 맞팔 수를 함께 비교한다."
+      ]
+    ],
+    "supportTitle": "보조 기록 보기",
+    "supportNote": "작업량·맞팔률·검색어별 성과는 작업을 개선하기 위한 보조 기록이다. 주요 KPI와 구분한다.",
+    "postCopy": "게시물 KPI 양식 복사",
+    "postHeader": [
+      "게시일",
+      "게시물 URL",
+      "측정 일시(게시 7일 후)",
+      "좋아요 수",
+      "조회 수",
+      "메모"
+    ]
   }
 };
+
   function renderStrategy() {
     chansEl.hidden = true;
     var g = STRAT_TXT[lang] || STRAT_TXT.ja, w = STRAT_WORK[lang] || STRAT_WORK.ja;
     copyBank.stratDaily = {cur:w.dailyHeader.join("\t") + "\n"};
+    copyBank.stratPost = {cur:w.postHeader.join("\t") + "\n"};
     copyBank.stratPeople = {cur:w.peopleHeader.join("\t") + "\n"};
     view.innerHTML = '<div class="guide strat">' +
       '<header class="strat-head"><span class="strat-kicker">NACHA · X</span><h2 class="gtitle">' + esc(w.title) + '</h2><p class="slead">' + esc(w.lead) + '</p>' +
       '<div class="strat-badges">' + w.badges.map(function (x) { return '<span>' + esc(x) + '</span>'; }).join('') + '</div></header>' +
       '<p class="strat-note">' + esc(w.assumption) + '</p>' +
+      '<section aria-labelledby="strat-metrics"><h3 id="strat-metrics">' + esc(w.metricsTitle) + '</h3><dl class="strat-metrics">' + w.metrics.map(function (x,i) { return '<div' + (i === 0 ? ' class="strat-core"' : '') + '><dt>' + esc(x[0]) + '</dt><dd>' + esc(x[1]) + '</dd></div>'; }).join('') + '</dl><p class="snote">' + esc(w.attribution) + '</p></section>' +
       '<section aria-labelledby="strat-daily"><h3 id="strat-daily">' + esc(w.daily) + '</h3><p class="snote">' + esc(w.dailyHint) + '</p><ol class="strat-tasks">' +
       w.tasks.map(function (x,i) { return '<li><span class="strat-step" aria-hidden="true">' + (i+1) + '</span><div><div class="strat-taskhead"><h4>' + esc(x[0]) + '</h4><span class="strat-limit">' + esc(x[1]) + '</span></div><p>' + esc(x[2]) + '</p></div></li>'; }).join('') +
       '</ol><p class="strat-rule">' + esc(w.rule) + '</p></section>' +
       '<section class="strat-search"><h3>' + esc(w.keywords) + '</h3><div class="strat-badges">' + ['Memecoin','CryptoCommunity','Pionex'].map(function (tag) { return '<a href="https://x.com/search?f=live&amp;q=' + encodeURIComponent('#'+tag) + '" target="_blank" rel="noopener noreferrer">#' + tag + ' ↗</a>'; }).join('') + '</div><p class="snote">' + esc(w.keywordHint) + '</p></section>' +
-      '<section aria-labelledby="strat-metrics"><h3 id="strat-metrics">' + esc(w.metricsTitle) + '</h3><dl class="strat-metrics">' + w.metrics.map(function (x) { return '<div><dt>' + esc(x[0]) + '</dt><dd>' + esc(x[1]) + '</dd></div>'; }).join('') + '</dl><p class="snote">' + esc(w.attribution) + '</p></section>' +
-      '<section class="strat-record"><h3>' + esc(w.record) + '</h3><p class="snote">' + esc(w.recordHint) + '</p><div class="strat-copy"><button class="cpy" data-ck="stratDaily">' + esc(w.dailyCopy) + '</button><button class="cpy" data-ck="stratPeople">' + esc(w.peopleCopy) + '</button></div></section>' +
+      '<details class="strat-details" data-strat-support><summary>' + esc(w.supportTitle) + '</summary><p class="snote">' + esc(w.supportNote) + '</p><dl class="strat-metrics">' + w.supportMetrics.map(function (x) { return '<div><dt>' + esc(x[0]) + '</dt><dd>' + esc(x[1]) + '</dd></div>'; }).join('') + '</dl></details>' +
+      '<section class="strat-record"><h3>' + esc(w.record) + '</h3><p class="snote">' + esc(w.recordHint) + '</p><div class="strat-copy"><button class="cpy" data-ck="stratDaily">' + esc(w.dailyCopy) + '</button><button class="cpy" data-ck="stratPost">' + esc(w.postCopy) + '</button><button class="cpy" data-ck="stratPeople">' + esc(w.peopleCopy) + '</button></div></section>' +
       '<section aria-labelledby="strat-timeline"><h3 id="strat-timeline">' + esc(w.timelineTitle) + '</h3><ol class="strat-phases">' + w.phases.map(function (x) { return '<li><span class="strat-kicker">' + esc(x[0]) + '</span><h4>' + esc(x[1]) + '</h4><p>' + esc(x[2]) + '</p></li>'; }).join('') + '</ol><p class="strat-note">' + esc(w.reviewNote) + '</p></section>' +
       '<details class="strat-details"><summary>' + esc(w.evidence) + '</summary><p class="snote">' + esc(w.evidenceBody) + '</p><div class="strat-sources"><a href="https://pubmed.ncbi.nlm.nih.gov/33563758/" target="_blank" rel="noopener noreferrer">' + esc(w.sources[0]) + ' ↗</a><a href="https://help.x.com/en/using-x/x-follow-limit" target="_blank" rel="noopener noreferrer">' + esc(w.sources[1]) + ' ↗</a></div></details>' +
       '<details class="strat-details" data-strat-longterm><summary>' + esc(w.longTerm) + '</summary><p class="snote">' + esc(w.longNote) + '</p><h3>' + esc(g.title) + '</h3>' +
