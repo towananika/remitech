@@ -1105,6 +1105,25 @@
   .sgoal p{ margin:6px 0 0; font-size:13px; line-height:1.5; }
   .snote{ font-size:12.5px; color:var(--muted); line-height:1.6; }
   @media (max-width:560px){ .sgoals{ grid-template-columns:1fr; } }
+  .guide.strat{max-width:900px;overflow-wrap:anywhere}
+  .strat section{margin:26px 0}.strat h3{font-size:16px;margin:0 0 10px}.strat h4{font-size:14px;margin:0}
+  .strat-head{border-bottom:1px solid var(--line);padding-bottom:18px}.strat-head .gtitle{font-size:24px;margin:6px 0 12px}
+  .strat-kicker{font-size:11px;font-weight:700;letter-spacing:.08em;color:var(--muted)}
+  .strat-badges,.strat-copy,.strat-sources{display:flex;flex-wrap:wrap;gap:8px}
+  .strat-badges span,.strat-badges a{display:inline-block;border:1px solid var(--line);background:var(--surface);border-radius:99px;padding:6px 12px;font-size:12px;color:var(--ink);text-decoration:none}
+  .strat-badges a:focus-visible,.strat-details summary:focus-visible{outline:2px solid var(--wood);outline-offset:3px}
+  .strat-badges a:hover{border-color:var(--wood)}
+  .strat-note,.strat-rule{font-size:13px;line-height:1.7;padding:12px 14px;background:var(--todaybg);border-radius:10px}
+  .strat-tasks,.strat-phases{list-style:none;padding:0;margin:12px 0}
+  .strat-tasks{display:grid;gap:10px}.strat-tasks>li{display:grid;grid-template-columns:30px minmax(0,1fr);gap:12px;border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:16px}
+  .strat-step{width:28px;height:28px;display:grid;place-items:center;border-radius:50%;background:var(--todaybg);color:var(--ink);font-size:13px;font-weight:700}
+  .strat-taskhead{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:6px 12px}.strat-limit{font-size:12px;font-weight:600;color:var(--muted)}
+  .strat-tasks p,.strat-phases p{font-size:13px;line-height:1.7;margin:7px 0 0}
+  .strat-metrics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.strat-metrics>div{border:1px solid var(--line);border-radius:12px;padding:16px;min-width:0}.strat-metrics dt{font-weight:600;font-size:14px}.strat-metrics dd{margin:8px 0 0;font-size:13px;line-height:1.7;color:var(--muted)}
+  .strat-copy button{white-space:normal;min-height:44px;text-align:left}
+  .strat-phases{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.strat-phases li{padding:15px;border-left:3px solid var(--wood);background:var(--surface);border-radius:0 10px 10px 0;min-width:0}.strat-phases h4{margin:7px 0 0}
+  .strat-details{border-top:1px solid var(--line);padding:16px 0}.strat-details summary{font-weight:600;font-size:14px;cursor:pointer}.strat-details[open] summary{margin-bottom:16px}.strat-sources a{font-size:12px;color:var(--muted)}
+  @media(max-width:600px){.strat-head .gtitle{font-size:21px}.strat-metrics,.strat-phases{grid-template-columns:1fr}.strat-tasks>li{padding:13px;gap:9px}.strat-copy{display:grid;grid-template-columns:minmax(0,1fr)}}
   /* 企画タブ */
   .plan{ max-width:1100px; }
   .plhead{ display:flex; flex-wrap:wrap; align-items:baseline; gap:6px 12px; margin:6px 0 4px; }
@@ -1711,7 +1730,7 @@
           notMatched:"Not checked", matched:"Matches the plan", mismatched:"Differs from the plan",
           navImport:"Import", impHelp:"Paste the plan from your spreadsheet (tab-separated, header row first).",
           navPrep2:"Prep (beta)", pvList:"List", pvCal:"Calendar", bkPrep:"prep", bkText:"Text", bkImg:"Image", bkHoliday:"Day off", tgShared:"Shared", tgNoFetch:"No channels to refresh (only channels past share time, not yet shared, with missing links)", tgNotShared:"Not shared yet", tgDue:"Share by", tgNextDay:"next day", tgLate:"Overdue", tgShareTip:"Tap after posting this to Telegram", bkShared:"Saved for everyone", bkOffline:"Server unreachable. Saved on this device only", bkNeedCode:"Enter the team passphrase to share with everyone", bkWhoTip:"Tap to change who is in charge", bkHolTip:"Tap to mark this day as a day off", bkNotYet:"Preparing", bkBookedShort:"Booked", bkReplyTip:"Reply to this post. Tap when done", bkLinkPrompt:"Paste the link (leave empty to remove)", bkFetchBtn:"Check posts", bkFetchPending:"Requested. Waiting for the PC (up to 2 min)…", bkFetchRunning:"Reading X, Instagram, YouTube and TikTok…", bkFetchPublish:"Updating the site…", bkFetchDone:"Done: {n} link(s) added", bkFetchNone:"Done: no new links", bkFetchErr:"Failed: ", bkFetchTip:"Finds public posts near each booked time (±90 min) and adds links to empty booking buttons. TikTok uses public embeds and verified publication dates.", undoBtn:"Undo", undoDone:"Undone", undoTip:"Undo the last change (up to 3)", bkLinkBad:"Only links starting with http:// or https://", bkLinkWrongSns:"This box only takes {sns} links", bkVideo:"Video posted", navPosted:"Posted", tipPosted:"Did the booked posts go out? Tap a green box to see the link, numbers and text.", pcNoPost:"No post", pcOld:"Too old to check", pcUnchecked:"Not checked yet", pcNoData:"Not fetched", pcSame:"Text matches", pcNear:"Text almost matches", pcDiff:"Text differs", pcNoPlan:"No planned text", pcPlanText:"Planned text", pcPostText:"Posted text", pcOpen:"Open post", pcAt:"Posted at", pcChecked:"Checked", pcHow:"Check posts reads public Instagram, YouTube, X and TikTok posts. Unavailable posts keep the previous record. Facebook requires public access verification.", pcSimilar:"Similarity", tgCopyShare:"Copy share text", tgNoPost:"No post", tgNoLink:"Link not available", bkCkWait:"Set the IG feed to video first", bkVidPlan:"Video day", bkNoPlan:"No post planned this day", authLogin:"Log in", authRegister:"Sign up", authId:"ID (a–z, 0–9, 3–20)", authPw:"Password (8+ characters)", authPw2:"Password again", authMismatch:"The passwords do not match", authLogout:"Log out", authMember:"Staff", authAdmin:"Admin", authNone:"Waiting for staff access", authUsers:"Registered people", authClose:"Close", authWrong:"Wrong ID or password", authTaken:"This ID is already used", authBadId:"ID: 3–20 letters, numbers, _ . -", authBadPw:"Password: 8–64 characters", authMany:"Too many tries. Please wait and try again", authNet:"Could not connect", authFull:"No more sign-ups", authForgot:"Forgot password?", authResetTitle:"Reset password", authCode:"Reset code (from an admin)", authNewPw:"New password (8+ characters)", authNewPw2:"New password again", authResetGo:"Reset", authResetDone:"Done. Please log in with the new password", authResetHow:"Ask an admin for a reset code. It works once, for 24 hours", authCodeBad:"Wrong ID or code, or the code has expired", authPwId:"The password cannot be the same as the ID", authShowPw:"Show password", authChangePw:"Change password", authCurPw:"Current password", authChangeGo:"Change", authChanged:"Changed. Other devices were logged out", authLogoutAll:"Log out on all devices", authRoleGen:"General", authRoleStaff:"Staff", authIssue:"Reset code", authIssued:"Give this code to the person (once, 24 hours; it will not be shown again)", authDelete:"Delete", authDelConfirm:"Delete {id}? This cannot be undone", authBack:"Back", authKeep:"You stay logged in for 7 days (renewed each day you open the HUB)", yuTitle:"Staff only", yuNeedLogin:"Only staff can see this. Please log in", yuWait:"Waiting for staff access. Ask an admin", yuRecheck:"Check again", yuX:"X", yuIg:"IG / FB", yuPrompt:"Image prompt", yuRealPhoto:"Real photo: no image prompt needed. Post the photo as it is.", yuRules:"Rules", yuPast:"Earlier posts", yuReserve:"Spare", yuFixed:"Fixed date", yuPlan:"Plan", yuLoading:"Loading…", yuNoImg:"Text only", bkCommentPrompt:"Comment (leave empty to remove)", bkLinkUpTip:"Link", bkCommentTip:"Comment", bkLabelsEdit:"Add labels", bkLabelAdd:"Add", bkLabelDel:"Delete", bkLabelPh:"e.g. On hold", bkBlank:"Blank", bkNoReply:"No reply", bkRowsBtn:"Rows", bkRowsTitle:"Which rows to show", bkRowsHidden:"hidden", bkRowsAll:"Show all", bkRowsDone:"Close", bkRowHide:"Hide this row", bkRowDel:"Delete this row", bkRowAdd:"+ Add a row", bkRowName:"Name", bkRowReply:"Add a reply row under it", bkRowSave:"Add", bkRowDup:"A row with the same SNS and time already exists", bkRowBad:"Enter a name and a time", bkRowDelAsk:"Delete this row? Marks already made stay.", gProjects:"Projects", gRecur:"Recurring", gRecurTitle:"Recurring slots", gAddRule:"Add", gClose:"Close", gMake:"Create this post", gRecurTag:"recurring", gView3:"3 days", gViewWeek:"Week", gViewMonth:"Month", bkVWeek:"By week", bkVRecent:"Last 2 weeks", bkVRecentTip:"Yesterday on the left, then 2 weeks from today", gNoRule:"No recurring slots yet.", calToday:"Today", calNone:"Nothing on this day", calMore:" more",
-          navTg:"Telegram", retTitle:"RET posting plan", retWeekend:"Every Saturday at 09:00 (Korea time), for X and IG.", retAlternative:"Alternative date", retImage:"Image concept", retPromptCopy:"Copy image prompt", retBookDate:"Posting date", retApproval:"Awaiting approval", retLegacyTime:"Existing booking at previous time", retBookUndo:"Undo booking", retBookLoadError:"Could not load booking status",  retCopyEN:"Copy English", bkWeekendBooked:"Other weekend day booked: ", tgInvalidLink:"Invalid post link", tgAccessUnknown:"Access unverified", tgAccessDenied:"Post unavailable", tgPostDate:"Posted on", tgDateUnknown:"Post date not verified", navManage:"Management", mgIntro:"Manage members and access.", mgSearch:"Search by ID", mgAll:"All", mgActive:"Active", mgSuspended:"Suspended", mgSuspend:"Suspend", mgResume:"Resume", mgRevoke:"Force log out", mgConfirm:"Apply {action} to {id}?", mgSaved:"Saved", mgEmpty:"No matching members", mgAccess:"Access permissions", mgPolicy:"General: public pages. Staff: internal drafts and editing. Admin: member management.", mgProtected:"Admin accounts are protected. Admin IDs are configured on the server.", mgRefresh:"Refresh members", tgRefresh:"Refresh", navGuide:"Guide", tipGuide:"How each task is done.", copyAll:"Copy all", tgEmpty:"Nothing posted with a link on this day yet", tgLinks:"Links", navPlan:"Plans", tipPlan:"Monthly post plans: copy-ready text by day.", navStrat:"Strategy", tipStrat:"3-year plan to grow X followers to 50,000.",
+          navTg:"Telegram", retTitle:"RET posting plan", retWeekend:"Every Saturday at 09:00 (Korea time), for X and IG.", retAlternative:"Alternative date", retImage:"Image concept", retPromptCopy:"Copy image prompt", retBookDate:"Posting date", retApproval:"Awaiting approval", retLegacyTime:"Existing booking at previous time", retBookUndo:"Undo booking", retBookLoadError:"Could not load booking status",  retCopyEN:"Copy English", bkWeekendBooked:"Other weekend day booked: ", tgInvalidLink:"Invalid post link", tgAccessUnknown:"Access unverified", tgAccessDenied:"Post unavailable", tgPostDate:"Posted on", tgDateUnknown:"Post date not verified", navManage:"Management", mgIntro:"Manage members and access.", mgSearch:"Search by ID", mgAll:"All", mgActive:"Active", mgSuspended:"Suspended", mgSuspend:"Suspend", mgResume:"Resume", mgRevoke:"Force log out", mgConfirm:"Apply {action} to {id}?", mgSaved:"Saved", mgEmpty:"No matching members", mgAccess:"Access permissions", mgPolicy:"General: public pages. Staff: internal drafts and editing. Admin: member management.", mgProtected:"Admin accounts are protected. Admin IDs are configured on the server.", mgRefresh:"Refresh members", tgRefresh:"Refresh", navGuide:"Guide", tipGuide:"How each task is done.", copyAll:"Copy all", tgEmpty:"Nothing posted with a link on this day yet", tgLinks:"Links", navPlan:"Plans", tipPlan:"Monthly post plans: copy-ready text by day.", navStrat:"Strategy", tipStrat:"NACHA daily tasks, measurement and review, plus the longer-term X plan.",
           navOv:"Overview", navToday:"Today", tipToday:"Only what you can finish now: likes, scheduling, URLs, checks", tdLeft:"left", tdLikes:"Likes", tdNext:"next", tdAllDone:"All done for today", tdBook:"To schedule", tdLate:"Missed", tdUrl:"Paste URL", tdCheck:"Check", tdBooked:"Scheduled", tdPaste:"Paste", tdChecked:"Checked", tdMemoPh:"Write a note (required)", tdQ1:"No text", tdQ2:"No image", tdQ3:"All good", tdOlder:"Earlier days", tdDoneToday:"Done today", tdUndo:"Undo", tdOpen:"Open", tdNone:"Nothing to schedule this week", tdBadUrl:"URL must start with https://", tdThisWeek:"This week", tdPosted:"Posted", ovMeasureOnly:"Followers only, no posting", ovAccounts:"Accounts", ovDocs:"Plans",
           impCols:"Columns: date (or day), time, platform, type, label, ja, en, ko, asset",
           impApply:"Apply on this device", impDownload:"Download schedule.json",
@@ -1762,7 +1781,7 @@
           notMatched:"미확인", matched:"기획과 일치", mismatched:"기획과 다름",
           navImport:"불러오기", impHelp:"기획표를 붙여넣어. 탭으로 구분된 표(첫 줄은 제목).",
           navPrep2:"준비(시안)", pvList:"목록", pvCal:"캘린더", bkPrep:"준비", bkText:"텍스트", bkImg:"이미지", bkHoliday:"휴일", tgShared:"공유함", tgNoFetch:"새로고침할 채널이 없어 (공유 시간이 지났고, 아직 공유 안 했고, 링크가 빠진 채널만)", tgNotShared:"아직 공유 안 함", tgDue:"공유", tgNextDay:"다음 날", tgLate:"늦음", tgShareTip:"텔레그램에 올린 뒤 누르기", bkShared:"모두에게 저장됨", bkOffline:"서버에 연결 안 됨. 이 기기에만 저장", bkNeedCode:"팀 암호를 넣으면 모두와 공유돼", bkWhoTip:"누르면 담당자 변경", bkHolTip:"누르면 이 날을 휴일로", bkNotYet:"준비 중", bkBookedShort:"예약됨", bkReplyTip:"이 게시물에 대한 답글. 하면 누르기", bkLinkPrompt:"링크를 붙여 넣어 (비우면 삭제)", bkFetchBtn:"게시 확인", bkFetchPending:"요청했어요. PC가 가져갈 때까지 (최대 2분)…", bkFetchRunning:"X·Instagram·YouTube·TikTok 읽는 중…", bkFetchPublish:"사이트에 반영 중…", bkFetchDone:"완료: 링크 {n}개 넣음", bkFetchNone:"완료: 새 링크 없음", bkFetchErr:"실패: ", bkFetchTip:"예약 시각(±90분)에 가까운 공개 게시물을 찾아 빈 예약 버튼에 링크를 넣습니다. TikTok은 공개 임베드와 확인된 게시 시각을 사용합니다.", undoBtn:"되돌리기", undoDone:"되돌렸어요", undoTip:"방금 바꾼 것을 되돌려요 (3번까지)", bkLinkBad:"http:// 또는 https:// 로 시작하는 링크만 돼", bkLinkWrongSns:"이 칸에는 {sns} 링크만 넣을 수 있어", bkVideo:"영상 게시", navPosted:"게시 확인", tipPosted:"예약한 게시물이 올라갔는지. 초록 칸을 누르면 링크·숫자·문안을 볼 수 있어요.", pcNoPost:"게시 없음", pcOld:"오래돼서 확인 불가", pcUnchecked:"아직 확인 안 함", pcNoData:"가져올 수 없음", pcSame:"문안 일치", pcNear:"문안 거의 일치", pcDiff:"문안 다름", pcNoPlan:"기획 문안 없음", pcPlanText:"기획 문안", pcPostText:"게시된 문안", pcOpen:"게시물 열기", pcAt:"게시 시각", pcChecked:"확인", pcHow:"게시 확인으로 Instagram·YouTube·X·TikTok의 공개 게시물을 읽습니다. 읽지 못한 항목은 이전 기록을 유지합니다. Facebook은 공개 접근을 확인합니다.", pcSimilar:"유사도", tgCopyShare:"공유 문안 복사", tgNoPost:"No post", tgNoLink:"Link not available", bkCkWait:"IG 피드를 영상으로 하면 누를 수 있어", bkVidPlan:"영상 예정", bkNoPlan:"기획상 게시 없는 날", authLogin:"로그인", authRegister:"회원가입", authId:"ID (영문 소문자·숫자 3~20)", authPw:"비밀번호 (8자 이상)", authPw2:"비밀번호 확인", authMismatch:"비밀번호가 서로 달라요", authLogout:"로그아웃", authMember:"사내", authAdmin:"관리자", authNone:"사내 권한 대기 중", authUsers:"등록한 사람", authClose:"닫기", authWrong:"ID 또는 비밀번호가 틀려요", authTaken:"이미 쓰이는 ID예요", authBadId:"ID: 영문·숫자·_ . - 3~20자", authBadPw:"비밀번호: 8~64자", authMany:"너무 많이 시도했어요. 잠시 후 다시", authNet:"연결이 안 돼요", authFull:"더 이상 가입할 수 없어요", authForgot:"비밀번호를 잊었어요", authResetTitle:"비밀번호 재설정", authCode:"재설정 코드 (관리자에게 받기)", authNewPw:"새 비밀번호 (8자 이상)", authNewPw2:"새 비밀번호 확인", authResetGo:"재설정", authResetDone:"재설정했어요. 새 비밀번호로 로그인하세요", authResetHow:"관리자에게 재설정 코드를 받으세요. 24시간, 한 번만 쓸 수 있어요", authCodeBad:"ID나 코드가 틀렸거나 기한이 지났어요", authPwId:"ID와 같은 비밀번호는 쓸 수 없어요", authShowPw:"비밀번호 보기", authChangePw:"비밀번호 변경", authCurPw:"지금 비밀번호", authChangeGo:"변경", authChanged:"변경했어요. 다른 기기는 로그아웃됐어요", authLogoutAll:"모든 기기에서 로그아웃", authRoleGen:"일반", authRoleStaff:"사내", authIssue:"재설정 코드", authIssued:"이 코드를 본인에게 전하세요 (24시간·1회. 다시 표시되지 않아요)", authDelete:"삭제", authDelConfirm:"{id}을(를) 삭제할까요? 되돌릴 수 없어요", authBack:"돌아가기", authKeep:"로그인은 7일 유지 (HUB를 연 날마다 연장)", yuTitle:"사내 전용", yuNeedLogin:"사내 사람만 볼 수 있어요. 로그인해 주세요", yuWait:"사내 권한을 기다리는 중. 관리자에게 부탁하세요", yuRecheck:"다시 확인", yuX:"X", yuIg:"IG·FB", yuPrompt:"이미지 프롬프트", yuRealPhoto:"실사: 이미지 프롬프트 없음. 사진을 그대로 올립니다.", yuRules:"규칙", yuPast:"지난 게시물", yuReserve:"예비", yuFixed:"날짜 고정", yuPlan:"기획", yuLoading:"불러오는 중…", yuNoImg:"텍스트만", bkCommentPrompt:"코멘트 (비우면 삭제)", bkLinkUpTip:"링크", bkCommentTip:"코멘트", bkLabelsEdit:"라벨 등록", bkLabelAdd:"추가", bkLabelDel:"삭제", bkLabelPh:"예: 보류", bkBlank:"빈칸", bkNoReply:"답글 안 함", bkRowsBtn:"행", bkRowsTitle:"어떤 행을 볼지", bkRowsHidden:"숨김", bkRowsAll:"모두 보기", bkRowsDone:"닫기", bkRowHide:"이 행 숨기기", bkRowDel:"이 행 삭제", bkRowAdd:"+ 행 추가", bkRowName:"이름", bkRowReply:"아래에 답글 행도 추가", bkRowSave:"추가", bkRowDup:"같은 SNS·시간의 행이 이미 있어", bkRowBad:"이름과 시간을 넣어 줘", bkRowDelAsk:"이 행을 삭제할까? 이미 누른 표시는 남아.", gProjects:"프로젝트", gRecur:"정기 설정", gRecurTitle:"정기 게시 시간", gAddRule:"추가", gClose:"닫기", gMake:"이 게시물 만들기", gRecurTag:"정기", gView3:"3일", gViewWeek:"주", gViewMonth:"월", bkVWeek:"주별", bkVRecent:"최근 2주", bkVRecentTip:"왼쪽은 어제, 오른쪽은 오늘부터 2주", gNoRule:"정기 설정이 아직 없어.", calToday:"오늘", calNone:"이 날은 비어 있어", calMore:"개 더",
-          navTg:"텔레그램", retTitle:"RET 게시 기획", retWeekend:"매주 토요일 오전 9시 (한국 시간), X·IG에 게시합니다.", retAlternative:"대체 날짜", retImage:"이미지 구상", retPromptCopy:"이미지 프롬프트 복사", retBookDate:"게시일", retApproval:"승인 대기", retLegacyTime:"기존 시간 예약", retBookUndo:"예약 취소", retBookLoadError:"예약 상태를 불러오지 못했습니다",  retCopyEN:"영어 복사", bkWeekendBooked:"주말의 다른 날 예약됨: ", tgInvalidLink:"잘못된 게시물 링크", tgAccessUnknown:"접근 미확인", tgAccessDenied:"접근 불가", tgPostDate:"게시일", tgDateUnknown:"게시일 미확인", navManage:"관리", mgIntro:"회원과 접근 권한을 관리합니다.", mgSearch:"ID 검색", mgAll:"전체", mgActive:"이용 중", mgSuspended:"이용 정지", mgSuspend:"이용 정지", mgResume:"이용 재개", mgRevoke:"강제 로그아웃", mgConfirm:"{id}에 {action}을 적용할까요?", mgSaved:"저장했습니다", mgEmpty:"해당 회원이 없습니다", mgAccess:"접근 권한", mgPolicy:"일반: 공개 페이지. 직원: 사내 초안 열람·편집. 관리자: 회원 관리.", mgProtected:"관리자 계정은 보호됩니다. 관리자 ID는 서버에서 설정합니다.", mgRefresh:"회원 새로고침", tgRefresh:"새로고침", navGuide:"설명", tipGuide:"작업을 어떻게 하는지.", copyAll:"전체 복사", tgEmpty:"이 날짜엔 링크가 있는 게시물이 아직 없어", tgLinks:"링크", navPlan:"기획", tipPlan:"월간 게시 기획. 날짜별 문안을 복사.", navStrat:"전략", tipStrat:"3년 안에 X 팔로워 5만 명을 만드는 계획.",
+          navTg:"텔레그램", retTitle:"RET 게시 기획", retWeekend:"매주 토요일 오전 9시 (한국 시간), X·IG에 게시합니다.", retAlternative:"대체 날짜", retImage:"이미지 구상", retPromptCopy:"이미지 프롬프트 복사", retBookDate:"게시일", retApproval:"승인 대기", retLegacyTime:"기존 시간 예약", retBookUndo:"예약 취소", retBookLoadError:"예약 상태를 불러오지 못했습니다",  retCopyEN:"영어 복사", bkWeekendBooked:"주말의 다른 날 예약됨: ", tgInvalidLink:"잘못된 게시물 링크", tgAccessUnknown:"접근 미확인", tgAccessDenied:"접근 불가", tgPostDate:"게시일", tgDateUnknown:"게시일 미확인", navManage:"관리", mgIntro:"회원과 접근 권한을 관리합니다.", mgSearch:"ID 검색", mgAll:"전체", mgActive:"이용 중", mgSuspended:"이용 정지", mgSuspend:"이용 정지", mgResume:"이용 재개", mgRevoke:"강제 로그아웃", mgConfirm:"{id}에 {action}을 적용할까요?", mgSaved:"저장했습니다", mgEmpty:"해당 회원이 없습니다", mgAccess:"접근 권한", mgPolicy:"일반: 공개 페이지. 직원: 사내 초안 열람·편집. 관리자: 회원 관리.", mgProtected:"관리자 계정은 보호됩니다. 관리자 ID는 서버에서 설정합니다.", mgRefresh:"회원 새로고침", tgRefresh:"새로고침", navGuide:"설명", tipGuide:"작업을 어떻게 하는지.", copyAll:"전체 복사", tgEmpty:"이 날짜엔 링크가 있는 게시물이 아직 없어", tgLinks:"링크", navPlan:"기획", tipPlan:"월간 게시 기획. 날짜별 문안을 복사.", navStrat:"전략", tipStrat:"NACHA의 매일 작업·기록·검증과 X 장기 계획.",
           navOv:"개요", navToday:"오늘", tipToday:"지금 끝낼 수 있는 것만: 좋아요, 예약, URL, 확인", tdLeft:"남음", tdLikes:"좋아요", tdNext:"다음", tdAllDone:"오늘은 끝", tdBook:"예약하기", tdLate:"놓침", tdUrl:"URL 붙이기", tdCheck:"확인하기", tdBooked:"예약함", tdPaste:"붙이기", tdChecked:"확인함", tdMemoPh:"메모를 써야 누를 수 있어", tdQ1:"텍스트 없음", tdQ2:"이미지 없음", tdQ3:"문제 없음", tdOlder:"이전 날", tdDoneToday:"오늘 끝낸 것", tdUndo:"되돌리기", tdOpen:"열기", tdNone:"이번 주 예약할 것 없음", tdBadUrl:"URL은 https:// 로 시작해야 해", tdThisWeek:"이번 주", tdPosted:"게시됨", ovMeasureOnly:"팔로워만 추적, 게시는 안 함", ovAccounts:"계정", ovDocs:"기획서",
           impCols:"열: date (또는 day), time, platform, type, label, ja, en, ko, asset",
           impApply:"이 기기에 적용", impDownload:"schedule.json 내려받기",
@@ -1813,7 +1832,7 @@
           notMatched:"未確認", matched:"企画どおり", mismatched:"企画と違う",
           navImport:"取り込み", impHelp:"表計算からコピーして貼る（タブ区切り・1行目は見出し）。",
           navPrep2:"準備（仮）", pvList:"一覧", pvCal:"カレンダー", bkPrep:"準備", bkText:"テキスト", bkImg:"イメージ", bkHoliday:"休日", tgShared:"共有済み", tgNoFetch:"更新するチャンネルはありません（共有時刻を過ぎ、未共有で、リンクが足りないチャンネルだけ）", tgNotShared:"未共有", tgDue:"共有", tgNextDay:"翌日", tgLate:"遅れ", tgShareTip:"Telegramに投稿したら押す", bkShared:"全員に保存しました", bkOffline:"サーバーにつながりません。この端末にだけ残しました", bkNeedCode:"チームの合言葉を入れると、全員と共有されます", bkWhoTip:"押すと担当者が変わる", bkHolTip:"押すと、この日を休日にする", bkNotYet:"準備中", bkBookedShort:"予約済み", bkReplyTip:"すぐ上の投稿への返信。済んだら押す", bkLinkPrompt:"リンクを貼ってください（空にすると消えます）", bkFetchBtn:"投稿確認", bkFetchPending:"依頼しました。PCが受け取るまで（最大2分）…", bkFetchRunning:"X・Instagram・YouTube・TikTokを読んでいます…", bkFetchPublish:"サイトに反映しています…", bkFetchDone:"完了：リンクを {n} 件入れました", bkFetchNone:"完了：新しく入れるリンクはありません", bkFetchErr:"失敗：", bkFetchTip:"予約の時刻（±90分）に近い公開投稿を探し、空いている予約ボタンにリンクを入れます。TikTokは公開埋め込みと確認済みの公開日時を使います。", undoBtn:"元に戻す", undoDone:"元に戻しました", undoTip:"直前の変更を取り消します（3回まで）", bkLinkBad:"http:// か https:// で始まるリンクだけ置けます", bkLinkWrongSns:"このマスには {sns} のリンクだけ置けます", bkVideo:"動画投稿", navPosted:"投稿", tipPosted:"予約したものが出たか。緑のマスを押すと、リンク・数字・文が見られます。", pcNoPost:"投稿なし", pcOld:"古くて確認できない", pcUnchecked:"まだ確認していない", pcNoData:"取得できない", pcSame:"文が一致", pcNear:"文がほぼ一致", pcDiff:"文が違う", pcNoPlan:"企画の文なし", pcPlanText:"企画の文", pcPostText:"投稿された文", pcOpen:"投稿を開く", pcAt:"投稿時刻", pcChecked:"確認", pcHow:"投稿確認でInstagram・YouTube・X・TikTokの公開投稿を読みます。取得できない場合は前回の記録を保持します。Facebookは公開アクセスを確認します。", pcSimilar:"一致度", tgCopyShare:"共有文をコピー", tgNoPost:"No post", tgNoLink:"Link not available", bkCkWait:"IGフィードを動画にすると押せます", bkVidPlan:"動画予定", bkNoPlan:"企画では投稿のない日", authLogin:"ログイン", authRegister:"新規登録", authId:"ID（半角の英小文字・数字 3〜20）", authPw:"パスワード（8文字以上）", authPw2:"パスワード（確認のためもう一度）", authMismatch:"パスワードが一致しません", authLogout:"ログアウト", authMember:"社内", authAdmin:"管理者", authNone:"社内の付与待ち", authUsers:"登録した人", authClose:"閉じる", authWrong:"IDかパスワードが違います", authTaken:"このIDはもう使われています", authBadId:"ID は英数字と _ . - で3〜20文字", authBadPw:"パスワードは8〜64文字", authMany:"試した回数が多すぎます。しばらく待ってからもう一度", authNet:"つながりません", authFull:"これ以上登録できません", authForgot:"パスワードを忘れた", authResetTitle:"パスワードの再設定", authCode:"再設定コード（管理者からもらう）", authNewPw:"新しいパスワード（8文字以上）", authNewPw2:"新しいパスワード（もう一度）", authResetGo:"再設定する", authResetDone:"再設定しました。新しいパスワードでログインしてください", authResetHow:"管理者に「再設定コード」を出してもらってください。24時間・1回だけ使えます", authCodeBad:"IDかコードが違うか、期限が切れています", authPwId:"IDと同じパスワードは使えません", authShowPw:"パスワードを表示", authChangePw:"パスワード変更", authCurPw:"今のパスワード", authChangeGo:"変更する", authChanged:"変更しました。ほかの端末はログアウトしました", authLogoutAll:"すべての端末からログアウト", authRoleGen:"一般", authRoleStaff:"社内", authIssue:"再設定コード", authIssued:"このコードを本人に伝えてください（24時間・1回だけ。もう表示されません）", authDelete:"削除", authDelConfirm:"{id} を削除しますか？元に戻せません", authBack:"戻る", authKeep:"ログインは7日間続きます（HUBを開いた日ごとに延長）", yuTitle:"社内のみ", yuNeedLogin:"社内の人だけが見られます。ログインしてください", yuWait:"社内の付与を待っています。管理者に頼んでください", yuRecheck:"もう一度確かめる", yuX:"X", yuIg:"IG・FB", yuPrompt:"画像プロンプト", yuRealPhoto:"実写のため画像プロンプトはありません。写真をそのまま投稿します。", yuRules:"ルール", yuPast:"過去の投稿", yuReserve:"予備", yuFixed:"日付固定", yuPlan:"企画", yuLoading:"読み込み中…", yuNoImg:"文だけ", bkCommentPrompt:"コメント（空にすると消えます）", bkLinkUpTip:"リンク", bkCommentTip:"コメント", bkLabelsEdit:"ラベルを登録", bkLabelAdd:"追加", bkLabelDel:"削除", bkLabelPh:"例：保留", bkBlank:"空欄", bkNoReply:"返信しない", bkRowsBtn:"行", bkRowsTitle:"どの行を出すか", bkRowsHidden:"非表示", bkRowsAll:"全部出す", bkRowsDone:"閉じる", bkRowHide:"この行を隠す", bkRowDel:"この行を消す", bkRowAdd:"＋ 行を追加", bkRowName:"名前", bkRowReply:"下に返信の行もつける", bkRowSave:"追加", bkRowDup:"同じSNS・時刻の行がもうあります", bkRowBad:"名前と時刻を入れてください", bkRowDelAsk:"この行を消しますか？すでに押した印は残ります。", gProjects:"プロジェクト", gRecur:"定期の設定", gRecurTitle:"定期の投稿枠", gAddRule:"追加", gClose:"閉じる", gMake:"この企画を作る", gRecurTag:"定期", gView3:"3日", gViewWeek:"週", gViewMonth:"月", bkVWeek:"週別", bkVRecent:"直近2週", bkVRecentTip:"左に昨日、右に今日からの2週間", gNoRule:"定期の枠はまだない。", calToday:"今日", calNone:"この日は空", calMore:"件",
-          navTg:"Telegram通知", retTitle:"RET投稿企画", retWeekend:"X・IGとも、毎週土曜日 9:00（韓国時間）に投稿します。", retAlternative:"日曜に変更する場合", retImage:"画像案", retPromptCopy:"画像プロンプトをコピー", retBookDate:"投稿日", retApproval:"承認待ち", retLegacyTime:"旧時刻の既存予約", retBookUndo:"予約を解除", retBookLoadError:"予約状態を取得できませんでした",  retCopyEN:"英語をコピー", bkWeekendBooked:"同じ週末の別日が予約済み：", tgInvalidLink:"リンク無効", tgAccessUnknown:"アクセス未確認", tgAccessDenied:"アクセス不可", tgPostDate:"投稿日", tgDateUnknown:"投稿日未確認", navManage:"管理", mgIntro:"会員とアクセス権限を管理します。", mgSearch:"IDで検索", mgAll:"すべて", mgActive:"利用中", mgSuspended:"利用停止中", mgSuspend:"利用停止", mgResume:"利用再開", mgRevoke:"強制ログアウト", mgConfirm:"{id} に「{action}」を実行しますか？", mgSaved:"保存しました", mgEmpty:"該当する会員はいません", mgAccess:"アクセス権限", mgPolicy:"一般：公開ページ。社員：社内草案の閲覧・編集。管理者：会員管理。", mgProtected:"管理者アカウントは保護されています。管理者IDはサーバーで設定します。", mgRefresh:"会員一覧を更新", tgRefresh:"更新", navGuide:"説明", tipGuide:"作業のやり方。", copyAll:"全部コピー", tgEmpty:"この日はまだリンク付きの投稿がない", tgLinks:"リンク", navPlan:"企画", tipPlan:"月ごとの投稿企画。日付ごとの文案をコピー。", navStrat:"戦略", tipStrat:"3年でXフォロワー5万人を目指す計画。",
+          navTg:"Telegram通知", retTitle:"RET投稿企画", retWeekend:"X・IGとも、毎週土曜日 9:00（韓国時間）に投稿します。", retAlternative:"日曜に変更する場合", retImage:"画像案", retPromptCopy:"画像プロンプトをコピー", retBookDate:"投稿日", retApproval:"承認待ち", retLegacyTime:"旧時刻の既存予約", retBookUndo:"予約を解除", retBookLoadError:"予約状態を取得できませんでした",  retCopyEN:"英語をコピー", bkWeekendBooked:"同じ週末の別日が予約済み：", tgInvalidLink:"リンク無効", tgAccessUnknown:"アクセス未確認", tgAccessDenied:"アクセス不可", tgPostDate:"投稿日", tgDateUnknown:"投稿日未確認", navManage:"管理", mgIntro:"会員とアクセス権限を管理します。", mgSearch:"IDで検索", mgAll:"すべて", mgActive:"利用中", mgSuspended:"利用停止中", mgSuspend:"利用停止", mgResume:"利用再開", mgRevoke:"強制ログアウト", mgConfirm:"{id} に「{action}」を実行しますか？", mgSaved:"保存しました", mgEmpty:"該当する会員はいません", mgAccess:"アクセス権限", mgPolicy:"一般：公開ページ。社員：社内草案の閲覧・編集。管理者：会員管理。", mgProtected:"管理者アカウントは保護されています。管理者IDはサーバーで設定します。", mgRefresh:"会員一覧を更新", tgRefresh:"更新", navGuide:"説明", tipGuide:"作業のやり方。", copyAll:"全部コピー", tgEmpty:"この日はまだリンク付きの投稿がない", tgLinks:"リンク", navPlan:"企画", tipPlan:"月ごとの投稿企画。日付ごとの文案をコピー。", navStrat:"戦略", tipStrat:"NACHAの毎日の作業・記録・検証と、Xの長期計画。",
           navOv:"概要", navToday:"今日", tipToday:"今終わらせられるものだけ：いいね・予約・URL・確認", tdLeft:"残り", tdLikes:"いいね", tdNext:"次", tdAllDone:"今日は済み", tdBook:"予約する", tdLate:"予約されずに過ぎた", tdUrl:"URLを貼る", tdCheck:"確認する", tdBooked:"予約した", tdPaste:"貼る", tdChecked:"確認した", tdMemoPh:"メモを書く（書くと押せます）", tdQ1:"テキストなし", tdQ2:"画像なし", tdQ3:"問題なし", tdOlder:"前の日の残り", tdDoneToday:"今日済んだもの", tdUndo:"元に戻す", tdOpen:"開く", tdNone:"今週、予約するものはありません", tdBadUrl:"URLは https:// で始めてください", tdThisWeek:"今週", tdPosted:"投稿", ovMeasureOnly:"フォロワーだけ追う。投稿はしない", ovAccounts:"運用アカウント", ovDocs:"企画書",
           impCols:"列: date（または day）, time, platform, type, label, ja, en, ko, asset",
           impApply:"この端末に反映", impDownload:"schedule.json を保存",
@@ -7054,7 +7073,7 @@
           goals: [["1年目", "5,000人", "月 +400", "型を見つける年"], ["2年目", "20,000人", "月 +1,250", "型を量産し、伸びた投稿を再利用"], ["3年目", "50,000人", "月 +2,500", "コラボと拡散で加速"]],
           secs: [
             ["投稿の柱", ["1アカウント1テーマ。「誰の何の役に立つか」を1行で言えるようにする", "NACHA・HIYOKO・RET の役割を重ねない", "比率は 有益（保存・拡散される）5：共感・日常 3：告知 2"]],
-            ["運用ルーティン", ["投稿は1日2〜3本。量より途切れないこと", "毎日 リプ・引用で10〜20件の交流（Xは交流の多いアカウントほど表示が伸びる）", "伸びた投稿は1〜2か月後に言い方を変えて再投稿"]],
+            ["運用ルーティン", ["既存の投稿予定を維持し、必要な制作量は週次で見直す", "交流は必要な返信・メンション対応から。件数のための交流はしない", "伸びた投稿は1〜2か月後に言い方を変えて再投稿"]],
             ["アカウント間の連携", ["伸びた投稿は別アカウントから引用して送客する", "相互RTの機械的な繰り返しはしない（スパム判定の原因）"]],
             ["KPIと見直し", ["毎週：上位3投稿の「型」をメモ", "毎月：フォロワー増加数・インプレッション・プロフィールアクセス率", "四半期：目標と比べ、伸びない柱は入れ替える"]],
             ["やらないこと（リスク）", ["フォロワー購入・自動フォロー", "同じ文面の連投", "複数アカウントでの組織的なRT・いいね回し"]]
@@ -7065,7 +7084,7 @@
           goals: [["1년 차", "5,000명", "월 +400", "형식을 찾는 해"], ["2년 차", "20,000명", "월 +1,250", "형식을 양산하고 잘 된 게시물을 재활용"], ["3년 차", "50,000명", "월 +2,500", "콜라보와 확산으로 가속"]],
           secs: [
             ["게시물의 기둥", ["계정 하나에 주제 하나. '누구에게 어떤 도움이 되는지'를 한 줄로 말할 수 있게", "NACHA·HIYOKO·RET 역할이 겹치지 않게", "비율은 유익(저장·확산되는 글) 5 : 공감·일상 3 : 공지 2"]],
-            ["운영 루틴", ["게시는 하루 2~3개. 양보다 끊기지 않는 것", "매일 답글·인용으로 10~20건 교류 (X는 교류가 많은 계정일수록 노출이 늘어남)", "잘 된 게시물은 1~2개월 뒤 표현을 바꿔 다시 게시"]],
+            ["운영 루틴", ["기존 게시 일정을 유지하고 필요한 제작량은 매주 점검한다", "필요한 답글·멘션 대응부터 한다. 건수를 채우기 위한 교류는 하지 않는다", "잘 된 게시물은 1~2개월 뒤 표현을 바꿔 다시 게시"]],
             ["계정 간 연계", ["잘 된 게시물은 다른 계정에서 인용해 유입시키기", "기계적인 상호 RT 반복은 하지 않기 (스팸 판정 원인)"]],
             ["KPI와 점검", ["매주: 상위 3개 게시물의 '형식' 메모", "매월: 팔로워 증가 수·노출 수·프로필 방문율", "분기: 목표와 비교해서 안 되는 기둥은 교체"]],
             ["하지 않을 것 (리스크)", ["팔로워 구매·자동 팔로우", "같은 문장 연속 게시", "여러 계정으로 조직적인 RT·좋아요 돌리기"]]
@@ -7076,29 +7095,372 @@
           goals: [["Year 1", "5,000", "+400 / month", "Find the formats that work"], ["Year 2", "20,000", "+1,250 / month", "Scale those formats, reuse top posts"], ["Year 3", "50,000", "+2,500 / month", "Accelerate with collabs and reach"]],
           secs: [
             ["Content pillars", ["One theme per account: say in one line who it helps and how", "Keep NACHA, HIYOKO and RET from overlapping", "Mix: useful (saved, shared) 5 : relatable / daily 3 : promo 2"]],
-            ["Routine", ["2–3 posts a day; consistency over volume", "10–20 replies or quotes every day (X shows active accounts more)", "Repost top posts 1–2 months later in new wording"]],
+            ["Routine", ["Keep existing post plans and review production needs weekly", "Start with replies and mentions that need a response; no interaction quotas", "Repost top posts 1–2 months later in new wording"]],
             ["Across accounts", ["Quote top posts from the other accounts to send followers over", "No mechanical mutual retweets (spam signal)"]],
             ["KPIs and reviews", ["Weekly: note the format of the top 3 posts", "Monthly: follower growth, impressions, profile visit rate", "Quarterly: compare with targets and swap pillars that do not grow"]],
             ["Do not (risks)", ["Buying followers, auto-follow", "Posting the same text repeatedly", "Coordinated retweet or like rings across accounts"]]
           ],
           note: "Numbers assume starting near zero. With each account's current followers, this becomes quarterly targets." }
   };
+  var STRAT_WORK = {
+  "ja": {
+    "title": "NACHA · Xの運用を検証する",
+    "lead": "新しい制作を増やさず、関心の合う人との接点をつくる。まず14日間実行し、21日目に集計する。",
+    "badges": [
+      "1日30分以内",
+      "新しい制作なし",
+      "手動で確認"
+    ],
+    "assumption": "件数・時間は検証開始のための仮設定です。フォローやいいねのノルマ、増加の保証ではありません。",
+    "daily": "毎日の作業",
+    "dailyHint": "上から順に実施。条件に合う人がいなければ、0人でも完了です。",
+    "tasks": [
+      [
+        "自分への反応を確認",
+        "5分以内",
+        "返信・メンションを確認し、必要なものに対応する。反応がなければ完了。"
+      ],
+      [
+        "関連する話題を探す",
+        "検索語3つ · 8分以内",
+        "最近順で確認し、NACHAとの接点がある話題を最大1つ記録する。"
+      ],
+      [
+        "フォロー候補を確認",
+        "10人 · 12分以内",
+        "プロフィールと最近の投稿を読み、関心が合い、読み続けたい人を選ぶ。"
+      ],
+      [
+        "関心が合う相手をフォロー",
+        "最大5人 · ③の時間内",
+        "候補確認の12分に含む。人数を埋めるためにフォローしない。"
+      ],
+      [
+        "結果を記録",
+        "3分以内",
+        "作業時間、確認・フォロー人数、検索語、フォロワー数を残す。"
+      ]
+    ],
+    "rule": "いいね件数のノルマは設けない。共感した投稿に自然に押す範囲にする。",
+    "keywords": "検索語の出発点",
+    "keywordHint": "まずはこの3つから。人気順位や高いフォローバック率が検証済みのタグではありません。",
+    "metricsTitle": "記録する4つの数字",
+    "metrics": [
+      [
+        "7日後のフォローバック率",
+        "フォローから7日経過した相手のうち、返ってきた人数 ÷ その対象人数。対象0人なら未算出。"
+      ],
+      [
+        "検索語別の成果",
+        "同じ7日後の条件で、検索語ごとの対象人数・返ってきた人数・率を比べる。"
+      ],
+      [
+        "フォロワー純増",
+        "終了時点のフォロワー数 − 開始時点のフォロワー数。"
+      ],
+      [
+        "作業効率",
+        "作業時間と7日後のフォローバック人数をセットで比較する。"
+      ]
+    ],
+    "attribution": "純増には既存投稿や外部要因の影響も含まれます。運用作業だけの効果とは扱いません。",
+    "record": "記録用ひな形",
+    "recordHint": "スプレッドシート等に貼り付けて使います。候補全員の記録は不要。実際にフォローした相手を残します。この画面に記録を保存する機能はありません。",
+    "dailyCopy": "日次集計のひな形をコピー",
+    "peopleCopy": "7日後確認のひな形をコピー",
+    "dailyHeader": [
+      "日付",
+      "担当者",
+      "作業時間（分）",
+      "確認人数",
+      "フォロー人数",
+      "記録した話題",
+      "開始フォロワー数",
+      "終了フォロワー数",
+      "メモ"
+    ],
+    "peopleHeader": [
+      "フォロー日",
+      "担当者",
+      "検索語",
+      "相手のプロフィールURL",
+      "7日後の確認日",
+      "確認結果（返ってきた／返っていない／未確認）"
+    ],
+    "timelineTitle": "検証の進め方",
+    "phases": [
+      [
+        "1〜14日目",
+        "実行する",
+        "日次集計と、実際にフォローした相手を記録。各相手をフォローから7日後に確認する。"
+      ],
+      [
+        "15〜21日目",
+        "確認をそろえる",
+        "14日目の相手にも7日間待ち、同じ条件で結果をそろえる。"
+      ],
+      [
+        "21日目",
+        "次の期間を決める",
+        "成果の出た検索語を残す。時間の割に成果が少ない作業は減らす。"
+      ]
+    ],
+    "reviewNote": "少数のため、最初は傾向を確認する段階です。返ってこない相手を機械的に解除しません。",
+    "evidence": "根拠と限界",
+    "evidenceBody": "政治分野の過去のTwitter実験では、共通する立場とフォローバックの関係が確認されています。NACHAや2026年のXで同じ成果が出るとは未検証です。",
+    "sources": [
+      "2021年の査読論文",
+      "Xのフォロー運用について"
+    ],
+    "longTerm": "長期計画を見る",
+    "longNote": "以前の3年計画は目標案として保持。実績予測や、この運用だけで達成できるという保証ではありません。"
+  },
+  "en": {
+    "title": "NACHA · Test X account operations",
+    "lead": "Build relevant connections without adding new creative work. Run for 14 days, then complete the review on day 21.",
+    "badges": [
+      "Within 30 min/day",
+      "No new creative work",
+      "Manual review"
+    ],
+    "assumption": "Counts and times are trial settings, not engagement quotas or guaranteed growth.",
+    "daily": "Daily work",
+    "dailyHint": "Work from top to bottom. Zero follows is a valid result when no one fits.",
+    "tasks": [
+      [
+        "Review incoming reactions",
+        "Up to 5 min",
+        "Check replies and mentions; respond where needed. No reactions means this step is complete."
+      ],
+      [
+        "Find relevant conversations",
+        "3 search terms · up to 8 min",
+        "Use Latest and record at most one topic with a clear NACHA connection."
+      ],
+      [
+        "Review potential follows",
+        "10 profiles · up to 12 min",
+        "Read profiles and recent posts. Choose people with relevant interests whose posts you want to keep reading."
+      ],
+      [
+        "Follow relevant people",
+        "Up to 5 · within step 3",
+        "Included in the 12-minute review. Do not follow merely to fill a number."
+      ],
+      [
+        "Record results",
+        "Up to 3 min",
+        "Log time, profiles reviewed, follows, search terms and follower counts."
+      ]
+    ],
+    "rule": "No like quotas. Like posts only when you actually appreciate them.",
+    "keywords": "Starting search terms",
+    "keywordHint": "Start with these three. Their popularity ranking and follow-back performance have not been established.",
+    "metricsTitle": "Four numbers to record",
+    "metrics": [
+      [
+        "7-day follow-back rate",
+        "Among accounts followed at least 7 days ago: follow-backs ÷ accounts checked at that same point. Zero eligible accounts means no rate yet."
+      ],
+      [
+        "Results by search term",
+        "Compare eligible accounts, follow-backs and rates using the same 7-day window."
+      ],
+      [
+        "Net follower change",
+        "Follower count at the end minus follower count at the start."
+      ],
+      [
+        "Work efficiency",
+        "Compare work time alongside the number of follow-backs after 7 days."
+      ]
+    ],
+    "attribution": "Net growth also reflects existing posts and outside influences. Do not attribute all of it to these tasks.",
+    "record": "Recording templates",
+    "recordHint": "Paste into a spreadsheet. Log people actually followed, not every candidate. This screen does not save records.",
+    "dailyCopy": "Copy daily summary template",
+    "peopleCopy": "Copy 7-day check template",
+    "dailyHeader": [
+      "Date",
+      "Staff",
+      "Minutes worked",
+      "Profiles reviewed",
+      "Accounts followed",
+      "Topic recorded",
+      "Starting followers",
+      "Ending followers",
+      "Notes"
+    ],
+    "peopleHeader": [
+      "Date followed",
+      "Staff",
+      "Search term",
+      "Profile URL",
+      "7-day check date",
+      "Result (followed back / not followed back / unchecked)"
+    ],
+    "timelineTitle": "Trial schedule",
+    "phases": [
+      [
+        "Days 1–14",
+        "Run the tasks",
+        "Record daily work and accounts followed. Check each account 7 days after following."
+      ],
+      [
+        "Days 15–21",
+        "Complete follow-up",
+        "Wait 7 days for the final day-14 accounts so every result has the same window."
+      ],
+      [
+        "Day 21",
+        "Choose the next cycle",
+        "Retain productive search terms. Reduce tasks that take time with little result."
+      ]
+    ],
+    "reviewNote": "Small samples show initial tendencies, not proof. Do not automatically unfollow people who do not follow back.",
+    "evidence": "Evidence and limits",
+    "evidenceBody": "Earlier Twitter political field experiments found a relationship between shared partisanship and follow-backs. Transfer to NACHA or X in 2026 is untested.",
+    "sources": [
+      "2021 peer-reviewed study",
+      "X guidance on following"
+    ],
+    "longTerm": "View the longer-term plan",
+    "longNote": "The earlier 3-year plan remains a proposed goal, not a forecast or a promise that these tasks will achieve it."
+  },
+  "ko": {
+    "title": "NACHA · X 운영 검증",
+    "lead": "새로운 제작을 늘리지 않고 관심사가 맞는 사람과 접점을 만든다. 14일 실행 후 21일째 결과를 정리한다.",
+    "badges": [
+      "하루 30분 이내",
+      "새로운 제작 없음",
+      "직접 확인"
+    ],
+    "assumption": "횟수와 시간은 검증을 시작하기 위한 임시 설정이다. 좋아요·팔로우 할당량이나 성과 보장이 아니다.",
+    "daily": "매일 할 일",
+    "dailyHint": "위에서부터 진행한다. 맞는 사람이 없으면 팔로우 0명이어도 완료다.",
+    "tasks": [
+      [
+        "우리 계정에 온 반응 확인",
+        "5분 이내",
+        "답글·멘션을 확인하고 필요한 것에 대응한다. 반응이 없으면 완료."
+      ],
+      [
+        "관련 화제 찾기",
+        "검색어 3개 · 8분 이내",
+        "최신순으로 보고 NACHA와 접점이 있는 화제를 최대 1개 기록한다."
+      ],
+      [
+        "팔로우 후보 확인",
+        "프로필 10명 · 12분 이내",
+        "프로필과 최근 글을 읽는다. 관심사가 맞고 앞으로도 읽고 싶은 사람을 고른다."
+      ],
+      [
+        "관심사가 맞는 사람 팔로우",
+        "최대 5명 · ③ 시간에 포함",
+        "후보 확인 12분 안에서 진행한다. 숫자를 채우려고 팔로우하지 않는다."
+      ],
+      [
+        "결과 기록",
+        "3분 이내",
+        "작업 시간, 확인·팔로우 인원, 검색어, 팔로워 수를 기록한다."
+      ]
+    ],
+    "rule": "좋아요 횟수 할당량은 두지 않는다. 실제로 공감하는 게시물에 자연스럽게 누른다.",
+    "keywords": "처음 사용할 검색어",
+    "keywordHint": "우선 아래 3개로 시작한다. 인기 순위나 높은 맞팔률이 검증된 태그는 아니다.",
+    "metricsTitle": "기록할 숫자 4개",
+    "metrics": [
+      [
+        "7일 후 맞팔률",
+        "팔로우 후 7일 지난 대상 중 맞팔한 인원 ÷ 해당 대상 인원. 대상이 0명이면 계산하지 않는다."
+      ],
+      [
+        "검색어별 성과",
+        "같은 7일 조건으로 검색어별 대상 수·맞팔 수·비율을 비교한다."
+      ],
+      [
+        "팔로워 순증",
+        "종료 시점 팔로워 수 − 시작 시점 팔로워 수."
+      ],
+      [
+        "작업 효율",
+        "작업 시간과 7일 후 맞팔 수를 함께 비교한다."
+      ]
+    ],
+    "attribution": "순증에는 기존 게시물과 외부 요인의 영향도 포함된다. 작업만의 효과로 해석하지 않는다.",
+    "record": "기록 양식",
+    "recordHint": "스프레드시트 등에 붙여넣어 사용한다. 모든 후보가 아니라 실제 팔로우한 사람을 기록한다. 이 화면에 기록을 저장하는 기능은 없다.",
+    "dailyCopy": "일일 집계 양식 복사",
+    "peopleCopy": "7일 후 확인 양식 복사",
+    "dailyHeader": [
+      "날짜",
+      "담당자",
+      "작업 시간(분)",
+      "확인 인원",
+      "팔로우 인원",
+      "기록한 화제",
+      "시작 팔로워 수",
+      "종료 팔로워 수",
+      "메모"
+    ],
+    "peopleHeader": [
+      "팔로우 날짜",
+      "담당자",
+      "검색어",
+      "상대 프로필 URL",
+      "7일 후 확인일",
+      "결과(맞팔/맞팔 아님/미확인)"
+    ],
+    "timelineTitle": "검증 일정",
+    "phases": [
+      [
+        "1~14일째",
+        "실행",
+        "일일 집계와 실제 팔로우한 사람을 기록한다. 각 상대는 팔로우 7일 후 확인한다."
+      ],
+      [
+        "15~21일째",
+        "확인 기간 맞추기",
+        "14일째 팔로우한 상대도 7일 기다려 같은 조건으로 확인한다."
+      ],
+      [
+        "21일째",
+        "다음 기간 결정",
+        "성과가 있는 검색어는 유지한다. 시간 대비 성과가 적은 작업은 줄인다."
+      ]
+    ],
+    "reviewNote": "적은 표본이므로 처음에는 경향을 확인하는 단계다. 맞팔하지 않은 상대를 기계적으로 언팔로우하지 않는다.",
+    "evidence": "근거와 한계",
+    "evidenceBody": "과거 Twitter 정치 분야 실험에서 같은 정치적 성향과 맞팔의 관계가 확인됐다. NACHA나 2026년 X에서의 재현 여부는 검증되지 않았다.",
+    "sources": [
+      "2021년 동료심사 논문",
+      "X 팔로우 운영 안내"
+    ],
+    "longTerm": "장기 계획 보기",
+    "longNote": "기존 3년 계획은 목표안으로 유지한다. 실적 예측이나 이 작업만으로 달성한다는 보장이 아니다."
+  }
+};
   function renderStrategy() {
     chansEl.hidden = true;
-    var g = STRAT_TXT[lang] || STRAT_TXT.ja;
+    var g = STRAT_TXT[lang] || STRAT_TXT.ja, w = STRAT_WORK[lang] || STRAT_WORK.ja;
+    copyBank.stratDaily = {cur:w.dailyHeader.join("\t") + "\n"};
+    copyBank.stratPeople = {cur:w.peopleHeader.join("\t") + "\n"};
     view.innerHTML = '<div class="guide strat">' +
-      '<h2 class="gtitle">' + esc(g.title) + '</h2>' +
-      '<p class="slead">' + esc(g.lead) + '</p>' +
-      '<div class="sgoals">' + g.goals.map(function (x) {
-        return '<div class="sgoal"><div class="sy">' + esc(x[0]) + '</div><div class="sn">' + esc(x[1]) + '</div>' +
-          '<div class="sm">' + esc(x[2]) + '</div><p>' + esc(x[3]) + '</p></div>';
-      }).join("") + '</div>' +
-      g.secs.map(function (sec) {
-        return '<h3 class="gsub">' + esc(sec[0]) + '</h3><div class="gstep"><ul>' +
-          sec[1].map(function (li) { return '<li>' + esc(li) + '</li>'; }).join("") + '</ul></div>';
-      }).join("") +
-      '<p class="snote">' + esc(g.note) + '</p>' +
-      '</div>';
+      '<header class="strat-head"><span class="strat-kicker">NACHA · X</span><h2 class="gtitle">' + esc(w.title) + '</h2><p class="slead">' + esc(w.lead) + '</p>' +
+      '<div class="strat-badges">' + w.badges.map(function (x) { return '<span>' + esc(x) + '</span>'; }).join('') + '</div></header>' +
+      '<p class="strat-note">' + esc(w.assumption) + '</p>' +
+      '<section aria-labelledby="strat-daily"><h3 id="strat-daily">' + esc(w.daily) + '</h3><p class="snote">' + esc(w.dailyHint) + '</p><ol class="strat-tasks">' +
+      w.tasks.map(function (x,i) { return '<li><span class="strat-step" aria-hidden="true">' + (i+1) + '</span><div><div class="strat-taskhead"><h4>' + esc(x[0]) + '</h4><span class="strat-limit">' + esc(x[1]) + '</span></div><p>' + esc(x[2]) + '</p></div></li>'; }).join('') +
+      '</ol><p class="strat-rule">' + esc(w.rule) + '</p></section>' +
+      '<section class="strat-search"><h3>' + esc(w.keywords) + '</h3><div class="strat-badges">' + ['Memecoin','CryptoCommunity','Pionex'].map(function (tag) { return '<a href="https://x.com/search?f=live&amp;q=' + encodeURIComponent('#'+tag) + '" target="_blank" rel="noopener noreferrer">#' + tag + ' ↗</a>'; }).join('') + '</div><p class="snote">' + esc(w.keywordHint) + '</p></section>' +
+      '<section aria-labelledby="strat-metrics"><h3 id="strat-metrics">' + esc(w.metricsTitle) + '</h3><dl class="strat-metrics">' + w.metrics.map(function (x) { return '<div><dt>' + esc(x[0]) + '</dt><dd>' + esc(x[1]) + '</dd></div>'; }).join('') + '</dl><p class="snote">' + esc(w.attribution) + '</p></section>' +
+      '<section class="strat-record"><h3>' + esc(w.record) + '</h3><p class="snote">' + esc(w.recordHint) + '</p><div class="strat-copy"><button class="cpy" data-ck="stratDaily">' + esc(w.dailyCopy) + '</button><button class="cpy" data-ck="stratPeople">' + esc(w.peopleCopy) + '</button></div></section>' +
+      '<section aria-labelledby="strat-timeline"><h3 id="strat-timeline">' + esc(w.timelineTitle) + '</h3><ol class="strat-phases">' + w.phases.map(function (x) { return '<li><span class="strat-kicker">' + esc(x[0]) + '</span><h4>' + esc(x[1]) + '</h4><p>' + esc(x[2]) + '</p></li>'; }).join('') + '</ol><p class="strat-note">' + esc(w.reviewNote) + '</p></section>' +
+      '<details class="strat-details"><summary>' + esc(w.evidence) + '</summary><p class="snote">' + esc(w.evidenceBody) + '</p><div class="strat-sources"><a href="https://pubmed.ncbi.nlm.nih.gov/33563758/" target="_blank" rel="noopener noreferrer">' + esc(w.sources[0]) + ' ↗</a><a href="https://help.x.com/en/using-x/x-follow-limit" target="_blank" rel="noopener noreferrer">' + esc(w.sources[1]) + ' ↗</a></div></details>' +
+      '<details class="strat-details" data-strat-longterm><summary>' + esc(w.longTerm) + '</summary><p class="snote">' + esc(w.longNote) + '</p><h3>' + esc(g.title) + '</h3>' +
+      '<div class="sgoals">' + g.goals.map(function (x) { return '<div class="sgoal"><div class="sy">' + esc(x[0]) + '</div><div class="sn">' + esc(x[1]) + '</div><div class="sm">' + esc(x[2]) + '</div><p>' + esc(x[3]) + '</p></div>'; }).join('') + '</div>' +
+      g.secs.map(function (sec) { return '<h4 class="gsub">' + esc(sec[0]) + '</h4><div class="gstep"><ul>' + sec[1].map(function (li) { return '<li>' + esc(li) + '</li>'; }).join('') + '</ul></div>'; }).join('') +
+      '<p class="snote">' + esc(g.note) + '</p></details></div>';
   }
 
 
