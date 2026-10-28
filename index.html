@@ -1105,26 +1105,31 @@
   .sgoal p{ margin:6px 0 0; font-size:13px; line-height:1.5; }
   .snote{ font-size:12.5px; color:var(--muted); line-height:1.6; }
   @media (max-width:560px){ .sgoals{ grid-template-columns:1fr; } }
-  .guide.strat{max-width:900px;overflow-wrap:anywhere}
-  .strat section{margin:26px 0}.strat h3{font-size:16px;margin:0 0 10px}.strat h4{font-size:14px;margin:0}
+  .guide.strat{max-width:860px;overflow-wrap:anywhere;line-height:1.8}
+  .strat section{margin:36px 0}.strat h3{font-size:19px;line-height:1.5;margin:0 0 14px}.strat h4{font-size:16px;line-height:1.6;margin:0}
+  .strat .slead{font-size:16px;line-height:1.9;max-width:44em}
+  .strat .snote{font-size:14px;line-height:1.85;max-width:48em;margin:12px 0}
+  .strat section+section{padding-top:28px;border-top:1px solid var(--line)}
+  .strat-plan>h4{margin:32px 0 14px;font-size:17px}
   .strat-head{border-bottom:1px solid var(--line);padding-bottom:18px}.strat-head .gtitle{font-size:24px;margin:6px 0 12px}
   .strat-kicker{font-size:11px;font-weight:700;letter-spacing:.08em;color:var(--muted)}
   .strat-badges,.strat-copy,.strat-sources{display:flex;flex-wrap:wrap;gap:8px}
   .strat-badges span,.strat-badges a{display:inline-block;border:1px solid var(--line);background:var(--surface);border-radius:99px;padding:6px 12px;font-size:12px;color:var(--ink);text-decoration:none}
   .strat-badges a:focus-visible,.strat-details summary:focus-visible{outline:2px solid var(--wood);outline-offset:3px}
   .strat-badges a:hover{border-color:var(--wood)}
-  .strat-note,.strat-rule{font-size:13px;line-height:1.7;padding:12px 14px;background:var(--todaybg);border-radius:10px}
+  .strat-note,.strat-rule{font-size:14px;line-height:1.85;padding:16px 18px;background:var(--todaybg);border-radius:10px}
   .strat-tasks,.strat-phases{list-style:none;padding:0;margin:12px 0}
   .strat-tasks{display:grid;gap:10px}.strat-tasks>li{display:grid;grid-template-columns:30px minmax(0,1fr);gap:12px;border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:16px}
   .strat-step{width:28px;height:28px;display:grid;place-items:center;border-radius:50%;background:var(--todaybg);color:var(--ink);font-size:13px;font-weight:700}
-  .strat-taskhead{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:6px 12px}.strat-limit{font-size:12px;font-weight:600;color:var(--muted)}
-  .strat-tasks p,.strat-phases p{font-size:13px;line-height:1.7;margin:7px 0 0}
-  .strat-metrics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.strat-metrics>div{border:1px solid var(--line);border-radius:12px;padding:16px;min-width:0}.strat-metrics dt{font-weight:600;font-size:14px}.strat-metrics dd{margin:8px 0 0;font-size:13px;line-height:1.7;color:var(--muted)}
+  .strat-taskhead{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:8px 12px}.strat-limit{font-size:13px;font-weight:600;color:var(--muted)}
+  .strat-tasks p,.strat-phases p{font-size:15px;line-height:1.85;margin:10px 0 0;color:var(--ink)}
+  .strat-weeks .strat-kicker{display:block;font-size:13px;margin-bottom:6px;letter-spacing:.02em}
+  .strat-metrics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.strat-metrics>div{border:1px solid var(--line);border-radius:12px;padding:20px;min-width:0}.strat-metrics dt{font-weight:700;font-size:16px;line-height:1.6}.strat-metrics dd{margin:12px 0 0;font-size:15px;line-height:1.85;color:var(--ink)}
   .strat-metrics>.strat-core{grid-column:1/-1;background:var(--bg);border:2px solid var(--wood)}
   .strat-copy button{white-space:normal;min-height:44px;text-align:left}
   .strat-phases{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.strat-phases li{padding:15px;border-left:3px solid var(--wood);background:var(--surface);border-radius:0 10px 10px 0;min-width:0}.strat-phases h4{margin:7px 0 0}
-  .strat-details{border-top:1px solid var(--line);padding:16px 0}.strat-details summary{font-weight:600;font-size:14px;cursor:pointer}.strat-details[open] summary{margin-bottom:16px}.strat-sources a{font-size:12px;color:var(--muted)}
-  @media(max-width:600px){.strat-head .gtitle{font-size:21px}.strat-metrics,.strat-phases{grid-template-columns:1fr}.strat-tasks>li{padding:13px;gap:9px}.strat-copy{display:grid;grid-template-columns:minmax(0,1fr)}}
+  .strat-details{border-top:1px solid var(--line);padding:20px 0}.strat-details summary{font-weight:600;font-size:15px;line-height:1.7;cursor:pointer}.strat-details[open] summary{margin-bottom:16px}.strat-sources a{font-size:14px;color:var(--muted)}
+  @media(max-width:600px){.strat-head .gtitle{font-size:23px;line-height:1.5}.strat-metrics,.strat-phases{grid-template-columns:1fr}.strat-tasks>li{padding:16px 12px;gap:10px}.strat-metrics>div{padding:18px 16px}.strat-tasks p,.strat-phases p,.strat-metrics dd{font-size:15px}.strat section{margin:30px 0}.strat-copy{display:grid;grid-template-columns:minmax(0,1fr)}}
   /* 企画タブ */
   .plan{ max-width:1100px; }
   .plhead{ display:flex; flex-wrap:wrap; align-items:baseline; gap:6px 12px; margin:6px 0 4px; }
