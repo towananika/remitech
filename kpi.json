@@ -1373,12 +1373,77 @@
       "platform": "IG",
       "followers": 4,
       "source": "auto"
+    },
+    {
+      "date": "2026-10-29",
+      "channel": "hiyoko",
+      "platform": "IG",
+      "followers": 2994,
+      "source": "auto"
+    },
+    {
+      "date": "2026-10-29",
+      "channel": "hiyoko",
+      "platform": "TT",
+      "followers": 184,
+      "source": "auto"
+    },
+    {
+      "date": "2026-10-29",
+      "channel": "hiyoko",
+      "platform": "YT",
+      "followers": 96,
+      "videos": 216,
+      "source": "auto"
+    },
+    {
+      "date": "2026-10-29",
+      "channel": "nacha",
+      "platform": "IG",
+      "followers": 144,
+      "source": "auto"
+    },
+    {
+      "date": "2026-10-29",
+      "channel": "nacha",
+      "platform": "TT",
+      "followers": 45,
+      "source": "auto"
+    },
+    {
+      "date": "2026-10-29",
+      "channel": "nacha",
+      "platform": "YT",
+      "followers": 15,
+      "videos": 131,
+      "source": "auto"
+    },
+    {
+      "date": "2026-10-29",
+      "channel": "reel",
+      "platform": "IG",
+      "followers": 178,
+      "source": "auto"
+    },
+    {
+      "date": "2026-10-29",
+      "channel": "ret",
+      "platform": "IG",
+      "followers": 1117,
+      "source": "auto"
+    },
+    {
+      "date": "2026-10-29",
+      "channel": "yuyu",
+      "platform": "IG",
+      "followers": 4,
+      "source": "auto"
     }
   ],
-  "updated": "2026-10-26T02:01:53.417087+00:00",
+  "updated": "2026-10-29T07:24:05.857246+00:00",
   "refreshSummary": {
-    "updated": 8,
-    "warnings": 1,
+    "updated": 9,
+    "warnings": 0,
     "manualPlatforms": [
       "X",
       "FB"
