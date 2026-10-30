@@ -7075,33 +7075,27 @@
      NACHA Xの11月の試行を、目標・毎日やること・週の流れ・見る数字・やらないことの5つに絞った読むだけのページ。
      Instagramのコツと3年の長期目標は折りたたみ */
   var STRAT = {
-    ja: { kicker: "NACHA · X", title: "戦略：NACHAのXを伸ばす", lead: "やることを絞って、1日30分以内。11月は試して、数字で決める。",
-      goalsTitle: "11月の目標", goals: [["フォロワー", "11月1日の数の+10%（例：75人→83人）"], ["いいね", "投稿ごとの中央値で+10%（投稿7日後の数で比べる）"], ["閲覧", "いいねと同じく、中央値で+10%"]],
-      dailyTitle: "毎日やること（平日・30分以内）",
-      daily: [["反応に返す", "リプライ・メンションに返事をする", "5分"], ["会話に入る", "下の検索語の「最新」から、役に立つ返信を1〜3件", "10分"], ["合う人をフォロー", "プロフィールと最近の投稿を見て、最大5人。数合わせはしない", "12分"], ["記録する", "フォロワー数・フォローした人・使った検索語", "3分"]],
-      weeklyTitle: "週ごとの流れ", weekly: ["1週目：3つの検索語を同じだけ試し、基準の数を取る", "2週目：7日たった相手のフォローバックを見る", "3週目：結果の良い検索語を選ぶ", "4週目：良かったやり方だけ続ける", "月末：続けること1つ、減らすこと1つを決める"],
-      measureTitle: "見る数字", measure: ["フォロワー数：毎日", "投稿のいいね・閲覧：投稿の7日後", "フォローバック率：フォローして7日後（返してくれた人 ÷ フォローした人）"],
-      dontTitle: "やらないこと", dont: ["フォロワーの購入・自動フォロー", "同じ文の連投、アカウント同士の相互RT・いいね", "フォローバックがないだけでの機械的な解除"],
-      igTitle: "Instagram投稿のコツ（参考）", ig: ["力を入れた投稿は火〜木、できれば水曜に置く", "1枚目で止める・最後まで見せる・保存や送信したくなる、の3つを確認する", "4週間、曜日ごとの反応を比べて決める"], igSource: "参考：RRクラブの投稿（2026-10-28）",
-      longTitle: "長期目標（3年でXフォロワー5万人）", long: ["1年目 5,000人：伸びる形を見つける", "2年目 20,000人：その形を増やす", "3年目 50,000人：コラボで広げる"], longNote: "目標であって、達成の約束ではありません。" },
-    en: { kicker: "NACHA · X", title: "Strategy: grow NACHA on X", lead: "A few tasks, 30 minutes a day at most. Test in November and decide by the numbers.",
-      goalsTitle: "November goals", goals: [["Followers", "+10% on the November 1 count (e.g. 75 → 83)"], ["Likes", "+10% in the per-post median (compare counts 7 days after posting)"], ["Views", "+10% in the median, measured like likes"]],
-      dailyTitle: "Every day (weekdays, 30 min max)",
-      daily: [["Answer reactions", "Reply to replies and mentions", "5 min"], ["Join conversations", "From Latest on the search terms below, leave 1–3 useful replies", "10 min"], ["Follow good fits", "Read the profile and recent posts; up to 5 people, never just to hit a number", "12 min"], ["Record", "Follower count, who you followed, search terms used", "3 min"]],
-      weeklyTitle: "Week by week", weekly: ["Week 1: try the 3 search terms equally and take baseline numbers", "Week 2: check follow-backs from people followed 7+ days ago", "Week 3: pick the search terms that worked", "Week 4: keep only what worked", "Month end: choose one thing to keep and one to cut"],
-      measureTitle: "Numbers to watch", measure: ["Followers: daily", "Post likes and views: 7 days after posting", "Follow-back rate: 7 days after following (followed back ÷ followed)"],
-      dontTitle: "Don't", dont: ["Buy followers or auto-follow", "Post the same text repeatedly, or trade retweets/likes between our accounts", "Unfollow mechanically just because someone didn't follow back"],
-      igTitle: "Instagram posting tips (reference)", ig: ["Put the posts that matter most on Tue–Thu, ideally Wednesday", "Check three things: stops people on the first slide, keeps them to the end, makes them want to save or send", "Compare reactions by weekday for 4 weeks, then decide"], igSource: "Source: RR Club post (2026-10-28)",
-      longTitle: "Long-term goal (50,000 X followers in 3 years)", long: ["Year 1, 5,000: find what grows", "Year 2, 20,000: do more of it", "Year 3, 50,000: widen reach with collabs"], longNote: "A goal, not a promise." },
-    ko: { kicker: "NACHA · X", title: "전략: NACHA X 키우기", lead: "할 일을 줄이고 하루 30분 이내. 11월에 시험하고 숫자로 정한다.",
-      goalsTitle: "11월 목표", goals: [["팔로워", "11월 1일 수의 +10% (예: 75명→83명)"], ["좋아요", "게시물별 중앙값 +10% (게시 7일 후 수로 비교)"], ["조회수", "좋아요와 같이 중앙값 +10%"]],
-      dailyTitle: "매일 할 일 (평일·30분 이내)",
-      daily: [["반응에 답하기", "답글·멘션에 답한다", "5분"], ["대화에 참여", "아래 검색어의 '최신'에서 도움이 되는 답글 1~3개", "10분"], ["맞는 사람 팔로우", "프로필과 최근 글을 보고 최대 5명. 숫자 채우기는 하지 않는다", "12분"], ["기록", "팔로워 수·팔로우한 사람·사용한 검색어", "3분"]],
-      weeklyTitle: "주별 흐름", weekly: ["1주차: 검색어 3개를 똑같이 시도하고 기준 수치를 잡는다", "2주차: 7일 지난 상대의 맞팔을 확인한다", "3주차: 결과가 좋은 검색어를 고른다", "4주차: 잘된 방법만 이어간다", "월말: 이어갈 것 1개, 줄일 것 1개를 정한다"],
-      measureTitle: "볼 숫자", measure: ["팔로워 수: 매일", "게시물 좋아요·조회수: 게시 7일 후", "맞팔률: 팔로우 7일 후 (맞팔한 사람 ÷ 팔로우한 사람)"],
-      dontTitle: "하지 않을 것", dont: ["팔로워 구매·자동 팔로우", "같은 글 반복 게시, 계정끼리 리트윗·좋아요 품앗이", "맞팔이 없다는 이유만으로 기계적으로 언팔"],
-      igTitle: "인스타그램 게시 팁 (참고)", ig: ["힘을 준 게시물은 화~목, 가능하면 수요일에", "첫 장에서 멈추게·끝까지 보게·저장하거나 보내고 싶게, 세 가지를 확인", "4주 동안 요일별 반응을 비교해 정한다"], igSource: "참고: RR클럽 게시물 (2026-10-28)",
-      longTitle: "장기 목표 (3년에 X 팔로워 5만 명)", long: ["1년차 5,000명: 성장하는 형식을 찾는다", "2년차 20,000명: 그 형식을 늘린다", "3년차 50,000명: 협업으로 넓힌다"], longNote: "목표이며 달성을 약속하지 않습니다." }
+    ja: { kicker: "NACHA · X", title: "戦略：作業だけでNACHAのXを伸ばす", lead: "新しい投稿・画像は作らない。毎日30分の作業と記録だけ。",
+      goalsTitle: "11月の目標", goals: [["フォロワー", "11月1日の数の+10%（例：75人→83人）"]],
+      dailyTitle: "毎日やる作業（平日・30分）",
+      daily: [["反応に返す", "自分の投稿へのリプライに返事", "5分"], ["いいね 40件", "下の検索語の「最新」から、今日投稿した人へ", "10分"], ["一言リプライ 3件", "いいねした投稿に、短い共感か質問", "5分"], ["フォロー 最大5人", "反応をくれた人・同じジャンルで今日投稿した人", "7分"], ["記録", "フォロワー数・フォローした人数", "3分"]],
+      weeklyTitle: "週1回", weekly: ["7日たってフォローバックがない人だけ解除", "フォローバック率を記録（返した人 ÷ フォローした人）", "月末：効いた作業を続け、効かない作業を1つ減らす"],
+      dontTitle: "やらないこと", dont: ["新しい投稿・画像の制作（今の投稿予定はそのまま）", "フォロワー購入・自動フォロー・相互RTの輪", "その日のうちの機械的なフォロー解除"],
+      longTitle: "長期目標", long: ["3年でXフォロワー5万人（1年目5,000・2年目20,000・3年目50,000）"], longNote: "目標であって、達成の約束ではありません。" },
+    en: { kicker: "NACHA · X", title: "Strategy: grow NACHA on X with tasks only", lead: "No new posts or images. Just 30 minutes of tasks and records a day.",
+      goalsTitle: "November goal", goals: [["Followers", "+10% on the November 1 count (e.g. 75 → 83)"]],
+      dailyTitle: "Daily tasks (weekdays, 30 min)",
+      daily: [["Answer reactions", "Reply to replies on our posts", "5 min"], ["40 likes", "From Latest on the search terms below, people who posted today", "10 min"], ["3 short replies", "A short agree or question on posts you liked", "5 min"], ["Follow up to 5", "People who reacted to us, or same-genre people who posted today", "7 min"], ["Record", "Follower count, number followed", "3 min"]],
+      weeklyTitle: "Once a week", weekly: ["Unfollow only people with no follow-back after 7 days", "Record the follow-back rate (followed back ÷ followed)", "Month end: keep what worked, cut one task that didn't"],
+      dontTitle: "Don't", dont: ["Make new posts or images (keep the current posting plan)", "Buy followers, auto-follow, or join retweet rings", "Unfollow mechanically on the same day"],
+      longTitle: "Long-term goal", long: ["50,000 X followers in 3 years (5,000 / 20,000 / 50,000)"], longNote: "A goal, not a promise." },
+    ko: { kicker: "NACHA · X", title: "전략: 작업만으로 NACHA X 키우기", lead: "새 게시물·이미지는 만들지 않는다. 매일 30분의 작업과 기록만.",
+      goalsTitle: "11월 목표", goals: [["팔로워", "11월 1일 수의 +10% (예: 75명→83명)"]],
+      dailyTitle: "매일 할 작업 (평일·30분)",
+      daily: [["반응에 답하기", "우리 게시물의 답글에 답하기", "5분"], ["좋아요 40개", "아래 검색어의 '최신'에서 오늘 글을 올린 사람에게", "10분"], ["짧은 답글 3개", "좋아요한 글에 짧은 공감이나 질문", "5분"], ["팔로우 최대 5명", "반응해 준 사람·같은 분야에서 오늘 글을 올린 사람", "7분"], ["기록", "팔로워 수·팔로우한 수", "3분"]],
+      weeklyTitle: "주 1회", weekly: ["7일 지나도 맞팔이 없는 사람만 언팔", "맞팔률 기록 (맞팔한 사람 ÷ 팔로우한 사람)", "월말: 효과 있는 작업은 이어가고, 효과 없는 작업 1개를 줄인다"],
+      dontTitle: "하지 않을 것", dont: ["새 게시물·이미지 제작 (기존 게시 일정은 그대로)", "팔로워 구매·자동 팔로우·리트윗 품앗이", "당일의 기계적인 언팔"],
+      longTitle: "장기 목표", long: ["3년에 X 팔로워 5만 명 (1년차 5,000 · 2년차 20,000 · 3년차 50,000)"], longNote: "목표이며 달성을 약속하지 않습니다." }
   };
   function renderStrategy() {
     chansEl.hidden = true;
@@ -7118,10 +7112,7 @@
         return '<li><span class="strat-step" aria-hidden="true">' + (i + 1) + '</span><div><div class="strat-taskhead"><h4>' + esc(x[0]) + '</h4><span class="strat-limit">' + esc(x[2]) + '</span></div><p>' + esc(x[1]) + '</p></div></li>'; }).join('') +
       '</ol><div class="strat-badges">' + tags + '</div></section>' +
       '<section><h3>' + esc(s.weeklyTitle) + '</h3>' + list(s.weekly) + '</section>' +
-      '<section><h3>' + esc(s.measureTitle) + '</h3>' + list(s.measure) + '</section>' +
       '<section><h3>' + esc(s.dontTitle) + '</h3>' + list(s.dont) + '</section>' +
-      '<details class="strat-details"><summary>' + esc(s.igTitle) + '</summary>' + list(s.ig) +
-        '<div class="strat-sources"><a href="https://www.instagram.com/p/DfEPg0xEwTF/" target="_blank" rel="noopener">' + esc(s.igSource) + ' ↗</a></div></details>' +
       '<details class="strat-details"><summary>' + esc(s.longTitle) + '</summary>' + list(s.long) + '<p class="snote">' + esc(s.longNote) + '</p></details>' +
       '</div>';
   }
