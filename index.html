@@ -7705,9 +7705,27 @@
   }
 };
 
+  // 戦略タブ: Instagramの投稿タイミングと中身（2026-10-30 remitech指定。RRクラブの投稿を参考）
+  var STRAT_IG = {
+    ja: { title: "Instagram：いつ・何を投稿するか（参考資料）",
+      note: "RRクラブの投稿（2026-10-28。出典はBuffer・Sprout Social・Adam Mosseri・Emplifiの2026年データ）の要点です。主に海外の一般的なアカウントのデータなので、HIYOKO・NACHA・REELにそのまま当てはまるとは限りません。自分たちのKPIで確かめます。",
+      pointsTitle: "要点", points: ["火・水・木の反応が比較的強い。特に水曜は、複数の調査で成果が良い。", "時間は投稿に「最初のチャンス」を与えるだけ。伸びるかどうかは中身で決まる。", "中身の基準は3つ。1枚目で止める、最後まで見せる、保存や送信をしたくなる。"],
+      applyTitle: "ハブでの使い方（案）", apply: ["力を入れた投稿（企画の山場・告知）は火〜木、できれば水曜に置く。", "投稿前に5点を確認する。①1枚目だけで内容がわかるか ②最後まで見る理由があるか ③保存したくなる情報があるか ④誰かに送りたくなるか ⑤投稿日が火〜木か", "4週間、曜日ごとのいいね・保存・送信をKPIで比べる。合わなければ元に戻す。"],
+      caveat: "元の投稿にある「6つのチェックリスト」は画像のため読み取れていません。上の5点は本文から作った案です。", link: "元の投稿を見る" },
+    en: { title: "Instagram: when and what to post (reference)",
+      note: "Key points from an RR Club post (2026-10-28; sources: Buffer, Sprout Social, Adam Mosseri, Emplifi, 2026 data). The data is mostly from general overseas accounts, so it may not fit HIYOKO, NACHA or REEL as is. We check it with our own KPIs.",
+      pointsTitle: "Key points", points: ["Tuesday to Thursday get relatively strong reactions, and Wednesday did well in several studies.", "Timing only gives a post its first chance. Content decides whether it grows.", "Three tests for content: stop people on the first slide, keep them to the end, and make them want to save or send it."],
+      applyTitle: "How we use it (proposal)", apply: ["Put the posts we care most about (campaign peaks, announcements) on Tue–Thu, ideally Wednesday.", "Check 5 things before posting: (1) the first slide alone explains the post (2) there is a reason to see it to the end (3) it has something worth saving (4) someone would want to send it (5) it goes out Tue–Thu.", "For 4 weeks, compare likes, saves and sends by weekday in KPI. Revert if it doesn't fit."],
+      caveat: "The original post's 6-item checklist is in images we could not read. The 5 checks above are our proposal based on the caption.", link: "See the original post" },
+    ko: { title: "인스타그램: 언제, 무엇을 올릴까 (참고 자료)",
+      note: "RR클럽 게시물(2026-10-28, 출처: Buffer·Sprout Social·Adam Mosseri·Emplifi 2026 데이터)의 요점입니다. 주로 해외 일반 계정의 데이터라서 HIYOKO·NACHA·REEL에 그대로 맞는다고 할 수는 없습니다. 우리 KPI로 확인합니다.",
+      pointsTitle: "요점", points: ["화·수·목의 반응이 비교적 강하고, 특히 수요일은 여러 조사에서 성과가 좋았다.", "시간은 게시물에 첫 기회를 줄 뿐, 성장 여부는 콘텐츠가 정한다.", "콘텐츠 기준은 세 가지. 첫 장에서 멈추게, 끝까지 보게, 저장하거나 보내고 싶게."],
+      applyTitle: "허브에서 활용 (안)", apply: ["힘을 준 게시물(기획의 핵심·공지)은 화~목, 가능하면 수요일에 올린다.", "올리기 전 5가지 확인: ① 첫 장만으로 내용이 보이나 ② 끝까지 볼 이유가 있나 ③ 저장할 만한 정보가 있나 ④ 누군가에게 보내고 싶나 ⑤ 화~목에 올리나", "4주 동안 요일별 좋아요·저장·공유를 KPI로 비교하고, 맞지 않으면 되돌린다."],
+      caveat: "원래 게시물의 \"6가지 체크리스트\"는 이미지라서 읽지 못했습니다. 위 5가지는 본문을 바탕으로 만든 안입니다.", link: "원래 게시물 보기" }
+  };
   function renderStrategy() {
     chansEl.hidden = true;
-    var g = STRAT_TXT[lang] || STRAT_TXT.ja, w = STRAT_WORK[lang] || STRAT_WORK.ja;
+    var g = STRAT_TXT[lang] || STRAT_TXT.ja, w = STRAT_WORK[lang] || STRAT_WORK.ja, ig = STRAT_IG[lang] || STRAT_IG.ja;
     copyBank.stratPlan = {cur:[w.planTitle,w.planNote].concat(w.monthGoals.map(function(x){return x.join("\n");}),w.weeks.map(function(x){return x.join("\n");}),[w.ideaTitle],w.ideas.map(function(x){return x.join("\n");}),[w.cadence]).join("\n\n")};
     copyBank.stratDaily = {cur:w.dailyHeader.join("\t") + "\n"};
     copyBank.stratPost = {cur:w.postHeader.join("\t") + "\n"};
@@ -7725,6 +7743,10 @@
       '<details class="strat-details" data-strat-support><summary>' + esc(w.supportTitle) + '</summary><p class="snote">' + esc(w.supportNote) + '</p><dl class="strat-metrics">' + w.supportMetrics.map(function (x) { return '<div><dt>' + esc(x[0]) + '</dt><dd>' + esc(x[1]) + '</dd></div>'; }).join('') + '</dl></details>' +
       '<section class="strat-record"><h3>' + esc(w.record) + '</h3><p class="snote">' + esc(w.recordHint) + '</p><div class="strat-copy"><button class="cpy" data-ck="stratDaily">' + esc(w.dailyCopy) + '</button><button class="cpy" data-ck="stratPost">' + esc(w.postCopy) + '</button><button class="cpy" data-ck="stratPeople">' + esc(w.peopleCopy) + '</button></div></section>' +
       '<section aria-labelledby="strat-timeline"><h3 id="strat-timeline">' + esc(w.timelineTitle) + '</h3><ol class="strat-phases">' + w.phases.map(function (x) { return '<li><span class="strat-kicker">' + esc(x[0]) + '</span><h4>' + esc(x[1]) + '</h4><p>' + esc(x[2]) + '</p></li>'; }).join('') + '</ol><p class="strat-note">' + esc(w.reviewNote) + '</p></section>' +
+      '<details class="strat-details" data-strat-ig><summary>' + esc(ig.title) + '</summary><p class="snote">' + esc(ig.note) + '</p>' +
+        '<h4 class="gsub">' + esc(ig.pointsTitle) + '</h4><div class="gstep"><ul>' + ig.points.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ul></div>' +
+        '<h4 class="gsub">' + esc(ig.applyTitle) + '</h4><div class="gstep"><ul>' + ig.apply.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ul></div>' +
+        '<p class="snote">' + esc(ig.caveat) + '</p><div class="strat-sources"><a href="https://www.instagram.com/p/DfEPg0xEwTF/" target="_blank" rel="noopener">' + esc(ig.link) + ' ↗</a></div></details>' +
       '<details class="strat-details"><summary>' + esc(w.evidence) + '</summary><p class="snote">' + esc(w.evidenceBody) + '</p><div class="strat-sources"><a href="https://pubmed.ncbi.nlm.nih.gov/33563758/" target="_blank" rel="noopener noreferrer">' + esc(w.sources[0]) + ' ↗</a><a href="https://help.x.com/en/using-x/x-follow-limit" target="_blank" rel="noopener noreferrer">' + esc(w.sources[1]) + ' ↗</a></div></details>' +
       '<details class="strat-details" data-strat-longterm><summary>' + esc(w.longTerm) + '</summary><p class="snote">' + esc(w.longNote) + '</p><h3>' + esc(g.title) + '</h3>' +
       '<div class="sgoals">' + g.goals.map(function (x) { return '<div class="sgoal"><div class="sy">' + esc(x[0]) + '</div><div class="sn">' + esc(x[1]) + '</div><div class="sm">' + esc(x[2]) + '</div><p>' + esc(x[3]) + '</p></div>'; }).join('') + '</div>' +
