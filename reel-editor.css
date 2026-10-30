@@ -42,6 +42,10 @@
 .re-review{padding:12px 0;border-top:1px solid var(--line);font-size:12px}
 .re-review span{color:var(--muted)}
 .re-actions{display:grid;grid-template-columns:minmax(0,1fr);gap:10px;margin-top:10px}
+.re-reply{display:grid;gap:6px;border-top:1px solid var(--line);padding-top:12px;margin-top:4px}
+.re-reply small{font-size:12px;color:var(--muted);line-height:1.6}
+.re-reply-button{min-height:44px!important}
+.reel-editor .re-reply-button[data-reply-done="true"]{background:var(--wood-soft);border-color:var(--wood);font-weight:700}
 .re-book button[aria-pressed="true"]{background:var(--neon);border-color:var(--neon);color:var(--neon-ink)}
 .re-notice{padding:12px 16px;background:var(--todaybg);border-radius:8px;font-size:13px;margin:12px 0}
 .re-notice[role="alert"]{border:1px solid var(--wood)}

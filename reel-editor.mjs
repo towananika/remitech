@@ -32,6 +32,12 @@ check:['問題なし','No changes needed','문제없음'],due:['前日解禁 · 
   useLatest:['表示中の原稿に修正を適用','Apply edits to the displayed version','표시된 원고에 수정 적용'],
   book:['予約した','Mark scheduled','예약함'],booked:['予約済み · 解除','Scheduled · undo','예약 완료 · 해제'],
   scheduledStatus:['予約済み','Scheduled','예약 완료'],postedStatus:['投稿済み','Posted','게시 완료'],
+  replyComplete:['リプライ完了','Reply complete','답글 완료'],replyUndo:['リプライ完了済み · 解除','Reply complete · undo','답글 완료 · 해제'],
+  replyHint:['同じ日付・SNSのタスクと連動します。未来の日付は当日から完了にできます。','Linked to the task for this date and channel. Future dates become available on the day.','같은 날짜·SNS의 작업과 연동됩니다. 미래 날짜는 당일부터 완료할 수 있습니다.'],
+  replySaved:['リプライの完了状態をタスクに共有保存しました。','Reply status saved to the shared task.','답글 완료 상태를 공유 작업에 저장했습니다.'],
+  replyCode:['保存できませんでした。タスクタブで編集パスワードを設定して、もう一度お試しください。','Could not save. Enter the edit password in Tasks, then try again.','저장하지 못했습니다. 작업 탭에서 편집 비밀번호를 입력한 후 다시 시도하세요.'],
+  replyMany:['保存できませんでした。しばらく待ってからお試しください。','Could not save. Please wait before trying again.','저장하지 못했습니다. 잠시 후 다시 시도하세요.'],
+  replyError:['共有保存を確認できませんでした。状態を確認して、再度お試しください。','Could not confirm shared saving. Check the status and try again.','공유 저장을 확인하지 못했습니다. 상태를 확인한 후 다시 시도하세요.'],
   edit:['日英草案を編集','Edit JA / EN drafts','일·영 초안 편집'],save:['変更を保存','Save changes','변경 저장'],cancel:['キャンセル','Cancel','취소'],
   editWarning:['本文を変更・再生成すると画像プロンプトをリセットします。予約済みの本文は先に予約解除してください。','Editing or regenerating resets the image prompt. Undo scheduled status before changing text.','편집·재생성하면 이미지 프롬프트가 초기화됩니다. 본문 변경 전 예약을 해제하세요.'],
   regenerate:['本文を再生成','Regenerate text','본문 재생성'],instructions:['修正したい点（任意）','What to change (optional)','수정할 내용 (선택)'],
@@ -138,6 +144,7 @@ export function createEditor(a) {
   }
   function postHTML(d,w){
     const p=d.posts[pf],editing=edit===d.date,booked=a.booked(d.date,pf),posted=!!a.posted?.(d.date,pf),can=ready(d),disabled=busy||!online||!member();
+    const reply=p&&a.reply?.(d.date,pf);
     const button=(action,text,disabled=false,extra='')=>`<button data-re-action="${action}" ${disabled?'disabled':''} ${extra}>${e(text)}</button>`;
     const pair=(ja,en,suffix='',partIndex=null)=>{
       const copy=partIndex===null?R.english(p):R.englishPart(p,partIndex);
@@ -168,6 +175,7 @@ export function createEditor(a) {
 
       <div class="re-actions">${button('copyFeeds',t('copyFeeds'),!can||editing||busy,'class="re-primary"')}
       ${button('book',(booked?'✓ ':'')+pf+' · '+t(booked?'booked':'book'),disabled||editing||(!can&&!booked),`class="re-book-button" data-booked="${booked}" aria-pressed="${booked}"`)}
+      ${reply?`<div class="re-reply">${button('reply',(reply.on?'✓ ':'')+pf+' · '+t(reply.on?'replyUndo':'replyComplete'),disabled||editing||settingsDirty||a.preview||d.date>R.today(),`class="re-reply-button" data-reply-done="${reply.on}" aria-pressed="${reply.on}" aria-describedby="re-reply-hint-${d.date}"`)}<small id="re-reply-hint-${d.date}">${e(t('replyHint'))}</small></div>`:''}
       <label class="re-auto-next" title="${e(t('autoNextHelp'))}"><input type="checkbox" data-re-auto-next ${autoNext?'checked':''}> ${e(t('autoNext'))}</label>
       </div></article>${d.date===R.EDITOR_END_DATE?`<div class="re-weekend-end">${e(t('wellDone'))}</div>`:''}`;
   }
@@ -313,6 +321,15 @@ export function createEditor(a) {
     if(op==='prevPost'||op==='nextPost'){await open(R.addDays(date,op==='prevPost'?-1:1));return;}
     if(op==='settings'){if(brief.trim().length<10){notice(t('briefError'),true);return;}await mutate({op:'settings',brief});await ensure(date);return;}
     const card=btn.closest('[data-re-day]');if(!card)return;const day=card.dataset.reDay,{w,d}=find(day),p=d?.posts[pf];
+    if(op==='reply'){
+      if(!member()||!online||edit||settingsDirty||a.preview||day>R.today()||!a.setReply)return;
+      const reply=a.reply?.(day,pf);if(!reply)return;
+      const y=window.scrollY;busy=true;render();
+      try{await a.setReply(day,pf,!reply.on);noticeText=t('replySaved');}
+      catch(error){noticeText=t(error?.reason==='many'?'replyMany':['code','need-code'].includes(error?.reason)?'replyCode':'replyError');}
+      finally{busy=false;render();window.scrollTo(0,y);}
+      return;
+    }
     if(op==='inlineJa'||op==='inlineEn'){
       if(!member()||!online||a.booked(day,pf)||!canLeave())return;
       const index=Number(btn.dataset.part||0),mode=op==='inlineJa'?'inline-ja':'inline-en';
@@ -360,10 +377,11 @@ export function createEditor(a) {
     }
   });
   window.addEventListener('focus',autoRefresh);
+  function refreshReplies(){if(!a.active())return;if(edit||busy||settingsDirty){pendingRemote=true;return;}const y=window.scrollY;render();window.scrollTo(0,y);}
   window.addEventListener('online',()=>{lastSync=0;autoRefresh();});
   document.addEventListener('visibilitychange',()=>{if(!document.hidden)autoRefresh();});
   window.addEventListener('beforeunload',ev=>{if(edit||busy||settingsDirty){ev.preventDefault();ev.returnValue='';}});
   // Refresh availability at the Seoul date boundary without losing edits.
   let calendar=R.today();setInterval(()=>{if(R.today()!==calendar){calendar=R.today();if(!edit&&!busy&&!settingsDirty)render();}},30000);
-  return{render,load,canLeave,renderLocation:()=>{const s=a.selection?.();if(s&&R.dateOK(s.date)&&(board||s.date!==date||s.platform!==pf)){if(canLeave()){if(['X','IG','IGS'].includes(s.platform))pf=s.platform;open(s.date);}return;}if(s&&!s.date&&!board&&canLeave()){board=true;if(['X','IG','IGS'].includes(s.platform))pf=s.platform;}render();},lock:()=>{observer?.disconnect();weeks=[];holidays={};loaded=false;online=false;edit='';buffer={};settingsDirty=false;},refresh:()=>{if(a.active())load();},authChanged:()=>{if(a.active()&&!edit){render();ensure(date);}}};
+  return{render,load,canLeave,refreshReplies,renderLocation:()=>{const s=a.selection?.();if(s&&R.dateOK(s.date)&&(board||s.date!==date||s.platform!==pf)){if(canLeave()){if(['X','IG','IGS'].includes(s.platform))pf=s.platform;open(s.date);}return;}if(s&&!s.date&&!board&&canLeave()){board=true;if(['X','IG','IGS'].includes(s.platform))pf=s.platform;}render();},lock:()=>{observer?.disconnect();weeks=[];holidays={};loaded=false;online=false;edit='';buffer={};settingsDirty=false;},refresh:()=>{if(a.active())load();},authChanged:()=>{if(a.active()&&!edit){render();ensure(date);}}};
 }

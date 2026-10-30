@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@300;400;500&family=Shippori+Mincho:wght@500&display=swap">
-<link rel="stylesheet" href="./reel-editor.css?v=20261027-auto-next">
+<link rel="stylesheet" href="./reel-editor.css?v=20261030-reply">
 <style>
   :root{
     --neon:#2bff88; --neon-ink:#07361b;
@@ -7280,6 +7280,40 @@
 
   // REEL's editorial workflow shares the booking tab's exact slot identities.
   var reelEditor = null, reelLoading = null;
+  var reelReplyRevision = 0;
+  function reelReplyTask(day, pf) {
+    if ((pf !== "X" && pf !== "IG") || !/^\d{4}-\d{2}-\d{2}$/.test(day || "")) return null;
+    var parsed = new Date(day + "T00:00:00Z");
+    if (isNaN(parsed) || parsed.toISOString().slice(0, 10) !== day) return null;
+    var tasks = [];
+    ((chores && chores.lists) || []).forEach(function (li) {
+      if (li.channel === "reel" && li.platform === pf && li.kind === "reply") tasks = tasks.concat(li.tasks || []);
+    });
+    return tasks.filter(function (tk) { return lkDue(tk, day); })[0] || null;
+  }
+  function reelReplyState(day, pf) {
+    var task = reelReplyTask(day, pf);
+    return task ? { id: task.id, on: !!lkDayDone(day)[task.id] } : null;
+  }
+  async function setReelReply(day, pf, on) {
+    var task = reelReplyTask(day, pf), user = authUser();
+    if (!task || !user || !(user.member || user.admin) || choreBusy || day > tgPostDay(new Date().toISOString())) throw { reason: "unavailable" };
+    // Use the same task ID and date as Tasks; never create a second completion record.
+    var id = task.id, previous = !!lkDayDone(day)[id], at = ((chores.at || {})[day] || {})[id];
+    var mine = choreMine(), hadLocal = Object.prototype.hasOwnProperty.call(mine[day] || {}, id), local = (mine[day] || {})[id];
+    choreBusy = true; reelReplyRevision++;
+    try { return await saveChore(day, id, !!on); }
+    catch (error) {
+      // saveChore updates optimistically. A failed preparation action must not leave a completed task behind.
+      if (previous) chores.done[day][id] = true; else delete chores.done[day][id];
+      if (at) chores.at[day][id] = at; else delete chores.at[day][id];
+      var pending = choreMine(); pending[day] = pending[day] || {};
+      if (hadLocal) pending[day][id] = local; else delete pending[day][id];
+      if (!Object.keys(pending[day]).length) delete pending[day];
+      try { localStorage.setItem(CHORE_LOCAL, JSON.stringify(pending)); } catch (e) {}
+      throw error;
+    } finally { choreBusy = false; reelReplyRevision++; choreEtag = null; }
+  }
   function isReelPage() { return /^#\/prep\/reel(?:\?|$)/.test(location.hash); }
   function reelSelection() { var q = new URLSearchParams(location.hash.split("?")[1] || ""); return { date:q.get("date"), platform:q.get("sns") }; }
   function renderReel() {
@@ -7292,11 +7326,12 @@
     }
     if (reelEditor) { reelEditor.renderLocation(); reelEditor.refresh(); return; }
     view.innerHTML = '<p class="empty">' + esc(t("loading")) + '</p>';
-    if (!reelLoading) reelLoading = import('./reel-editor.mjs?v=20261027-auto-next').then(function (mod) {
+    if (!reelLoading) reelLoading = import('./reel-editor.mjs?v=20261030-reply').then(function (mod) {
       reelEditor = mod.createEditor({
         view: view, esc: esc, lang: function () { return lang; },
         active: function () { var u = authUser(); return isReelPage() && !!(u && (u.member || u.admin)); },
         selection: reelSelection,
+        reply: reelReplyState, setReply: setReelReply,
         stories: function () { var c = chanOf("reel"); return c ? c.snippets || [] : []; },
         navigate: function (day, pf) { history.replaceState(null, "", "#/prep/reel?" + (day ? "date=" + day + "&" : "") + "sns=" + pf); },
         api: function () { return String(CHORE_API).replace(/\/chores.*$/, "/editor"); },
@@ -7311,7 +7346,7 @@
             return slotCh(s) === "reel" && s.date === day && (s.platform || "X") === pf && isPosted(s);
           })) || tgVerifiedPosts(pcAcct("reel", pf), day, pf).length > 0;
         },
-        pullBookings: function () { return bookPull(true); }
+        pullBookings: function () { return Promise.all([bookPull(true), pullChores()]); }
       });
       reelEditor.render();
       bookPull(true).then(function () { if (isReelPage()) reelEditor.refresh(); });
@@ -8054,15 +8089,17 @@
         JSON.stringify(c.at || {}) === JSON.stringify(chores.at || {}) &&
         JSON.stringify(c.lists || []) === JSON.stringify(chores.lists || [])) return;
     chores = c;
+    if (isReelPage()) { if (reelEditor) reelEditor.refreshReplies(); return; }
     if (tab === "today" && (typing() || tdUndo)) return;
     var y2 = window.scrollY; if (tab === "today") renderToday(); else if (tab === "likes" || tab === "follow") renderLikes(); else renderKpi(); window.scrollTo(0, y2);
   }
   function pullChores() {
-    if ((tab !== "today" && tab !== "likes" && tab !== "follow") || document.hidden || choreBusy || kmEdit || /^#\/prep\//.test(location.hash)) return Promise.resolve();
+    var reel = isReelPage(), revision = reelReplyRevision;
+    if ((!reel && tab !== "today" && tab !== "likes" && tab !== "follow") || document.hidden || choreBusy || kmEdit || (!reel && /^#\/prep\//.test(location.hash))) return Promise.resolve();
     return fetch(CHORE_API, { cache: "no-store" })
       .then(function (r) { return r.ok ? r.json() : null; })
       .then(function (j) {
-        if (!j || !j.done || !chores) return;
+        if (!j || !j.done || !chores || choreBusy || revision !== reelReplyRevision) return;
         applyChores({ lists: chores.lists, note: chores.note, done: j.done, at: j.at || {} });
       }).catch(function () {});
   }
@@ -8201,14 +8238,16 @@
         fetch("./chores.json", { cache: "no-cache" })
           .then(function (r) { return r.ok ? r.json() : null; })
           .then(function (c) {
-            chores = choreOverlay(c); if (tab === "kpi") renderKpi(); if (tab === "today") renderToday(); if (tab === "likes" || tab === "follow") renderLikes();
+            chores = choreOverlay(c); if (isReelPage() && reelEditor) reelEditor.refreshReplies(); if (tab === "kpi") renderKpi(); if (tab === "today") renderToday(); if (tab === "likes" || tab === "follow") renderLikes();
             // 今どのタブにいても、サーバーの印を一度取りに行く。描き直すのは、印を使うタブにいるときだけ
+            var initialReplyRevision = reelReplyRevision;
             fetch(CHORE_API, { cache: "no-store" })
               .then(function (r) { return r.ok ? r.json() : null; })
               .then(function (j) {
-                if (!j || !j.done || !chores) return;
+                if (!j || !j.done || !chores || choreBusy || initialReplyRevision !== reelReplyRevision) return;
                 chores.done = j.done; chores.at = j.at || {};
                 chores = choreOverlay(chores);
+                if (isReelPage() && reelEditor) reelEditor.refreshReplies();
                 if (tab === "kpi") renderKpi(); if (tab === "today") renderToday(); if (tab === "likes" || tab === "follow") renderLikes();
               }).catch(function () {});
           })
