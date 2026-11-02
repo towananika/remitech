@@ -5035,12 +5035,15 @@
           if (autoP) { hasLink = true; linkVal = { url: autoP.url, auto: true }; }
           // 投稿が確かめられた（リンクが入った）枠は「投稿済み」と出す。予約済みの ✓ はそのまま
           if (hasLink && st !== "skip" && st !== "sched") { cust = null; isVideo = false; txt = t("stDone"); }
+          // 2026-11-02 Hibiki指定: 動画の枠は予約ではなくその場で投稿するので、押したら「投稿ずみ」で出す
+          var vidDone = st === "sched" && sls.every(function (x) { return x.status === "video"; });
+          if (vidDone) { cust = null; isVideo = false; txt = t("stDone"); }
           h += '<td data-today="' + (k === today) + '" data-hol="' + isHol(k) + '"><div class="bkcell">' +
             '<button class="bkc bkbig" data-k="' + keysStr + '" data-s="' + st + '" data-linkkey="' + esc(linkKey) + '"' +
             (cust ? ' data-cust="1" style="--cc:' + esc(cust.color) + '"' : (isVideo ? ' data-video="1"' : '')) +
-            (hasMemo ? ' data-memo="1"' : '') + (hasLink && st !== "skip" ? ' data-posted="1"' : '') + ' aria-haspopup="menu" title="' + esc(titleTxt) + '"' +
-            (st === "sched" ? ' aria-label="' + esc(t("bkBookedShort")) + '"' : '') + '>' +
-            (st === "sched" ? '<span class="bkchk">✓</span>' + (sls.some(function (x) { return x.status === "video"; }) ? '<small class="bkvmark">' + esc(t("bkVideo")) + '</small>' : '') : esc(cust ? cust.text : txt)) +
+            (hasMemo ? ' data-memo="1"' : '') + ((hasLink && st !== "skip") || vidDone ? ' data-posted="1"' : '') + ' aria-haspopup="menu" title="' + esc(titleTxt) + '"' +
+            (st === "sched" && !vidDone ? ' aria-label="' + esc(t("bkBookedShort")) + '"' : '') + '>' +
+            (st === "sched" && !vidDone ? '<span class="bkchk">✓</span>' + (sls.some(function (x) { return x.status === "video"; }) ? '<small class="bkvmark">' + esc(t("bkVideo")) + '</small>' : '') : esc(cust ? cust.text : txt)) +
             (hasMemo ? '<span class="bkmemodot" title="' + esc(sls[0].memo) + '">✎</span>' : '') +
             (hasLink ? '<span class="bklinkdot" title="' + esc(linkVal.url) + '">↗</span>' : '') +
             '</button>' + (showOwner ? '<div class="bkowner">' + esc(bkWhoName(owners)) + '</div>' : '') + '</div></td>';
