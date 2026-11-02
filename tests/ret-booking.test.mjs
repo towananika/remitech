@@ -4,6 +4,7 @@ import vm from 'node:vm';
 import {readFile} from 'node:fs/promises';
 const source=await readFile(new URL('../index.html',import.meta.url),'utf8');
 const weekend=source.slice(source.indexOf('  function bkRetWeekendBlocked('),source.indexOf('  function bkSetSlotState('));
+const monthly=source.slice(source.indexOf('  function bkMonthPlan('),source.indexOf('  // 休日: 手で切り替えた日は'));
 const booking=source.slice(source.indexOf('  function retBookingSlot('),source.indexOf('  function retInternalHTML('));
 function context({fail=false,other=false}={}){
  const data={newSlots:{},slots:{},memos:{}},writes=[];
@@ -16,7 +17,7 @@ function context({fail=false,other=false}={}){
   return{ok:true,json:async()=>structuredClone(data)};
  }});
  c.bookApply=o=>{for(const [key,slot] of Object.entries(o.newSlots)){if(!c.schedule.slots.some(x=>`${x.channel}|${x.date}|${x.platform}|${x.time}`===key))c.schedule.slots.push(structuredClone(slot));}for(const [key,value] of Object.entries(o.slots)){const slot=c.schedule.slots.find(x=>`${x.channel}|${x.date}|${x.platform}|${x.time}`===key);if(slot)Object.assign(slot,value);}};
- vm.runInContext(weekend+booking,c);return{c,data,writes};
+ vm.runInContext(monthly+weekend+booking,c);return{c,data,writes};
 }
 test('RET creates the booking-tab slot without leaking manuscripts, then cancels the same slot',async()=>{
  const {c,writes}=context();await c.retToggleBooking();assert.equal(writes.length,1);assert.equal(writes[0].key,'ret|2026-10-31|X|09:00');assert.equal(writes[0].kind,'n');assert.deepEqual(writes[0].value.text,{ja:'',en:'',ko:''});assert.equal(c.retBooked('2026-10-31','X'),true);assert.equal(c.retBooked('2026-10-31','IG'),false);
