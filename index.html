@@ -6725,7 +6725,7 @@
             var on = !!dd[tk.id];
             if (!future) { total++; if (on) doneN++; }
             return '<button class="lkc" data-d="' + k + '" data-id="' + esc(tk.id) + '" data-on="' + on + '"' +
-              (future ? " disabled" : "") + ' title="' + esc(tk.task + (on && lkAtText(k, tk.id) ? "\n\u2713 " + lkAtText(k, tk.id) : "")) + '">' + (on ? "\u2713" + lkAtSmall(k, tk.id) : esc(lkLabel(tk, true) || tk.time.replace(/^0/, "").replace(":30", "\u00bd").replace(":00", ""))) + '</button>';
+              (future ? " disabled" : "") + ' title="' + esc(tk.task + (on && lkAtText(k, tk.id) ? "\n\u2713 " + lkAtText(k, tk.id) : "")) + '">' + esc(lkLabel(tk, true) || tk.time.replace(/^0/, "").replace(":30", "\u00bd").replace(":00", "")) + (on ? lkAtSmall(k, tk.id) : "") + '</button>';
           }).join("") + '</td>';
       });
       return h + '</tr>';
@@ -6759,7 +6759,7 @@
           if (!tk) return '<span class="lkgap" aria-hidden="true"></span>';
           var on = !!td[tk.id]; tAll++; if (on) tDone++;
           return '<button class="lkc lkbig' + (lkLabel(tk) ? " lkwide" : "") + '" data-d="' + today + '" data-id="' + esc(tk.id) + '" data-on="' + on + '" data-now="' + (tk.time === cur && !on) + '" title="' + esc(tk.task + (on && lkAtText(today, tk.id) ? "\n\u2713 " + lkAtText(today, tk.id) : "")) + '">' +
-            (on ? "\u2713 " : "") + esc(lkLabel(tk) || tk.time) + (on ? lkAtSmall(today, tk.id) : "") + '</button>';
+            esc(lkLabel(tk) || tk.time) + (on ? lkAtSmall(today, tk.id) : "") + '</button>';
         }).join("") + '</div></div>';
     }).join("");
 
@@ -6815,7 +6815,7 @@
     if (!b || b.disabled) return;
     var on = b.getAttribute("data-on") !== "true";
     b.setAttribute("data-on", on);                       // 先に見た目を変える。待たせない
-    b.textContent = on ? "\u2713" : "\u2026";
+    // 2026-11-03 Hibiki指定: 完了しても✓は出さない（色だけ変える）
     var wrap = document.getElementById("lkWrap"), sx = wrap ? wrap.scrollLeft : 0, sy = window.scrollY;
     choreBusy = true;
     saveChore(b.getAttribute("data-d"), b.getAttribute("data-id"), on).then(function () {
