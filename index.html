@@ -4869,7 +4869,7 @@
     var m = String(v || "").toLowerCase().replace(/\s+/g, "");
     if (/^suha|수하|スハ/.test(m)) return "Suha";
     if (/^hyejeong|혜정|ヘジョン/.test(m)) return "Hyejeong";
-    if (/^seohyun|서현|ソヒョン/.test(m)) return "Seohyun";
+    if (/^seo(?:hyun|hyeon)|서현|ソヒョン/.test(m)) return "Seohyun";
     return v ? String(v) : "";
   }
   function renderBook() {
@@ -4895,6 +4895,12 @@
       if (schedule.assignees && Object.prototype.hasOwnProperty.call(schedule.assignees, k)) return schedule.assignees[k] || "";
       var own = (schedule.slots || []).filter(function (x) { return slotCh(x) === "hiyoko" && x.date === k && x.owner; })[0];
       return own ? bkWhoName(own.owner) : "";
+    }
+    function otherOwners(k, names) {
+      var primary = bkWhoName(whoOf(k)).toLowerCase().replace(/\s+/g, "");
+      return String(names || "").split("・").map(bkWhoName).filter(function (name, i, all) {
+        return name && name.toLowerCase().replace(/\s+/g, "") !== primary && all.indexOf(name) === i;
+      }).join("・");
     }
     function whoHTML(k) {
       var w = whoOf(k);
@@ -4950,7 +4956,7 @@
           // \u78ba\u8a8d\u306e\u884c\uff08\u4e88\u7d04\u3067\u306f\u306a\u3044\uff09\uff1a\u6295\u7a3f\u3055\u308c\u305f\u304b\u30fb\u8fd4\u4fe1\u3057\u305f\u304b\u3092\u62bc\u3057\u3066\u2713\u3002\u52d5\u753b\u306f\u6bce\u65e5\u3067\u306f\u306a\u3044\u306e\u3067\u6708\u9593\u4f01\u753b\u3067\u78ba\u304b\u3081\u308b
           if (r.check) {
             var ckk = k + "|" + r.check, cOn = !!(schedule.telegram && schedule.telegram[ckk]);
-            var checkOwner = !r.reply && bkPlanOwner(g.channel, rowPlats(r), k);
+            var checkOwner = !r.reply && otherOwners(k, bkPlanOwner(g.channel, rowPlats(r), k));
             var checkOwnerHTML = checkOwner ? '<div class="bkowner" data-plan-owner>' + esc(checkOwner) + '</div>' : '';
             // 2026-10-07 Hibiki指定: 動画投稿の確認は、その日のIGフィードを「動画」にしてから押せる。
             // すでに✓・印・メモがある日は消さずにそのまま出す
@@ -4998,8 +5004,9 @@
           }
           if (!sls.length) {
             var plannedOwner = bkPlanOwner(g.channel, rowPlats(r), k);
+            var visibleOwner = otherOwners(k, plannedOwner);
             h += '<td data-today="' + (k === today) + '" data-hol="' + isHol(k) + '"><button class="bkc bknew" data-new="' + gi + "|" + ri + "|" + k + '" title="' +
-              esc(t("bkNoSlot") + (plannedOwner ? " / " + plannedOwner : "")) + '">\u2013</button>' + (plannedOwner ? '<div class="bkowner" data-plan-owner>' + esc(plannedOwner) + '</div>' : '') + '</td>';
+              esc(t("bkNoSlot") + (plannedOwner ? " / " + plannedOwner : "")) + '">\u2013</button>' + (visibleOwner ? '<div class="bkowner" data-plan-owner>' + esc(visibleOwner) + '</div>' : '') + '</td>';
             return;
           }
           var hh = r.time.split(":"), when = new Date(d.getFullYear(), d.getMonth(), d.getDate(), +hh[0], +hh[1]);
@@ -5027,7 +5034,7 @@
             (c.name + " " + tl(r.label) + " " + r.time + (owners ? " / " + owners : "") + (hasMemo ? "\n" + sls[0].memo : ""));
           var keysStr = esc(sls.map(slotKey).join("~"));
           // 2026-09-16 Hibiki指定: ナチャのIG動画の行だけ、準備中のとき下に担当者を出す
-          var showOwner = !!owners && (plannedOwner || (g.channel === "nacha" && r.label === "IG 動画" && st !== "sched" && st !== "done" && st !== "skip"));
+          var visibleOwners = otherOwners(k, owners), showOwner = !!visibleOwners;
           // 長押し＋上ドラッグでリンクを開閉する（見出しタップの代わり）。あれば小さな印だけ常に出す
           var linkKey = bkDateLinkKey(rk, k), linkVal = schedule.links && schedule.links[linkKey];
           var hasLink = linkVal && typeof linkVal === "object" && /^https?:\/\//i.test(linkVal.url || "");
@@ -5046,7 +5053,7 @@
             (st === "sched" && !vidDone ? '<span class="bkchk">✓</span>' + (sls.some(function (x) { return x.status === "video"; }) ? '<small class="bkvmark">' + esc(t("bkVideo")) + '</small>' : '') : esc(cust ? cust.text : txt)) +
             (hasMemo ? '<span class="bkmemodot" title="' + esc(sls[0].memo) + '">✎</span>' : '') +
             (hasLink ? '<span class="bklinkdot" title="' + esc(linkVal.url) + '">↗</span>' : '') +
-            '</button>' + (showOwner ? '<div class="bkowner">' + esc(bkWhoName(owners)) + '</div>' : '') + '</div></td>';
+            '</button>' + (showOwner ? '<div class="bkowner">' + esc(visibleOwners) + '</div>' : '') + '</div></td>';
         });
         h += '</tr>';
       });
