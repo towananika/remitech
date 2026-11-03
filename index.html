@@ -487,6 +487,7 @@
   .bkacc b{ display:block; font-size:13px; line-height:1.3; font-weight:500; }
   .bkacc i{ display:block; font-style:normal; font-size:11.5px; color:var(--muted); font-variant-numeric:tabular-nums; }
   .bkowner{ margin-top:2px; font-size:10.5px; color:var(--muted); text-align:center; }
+  .bkgrp th.bkproject-owner{position:static;text-align:center;font-size:12px;font-weight:600;white-space:normal}
   .bkmonth{border:1px solid var(--line);border-radius:10px;padding:12px;margin:12px 0;background:var(--surface)}
   .bkmonth summary{cursor:pointer;font-size:14px;font-weight:600}
   .bkmonth-list{display:grid;gap:8px;margin-top:12px}.bkmonth-list>div{display:flex;flex-wrap:wrap;gap:4px 14px;padding:8px 0;border-top:1px solid var(--line);font-size:12px}.bkmonth-list b{min-width:140px}.bkmonth-list span{color:var(--muted)}
@@ -4754,6 +4755,19 @@
       if (JSON.stringify(rb) !== JSON.stringify(schedule.bkReply || {})) { schedule.bkReply = rb; changed = true; }
     }
     if (o.memos) {
+      var primaryOwners = {};
+      Object.keys(o.memos).forEach(function (key) {
+        var value = o.memos[key];
+        if (/^primary-owner\|\d{4}-\d{2}-\d{2}\|[A-Za-z0-9_-]{1,20}$/.test(key) && typeof value === "string" && value) primaryOwners[key] = value === "-" ? "" : value.slice(0, 20);
+      });
+      Object.keys(bkPending).forEach(function (key) {
+        if (key.indexOf("m|primary-owner|") === 0) {
+          var ownerKey = key.slice(2);
+          if (Object.prototype.hasOwnProperty.call(schedule.primaryOwners || {}, ownerKey)) primaryOwners[ownerKey] = schedule.primaryOwners[ownerKey];
+          else delete primaryOwners[ownerKey];
+        }
+      });
+      if (JSON.stringify(primaryOwners) !== JSON.stringify(schedule.primaryOwners || {})) { schedule.primaryOwners = primaryOwners; changed = true; }
       var approvals = {};
       Object.keys(o.memos).forEach(function (k) { if (/^ret-approval\|\d{4}-\d{2}-\d{2}$/.test(k) && o.memos[k] === "pending") approvals[k.slice(13)] = true; });
       if (JSON.stringify(approvals) !== JSON.stringify(schedule.retApprovals || {})) { schedule.retApprovals = approvals; changed = true; }
@@ -4842,10 +4856,31 @@
   window.addEventListener("focus", function () { bookPull(true); });
   var BK_WHO = ["Suha", "Hyejeong", "Seohyun"];
   function bkMonthPlan(day) { return bookRows && (bookRows.monthlyPlans || {})[String(day).slice(0, 7)] || null; }
+  function bkPrimaryKey(day) {
+    var plan = bkMonthPlan(day);
+    return plan && /^[A-Za-z0-9_-]{1,20}$/.test(plan.primaryRevision || "") && Object.prototype.hasOwnProperty.call(plan.primaryOwners || {}, day) ? "primary-owner|" + day + "|" + plan.primaryRevision : "";
+  }
+  function bkPrimaryOwner(day) {
+    var key = bkPrimaryKey(day);
+    if (key) {
+      if (Object.prototype.hasOwnProperty.call(schedule.primaryOwners || {}, key)) return bkWhoName(schedule.primaryOwners[key]);
+      return bkWhoName(bkMonthPlan(day).primaryOwners[day]);
+    }
+    if (schedule.assignees && Object.prototype.hasOwnProperty.call(schedule.assignees, day)) return schedule.assignees[day] || "";
+    var own = (schedule.slots || []).filter(function (x) { return slotCh(x) === "hiyoko" && x.date === day && x.owner; })[0];
+    return own ? bkWhoName(own.owner) : "";
+  }
+  function bkSavePrimaryOwner(key, owner) {
+    schedule.primaryOwners = schedule.primaryOwners || {};
+    if (typeof owner === "string") schedule.primaryOwners[key] = owner; else delete schedule.primaryOwners[key];
+    bkPending["m|" + key] = (bkPending["m|" + key] || 0) + 1;
+    return bookPush("m", key, typeof owner === "string" ? owner || "-" : "").then(function () { if (--bkPending["m|" + key] <= 0) delete bkPending["m|" + key]; });
+  }
   function bkPlanOwner(channel, platforms, day) {
     var plan = bkMonthPlan(day), owners = plan && plan.owners && plan.owners[channel] || {};
     return platforms.map(function (pf) { return (owners[pf] || {})[day] || ""; }).filter(function (v, i, a) { return v && a.indexOf(v) === i; }).join("・");
   }
+  function bkGroupedOwner(channel, day) { return !!bkMonthPlan(day) && ["hiyoko", "nacha", "reel"].indexOf(channel) >= 0; }
   function bkRowPlanned(row, day) {
     if (row.planDays && day >= (row.planFrom || "") && day <= (row.planTo || "9999")) return row.planDays.indexOf(day) >= 0;
     if (row.weekdays) return row.weekdays.indexOf(new Date(day + "T00:00:00Z").getUTCDay()) >= 0;
@@ -4892,9 +4927,7 @@
     // 休日は schedule.holidays に日付で持つ（外したときは false を残し、他の端末と合わせたときに戻らないようにする）
     function isHol(k) { return bkIsHol(k); }
     function whoOf(k) {
-      if (schedule.assignees && Object.prototype.hasOwnProperty.call(schedule.assignees, k)) return schedule.assignees[k] || "";
-      var own = (schedule.slots || []).filter(function (x) { return slotCh(x) === "hiyoko" && x.date === k && x.owner; })[0];
-      return own ? bkWhoName(own.owner) : "";
+      return bkPrimaryOwner(k);
     }
     function otherOwners(k, names) {
       var primary = bkWhoName(whoOf(k)).toLowerCase().replace(/\s+/g, "");
@@ -4941,6 +4974,12 @@
           return ' <a class="bkdoc" href="' + esc(dc.url) + '" target="_blank" rel="noopener">' + esc(tl(dc.name)) + ' ↗</a>';
         }).join("") +
         (g.unsure ? ' <em title="' + esc(g.unsure) + '">' + esc(t("bkUnsure")) + '</em>' : "") + '</span></th></tr>';
+      if (g.channel === "nacha" && days.some(function (d) { return bkMonthPlan(ymd(d)); })) {
+        h = h.replace('<th colspan="' + (days.length + 1) + '">', '<th class="bkacc">').replace('</th></tr>', '</th>' + days.map(function (d) {
+          var day = ymd(d), owner = bkPlanOwner("nacha", ["X"], day);
+          return '<th class="bkproject-owner" data-project-owner="nacha" data-owner-day="' + day + '">' + esc(owner ? bkWhoName(owner) : "—") + '</th>';
+        }).join('') + '</tr>');
+      }
       var igFeed = bkGroupRows(g).filter(function (r) { return !r.reply && !r.check && rowPlats(r).indexOf("IG") >= 0 && /フィード/.test(r.label); })[0] || null;
       // 投稿の一覧（posts_check.json）で見つかった投稿は、保存されたリンクがなくても、その場で「投稿ずみ（青）」として出す（2026-10-09）
       var autoM = postsCheck ? pcOrdinal(g, days.map(ymd).filter(function (dk) { return dk <= today; })) : {};
@@ -4956,7 +4995,7 @@
           // \u78ba\u8a8d\u306e\u884c\uff08\u4e88\u7d04\u3067\u306f\u306a\u3044\uff09\uff1a\u6295\u7a3f\u3055\u308c\u305f\u304b\u30fb\u8fd4\u4fe1\u3057\u305f\u304b\u3092\u62bc\u3057\u3066\u2713\u3002\u52d5\u753b\u306f\u6bce\u65e5\u3067\u306f\u306a\u3044\u306e\u3067\u6708\u9593\u4f01\u753b\u3067\u78ba\u304b\u3081\u308b
           if (r.check) {
             var ckk = k + "|" + r.check, cOn = !!(schedule.telegram && schedule.telegram[ckk]);
-            var checkOwner = !r.reply && otherOwners(k, bkPlanOwner(g.channel, rowPlats(r), k));
+            var checkOwner = !r.reply && !bkGroupedOwner(g.channel, k) && otherOwners(k, bkPlanOwner(g.channel, rowPlats(r), k));
             var checkOwnerHTML = checkOwner ? '<div class="bkowner" data-plan-owner>' + esc(checkOwner) + '</div>' : '';
             // 2026-10-07 Hibiki指定: 動画投稿の確認は、その日のIGフィードを「動画」にしてから押せる。
             // すでに✓・印・メモがある日は消さずにそのまま出す
@@ -5004,7 +5043,7 @@
           }
           if (!sls.length) {
             var plannedOwner = bkPlanOwner(g.channel, rowPlats(r), k);
-            var visibleOwner = otherOwners(k, plannedOwner);
+            var visibleOwner = bkGroupedOwner(g.channel, k) ? "" : otherOwners(k, plannedOwner);
             h += '<td data-today="' + (k === today) + '" data-hol="' + isHol(k) + '"><button class="bkc bknew" data-new="' + gi + "|" + ri + "|" + k + '" title="' +
               esc(t("bkNoSlot") + (plannedOwner ? " / " + plannedOwner : "")) + '">\u2013</button>' + (visibleOwner ? '<div class="bkowner" data-plan-owner>' + esc(visibleOwner) + '</div>' : '') + '</td>';
             return;
@@ -5034,7 +5073,7 @@
             (c.name + " " + tl(r.label) + " " + r.time + (owners ? " / " + owners : "") + (hasMemo ? "\n" + sls[0].memo : ""));
           var keysStr = esc(sls.map(slotKey).join("~"));
           // 2026-09-16 Hibiki指定: ナチャのIG動画の行だけ、準備中のとき下に担当者を出す
-          var visibleOwners = otherOwners(k, owners), showOwner = !!visibleOwners;
+          var visibleOwners = bkGroupedOwner(g.channel, k) ? "" : otherOwners(k, owners), showOwner = !!visibleOwners;
           // 長押し＋上ドラッグでリンクを開閉する（見出しタップの代わり）。あれば小さな印だけ常に出す
           var linkKey = bkDateLinkKey(rk, k), linkVal = schedule.links && schedule.links[linkKey];
           var hasLink = linkVal && typeof linkVal === "object" && /^https?:\/\//i.test(linkVal.url || "");
@@ -5133,6 +5172,8 @@
       var next = idx < 0 ? BK_WHO[0] : (idx + 1 < BK_WHO.length ? BK_WHO[idx + 1] : "");
       schedule.assignees = schedule.assignees || {};
       schedule.assignees[wk] = next;
+      var primaryKey = bkPrimaryKey(wk);
+      if (primaryKey) bkSavePrimaryOwner(primaryKey, next);
       var ww = document.getElementById("bkWrap"), wsx = ww ? ww.scrollLeft : 0, wsy = window.scrollY;
       saveSoon(function () { return saveSchedule("schedule: assignee " + wk + " " + (next || "none")); }, 500);
       bookPush("a", wk, next);
@@ -6094,14 +6135,14 @@
       slots[slotKey(x)] = { scheduled: !!x.scheduled, reply: !!x.reply, replyAt: x.replyAt || "", status: x.status || "", skip: !!x.skip, memo: x.memo || "" };
     });
     return JSON.parse(JSON.stringify({
-      h: schedule.holidays || {}, a: schedule.assignees || {}, t: schedule.telegram || {}, l: schedule.links || {},
+      h: schedule.holidays || {}, a: schedule.assignees || {}, po: schedule.primaryOwners || {}, t: schedule.telegram || {}, l: schedule.links || {},
       r: schedule.bkReply || {}, v: schedule.bkHideRows || [], w: schedule.bkAddRows || [], o: schedule.bkLabels || [],
       slots: slots, done: (chores && chores.done) || {},
     }));
   }
   function undoDiff(a, b) {
     var ops = [], same = function (x, y) { return JSON.stringify(x === undefined ? null : x) === JSON.stringify(y === undefined ? null : y); };
-    ["h", "a", "t", "l", "r"].forEach(function (kind) {
+    ["h", "a", "po", "t", "l", "r"].forEach(function (kind) {
       var keys = {}; Object.keys(a[kind]).concat(Object.keys(b[kind])).forEach(function (k) { keys[k] = 1; });
       Object.keys(keys).forEach(function (k) { if (!same(a[kind][k], b[kind][k])) ops.push({ kind: kind, key: k, old: a[kind][k] }); });
     });
@@ -6149,6 +6190,7 @@
       var o = op.old;
       if (op.kind === "h") { schedule.holidays = schedule.holidays || {}; schedule.holidays[op.key] = !!o; bookPush("h", op.key, !!o); }
       else if (op.kind === "a") { schedule.assignees = schedule.assignees || {}; schedule.assignees[op.key] = o || ""; bookPush("a", op.key, o || ""); }
+      else if (op.kind === "po") { bkSavePrimaryOwner(op.key, o); }
       else if (op.kind === "t") { schedule.telegram = schedule.telegram || {}; schedule.telegram[op.key] = !!o; bookPush("t", op.key, !!o); }
       else if (op.kind === "l") { schedule.links = schedule.links || {}; if (o) schedule.links[op.key] = o; else delete schedule.links[op.key]; bookPush("l", op.key, o || ""); }
       else if (op.kind === "r") { schedule.bkReply = schedule.bkReply || {}; if (o) schedule.bkReply[op.key] = o; else delete schedule.bkReply[op.key]; bookPush("r", op.key, o || { st: "", memo: "" }); }
