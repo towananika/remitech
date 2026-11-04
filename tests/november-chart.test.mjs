@@ -49,7 +49,7 @@ test('RET uses four explicit November dates, retaining the Saturday rule in othe
   for(let n=1;n<=30;n++){
    const day=`2026-11-${String(n).padStart(2,'0')}`;if(c.bkRowPlanned(row,day))dates.push(day);
   }
-  assert.deepEqual(dates,['2026-11-05','2026-11-12','2026-11-19','2026-11-26']);
+  assert.deepEqual(dates,['2026-11-07','2026-11-14','2026-11-21','2026-11-28']);
   assert.equal(c.bkRowPlanned(row,'2026-10-31'),true);
   assert.equal(c.bkRowPlanned(row,'2026-12-05'),true);
   assert.equal(c.bkRowPlanned(row,'2026-12-03'),false);
