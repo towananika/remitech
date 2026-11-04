@@ -5908,7 +5908,9 @@
       return '<button class="ret-book-button" data-ret-book="' + pf + '" data-on="' + on + '" aria-pressed="' + on + '"' + (retBookBusy || !retBookReady || blocked || (!on && legacy) ? ' disabled' : '') + ' title="' + esc(tip) + '">' + esc(pf + ' ' + (on ? '✓ ' + t("yuBooked") : t("yuBook"))) + '</button>';
     }).join("") + '</div><p class="ret-book-status" role="status" aria-live="polite">' + esc(retBookBusy ? t("svSaving") : retBookLoading ? t("yuLoading") : retBookMsg) + '</p>' + (!retBookReady && !retBookLoading ? '<button id="retBookRetry">' + esc(t("yuRecheck")) + '</button>' : '') + '</section>';
     var i = retDoc.posts.indexOf(post), key = "ret" + i + "commonen", localKey = "ret" + i + "common" + lang;
+    var retSeparate = !!post.separateChannelCopy;
     copyBank[key] = {en:post.xen,cur:post.xen};
+    if (retSeparate) copyBank["ret" + i + "igen"] = {en:post.igen || "",cur:post.igen || ""};
     if (lang !== "en") copyBank[localKey] = {cur:post["x"+lang] || ""};
     var prompt = retImagePrompt(post), promptKey = "ret" + i + "bothprompt", imageButtons = "";
     if (prompt) {
@@ -5918,7 +5920,7 @@
     h += '<div class="ret-controls"><nav class="ret-dates" aria-label="Date">' + retDoc.posts.map(function (p) { return '<button data-ret-open="' + esc(p.date) + '" aria-pressed="' + (p.date === retDate) + '" title="' + esc(retLocalized(p,"theme")) + '">' + (+p.date.slice(5,7)) + '/' + (+p.date.slice(8)) + '</button>'; }).join("") + '</nav></div>';
     h += '<article class="yuday" data-ret-date="' + esc(post.date) + '"><div class="yudate"><b>' + esc(bookingDay) + ' · X / IG</b><small>09:00 KST</small></div><h3>' + esc(retLocalized(post,"theme")) + '</h3><div class="retpair' + (lang === "en" ? ' retpair-single' : '') + '">' +
       (lang !== "en" ? '<div class="ret-field"><div class="ret-field-head"><span>' + (lang === "ko" ? '한국어 · KO' : '日本語 · JA') + '</span><button class="cpy retcopy" data-ck="' + localKey + '" data-lg="' + lang + '">' + esc(t("copy")) + '</button></div><pre>' + esc(post["x"+lang] || "") + '</pre></div>' : '') +
-      '<div class="ret-field ret-field-en"><div class="ret-field-head"><span>English · EN</span><button class="cpy retcopy" data-ck="' + key + '" data-lg="en">' + esc(t("copy")) + '</button></div><pre>' + esc(post.xen || "") + '</pre></div></div>' + booking +
+      '<div class="ret-field ret-field-en"><div class="ret-field-head"><span>' + (retSeparate ? 'X · English' : 'English · EN') + '</span><button class="cpy retcopy" data-ck="' + key + '" data-lg="en">' + esc(t("copy")) + '</button></div><pre>' + esc(post.xen || "") + '</pre></div>' + (retSeparate ? '<div class="ret-field ret-field-en"><div class="ret-field-head"><span>IG · English</span><button class="cpy retcopy" data-ck="ret' + i + 'igen" data-lg="en">' + esc(t("copy")) + '</button></div><pre>' + esc(post.igen || "") + '</pre></div>' : '') + '</div>' + booking +
       '<section class="ret-image"><h4>' + esc(t("retImage")) + '</h4><p>' + esc(retLocalized(post,"image")) + '</p>' + imageButtons + '</section></article>';
     return h + '</section>';
   }
