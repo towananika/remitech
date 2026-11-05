@@ -7424,7 +7424,7 @@
     }
     if (reelEditor) { reelEditor.renderLocation(); reelEditor.refresh(); return; }
     view.innerHTML = '<p class="empty">' + esc(t("loading")) + '</p>';
-    if (!reelLoading) reelLoading = import('./reel-editor.mjs?v=20261030-reply').then(function (mod) {
+    if (!reelLoading) reelLoading = import('./reel-editor.mjs?v=20261105-story-book').then(function (mod) {
       reelEditor = mod.createEditor({
         view: view, esc: esc, lang: function () { return lang; },
         active: function () { var u = authUser(); return isReelPage() && !!(u && (u.member || u.admin)); },
@@ -7444,7 +7444,17 @@
             return slotCh(s) === "reel" && s.date === day && (s.platform || "X") === pf && isPosted(s);
           })) || tgVerifiedPosts(pcAcct("reel", pf), day, pf).length > 0;
         },
-        pullBookings: function () { return Promise.all([bookPull(true), pullChores()]); }
+        pullBookings: function () { return Promise.all([bookPull(true), pullChores()]); },
+        // 準備タブの IG Story の「予約した」。予約タブの REEL「IG ストーリー」17:00 の枠を予約済み／準備中にする
+        setBooked: function (day, pf, on) {
+          var list = (schedule.slots || []).filter(function (s) { return slotCh(s) === "reel" && s.date === day && (s.platform || "X") === pf && s.time === "17:00"; });
+          if (list.length) { bkSetSlotsState(list, on ? "sched" : "prep"); return; }
+          if (!on) return;
+          var sl0 = { date: day, channel: "reel", platform: pf, time: "17:00", label: "IG ストーリー", owner: bkPlanOwner("reel", [pf], day), type: "text",
+            text: { ja: "", en: "", ko: "" }, comment: "", asset: "", note: "準備タブで作った枠", need: ["text"], scheduled: true, posted: false, url: "",
+            check: { done: false, at: "", match: null, note: "" } };
+          schedule.slots.push(sl0); bookPush("n", slotKey(sl0), sl0); markSave(sl0, "scheduled", true);
+        }
       });
       reelEditor.render();
       bookPull(true).then(function () { if (isReelPage()) reelEditor.refresh(); });

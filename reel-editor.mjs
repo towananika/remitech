@@ -76,7 +76,9 @@ export function createEditor(a) {
   function storyHTML(){
     if(stories===null){loadStories();return `<p>${e(t('loading'))}</p>`;}
     if(storyError||!stories.length)return `<p>${e(t(storyError?'storyError':'storyEmpty'))}</p>`;
-    return stories.map((sn,i)=>`<section class="re-day re-story"><span class="re-eyebrow">IG Story</span><h3>${e(sn.title)}</h3>${sn.url?`<div class="re-toolbar re-story-link"><button data-re-action="storyUrl" data-story="${i}">${e(t('storyUrl'))}</button></div>`:''}<div class="re-toolbar re-story-random"><button class="re-primary" data-re-action="storyRandom" data-story="${i}" ${sn.items.length?'':'disabled'}>${e(t('storyRandom'))}</button></div><p data-story-result="${i}" role="status" aria-live="polite">${e(lastStory[i]||'')}</p><details><summary>${e(t('storyChoices'))}</summary><div class="re-story-choices">${sn.items.map((s,j)=>`<button data-re-action="storyItem" data-story="${i}" data-item="${j}">${e(s)}</button>`).join('')}</div></details></section>`).join('');
+    // 2026-11-05 Hibiki指定: IG Storyにも予約済みボタン（予約タブのREEL「IG ストーリー」17:00の枠と同じ）
+    const sb=a.booked(date,'IGS'),bookBar=a.setBooked?`<section class="re-day re-story re-story-book"><span class="re-eyebrow">${e(dateLabel(date))} · IG Story</span><div class="re-toolbar">${`<button class="re-book-button" data-re-action="storyBook" data-booked="${sb}" aria-pressed="${sb}" ${busy||!member()?'disabled':''}>${e((sb?'✓ ':'')+'IG Story · '+t(sb?'booked':'book'))}</button>`}</div></section>`:'';
+    return bookBar+stories.map((sn,i)=>`<section class="re-day re-story"><span class="re-eyebrow">IG Story</span><h3>${e(sn.title)}</h3>${sn.url?`<div class="re-toolbar re-story-link"><button data-re-action="storyUrl" data-story="${i}">${e(t('storyUrl'))}</button></div>`:''}<div class="re-toolbar re-story-random"><button class="re-primary" data-re-action="storyRandom" data-story="${i}" ${sn.items.length?'':'disabled'}>${e(t('storyRandom'))}</button></div><p data-story-result="${i}" role="status" aria-live="polite">${e(lastStory[i]||'')}</p><details><summary>${e(t('storyChoices'))}</summary><div class="re-story-choices">${sn.items.map((s,j)=>`<button data-re-action="storyItem" data-story="${i}" data-item="${j}">${e(s)}</button>`).join('')}</div></details></section>`).join('');
   }
   const member=()=>!!(a.user() && (a.user().member || a.user().admin));
   const find=day=>{const w=weeks.find(w=>w.start===R.monday(day));return {w,d:w?.days.find(d=>d.date===day)};};
@@ -306,6 +308,7 @@ export function createEditor(a) {
     const op=btn.dataset.reAction;if(!op)return;
     if(op!=='cancel'){cancelArmed='';const cancel=a.view.querySelector('[data-re-action="cancel"]');if(cancel)cancel.textContent=t('cancel');}
     if(op!=='noboReset'){resetArmed='';const reset=a.view.querySelector('[data-re-action="noboReset"]');if(reset)reset.textContent=t(editMode.startsWith('inline-')?'resetShort':'noboReset');}
+    if(op==='storyBook'){if(!member()||!a.setBooked)return;const on=!a.booked(date,'IGS');a.setBooked(date,'IGS',on);render();if(on&&autoNext&&date<R.EDITOR_END_DATE)await open(R.addDays(date,1));return;}
     if(['storyRandom','storyItem','storyUrl'].includes(op)){
       const i=Number(btn.dataset.story),sn=stories?.[i];if(!sn)return;
       const choices=sn.items.filter(s=>s!==lastStory[i]);
