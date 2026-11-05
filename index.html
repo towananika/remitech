@@ -6061,7 +6061,8 @@
       var it = x.it, p = x.day.split("-"), d = new Date(+p[0], +p[1] - 1, +p[2]);
       var prompt = it.prompt || yuPlanPrompt(it.plan || it.date), optionalPhoto = !prompt && yuOptionalPhoto(it);
       var textOnlyMemo = x.day === "2026-11-16";
-      var historyKey = x.day + "|history", history = (it.previousVersions || []).map(function (version, vi) {
+      // 2026-11-05 Hibiki指定: 以前の版は出さず、v1.2（いまの文）だけを出す
+      var historyKey = x.day + "|history", history = [].map(function (version, vi) {
         var old = version.item || {}, prefix = "yu" + x.i + "history" + vi;
         return '<section><p class="tiny">' + esc(old.image || t("yuNoImg")) + '</p>' + row(prefix + "x", t("yuX"), yuNoDate(old.x)) + row(prefix + "i", t("yuIg"), yuNoDate(old.ig)) + row(prefix + "p", t("yuPrompt"), yuImagePrompt(old.prompt)) + '</section>';
       }).join('');
