@@ -47,12 +47,12 @@ let ttAccount=null;
 scope.pcAcct=(id,pf)=>pf==='TT'?ttAccount:null;
 scope.t=k=>k;
 vm.runInContext(source.slice(shareStart,shareEnd),scope);
-test('NACHA always includes TikTok even before its post link is available',()=>{
+test('NACHA always includes TikTok and YouTube even before their post links are available',()=>{
  ttAccount=null;
  const text=scope.tgShareText(nacha,'2026-10-22');
  assert.ok(text.includes('NACHA Uploaded 10/21'));
  assert.ok(text.includes('TikTok (tgNoLink)'));
- assert.ok(!text.includes('YouTube ('));
+ assert.ok(text.includes('YouTube (tgNoLink)'));
 });
 test('NACHA TikTok accepts only the previous-day actual video link',()=>{
  ttAccount={posts:[{url:'https://www.tiktok.com/@nacha_project/video/123456789?s=1',at:'2026-10-21T05:00:00Z'},{url:'https://www.tiktok.com/@nacha_project/video/999999999',at:'2026-10-22T05:00:00Z'}]};

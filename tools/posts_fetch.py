@@ -285,7 +285,7 @@ def telegram_targets(channels, day, shared, data, now=None):
         for l in c.get("links", []):
             pf = KIND.get(l.get("kind"))
             if pf and pf not in [k[0] for k in kinds]:
-                kinds.append((pf, not (pf == "YT" or (pf == "TT" and c["id"] != "nacha"))))
+                kinds.append((pf, not (pf in ("YT", "TT") and c["id"] != "nacha")))
 
         def fetched(pf):
             posts = (data.get("accounts", {}).get(c["id"] + "|" + pf) or {}).get("posts", [])

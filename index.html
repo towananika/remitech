@@ -2817,7 +2817,7 @@
     var KINDS = { "X": "X", "Instagram": "IG", "Facebook": "FB", "TikTok": "TT", "YouTube": "YT" }, out = [];
     (c.links || []).forEach(function (l) {
       var pf = KINDS[l.kind];
-      if (pf && !out.some(function (k) { return k[0] === pf; })) out.push([pf, !(pf === "YT" || (pf === "TT" && c.id !== "nacha"))]);
+      if (pf && !out.some(function (k) { return k[0] === pf; })) out.push([pf, !((pf === "YT" || pf === "TT") && c.id !== "nacha")]);
     });
     return out;
   }
@@ -3024,7 +3024,7 @@
     var lines = KINDS.filter(function (kd) { return (c.links || []).some(function (l) { return l.kind === kd[0]; }); }).map(function (kd) {
       var pf = kd[1], a = pcAcct(c.id, pf), ps = tgVerifiedPosts(a, dateStr, pf);
       var url = ps.length ? ps[ps.length - 1].url : "";
-      if (!url && kd[2] && !(c.id === "nacha" && pf === "TT")) return null;
+      if (!url && kd[2] && !(c.id === "nacha" && (pf === "TT" || pf === "YT"))) return null;   // 2026-11-05 Hibiki指定: NACHAはYouTubeも通知に入れる（リンクがなければ「なし」と出す）
       if (!url) {
         var candidates = (a && a.posts || []).filter(function (p) { return !p.pinned && tgPostDay(p.at) === dateStr; });
         if (candidates.length) {
