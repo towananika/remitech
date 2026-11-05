@@ -6002,6 +6002,15 @@
     }
     return "";
   }
+  // 2026-11-05 Hibiki指定: 準備タブの YUYU は v1.2（plans.json の企画）の文だけを出す。企画にその日があれば、サーバーの文より優先する
+  function yuPlanItem(day) {
+    if (!plState) plLoad();
+    var ps = [];
+    (plans || []).filter(function (x) { return x.kind === "yuyu"; }).forEach(function (pl) { ps = ps.concat((pl.posts || []).filter(function (p) { return p.date === day; })); });
+    if (!ps.length) return null;
+    var xp = ps.filter(function (p) { return p.type === "X"; })[0], ip = ps.filter(function (p) { return p.type !== "X"; })[0];
+    return { x: xp ? xp.text || "" : "", ig: ip ? ip.text || "" : "", image: (ip || xp).image || "", prompt: (ps.filter(function (p) { return p.prompt; })[0] || {}).prompt || "" };
+  }
   function yuImagePrompt(text) {
     if (!text) return "";
     var s = String(text).trim();
@@ -6059,6 +6068,8 @@
     }
     function day(x) {
       var it = x.it, p = x.day.split("-"), d = new Date(+p[0], +p[1] - 1, +p[2]);
+      var v12 = yuPlanItem(it.plan || it.date);
+      if (v12) it = Object.assign({}, it, { x: v12.x, ig: v12.ig, image: v12.image, prompt: v12.prompt, previousVersions: [] });
       var prompt = it.prompt || yuPlanPrompt(it.plan || it.date), optionalPhoto = !prompt && yuOptionalPhoto(it);
       var textOnlyMemo = x.day === "2026-11-16";
       // 2026-11-05 Hibiki指定: 以前の版は出さず、v1.2（いまの文）だけを出す
