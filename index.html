@@ -260,6 +260,7 @@
     border-radius:14px; background:var(--surface); padding:14px 16px; margin-bottom:12px;
   }
   .snhead{ cursor:default; margin-bottom:10px; }
+  .snhead .stw{ margin-left:auto }
   .snurl{ display:flex; align-items:center; gap:8px; margin-bottom:10px; }
   .snurl code{
     flex:1 1 auto; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
@@ -4247,11 +4248,13 @@
     // チャンネルごとの定型文（押すと写せる）
     channels.forEach(function (c) {
       if (filter !== c.id) return;        // 全体では出さない。選んだときだけ
-      (c.snippets || []).forEach(function (sn, si) {
+      // 2026-11-06 Hibiki指定: 重み（weight）のある枠は、重い順に並べて重みを右に出す。重みのない枠は最後（元の順）
+      stratByWeight(c.snippets || [], function (x) { return typeof x.weight === "number" ? x.weight : null; }).forEach(function (o) {
+        var sn = o.x, si = o.i;
         if (sn.hidden) return;   // 使わなくなった枠（データは残す）
         html += '<div class="snip" style="--chc:' + esc(c.color || "var(--wood)") + '">' +
           '<div class="phead snhead"><span class="who">' + esc(c.name) + '</span>' +
-          '<span class="when">' + esc(tl(sn.title || "")) + '</span></div>' +
+          '<span class="when">' + esc(tl(sn.title || "")) + '</span>' + stratW(o.w) + '</div>' +
           (sn.url ? '<div class="snurl"><code>' + esc(sn.url) + '</code>' +
             '<button class="cpy" data-ck="sn' + si + 'u" data-lg="en">' + esc(t("copy")) + '</button></div>' : "") +
           ((sn.items && sn.items.length > 1)

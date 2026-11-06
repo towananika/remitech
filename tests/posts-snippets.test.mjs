@@ -15,3 +15,6 @@ test('snippet items are unique strings within their max length',()=>{
   if(sn.max)assert.ok(sn.items.every(x=>typeof x==='string'&&x.length<=sn.max),sn.title);
  }
 });
+test('snippet weight, when present, is a number',()=>{
+ for(const {sn} of all)if('weight' in sn)assert.equal(typeof sn.weight,'number',sn.title);
+});
