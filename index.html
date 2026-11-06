@@ -7285,18 +7285,18 @@
   var STRAT2 = {
     ja: { title: "戦略", lead: "プロジェクトごと・チャンネルごとの、作業だけの計画。優先はNACHAのX。", prio: "優先", post: "投稿", work: "毎日の作業", algo: "評価されやすい行動",
       noWork: "決まった作業はありません", like: "いいね {n}件 × {k}回（{t}）", follow: "フォロー +5／−5（{t}）", reply: "リプライ（{t}）", csv: "CSVを取る（{t}）", wk: "平日のみ",
-      note: "Xの重みは2023年の公開版です（今は変わっている可能性があります）。IGは公式の数値表がなく、責任者の発言をもとにしています。",
-      algoX: ["自分の投稿への返信に、その日のうちに返す（最も重い）", "他の人には、いいねより一言リプライ", "返信が付くよう、答えやすい問いかけにする", "ブロック・ミュート・通報されることは避ける"],
+      note: "Xの重みは、2026年8月公開のコード（xai-org/x-algorithm の param.rs）の初期値です。重みは「その動きが起きる予測確率」にかかるので、回数の比ではありません。値は変わることがあります。IGは公式の数値表がなく、責任者の発言をもとにしています。",
+      algoX: ["返信は重み5.0で、いいね（0.66）の約8倍。返信をもらい、こちらも返す", "他の人には、いいねより一言リプライ。質問型を多めにする（返事が付きやすい）", "リンクのコピー共有（20.0）・DMで共有（5.0）・引用（5.0）される投稿は重い", "フォローされる（4.0）", "避ける：通報（−234）・ミュート（−58.8）・興味なし（−52.3）・ブロック（−31.2）"],
       algoIG: ["コメントとDMに返事する", "動画は最後まで見られる長さにする（見られた時間）", "DMで友だちに送られる内容にする（送られる回数）", "保存・コメントへの返事"] },
     en: { title: "Strategy", lead: "A tasks-only plan for each project and channel. Priority: NACHA on X.", prio: "Priority", post: "Posts", work: "Daily tasks", algo: "Actions the algorithm favors",
       noWork: "No set tasks", like: "{n} likes × {k} ({t})", follow: "Follow +5 / −5 ({t})", reply: "Replies ({t})", csv: "Pull the CSV ({t})", wk: "weekdays only",
-      note: "X weights are from the 2023 public release (they may have changed). Instagram has no official table; this follows statements from its head.",
-      algoX: ["Reply to every reply on our posts the same day (heaviest weight)", "On other accounts, a short reply beats a like", "Ask questions that are easy to answer so replies come", "Avoid blocks, mutes and reports"],
+      note: "X weights are the defaults in the code released in August 2026 (xai-org/x-algorithm, param.rs). Weights multiply the predicted probability of an action, not raw counts, and may change. Instagram has no official table; this follows statements from its head.",
+      algoX: ["A reply weighs 5.0, about 8× a like (0.66): earn replies and answer them", "On other accounts, a short reply beats a like; favor questions (easier to answer)", "Posts shared by copy link (20.0), by DM (5.0) or quoted (5.0) weigh a lot", "Being followed (4.0)", "Avoid: reports (−234), mutes (−58.8), not interested (−52.3), blocks (−31.2)"],
       algoIG: ["Answer comments and DMs", "Keep videos watchable to the end (watch time)", "Make it something people send to a friend by DM (sends)", "Saves, and replying to comments"] },
     ko: { title: "전략", lead: "프로젝트별·채널별 작업 중심 계획. 우선순위는 NACHA의 X.", prio: "우선", post: "게시", work: "매일 할 작업", algo: "알고리즘이 좋아하는 행동",
       noWork: "정해진 작업 없음", like: "좋아요 {n}개 × {k}회 ({t})", follow: "팔로우 +5／−5 ({t})", reply: "답글 ({t})", csv: "CSV 가져오기 ({t})", wk: "평일만",
-      note: "X의 가중치는 2023년 공개본 기준입니다(지금은 달라졌을 수 있음). IG는 공식 수치표가 없어 책임자의 발언을 바탕으로 합니다.",
-      algoX: ["우리 글의 답글에 당일 안에 답하기 (가장 무거움)", "다른 계정에는 좋아요보다 짧은 답글", "답글이 달리도록 답하기 쉬운 질문으로", "차단·뮤트·신고는 피하기"],
+      note: "X의 가중치는 2026년 8월 공개된 코드(xai-org/x-algorithm, param.rs)의 기본값입니다. 가중치는 행동이 일어날 예측 확률에 곱해지며 횟수의 비율이 아닙니다. 값은 바뀔 수 있습니다. IG는 공식 수치표가 없어 책임자의 발언을 바탕으로 합니다.",
+      algoX: ["답글은 가중치 5.0으로 좋아요(0.66)의 약 8배. 답글을 받고 우리도 답하기", "다른 계정에는 좋아요보다 짧은 답글. 질문형을 많이 (답이 달리기 쉬움)", "링크 복사 공유(20.0)·DM 공유(5.0)·인용(5.0)된 글은 무거움", "팔로우됨(4.0)", "피할 것: 신고(−234)·뮤트(−58.8)·관심 없음(−52.3)·차단(−31.2)"],
       algoIG: ["댓글과 DM에 답하기", "영상은 끝까지 볼 수 있는 길이로 (시청 시간)", "친구에게 DM으로 보내고 싶은 내용으로 (공유 횟수)", "저장, 댓글에 답하기"] }
   };
   var stratProj = "nacha";
