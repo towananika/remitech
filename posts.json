@@ -147,7 +147,7 @@
       "color": "#c0503f",
       "snippets": [
         {
-          "title": "X 自分の投稿への返信（お礼・返事）",
+          "title": "💬 X 他の人のリプライに返事（自分の投稿の下）",
           "note": "押すとコピーできます",
           "max": 60,
           "items": [
@@ -174,7 +174,26 @@
           ]
         },
         {
-          "title": "X 他のユーザーへの一言リプライ",
+          "title": "🔁 X 自分の投稿に自分でリプライ",
+          "note": "押すとコピーできます",
+          "max": 60,
+          "items": [
+            "Thanks for reading. 🙏",
+            "What do you think? Tell us below.",
+            "Questions? Ask us here.",
+            "Share your thoughts below. 🪷",
+            "We'd love to hear from you.",
+            "Drop your take below 👇",
+            "Reply and let us know. 🏮",
+            "Your turn: what's your view?",
+            "Join the conversation below.",
+            "Tell us what you'd add.",
+            "Curious how this lands for you.",
+            "Any thoughts? We're listening. 🙏"
+          ]
+        },
+        {
+          "title": "👋 X 他のユーザーの投稿へ一言リプライ",
           "note": "押すとコピーできます",
           "max": 60,
           "items": [
