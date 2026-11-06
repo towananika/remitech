@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>画像を渡す · REMITECH HUB</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="../favicon.svg">
+<style>
+  :root{--bg:#f6f4f1;--card:#fff;--ink:#241f1c;--sub:#756c65;--line:#e4ded7;--acc:#c0503f;--ok:#2f7d4f;--bad:#b3261e}
+  @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#171412;--card:#221e1b;--ink:#f1eae3;--sub:#a99f96;--line:#38312c;--acc:#e0705e;--ok:#63c58a;--bad:#ff8a80}}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 -apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP","Malgun Gothic",sans-serif}
+  main{max-width:640px;margin:0 auto;padding:24px 16px 56px}
+  a{color:var(--acc)}
+  h1{font-size:22px;margin:0 0 4px}
+  .lead{color:var(--sub);font-size:14px;margin:0 0 18px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;margin-bottom:14px}
+  .drop{border:2px dashed var(--line);border-radius:14px;padding:28px 12px;text-align:center;cursor:pointer;transition:border-color .15s,background .15s}
+  .drop.over,.drop:hover{border-color:var(--acc);background:#c0503f10}
+  .drop b{display:block;font-size:16px}
+  .drop span{color:var(--sub);font-size:13px}
+  input[type=text],input[type=password]{width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink);font:inherit;margin-bottom:8px}
+  button{appearance:none;border:0;border-radius:10px;padding:10px 16px;font:inherit;font-weight:600;background:var(--acc);color:#fff;cursor:pointer}
+  button.ghost{background:transparent;color:var(--sub);border:1px solid var(--line)}
+  button:disabled{opacity:.5;cursor:default}
+  .tiny{color:var(--sub);font-size:12px;margin:6px 0 0}
+  .msg{font-size:13px;margin-top:8px;min-height:18px}
+  .ok{color:var(--ok)}.bad{color:var(--bad)}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px}
+  .th{position:relative;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--bg);aspect-ratio:1/1}
+  .th img{width:100%;height:100%;object-fit:cover;display:block}
+  .th .st{position:absolute;left:0;right:0;bottom:0;padding:3px 6px;font-size:11px;background:#000a;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .th .x{position:absolute;top:4px;right:4px;width:24px;height:24px;padding:0;border-radius:50%;background:#000a;font-size:14px;line-height:24px}
+  .count{font-size:13px;color:var(--sub);margin:0 0 10px}
+  h2{font-size:14px;color:var(--sub);margin:0 0 10px;letter-spacing:.06em}
+</style>
+</head>
+<body>
+<main>
+  <h1>画像を渡す</h1>
+  <p class="lead">ここに入れた画像は、Claudeが読めます。NACHAのXやIGの投稿画像など、見てほしいものを入れてください。</p>
+
+  <div class="card" id="setup" hidden>
+    <h2>保存先の設定</h2>
+    <input type="text" id="stUrl" placeholder="owner/repo" value="towananika/remitech" autocomplete="off">
+    <input type="password" id="stTok" placeholder="Access token（Contents: Read and write）" autocomplete="off">
+    <button id="stSave">保存</button>
+    <p class="tiny">端末のブラウザにだけ残ります。HUBの「取り込み」で設定済みなら、ここは出ません。</p>
+    <div class="msg" id="stOut"></div>
+  </div>
+
+  <div class="card" id="up" hidden>
+    <label class="drop" id="drop" for="file" tabindex="0">
+      <b>ここに画像をドロップ、またはタップして選ぶ</b>
+      <span>複数OK · 大きい画像は自動で縮めます（長辺1600px）</span>
+    </label>
+    <input type="file" id="file" accept="image/*" multiple hidden>
+    <div class="msg" id="out"></div>
+    <p class="tiny">⚠ 公開リポジトリに入ります。すでにSNSで公開した画像だけにしてください（社内資料・個人情報は入れない）。</p>
+  </div>
+
+  <div class="card" id="listCard" hidden>
+    <h2>入れた画像</h2>
+    <p class="count" id="count"></p>
+    <div class="grid" id="grid"></div>
+  </div>
+</main>
+
+<script>
+(function () {
+  "use strict";
+  var DIR = "media/ref";
+  var $ = function (id) { return document.getElementById(id); };
+
+  function storeGet() { try { return JSON.parse(localStorage.getItem("remitech-store") || "{}") || {}; } catch (e) { return {}; } }
+  function storeSet(o) { try { localStorage.setItem("remitech-store", JSON.stringify(o)); } catch (e) {} }
+  function on() { var c = storeGet(); return !!(c.url && c.token); }
+
+  function api(path, opt) {
+    var c = storeGet();
+    var o = Object.assign({ headers: {} }, opt || {});
+    o.headers = Object.assign({ "Authorization": "Bearer " + c.token, "Accept": "application/vnd.github+json" }, o.headers);
+    return fetch("https://api.github.com/repos/" + c.url + "/contents/" + path, o);
+  }
+
+  function show() {
+    var ready = on();
+    $("setup").hidden = ready;
+    $("up").hidden = !ready;
+    $("listCard").hidden = !ready;
+    if (ready) loadList();
+  }
+
+  $("stSave").addEventListener("click", function () {
+    var u = $("stUrl").value.trim().replace(/^https?:\/\/github\.com\//i, "").replace(/\.git$/i, "").replace(/^\/+|\/+$/g, "");
+    var tk = $("stTok").value.trim();
+    var o = $("stOut"); o.className = "msg"; o.textContent = "…";
+    storeSet({ url: u, token: tk });
+    fetch("https://api.github.com/repos/" + u, { headers: { "Authorization": "Bearer " + tk, "Accept": "application/vnd.github+json" } })
+      .then(function (r) {
+        if (r.ok) { o.className = "msg ok"; o.textContent = "OK"; show(); }
+        else { o.className = "msg bad"; o.textContent = "使えませんでした · " + r.status; }
+      }).catch(function (e) { o.className = "msg bad"; o.textContent = String(e && e.message || e); });
+  });
+
+  // 大きい画像は長辺1600pxに縮める。形式（PNG/JPEG/WebP）は変えない
+  function shrink(file) {
+    var MAX = 1600;
+    if (file.size < 700 * 1024) return Promise.resolve(file);
+    return new Promise(function (res) {
+      var img = new Image(), url = URL.createObjectURL(file);
+      img.onload = function () {
+        var s = Math.min(1, MAX / Math.max(img.naturalWidth, img.naturalHeight));
+        if (s >= 1 && file.size < 3 * 1024 * 1024) { URL.revokeObjectURL(url); return res(file); }
+        var c = document.createElement("canvas");
+        c.width = Math.round(img.naturalWidth * s); c.height = Math.round(img.naturalHeight * s);
+        c.getContext("2d").drawImage(img, 0, 0, c.width, c.height);
+        var type = /^image\/(png|jpeg|webp)$/.test(file.type) ? file.type : "image/jpeg";
+        c.toBlob(function (b) { URL.revokeObjectURL(url); res(b && b.size < file.size ? b : file); }, type, 0.86);
+      };
+      img.onerror = function () { URL.revokeObjectURL(url); res(file); };
+      img.src = url;
+    });
+  }
+  function b64(blob) {
+    return new Promise(function (res, rej) {
+      var fr = new FileReader();
+      fr.onload = function () { res(String(fr.result).split(",")[1]); };
+      fr.onerror = rej; fr.readAsDataURL(blob);
+    });
+  }
+  function stamp() {
+    var d = new Date(), p = function (n) { return (n < 10 ? "0" : "") + n; };
+    return d.getFullYear() + p(d.getMonth() + 1) + p(d.getDate()) + "-" + p(d.getHours()) + p(d.getMinutes()) + p(d.getSeconds());
+  }
+  function extOf(blob) { return ({ "image/png": "png", "image/jpeg": "jpg", "image/webp": "webp", "image/gif": "gif" })[blob.type] || "jpg"; }
+
+  function uploadOne(file, i) {
+    return shrink(file).then(function (blob) {
+      return b64(blob).then(function (data) {
+        var name = stamp() + "-" + (i + 1) + "." + extOf(blob);
+        return api(DIR + "/" + name, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ message: "ref image: " + name, content: data })
+        }).then(function (r) { if (!r.ok) throw new Error(r.status); return name; });
+      });
+    });
+  }
+
+  function handle(files) {
+    files = Array.prototype.filter.call(files, function (f) { return /^image\//.test(f.type); });
+    var o = $("out");
+    if (!files.length) { o.className = "msg bad"; o.textContent = "画像ファイルを選んでください"; return; }
+    var ok = 0, ng = 0;
+    o.className = "msg"; o.textContent = "0 / " + files.length;
+    files.reduce(function (chain, f, i) {
+      return chain.then(function () {
+        return uploadOne(f, i).then(function () { ok++; }, function () { ng++; })
+          .then(function () { o.textContent = (ok + ng) + " / " + files.length; });
+      });
+    }, Promise.resolve()).then(function () {
+      o.className = "msg " + (ng ? "bad" : "ok");
+      o.textContent = ok + "枚 入れました" + (ng ? "、" + ng + "枚 失敗（トークンの権限を確認）" : "。Claudeに「入れたよ」と伝えてください");
+      loadList();
+    });
+  }
+
+  $("file").addEventListener("change", function (e) { handle(e.target.files); e.target.value = ""; });
+  var drop = $("drop");
+  ["dragenter", "dragover"].forEach(function (ev) { drop.addEventListener(ev, function (e) { e.preventDefault(); drop.classList.add("over"); }); });
+  ["dragleave", "drop"].forEach(function (ev) { drop.addEventListener(ev, function (e) { e.preventDefault(); drop.classList.remove("over"); }); });
+  drop.addEventListener("drop", function (e) { handle(e.dataTransfer.files); });
+  drop.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); $("file").click(); } });
+  document.addEventListener("paste", function (e) {
+    var fs = e.clipboardData && e.clipboardData.files;
+    if (fs && fs.length) handle(fs);
+  });
+
+  function loadList() {
+    api(DIR).then(function (r) { return r.ok ? r.json() : []; }).then(function (items) {
+      items = (items || []).filter(function (x) { return x.type === "file" && /\.(png|jpe?g|webp|gif)$/i.test(x.name); })
+        .sort(function (a, b) { return a.name < b.name ? 1 : -1; });
+      $("count").textContent = items.length + "枚";
+      var g = $("grid"); g.textContent = "";
+      items.forEach(function (it) {
+        var d = document.createElement("div"); d.className = "th";
+        var im = document.createElement("img"); im.loading = "lazy"; im.alt = it.name; im.src = it.download_url;
+        var st = document.createElement("div"); st.className = "st"; st.textContent = it.name;
+        var x = document.createElement("button"); x.className = "x"; x.textContent = "×"; x.title = "消す";
+        x.addEventListener("click", function () {
+          if (!confirm(it.name + " を消しますか？")) return;
+          api(DIR + "/" + it.name, {
+            method: "DELETE", headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ message: "ref image: remove " + it.name, sha: it.sha })
+          }).then(function () { loadList(); });
+        });
+        d.appendChild(im); d.appendChild(st); d.appendChild(x); g.appendChild(d);
+      });
+    }).catch(function () {});
+  }
+
+  show();
+})();
+</script>
+</body>
+</html>
