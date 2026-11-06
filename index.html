@@ -1263,6 +1263,7 @@
   .snpick{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
   .snpicked{ font-size:13.5px; color:var(--ink); font-weight:500; }
   .snlist{ display:flex; flex-wrap:wrap; gap:6px; }
+  .sngrp{ margin:12px 0 6px; font-size:12.5px; font-weight:600; color:var(--ink); } .sngrp span{ color:var(--muted); font-weight:400; }
   .snfold{ margin-top:8px; } .snfold>summary{ cursor:pointer; font-size:13px; color:var(--muted); padding:6px 0; } .snfold[open]>summary{ margin-bottom:6px; }
   .snitem{
     background:var(--bg); border:1px solid var(--line); border-radius:999px;
@@ -4253,12 +4254,25 @@
             ? '<div class="snpick"><button class="cpy" data-ck="sn' + si + 'r" data-lg="en">' +
               esc(t("pickOne")) + ' ↻</button><span class="snpicked"></span></div>' : "") +
           // 2026-11-06 Hibiki指定: コピーの文は折りたためる（初めはたたむ。開いたかは覚えておく）
-          '<details class="snfold" data-sn-fold="' + esc(c.id + "|" + si) + '"' + (snOpen[c.id + "|" + si] ? ' open' : '') + '><summary>' + esc(t("snShow")) + ' (' + (sn.items || []).length + ')</summary><div class="snlist">' + (sn.items || []).map(function (it, k) {
-            copyBank["sn" + si + "_" + k] = { en: it, cur: it };
-            var over = sn.max && it.length > sn.max;
-            return '<button class="snitem' + (over ? ' over' : '') + '" data-ck="sn' + si + "_" + k + '" data-lg="en" data-n="' + it.length + '"' +
-              (over ? ' title="' + esc(sn.max + t("snOver")) + '"' : '') + '>' + esc(it) + '</button>';
-          }).join("") + '</div></details></div>';
+          '<details class="snfold" data-sn-fold="' + esc(c.id + "|" + si) + '"' + (snOpen[c.id + "|" + si] ? ' open' : '') + '><summary>' + esc(t("snShow")) + ' (' + (sn.items || []).length + ')</summary>' + function () {
+            // 文のボタン。groups（{name,count} の並び）があれば、items を count ずつ順に区切ってカテゴリごとに出す（2026-11-06 Hibiki指定）
+            function btn(it, k) {
+              copyBank["sn" + si + "_" + k] = { en: it, cur: it };
+              var over = sn.max && it.length > sn.max;
+              return '<button class="snitem' + (over ? ' over' : '') + '" data-ck="sn' + si + "_" + k + '" data-lg="en" data-n="' + it.length + '"' +
+                (over ? ' title="' + esc(sn.max + t("snOver")) + '"' : '') + '>' + esc(it) + '</button>';
+            }
+            var its = sn.items || [], out = "", gs = sn.groups || [], at = 0;
+            if (gs.length && gs.reduce(function (n, g) { return n + g.count; }, 0) === its.length) {
+              gs.forEach(function (g) {
+                out += '<h5 class="sngrp">' + esc(g.name) + ' <span>' + g.count + '</span></h5><div class="snlist">' +
+                  its.slice(at, at + g.count).map(function (it, j) { return btn(it, at + j); }).join("") + '</div>';
+                at += g.count;
+              });
+              return out;
+            }
+            return '<div class="snlist">' + its.map(btn).join("") + '</div>';
+          }() + '</details></div>';
         if (sn.url) copyBank["sn" + si + "u"] = { en: sn.url, cur: sn.url };
         // 「どれか1つ」は押すたびに選び直す。文字数の上限（max）を超える文は引かない（IGのリンクボタンは25字まで・2026-10-05）
         if (sn.items && sn.items.length) {
