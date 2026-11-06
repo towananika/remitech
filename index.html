@@ -1263,6 +1263,7 @@
   .snpick{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
   .snpicked{ font-size:13.5px; color:var(--ink); font-weight:500; }
   .snlist{ display:flex; flex-wrap:wrap; gap:6px; }
+  .snfold{ margin-top:8px; } .snfold>summary{ cursor:pointer; font-size:13px; color:var(--muted); padding:6px 0; } .snfold[open]>summary{ margin-bottom:6px; }
   .snitem{
     background:var(--bg); border:1px solid var(--line); border-radius:999px;
     color:var(--ink); font:inherit; font-size:12px; padding:5px 12px; cursor:pointer;
@@ -1737,7 +1738,7 @@
           allBooked:"All booked", leftToDo:"left", nothingToday:"Nothing scheduled",
           markSched:"Booked ahead", markPosted:"Posted", markVerified:"Verified", verifiedTag:"Verified", needUrl:"Paste the link first", addFile:"Add image / video", localOnly:"On this device only", onServer:"Shared",
           storeTitle:"Media store (GitHub)", storeUrl:"owner/repo", storeTok:"Access token", storeSave:"Save",
-          storeOk:"Connected", storeNo:"Could not connect", sure:"Delete?", noImg:"No image needed", pickOne:"Random", snOver:"-char limit exceeded", td7:"Last 7 days", yuBook:"Book", yuBooked:"Booked", yuBookTip:"Mark this as booked. Shows in the Booking tab too", ovSites:"Sites", ovNow:"now", ovEnded:"ended", linkPh:"Paste the link of the post", open:"Open",
+          storeOk:"Connected", storeNo:"Could not connect", sure:"Delete?", noImg:"No image needed", pickOne:"Random", snShow:"Show phrases", snOver:"-char limit exceeded", td7:"Last 7 days", yuBook:"Book", yuBooked:"Booked", yuBookTip:"Mark this as booked. Shows in the Booking tab too", ovSites:"Sites", ovNow:"now", ovEnded:"ended", linkPh:"Paste the link of the post", open:"Open",
           copy:"Copy", copied:"Copied", copyEn:"EN", noText:"No text yet", comment:"Comment",
           visual:"Visual", today:"Today", tomorrow:"Tomorrow", prepEmpty:"Nothing coming up.",
           searchPh:"Search text, title, date…", noMatch:"No matches.", pgPrev:"Prev", pgNext:"Next",
@@ -1788,7 +1789,7 @@
           allBooked:"모두 예약됨", leftToDo:"남음", nothingToday:"예정 없음",
           markSched:"예약 완료", markPosted:"게시 완료", markVerified:"확인 완료", verifiedTag:"확인 완료", needUrl:"먼저 링크를 붙여넣어", addFile:"이미지 / 영상 추가", localOnly:"이 기기에만", onServer:"공유됨",
           storeTitle:"미디어 저장소 (GitHub)", storeUrl:"owner/repo", storeTok:"액세스 토큰", storeSave:"저장",
-          storeOk:"연결됨", storeNo:"연결 실패", sure:"삭제?", noImg:"이미지 불필요", pickOne:"랜덤", snOver:"자 초과", td7:"최근 7일", yuBook:"예약", yuBooked:"예약됨", yuBookTip:"예약 완료로 표시합니다. 예약 탭에도 반영됩니다", ovSites:"사이트", ovNow:"현재", ovEnded:"종료", linkPh:"게시물 링크 붙여넣기", open:"열기",
+          storeOk:"연결됨", storeNo:"연결 실패", sure:"삭제?", noImg:"이미지 불필요", pickOne:"랜덤", snShow:"문구 보기", snOver:"자 초과", td7:"최근 7일", yuBook:"예약", yuBooked:"예약됨", yuBookTip:"예약 완료로 표시합니다. 예약 탭에도 반영됩니다", ovSites:"사이트", ovNow:"현재", ovEnded:"종료", linkPh:"게시물 링크 붙여넣기", open:"열기",
           copy:"복사", copied:"복사됨", copyEn:"EN", noText:"원고 없음", comment:"댓글",
           visual:"비주얼", today:"오늘", tomorrow:"내일", prepEmpty:"예정된 게 없어.",
           searchPh:"본문, 제목, 날짜로 검색…", noMatch:"일치하는 게 없어.", pgPrev:"이전", pgNext:"다음",
@@ -1839,7 +1840,7 @@
           allBooked:"すべて予約ずみ", leftToDo:"残り", nothingToday:"予定なし",
           markSched:"予約完了", markPosted:"投稿完了", markVerified:"投稿確認完了", verifiedTag:"確認完了", needUrl:"先にリンクを貼る", addFile:"画像・動画を入れる", localOnly:"この端末だけ", onServer:"共有ずみ",
           storeTitle:"画像の置き場（GitHub）", storeUrl:"owner/repo", storeTok:"アクセストークン", storeSave:"保存",
-          storeOk:"つながった", storeNo:"つながらない", sure:"消す？", noImg:"画像は要らない", pickOne:"ランダムにコピー", snOver:"字を超えている", td7:"最近7日のタスク", yuBook:"予約", yuBooked:"予約済み", yuBookTip:"予約済みにする。予約タブにも出る", ovSites:"サイト", ovNow:"開催中", ovEnded:"終了", linkPh:"投稿したリンクを貼る", open:"開く",
+          storeOk:"つながった", storeNo:"つながらない", sure:"消す？", noImg:"画像は要らない", pickOne:"ランダムにコピー", snShow:"文を見る", snOver:"字を超えている", td7:"最近7日のタスク", yuBook:"予約", yuBooked:"予約済み", yuBookTip:"予約済みにする。予約タブにも出る", ovSites:"サイト", ovNow:"開催中", ovEnded:"終了", linkPh:"投稿したリンクを貼る", open:"開く",
           copy:"コピー", copied:"コピーした", copyEn:"EN", noText:"原稿なし", comment:"コメント",
           visual:"ビジュアル", today:"今日", tomorrow:"明日", prepEmpty:"先の予定がない。",
           searchPh:"本文・見出し・日付で探す…", noMatch:"一致するものがない。", pgPrev:"前へ", pgNext:"次へ",
@@ -4251,12 +4252,13 @@
           ((sn.items && sn.items.length > 1)
             ? '<div class="snpick"><button class="cpy" data-ck="sn' + si + 'r" data-lg="en">' +
               esc(t("pickOne")) + ' ↻</button><span class="snpicked"></span></div>' : "") +
-          '<div class="snlist">' + (sn.items || []).map(function (it, k) {
+          // 2026-11-06 Hibiki指定: コピーの文は折りたためる（初めはたたむ。開いたかは覚えておく）
+          '<details class="snfold" data-sn-fold="' + esc(c.id + "|" + si) + '"' + (snOpen[c.id + "|" + si] ? ' open' : '') + '><summary>' + esc(t("snShow")) + ' (' + (sn.items || []).length + ')</summary><div class="snlist">' + (sn.items || []).map(function (it, k) {
             copyBank["sn" + si + "_" + k] = { en: it, cur: it };
             var over = sn.max && it.length > sn.max;
             return '<button class="snitem' + (over ? ' over' : '') + '" data-ck="sn' + si + "_" + k + '" data-lg="en" data-n="' + it.length + '"' +
               (over ? ' title="' + esc(sn.max + t("snOver")) + '"' : '') + '>' + esc(it) + '</button>';
-          }).join("") + '</div></div>';
+          }).join("") + '</div></details></div>';
         if (sn.url) copyBank["sn" + si + "u"] = { en: sn.url, cur: sn.url };
         // 「どれか1つ」は押すたびに選び直す。文字数の上限（max）を超える文は引かない（IGのリンクボタンは25字まで・2026-10-05）
         if (sn.items && sn.items.length) {
@@ -6060,6 +6062,8 @@
     return re.test(m[1]) ? String(text).slice(m[0].length) : text;
   }
   var yuReadOpen = {};
+  var snOpen = {};   // 定型文を開いているか（再描画しても保つ）
+  document.addEventListener("toggle", function (e) { if (e.target && e.target.hasAttribute && e.target.hasAttribute("data-sn-fold")) snOpen[e.target.getAttribute("data-sn-fold")] = e.target.open; }, true);
   function yuOptionalPhoto(it) {
     return !String(it.ig || "").trim() && (it.optionalPhoto === true || /写真があれば|写真.*届いたら|if\s+(?:a\s+|new\s+)?photo|사진.*(?:있으면|있을\s*경우)/i.test(String(it.image || "") + " " + String(it.note || "")));
   }
