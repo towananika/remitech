@@ -147,42 +147,6 @@
       "color": "#c0503f",
       "snippets": [
         {
-          "title": "💬 X 他の人のリプライに返事（自分の投稿の下）",
-          "note": "押すとコピーできます",
-          "weight": 5,
-          "max": 60,
-          "groups": [
-            { "name": "🙏 感謝", "count": 7 },
-            { "name": "🌸 歓迎・うれしい", "count": 7 },
-            { "name": "🤝 意見を受け止める（オープン）", "count": 9 }
-          ],
-          "items": [
-            "Thank you for stopping by. 🙏",
-            "Thanks for the kind words. 🪷",
-            "Thank you, that means a lot.",
-            "Really appreciate your support. 🙏",
-            "Thank you for the support.",
-            "Appreciate you reading this.",
-            "That's kind of you to say.",
-            "Glad this reached you.",
-            "Happy to have you with us.",
-            "Nice to hear from you. 🪷",
-            "Thank you. We're glad you're here.",
-            "Glad it resonated with you.",
-            "Thank you for being here.",
-            "Thanks, see you around. 🙏",
-            "Good point. Thanks for sharing it.",
-            "Thanks for joining the conversation.",
-            "Thanks for the thoughtful reply.",
-            "Well said. Thank you.",
-            "Thanks for sharing your view.",
-            "Appreciate you taking the time.",
-            "Every view is welcome here. 🙏",
-            "Interesting perspective. Thank you.",
-            "Open to hearing more from you."
-          ]
-        },
-        {
           "title": "🔁 X 自分の投稿に自分でリプライ",
           "note": "押すとコピーできます",
           "weight": 5,
@@ -255,6 +219,42 @@
             "Thanks for the good energy.",
             "Great share. Have a good day!",
             "Keep building. 🌱"
+          ]
+        },
+        {
+          "title": "💬 X 自分の投稿へのリプライに返事（リプライにまたリプライ）",
+          "note": "押すとコピーできます",
+          "weight": 5,
+          "max": 60,
+          "groups": [
+            { "name": "🙏 感謝", "count": 7 },
+            { "name": "🌸 歓迎・うれしい", "count": 7 },
+            { "name": "🤝 意見を受け止める（オープン）", "count": 9 }
+          ],
+          "items": [
+            "Thank you for stopping by. 🙏",
+            "Thanks for the kind words. 🪷",
+            "Thank you, that means a lot.",
+            "Really appreciate your support. 🙏",
+            "Thank you for the support.",
+            "Appreciate you reading this.",
+            "That's kind of you to say.",
+            "Glad this reached you.",
+            "Happy to have you with us.",
+            "Nice to hear from you. 🪷",
+            "Thank you. We're glad you're here.",
+            "Glad it resonated with you.",
+            "Thank you for being here.",
+            "Thanks, see you around. 🙏",
+            "Good point. Thanks for sharing it.",
+            "Thanks for joining the conversation.",
+            "Thanks for the thoughtful reply.",
+            "Well said. Thank you.",
+            "Thanks for sharing your view.",
+            "Appreciate you taking the time.",
+            "Every view is welcome here. 🙏",
+            "Interesting perspective. Thank you.",
+            "Open to hearing more from you."
           ]
         },
         {
