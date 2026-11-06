@@ -1263,6 +1263,10 @@
   .snpick{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
   .snpicked{ font-size:13.5px; color:var(--ink); font-weight:500; }
   .snlist{ display:flex; flex-wrap:wrap; gap:6px; }
+  .stw{ display:inline-flex; align-items:center; gap:8px; margin-left:auto; flex:none }
+  .stwb{ display:block; width:72px; height:8px; border-radius:4px; background:var(--line); overflow:hidden } .stwb i{ display:block; height:100%; background:var(--sage); border-radius:4px }
+  .stw[data-neg="1"] .stwb i{ background:#c0503f } .stw b{ min-width:44px; text-align:right; font-size:12px; font-weight:600; font-variant-numeric:tabular-nums }
+  .strat-taskhead .stw{ margin:0 10px 0 auto } .strat-taskhead .stwb{ width:44px } .strat-taskhead h4{ min-width:0 } .stwl{ list-style:none; padding-left:0!important } .stwl li{ display:flex; align-items:center; gap:8px; padding:3px 0 } .stwl li>span:first-child{ flex:1; min-width:0 }
   .sngrp{ margin:12px 0 6px; font-size:12.5px; font-weight:600; color:var(--ink); } .sngrp span{ color:var(--muted); font-weight:400; }
   .snfold{ margin-top:8px; } .snfold>summary{ cursor:pointer; font-size:13px; color:var(--muted); padding:6px 0; } .snfold[open]>summary{ margin-bottom:6px; }
   .snitem{
@@ -7283,6 +7287,19 @@
         return '<li>' + esc(x) + (/확인 필요|確認/.test(x) ? ' <span class="yutag">\u26A0 ' + esc(t("mtCheck")) + '</span>' : '') + '</li>'; }).join('') + '</' + tag + '></div>';
     }).join('') + (mtDoc.note ? '<p class="snote">' + esc(mtDoc.note) + '</p>' : '') + '</details>';
   }
+  // Xの重み（2026-08 公開コード home-mixer/params/param.rs の初期値）。作業の右に棒と数字で出し、重い順に並べる（2026-11-06 Hibiki指定）
+  var STRAT_AW = [20, 5, 5, 5, 4, 1, 0.66, -31.2, -52.272, -58.8, -234];   // T.algoXl と同じ並び（コピー共有・DM共有・返信・引用・フォロー・リポスト・いいね・ブロック・興味なし・ミュート・通報）
+  var STRAT_DW = [5, 0.66, 5, 4, null];                                       // STRAT.daily の並び（反応に返す・いいね・一言リプライ・フォロー・記録）
+  function stratFmt(w) { var a = Math.abs(w), r = a < 1 ? a.toFixed(2) : a >= 100 ? a.toFixed(0) : a.toFixed(1); return (w < 0 ? "\u2212" : "") + r; }
+  function stratW(w) {
+    if (w == null) return '';
+    var pct = Math.max(3, Math.round(Math.sqrt(Math.abs(w)) / Math.sqrt(234) * 100));
+    return '<span class="stw" data-neg="' + (w < 0 ? 1 : 0) + '" title="' + esc(String(w)) + '"><span class="stwb"><i style="width:' + pct + '%"></i></span><b>' + esc(stratFmt(w)) + '</b></span>';
+  }
+  function stratByWeight(arr, wOf) {   // 重い順（同じ重さは元の順。重みのないものは最後）
+    return arr.map(function (x, i) { return { x: x, i: i, w: wOf(x, i) }; }).sort(function (a, b) {
+      var aw = a.w == null ? -1e9 : a.w, bw = b.w == null ? -1e9 : b.w; return bw - aw || a.i - b.i; });
+  }
   function stratNachaX(s) {
     var list = function (items) { return '<div class="gstep"><ul>' + items.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ul></div>'; };
     var tags = ['Memecoin', 'CryptoCommunity', 'Pionex'].map(function (tag) {
@@ -7290,8 +7307,9 @@
     }).join('');
     return '<section><h3>' + esc(s.goalsTitle) + '</h3><dl class="strat-metrics">' + s.goals.map(function (x, i) {
         return '<div' + (i === 0 ? ' class="strat-core"' : '') + '><dt>' + esc(x[0]) + '</dt><dd>' + esc(x[1]) + '</dd></div>'; }).join('') + '</dl></section>' +
-      '<section><h3>' + esc(s.dailyTitle) + '</h3><ol class="strat-tasks">' + s.daily.map(function (x, i) {
-        return '<li><span class="strat-step" aria-hidden="true">' + (i + 1) + '</span><div><div class="strat-taskhead"><h4>' + esc(x[0]) + '</h4><span class="strat-limit">' + esc(x[2]) + '</span></div><p>' + esc(x[1]) + '</p></div></li>'; }).join('') +
+      '<section><h3>' + esc(s.dailyTitle) + '</h3><ol class="strat-tasks">' + stratByWeight(s.daily, function (x, i) { return STRAT_DW[i]; }).map(function (o, i) {
+        var x = o.x;
+        return '<li><span class="strat-step" aria-hidden="true">' + (i + 1) + '</span><div><div class="strat-taskhead"><h4>' + esc(x[0]) + '</h4>' + stratW(o.w) + '<span class="strat-limit">' + esc(x[2]) + '</span></div><p>' + esc(x[1]) + '</p></div></li>'; }).join('') +
       '</ol><div class="strat-badges">' + tags + '</div></section>' +
       '<section><h3>' + esc(s.weeklyTitle) + '</h3>' + list(s.weekly) + '</section>' +
       '<section><h3>' + esc(s.dontTitle) + '</h3>' + list(s.dont) + '</section>' +
@@ -7304,17 +7322,23 @@
     ja: { title: "戦略", lead: "プロジェクトごと・チャンネルごとの、作業だけの計画。優先はNACHAのX。", prio: "優先", post: "投稿", work: "毎日の作業", algo: "評価されやすい行動",
       noWork: "決まった作業はありません", like: "いいね {n}件 × {k}回（{t}）", follow: "フォロー +5／−5（{t}）", reply: "リプライ（{t}）", csv: "CSVを取る（{t}）", wk: "平日のみ",
       note: "Xの重みは、2026年8月公開のコード（xai-org/x-algorithm の param.rs）の初期値です。重みは「その動きが起きる予測確率」にかかるので、回数の比ではありません。値は変わることがあります。IGは公式の数値表がなく、責任者の発言をもとにしています。",
-      algoX: ["返信は重み5.0で、いいね（0.66）の約8倍。返信をもらい、こちらも返す", "他の人には、いいねより一言リプライ。質問型を多めにする（返事が付きやすい）", "リンクのコピー共有（20.0）・DMで共有（5.0）・引用（5.0）される投稿は重い", "フォローされる（4.0）", "避ける：通報（−234）・ミュート（−58.8）・興味なし（−52.3）・ブロック（−31.2）"],
+      wleg: "右の棒と数字がXの重み（大きいほど評価されやすい。マイナスは下がる）。棒は平方根の目盛りです。",
+      algoXl: ["リンクのコピーで共有される", "DMで共有される", "返信をもらう・返す", "引用される", "フォローされる", "リポストされる", "いいねされる", "ブロックされる", "「興味なし」にされる", "ミュートされる", "通報される"],
+      algoXtip: "他の人には、いいねより一言リプライ。質問型を多めにすると返事が付きやすい。",
       algoIG: ["コメントとDMに返事する", "動画は最後まで見られる長さにする（見られた時間）", "DMで友だちに送られる内容にする（送られる回数）", "保存・コメントへの返事"] },
     en: { title: "Strategy", lead: "A tasks-only plan for each project and channel. Priority: NACHA on X.", prio: "Priority", post: "Posts", work: "Daily tasks", algo: "Actions the algorithm favors",
       noWork: "No set tasks", like: "{n} likes × {k} ({t})", follow: "Follow +5 / −5 ({t})", reply: "Replies ({t})", csv: "Pull the CSV ({t})", wk: "weekdays only",
       note: "X weights are the defaults in the code released in August 2026 (xai-org/x-algorithm, param.rs). Weights multiply the predicted probability of an action, not raw counts, and may change. Instagram has no official table; this follows statements from its head.",
-      algoX: ["A reply weighs 5.0, about 8× a like (0.66): earn replies and answer them", "On other accounts, a short reply beats a like; favor questions (easier to answer)", "Posts shared by copy link (20.0), by DM (5.0) or quoted (5.0) weigh a lot", "Being followed (4.0)", "Avoid: reports (−234), mutes (−58.8), not interested (−52.3), blocks (−31.2)"],
+      wleg: "The bar and number on the right are X's weight (bigger = favored; negative = pushed down). Bars use a square-root scale.",
+      algoXl: ["Shared by copy link", "Shared by DM", "Get / give replies", "Quoted", "Followed", "Reposted", "Liked", "Blocked", "Marked not interested", "Muted", "Reported"],
+      algoXtip: "On other accounts, a short reply beats a like; favor questions (easier to answer).",
       algoIG: ["Answer comments and DMs", "Keep videos watchable to the end (watch time)", "Make it something people send to a friend by DM (sends)", "Saves, and replying to comments"] },
     ko: { title: "전략", lead: "프로젝트별·채널별 작업 중심 계획. 우선순위는 NACHA의 X.", prio: "우선", post: "게시", work: "매일 할 작업", algo: "알고리즘이 좋아하는 행동",
       noWork: "정해진 작업 없음", like: "좋아요 {n}개 × {k}회 ({t})", follow: "팔로우 +5／−5 ({t})", reply: "답글 ({t})", csv: "CSV 가져오기 ({t})", wk: "평일만",
       note: "X의 가중치는 2026년 8월 공개된 코드(xai-org/x-algorithm, param.rs)의 기본값입니다. 가중치는 행동이 일어날 예측 확률에 곱해지며 횟수의 비율이 아닙니다. 값은 바뀔 수 있습니다. IG는 공식 수치표가 없어 책임자의 발언을 바탕으로 합니다.",
-      algoX: ["답글은 가중치 5.0으로 좋아요(0.66)의 약 8배. 답글을 받고 우리도 답하기", "다른 계정에는 좋아요보다 짧은 답글. 질문형을 많이 (답이 달리기 쉬움)", "링크 복사 공유(20.0)·DM 공유(5.0)·인용(5.0)된 글은 무거움", "팔로우됨(4.0)", "피할 것: 신고(−234)·뮤트(−58.8)·관심 없음(−52.3)·차단(−31.2)"],
+      wleg: "오른쪽 막대와 숫자가 X의 가중치입니다(클수록 유리, 마이너스는 하락). 막대는 제곱근 눈금입니다.",
+      algoXl: ["링크 복사로 공유됨", "DM으로 공유됨", "답글 받기·달기", "인용됨", "팔로우됨", "리포스트됨", "좋아요 받음", "차단당함", "관심 없음 표시됨", "뮤트당함", "신고당함"],
+      algoXtip: "다른 계정에는 좋아요보다 짧은 답글. 질문형을 많이 하면 답이 달리기 쉽습니다.",
       algoIG: ["댓글과 DM에 답하기", "영상은 끝까지 볼 수 있는 길이로 (시청 시간)", "친구에게 DM으로 보내고 싶은 내용으로 (공유 횟수)", "저장, 댓글에 답하기"] }
   };
   var stratProj = "nacha";
@@ -7334,25 +7358,29 @@
     lists.forEach(function (li) {
       var tk = li.tasks || [];
       if (!tk.length) return;
-      if (li.kind === "follow") work.push(stratFill(T.follow, { t: tk[tk.length - 1].time }));
-      else if (li.kind === "reply") work.push(stratFill(T.reply, { t: tk[0].time }) + (tk[0].weekdays ? " · " + T.wk : ""));
-      else if (li.kind === "csv") work.push(stratFill(T.csv, { t: tk[0].time }));
-      else { var m = /LIKE(\d+)/.exec(tk[0].task || ""); work.push(m ? stratFill(T.like, { n: m[1], k: tk.length, t: tk.map(function (x) { return x.time; }).join("・") }) : tk.map(function (x) { return x.task; }).join(" / ")); }
+      var xw = pf === "X";
+      if (li.kind === "follow") work.push({ t: stratFill(T.follow, { t: tk[tk.length - 1].time }), w: xw ? 4 : null });
+      else if (li.kind === "reply") work.push({ t: stratFill(T.reply, { t: tk[0].time }) + (tk[0].weekdays ? " · " + T.wk : ""), w: xw ? 5 : null });
+      else if (li.kind === "csv") work.push({ t: stratFill(T.csv, { t: tk[0].time }), w: null });
+      else { var m = /LIKE(\d+)/.exec(tk[0].task || ""); work.push({ t: m ? stratFill(T.like, { n: m[1], k: tk.length, t: tk.map(function (x) { return x.time; }).join("・") }) : tk.map(function (x) { return x.task; }).join(" / "), w: xw && m ? 0.66 : null }); }
     });
+    if (pf === "X") work = stratByWeight(work, function (x) { return x.w; }).map(function (o) { return o.x; });
     return { posts: posts, work: work };
   }
   function stratProjectHTML(id, T, s) {
     var ul = function (items) { return '<ul>' + items.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ul>'; };
+    var ulw = function (items) { return '<ul class="stwl">' + items.map(function (x) { return '<li><span>' + esc(x.t) + '</span>' + stratW(x.w) + '</li>'; }).join('') + '</ul>'; };
     var h = '';
     STRAT_PF.forEach(function (pf) {
       var c = stratChannel(id, pf, T);
       if (!c.posts.length && !c.work.length) return;
-      var algo = pf === "X" ? T.algoX : pf === "IG" ? T.algoIG : null, star = id === "nacha" && pf === "X";
+      var algo = pf === "IG" ? T.algoIG : null, star = id === "nacha" && pf === "X";
       h += '<section class="strat-ch"' + (star ? ' data-prio="1"' : '') + '><h3>' + esc(pfn(pf)) + (star ? ' <span class="yutag fix">' + esc(T.prio) + '</span>' : '') + '</h3>' +
         (star ? stratNachaX(s) : '') +
         '<h4>' + esc(T.post) + '</h4>' + (c.posts.length ? ul(c.posts) : '<p class="tiny">–</p>') +
-        (star ? '' : '<h4>' + esc(T.work) + '</h4>' + (c.work.length ? ul(c.work) : '<p class="tiny">' + esc(T.noWork) + '</p>')) +
-        (algo ? '<h4>' + esc(T.algo) + '</h4>' + ul(algo) : '') + '</section>';
+        (star ? '' : '<h4>' + esc(T.work) + '</h4>' + (c.work.length ? ulw(c.work) : '<p class="tiny">' + esc(T.noWork) + '</p>')) +
+        (pf === "X" ? '<h4>' + esc(T.algo) + '</h4><p class="tiny">' + esc(T.wleg) + '</p>' + ulw(stratByWeight(T.algoXl, function (x, i) { return STRAT_AW[i]; }).map(function (o) { return { t: o.x, w: o.w }; })) + '<p class="tiny">' + esc(T.algoXtip) + '</p>'
+          : algo ? '<h4>' + esc(T.algo) + '</h4>' + ul(algo) : '') + '</section>';
     });
     return h;
   }
