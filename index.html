@@ -7740,6 +7740,13 @@
     if (savePending) flushSave();
     document.title = isReelPage() ? "REEL · REMITECH HUB" : "REMITECH HUB";
     if (isReelPage()) { tab = "prep"; filter = "reel"; renderNav(); renderChans(); renderSubnav(); syncWide(); renderReel(); return; }
+    // 2026-11-06 remitech「/nachaを作ってアクセスしたい」: /remitech/nacha/（→ #/nacha）で、準備タブを NACHA だけに絞って開く
+    var chm = location.hash.match(/^#\/(nacha|hiyoko|yuyu|ret)\/?$/);
+    if (chm && chanOf(chm[1])) {
+      tab = "prep"; filter = chm[1];
+      try { history.replaceState(null, "", location.pathname + location.search); } catch (e0) { location.hash = ""; }
+      renderNav(); renderChans(); syncWide();
+    }
     if ((tab === "prep" || tab === "prep2" || tab === "reel") && filter === "reel" && !location.hash) { tab = "prep"; location.hash = "#/prep/reel"; return; }
     renderSubnav();
     var pm = location.hash.match(/^#\/prep\/(.+)$/);
