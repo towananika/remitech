@@ -47,7 +47,7 @@ export default {
     if (request.method === "OPTIONS") return new Response(null, { headers: cors(origin) });
     const url = new URL(request.url);
     if (!["/chores", "/book", "/code", "/ws", "/editor"].includes(url.pathname) &&
-        !/^\/(auth\/(register|login|renew|logout|logoutall|password|reset|resetcode|delete|users|member|suspend|revoke)|internal\/[a-z0-9_-]{1,30}|fetchreq(\/state)?)$/.test(url.pathname)) {
+        !/^\/(auth\/(register|login|renew|logout|logoutall|password|reset|resetcode|delete|users|member|suspend|revoke|admin)|internal\/[a-z0-9_-]{1,30}|fetchreq(\/state)?)$/.test(url.pathname)) {
       return json({ ok: true, service: "remitech-chores" }, 200, origin);
     }
     const stub = env.HUB.get(env.HUB.idFromName("main"));
@@ -353,8 +353,11 @@ export class HubDO extends DurableObject {
   // 社内の文書（悠悠観音堂の企画など）は公開リポジトリに置けないので、ログインした「社内」の人にだけここから渡す。
   //   u:<id>      { id, salt, hash, iter, created, member }   PW は PBKDF2 で変えた形だけ持つ（元に戻せない）
   //   ss:<鍵の SHA-256>  { id, exp }   ログインは7日。画面は1日1回だけ /auth/renew で7日に延ばす
-  //   管理者は env.ADMIN_IDS（wrangler secret。IDをカンマ区切り）だけで決まる。画面から管理者は作れない
-  //   社内（member）を付けられるのは管理者だけ
+  //   オーナーは env.ADMIN_IDS（wrangler secret。IDをカンマ区切り）だけで決まる。画面からオーナーは作れない・変えられない
+  //   管理者（2026-11-09 Hibiki指定）: オーナーが会員を管理者にできる。管理者もオーナー以外の会員を管理者にできる。
+  //     管理者を外せるのはオーナーだけ。オーナーはだれも操作できない。管理者を停止・削除・ログアウトできるのもオーナーだけ
+  //   会員登録した人は一般ユーザー（member:false）。社内（member）を付けられるのは管理者だけ
+  //   メールアドレスは登録時に任意で預かるだけ（確認メールの仕組みがないので、権限には使わない）
   async auth(op, request, origin) {
     if (request.method !== "POST" && !(op === "users" && request.method === "GET")) return json({ error: "method" }, 405, origin);
     if (origin && !ALLOWED.includes(origin)) return json({ error: "origin" }, 403, origin);
@@ -378,8 +381,12 @@ export class HubDO extends DurableObject {
         const count = (await this.ctx.storage.list({ prefix: "u:", limit: 301 })).size;
         if (count >= 300) return json({ error: "full" }, 409, origin);
         await this.bump("R:" + ip, 3600);
+        const email = typeof b.email === "string" ? b.email.trim().toLowerCase() : "";
+        if (email && (email.length > 100 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))) return json({ error: "email" }, 400, origin);
         const salt = randHex(16);
-        await this.ctx.storage.put("u:" + id, { id, salt, iter: PW_ITER, hash: await pbkdf2Hex(pw, salt, PW_ITER), created: new Date().toISOString(), member: false });
+        const nu = { id, salt, iter: PW_ITER, hash: await pbkdf2Hex(pw, salt, PW_ITER), created: new Date().toISOString(), member: false };
+        if (email) nu.email = email;
+        await this.ctx.storage.put("u:" + id, nu);
         return this.newSession(id, origin);
       }
       // ログイン: 同じ IP から15分に10回、同じ ID に1時間に10回まちがえたら止める
@@ -438,13 +445,16 @@ export class HubDO extends DurableObject {
       await this.endSessions(s.user.id, null);
       return this.newSession(s.user.id, origin);
     }
-    if (!this.isAdmin(s.user.id)) return json({ error: "admin" }, 403, origin);
+    if (!this.isAdminUser(s.user)) return json({ error: "admin" }, 403, origin);
+    const callerOwner = this.isOwner(s.user.id);
+    // オーナーはだれも操作できない。ほかの管理者を操作できるのはオーナーだけ
+    const protectedUser = (u) => this.isOwner(u.id) || (!callerOwner && this.isAdminUser(u));
     if (op === "suspend" || op === "revoke") {
       const b = await readJson(request);
       const id = typeof (b && b.id) === "string" ? b.id.trim().toLowerCase() : "";
       const u = await this.ctx.storage.get("u:" + id);
       if (!u) return json({ error: "no-user" }, 404, origin);
-      if (this.isAdmin(id)) return json({ error: "admin-user" }, 400, origin);
+      if (protectedUser(u)) return json({ error: "admin-user" }, 400, origin);
       if (op === "suspend") {
         if (typeof b.suspended !== "boolean") return json({ error: "bad-json" }, 400, origin);
         u.suspended = b.suspended;
@@ -467,7 +477,8 @@ export class HubDO extends DurableObject {
     if (op === "delete") {
       const b = await readJson(request);
       const id = typeof (b && b.id) === "string" ? b.id.toLowerCase() : "";
-      if (this.isAdmin(id)) return json({ error: "admin-user" }, 400, origin);   // 管理者は消せない
+      const du = await this.ctx.storage.get("u:" + id);
+      if (this.isOwner(id) || (du && protectedUser(du))) return json({ error: "admin-user" }, 400, origin);   // オーナーは消せない。管理者を消せるのはオーナーだけ
       await this.ctx.storage.delete("u:" + id);
       await this.ctx.storage.delete("rc:" + id);
       await this.endSessions(id, null);
@@ -484,10 +495,26 @@ export class HubDO extends DurableObject {
       const id = typeof (b && b.id) === "string" ? b.id.toLowerCase() : "";
       const u = await this.ctx.storage.get("u:" + id);
       if (!u) return json({ error: "no-user" }, 404, origin);
-      if (this.isAdmin(id)) return json({ error: "admin-user" }, 400, origin);
+      if (this.isOwner(id) || this.isAdminUser(u)) return json({ error: "admin-user" }, 400, origin);   // 管理者は社内のまま（外すときは先に管理者を外す）
       if (typeof b.member !== "boolean") return json({ error: "bad-json" }, 400, origin);
       u.member = b.member;
       await this.ctx.storage.put("u:" + id, u);
+      return json({ ok: true, user: this.publicUser(u) }, 200, origin);
+    }
+    if (op === "admin") {
+      // 管理者にする（オーナー・管理者）／外す（オーナーだけ）
+      const b = await readJson(request);
+      const id = typeof (b && b.id) === "string" ? b.id.trim().toLowerCase() : "";
+      if (typeof (b && b.admin) !== "boolean") return json({ error: "bad-json" }, 400, origin);
+      const u = await this.ctx.storage.get("u:" + id);
+      if (!u) return json({ error: "no-user" }, 404, origin);
+      if (this.isOwner(id)) return json({ error: "admin-user" }, 400, origin);
+      if (!b.admin && !callerOwner) return json({ error: "owner" }, 403, origin);
+      if (u.suspended && b.admin) return json({ error: "suspended" }, 400, origin);
+      u.admin = b.admin;
+      if (b.admin) u.member = true;
+      await this.ctx.storage.put("u:" + id, u);
+      if (!b.admin) await this.endSessions(id, null);   // 外したら、開いている管理画面も閉じさせる
       return json({ ok: true, user: this.publicUser(u) }, 200, origin);
     }
     return json({ error: "op" }, 404, origin);
@@ -501,12 +528,16 @@ export class HubDO extends DurableObject {
     const all = await this.ctx.storage.list({ prefix: "ss:" });
     for (const [k, v] of all) if (k !== keepKey && (!v || v.id === id || v.exp < Date.now())) await this.ctx.storage.delete(k);
   }
-  isAdmin(id) {
+  isOwner(id) {
     return String(this.env.ADMIN_IDS || "").split(",").map((x) => x.trim().toLowerCase()).filter(Boolean).includes(id);
   }
+  isAdmin(id) { return this.isOwner(id); }   // 古い呼び出し用（オーナーかどうか）
+  isAdminUser(u) { return !!u && (this.isOwner(u.id) || (!!u.admin && !u.suspended)); }
   publicUser(u) {
-    const admin = this.isAdmin(u.id);
-    return { id: u.id, member: !!u.member || admin, admin, created: u.created, changePasswordSuggested: !!u.changePasswordSuggested, suspended: !!u.suspended };
+    const owner = this.isOwner(u.id), admin = this.isAdminUser(u);
+    const pu = { id: u.id, member: !!u.member || admin, admin, owner, created: u.created, changePasswordSuggested: !!u.changePasswordSuggested, suspended: !!u.suspended };
+    if (u.email) pu.email = u.email;
+    return pu;
   }
   async newSession(id, origin) {
     const token = randHex(32), exp = Date.now() + SESSION_MS;
