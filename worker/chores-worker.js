@@ -374,9 +374,14 @@ export class HubDO extends DurableObject {
       if (text.length > MAX_BODY) return json({ error: "too-large" }, 413, origin);
       let b;
       try { b = JSON.parse(text); } catch (e) { return json({ error: "bad-json" }, 400, origin); }
-      const id = typeof (b && b.id) === "string" ? b.id.trim().toLowerCase() : "";
+      let id = typeof (b && b.id) === "string" ? b.id.trim().toLowerCase() : "";
       const pw = typeof (b && b.pw) === "string" ? b.pw : "";
-      if (!/^[a-z0-9_.-]{3,20}$/.test(id)) return json({ error: "id" }, 400, origin);
+      // メールで登録・ログイン（2026-11-09 Hibiki指定）。メールで登録するとIDは@の前から自動で作る。
+      // 確認メールはまだ送らない（あとで強化）。なのでメールは権限にも、Google とのつなぎにも使わない
+      let noEmail = false;   // 見つからないメールでも、いない ID と同じ返事・同じ時間にする
+      if (op === "login" && id.includes("@")) { const f = await this.findByEmail(id); noEmail = !f; id = f || "~nobody"; }
+      if (op === "register" && !id && typeof b.email === "string" && b.email.includes("@")) id = await this.freeId(b.email);
+      if (!noEmail && !/^[a-z0-9_.-]{3,20}$/.test(id)) return json({ error: "id" }, 400, origin);
       if (pw.length < 8 || pw.length > 64) return json({ error: "pw" }, 400, origin);
       if (op === "register") {
         if (pw.toLowerCase() === id) return json({ error: "pw-id" }, 400, origin);   // ID と同じ PW は使えない
@@ -388,6 +393,7 @@ export class HubDO extends DurableObject {
         await this.bump("R:" + ip, 3600);
         const email = typeof b.email === "string" ? b.email.trim().toLowerCase() : "";
         if (email && (email.length > 100 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))) return json({ error: "email" }, 400, origin);
+        if (email && await this.findByEmail(email)) return json({ error: "email-taken" }, 409, origin);
         const salt = randHex(16);
         const nu = { id, salt, iter: PW_ITER, hash: await pbkdf2Hex(pw, salt, PW_ITER), created: new Date().toISOString(), member: false };
         if (email) nu.email = email;
@@ -397,7 +403,7 @@ export class HubDO extends DurableObject {
       }
       // ログイン: 同じ IP から15分に10回、同じ ID に1時間に10回まちがえたら止める
       if (await this.limited("L:" + ip, 10, 900) || await this.limited("I:" + id, 10, 3600)) return json({ error: "too-many" }, 429, origin);
-      const u = await this.ctx.storage.get(this.P.u + id);
+      const u = noEmail ? null : await this.ctx.storage.get(this.P.u + id);
       // いない ID でも同じだけ時間をかける（返事の速さで ID の有無が分からないように）
       const h = await pbkdf2Hex(pw, u && u.salt ? u.salt : "00", u ? u.iter || PW_ITER : PW_ITER);
       const ok = !!u && !!u.hash && !u.suspended && safeEqual(h, u.hash);
@@ -416,10 +422,7 @@ export class HubDO extends DurableObject {
         const count = (await this.ctx.storage.list({ prefix: this.P.u, limit: 301 })).size;
         if (count >= 300) return json({ error: "full" }, 409, origin);
         await this.bump("R:" + ip, 3600);
-        let base = g.email.split("@")[0].toLowerCase().replace(/[^a-z0-9_.-]/g, "").slice(0, 16);
-        if (base.length < 3) base = base + "user";
-        id = base;
-        for (let n = 2; await this.ctx.storage.get(this.P.u + id); n++) id = base + n;
+        id = await this.freeId(g.email);
         u = { id, created: new Date().toISOString(), member: false, email: g.email, google: g.email };
         await this.ctx.storage.put("g:" + g.sub, id);
       }
@@ -591,6 +594,20 @@ export class HubDO extends DurableObject {
     if (u.email) pu.email = u.email;
     if (u.google) pu.google = u.google;
     return pu;
+  }
+  // メールからまだ使われていないIDを作る（@の前。短ければ user を足す。重なれば 2, 3…）
+  async freeId(email) {
+    let base = String(email).split("@")[0].toLowerCase().replace(/[^a-z0-9_.-]/g, "").slice(0, 16);
+    if (base.length < 3) base = base + "user";
+    let id = base;
+    for (let n = 2; await this.ctx.storage.get(this.P.u + id); n++) id = base + n;
+    return id;
+  }
+  // パスワードを持つアカウントの中からメールで探す（会員は300人までなので全部見る）
+  async findByEmail(email) {
+    const e = String(email).trim().toLowerCase();
+    for (const [, u] of await this.ctx.storage.list({ prefix: this.P.u })) if (u && u.hash && u.email === e) return u.id;
+    return null;
   }
   async verifyGoogle(request) {
     const aud = String(this.env.GOOGLE_CLIENT_ID || "");

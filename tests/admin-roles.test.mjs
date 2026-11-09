@@ -105,3 +105,18 @@ test('front door lets google routes through to the hub object',async()=>{
  for(const p of ['/auth/google','/auth/googlelink','/auth/google-config','/nacha/auth/google','/nacha/auth/googlelink','/nacha/auth/google-config'])await mod.default.fetch(new Request('https://w'+p,{method:'POST'}),env);
  assert.equal(hit,6);
 });
+// メールで会員登録（2026-11-09）
+test('register with email only makes an id, then login works with the email',async()=>{
+ const c=setup(null);c.hub.limited=async()=>false;c.hub.bump=async()=>{};
+ let r=await c.call('register',{email:'Hello.World@Example.com',pw:'longpassword'});
+ assert.equal(r.ok,true);assert.equal(r.user.id,'hello.world');assert.equal(r.user.member,false);
+ assert.equal((await c.call('register',{email:'hello.world@example.com',pw:'longpassword'})).status,409);
+ r=await c.call('login',{id:'HELLO.WORLD@example.com',pw:'longpassword'});assert.equal(r.ok,true);assert.equal(r.user.id,'hello.world');
+ assert.equal((await c.call('login',{id:'hello.world@example.com',pw:'wrongpassword'})).status,403);
+ assert.equal((await c.call('login',{id:'nobody@example.com',pw:'longpassword'})).error,'wrong');
+ assert.equal((await c.call('login',{id:'hello.world',pw:'longpassword'})).ok,true);
+});
+test('google-only accounts are not found by email login',async()=>{
+ const c=gsetup(null);await c.call('google',{credential:'good'});
+ assert.equal((await c.call('login',{id:'fan.club@gmail.com',pw:'longpassword'})).error,'wrong');
+});
