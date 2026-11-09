@@ -99,3 +99,9 @@ test('a logged-in user can link google, then google opens that account',async()=
 test('google is off without a client id',async()=>{
  const c=gsetup(null);c.hub.env.GOOGLE_CLIENT_ID='';assert.equal((await c.call('google',{credential:'good'})).status,503);
 });
+test('front door lets google routes through to the hub object',async()=>{
+ const mod=await import('data:text/javascript;base64,'+Buffer.from(source).toString('base64'));
+ let hit=0;const env={HUB:{idFromName:()=>1,get:()=>({fetch:async()=>{hit++;return new Response('{}')}})}};
+ for(const p of ['/auth/google','/auth/googlelink','/auth/google-config','/nacha/auth/google','/nacha/auth/googlelink','/nacha/auth/google-config'])await mod.default.fetch(new Request('https://w'+p,{method:'POST'}),env);
+ assert.equal(hit,6);
+});

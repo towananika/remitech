@@ -47,7 +47,7 @@ export default {
     if (request.method === "OPTIONS") return new Response(null, { headers: cors(origin) });
     const url = new URL(request.url);
     if (!["/chores", "/book", "/code", "/ws", "/editor"].includes(url.pathname) &&
-        !/^\/(auth\/(register|login|renew|logout|logoutall|password|reset|resetcode|delete|users|member|suspend|revoke|admin)|internal\/[a-z0-9_-]{1,30}|nacha\/auth\/(register|login|renew|logout|logoutall|password|reset|resetcode|delete|users|member|suspend|revoke|admin)|nacha\/internal\/[a-z0-9_-]{1,30}|fetchreq(\/state)?)$/.test(url.pathname)) {
+        !/^\/(auth\/(register|login|renew|logout|logoutall|password|reset|resetcode|delete|users|member|suspend|revoke|admin|google|googlelink|google-config)|internal\/[a-z0-9_-]{1,30}|nacha\/auth\/(register|login|renew|logout|logoutall|password|reset|resetcode|delete|users|member|suspend|revoke|admin|google|googlelink|google-config)|nacha\/internal\/[a-z0-9_-]{1,30}|fetchreq(\/state)?)$/.test(url.pathname)) {
       return json({ ok: true, service: "remitech-chores" }, 200, origin);
     }
     const stub = env.HUB.get(env.HUB.idFromName("main"));
