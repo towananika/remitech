@@ -73,7 +73,7 @@ test('hub owner is also NACHA owner without extra setup',async()=>{
 // Googleでログイン（2026-11-09）
 function gsetup(actor){
  const c=setup(actor);c.hub.limited=async()=>false;c.hub.bump=async()=>{};c.hub.env.GOOGLE_CLIENT_ID='cid';
- globalThis.fetch=async u=>{const tok=new URL(u).searchParams.get('id_token');const m={good:{aud:'cid',iss:'accounts.google.com',email_verified:'true',exp:String(Date.now()/1000+600),sub:'111',email:'Fan.Club@gmail.com'},other:{aud:'other',iss:'accounts.google.com',email_verified:'true',exp:String(Date.now()/1000+600),sub:'222',email:'x@gmail.com'}}[tok];return new Response(JSON.stringify(m||{}),{status:m?200:400});};
+ globalThis.fetch=async u=>{const tok=new URL(u).searchParams.get('id_token');const tk=tok.length>1500?tok.slice(0,4):tok;const m0={good:{aud:'cid',iss:'accounts.google.com',email_verified:'true',exp:String(Date.now()/1000+600),sub:'111',email:'Fan.Club@gmail.com'},other:{aud:'other',iss:'accounts.google.com',email_verified:'true',exp:String(Date.now()/1000+600),sub:'222',email:'x@gmail.com'}}[tk];const m=m0;return new Response(JSON.stringify(m||{}),{status:m?200:400});};
  return c;
 }
 test('google config exposes only the public client id',async()=>{
@@ -119,4 +119,7 @@ test('register with email only makes an id, then login works with the email',asy
 test('google-only accounts are not found by email login',async()=>{
  const c=gsetup(null);await c.call('google',{credential:'good'});
  assert.equal((await c.call('login',{id:'fan.club@gmail.com',pw:'longpassword'})).error,'wrong');
+});
+test('real-size google tokens (over 1KB) are accepted',async()=>{
+ const c=gsetup(null);const r=await c.call('google',{credential:'good'+'x'.repeat(1600)});assert.equal(r.ok,true);
 });

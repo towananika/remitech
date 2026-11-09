@@ -612,7 +612,7 @@ export class HubDO extends DurableObject {
   async verifyGoogle(request) {
     const aud = String(this.env.GOOGLE_CLIENT_ID || "");
     if (!aud) return { error: "google-off", status: 503 };
-    const b = await readJson(request);
+    const b = await readJson(request, 8192);   // Google のトークンは 1000 字を超えるので、ここだけ大きめ
     const cred = typeof (b && b.credential) === "string" ? b.credential : "";
     if (!cred || cred.length > 4096) return { error: "google" };
     let t;
@@ -736,9 +736,9 @@ async function pbkdf2Hex(pw, saltHex, iter) {
   const bits = await crypto.subtle.deriveBits({ name: "PBKDF2", hash: "SHA-256", salt, iterations: iter }, key, 256);
   return [...new Uint8Array(bits)].map((x) => x.toString(16).padStart(2, "0")).join("");
 }
-async function readJson(request) {
+async function readJson(request, max) {
   const text = await request.text();
-  if (text.length > MAX_BODY) return null;
+  if (text.length > (max || MAX_BODY)) return null;
   try { return JSON.parse(text); } catch (e) { return null; }
 }
 function clientIp(request) {
