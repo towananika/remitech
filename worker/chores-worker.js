@@ -47,7 +47,7 @@ export default {
     if (request.method === "OPTIONS") return new Response(null, { headers: cors(origin) });
     const url = new URL(request.url);
     if (!["/chores", "/book", "/code", "/ws", "/editor"].includes(url.pathname) &&
-        !/^\/(auth\/(register|login|renew|logout|logoutall|password|reset|resetcode|delete|users|member|suspend|revoke|admin|google|googlelink|google-config)|internal\/[a-z0-9_-]{1,30}|nacha\/auth\/(register|login|renew|logout|logoutall|password|reset|resetcode|delete|users|member|suspend|revoke|admin|google|googlelink|google-config)|nacha\/internal\/[a-z0-9_-]{1,30}|fetchreq(\/state)?)$/.test(url.pathname)) {
+        !/^\/(auth\/(register|login|renew|logout|logoutall|password|reset|resetcode|delete|users|member|suspend|revoke|admin|google|googlelink|google-config)|internal\/[a-z0-9_-]{1,30}|nacha\/auth\/(register|login|renew|logout|logoutall|password|reset|resetcode|delete|users|member|suspend|revoke|admin|dev|devdocs|devput|devdel|google|googlelink|google-config)|nacha\/internal\/[a-z0-9_-]{1,30}|fetchreq(\/state)?)$/.test(url.pathname)) {
       return json({ ok: true, service: "remitech-chores" }, 200, origin);
     }
     const stub = env.HUB.get(env.HUB.idFromName("main"));
@@ -476,6 +476,7 @@ export class HubDO extends DurableObject {
       return json({ ok: true, user: this.publicUser(s.user) }, 200, origin);
     }
     if (op === "logoutall") { await this.endSessions(s.user.id, null); return json({ ok: true }, 200, origin); }
+    if (this.P.site && ["devdocs", "devput", "devdel"].includes(op)) return this.devDocs(op, s, request, origin);
     if (op === "password") {
       // PW の変更は今の PW を入れ直してから（開きっぱなしの端末で勝手に変えられないように）。
       // 変えたらほかの端末はログアウト、この端末は新しい鍵に替える
@@ -551,6 +552,18 @@ export class HubDO extends DurableObject {
       await this.ctx.storage.put(this.P.u + id, u);
       return json({ ok: true, user: this.publicUser(u) }, 200, origin);
     }
+    if (op === "dev" && this.P.site) {
+      // 開発者にする／外す（管理者・オーナー）。管理者とオーナーはいつも開発者
+      const b = await readJson(request);
+      const id = typeof (b && b.id) === "string" ? b.id.trim().toLowerCase() : "";
+      if (typeof (b && b.dev) !== "boolean") return json({ error: "bad-json" }, 400, origin);
+      const u = await this.ctx.storage.get(this.P.u + id);
+      if (!u) return json({ error: "no-user" }, 404, origin);
+      if (this.isAdminUser(u)) return json({ error: "admin-user" }, 400, origin);
+      this.setRole(u, { dev: b.dev });
+      await this.ctx.storage.put(this.P.u + id, u);
+      return json({ ok: true, user: this.publicUser(u) }, 200, origin);
+    }
     if (op === "admin") {
       // 管理者にする（オーナー・管理者）／外す（オーナーだけ）
       const b = await readJson(request);
@@ -595,7 +608,7 @@ export class HubDO extends DurableObject {
   isAdminUser(u) { return !!u && (this.isOwner(u) || (!!this.role(u).admin && !u.suspended)); }
   publicUser(u) {
     const owner = this.isOwner(u), admin = this.isAdminUser(u);
-    const pu = { id: u.id, member: !!this.role(u).member || admin, admin, owner, created: u.created, changePasswordSuggested: !!u.changePasswordSuggested, suspended: !!u.suspended };
+    const pu = { id: u.id, member: !!this.role(u).member || admin, dev: !!this.role(u).dev || admin, admin, owner, created: u.created, changePasswordSuggested: !!u.changePasswordSuggested, suspended: !!u.suspended };
     if (u.email) pu.email = u.email;
     if (u.google) pu.google = u.google;
     pu.hasPassword = !!u.hash;
@@ -679,10 +692,42 @@ export class HubDO extends DurableObject {
     if (request.method !== "GET") return json({ error: "method" }, 405, origin);
     const s = await this.session(request);
     if (!s) return json({ error: "login" }, 401, origin);
-    if (!this.publicUser(s.user).member) return json({ error: "member" }, 403, origin);
+    const pu = this.publicUser(s.user);
+    if (this.P.site && isDevDoc(name)) { if (!pu.dev) return json({ error: "dev" }, 403, origin); }
+    else if (!pu.member) return json({ error: "member" }, 403, origin);
     const doc = this.env.CHORES ? await this.env.CHORES.get(this.P.kv + name, "json") : null;
     if (!doc) return json({ error: "none" }, 404, origin);
     return json(doc, 200, origin, { "Cache-Control": "private, no-store" });
+  }
+
+  // ---- 開発資料（サイトの開発者だけ）----
+  // nin:nachadev（wrangler で入れた資料）と、開発ページから足した nin:dev-<名前>。中身は KV だけに置く（公開リポジトリには置かない）
+  async devDocs(op, s, request, origin) {
+    if (!this.publicUser(s.user).dev) return json({ error: "dev" }, 403, origin);
+    const kv = this.env.CHORES;
+    if (!kv) return json({ error: "none" }, 503, origin);
+    if (op === "devdocs") {
+      const docs = [];
+      const base = await kv.get(this.P.kv + "nachadev", "json");
+      if (base) docs.push({ name: "nachadev", title: base.title || "nachadev", fixed: true });
+      let cursor;
+      do {
+        const page = await kv.list({ prefix: this.P.kv + "dev-", cursor });
+        for (const k of page.keys) docs.push(Object.assign({ name: k.name.slice(this.P.kv.length) }, k.metadata || {}));
+        cursor = page.list_complete ? null : page.cursor;
+      } while (cursor);
+      return json({ docs }, 200, origin, { "Cache-Control": "private, no-store" });
+    }
+    const b = await readJson(request, 120000);
+    const name = typeof (b && b.name) === "string" ? b.name.trim().toLowerCase() : "";
+    if (!/^dev-[a-z0-9-]{1,30}$/.test(name)) return json({ error: "bad-name" }, 400, origin);
+    if (op === "devdel") { await kv.delete(this.P.kv + name); return json({ ok: true }, 200, origin); }
+    const title = typeof b.title === "string" ? b.title.trim().slice(0, 80) : "";
+    const text = typeof b.text === "string" ? b.text : "";
+    if (!title || !text.trim() || text.length > 100000) return json({ error: "bad-doc" }, 400, origin);
+    const at = new Date().toISOString(), meta = { title, by: s.user.id, at };
+    await kv.put(this.P.kv + name, JSON.stringify(Object.assign({ text }, meta)), { metadata: meta });
+    return json({ ok: true, name }, 200, origin);
   }
 
   // ---- パスワード ----
@@ -750,6 +795,8 @@ async function pbkdf2Hex(pw, saltHex, iter) {
   const bits = await crypto.subtle.deriveBits({ name: "PBKDF2", hash: "SHA-256", salt, iterations: iter }, key, 256);
   return [...new Uint8Array(bits)].map((x) => x.toString(16).padStart(2, "0")).join("");
 }
+// 開発者だけが読む資料の名前（nachadev と dev-…）
+function isDevDoc(name) { return name === "nachadev" || name.startsWith("dev-"); }
 async function readJson(request, max) {
   const text = await request.text();
   if (text.length > (max || MAX_BODY)) return null;

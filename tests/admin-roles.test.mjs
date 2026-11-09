@@ -132,3 +132,33 @@ test('google sign-in with the owner email makes the owner; plain email accounts 
  assert.equal(r.user.hasPassword,false);assert.ok(r.user.lastAt);
  const n=c.hub.nacha();const pu=n.publicUser(c.data.get('u:jaykim.can2'));assert.equal(pu.owner,true);
 });
+
+// 開発者の権限と開発資料（2026-11-09）
+test('NACHA developer role: admins grant it, only developers read and add dev docs',async()=>{
+ const data=new Map([['u:nboss',{id:'nboss'}],['u:adm',{id:'adm',sites:{nacha:{joined:'x',admin:true}}}],['u:fan',{id:'fan',sites:{nacha:{joined:'x'}}}],['u:mem',{id:'mem',sites:{nacha:{joined:'x',member:true}}}]]);
+ const storage={get:async k=>structuredClone(data.get(k)),put:async(k,v)=>data.set(k,structuredClone(v)),delete:async k=>data.delete(k),list:async({prefix})=>new Map([...data].filter(([k])=>k.startsWith(prefix)))};
+ const kvm=new Map([['nin:nachadev',{v:JSON.stringify({title:'deck'})}]]);
+ const kv={get:async(k,t)=>kvm.has(k)?(t==='json'?JSON.parse(kvm.get(k).v):kvm.get(k).v):null,put:async(k,v,o)=>kvm.set(k,{v,m:o&&o.metadata}),delete:async k=>kvm.delete(k),list:async({prefix})=>({keys:[...kvm].filter(([k])=>k.startsWith(prefix)).map(([name,x])=>({name,metadata:x.m})),list_complete:true})};
+ const hub=Object.create(HubDO.prototype);hub.ctx={storage};hub.env={NACHA_OWNER_IDS:'nboss',CHORES:kv};hub.limited=async()=>false;hub.bump=async()=>{};
+ const n=hub.nacha();let who='fan';n.session=async()=>({key:'ss:t',val:{},user:data.get('u:'+who)});
+ const post=(op,body)=>n.auth(op,new Request('https://t/'+op,{method:'POST',body:JSON.stringify(body||{})}),'http://localhost:8899').then(async r=>({status:r.status,...await r.json()}));
+ const get=(name)=>n.internal(name,new Request('https://t/x'),'http://localhost:8899');
+ // general user and 関係者 cannot see dev docs
+ assert.equal((await post('devdocs')).status,403);who='mem';assert.equal((await post('devdocs')).status,403);assert.equal((await get('nachadev')).status,403);
+ // 関係者 cannot grant
+ assert.equal((await post('dev',{id:'fan',dev:true})).status,403);
+ // admin grants dev; admins are always dev
+ who='adm';assert.equal(n.publicUser(data.get('u:adm')).dev,true);
+ let r=await post('dev',{id:'mem',dev:true});assert.equal(r.user.dev,true);assert.equal(r.user.member,true);
+ assert.equal((await post('dev',{id:'nboss',dev:false})).status,400,'owner cannot be changed');
+ // developer lists, adds, reads, deletes
+ who='mem';r=await post('devdocs');assert.deepEqual(r.docs.map(d=>d.name),['nachadev']);
+ r=await post('devput',{name:'dev-memo1',title:'Memo',text:'hello'});assert.equal(r.ok,true);
+ r=await post('devdocs');assert.deepEqual(r.docs.map(d=>d.name),['nachadev','dev-memo1']);assert.equal(r.docs[1].title,'Memo');assert.equal(r.docs[1].by,'mem');
+ assert.equal((await (await get('dev-memo1')).json()).text,'hello');
+ assert.equal((await post('devput',{name:'nachadev',title:'x',text:'y'})).status,400,'cannot overwrite the deck');
+ assert.equal((await post('devput',{name:'dev-a',title:'',text:'y'})).status,400);
+ assert.equal((await post('devdel',{name:'dev-memo1'})).ok,true);assert.equal(kvm.has('nin:dev-memo1'),false);
+ // removing the role closes it again
+ who='adm';await post('dev',{id:'mem',dev:false});who='mem';assert.equal((await post('devdocs')).status,403);
+});
