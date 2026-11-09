@@ -18,4 +18,4 @@ new_sqlite_classes = ["HubDO"]
 
 [vars]
 # Googleでログインのボタン用（公開してよい値）。Google Cloud の「OAuth クライアント ID」を入れる
-GOOGLE_CLIENT_ID = ""
+GOOGLE_CLIENT_ID = "317584786028-od8l9i288mnjrd10r7g4r7rnqsruu8fd.apps.googleusercontent.com"
