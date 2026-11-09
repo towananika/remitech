@@ -362,6 +362,8 @@ export class HubDO extends DurableObject {
   //   会員登録した人は一般ユーザー（member:false）。社内（member）を付けられるのは管理者だけ
   //   メールアドレスは登録時に任意で預かるだけ（確認メールの仕組みがないので、権限には使わない）
   async auth(op, request, origin) {
+    // Googleでログイン（2026-11-09 Hibiki指定）: 画面のボタンに使う ID（公開してよい値）。wrangler.toml の [vars] GOOGLE_CLIENT_ID
+    if (op === "google-config") return json({ clientId: String(this.env.GOOGLE_CLIENT_ID || "") }, 200, origin);
     if (request.method !== "POST" && !(op === "users" && request.method === "GET")) return json({ error: "method" }, 405, origin);
     if (origin && !ALLOWED.includes(origin)) return json({ error: "origin" }, 403, origin);
     if (this.P.provision && (op === "login" || op === "register")) await provisionAccount(this);
@@ -397,10 +399,33 @@ export class HubDO extends DurableObject {
       if (await this.limited("L:" + ip, 10, 900) || await this.limited("I:" + id, 10, 3600)) return json({ error: "too-many" }, 429, origin);
       const u = await this.ctx.storage.get(this.P.u + id);
       // いない ID でも同じだけ時間をかける（返事の速さで ID の有無が分からないように）
-      const h = await pbkdf2Hex(pw, u ? u.salt : "00", u ? u.iter || PW_ITER : PW_ITER);
-      const ok = !!u && !u.suspended && safeEqual(h, u.hash);
+      const h = await pbkdf2Hex(pw, u && u.salt ? u.salt : "00", u ? u.iter || PW_ITER : PW_ITER);
+      const ok = !!u && !!u.hash && !u.suspended && safeEqual(h, u.hash);
       if (!ok) { await this.bump("L:" + ip, 900); await this.bump("I:" + id, 3600); return json({ error: "wrong" }, 403, origin); }
       if (this.P.site && !this.role(u).joined) { this.setRole(u, { joined: new Date().toISOString() }); await this.ctx.storage.put(this.P.u + id, u); }
+      return this.newSession(id, origin);
+    }
+    if (op === "google") {
+      // Google の ID トークンを確かめて、つないだアカウントでログイン。まだなければ一般ユーザーを作る（IDはメールの@の前から）
+      const g = await this.verifyGoogle(request);
+      if (g.error) return json({ error: g.error }, g.status || 403, origin);
+      let id = await this.ctx.storage.get("g:" + g.sub);
+      let u = id ? await this.ctx.storage.get(this.P.u + id) : null;
+      if (!u) {
+        if (await this.limited("R:" + ip, 5, 3600)) return json({ error: "too-many" }, 429, origin);
+        const count = (await this.ctx.storage.list({ prefix: this.P.u, limit: 301 })).size;
+        if (count >= 300) return json({ error: "full" }, 409, origin);
+        await this.bump("R:" + ip, 3600);
+        let base = g.email.split("@")[0].toLowerCase().replace(/[^a-z0-9_.-]/g, "").slice(0, 16);
+        if (base.length < 3) base = base + "user";
+        id = base;
+        for (let n = 2; await this.ctx.storage.get(this.P.u + id); n++) id = base + n;
+        u = { id, created: new Date().toISOString(), member: false, email: g.email, google: g.email };
+        await this.ctx.storage.put("g:" + g.sub, id);
+      }
+      if (u.suspended) return json({ error: "wrong" }, 403, origin);
+      if (this.P.site && !this.role(u).joined) this.setRole(u, { joined: new Date().toISOString() });
+      await this.ctx.storage.put(this.P.u + id, u);
       return this.newSession(id, origin);
     }
     if (op === "reset") {
@@ -433,6 +458,17 @@ export class HubDO extends DurableObject {
       await this.ctx.storage.put(s.key, s.val);
       return json({ ok: true, exp: s.val.exp, user: this.publicUser(s.user) }, 200, origin);
     }
+    if (op === "googlelink") {
+      // ログイン中のアカウントに Google をつなぐ（次から Google ボタンで同じアカウントに入れる）
+      const g = await this.verifyGoogle(request);
+      if (g.error) return json({ error: g.error }, g.status || 403, origin);
+      const cur = await this.ctx.storage.get("g:" + g.sub);
+      if (cur && cur !== s.user.id) return json({ error: "google-used" }, 409, origin);
+      await this.ctx.storage.put("g:" + g.sub, s.user.id);
+      s.user.google = g.email;
+      await this.ctx.storage.put(this.P.u + s.user.id, s.user);
+      return json({ ok: true, user: this.publicUser(s.user) }, 200, origin);
+    }
     if (op === "logoutall") { await this.endSessions(s.user.id, null); return json({ ok: true }, 200, origin); }
     if (op === "password") {
       // PW の変更は今の PW を入れ直してから（開きっぱなしの端末で勝手に変えられないように）。
@@ -442,7 +478,8 @@ export class HubDO extends DurableObject {
       if (pw.length < 8 || pw.length > 64) return json({ error: "pw" }, 400, origin);
       if (pw.toLowerCase() === s.user.id) return json({ error: "pw-id" }, 400, origin);
       if (await this.limited("I:" + s.user.id, 10, 3600)) return json({ error: "too-many" }, 429, origin);
-      if (!safeEqual(await pbkdf2Hex(cur, s.user.salt, s.user.iter || PW_ITER), s.user.hash)) {
+      // Google で作ったアカウントはパスワードがまだないので、今の PW なしで初めの PW を決められる
+      if (s.user.hash && !safeEqual(await pbkdf2Hex(cur, s.user.salt, s.user.iter || PW_ITER), s.user.hash)) {
         await this.bump("I:" + s.user.id, 3600);
         return json({ error: "wrong" }, 403, origin);
       }
@@ -552,7 +589,24 @@ export class HubDO extends DurableObject {
     const owner = this.isOwner(u.id), admin = this.isAdminUser(u);
     const pu = { id: u.id, member: !!this.role(u).member || admin, admin, owner, created: u.created, changePasswordSuggested: !!u.changePasswordSuggested, suspended: !!u.suspended };
     if (u.email) pu.email = u.email;
+    if (u.google) pu.google = u.google;
     return pu;
+  }
+  async verifyGoogle(request) {
+    const aud = String(this.env.GOOGLE_CLIENT_ID || "");
+    if (!aud) return { error: "google-off", status: 503 };
+    const b = await readJson(request);
+    const cred = typeof (b && b.credential) === "string" ? b.credential : "";
+    if (!cred || cred.length > 4096) return { error: "google" };
+    let t;
+    try {
+      const r = await fetch("https://oauth2.googleapis.com/tokeninfo?id_token=" + encodeURIComponent(cred));
+      if (!r.ok) return { error: "google" };
+      t = await r.json();
+    } catch (e) { return { error: "google" }; }
+    const ok = t && t.aud === aud && (t.iss === "accounts.google.com" || t.iss === "https://accounts.google.com") &&
+      (t.email_verified === true || t.email_verified === "true") && Number(t.exp) * 1000 > Date.now() && t.sub && t.email;
+    return ok ? { sub: String(t.sub), email: String(t.email).toLowerCase() } : { error: "google" };
   }
   async newSession(id, origin) {
     const token = randHex(32), exp = Date.now() + SESSION_MS;

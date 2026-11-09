@@ -70,3 +70,32 @@ test('hub owner is also NACHA owner without extra setup',async()=>{
  const hub=Object.create(HubDO.prototype);hub.env={ADMIN_IDS:'boss'};const n=hub.nacha();
  assert.equal(n.isOwner('boss'),true);assert.equal(n.isOwner('fan'),false);assert.equal(hub.isOwner('boss'),true);
 });
+// Googleでログイン（2026-11-09）
+function gsetup(actor){
+ const c=setup(actor);c.hub.limited=async()=>false;c.hub.bump=async()=>{};c.hub.env.GOOGLE_CLIENT_ID='cid';
+ globalThis.fetch=async u=>{const tok=new URL(u).searchParams.get('id_token');const m={good:{aud:'cid',iss:'accounts.google.com',email_verified:'true',exp:String(Date.now()/1000+600),sub:'111',email:'Fan.Club@gmail.com'},other:{aud:'other',iss:'accounts.google.com',email_verified:'true',exp:String(Date.now()/1000+600),sub:'222',email:'x@gmail.com'}}[tok];return new Response(JSON.stringify(m||{}),{status:m?200:400});};
+ return c;
+}
+test('google config exposes only the public client id',async()=>{
+ const c=gsetup(null);const r=await c.hub.auth('google-config',new Request('https://test/auth/google-config'),'http://localhost:8899');assert.equal((await r.json()).clientId,'cid');
+});
+test('google sign-in creates a general user once, then logs into the same account',async()=>{
+ const c=gsetup(null);let r=await c.call('google',{credential:'good'});
+ assert.equal(r.ok,true);assert.equal(r.user.id,'fan.club');assert.equal(r.user.member,false);assert.equal(r.user.google,'fan.club@gmail.com');
+ r=await c.call('google',{credential:'good'});assert.equal(r.user.id,'fan.club');
+ assert.equal((await c.call('google',{credential:'other'})).status,403);
+ assert.equal((await c.call('google',{credential:'bad'})).status,403);
+ assert.equal((await c.call('login',{id:'fan.club',pw:'whatever12'})).status,403);
+});
+test('google sign-in on NACHA joins NACHA; ids do not collide',async()=>{
+ const c=gsetup(null);c.data.set('u:fan.club',{id:'fan.club'});const n=c.hub.nacha();
+ const r=await n.auth('google',new Request('https://test/nacha/auth/google',{method:'POST',body:JSON.stringify({credential:'good'})}),'http://localhost:8899');
+ const j=await r.json();assert.equal(j.user.id,'fan.club2');assert.ok(c.data.get('u:fan.club2').sites.nacha.joined);
+});
+test('a logged-in user can link google, then google opens that account',async()=>{
+ const c=gsetup('owner');let r=await c.call('googlelink',{credential:'good'});assert.equal(r.ok,true);assert.equal(r.user.google,'fan.club@gmail.com');
+ c.hub.session=async()=>null;r=await c.call('google',{credential:'good'});assert.equal(r.user.id,'owner');assert.equal(r.user.owner,true);
+});
+test('google is off without a client id',async()=>{
+ const c=gsetup(null);c.hub.env.GOOGLE_CLIENT_ID='';assert.equal((await c.call('google',{credential:'good'})).status,503);
+});

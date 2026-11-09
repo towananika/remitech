@@ -15,3 +15,7 @@ class_name = "HubDO"
 [[migrations]]
 tag = "v1"
 new_sqlite_classes = ["HubDO"]
+
+[vars]
+# Googleでログインのボタン用（公開してよい値）。Google Cloud の「OAuth クライアント ID」を入れる
+GOOGLE_CLIENT_ID = ""

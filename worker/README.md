@@ -144,3 +144,9 @@ RETの新規投稿予定は毎週土曜09:00（韓国時間）。X・IGとも予
 ### RET共通本文・承認待ち
 
 RET本文はX・IG共通の1ページ。本文のSNS切り替えは表示しません。画像プロンプトは16:9・4:5を同じページからコピーできます。承認待ちは共通本文に対して1ボタンとし、既存の共有メモ `ret-approval|日付` に保存します。予約は従来のX・IG別枠を使います。画像アップロード機能とR2設定は含めません。
+
+## Googleでログイン（2026-11-09）
+- `wrangler.toml` の `[vars] GOOGLE_CLIENT_ID` に Google Cloud の OAuth クライアント ID（公開してよい値）を入れて deploy。空ならボタンは出ない
+- `/auth/google`（ハブ）・`/nacha/auth/google`: Google の ID トークンを tokeninfo で確かめ、`g:<sub>` につないだアカウントでログイン。なければ一般ユーザーを作る（IDはメールの@の前）
+- `/auth/googlelink`: ログイン中のアカウントに Google をつなぐ（オーナーなど既存アカウントはこれで）
+- Google だけで作ったアカウントはパスワードなし。`/auth/password` で今のPWなしに初めのPWを決められる
