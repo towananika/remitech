@@ -79,7 +79,7 @@ export class HubDO extends DurableObject {
     }
     if (url.pathname === "/code" && request.method === "POST") return this.changeCode(request, origin);
     if (url.pathname.startsWith("/fetchreq")) return this.fetchReq(url.pathname, request, origin);
-    // NACHA のページ（2026-11-09 Hibiki指定）: ログインはハブと別々。同じ仕組みで、置き場（鍵の頭）とオーナーだけ分ける
+    // NACHA のページ: アカウントはハブと共通、権限はサイト別（REALM_NACHA）
     if (url.pathname.startsWith("/nacha/auth/")) return this.nacha().auth(url.pathname.slice(12), request, origin);
     if (url.pathname.startsWith("/nacha/internal/")) return this.nacha().internal(url.pathname.slice(16), request, origin);
     if (url.pathname.startsWith("/auth/")) return this.auth(url.pathname.slice(6), request, origin);
@@ -389,6 +389,7 @@ export class HubDO extends DurableObject {
         const salt = randHex(16);
         const nu = { id, salt, iter: PW_ITER, hash: await pbkdf2Hex(pw, salt, PW_ITER), created: new Date().toISOString(), member: false };
         if (email) nu.email = email;
+        if (this.P.site) this.setRole(nu, { joined: new Date().toISOString() });
         await this.ctx.storage.put(this.P.u + id, nu);
         return this.newSession(id, origin);
       }
@@ -399,6 +400,7 @@ export class HubDO extends DurableObject {
       const h = await pbkdf2Hex(pw, u ? u.salt : "00", u ? u.iter || PW_ITER : PW_ITER);
       const ok = !!u && !u.suspended && safeEqual(h, u.hash);
       if (!ok) { await this.bump("L:" + ip, 900); await this.bump("I:" + id, 3600); return json({ error: "wrong" }, 403, origin); }
+      if (this.P.site && !this.role(u).joined) { this.setRole(u, { joined: new Date().toISOString() }); await this.ctx.storage.put(this.P.u + id, u); }
       return this.newSession(id, origin);
     }
     if (op === "reset") {
@@ -450,6 +452,8 @@ export class HubDO extends DurableObject {
     }
     if (!this.isAdminUser(s.user)) return json({ error: "admin" }, 403, origin);
     const callerOwner = this.isOwner(s.user.id);
+    // アカウントそのものの操作（停止・削除・再設定コード・強制ログアウト）はハブの管理者だけ。サイトの管理者は権限だけ
+    if (this.P.site && ["suspend", "revoke", "resetcode", "delete"].includes(op)) return json({ error: "op" }, 404, origin);
     // オーナーはだれも操作できない。ほかの管理者を操作できるのはオーナーだけ
     const protectedUser = (u) => this.isOwner(u.id) || (!callerOwner && this.isAdminUser(u));
     if (op === "suspend" || op === "revoke") {
@@ -489,7 +493,7 @@ export class HubDO extends DurableObject {
     }
     if (op === "users") {
       const all = await this.ctx.storage.list({ prefix: this.P.u });
-      const users = [...all.values()].map((u) => this.publicUser(u)).sort((a, b) => (a.created < b.created ? -1 : 1));
+      const users = [...all.values()].filter((u) => !this.P.site || this.isOwner(u.id) || Object.keys(this.role(u)).length).map((u) => this.publicUser(u)).sort((a, b) => (a.created < b.created ? -1 : 1));
       return json({ users }, 200, origin, { "Cache-Control": "no-store" });
     }
     if (op === "member") {
@@ -500,7 +504,7 @@ export class HubDO extends DurableObject {
       if (!u) return json({ error: "no-user" }, 404, origin);
       if (this.isOwner(id) || this.isAdminUser(u)) return json({ error: "admin-user" }, 400, origin);   // 管理者は社内のまま（外すときは先に管理者を外す）
       if (typeof b.member !== "boolean") return json({ error: "bad-json" }, 400, origin);
-      u.member = b.member;
+      this.setRole(u, { member: b.member });
       await this.ctx.storage.put(this.P.u + id, u);
       return json({ ok: true, user: this.publicUser(u) }, 200, origin);
     }
@@ -514,10 +518,9 @@ export class HubDO extends DurableObject {
       if (this.isOwner(id)) return json({ error: "admin-user" }, 400, origin);
       if (!b.admin && !callerOwner) return json({ error: "owner" }, 403, origin);
       if (u.suspended && b.admin) return json({ error: "suspended" }, 400, origin);
-      u.admin = b.admin;
-      if (b.admin) u.member = true;
+      this.setRole(u, b.admin ? { admin: true, member: true } : { admin: false });
       await this.ctx.storage.put(this.P.u + id, u);
-      if (!b.admin) await this.endSessions(id, null);   // 外したら、開いている管理画面も閉じさせる
+      if (!b.admin && !this.P.site) await this.endSessions(id, null);   // サイト別の権限ではログインは切らない（ハブのログインも共通のため）   // 外したら、開いている管理画面も閉じさせる
       return json({ ok: true, user: this.publicUser(u) }, 200, origin);
     }
     return json({ error: "op" }, 404, origin);
@@ -535,10 +538,16 @@ export class HubDO extends DurableObject {
     return String(this.env[this.P.owners] || "").split(",").map((x) => x.trim().toLowerCase()).filter(Boolean).includes(id);
   }
   isAdmin(id) { return this.isOwner(id); }   // 古い呼び出し用（オーナーかどうか）
-  isAdminUser(u) { return !!u && (this.isOwner(u.id) || (!!u.admin && !u.suspended)); }
+  role(u) { return this.P.site ? ((u && u.sites && u.sites[this.P.site]) || {}) : (u || {}); }
+  setRole(u, patch) {
+    if (!this.P.site) { Object.assign(u, patch); return; }
+    u.sites = Object.assign({}, u.sites);
+    u.sites[this.P.site] = Object.assign({}, u.sites[this.P.site], patch);
+  }
+  isAdminUser(u) { return !!u && (this.isOwner(u.id) || (!!this.role(u).admin && !u.suspended)); }
   publicUser(u) {
     const owner = this.isOwner(u.id), admin = this.isAdminUser(u);
-    const pu = { id: u.id, member: !!u.member || admin, admin, owner, created: u.created, changePasswordSuggested: !!u.changePasswordSuggested, suspended: !!u.suspended };
+    const pu = { id: u.id, member: !!this.role(u).member || admin, admin, owner, created: u.created, changePasswordSuggested: !!u.changePasswordSuggested, suspended: !!u.suspended };
     if (u.email) pu.email = u.email;
     return pu;
   }
@@ -574,7 +583,7 @@ export class HubDO extends DurableObject {
     await this.ctx.storage.put(this.P.rl + k, cur);
   }
 
-  // ログインの置き場。ハブ（既定）と NACHA は会員・ログイン・回数制限・社内の文書を別々に持つ
+  // サイト。ハブ（既定）と NACHA はアカウント共通、権限・オーナー・社内の文書はサイト別
   get P() { return REALM_HUB; }
   nacha() { return Object.create(this, { P: { value: REALM_NACHA } }); }
 
@@ -639,7 +648,9 @@ export class HubDO extends DurableObject {
 
 // u: 会員 / ss: ログイン中の鍵 / rc: 再設定コード / rl: 回数制限 / kv: 社内の文書（KV）/ owners: オーナーのIDを入れる secret の名前
 const REALM_HUB = { u: "u:", ss: "ss:", rc: "rc:", rl: "rl:", kv: "in:", owners: "ADMIN_IDS", provision: true };
-const REALM_NACHA = { u: "nu:", ss: "ns:", rc: "nrc:", rl: "nrl:", kv: "nin:", owners: "NACHA_OWNER_IDS", provision: false };
+// NACHA（2026-11-09 Hibiki指定「とわないか統合ログイン」）: 会員・ログインはハブと共通（同じ ID・同じ鍵）。
+// 権限（関係者・管理者）だけサイトごとに u.sites.nacha に持つ。オーナーは NACHA_OWNER_IDS。社内の文書は KV の nin:<名前>
+const REALM_NACHA = { u: "u:", ss: "ss:", rc: "rc:", rl: "rl:", kv: "nin:", owners: "NACHA_OWNER_IDS", provision: true, site: "nacha" };
 const PW_ITER = 100000;                       // Workers の PBKDF2 の上限
 const SESSION_MS = 7 * 24 * 60 * 60 * 1000;   // ログインは7日
 function randHex(n) {
