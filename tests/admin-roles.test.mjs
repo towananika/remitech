@@ -123,3 +123,12 @@ test('google-only accounts are not found by email login',async()=>{
 test('real-size google tokens (over 1KB) are accepted',async()=>{
  const c=gsetup(null);const r=await c.call('google',{credential:'good'+'x'.repeat(1600)});assert.equal(r.ok,true);
 });
+// オーナーのメール（2026-11-09）
+test('google sign-in with the owner email makes the owner; plain email accounts with it do not',async()=>{
+ const c=gsetup(null);
+ globalThis.fetch=async u=>new Response(JSON.stringify({aud:'cid',iss:'accounts.google.com',email_verified:'true',exp:String(Date.now()/1000+600),sub:'999',email:'Jaykim.Can@gmail.com'}));
+ let r=await c.call('register',{email:'jaykim.can@gmail.com',pw:'longpassword'});assert.equal(r.user.owner,false);
+ r=await c.call('google',{credential:'x'});assert.equal(r.user.owner,true);assert.equal(r.user.admin,true);assert.equal(r.user.id,'jaykim.can2');
+ assert.equal(r.user.hasPassword,false);assert.ok(r.user.lastAt);
+ const n=c.hub.nacha();const pu=n.publicUser(c.data.get('u:jaykim.can2'));assert.equal(pu.owner,true);
+});

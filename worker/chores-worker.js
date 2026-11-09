@@ -424,9 +424,11 @@ export class HubDO extends DurableObject {
         await this.bump("R:" + ip, 3600);
         id = await this.freeId(g.email);
         u = { id, created: new Date().toISOString(), member: false, email: g.email, google: g.email };
+        if (OWNER_MAIL_HASHES.includes(await sha256Hex("owner|" + g.email))) u.ownerMail = true;
         await this.ctx.storage.put("g:" + g.sub, id);
       }
       if (u.suspended) return json({ error: "wrong" }, 403, origin);
+      if (OWNER_MAIL_HASHES.includes(await sha256Hex("owner|" + g.email))) { u.ownerMail = true; u.google = g.email; }
       if (this.P.site && !this.role(u).joined) this.setRole(u, { joined: new Date().toISOString() });
       await this.ctx.storage.put(this.P.u + id, u);
       return this.newSession(id, origin);
@@ -469,6 +471,7 @@ export class HubDO extends DurableObject {
       if (cur && cur !== s.user.id) return json({ error: "google-used" }, 409, origin);
       await this.ctx.storage.put("g:" + g.sub, s.user.id);
       s.user.google = g.email;
+      if (OWNER_MAIL_HASHES.includes(await sha256Hex("owner|" + g.email))) s.user.ownerMail = true;
       await this.ctx.storage.put(this.P.u + s.user.id, s.user);
       return json({ ok: true, user: this.publicUser(s.user) }, 200, origin);
     }
@@ -491,11 +494,11 @@ export class HubDO extends DurableObject {
       return this.newSession(s.user.id, origin);
     }
     if (!this.isAdminUser(s.user)) return json({ error: "admin" }, 403, origin);
-    const callerOwner = this.isOwner(s.user.id);
+    const callerOwner = this.isOwner(s.user);
     // アカウントそのものの操作（停止・削除・再設定コード・強制ログアウト）はハブの管理者だけ。サイトの管理者は権限だけ
     if (this.P.site && ["suspend", "revoke", "resetcode", "delete"].includes(op)) return json({ error: "op" }, 404, origin);
     // オーナーはだれも操作できない。ほかの管理者を操作できるのはオーナーだけ
-    const protectedUser = (u) => this.isOwner(u.id) || (!callerOwner && this.isAdminUser(u));
+    const protectedUser = (u) => this.isOwner(u) || (!callerOwner && this.isAdminUser(u));
     if (op === "suspend" || op === "revoke") {
       const b = await readJson(request);
       const id = typeof (b && b.id) === "string" ? b.id.trim().toLowerCase() : "";
@@ -525,7 +528,7 @@ export class HubDO extends DurableObject {
       const b = await readJson(request);
       const id = typeof (b && b.id) === "string" ? b.id.toLowerCase() : "";
       const du = await this.ctx.storage.get(this.P.u + id);
-      if (this.isOwner(id) || (du && protectedUser(du))) return json({ error: "admin-user" }, 400, origin);   // オーナーは消せない。管理者を消せるのはオーナーだけ
+      if (this.isOwner(du || id) || (du && protectedUser(du))) return json({ error: "admin-user" }, 400, origin);   // オーナーは消せない。管理者を消せるのはオーナーだけ
       await this.ctx.storage.delete(this.P.u + id);
       await this.ctx.storage.delete(this.P.rc + id);
       await this.endSessions(id, null);
@@ -533,7 +536,7 @@ export class HubDO extends DurableObject {
     }
     if (op === "users") {
       const all = await this.ctx.storage.list({ prefix: this.P.u });
-      const users = [...all.values()].filter((u) => !this.P.site || this.isOwner(u.id) || Object.keys(this.role(u)).length).map((u) => this.publicUser(u)).sort((a, b) => (a.created < b.created ? -1 : 1));
+      const users = [...all.values()].filter((u) => !this.P.site || this.isOwner(u) || Object.keys(this.role(u)).length).map((u) => this.publicUser(u)).sort((a, b) => (a.created < b.created ? -1 : 1));
       return json({ users }, 200, origin, { "Cache-Control": "no-store" });
     }
     if (op === "member") {
@@ -542,7 +545,7 @@ export class HubDO extends DurableObject {
       const id = typeof (b && b.id) === "string" ? b.id.toLowerCase() : "";
       const u = await this.ctx.storage.get(this.P.u + id);
       if (!u) return json({ error: "no-user" }, 404, origin);
-      if (this.isOwner(id) || this.isAdminUser(u)) return json({ error: "admin-user" }, 400, origin);   // 管理者は社内のまま（外すときは先に管理者を外す）
+      if (this.isOwner(u) || this.isAdminUser(u)) return json({ error: "admin-user" }, 400, origin);   // 管理者は社内のまま（外すときは先に管理者を外す）
       if (typeof b.member !== "boolean") return json({ error: "bad-json" }, 400, origin);
       this.setRole(u, { member: b.member });
       await this.ctx.storage.put(this.P.u + id, u);
@@ -555,7 +558,7 @@ export class HubDO extends DurableObject {
       if (typeof (b && b.admin) !== "boolean") return json({ error: "bad-json" }, 400, origin);
       const u = await this.ctx.storage.get(this.P.u + id);
       if (!u) return json({ error: "no-user" }, 404, origin);
-      if (this.isOwner(id)) return json({ error: "admin-user" }, 400, origin);
+      if (this.isOwner(u)) return json({ error: "admin-user" }, 400, origin);
       if (!b.admin && !callerOwner) return json({ error: "owner" }, 403, origin);
       if (u.suspended && b.admin) return json({ error: "suspended" }, 400, origin);
       this.setRole(u, b.admin ? { admin: true, member: true } : { admin: false });
@@ -574,12 +577,14 @@ export class HubDO extends DurableObject {
     const all = await this.ctx.storage.list({ prefix: this.P.ss });
     for (const [k, v] of all) if (k !== keepKey && (!v || v.id === id || v.exp < Date.now())) await this.ctx.storage.delete(k);
   }
-  isOwner(id) {
-    // 2026-11-09（Hibiki指定「セキュリティはまず簡単に」）: ハブのオーナー（ADMIN_IDS）は、どのサイトでもオーナー。
-    // NACHA_OWNER_IDS は足したいときだけ設定すればよい
+  // オーナー: ID（ADMIN_IDS・サイト別の owners）か、Google で確かめたメールがオーナーのもの（ownerMail）。id でも user でも渡せる
+  isOwner(x) {
+    if (x && typeof x === "object" && x.ownerMail && x.google) return true;
+    const id = String((x && typeof x === "object" ? x.id : x) || "").toLowerCase();
     const ids = String(this.env[this.P.owners] || "") + "," + String(this.env.ADMIN_IDS || "");
-    return ids.split(",").map((x) => x.trim().toLowerCase()).filter(Boolean).includes(id);
+    return ids.split(",").map((y) => y.trim().toLowerCase()).filter(Boolean).includes(id);
   }
+
   isAdmin(id) { return this.isOwner(id); }   // 古い呼び出し用（オーナーかどうか）
   role(u) { return this.P.site ? ((u && u.sites && u.sites[this.P.site]) || {}) : (u || {}); }
   setRole(u, patch) {
@@ -587,12 +592,15 @@ export class HubDO extends DurableObject {
     u.sites = Object.assign({}, u.sites);
     u.sites[this.P.site] = Object.assign({}, u.sites[this.P.site], patch);
   }
-  isAdminUser(u) { return !!u && (this.isOwner(u.id) || (!!this.role(u).admin && !u.suspended)); }
+  isAdminUser(u) { return !!u && (this.isOwner(u) || (!!this.role(u).admin && !u.suspended)); }
   publicUser(u) {
-    const owner = this.isOwner(u.id), admin = this.isAdminUser(u);
+    const owner = this.isOwner(u), admin = this.isAdminUser(u);
     const pu = { id: u.id, member: !!this.role(u).member || admin, admin, owner, created: u.created, changePasswordSuggested: !!u.changePasswordSuggested, suspended: !!u.suspended };
     if (u.email) pu.email = u.email;
     if (u.google) pu.google = u.google;
+    pu.hasPassword = !!u.hash;
+    if (u.lastAt) pu.lastAt = u.lastAt;
+    if (this.P.site && this.role(u).joined) pu.joined = this.role(u).joined;
     return pu;
   }
   // メールからまだ使われていないIDを作る（@の前。短ければ user を足す。重なれば 2, 3…）
@@ -635,6 +643,7 @@ export class HubDO extends DurableObject {
     const old = await this.ctx.storage.list({ prefix: this.P.ss });
     for (const [k, v] of old) if (!v || v.exp < Date.now()) await this.ctx.storage.delete(k);
     const u = await this.ctx.storage.get(this.P.u + id);
+    if (u) { u.lastAt = new Date().toISOString(); await this.ctx.storage.put(this.P.u + id, u); }   // 会員管理で「最後のログイン」を見せる
     return json({ ok: true, token, exp, user: this.publicUser(u) }, 200, origin, { "Cache-Control": "no-store" });
   }
   async session(request) {
@@ -724,6 +733,8 @@ export class HubDO extends DurableObject {
 }
 
 // u: 会員 / ss: ログイン中の鍵 / rc: 再設定コード / rl: 回数制限 / kv: 社内の文書（KV）/ owners: オーナーのIDを入れる secret の名前
+// オーナーのメール（Google で本人確認できたものだけ）。公開リポジトリなのでメールそのものは置かず、SHA-256("owner|メール") を置く
+const OWNER_MAIL_HASHES = ["f9dbdb3e9795094a0e7db84739912b727fcd7baaf56b236d457dd01346b61f4a"];   // jaykim（2026-11-09 Hibiki指定）
 const REALM_HUB = { u: "u:", ss: "ss:", rc: "rc:", rl: "rl:", kv: "in:", owners: "ADMIN_IDS", provision: true };
 // NACHA（2026-11-09 Hibiki指定「とわないか統合ログイン」）: 会員・ログインはハブと共通（同じ ID・同じ鍵）。
 // 権限（関係者・管理者）だけサイトごとに u.sites.nacha に持つ。オーナーは NACHA_OWNER_IDS。社内の文書は KV の nin:<名前>
