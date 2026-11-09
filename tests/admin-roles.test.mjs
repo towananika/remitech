@@ -38,3 +38,21 @@ test('register makes a general user and keeps an optional email without granting
  assert.equal(r.ok,true);assert.equal(r.user.member,false);assert.equal(r.user.admin,false);assert.equal(r.user.email,'jaykim.can@gmail.com');
  assert.equal((await c.call('register',{id:'bad1',pw:'longpassword',email:'nope'})).status,400);
 });
+test('NACHA login realm is separate from the hub (users, sessions, owner, documents)',async()=>{
+ const data=new Map([['u:hubuser',{id:'hubuser',member:true}],['nu:fan',{id:'fan',member:false}]]);
+ const storage={get:async k=>structuredClone(data.get(k)),put:async(k,v)=>data.set(k,structuredClone(v)),delete:async k=>data.delete(k),list:async({prefix})=>new Map([...data].filter(([k])=>k.startsWith(prefix)))};
+ const hub=Object.create(HubDO.prototype);hub.ctx={storage};hub.env={ADMIN_IDS:'hubowner',NACHA_OWNER_IDS:'nowner',CHORES:{get:async k=>k==='nin:nachadev'?{title:'n'}:k==='in:meeting'?{title:'h'}:null}};
+ hub.limited=async()=>false;hub.bump=async()=>{};
+ const n=hub.nacha();
+ const r=await n.auth('register',new Request('https://t/nacha/auth/register',{method:'POST',headers:{Origin:'http://localhost:8899'},body:JSON.stringify({id:'hubuser',pw:'longpassword'})}),'http://localhost:8899');
+ assert.equal(r.status,200,'same ID can exist separately in NACHA');assert.ok(data.has('nu:hubuser'));
+ const {token}=await r.json();
+ assert.ok([...data.keys()].some(k=>k.startsWith('ns:')));assert.ok(![...data.keys()].some(k=>k.startsWith('ss:')));
+ const req=()=>new Request('https://t/x',{headers:{Authorization:'Bearer '+token}});
+ assert.equal(await hub.session(req()),null,'NACHA token does not log in to the hub');
+ assert.ok(await n.session(req()));
+ assert.equal(n.isOwner('nowner'),true);assert.equal(n.isOwner('hubowner'),false);assert.equal(hub.isOwner('nowner'),false);
+ data.get('nu:hubuser').member=true;
+ const d=await n.internal('nachadev',req(),'http://localhost:8899');assert.equal((await d.json()).title,'n');
+ assert.equal((await n.internal('meeting',req(),'http://localhost:8899')).status,404,'hub documents are not readable from NACHA');
+});
