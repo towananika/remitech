@@ -83,8 +83,8 @@ test('google sign-in creates a general user once, then logs into the same accoun
  const c=gsetup(null);let r=await c.call('google',{credential:'good'});
  assert.equal(r.ok,true);assert.equal(r.user.id,'fan.club');assert.equal(r.user.member,false);assert.equal(r.user.google,'fan.club@gmail.com');
  r=await c.call('google',{credential:'good'});assert.equal(r.user.id,'fan.club');
- assert.equal((await c.call('google',{credential:'other'})).status,403);
- assert.equal((await c.call('google',{credential:'bad'})).status,403);
+ assert.equal((await c.call('google',{credential:'other'})).error,'google-aud');
+ assert.equal((await c.call('google',{credential:'bad'})).error,'google-invalid');
  assert.equal((await c.call('login',{id:'fan.club',pw:'whatever12'})).status,403);
 });
 test('google sign-in on NACHA joins NACHA; ids do not collide',async()=>{

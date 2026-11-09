@@ -610,20 +610,23 @@ export class HubDO extends DurableObject {
     return null;
   }
   async verifyGoogle(request) {
+    // 失敗の理由を分けて返す（画面で「考えられる原因」を出すため）
     const aud = String(this.env.GOOGLE_CLIENT_ID || "");
     if (!aud) return { error: "google-off", status: 503 };
     const b = await readJson(request, 8192);   // Google のトークンは 1000 字を超えるので、ここだけ大きめ
-    const cred = typeof (b && b.credential) === "string" ? b.credential : "";
-    if (!cred || cred.length > 4096) return { error: "google" };
-    let t;
-    try {
-      const r = await fetch("https://oauth2.googleapis.com/tokeninfo?id_token=" + encodeURIComponent(cred));
-      if (!r.ok) return { error: "google" };
-      t = await r.json();
-    } catch (e) { return { error: "google" }; }
-    const ok = t && t.aud === aud && (t.iss === "accounts.google.com" || t.iss === "https://accounts.google.com") &&
-      (t.email_verified === true || t.email_verified === "true") && Number(t.exp) * 1000 > Date.now() && t.sub && t.email;
-    return ok ? { sub: String(t.sub), email: String(t.email).toLowerCase() } : { error: "google" };
+    if (!b) return { error: "google-invalid", status: 400 };
+    const cred = typeof b.credential === "string" ? b.credential : "";
+    if (!cred || cred.length > 4096) return { error: "google-invalid", status: 400 };
+    let t, r;
+    try { r = await fetch("https://oauth2.googleapis.com/tokeninfo?id_token=" + encodeURIComponent(cred)); }
+    catch (e) { return { error: "google-net", status: 502 }; }
+    if (!r.ok) return { error: "google-invalid" };
+    try { t = await r.json(); } catch (e) { return { error: "google-net", status: 502 }; }
+    if (!t || (t.iss !== "accounts.google.com" && t.iss !== "https://accounts.google.com") || !t.sub || !t.email) return { error: "google-invalid" };
+    if (t.aud !== aud) return { error: "google-aud" };
+    if (!(Number(t.exp) * 1000 > Date.now())) return { error: "google-expired" };
+    if (!(t.email_verified === true || t.email_verified === "true")) return { error: "google-unverified" };
+    return { sub: String(t.sub), email: String(t.email).toLowerCase() };
   }
   async newSession(id, origin) {
     const token = randHex(32), exp = Date.now() + SESSION_MS;
