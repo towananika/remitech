@@ -535,7 +535,10 @@ export class HubDO extends DurableObject {
     for (const [k, v] of all) if (k !== keepKey && (!v || v.id === id || v.exp < Date.now())) await this.ctx.storage.delete(k);
   }
   isOwner(id) {
-    return String(this.env[this.P.owners] || "").split(",").map((x) => x.trim().toLowerCase()).filter(Boolean).includes(id);
+    // 2026-11-09（Hibiki指定「セキュリティはまず簡単に」）: ハブのオーナー（ADMIN_IDS）は、どのサイトでもオーナー。
+    // NACHA_OWNER_IDS は足したいときだけ設定すればよい
+    const ids = String(this.env[this.P.owners] || "") + "," + String(this.env.ADMIN_IDS || "");
+    return ids.split(",").map((x) => x.trim().toLowerCase()).filter(Boolean).includes(id);
   }
   isAdmin(id) { return this.isOwner(id); }   // 古い呼び出し用（オーナーかどうか）
   role(u) { return this.P.site ? ((u && u.sites && u.sites[this.P.site]) || {}) : (u || {}); }

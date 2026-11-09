@@ -66,3 +66,7 @@ test('NACHA uses the same accounts and sessions as the hub, with its own roles a
  assert.equal((await n.internal('meeting',req(),'http://localhost:8899')).status,404);
  assert.equal((await hub.internal('nachadev',req(),'http://localhost:8899')).status,403,'NACHA staff are not hub staff');
 });
+test('hub owner is also NACHA owner without extra setup',async()=>{
+ const hub=Object.create(HubDO.prototype);hub.env={ADMIN_IDS:'boss'};const n=hub.nacha();
+ assert.equal(n.isOwner('boss'),true);assert.equal(n.isOwner('fan'),false);assert.equal(hub.isOwner('boss'),true);
+});
