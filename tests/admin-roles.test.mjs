@@ -162,3 +162,24 @@ test('NACHA developer role: admins grant it, only developers read and add dev do
  // removing the role closes it again
  who='adm';await post('dev',{id:'mem',dev:false});who='mem';assert.equal((await post('devdocs')).status,403);
 });
+// フォロー導線のクリック計測（2026-11-11）
+test('hit counter: beacon increments per day, admin reads via hits op',async()=>{
+ const data=new Map([['u:nboss',{id:'nboss'}],['u:fan',{id:'fan',sites:{nacha:{joined:'x'}}}]]);
+ const storage={get:async k=>structuredClone(data.get(k)),put:async(k,v)=>data.set(k,structuredClone(v)),delete:async k=>data.delete(k),list:async({prefix})=>new Map([...data].filter(([k])=>k.startsWith(prefix)))};
+ const hub=Object.create(HubDO.prototype);hub.ctx={storage};hub.env={NACHA_OWNER_IDS:'nboss'};hub.limited=async()=>false;hub.bump=async()=>{};
+ const req=(m,o)=>new Request('https://t/x',{method:m||'POST',headers:o===null?{}:{Origin:o||'http://localhost:8899'}});
+ let r=await hub.hit('nacha','x',req(),'http://localhost:8899');assert.equal((await r.json()).ok,true);
+ await hub.hit('nacha','x',req(),'http://localhost:8899');await hub.hit('nacha','ig',req(),'http://localhost:8899');
+ const day=new Date(Date.now()+9*3600*1000).toISOString().slice(0,10);
+ assert.equal(data.get('hit:nacha:x:'+day),2);assert.equal(data.get('hit:nacha:ig:'+day),1);
+ assert.equal((await hub.hit('nacha','x',req('GET'),'http://localhost:8899')).status,405);
+ assert.equal((await hub.hit('nacha','x',new Request('https://t/x',{method:'POST'}),'')).status,403,'no origin = refused');
+ assert.equal((await hub.hit('nacha','BAD NAME!',req(),'http://localhost:8899')).status,400);
+ // admin reads
+ const n=hub.nacha();n.session=async()=>({key:'ss:t',val:{},user:data.get('u:nboss')});
+ r=await n.auth('hits',new Request('https://t/hits',{method:'POST',body:'{}'}),'http://localhost:8899').then(x=>x.json());
+ assert.equal(r.hits.x[day],2);assert.equal(r.hits.ig[day],1);
+ // non-admin cannot
+ n.session=async()=>({key:'ss:t',val:{},user:data.get('u:fan')});
+ assert.equal((await n.auth('hits',new Request('https://t/hits',{method:'POST',body:'{}'}),'http://localhost:8899')).status,403);
+});

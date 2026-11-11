@@ -47,7 +47,7 @@ export default {
     if (request.method === "OPTIONS") return new Response(null, { headers: cors(origin) });
     const url = new URL(request.url);
     if (!["/chores", "/book", "/code", "/ws", "/editor"].includes(url.pathname) &&
-        !/^\/(auth\/(register|login|renew|logout|logoutall|password|reset|resetcode|delete|users|member|suspend|revoke|admin|google|googlelink|google-config)|internal\/[a-z0-9_-]{1,30}|nacha\/auth\/(register|login|renew|logout|logoutall|password|reset|resetcode|delete|users|member|suspend|revoke|admin|dev|devdocs|devput|devdel|google|googlelink|google-config)|nacha\/internal\/[a-z0-9_-]{1,30}|fetchreq(\/state)?)$/.test(url.pathname)) {
+        !/^\/(auth\/(register|login|renew|logout|logoutall|password|reset|resetcode|delete|users|member|suspend|revoke|admin|google|googlelink|google-config)|internal\/[a-z0-9_-]{1,30}|nacha\/auth\/(register|login|renew|logout|logoutall|password|reset|resetcode|delete|users|member|suspend|revoke|admin|dev|hits|devdocs|devput|devdel|google|googlelink|google-config)|nacha\/internal\/[a-z0-9_-]{1,30}|nacha\/hit\/[a-z0-9_-]{1,20}|fetchreq(\/state)?)$/.test(url.pathname)) {
       return json({ ok: true, service: "remitech-chores" }, 200, origin);
     }
     const stub = env.HUB.get(env.HUB.idFromName("main"));
@@ -82,6 +82,7 @@ export class HubDO extends DurableObject {
     // NACHA のページ: アカウントはハブと共通、権限はサイト別（REALM_NACHA）
     if (url.pathname.startsWith("/nacha/auth/")) return this.nacha().auth(url.pathname.slice(12), request, origin);
     if (url.pathname.startsWith("/nacha/internal/")) return this.nacha().internal(url.pathname.slice(16), request, origin);
+    if (url.pathname.startsWith("/nacha/hit/")) return this.hit("nacha", url.pathname.slice(11), request, origin);
     if (url.pathname.startsWith("/auth/")) return this.auth(url.pathname.slice(6), request, origin);
     if (url.pathname.startsWith("/internal/")) return this.internal(url.pathname.slice(10), request, origin);
     if (url.pathname === "/book") {
@@ -540,6 +541,19 @@ export class HubDO extends DurableObject {
       const users = [...all.values()].filter((u) => !this.P.site || this.isOwner(u) || Object.keys(this.role(u)).length).map((u) => this.publicUser(u)).sort((a, b) => (a.created < b.created ? -1 : 1));
       return json({ users }, 200, origin, { "Cache-Control": "no-store" });
     }
+    if (op === "hits") {
+      // クリック数を見る（管理者）。直近45日分
+      const site = this.P.site || "hub";
+      const all = await this.ctx.storage.list({ prefix: "hit:" + site + ":" });
+      const since = new Date(Date.now() - 45 * 24 * 3600 * 1000).toISOString().slice(0, 10);
+      const hits = {};
+      for (const [k, v] of all) {
+        const parts = k.split(":");   // hit:site:name:YYYY-MM-DD
+        const nm = parts[2], day = parts[3];
+        if (day >= since) (hits[nm] = hits[nm] || {})[day] = v;
+      }
+      return json({ hits }, 200, origin, { "Cache-Control": "no-store" });
+    }
     if (op === "member") {
       let b;
       try { b = JSON.parse(await request.text()); } catch (e) { return json({ error: "bad-json" }, 400, origin); }
@@ -685,6 +699,23 @@ export class HubDO extends DurableObject {
   // サイト。ハブ（既定）と NACHA はアカウント共通、権限・オーナー・社内の文書はサイト別
   get P() { return REALM_HUB; }
   nacha() { return Object.create(this, { P: { value: REALM_NACHA } }); }
+
+  // ---- リンクのクリック数（フォロー導線の計測）----
+  // サイトの <a data-hit="x"> から sendBeacon で届く。だれでも書けるのは数だけ（上限つき）。日付は日本・韓国時間
+  async hit(site, name, request, origin) {
+    if (request.method !== "POST") return json({ error: "method" }, 405, origin);
+    if (!origin || !ALLOWED.includes(origin)) return json({ error: "origin" }, 403, origin);
+    if (!/^[a-z0-9_-]{1,20}$/.test(name)) return json({ error: "bad-name" }, 400, origin);
+    const ip = (await sha256Hex("ip|" + clientIp(request))).slice(0, 24);
+    if (!(await this.limited("H:" + ip, 60, 3600))) {   // 同じIPは1時間に60回まで数える（超えても ok を返す）
+      await this.bump("H:" + ip, 3600);
+      const day = new Date(Date.now() + 9 * 3600 * 1000).toISOString().slice(0, 10);
+      const key = "hit:" + site + ":" + name + ":" + day;
+      const n = (await this.ctx.storage.get(key)) || 0;
+      if (n < 1e9) await this.ctx.storage.put(key, n + 1);
+    }
+    return json({ ok: true }, 200, origin);
+  }
 
   // ---- 社内の文書 ----
   // 中身は KV（CHORES）の in:<名前> に、wrangler で直接入れる（リポジトリには置かない）。社内の人だけ読める
