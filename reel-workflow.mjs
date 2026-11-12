@@ -54,6 +54,12 @@ export function formatEnglishPost(value, date, platform) {
   }
   flush();return paragraphs.join('\n\n');
 }
+// 画像生成ツールに貼るプロンプト（2026-11-12 remitech指定: 準備タブREELの「画像プロンプト」メニュー）。画像そのものは作らない。
+export function imagePrompt(platform, post) {
+  const size=platform==='X'?'16:9 (1600x900)':'4:5 (1080x1350)';
+  const message=String(english(post)||'').replace(/\s+/g,' ').trim();
+  return `Create a ${size} editorial image for REEL's ${platform} post. Communicate the core idea with one clear visual metaphor, thoughtful composition and natural lighting. Keep it grounded in gaming and real player experience. Do not include visible text, logos, charts or invented product features. Post message: ${message}`;
+}
 export function copyPostText(post, date, platform) {
   if(!post)return '';
   const parts=post.parts?.length?post.parts:[{label:'Feed 1',ja:post.ja}];

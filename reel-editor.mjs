@@ -1,7 +1,7 @@
-import * as R from './reel-workflow.mjs?v=20261112-dec';
+import * as R from './reel-workflow.mjs?v=20261112-img';
 
 const labels = {
-  title:['REEL','REEL','REEL'],
+  title:['REEL','REEL','REEL'],imagesMenu:['画像プロンプト','Image prompts','이미지 프롬프트'],imagesHint:['X・IGの画像生成ツールに貼るプロンプトです。1行に収まらない分は省略表示で、コピーでは全文が入ります。','Prompts to paste into your image tool for X and IG. Long lines are truncated on screen; Copy gives the full text.','X·IG 이미지 생성 도구에 붙여넣는 프롬프트입니다. 화면에서는 줄여 보이지만 복사하면 전문이 들어갑니다.'],imagesEmpty:['この期間に原稿のある日がありません。','No days with drafts in this range.','이 기간에 원고가 있는 날이 없습니다.'],
   bookmark:['ページURLをコピー','Copy page link','페이지 주소 복사'],bookmarkCopied:['このURLをブックマークすると、同じ日付・SNSを直接開けます。','Bookmark this URL to open this date and channel directly.','이 주소를 북마크하면 같은 날짜·SNS를 바로 열 수 있습니다.'],
   noboReset:['元の英文にリセット','Reset to original English','원래 영어로 초기화'],resetConfirm:['もう一度押すとリセット','Press again to reset','한 번 더 누르면 초기화'],resetHelp:['修正分を取り消し、元の英文に戻します。2回押すと共有保存にも反映します。','Undo revisions and restore the original. Press twice to reset shared text.','수정 내용을 취소하고 원래 영어로 되돌립니다. 두 번 누르면 공유 내용에도 반영됩니다.'],
   copiedShort:['コピー済','Copied','복사완료'],
@@ -64,7 +64,7 @@ export function createEditor(a) {
   let date=R.today()<'2026-10-27'?'2026-10-27':R.today(),first=date,last=date,pf='X',brief='',observer=null,failedKey='',pendingRemote=false,instructions={};
   let board=true,query='',statusFilter='all',period='upcoming',page=1,autoNext=false;
   try{autoNext=localStorage.getItem('remitech-reel-auto-next')==='1';}catch{}
-  const initial=a.selection?.();if(initial){board=!R.dateOK(initial.date);if(R.dateOK(initial.date))date=initial.date;if(['X','IG','IGS'].includes(initial.platform))pf=initial.platform;first=date;last=date;}
+  const initial=a.selection?.();if(initial){board=!R.dateOK(initial.date);if(R.dateOK(initial.date))date=initial.date;if(['X','IG','IGS','IMG'].includes(initial.platform))pf=initial.platform;first=date;last=date;}
   if(date>R.EDITOR_END_DATE){date=R.EDITOR_END_DATE;first=date;last=date;}
   let stories=null,storyLoading=false,storyError=false,lastStory={},resetArmed='',cancelArmed='',calendarOffset=0,lastBookingState='';
   async function loadStories(){
@@ -201,12 +201,12 @@ export function createEditor(a) {
     const days=[];for(let day=first;day<=last;day=R.addDays(day,1))days.push(day);
     const current=find(date).w;
     a.view.innerHTML=`<section class="reel-editor"><header class="re-top"><div><h2>${e(t('title'))}</h2></div></header>
-      <div class="re-date-controls"><div class="re-toolbar re-datebar"><label for="re-date">${e(t('date'))}</label><input type="date" id="re-date" value="${date}" max="${R.EDITOR_END_DATE}" ${busy?'disabled':''}><div class="re-toolbar" role="group" aria-label="SNS">${['X','IG','IGS'].map(p=>`<button data-re-platform="${p}" aria-pressed="${pf===p}" ${busy?'disabled':''}>${p==='IGS'?'IG Story':p}</button>`).join('')}</div></div>
+      <div class="re-date-controls"><div class="re-toolbar re-datebar"><label for="re-date">${e(t('date'))}</label><input type="date" id="re-date" value="${date}" max="${R.EDITOR_END_DATE}" ${busy?'disabled':''}><div class="re-toolbar" role="group" aria-label="SNS">${['X','IG','IGS','IMG'].map(p=>`<button data-re-platform="${p}" aria-pressed="${pf===p}" ${busy?'disabled':''}>${p==='IGS'?'IG Story':p==='IMG'?e(t('imagesMenu')):p}</button>`).join('')}</div></div>
       ${checkOverview()}</div>
       <div data-re-notice class="re-notice" aria-live="polite" role="status" ${noticeText?'':'hidden'}>${e(noticeText)}</div>
       ${a.preview?'<div class="re-notice">デザイン確認用のサンプルです。日付・X／IG／IG Storyの切り替えを試せます。実際の投稿や会員情報は含まず、編集・保存はできません。</div>':!member()?`<div class="re-notice">${e(t('login'))} <button data-re-action="login">${e(t('loginBtn'))}</button></div>`:!online&&attempted?'<p><a href="./posts-compare.html">デザイン比較を見る ↗</a></p>':''}
       <details class="re-plan"><summary>${e(t('settings'))}</summary><label for="re-brief">${e(t('brief'))}</label><textarea id="re-brief" maxlength="3000">${e(brief)}</textarea><button data-re-action="settings" ${busy||!member()||!online?'disabled':''}>${e(t('saveBrief'))}</button><button data-re-action="cancelSettings" ${busy?'disabled':''}>${e(t('cancel'))}</button></details>
-      ${pf==='IGS'?storyHTML():board?boardHTML():`<nav class="re-detail-nav"><button data-re-action="board" ${busy?'disabled':''}>${e(t('backToList'))}</button><div class="re-toolbar"><button data-re-action="prevPost" ${busy?'disabled':''}>${e(t('prevPost'))}</button><button data-re-action="nextPost" ${busy||date>=R.EDITOR_END_DATE?'disabled':''}>${e(t('nextPost'))}</button></div></nav>
+      ${pf==='IGS'?storyHTML():pf==='IMG'?imagesHTML():board?boardHTML():`<nav class="re-detail-nav"><button data-re-action="board" ${busy?'disabled':''}>${e(t('backToList'))}</button><div class="re-toolbar"><button data-re-action="prevPost" ${busy?'disabled':''}>${e(t('prevPost'))}</button><button data-re-action="nextPost" ${busy||date>=R.EDITOR_END_DATE?'disabled':''}>${e(t('nextPost'))}</button></div></nav>
       ${current?`<div class="re-week"><span class="re-eyebrow">${current.start} — ${R.addDays(current.start,6)}</span><h3>${e(current.theme)}</h3><p>${e(current.arc)}</p></div>`:''}
       ${!loaded?`<p>${e(t(loading?'loading':'manualMissing'))}</p>`:days.map(day=>{const {w,d}=find(day);return postHTML(d||{date:day,focus:w?.theme||t('empty'),posts:{}},w);}).join('')}`}</section>`;
     a.view.querySelectorAll('.re-plan').forEach(el=>el.hidden=true);
@@ -249,6 +249,21 @@ export function createEditor(a) {
     if(!loaded)return `<p>${e(t(loading?'loading':'manualMissing'))}</p>`;
     const option=(value,label,current)=>`<option value="${value}" ${value===current?'selected':''}>${e(label)}</option>`;
     return `<section class="re-board"><form class="re-board-search" role="search" data-re-search><input type="search" data-re-query value="${e(query)}" placeholder="${e(t('searchPlaceholder'))}" aria-label="${e(t('search'))}"><select data-re-period aria-label="${e(t('date'))}">${[['upcoming',t('upcoming')],['past',t('past')],['all',t('allDates')]].map(([v,l])=>option(v,l,period)).join('')}</select><select data-re-status aria-label="${e(t('allStatus'))}">${[['all',t('allStatus')],['ready',t('hasDraft')],['empty',t('noDraft')],['scheduled',t('scheduledStatus')],['posted',t('postedStatus')]].map(([v,l])=>option(v,l,statusFilter)).join('')}</select></form><div data-re-board-results>${boardResults()}</div></section>`;
+  }
+  function imagesHTML(){
+    if(!loaded)return `<p>${e(t(loading?'loading':'manualMissing'))}</p>`;
+    const today=R.today(),days=[];
+    for(let day=weeks[0]?.start||today;day<=R.EDITOR_END_DATE;day=R.addDays(day,1)){
+      if(period==='upcoming'&&day<today)continue;
+      const d=find(day).d;if(!d||!(d.posts?.X||d.posts?.IG))continue;
+      days.push(d);
+    }
+    if(period==='past')days.reverse();
+    const view=R.pageOf(days,page);page=view.page;
+    const option=(value,label)=>`<option value="${value}" ${value===period?'selected':''}>${e(label)}</option>`;
+    const row=(d,pf2)=>{const post=d.posts?.[pf2];if(!post)return '';const text=R.imagePrompt(pf2,post);return `<li class="re-img-row"><b>${pf2}</b><span class="re-img-text" title="${e(text)}">${e(text)}</span><button data-re-action="imgCopy" data-img-date="${d.date}" data-img-pf="${pf2}">${e(t('imageCopy'))}</button></li>`;};
+    const pager=view.pages>1?`<nav class="re-pager" aria-label="${e(t('pageLabel'))}"><button data-re-page="${view.page-1}" ${view.page<=1?'disabled':''}>‹</button>${R.pageNumbers(view.page,view.pages).map(n=>n===null?'<span aria-hidden="true">…</span>':`<button data-re-page="${n}" aria-current="${n===view.page?'page':'false'}">${n}</button>`).join('')}<button data-re-page="${view.page+1}" ${view.page>=view.pages?'disabled':''}>›</button></nav>`:'';
+    return `<section class="re-board re-images"><p class="re-board-count">${e(t('imagesHint'))}</p><div class="re-toolbar"><select data-re-period aria-label="${e(t('date'))}">${option('upcoming',t('upcoming'))}${option('all',t('allDates'))}${option('past',t('past'))}</select></div>${days.length?view.items.map(d=>`<section class="re-img-day"><h3>${e(dateLabel(d.date))} <small>${e(d.focus||'')}</small></h3><ul class="re-img-list">${row(d,'X')}${row(d,'IG')}</ul></section>`).join(''):`<p class="re-board-empty">${e(t('imagesEmpty'))}</p>`}${pager}</section>`;
   }
   function refreshBoard(){const el=a.view.querySelector('[data-re-board-results]');if(el)el.innerHTML=boardResults();else render();}
   function showBoard(){if(!canLeave())return;board=true;a.navigate?.(null,pf);render();a.view.querySelector('.re-board')?.scrollIntoView({block:'start'});}
@@ -309,6 +324,10 @@ export function createEditor(a) {
     if(op!=='cancel'){cancelArmed='';const cancel=a.view.querySelector('[data-re-action="cancel"]');if(cancel)cancel.textContent=t('cancel');}
     if(op!=='noboReset'){resetArmed='';const reset=a.view.querySelector('[data-re-action="noboReset"]');if(reset)reset.textContent=t(editMode.startsWith('inline-')?'resetShort':'noboReset');}
     if(op==='storyBook'){if(!member()||!a.setBooked)return;const on=!a.booked(date,'IGS');a.setBooked(date,'IGS',on);render();if(on&&autoNext&&date<R.EDITOR_END_DATE)await open(R.addDays(date,1));return;}
+    if(op==='imgCopy'){
+      const post=find(btn.dataset.imgDate).d?.posts?.[btn.dataset.imgPf];if(!post)return;
+      try{await navigator.clipboard.writeText(R.imagePrompt(btn.dataset.imgPf,post));copiedFeedback(btn);}catch{notice(t('copyError'),true);}return;
+    }
     if(['storyRandom','storyItem','storyUrl'].includes(op)){
       const i=Number(btn.dataset.story),sn=stories?.[i];if(!sn)return;
       const choices=sn.items.filter(s=>s!==lastStory[i]);
@@ -355,7 +374,7 @@ export function createEditor(a) {
     if(!w&&op!=='save')return;
     const body={op,start:w?.start||R.monday(day),date:day,platform:pf,revision:w?.revision||0};
     if(op==='image'){
-      const prompt=`Create a 4:5 editorial image for REEL's ${pf} post. Communicate the core idea with one clear visual metaphor, thoughtful composition and natural lighting. Keep it grounded in gaming and real player experience. Do not include visible text, logos, charts or invented product features. Post message: ${R.english(p)}`;
+      const prompt=R.imagePrompt(pf,p);
       try{await navigator.clipboard.writeText(prompt);notice(t('imageCopied'));}catch{notice(t('copyError'),true);}return;
     }
     if(op==='save'&&editMode.startsWith('inline-')){

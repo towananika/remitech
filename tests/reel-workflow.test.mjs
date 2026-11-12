@@ -256,3 +256,10 @@ test('November prepared manuscripts add a full month without overwriting NOBO ed
  const bad=context();bad.hub.env.CHORES.get=async key=>key==='reel:prepared:2026-11:v1'?{version:1,weeks:[{start:'2026-11-30',theme:'Bad',arc:'Bad arc',days:[{date:'2027-01-01',posts:{}}]}]}:null;
  await assert.rejects(bad.request(),/prepared-date/);assert.equal((await bad.storage.list({prefix:'reel:week:'})).size,0);
 });
+
+test('画像プロンプトは SNS ごとの比率で、画像・文字を作らない指示と英文を含む', () => {
+  const post={ja:'日本語',en:'Line one.\nLine two.'};
+  const x=R.imagePrompt('X',post),ig=R.imagePrompt('IG',post);
+  assert.match(x,/16:9/);assert.match(ig,/4:5/);
+  for(const p of [x,ig]){assert.match(p,/Do not include visible text/);assert.match(p,/Post message: Line one\. Line two\.$/);assert.ok(!p.includes('\n'));}
+});
