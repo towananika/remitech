@@ -55,7 +55,8 @@ export function formatEnglishPost(value, date, platform) {
   flush();return paragraphs.join('\n\n');
 }
 // 画像生成ツールに貼るプロンプト（2026-11-12 remitech指定: 準備タブREELの「画像プロンプト」メニュー）。画像そのものは作らない。
-// 見た目は REEL の既存投稿（IG・X 20件超）に合わせる: 暗い紺黒の背景、青白い光、ガラス/金属の立体オブジェクト、白い太字の見出し、右下に小さな REEL ロゴ。
+// 見た目は REEL の既存投稿（IG・X 20件超）とアイコンの色に合わせる: 深いインディゴ〜ロイヤルブルーの背景、明るい青白い光、ガラス/金属の立体オブジェクト、白い太字の見出し。
+// ロゴは公式のものを使う（描き直さない）。「PLAY → REVIEW → REWARD」の文は入れない（2026-11-12 remitech指定）。色は REEL アイコンから取った近似値で、公式の色コードが分かれば差し替える。
 function headlineOf(post) {
   const first=post?.parts?.length?englishPart(post,0):english(post);
   const clean=s=>s.replace(/["“”]/g,'').trim();
@@ -69,7 +70,7 @@ export function imagePrompt(platform, post) {
   const {headline,sub}=headlineOf(post);
   const message=String(english(post)||'').replace(/\s+/g,' ').trim();
   const text=headline?`Headline text: "${headline}"${sub?` and a lighter, smaller subline: "${sub}"`:''}, placed top-left in a large bold white sans-serif (condensed uppercase for short punchy lines).`:'';
-  return `Create a ${size} social image for REEL's ${platform} post in REEL's existing look: a very dark navy-black cinematic background with cool blue and ice-white rim light and a soft glow, minimal and premium. Show one clear visual that expresses the idea: a 3D glass-and-metal object (for example glass panels, bars, chat bubbles or a jar of stars) or a dim night-room gaming scene with a silhouetted player and glass UI panels. ${text} Add a small REEL logo mark with the word REEL at the bottom-right and a tiny letter-spaced caption PLAY → REVIEW → REWARD at the bottom. Keep it grounded in gaming and real player experience. Do not invent product features, charts or numbers. Idea behind the post: ${message}`;
+  return `Create a ${size} social image for REEL's ${platform} post in REEL's brand look: a deep indigo-to-royal-blue background (about #19215F fading to #274E9D) with soft light-blue (#7AAEDE) and white glow and rim light, clean and premium. Show one clear visual that expresses the idea: a 3D glass-and-metal object (for example glass panels, bars, chat bubbles or a jar of stars) or a dim night-room gaming scene with a silhouetted player and glass UI panels, all tinted in that blue palette. ${text} Place the official REEL logo file (supplied as a separate attachment) small at the bottom-right exactly as provided; do not redraw, recolor or alter it. Do not add any other slogan or caption text. Keep it grounded in gaming and real player experience. Do not invent product features, charts or numbers. Idea behind the post: ${message}`;
 }
 export function copyPostText(post, date, platform) {
   if(!post)return '';
