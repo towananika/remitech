@@ -1,7 +1,7 @@
-import * as R from './reel-workflow.mjs?v=20261112-img5';
+import * as R from './reel-workflow.mjs?v=20261112-img6';
 
 const labels = {
-  title:['REEL','REEL','REEL'],imagesMenu:['画像プロンプト','Image prompts','이미지 프롬프트'],imagesHint:['X・IGの画像生成ツールに貼るプロンプトです。1行に収まらない分は省略表示で、コピーでは全文が入ります。','Prompts to paste into your image tool for X and IG. Long lines are truncated on screen; Copy gives the full text.','X·IG 이미지 생성 도구에 붙여넣는 프롬프트입니다. 화면에서는 줄여 보이지만 복사하면 전문이 들어갑니다.'],imagesEmpty:['この期間に原稿のある日がありません。','No days with drafts in this range.','이 기간에 원고가 있는 날이 없습니다.'],
+  title:['REEL','REEL','REEL'],imagesMenu:['画像プロンプト','Image prompts','이미지 프롬프트'],imagesHint:['X・IGの画像生成ツールに貼るプロンプトです。1行に収まらない分は省略表示で、コピーでは全文が入ります。','Prompts to paste into your image tool for X and IG. Long lines are truncated on screen; Copy gives the full text.','X·IG 이미지 생성 도구에 붙여넣는 프롬프트입니다. 화면에서는 줄여 보이지만 복사하면 전문이 들어갑니다.'],logoTitle:['ロゴを重ねる','Add the logo','로고 합성'],logoHint:['画像ツールで作った画像を選ぶと、REELの白いロゴを右下に重ねます。','Choose the image from your image tool and the white REEL logo is placed at the bottom-right.','이미지 도구로 만든 이미지를 고르면 REEL 흰색 로고를 오른쪽 아래에 합성합니다.'],logoSave:['ロゴ付きで保存','Save with logo','로고 포함 저장'],imagesEmpty:['この期間に原稿のある日がありません。','No days with drafts in this range.','이 기간에 원고가 있는 날이 없습니다.'],
   bookmark:['ページURLをコピー','Copy page link','페이지 주소 복사'],bookmarkCopied:['このURLをブックマークすると、同じ日付・SNSを直接開けます。','Bookmark this URL to open this date and channel directly.','이 주소를 북마크하면 같은 날짜·SNS를 바로 열 수 있습니다.'],
   noboReset:['元の英文にリセット','Reset to original English','원래 영어로 초기화'],resetConfirm:['もう一度押すとリセット','Press again to reset','한 번 더 누르면 초기화'],resetHelp:['修正分を取り消し、元の英文に戻します。2回押すと共有保存にも反映します。','Undo revisions and restore the original. Press twice to reset shared text.','수정 내용을 취소하고 원래 영어로 되돌립니다. 두 번 누르면 공유 내용에도 반영됩니다.'],
   copiedShort:['コピー済','Copied','복사완료'],
@@ -250,6 +250,23 @@ export function createEditor(a) {
     const option=(value,label,current)=>`<option value="${value}" ${value===current?'selected':''}>${e(label)}</option>`;
     return `<section class="re-board"><form class="re-board-search" role="search" data-re-search><input type="search" data-re-query value="${e(query)}" placeholder="${e(t('searchPlaceholder'))}" aria-label="${e(t('search'))}"><select data-re-period aria-label="${e(t('date'))}">${[['upcoming',t('upcoming')],['past',t('past')],['all',t('allDates')]].map(([v,l])=>option(v,l,period)).join('')}</select><select data-re-status aria-label="${e(t('allStatus'))}">${[['all',t('allStatus')],['ready',t('hasDraft')],['empty',t('noDraft')],['scheduled',t('scheduledStatus')],['posted',t('postedStatus')]].map(([v,l])=>option(v,l,statusFilter)).join('')}</select></form><div data-re-board-results>${boardResults()}</div></section>`;
   }
+  const logoUrl=new URL('./images/reel-logo-white.png',import.meta.url).href;
+  // 画像ツールが作った画像の右下に、本物のREELロゴを重ねる（ロゴは描かせない。2026-11-12 remitech指定）。画像はブラウザ内だけで処理する。
+  async function overlayLogo(input){
+    const file=input.files?.[0],box=input.closest('.re-img-logo'),canvas=box?.querySelector('[data-re-logo-canvas]'),save=box?.querySelector('[data-re-action="logoSave"]');
+    if(!file||!canvas)return;
+    const load=src=>new Promise((ok,ng)=>{const img=new Image();img.onload=()=>ok(img);img.onerror=ng;img.src=src;});
+    try{
+      const objectUrl=URL.createObjectURL(file);
+      const [pic,logo]=await Promise.all([load(objectUrl),load(logoUrl)]);URL.revokeObjectURL(objectUrl);
+      canvas.width=pic.naturalWidth;canvas.height=pic.naturalHeight;
+      const g=canvas.getContext('2d');g.drawImage(pic,0,0);
+      const w=Math.round(canvas.width*(canvas.width>=canvas.height?0.18:0.24)),h=Math.round(w*logo.naturalHeight/logo.naturalWidth),m=Math.round(canvas.width*0.035);
+      g.drawImage(logo,canvas.width-w-m,canvas.height-h-m,w,h);
+      canvas.hidden=false;canvas.style.maxWidth='100%';canvas.style.height='auto';canvas.dataset.name=file.name.replace(/\.[^.]+$/,'')+'-reel.png';
+      if(save)save.disabled=false;
+    }catch{notice(t('copyError'),true);}
+  }
   function imagesHTML(){
     if(!loaded)return `<p>${e(t(loading?'loading':'manualMissing'))}</p>`;
     const today=R.today(),days=[];
@@ -263,7 +280,8 @@ export function createEditor(a) {
     const option=(value,label)=>`<option value="${value}" ${value===period?'selected':''}>${e(label)}</option>`;
     const row=(d,pf2)=>{const post=d.posts?.[pf2];if(!post)return '';const text=R.imagePrompt(pf2,post);return `<li class="re-img-row"><b>${pf2}</b><span class="re-img-text" title="${e(text)}">${e(text)}</span><button data-re-action="imgCopy" data-img-date="${d.date}" data-img-pf="${pf2}">${e(t('imageCopy'))}</button></li>`;};
     const pager=view.pages>1?`<nav class="re-pager" aria-label="${e(t('pageLabel'))}"><button data-re-page="${view.page-1}" ${view.page<=1?'disabled':''}>‹</button>${R.pageNumbers(view.page,view.pages).map(n=>n===null?'<span aria-hidden="true">…</span>':`<button data-re-page="${n}" aria-current="${n===view.page?'page':'false'}">${n}</button>`).join('')}<button data-re-page="${view.page+1}" ${view.page>=view.pages?'disabled':''}>›</button></nav>`:'';
-    return `<section class="re-board re-images"><p class="re-board-count">${e(t('imagesHint'))}</p><div class="re-toolbar"><select data-re-period aria-label="${e(t('date'))}">${option('upcoming',t('upcoming'))}${option('all',t('allDates'))}${option('past',t('past'))}</select></div>${days.length?view.items.map(d=>`<section class="re-img-day"><h3>${e(dateLabel(d.date))} <small>${e(d.focus||'')}</small></h3><ul class="re-img-list">${row(d,'X')}${row(d,'IG')}</ul></section>`).join(''):`<p class="re-board-empty">${e(t('imagesEmpty'))}</p>`}${pager}</section>`;
+    const logoPanel=`<section class="re-img-logo"><h3>${e(t('logoTitle'))}</h3><p>${e(t('logoHint'))}</p><div class="re-toolbar"><input type="file" accept="image/*" data-re-logo-file><button data-re-action="logoSave" disabled>${e(t('logoSave'))}</button></div><canvas data-re-logo-canvas hidden></canvas></section>`;
+    return `<section class="re-board re-images">${logoPanel}<p class="re-board-count">${e(t('imagesHint'))}</p><div class="re-toolbar"><select data-re-period aria-label="${e(t('date'))}">${option('upcoming',t('upcoming'))}${option('all',t('allDates'))}${option('past',t('past'))}</select></div>${days.length?view.items.map(d=>`<section class="re-img-day"><h3>${e(dateLabel(d.date))} <small>${e(d.focus||'')}</small></h3><ul class="re-img-list">${row(d,'X')}${row(d,'IG')}</ul></section>`).join(''):`<p class="re-board-empty">${e(t('imagesEmpty'))}</p>`}${pager}</section>`;
   }
   function refreshBoard(){const el=a.view.querySelector('[data-re-board-results]');if(el)el.innerHTML=boardResults();else render();}
   function showBoard(){if(!canLeave())return;board=true;a.navigate?.(null,pf);render();a.view.querySelector('.re-board')?.scrollIntoView({block:'start'});}
@@ -304,7 +322,7 @@ export function createEditor(a) {
     if(ev.target.matches('[data-re-instructions]'))instructions[key(ev.target.closest('[data-re-day]').dataset.reDay)]=ev.target.value;
     if(edit && ev.target.matches('[data-re-inline],[data-re-ja],[data-re-en],[data-re-nobo],[data-re-nobo-en],[data-re-theme],[data-re-arc],[data-author-ja],[data-author-en]'))stash();
   });
-  a.view.addEventListener('change',ev=>{if(ev.target.id==='re-date')open(ev.target.value);if(ev.target.matches('[data-re-period]')){period=ev.target.value;page=1;refreshBoard();}if(ev.target.matches('[data-re-status]')){statusFilter=ev.target.value;page=1;refreshBoard();}if(ev.target.matches('[data-re-auto-next]')){autoNext=ev.target.checked;a.view.querySelectorAll('[data-re-auto-next]').forEach(el=>el.checked=autoNext);try{localStorage.setItem('remitech-reel-auto-next',autoNext?'1':'0');}catch{}}});
+  a.view.addEventListener('change',ev=>{if(ev.target.matches('[data-re-logo-file]')){overlayLogo(ev.target);return;}if(ev.target.id==='re-date')open(ev.target.value);if(ev.target.matches('[data-re-period]')){period=ev.target.value;page=1;refreshBoard();}if(ev.target.matches('[data-re-status]')){statusFilter=ev.target.value;page=1;refreshBoard();}if(ev.target.matches('[data-re-auto-next]')){autoNext=ev.target.checked;a.view.querySelectorAll('[data-re-auto-next]').forEach(el=>el.checked=autoNext);try{localStorage.setItem('remitech-reel-auto-next',autoNext?'1':'0');}catch{}}});
   a.view.addEventListener('submit',ev=>{if(ev.target.matches('[data-re-search]'))ev.preventDefault();});
   a.view.addEventListener('cancel',ev=>{if(ev.target.matches('.re-nobo-dialog')){ev.preventDefault();if(!busy&&stash()){edit='';buffer={};render();}}},true);
   a.view.addEventListener('click',async ev=>{
@@ -324,6 +342,10 @@ export function createEditor(a) {
     if(op!=='cancel'){cancelArmed='';const cancel=a.view.querySelector('[data-re-action="cancel"]');if(cancel)cancel.textContent=t('cancel');}
     if(op!=='noboReset'){resetArmed='';const reset=a.view.querySelector('[data-re-action="noboReset"]');if(reset)reset.textContent=t(editMode.startsWith('inline-')?'resetShort':'noboReset');}
     if(op==='storyBook'){if(!member()||!a.setBooked)return;const on=!a.booked(date,'IGS');a.setBooked(date,'IGS',on);render();if(on&&autoNext&&date<R.EDITOR_END_DATE)await open(R.addDays(date,1));return;}
+    if(op==='logoSave'){
+      const canvas=btn.closest('.re-img-logo')?.querySelector('[data-re-logo-canvas]');if(!canvas||canvas.hidden)return;
+      canvas.toBlob(blob=>{if(!blob)return;const link=document.createElement('a');link.href=URL.createObjectURL(blob);link.download=canvas.dataset.name||'reel.png';document.body.appendChild(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(link.href),2000);},'image/png');return;
+    }
     if(op==='imgCopy'){
       const post=find(btn.dataset.imgDate).d?.posts?.[btn.dataset.imgPf];if(!post)return;
       try{await navigator.clipboard.writeText(R.imagePrompt(btn.dataset.imgPf,post));copiedFeedback(btn);}catch{notice(t('copyError'),true);}return;
