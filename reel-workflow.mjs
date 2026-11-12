@@ -55,10 +55,21 @@ export function formatEnglishPost(value, date, platform) {
   flush();return paragraphs.join('\n\n');
 }
 // 画像生成ツールに貼るプロンプト（2026-11-12 remitech指定: 準備タブREELの「画像プロンプト」メニュー）。画像そのものは作らない。
+// 見た目は REEL の既存投稿（IG・X 20件超）に合わせる: 暗い紺黒の背景、青白い光、ガラス/金属の立体オブジェクト、白い太字の見出し、右下に小さな REEL ロゴ。
+function headlineOf(post) {
+  const first=post?.parts?.length?englishPart(post,0):english(post);
+  const clean=s=>s.replace(/["“”]/g,'').trim();
+  const lines=String(first||'').split('\n').map(clean).filter(Boolean);
+  const cut=(s,n)=>s.length<=n?s:(s.slice(0,n+1).replace(/\s+\S*$/,'')||s.slice(0,n));
+  const headline=cut(lines[0]||'',70),sub=lines[1]&&lines[1].length<=60?lines[1]:'';
+  return {headline,sub};
+}
 export function imagePrompt(platform, post) {
   const size=platform==='X'?'16:9 (1600x900)':'4:5 (1080x1350)';
+  const {headline,sub}=headlineOf(post);
   const message=String(english(post)||'').replace(/\s+/g,' ').trim();
-  return `Create a ${size} editorial image for REEL's ${platform} post. Communicate the core idea with one clear visual metaphor, thoughtful composition and natural lighting. Keep it grounded in gaming and real player experience. Do not include visible text, logos, charts or invented product features. Post message: ${message}`;
+  const text=headline?`Headline text: "${headline}"${sub?` and a lighter, smaller subline: "${sub}"`:''}, placed top-left in a large bold white sans-serif (condensed uppercase for short punchy lines).`:'';
+  return `Create a ${size} social image for REEL's ${platform} post in REEL's existing look: a very dark navy-black cinematic background with cool blue and ice-white rim light and a soft glow, minimal and premium. Show one clear visual that expresses the idea: a 3D glass-and-metal object (for example glass panels, bars, chat bubbles or a jar of stars) or a dim night-room gaming scene with a silhouetted player and glass UI panels. ${text} Add a small REEL logo mark with the word REEL at the bottom-right and a tiny letter-spaced caption PLAY → REVIEW → REWARD at the bottom. Keep it grounded in gaming and real player experience. Do not invent product features, charts or numbers. Idea behind the post: ${message}`;
 }
 export function copyPostText(post, date, platform) {
   if(!post)return '';

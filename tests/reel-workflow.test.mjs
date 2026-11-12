@@ -257,9 +257,11 @@ test('November prepared manuscripts add a full month without overwriting NOBO ed
  await assert.rejects(bad.request(),/prepared-date/);assert.equal((await bad.storage.list({prefix:'reel:week:'})).size,0);
 });
 
-test('画像プロンプトは SNS ごとの比率で、画像・文字を作らない指示と英文を含む', () => {
-  const post={ja:'日本語',en:'Line one.\nLine two.'};
+test('画像プロンプトは SNS ごとの比率で、REELの既存の見た目・見出し・英文を含む', () => {
+  const post={ja:'日本語',en:'Not the game.\nThe people.\n\nSomething else.'};
   const x=R.imagePrompt('X',post),ig=R.imagePrompt('IG',post);
   assert.match(x,/16:9/);assert.match(ig,/4:5/);
-  for(const p of [x,ig]){assert.match(p,/Do not include visible text/);assert.match(p,/Post message: Line one\. Line two\.$/);assert.ok(!p.includes('\n'));}
+  for(const p of [x,ig]){assert.match(p,/very dark navy-black/);assert.match(p,/Headline text: "Not the game\."/);assert.match(p,/subline: "The people\."/);assert.match(p,/REEL logo/);assert.match(p,/Idea behind the post: Not the game\. The people\. Something else\.$/);assert.ok(!p.includes('\n'));}
+  const long=R.imagePrompt('IG',{parts:[{ja:'あ',en:'A very long opening line that goes on and on and keeps going well past the limit of seventy characters'}],en:'x'});
+  assert.match(long,/Headline text: "A very long opening line[^"]{0,70}"/);
 });
