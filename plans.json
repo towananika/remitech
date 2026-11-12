@@ -773,13 +773,13 @@
    "platform": "IG",
    "month": "2026-12",
    "title": "REEL IG Feed & Stories",
-   "theme": "ふりかえる → つなぐ → 贈る → 年の締め（10月のループを受けて、12月は「ありがとう」で一年を結ぶ）",
+   "theme": "ふりかえる → つなぐ → 贈る → 年の締め（11月の形を受けて、12月は人と「ありがとう」で一年を結ぶ）",
    "posts": [
     {
      "date": "2026-12-01",
      "type": "Feed",
-     "ja": "12月。\n今年いちばん遊んだゲーム、覚えてる？\n\n思い出せるのは、記録があるから。\nなければ、ぼんやりした印象だけが残る。\n\n全ては、遊びを報酬に変えるために。Web3トークンプロジェクト|REEL\n続きはプロフィールのリンクから。\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3ゲーム #ゲームのある生活 #ゲーマー",
-     "en": "December.\nDo you remember the game you played most this year?\n\nYou can, if you kept a record.\nIf not, only a vague impression is left.\n\nAll for turning play into reward. Web3 Token Project | REEL\nLink in bio.\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3Gaming #GamerLife #Gaming",
+     "ja": "12月。\n今年いちばん遊んだゲーム、覚えてる？\n\n思い出せるのは、記録があるから。\nなければ、ぼんやりした印象だけが残る。\n\n今年いちばん遊んだゲームは？",
+     "en": "December.\nDo you remember the game you played most this year?\n\nYou can, if you kept a record.\nIf not, only a vague impression is left.\n\nYour most-played game this year?",
      "enRev": "",
      "status": "notyet",
      "memo": ""
@@ -794,19 +794,10 @@
      "memo": ""
     },
     {
-     "date": "2026-12-01",
-     "type": "Reply",
-     "ja": "今年いちばん遊んだゲームは？\n\n① 去年と同じ\n② 新しく出会った\n③ 決められない\n\n→ コメントで教えて",
-     "en": "Your most-played game this year?\n\n① Same as last year\n② A new find\n③ Can't decide\n\n→ Tell me in the comments",
-     "enRev": "",
-     "status": "notyet",
-     "memo": ""
-    },
-    {
      "date": "2026-12-02",
      "type": "Feed",
-     "ja": "年末のベスト○○、つい選びたくなる。\n\nでも一年分を思い出すのは、意外と難しい。\n写真やメモが、記憶のかわりに数えてくれる。\n\n全ては、遊びを報酬に変えるために。Web3トークンプロジェクト|REEL\nXは @REEL_Experience\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3ゲーム #ゲーム好きな人と繋がりたい #GamingCommunity",
-     "en": "Year-end \"best of\" lists are hard to resist.\n\nBut recalling a whole year is surprisingly hard.\nPhotos and notes do the counting for your memory.\n\nAll for turning play into reward. Web3 Token Project | REEL\nFind us on X @REEL_Experience\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3Gaming #GamingCommunity #GamersUnite",
+     "ja": "年末のベスト○○、つい選びたくなる。\n\nでも一年分を思い出すのは、意外と難しい。\n写真やメモが、記憶のかわりに数えてくれる。\n\n年末ベスト、何を選ぶ？",
+     "en": "Year-end \"best of\" lists are hard to resist.\n\nBut recalling a whole year is surprisingly hard.\nPhotos and notes do the counting for your memory.\n\nYear-end best-of: what would you pick?",
      "enRev": "",
      "status": "notyet",
      "memo": ""
@@ -821,19 +812,10 @@
      "memo": ""
     },
     {
-     "date": "2026-12-02",
-     "type": "Reply",
-     "ja": "年末ベスト、何を選ぶ？\n\n① ゲーム\n② 音楽\n③ 映画・ドラマ\n\n→ コメントで教えて",
-     "en": "Year-end best-of: what would you pick?\n\n① Games\n② Music\n③ Movies / dramas\n\n→ Tell me in the comments",
-     "enRev": "",
-     "status": "notyet",
-     "memo": ""
-    },
-    {
      "date": "2026-12-03",
      "type": "Feed",
-     "ja": "スクショフォルダを開くと、\n今年の自分に会える。\n\n何を見て笑って、どこで詰まったか。\n全部、そこに残ってる。\n\n全ては、遊びを報酬に変えるために。Web3トークンプロジェクト|REEL\n続きはプロフィールのリンクから。\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3ゲーム #GameFi #Web3Gaming",
-     "en": "Open your screenshot folder\nand you meet the you of this year.\n\nWhat made you laugh, where you got stuck —\nit's all still there.\n\nAll for turning play into reward. Web3 Token Project | REEL\nLink in bio.\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3Gaming #GameFi #PlayToEarn",
+     "ja": "スクショフォルダを開くと、\n今年の自分に会える。\n\n何を見て笑って、どこで詰まったか。\n全部、そこに残ってる。\n\nスクショ、どのくらい撮る？",
+     "en": "Open your screenshot folder\nand you meet the you of this year.\n\nWhat made you laugh, where you got stuck —\nit's all still there.\n\nHow often do you take screenshots?",
      "enRev": "",
      "status": "notyet",
      "memo": ""
@@ -848,19 +830,10 @@
      "memo": ""
     },
     {
-     "date": "2026-12-03",
-     "type": "Reply",
-     "ja": "スクショ、どのくらい撮る？\n\n① よく撮る\n② 名場面だけ\n③ ほぼ撮らない\n\n→ コメントで教えて",
-     "en": "How often do you take screenshots?\n\n① A lot\n② Only big moments\n③ Hardly ever\n\n→ Tell me in the comments",
-     "enRev": "",
-     "status": "notyet",
-     "memo": ""
-    },
-    {
      "date": "2026-12-04",
      "type": "Feed",
-     "ja": "「あの時のあのゲーム」を、\n誰かに話したくなる夜がある。\n\n話せるのは、覚えているから。\n覚えていられるのは、残したから。\n\n全ては、遊びを報酬に変えるために。Web3トークンプロジェクト|REEL\nXは @REEL_Experience\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3ゲーム #ゲームのある生活 #ゲーマー",
-     "en": "Some nights you want to tell someone\nabout \"that game back then.\"\n\nYou can tell it because you remember.\nYou remember because you kept it.\n\nAll for turning play into reward. Web3 Token Project | REEL\nFind us on X @REEL_Experience\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3Gaming #GamerLife #Gaming",
+     "ja": "「あの時のあのゲーム」を、\n誰かに話したくなる夜がある。\n\n話せるのは、覚えているから。\n覚えていられるのは、残したから。\n\n思い出のゲーム、誰かに話したことある？",
+     "en": "Some nights you want to tell someone\nabout \"that game back then.\"\n\nYou can tell it because you remember.\nYou remember because you kept it.\n\nEver told someone about a game you remember?",
      "enRev": "",
      "status": "notyet",
      "memo": ""
@@ -875,19 +848,10 @@
      "memo": ""
     },
     {
-     "date": "2026-12-04",
-     "type": "Reply",
-     "ja": "思い出のゲーム、誰かに話したことある？\n\n① よくある\n② たまに\n③ まだない\n\n→ コメントで教えて",
-     "en": "Ever told someone about a game you remember?\n\n① Often\n② Sometimes\n③ Not yet\n\n→ Tell me in the comments",
-     "enRev": "",
-     "status": "notyet",
-     "memo": ""
-    },
-    {
      "date": "2026-12-05",
      "type": "Feed",
-     "ja": "一年を振り返ると、\n長く遊んだ時間より、\n誰かと遊んだ時間のほうが残っている。\n\n全ては、遊びを報酬に変えるために。Web3トークンプロジェクト|REEL\n続きはプロフィールのリンクから。\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3ゲーム #ゲーム好きな人と繋がりたい #GamingCommunity",
-     "en": "Looking back on the year,\nthe time you played with someone\nstays more than the time you played long.\n\nAll for turning play into reward. Web3 Token Project | REEL\nLink in bio.\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3Gaming #GamingCommunity #GamersUnite",
+     "ja": "一年を振り返ると、\n長く遊んだ時間より、\n誰かと遊んだ時間のほうが残っている。",
+     "en": "Looking back on the year,\nthe time you played with someone\nstays more than the time you played long.",
      "enRev": "",
      "status": "notyet",
      "memo": ""
@@ -904,8 +868,8 @@
     {
      "date": "2026-12-06",
      "type": "Feed",
-     "ja": "今週は、ふりかえる話をした。\n残した記録が、一年を思い出させてくれる。\n\n来週は、「つなぐ」。\n\n全ては、遊びを報酬に変えるために。Web3トークンプロジェクト|REEL\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3ゲーム #GameFi #Web3Gaming",
-     "en": "This week was about looking back.\nWhat you recorded helps you remember the year.\n\nNext week: connecting.\n\nAll for turning play into reward. Web3 Token Project | REEL\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3Gaming #GameFi #PlayToEarn",
+     "ja": "今週は、ふりかえる話をした。\n残した記録が、一年を思い出させてくれる。\n\n来週は、「つなぐ」。",
+     "en": "This week was about looking back.\nWhat you recorded helps you remember the year.\n\nNext week: connecting.",
      "enRev": "",
      "status": "notyet",
      "memo": ""
@@ -922,8 +886,8 @@
     {
      "date": "2026-12-07",
      "type": "Feed",
-     "ja": "寒い夜は、家で遊ぶ時間が増える。\n\nひとりでも楽しい。\nでも、誰かが同じ時間にいると、少しあたたかい。\n\n全ては、遊びを報酬に変えるために。Web3トークンプロジェクト|REEL\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3ゲーム #ゲームのある生活 #ゲーマー",
-     "en": "Cold nights mean more time playing at home.\n\nIt's fun alone.\nBut knowing someone else is on at the same time makes it a little warmer.\n\nAll for turning play into reward. Web3 Token Project | REEL\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3Gaming #GamerLife #Gaming",
+     "ja": "寒い夜は、家で遊ぶ時間が増える。\n\nひとりでも楽しい。\nでも、誰かが同じ時間にいると、少しあたたかい。\n\n寒い夜、どう遊ぶ？",
+     "en": "Cold nights mean more time playing at home.\n\nIt's fun alone.\nBut knowing someone else is on at the same time makes it a little warmer.\n\nHow do you play on cold nights?",
      "enRev": "",
      "status": "notyet",
      "memo": ""
@@ -938,19 +902,10 @@
      "memo": ""
     },
     {
-     "date": "2026-12-07",
-     "type": "Reply",
-     "ja": "寒い夜、どう遊ぶ？\n\n① ひとりでじっくり\n② フレンドと\n③ 新しいゲームを探す\n\n→ コメントで教えて",
-     "en": "How do you play on cold nights?\n\n① Alone, slowly\n② With friends\n③ Look for a new game\n\n→ Tell me in the comments",
-     "enRev": "",
-     "status": "notyet",
-     "memo": ""
-    },
-    {
      "date": "2026-12-08",
      "type": "Feed",
-     "ja": "「また遊ぼう」の一言って、\nなんであんなにうれしいんだろう。\n\n約束があるだけで、次の日が少し楽しみになる。\n\n全ては、遊びを報酬に変えるために。Web3トークンプロジェクト|REEL\n続きはプロフィールのリンクから。\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3ゲーム #ゲーム好きな人と繋がりたい #GamingCommunity",
-     "en": "Why does \"let's play again\" feel so good?\n\nJust having a plan\nmakes tomorrow a little more fun.\n\nAll for turning play into reward. Web3 Token Project | REEL\nLink in bio.\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3Gaming #GamingCommunity #GamersUnite",
+     "ja": "「また遊ぼう」の一言って、\nなんであんなにうれしいんだろう。\n\n約束があるだけで、次の日が少し楽しみになる。\n\n「また遊ぼう」って、よく言う？",
+     "en": "Why does \"let's play again\" feel so good?\n\nJust having a plan\nmakes tomorrow a little more fun.\n\nDo you often say \"let's play again\"?",
      "enRev": "",
      "status": "notyet",
      "memo": ""
@@ -965,19 +920,10 @@
      "memo": ""
     },
     {
-     "date": "2026-12-08",
-     "type": "Reply",
-     "ja": "「また遊ぼう」って、よく言う？\n\n① よく言う\n② 言われるほう\n③ どちらもない\n\n→ コメントで教えて",
-     "en": "Do you often say \"let's play again\"?\n\n① Often\n② I'm the one who hears it\n③ Neither\n\n→ Tell me in the comments",
-     "enRev": "",
-     "status": "notyet",
-     "memo": ""
-    },
-    {
      "date": "2026-12-09",
      "type": "Feed",
-     "ja": "フレンドが最後にログインした日、\nなんとなく覚えている。\n\nつながりは、小さな日付で残っている。\n\n全ては、遊びを報酬に変えるために。Web3トークンプロジェクト|REEL\nXは @REEL_Experience\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3ゲーム #GameFi #Web3Gaming",
-     "en": "You vaguely remember the day\na friend last logged in.\n\nConnections stay in small dates.\n\nAll for turning play into reward. Web3 Token Project | REEL\nFind us on X @REEL_Experience\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3Gaming #GameFi #PlayToEarn",
+     "ja": "フレンドが最後にログインした日、\nなんとなく覚えている。\n\nつながりは、小さな日付で残っている。\n\n久しぶりに遊びたいフレンドはいる？",
+     "en": "You vaguely remember the day\na friend last logged in.\n\nConnections stay in small dates.\n\nIs there a friend you'd like to play with again?",
      "enRev": "",
      "status": "notyet",
      "memo": ""
@@ -992,19 +938,10 @@
      "memo": ""
     },
     {
-     "date": "2026-12-09",
-     "type": "Reply",
-     "ja": "久しぶりに遊びたいフレンドはいる？\n\n① いる\n② 連絡してみたい\n③ いない\n\n→ コメントで教えて",
-     "en": "Is there a friend you'd like to play with again?\n\n① Yes\n② I'd like to reach out\n③ No\n\n→ Tell me in the comments",
-     "enRev": "",
-     "status": "notyet",
-     "memo": ""
-    },
-    {
      "date": "2026-12-10",
      "type": "Feed",
-     "ja": "初心者のころ優しくされた経験。\nそれが、そのゲームを続ける理由になった人も多い。\n\n最初の一言が、居場所の入り口になる。\n\n全ては、遊びを報酬に変えるために。Web3トークンプロジェクト|REEL\n続きはプロフィールのリンクから。\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3ゲーム #ゲームのある生活 #ゲーマー",
-     "en": "Being treated kindly as a beginner —\nfor many people, that's why they kept playing.\n\nA first kind word becomes the door to a place to belong.\n\nAll for turning play into reward. Web3 Token Project | REEL\nLink in bio.\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3Gaming #GamerLife #Gaming",
+     "ja": "初心者のころ優しくされた経験。\nそれが、そのゲームを続ける理由になった人も多い。\n\n最初の一言が、居場所の入り口になる。\n\n初心者のころ、助けてもらった？",
+     "en": "Being treated kindly as a beginner —\nfor many people, that's why they kept playing.\n\nA first kind word becomes the door to a place to belong.\n\nDid anyone help you as a beginner?",
      "enRev": "",
      "status": "notyet",
      "memo": ""
@@ -1019,19 +956,10 @@
      "memo": ""
     },
     {
-     "date": "2026-12-10",
-     "type": "Reply",
-     "ja": "初心者のころ、助けてもらった？\n\n① たくさん\n② 少し\n③ ひとりで頑張った\n\n→ コメントで教えて",
-     "en": "Did anyone help you as a beginner?\n\n① A lot\n② A little\n③ I did it alone\n\n→ Tell me in the comments",
-     "enRev": "",
-     "status": "notyet",
-     "memo": ""
-    },
-    {
      "date": "2026-12-11",
      "type": "Feed",
-     "ja": "ギルドの名前を、\n今でも覚えている。\n\n場所がなくなっても、仲間の名前は残る。\n\n全ては、遊びを報酬に変えるために。Web3トークンプロジェクト|REEL\nXは @REEL_Experience\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3ゲーム #ゲーム好きな人と繋がりたい #GamingCommunity",
-     "en": "You still remember the name of your guild.\n\nEven when the place is gone, your friends' names remain.\n\nAll for turning play into reward. Web3 Token Project | REEL\nFind us on X @REEL_Experience\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3Gaming #GamingCommunity #GamersUnite",
+     "ja": "ギルドの名前を、\n今でも覚えている。\n\n場所がなくなっても、仲間の名前は残る。\n\n昔のギルド・クランの名前、覚えてる？",
+     "en": "You still remember the name of your guild.\n\nEven when the place is gone, your friends' names remain.\n\nDo you remember the name of an old guild or clan?",
      "enRev": "",
      "status": "notyet",
      "memo": ""
@@ -1046,19 +974,10 @@
      "memo": ""
     },
     {
-     "date": "2026-12-11",
-     "type": "Reply",
-     "ja": "昔のギルド・クランの名前、覚えてる？\n\n① 覚えてる\n② 少しだけ\n③ 入ったことがない\n\n→ コメントで教えて",
-     "en": "Do you remember the name of an old guild or clan?\n\n① Yes\n② A little\n③ Never joined one\n\n→ Tell me in the comments",
-     "enRev": "",
-     "status": "notyet",
-     "memo": ""
-    },
-    {
      "date": "2026-12-12",
      "type": "Feed",
-     "ja": "貢献が見えるだけで、\n人はそこに長くいたくなる。\n\n「ありがとう」が見える場所には、人が残る。\n\n全ては、遊びを報酬に変えるために。Web3トークンプロジェクト|REEL\n続きはプロフィールのリンクから。\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3ゲーム #GameFi #Web3Gaming",
-     "en": "When contributions are visible,\npeople want to stay longer.\n\nWhere \"thank you\" can be seen, people stay.\n\nAll for turning play into reward. Web3 Token Project | REEL\nLink in bio.\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3Gaming #GameFi #PlayToEarn",
+     "ja": "貢献が見えるだけで、\n人はそこに長くいたくなる。\n\n「ありがとう」が見える場所には、人が残る。",
+     "en": "When contributions are visible,\npeople want to stay longer.\n\nWhere \"thank you\" can be seen, people stay.",
      "enRev": "",
      "status": "notyet",
      "memo": ""
@@ -1075,11 +994,11 @@
     {
      "date": "2026-12-13",
      "type": "Feed",
-     "ja": "今週は、つなぐ話をした。\n人とつながると、遊びは長続きする。\n\n来週は、「贈る」。\n\n全ては、遊びを報酬に変えるために。Web3トークンプロジェクト|REEL\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3ゲーム #ゲームのある生活 #ゲーマー",
-     "en": "This week was about connecting.\nPlay lasts longer when people are connected.\n\nNext week: giving.\n\nAll for turning play into reward. Web3 Token Project | REEL\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3Gaming #GamerLife #Gaming",
+     "ja": "今週は、つなぐ話をした。\n人とつながると、遊びは長続きする。\n\n来週は、「贈る」。",
+     "en": "This week was about connecting.\nPlay lasts longer when people are connected.\n\nNext week: giving.",
      "enRev": "",
      "status": "notyet",
-     "memo": ""
+     "memo": "先週土曜にストーリーズで集まった一言から、許可をもらった1つを紹介する"
     },
     {
      "date": "2026-12-13",
@@ -1093,8 +1012,8 @@
     {
      "date": "2026-12-14",
      "type": "Feed",
-     "ja": "プレゼントって、\n中身より「選んでくれた時間」がうれしい。\n\n報酬も、同じかもしれない。\n\n全ては、遊びを報酬に変えるために。Web3トークンプロジェクト|REEL\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3ゲーム #ゲーム好きな人と繋がりたい #GamingCommunity",
-     "en": "With a gift, it's the time someone spent choosing\nthat makes you happy, more than what's inside.\n\nMaybe rewards are the same.\n\nAll for turning play into reward. Web3 Token Project | REEL\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3Gaming #GamingCommunity #GamersUnite",
+     "ja": "プレゼントって、\n中身より「選んでくれた時間」がうれしい。\n\n報酬も、同じかもしれない。\n\nもらってうれしいのは？",
+     "en": "With a gift, it's the time someone spent choosing\nthat makes you happy, more than what's inside.\n\nMaybe rewards are the same.\n\nWhat makes you happiest to receive?",
      "enRev": "",
      "status": "notyet",
      "memo": ""
@@ -1109,19 +1028,10 @@
      "memo": ""
     },
     {
-     "date": "2026-12-14",
-     "type": "Reply",
-     "ja": "もらってうれしいのは？\n\n① 物\n② 言葉\n③ 時間\n\n→ コメントで教えて",
-     "en": "What makes you happiest to receive?\n\n① Things\n② Words\n③ Time\n\n→ Tell me in the comments",
-     "enRev": "",
-     "status": "notyet",
-     "memo": ""
-    },
-    {
      "date": "2026-12-15",
      "type": "Feed",
-     "ja": "ゲームで、誰かにアイテムを渡した記憶。\n\n渡した側も、受け取った側も、\nずっと覚えている。\n\n全ては、遊びを報酬に変えるために。Web3トークンプロジェクト|REEL\n続きはプロフィールのリンクから。\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3ゲーム #GameFi #Web3Gaming",
-     "en": "Remember handing an item to someone in a game?\n\nBoth the giver and the receiver\nremember it for years.\n\nAll for turning play into reward. Web3 Token Project | REEL\nLink in bio.\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3Gaming #GameFi #PlayToEarn",
+     "ja": "ゲームで、誰かにアイテムを渡した記憶。\n\n渡した側も、受け取った側も、\nずっと覚えている。\n\nゲームで、誰かに何か贈ったことある？",
+     "en": "Remember handing an item to someone in a game?\n\nBoth the giver and the receiver\nremember it for years.\n\nEver given something to someone in a game?",
      "enRev": "",
      "status": "notyet",
      "memo": ""
@@ -1136,19 +1046,10 @@
      "memo": ""
     },
     {
-     "date": "2026-12-15",
-     "type": "Reply",
-     "ja": "ゲームで、誰かに何か贈ったことある？\n\n① ある\n② もらったことだけある\n③ どちらもない\n\n→ コメントで教えて",
-     "en": "Ever given something to someone in a game?\n\n① Yes\n② Only received\n③ Neither\n\n→ Tell me in the comments",
-     "enRev": "",
-     "status": "notyet",
-     "memo": ""
-    },
-    {
      "date": "2026-12-16",
      "type": "Feed",
-     "ja": "書いたレビューに、\n「助かった」の一言が届く。\n\nそれも、立派なギフト。\n\n全ては、遊びを報酬に変えるために。Web3トークンプロジェクト|REEL\nXは @REEL_Experience\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3ゲーム #ゲームのある生活 #ゲーマー",
-     "en": "A review you wrote gets a \"this helped.\"\n\nThat's a gift too.\n\nAll for turning play into reward. Web3 Token Project | REEL\nFind us on X @REEL_Experience\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3Gaming #GamerLife #Gaming",
+     "ja": "書いたレビューに、\n「助かった」の一言が届く。\n\nそれも、立派なギフト。\n\n「助かった」と言われた経験は？",
+     "en": "A review you wrote gets a \"this helped.\"\n\nThat's a gift too.\n\nHas anyone told you \"this helped\"?",
      "enRev": "",
      "status": "notyet",
      "memo": ""
@@ -1163,19 +1064,10 @@
      "memo": ""
     },
     {
-     "date": "2026-12-16",
-     "type": "Reply",
-     "ja": "「助かった」と言われた経験は？\n\n① ある\n② 言ったことがある\n③ これから\n\n→ コメントで教えて",
-     "en": "Has anyone told you \"this helped\"?\n\n① Yes\n② I've said it\n③ Not yet\n\n→ Tell me in the comments",
-     "enRev": "",
-     "status": "notyet",
-     "memo": ""
-    },
-    {
      "date": "2026-12-17",
      "type": "Feed",
-     "ja": "年末は、「ありがとう」を伝える季節。\n\nゲームの中でも、\n伝えそびれた人が一人はいる。\n\n全ては、遊びを報酬に変えるために。Web3トークンプロジェクト|REEL\n続きはプロフィールのリンクから。\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3ゲーム #ゲーム好きな人と繋がりたい #GamingCommunity",
-     "en": "Year-end is the season to say thank you.\n\nIn games, too,\nthere's someone you forgot to thank.\n\nAll for turning play into reward. Web3 Token Project | REEL\nLink in bio.\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3Gaming #GamingCommunity #GamersUnite",
+     "ja": "年末は、「ありがとう」を伝える季節。\n\nゲームの中でも、\n伝えそびれた人が一人はいる。\n\n今年、ゲーム仲間に感謝したいのは？",
+     "en": "Year-end is the season to say thank you.\n\nIn games, too,\nthere's someone you forgot to thank.\n\nWho in your gaming circle do you want to thank this year?",
      "enRev": "",
      "status": "notyet",
      "memo": ""
@@ -1190,19 +1082,10 @@
      "memo": ""
     },
     {
-     "date": "2026-12-17",
-     "type": "Reply",
-     "ja": "今年、ゲーム仲間に感謝したいのは？\n\n① 誘ってくれた人\n② 教えてくれた人\n③ 一緒に遊んでくれた人\n\n→ コメントで教えて",
-     "en": "Who in your gaming circle do you want to thank this year?\n\n① Who invited me\n② Who taught me\n③ Who played with me\n\n→ Tell me in the comments",
-     "enRev": "",
-     "status": "notyet",
-     "memo": ""
-    },
-    {
      "date": "2026-12-18",
      "type": "Feed",
-     "ja": "行動が先、報酬が後。\n\n10月にも言ったけれど、\n年末に見ると、また違って見える。\n\n全ては、遊びを報酬に変えるために。Web3トークンプロジェクト|REEL\nXは @REEL_Experience\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3ゲーム #GameFi #Web3Gaming",
-     "en": "Action first, reward after.\n\nWe said it in October,\nbut it looks different at year-end.\n\nAll for turning play into reward. Web3 Token Project | REEL\nFind us on X @REEL_Experience\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3Gaming #GameFi #PlayToEarn",
+     "ja": "行動が先、報酬が後。\n\n10月にも言ったけれど、\n年末に見ると、また違って見える。\n\n今年がんばったことは？",
+     "en": "Action first, reward after.\n\nWe said it in October,\nbut it looks different at year-end.\n\nWhat did you work hard on this year?",
      "enRev": "",
      "status": "notyet",
      "memo": ""
@@ -1217,19 +1100,10 @@
      "memo": ""
     },
     {
-     "date": "2026-12-18",
-     "type": "Reply",
-     "ja": "今年がんばったことは？\n\n① 仕事・勉強\n② ゲーム\n③ 生活\n\n→ コメントで教えて",
-     "en": "What did you work hard on this year?\n\n① Work / study\n② Games\n③ Daily life\n\n→ Tell me in the comments",
-     "enRev": "",
-     "status": "notyet",
-     "memo": ""
-    },
-    {
      "date": "2026-12-19",
      "type": "Feed",
-     "ja": "報酬は、受け取った瞬間より、\n受け取る前のワクワクが長い。\n\nクリスマスまで、あと6日。\n\n全ては、遊びを報酬に変えるために。Web3トークンプロジェクト|REEL\n続きはプロフィールのリンクから。\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3ゲーム #ゲームのある生活 #ゲーマー",
-     "en": "The thrill before receiving a reward\nlasts longer than the moment of receiving it.\n\nSix days until Christmas.\n\nAll for turning play into reward. Web3 Token Project | REEL\nLink in bio.\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3Gaming #GamerLife #Gaming",
+     "ja": "報酬は、受け取った瞬間より、\n受け取る前のワクワクが長い。\n\nクリスマスまで、あと6日。\n\nあなたの一言を、ストーリーズで教えてください。",
+     "en": "The thrill before receiving a reward\nlasts longer than the moment of receiving it.\n\nSix days until Christmas.\n\nShare your line in our Stories.",
      "enRev": "",
      "status": "notyet",
      "memo": ""
@@ -1246,11 +1120,11 @@
     {
      "date": "2026-12-20",
      "type": "Feed",
-     "ja": "今週は、贈る話をした。\n贈るも、受け取るも、遊びの一部。\n\n来週は、クリスマス。\n\n全ては、遊びを報酬に変えるために。Web3トークンプロジェクト|REEL\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3ゲーム #ゲーム好きな人と繋がりたい #GamingCommunity",
-     "en": "This week was about giving.\nGiving and receiving are both part of play.\n\nNext week: Christmas.\n\nAll for turning play into reward. Web3 Token Project | REEL\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3Gaming #GamingCommunity #GamersUnite",
+     "ja": "今週は、贈る話をした。\n贈るも、受け取るも、遊びの一部。\n\n来週は、クリスマス。",
+     "en": "This week was about giving.\nGiving and receiving are both part of play.\n\nNext week: Christmas.",
      "enRev": "",
      "status": "notyet",
-     "memo": ""
+     "memo": "先週土曜にストーリーズで集まった一言から、許可をもらった1つを紹介する"
     },
     {
      "date": "2026-12-20",
@@ -1264,8 +1138,8 @@
     {
      "date": "2026-12-21",
      "type": "Feed",
-     "ja": "冬至。一年でいちばん夜が長い日。\n\nゆっくり遊べる夜でもある。\nどのゲームを開く？\n\n全ては、遊びを報酬に変えるために。Web3トークンプロジェクト|REEL\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3ゲーム #GameFi #Web3Gaming",
-     "en": "Winter solstice. The longest night of the year.\n\nA good night to play slowly.\nWhich game do you open?\n\nAll for turning play into reward. Web3 Token Project | REEL\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3Gaming #GameFi #PlayToEarn",
+     "ja": "冬至。一年でいちばん夜が長い日。\n\nゆっくり遊べる夜でもある。\nどのゲームを開く？\n\n冬至の夜、何をする？",
+     "en": "Winter solstice. The longest night of the year.\n\nA good night to play slowly.\nWhich game do you open?\n\nWhat will you do on the solstice night?",
      "enRev": "",
      "status": "notyet",
      "memo": ""
@@ -1280,19 +1154,10 @@
      "memo": ""
     },
     {
-     "date": "2026-12-21",
-     "type": "Reply",
-     "ja": "冬至の夜、何をする？\n\n① ゲーム\n② あたたかいものを食べる\n③ 早く寝る\n\n→ コメントで教えて",
-     "en": "What will you do on the solstice night?\n\n① Play games\n② Eat something warm\n③ Sleep early\n\n→ Tell me in the comments",
-     "enRev": "",
-     "status": "notyet",
-     "memo": ""
-    },
-    {
      "date": "2026-12-22",
      "type": "Feed",
-     "ja": "クリスマスの予定、\nもう決まった？\n\nゲームのイベントも、立派な予定。\n\n全ては、遊びを報酬に変えるために。Web3トークンプロジェクト|REEL\n続きはプロフィールのリンクから。\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3ゲーム #ゲームのある生活 #ゲーマー",
-     "en": "Are your Christmas plans set?\n\nAn in-game event counts as plans too.\n\nAll for turning play into reward. Web3 Token Project | REEL\nLink in bio.\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3Gaming #GamerLife #Gaming",
+     "ja": "クリスマスの予定、\nもう決まった？\n\nゲームのイベントも、立派な予定。\n\nクリスマス、どう過ごす？",
+     "en": "Are your Christmas plans set?\n\nAn in-game event counts as plans too.\n\nHow will you spend Christmas?",
      "enRev": "",
      "status": "notyet",
      "memo": ""
@@ -1307,19 +1172,10 @@
      "memo": ""
     },
     {
-     "date": "2026-12-22",
-     "type": "Reply",
-     "ja": "クリスマス、どう過ごす？\n\n① 家でゲーム\n② 誰かと会う\n③ いつも通り\n\n→ コメントで教えて",
-     "en": "How will you spend Christmas?\n\n① Games at home\n② Meet someone\n③ As usual\n\n→ Tell me in the comments",
-     "enRev": "",
-     "status": "notyet",
-     "memo": ""
-    },
-    {
      "date": "2026-12-23",
      "type": "Feed",
-     "ja": "サンタは、一晩で世界中を回る。\n\nゲームの中のサンタ衣装は、\n一年に一度しか会えない。\n\n全ては、遊びを報酬に変えるために。Web3トークンプロジェクト|REEL\nXは @REEL_Experience\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3ゲーム #ゲーム好きな人と繋がりたい #GamingCommunity",
-     "en": "Santa travels the world in one night.\n\nSanta outfits in games\nshow up just once a year.\n\nAll for turning play into reward. Web3 Token Project | REEL\nFind us on X @REEL_Experience\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3Gaming #GamingCommunity #GamersUnite",
+     "ja": "サンタは、一晩で世界中を回る。\n\nゲームの中のサンタ衣装は、\n一年に一度しか会えない。\n\nゲームのクリスマス衣装、集める？",
+     "en": "Santa travels the world in one night.\n\nSanta outfits in games\nshow up just once a year.\n\nDo you collect Christmas outfits in games?",
      "enRev": "",
      "status": "notyet",
      "memo": ""
@@ -1334,19 +1190,10 @@
      "memo": ""
     },
     {
-     "date": "2026-12-23",
-     "type": "Reply",
-     "ja": "ゲームのクリスマス衣装、集める？\n\n① 集める\n② 気に入ったものだけ\n③ 見るだけ\n\n→ コメントで教えて",
-     "en": "Do you collect Christmas outfits in games?\n\n① Collect them all\n② Only favorites\n③ Just look\n\n→ Tell me in the comments",
-     "enRev": "",
-     "status": "notyet",
-     "memo": ""
-    },
-    {
      "date": "2026-12-24",
      "type": "Feed",
-     "ja": "イブの夜。\n\n誰かにメッセージを送るなら、\n長い文章より、短い一言がいい。\n\n「メリークリスマス」で十分。\n\n全ては、遊びを報酬に変えるために。Web3トークンプロジェクト|REEL\n続きはプロフィールのリンクから。\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3ゲーム #GameFi #Web3Gaming",
-     "en": "Christmas Eve.\n\nIf you message someone tonight,\na short line beats a long text.\n\n\"Merry Christmas\" is enough.\n\nAll for turning play into reward. Web3 Token Project | REEL\nLink in bio.\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3Gaming #GameFi #PlayToEarn",
+     "ja": "イブの夜。\n\n誰かにメッセージを送るなら、\n長い文章より、短い一言がいい。\n\n「メリークリスマス」で十分。\n\nイブの夜、誰に連絡する？",
+     "en": "Christmas Eve.\n\nIf you message someone tonight,\na short line beats a long text.\n\n\"Merry Christmas\" is enough.\n\nWho will you message on Christmas Eve?",
      "enRev": "",
      "status": "notyet",
      "memo": ""
@@ -1361,19 +1208,10 @@
      "memo": ""
     },
     {
-     "date": "2026-12-24",
-     "type": "Reply",
-     "ja": "イブの夜、誰に連絡する？\n\n① 家族\n② 友だち\n③ ゲーム仲間\n\n→ コメントで教えて",
-     "en": "Who will you message on Christmas Eve?\n\n① Family\n② Friends\n③ Gaming friends\n\n→ Tell me in the comments",
-     "enRev": "",
-     "status": "notyet",
-     "memo": ""
-    },
-    {
      "date": "2026-12-25",
      "type": "Feed",
-     "ja": "メリークリスマス。\n\n今日、誰かの「ありがとう」を\n受け取れますように。\n\n遊びが、あたたかい贈り物になる日。\n\n全ては、遊びを報酬に変えるために。Web3トークンプロジェクト|REEL\nXは @REEL_Experience\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3ゲーム #ゲームのある生活 #ゲーマー",
-     "en": "Merry Christmas.\n\nMay you receive someone's \"thank you\" today.\n\nA day when play becomes a warm gift.\n\nAll for turning play into reward. Web3 Token Project | REEL\nFind us on X @REEL_Experience\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3Gaming #GamerLife #Gaming",
+     "ja": "メリークリスマス。\n\n今日、誰かの「ありがとう」を\n受け取れますように。\n\n遊びが、あたたかい贈り物になる日。\n\n今日いちばんうれしかったのは？",
+     "en": "Merry Christmas.\n\nMay you receive someone's \"thank you\" today.\n\nA day when play becomes a warm gift.\n\nWhat made you happiest today?",
      "enRev": "",
      "status": "notyet",
      "memo": ""
@@ -1388,19 +1226,10 @@
      "memo": ""
     },
     {
-     "date": "2026-12-25",
-     "type": "Reply",
-     "ja": "今日いちばんうれしかったのは？\n\n① プレゼント\n② 連絡\n③ ごはん\n\n→ コメントで教えて",
-     "en": "What made you happiest today?\n\n① A present\n② A message\n③ A meal\n\n→ Tell me in the comments",
-     "enRev": "",
-     "status": "notyet",
-     "memo": ""
-    },
-    {
      "date": "2026-12-26",
      "type": "Feed",
-     "ja": "イベントが終わった翌日の静けさ。\n\n祭りのあとも、\n記録は残っている。\n\n全ては、遊びを報酬に変えるために。Web3トークンプロジェクト|REEL\n続きはプロフィールのリンクから。\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3ゲーム #ゲーム好きな人と繋がりたい #GamingCommunity",
-     "en": "The quiet the day after an event ends.\n\nAfter the festival,\nthe record is still there.\n\nAll for turning play into reward. Web3 Token Project | REEL\nLink in bio.\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3Gaming #GamingCommunity #GamersUnite",
+     "ja": "イベントが終わった翌日の静けさ。\n\n祭りのあとも、\n記録は残っている。\n\nあなたの一言を、ストーリーズで教えてください。",
+     "en": "The quiet the day after an event ends.\n\nAfter the festival,\nthe record is still there.\n\nShare your line in our Stories.",
      "enRev": "",
      "status": "notyet",
      "memo": ""
@@ -1417,11 +1246,11 @@
     {
      "date": "2026-12-27",
      "type": "Feed",
-     "ja": "今週は、クリスマスの話をした。\n来週は、今年最後の一週間。\n\n来週は、「ふりかえりと、これから」。\n\n全ては、遊びを報酬に変えるために。Web3トークンプロジェクト|REEL\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3ゲーム #GameFi #Web3Gaming",
-     "en": "This week was about Christmas.\nNext week is the last week of the year.\n\nNext week: looking back, and ahead.\n\nAll for turning play into reward. Web3 Token Project | REEL\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3Gaming #GameFi #PlayToEarn",
+     "ja": "今週は、クリスマスの話をした。\n来週は、今年最後の一週間。\n\n来週は、「ふりかえりと、これから」。",
+     "en": "This week was about Christmas.\nNext week is the last week of the year.\n\nNext week: looking back, and ahead.",
      "enRev": "",
      "status": "notyet",
-     "memo": ""
+     "memo": "先週土曜にストーリーズで集まった一言から、許可をもらった1つを紹介する"
     },
     {
      "date": "2026-12-27",
@@ -1435,8 +1264,8 @@
     {
      "date": "2026-12-28",
      "type": "Feed",
-     "ja": "仕事納め、ゲーム納め。\n\n今年最後に遊ぶゲームは、\nもう決まってる？\n\n全ては、遊びを報酬に変えるために。Web3トークンプロジェクト|REEL\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3ゲーム #ゲームのある生活 #ゲーマー",
-     "en": "Last day of work, last game of the year.\n\nHave you picked the final game you'll play this year?\n\nAll for turning play into reward. Web3 Token Project | REEL\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3Gaming #GamerLife #Gaming",
+     "ja": "仕事納め、ゲーム納め。\n\n今年最後に遊ぶゲームは、\nもう決まってる？\n\n今年最後に遊ぶゲームは？",
+     "en": "Last day of work, last game of the year.\n\nHave you picked the final game you'll play this year?\n\nThe last game you'll play this year?",
      "enRev": "",
      "status": "notyet",
      "memo": ""
@@ -1451,19 +1280,10 @@
      "memo": ""
     },
     {
-     "date": "2026-12-28",
-     "type": "Reply",
-     "ja": "今年最後に遊ぶゲームは？\n\n① いつもの\n② 新しいもの\n③ まだ決めてない\n\n→ コメントで教えて",
-     "en": "The last game you'll play this year?\n\n① My usual\n② Something new\n③ Not decided\n\n→ Tell me in the comments",
-     "enRev": "",
-     "status": "notyet",
-     "memo": ""
-    },
-    {
      "date": "2026-12-29",
      "type": "Feed",
-     "ja": "今年のスクショ、見返してみた？\n\n一枚ずつ見ると、\n季節ごとに違う自分がいる。\n\n全ては、遊びを報酬に変えるために。Web3トークンプロジェクト|REEL\n続きはプロフィールのリンクから。\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3ゲーム #ゲーム好きな人と繋がりたい #GamingCommunity",
-     "en": "Have you looked back at this year's screenshots?\n\nOne by one,\nyou see a different you for each season.\n\nAll for turning play into reward. Web3 Token Project | REEL\nLink in bio.\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3Gaming #GamingCommunity #GamersUnite",
+     "ja": "今年のスクショ、見返してみた？\n\n一枚ずつ見ると、\n季節ごとに違う自分がいる。\n\n今年のハイライトは？",
+     "en": "Have you looked back at this year's screenshots?\n\nOne by one,\nyou see a different you for each season.\n\nYour highlight of the year?",
      "enRev": "",
      "status": "notyet",
      "memo": ""
@@ -1478,19 +1298,10 @@
      "memo": ""
     },
     {
-     "date": "2026-12-29",
-     "type": "Reply",
-     "ja": "今年のハイライトは？\n\n① 新しい出会い\n② 達成したこと\n③ 笑った瞬間\n\n→ コメントで教えて",
-     "en": "Your highlight of the year?\n\n① New encounters\n② Something achieved\n③ A moment of laughter\n\n→ Tell me in the comments",
-     "enRev": "",
-     "status": "notyet",
-     "memo": ""
-    },
-    {
      "date": "2026-12-30",
      "type": "Feed",
-     "ja": "この一年で、\n誰かに「ありがとう」と言えた？\n\n言えた人も、まだの人も。\n年内なら、まだ間に合う。\n\n全ては、遊びを報酬に変えるために。Web3トークンプロジェクト|REEL\nXは @REEL_Experience\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3ゲーム #GameFi #Web3Gaming",
-     "en": "Did you manage to say \"thank you\" to someone this year?\n\nWhether you did or not,\nthere's still time before the year ends.\n\nAll for turning play into reward. Web3 Token Project | REEL\nFind us on X @REEL_Experience\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3Gaming #GameFi #PlayToEarn",
+     "ja": "この一年で、\n誰かに「ありがとう」と言えた？\n\n言えた人も、まだの人も。\n年内なら、まだ間に合う。\n\n年内に連絡したい人はいる？",
+     "en": "Did you manage to say \"thank you\" to someone this year?\n\nWhether you did or not,\nthere's still time before the year ends.\n\nAnyone you want to reach out to before the year ends?",
      "enRev": "",
      "status": "notyet",
      "memo": ""
@@ -1505,19 +1316,10 @@
      "memo": ""
     },
     {
-     "date": "2026-12-30",
-     "type": "Reply",
-     "ja": "年内に連絡したい人はいる？\n\n① いる\n② 迷ってる\n③ もう伝えた\n\n→ コメントで教えて",
-     "en": "Anyone you want to reach out to before the year ends?\n\n① Yes\n② Not sure\n③ Already did\n\n→ Tell me in the comments",
-     "enRev": "",
-     "status": "notyet",
-     "memo": ""
-    },
-    {
      "date": "2026-12-31",
      "type": "Feed",
-     "ja": "12月、ふりかえる話をしてきた。\n\n記録が、一年を思い出させ、\nつながりが、一年をあたためて、\n「ありがとう」が、一年に応える。\n\n来年も、全部つながって、一つのループへ。\n良いお年を。\n\n全ては、遊びを報酬に変えるために。Web3トークンプロジェクト|REEL\n続きはプロフィールのリンクから。\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3ゲーム #ゲームのある生活 #ゲーマー",
-     "en": "This December, we talked about looking back.\n\nRecords bring the year back.\nConnections warm it.\n\"Thank you\" answers it.\n\nNext year, all connected, one loop again.\nHappy New Year.\n\nAll for turning play into reward. Web3 Token Project | REEL\nLink in bio.\n\nPLAY -> REVIEW -> REWARD\n\n#REEL #PlayReviewReward #Web3Gaming #GamerLife #Gaming",
+     "ja": "12月、ふりかえる話をしてきた。\n\n記録が、一年を思い出させ、\nつながりが、一年をあたためて、\n「ありがとう」が、一年に応える。\n\n来年も、全部つながって、一つのループへ。\n良いお年を。\n\n来年、遊びたいことは？",
+     "en": "This December, we talked about looking back.\n\nRecords bring the year back.\nConnections warm it.\n\"Thank you\" answers it.\n\nNext year, all connected, one loop again.\nHappy New Year.\n\nWhat do you want to play next year?",
      "enRev": "",
      "status": "notyet",
      "memo": ""
@@ -1530,12 +1332,292 @@
      "enRev": "",
      "status": "notyet",
      "memo": ""
+    }
+   ]
+  },
+  {
+   "id": "reel-x-2026-12",
+   "channel": "reel",
+   "platform": "X",
+   "month": "2026-12",
+   "title": "REEL X",
+   "theme": "ふりかえる → つなぐ → 贈る → 年の締め（11月の形を受けて、12月は人と「ありがとう」で一年を結ぶ）。Xは身近な仕組みにたとえる形（10月のGitHub・Stack Overflowの回が反応良好）",
+   "posts": [
+    {
+     "date": "2026-12-01",
+     "type": "X",
+     "ja": "12月、みんな一年のまとめを開く。\n\n何も思い出さなくていい。\n記録が全部、覚えていてくれたから。",
+     "en": "Every December, people open their year-in-review.\n\nNobody had to remember a thing.\nThe record did it all.",
+     "enRev": "",
+     "status": "notyet",
+     "memo": ""
+    },
+    {
+     "date": "2026-12-02",
+     "type": "X",
+     "ja": "運動アプリは、一週間の歩数を1つのグラフにする。\n\n歩いた実感はなくても、記録は覚えている。\n\nあなたの一年のプレイは、どんなグラフ？",
+     "en": "A fitness app turns a week of steps into one chart.\n\nYou don't feel how far you walked.\nThe record remembers.\n\nWhat would your year of play look like?",
+     "enRev": "",
+     "status": "notyet",
+     "memo": ""
+    },
+    {
+     "date": "2026-12-03",
+     "type": "X",
+     "ja": "3年前の写真1枚で、あの日の午後が戻ってくる。\n\nゲームのスクショも同じ。\n\n最初に開くのは、どの1枚？",
+     "en": "One photo from three years ago\ncan bring back a whole afternoon.\n\nGame screenshots work the same way.\n\nWhich one would you open first?",
+     "enRev": "",
+     "status": "notyet",
+     "memo": ""
+    },
+    {
+     "date": "2026-12-04",
+     "type": "X",
+     "ja": "レシートは、使ったお金を教えてくれる。\n\n楽しかった時間を教えてくれるのは、何？",
+     "en": "A receipt shows what you spent.\n\nWhat shows the hours you enjoyed?",
+     "enRev": "",
+     "status": "notyet",
+     "memo": ""
+    },
+    {
+     "date": "2026-12-05",
+     "type": "X",
+     "ja": "本棚を見ると、その人のその年が分かる。\n\nゲームのライブラリも同じ。\n\n今でも思い出す、いちばん古いゲームは？",
+     "en": "A bookshelf says who someone was that year.\n\nA game library does too.\n\nWhat's the oldest game you still think about?",
+     "enRev": "",
+     "status": "notyet",
+     "memo": ""
+    },
+    {
+     "date": "2026-12-06",
+     "type": "X",
+     "ja": "日記は、何でもない日の並び。\n\n何年かあとには、いちばんの宝物になる。\n\n今週は「ふりかえる」。来週は「つなぐ」。",
+     "en": "A diary is just a list of ordinary days.\n\nYears later, it's the thing you keep.\n\nThis week: looking back. Next week: connecting.",
+     "enRev": "",
+     "status": "notyet",
+     "memo": ""
+    },
+    {
+     "date": "2026-12-07",
+     "type": "X",
+     "ja": "草バスケに、リーグはいらない。\n誰かが来れば、試合が始まる。\n\nオンラインのゲームも同じ。\n\nあなたのところに来てくれるのは誰？",
+     "en": "Pick-up basketball needs no league.\nSomeone shows up, and the game starts.\n\nOnline games work the same way.\n\nWho shows up for you?",
+     "enRev": "",
+     "status": "notyet",
+     "memo": ""
+    },
+    {
+     "date": "2026-12-08",
+     "type": "X",
+     "ja": "行きつけのカフェの常連は、\n何を頼むかで覚えられるわけじゃない。\n\n通い続けることで覚えられる。\nゲームのコミュニティも同じ。",
+     "en": "A regular at a coffee shop\nisn't remembered for what they order.\n\nThey're remembered for showing up.\nGame communities work the same way.",
+     "enRev": "",
+     "status": "notyet",
+     "memo": ""
+    },
+    {
+     "date": "2026-12-09",
+     "type": "X",
+     "ja": "グループチャットで残るのは、\n一番大きな声のメッセージじゃない。\n\n誰かが「見てもらえた」と感じた一言だ。",
+     "en": "In a group chat, the loudest message isn't the one that stays.\n\nIt's the one that made someone feel noticed.",
+     "enRev": "",
+     "status": "notyet",
+     "memo": ""
+    },
+    {
+     "date": "2026-12-10",
+     "type": "X",
+     "ja": "Wikipediaは、会うことのない人たちが書いている。\n\n編集の履歴が見えるから、続けやすい。\n\n見える努力は、人をその場所に残す。",
+     "en": "Wikipedia is written by people who will never meet.\n\nTheir edit history is visible, and that makes it easier to keep going.\n\nVisible effort keeps people around.",
+     "enRev": "",
+     "status": "notyet",
+     "memo": ""
+    },
+    {
+     "date": "2026-12-11",
+     "type": "X",
+     "ja": "パン屋の一番の広告は、\n近所の人の「ここ、おいしいよ」。\n\nゲームも同じように広がる。\n\nあなたの好きなゲームは、誰に教わった？",
+     "en": "A bakery's best ad is a neighbor saying\n\"you have to try this.\"\n\nGames spread the same way.\n\nWho told you about your favorite?",
+     "enRev": "",
+     "status": "notyet",
+     "memo": ""
+    },
+    {
+     "date": "2026-12-12",
+     "type": "X",
+     "ja": "オープンソースのプロジェクトは、\n貢献した人の名前を載せる。\n\n費用はかからない。それでも、人はまた戻ってくる。",
+     "en": "Open-source projects list their contributors by name.\n\nIt costs nothing, and people come back.",
+     "enRev": "",
+     "status": "notyet",
+     "memo": ""
+    },
+    {
+     "date": "2026-12-13",
+     "type": "X",
+     "ja": "今週は「つなぐ」。来週は「贈る」。\n\nゲームで、誰かにしてもらってうれしかったことは？",
+     "en": "This week: connecting. Next week: giving.\n\nWhat did someone do for you in a game that you still remember?",
+     "enRev": "",
+     "status": "notyet",
+     "memo": ""
+    },
+    {
+     "date": "2026-12-14",
+     "type": "X",
+     "ja": "手書きのメモは、プレゼントより長く残る。\n\n人が持ち帰るのは、選んでくれた気持ちのほう。",
+     "en": "A handwritten note outlasts the gift.\n\nThe thought is the part people keep.",
+     "enRev": "",
+     "status": "notyet",
+     "memo": ""
+    },
+    {
+     "date": "2026-12-15",
+     "type": "X",
+     "ja": "ゲームで人に渡したアイテムは、\n一番よく覚えているアイテムになりやすい。\n\n誰に、何を渡した？",
+     "en": "In a game, the item you gave away\nis often the one you remember best.\n\nWhat did you give, and to whom?",
+     "enRev": "",
+     "status": "notyet",
+     "memo": ""
+    },
+    {
+     "date": "2026-12-16",
+     "type": "X",
+     "ja": "役に立ったコメントの下の「ありがとう」は、お金がかからない。\n\nそれが、その人が次のコメントを書く理由になるかもしれない。",
+     "en": "A \"thanks\" under a helpful comment costs nothing.\n\nIt might be why that person writes the next one.",
+     "enRev": "",
+     "status": "notyet",
+     "memo": ""
+    },
+    {
+     "date": "2026-12-17",
+     "type": "X",
+     "ja": "年賀状は、古い技術。\n\nそれでも人が送るのは、\n覚えていてもらえることがうれしいから。",
+     "en": "Year-end cards are old technology.\n\nPeople still send them,\nbecause being remembered matters.",
+     "enRev": "",
+     "status": "notyet",
+     "memo": ""
+    },
+    {
+     "date": "2026-12-18",
+     "type": "X",
+     "ja": "マイルは、通い続けた人に報いる仕組み。\n\n攻略やレビューを書くことも、「通い続けること」に数えられたら？",
+     "en": "Frequent-flyer miles reward people who keep showing up.\n\nWhat if writing guides and reviews counted as showing up too?",
+     "enRev": "",
+     "status": "notyet",
+     "memo": ""
+    },
+    {
+     "date": "2026-12-19",
+     "type": "X",
+     "ja": "土曜の質問。\n\nお気に入りのゲームを友達に勧める一言は？\n\nストーリーズで教えてください。来週、許可をもらった1つを紹介します。",
+     "en": "Saturday question.\n\nWhat's one line you'd tell a friend about your favorite game?\n\nShare it in our Stories. With permission, we'll feature one next week.",
+     "enRev": "",
+     "status": "notyet",
+     "memo": ""
+    },
+    {
+     "date": "2026-12-20",
+     "type": "X",
+     "ja": "今週は「贈る」。来週は「クリスマス」。\n\nお金のかからないプレゼントで、一番うれしかったのは？",
+     "en": "This week: giving. Next week: Christmas.\n\nWhat's the best gift you've received that cost nothing?",
+     "enRev": "",
+     "status": "notyet",
+     "memo": ""
+    },
+    {
+     "date": "2026-12-21",
+     "type": "X",
+     "ja": "一年でいちばん長い夜。\n\n人はろうそくを灯し、イルミネーションを飾り、ゲームを開く。\n\n理由は同じ。誰かといると、あたたかい。",
+     "en": "The longest night of the year.\n\nPeople light candles, hang lights, open a game.\n\nSame reason: it's warmer together.",
+     "enRev": "",
+     "status": "notyet",
+     "memo": ""
+    },
+    {
+     "date": "2026-12-22",
+     "type": "X",
+     "ja": "アドベントカレンダーは、待つ時間を毎日の小さなご褒美にする。\n\nゲームの中の、あなたの小さな毎日の習慣は？",
+     "en": "Advent calendars turn waiting into a small daily reward.\n\nWhat's your small daily ritual in a game?",
+     "enRev": "",
+     "status": "notyet",
+     "memo": ""
+    },
+    {
+     "date": "2026-12-23",
+     "type": "X",
+     "ja": "季節のイベントは、一年に一度だけ。\nだから、よく覚えている。\n\nいちばん覚えているイベントは？",
+     "en": "Seasonal events come once a year,\nwhich is why we remember them.\n\nWhich event do you remember best?",
+     "enRev": "",
+     "status": "notyet",
+     "memo": ""
+    },
+    {
+     "date": "2026-12-24",
+     "type": "X",
+     "ja": "イブの夜の短いメッセージは、\n送らなかった長い文章に勝つ。\n\nあなたが送るのは、誰に？",
+     "en": "A short message on Christmas Eve\nbeats a long one that never gets sent.\n\nWho would you send it to?",
+     "enRev": "",
+     "status": "notyet",
+     "memo": ""
+    },
+    {
+     "date": "2026-12-25",
+     "type": "X",
+     "ja": "メリークリスマス。\n\n今日遊ぶなら、誰かがあなたに「ありがとう」と言ってくれますように。",
+     "en": "Merry Christmas.\n\nIf you play today, may someone say \"thank you\" to you.",
+     "enRev": "",
+     "status": "notyet",
+     "memo": ""
+    },
+    {
+     "date": "2026-12-26",
+     "type": "X",
+     "ja": "土曜の質問。\n\n今年のゲームで、ずっと残しておきたい場面は？\n\nストーリーズで一言、教えてください。",
+     "en": "Saturday question.\n\nWhich game moment from this year would you keep forever?\n\nShare one line in our Stories.",
+     "enRev": "",
+     "status": "notyet",
+     "memo": ""
+    },
+    {
+     "date": "2026-12-27",
+     "type": "X",
+     "ja": "今週は「クリスマス」。来週は「今年の締め」。\n\n来年に持っていきたいものは？",
+     "en": "This week: Christmas. Next week: closing out the year.\n\nWhat will you carry into next year?",
+     "enRev": "",
+     "status": "notyet",
+     "memo": ""
+    },
+    {
+     "date": "2026-12-28",
+     "type": "X",
+     "ja": "年末のランキングが楽しいのは、\n私たちが思い出すのを手伝ってもらっているから。\n\n記録があれば、選ぶのはずっと簡単になる。",
+     "en": "Year-end lists are fun because we need help remembering.\n\nWith a record, choosing gets much easier.",
+     "enRev": "",
+     "status": "notyet",
+     "memo": ""
+    },
+    {
+     "date": "2026-12-29",
+     "type": "X",
+     "ja": "昔のスクショを見返すと、\nスコアより、一緒にいた人に目がいく。",
+     "en": "Looking through old screenshots,\nyou notice the people more than the scores.",
+     "enRev": "",
+     "status": "notyet",
+     "memo": ""
+    },
+    {
+     "date": "2026-12-30",
+     "type": "X",
+     "ja": "「ありがとう」を伝えるのは、まだ間に合う。\n\n今年遊んだゲームの誰かに、短いメッセージを1通。",
+     "en": "There's still time to say thank you.\n\nOne short message to someone from a game you played this year.",
+     "enRev": "",
+     "status": "notyet",
+     "memo": ""
     },
     {
      "date": "2026-12-31",
-     "type": "Reply",
-     "ja": "来年、遊びたいことは？\n\n① 新しいゲーム\n② 今のゲームを深く\n③ 誰かと一緒に\n\n→ コメントで教えて",
-     "en": "What do you want to play next year?\n\n① A new game\n② Go deeper in my current one\n③ Together with someone\n\n→ Tell me in the comments",
+     "type": "X",
+     "ja": "一年の遊びを、ひとつのループに。\n記録して、書いて、ありがとうを伝える。\n\nまた来年。良いお年を。",
+     "en": "One year of play, one loop:\nrecord it, write it, say thanks.\n\nSee you next year. Happy New Year.",
      "enRev": "",
      "status": "notyet",
      "memo": ""
