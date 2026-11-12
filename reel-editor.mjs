@@ -1,4 +1,4 @@
-import * as R from './reel-workflow.mjs?v=20261112-img6';
+import * as R from './reel-workflow.mjs?v=20261112-img7';
 
 const labels = {
   title:['REEL','REEL','REEL'],imagesMenu:['画像プロンプト','Image prompts','이미지 프롬프트'],imagesHint:['X・IGの画像生成ツールに貼るプロンプトです。1行に収まらない分は省略表示で、コピーでは全文が入ります。','Prompts to paste into your image tool for X and IG. Long lines are truncated on screen; Copy gives the full text.','X·IG 이미지 생성 도구에 붙여넣는 프롬프트입니다. 화면에서는 줄여 보이지만 복사하면 전문이 들어갑니다.'],logoTitle:['ロゴを重ねる','Add the logo','로고 합성'],logoHint:['画像ツールで作った画像を選ぶと、REELの白いロゴを右下に重ねます。','Choose the image from your image tool and the white REEL logo is placed at the bottom-right.','이미지 도구로 만든 이미지를 고르면 REEL 흰색 로고를 오른쪽 아래에 합성합니다.'],logoSave:['ロゴ付きで保存','Save with logo','로고 포함 저장'],imagesEmpty:['この期間に原稿のある日がありません。','No days with drafts in this range.','이 기간에 원고가 있는 날이 없습니다.'],
@@ -66,6 +66,12 @@ export function createEditor(a) {
   try{autoNext=localStorage.getItem('remitech-reel-auto-next')==='1';}catch{}
   const initial=a.selection?.();if(initial){board=!R.dateOK(initial.date);if(R.dateOK(initial.date))date=initial.date;if(['X','IG','IGS','IMG'].includes(initial.platform))pf=initial.platform;first=date;last=date;}
   if(date>R.EDITOR_END_DATE){date=R.EDITOR_END_DATE;first=date;last=date;}
+  let visuals=null,visualsLoading=false;
+  async function loadVisuals(){
+    if(visualsLoading)return;visualsLoading=true;
+    try{const r=await fetch('./reel-visuals.json',{cache:'no-cache'});visuals=r.ok?await r.json():{};}catch{visuals={};}finally{visualsLoading=false;if(a.active()&&pf==='IMG')render();}
+  }
+  const visualOf=(day,platform)=>visuals?.[day+'|'+platform]||'';
   let stories=null,storyLoading=false,storyError=false,lastStory={},resetArmed='',cancelArmed='',calendarOffset=0,lastBookingState='';
   async function loadStories(){
     if(storyLoading)return;storyLoading=true;
@@ -269,6 +275,7 @@ export function createEditor(a) {
   }
   function imagesHTML(){
     if(!loaded)return `<p>${e(t(loading?'loading':'manualMissing'))}</p>`;
+    if(visuals===null)loadVisuals();
     const today=R.today(),days=[];
     for(let day=weeks[0]?.start||today;day<=R.EDITOR_END_DATE;day=R.addDays(day,1)){
       if(period==='upcoming'&&day<today)continue;
@@ -278,7 +285,7 @@ export function createEditor(a) {
     if(period==='past')days.reverse();
     const view=R.pageOf(days,page);page=view.page;
     const option=(value,label)=>`<option value="${value}" ${value===period?'selected':''}>${e(label)}</option>`;
-    const row=(d,pf2)=>{const post=d.posts?.[pf2];if(!post)return '';const text=R.imagePrompt(pf2,post);return `<li class="re-img-row"><b>${pf2}</b><span class="re-img-text" title="${e(text)}">${e(text)}</span><button data-re-action="imgCopy" data-img-date="${d.date}" data-img-pf="${pf2}">${e(t('imageCopy'))}</button></li>`;};
+    const row=(d,pf2)=>{const post=d.posts?.[pf2];if(!post)return '';const text=R.imagePrompt(pf2,post,visualOf(d.date,pf2));return `<li class="re-img-row"><b>${pf2}</b><span class="re-img-text" title="${e(text)}">${e(text)}</span><button data-re-action="imgCopy" data-img-date="${d.date}" data-img-pf="${pf2}">${e(t('imageCopy'))}</button></li>`;};
     const pager=view.pages>1?`<nav class="re-pager" aria-label="${e(t('pageLabel'))}"><button data-re-page="${view.page-1}" ${view.page<=1?'disabled':''}>‹</button>${R.pageNumbers(view.page,view.pages).map(n=>n===null?'<span aria-hidden="true">…</span>':`<button data-re-page="${n}" aria-current="${n===view.page?'page':'false'}">${n}</button>`).join('')}<button data-re-page="${view.page+1}" ${view.page>=view.pages?'disabled':''}>›</button></nav>`:'';
     const logoPanel=`<section class="re-img-logo"><h3>${e(t('logoTitle'))}</h3><p>${e(t('logoHint'))}</p><div class="re-toolbar"><input type="file" accept="image/*" data-re-logo-file><button data-re-action="logoSave" disabled>${e(t('logoSave'))}</button></div><canvas data-re-logo-canvas hidden></canvas></section>`;
     return `<section class="re-board re-images">${logoPanel}<p class="re-board-count">${e(t('imagesHint'))}</p><div class="re-toolbar"><select data-re-period aria-label="${e(t('date'))}">${option('upcoming',t('upcoming'))}${option('all',t('allDates'))}${option('past',t('past'))}</select></div>${days.length?view.items.map(d=>`<section class="re-img-day"><h3>${e(dateLabel(d.date))} <small>${e(d.focus||'')}</small></h3><ul class="re-img-list">${row(d,'X')}${row(d,'IG')}</ul></section>`).join(''):`<p class="re-board-empty">${e(t('imagesEmpty'))}</p>`}${pager}</section>`;
@@ -348,7 +355,7 @@ export function createEditor(a) {
     }
     if(op==='imgCopy'){
       const post=find(btn.dataset.imgDate).d?.posts?.[btn.dataset.imgPf];if(!post)return;
-      try{await navigator.clipboard.writeText(R.imagePrompt(btn.dataset.imgPf,post));copiedFeedback(btn);}catch{notice(t('copyError'),true);}return;
+      try{await navigator.clipboard.writeText(R.imagePrompt(btn.dataset.imgPf,post,visualOf(btn.dataset.imgDate,btn.dataset.imgPf)));copiedFeedback(btn);}catch{notice(t('copyError'),true);}return;
     }
     if(['storyRandom','storyItem','storyUrl'].includes(op)){
       const i=Number(btn.dataset.story),sn=stories?.[i];if(!sn)return;
@@ -396,7 +403,7 @@ export function createEditor(a) {
     if(!w&&op!=='save')return;
     const body={op,start:w?.start||R.monday(day),date:day,platform:pf,revision:w?.revision||0};
     if(op==='image'){
-      const prompt=R.imagePrompt(pf,p);
+      const prompt=R.imagePrompt(pf,p,visualOf(day,pf));
       try{await navigator.clipboard.writeText(prompt);notice(t('imageCopied'));}catch{notice(t('copyError'),true);}return;
     }
     if(op==='save'&&editMode.startsWith('inline-')){

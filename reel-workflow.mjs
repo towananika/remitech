@@ -55,22 +55,24 @@ export function formatEnglishPost(value, date, platform) {
   flush();return paragraphs.join('\n\n');
 }
 // 画像生成ツールに貼るプロンプト（2026-11-12 remitech指定: 準備タブREELの「画像プロンプト」メニュー）。画像そのものは作らない。
-// 見た目は REEL の既存投稿（IG・X 20件超）とアイコンの色に合わせる: 深いインディゴ〜ロイヤルブルーの背景、明るい青白い光、ガラス/金属の立体オブジェクト、白い太字の見出し。
+// 見た目は REEL の既存投稿（IG・X 20件超）に合わせる: 黒に近い紺の背景、青白い光、ガラス/金属の立体オブジェクト1つ、白い太字の見出し。描く物は reel-visuals.json（日付|SNS → 物の指定）から入れる。
 // ロゴは公式のものを使う（描き直さない）。「PLAY → REVIEW → REWARD」の文は入れない（2026-11-12 remitech指定）。色は REEL アイコンから取った近似値で、公式の色コードが分かれば差し替える。
 function headlineOf(post) {
   const first=post?.parts?.length?englishPart(post,0):english(post);
   const clean=s=>s.replace(/["“”]/g,'').trim();
   const lines=String(first||'').split('\n').map(clean).filter(Boolean);
-  const cut=(s,n)=>s.length<=n?s:(s.slice(0,n+1).replace(/\s+\S*$/,'')||s.slice(0,n));
-  const headline=cut(lines[0]||'',70),sub=lines[1]&&lines[1].length<=60?lines[1]:'';
+  // 見出しは短い一言（REELの投稿画像は3〜7語）。長い行は最初の句で切る。
+  const short=l=>{if(l.length<=56)return l;const clause=l.split(/(?<=[.,;:!?—–-])\s+/)[0];if(clause.length>=8&&clause.length<=56)return clause.replace(/[,;:]$/,'');return l.slice(0,57).replace(/\s+\S*$/,'')||l.slice(0,56);};
+  const headline=short(lines[0]||''),sub=lines[1]&&lines[1].length<=48&&lines[1]!==lines[0]?lines[1]:'';
   return {headline,sub};
 }
-export function imagePrompt(platform, post) {
+export function imagePrompt(platform, post, concept='') {
   const size=platform==='X'?'16:9 (1600x900)':'4:5 (1080x1350)';
   const {headline,sub}=headlineOf(post);
   const message=String(english(post)||'').replace(/\s+/g,' ').trim();
-  const text=headline?`Headline text: "${headline}"${sub?` and a lighter, smaller subline: "${sub}"`:''}, placed top-left in a large bold white sans-serif (condensed uppercase for short punchy lines).`:'';
-  return `Create a ${size} social image for REEL's ${platform} post in REEL's brand look: a deep navy-to-royal-blue background (about #0C1A55 fading to #1E4BA8, no purple or magenta tint, not black) with soft light-blue (#7AAEDE) and white glow and rim light, clean and premium. Show one clear visual that expresses the idea: a 3D glass-and-metal object (for example glass panels, bars, chat bubbles or a jar of stars) or a dim night-room gaming scene with a silhouetted player and glass UI panels, all tinted in that blue palette. ${text} Leave the bottom-right corner clean and empty (the official REEL logo will be added afterward): do not draw any logo, mark or brand name anywhere. The headline and subline are the only text in the image: any screen, panel or UI element must show only abstract bars and generic icons, with no readable words, labels or numbers. Do not add any other slogan or caption text. Keep it grounded in gaming and real player experience. Do not invent product features, charts or numbers. Idea behind the post: ${message}`;
+  const text=headline?`Headline text: "${headline}"${sub?` and a lighter, smaller subline: "${sub}"`:''}, placed top-left in a large bold white condensed uppercase sans-serif.`:'';
+  const hero=concept?`ONE hero object only: ${concept}.`:'ONE hero object only: a single clear 3D glass-and-light object that works as a visual metaphor for the idea.';
+  return `Create a ${size} social image for REEL's ${platform} post in the same style as REEL's existing posts: a near-black navy background (about #050A1A fading to #0B1A4A) with cool blue and ice-white rim light and a soft glow, cinematic, minimal, with plenty of dark empty space. Show ${hero} Photorealistic 3D render in glass, brushed metal and light, placed right of center and softly lit from below. No people, no room or desk scene, no screens, no UI panels, no charts. ${text} Keep the bottom-right corner clean and empty (the official REEL logo is added afterward): do not draw any logo, mark or brand name anywhere. The headline and subline are the only text in the image. Do not invent product features. Idea behind the post: ${message}`;
 }
 export function copyPostText(post, date, platform) {
   if(!post)return '';
