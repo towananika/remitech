@@ -1,4 +1,4 @@
-import * as R from './reel-workflow.mjs?v=20261027-board';
+import * as R from './reel-workflow.mjs?v=20261112-dec';
 
 const labels = {
   title:['REEL','REEL','REEL'],

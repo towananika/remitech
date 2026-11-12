@@ -64,6 +64,7 @@ export async function editor(hub, request, origin, respond) {
   await importPrepared(hub);
   await importPrepared(hub,'reel:prepared:2026-10-26-ig:v1','2026-10-26');
   await importPrepared(hub,'reel:prepared:2026-11:v1','2026-11-01');
+  await importPrepared(hub,'reel:prepared:2026-12:v1','2026-12-01');
   const read=storage=>allWeeks(storage);
   const getWeek=async (storage,start)=>await storage.get('reel:week:'+start);
   const holidaySettings=async()=>Object.fromEntries([...(await hub.ctx.storage.list({prefix:'bk:h:'}))].map(([key,value])=>[key.slice(5),!!value]));

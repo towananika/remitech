@@ -92,7 +92,7 @@ test('manual drafts add IG independently and reject overlapping week themes',asy
   body.parts=R.partLabels(body.date,'X').map((label,i)=>({label,ja:body.ja+i,en:body.en+i}));const first=await c.request(body);
   const ig=await c.request({...body,platform:'IG',revision:first.week.revision,en:'A separate IG caption.',parts:[{ja:'IG本文',en:'IG caption'},{ja:'コメント',en:'Your thought?'}]});assert.equal(ig.status,200);assert.equal(ig.week.days[0].posts.X.parts[0].en,'A discovery.0');
   const past=week('2026-10-19');past.theme=body.theme;await c.storage.put('reel:week:'+past.start,past);const clash=await c.request({...body,date:'2026-10-28',revision:0,start:'2026-10-26'});assert.equal(clash.status,409);
-  const future=await c.request({...body,start:'2026-11-30',date:'2026-12-01'});assert.equal(future.status,400);
+  const future=await c.request({...body,start:'2026-12-28',date:'2027-01-01'});assert.equal(future.status,400);
 });
 
 test('weekday/weekend structures match each channel and non-staff cannot edit',async()=>{
@@ -252,7 +252,7 @@ test('November prepared manuscripts add a full month without overwriting NOBO ed
  let r=await c.request(null,{id:'staff',member:true});assert.equal(r.status,200);
  assert.equal(r.weeks.find(w=>w.start==='2026-10-26').days[0].posts.X.noboEn,'NOBO November 1');
  const nov=r.weeks.find(w=>w.start==='2026-11-30').days[0];assert.equal(nov.posts.X.parts.length,4);assert.equal(nov.posts.IG.parts.length,2);
- await c.request();assert.equal(reads,1);assert.equal(R.EDITOR_END_DATE,'2026-11-30');
- const bad=context();bad.hub.env.CHORES.get=async key=>key==='reel:prepared:2026-11:v1'?{version:1,weeks:[{start:'2026-11-30',theme:'Bad',arc:'Bad arc',days:[{date:'2026-12-01',posts:{}}]}]}:null;
+ await c.request();assert.equal(reads,1);assert.equal(R.EDITOR_END_DATE,'2026-12-31');
+ const bad=context();bad.hub.env.CHORES.get=async key=>key==='reel:prepared:2026-11:v1'?{version:1,weeks:[{start:'2026-11-30',theme:'Bad',arc:'Bad arc',days:[{date:'2027-01-01',posts:{}}]}]}:null;
  await assert.rejects(bad.request(),/prepared-date/);assert.equal((await bad.storage.list({prefix:'reel:week:'})).size,0);
 });
