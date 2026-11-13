@@ -1,4 +1,4 @@
-import * as R from './reel-workflow.mjs?v=20261112-img7';
+import * as R from './reel-workflow.mjs?v=20261113-logo1';
 
 const labels = {
   title:['REEL','REEL','REEL'],imagesMenu:['画像プロンプト','Image prompts','이미지 프롬프트'],imagesHint:['X・IGの画像生成ツールに貼るプロンプトです。1行に収まらない分は省略表示で、コピーでは全文が入ります。','Prompts to paste into your image tool for X and IG. Long lines are truncated on screen; Copy gives the full text.','X·IG 이미지 생성 도구에 붙여넣는 프롬프트입니다. 화면에서는 줄여 보이지만 복사하면 전문이 들어갑니다.'],logoTitle:['ロゴを重ねる','Add the logo','로고 합성'],logoHint:['画像ツールで作った画像を選ぶと、REELの白いロゴを右下に重ねます。','Choose the image from your image tool and the white REEL logo is placed at the bottom-right.','이미지 도구로 만든 이미지를 고르면 REEL 흰색 로고를 오른쪽 아래에 합성합니다.'],logoSave:['ロゴ付きで保存','Save with logo','로고 포함 저장'],imagesEmpty:['この期間に原稿のある日がありません。','No days with drafts in this range.','이 기간에 원고가 있는 날이 없습니다.'],

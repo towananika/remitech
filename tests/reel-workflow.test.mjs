@@ -261,7 +261,7 @@ test('画像プロンプトは SNS ごとの比率・REELの既存スタイル�
   const post={ja:'日本語',en:'Not the game.\nThe people.\n\nSomething else.'};
   const x=R.imagePrompt('X',post,'a glass jar of glowing stars'),ig=R.imagePrompt('IG',post);
   assert.match(x,/16:9/);assert.match(ig,/4:5/);assert.match(x,/ONE hero object only: a glass jar of glowing stars\./);assert.match(ig,/visual metaphor/);
-  for(const p of [x,ig]){assert.match(p,/near-black navy/);assert.match(p,/Headline text: "Not the game\."/);assert.match(p,/subline: "The people\."/);assert.match(p,/do not draw any logo/);assert.match(p,/only text in the image/);assert.match(p,/No people/);assert.ok(!/REVIEW|REWARD|→/.test(p));assert.match(p,/Idea behind the post: Not the game\. The people\. Something else\.$/);assert.ok(!p.includes('\n'));}
+  for(const p of [x,ig]){assert.match(p,/near-black navy/);assert.match(p,/Headline text: "Not the game\."/);assert.match(p,/subline: "The people\."/);assert.match(p,/REEL logo small in the bottom-right/);assert.match(p,/white only, no gradient/);assert.ok(!/do not draw any logo/.test(p));assert.match(p,/No people/);assert.ok(!/REVIEW|REWARD|→/.test(p));assert.match(p,/Idea behind the post: Not the game\. The people\. Something else\.$/);assert.ok(!p.includes('\n'));}
   const long=R.imagePrompt('IG',{parts:[{ja:'あ',en:'Every December, people open their year-in-review and see everything.'}],en:'x'});
   assert.match(long,/Headline text: "Every December"/);
 });
